@@ -288,6 +288,9 @@ sysFormFieldOnChangeHandler.prototype.processOnChangeItem = function()
 
 	}
 
+	//- reset all error container
+	sysFactory.resetErrorContainer();
+
 	//- trigger iframe resize
 	sysFactory.resizeIframe();
 
