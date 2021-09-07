@@ -83,17 +83,26 @@ sysIntervalHandler.prototype.processInterval = function(Config, FormObject, XMLR
 				MultiDataItem = MultiData[Index];
 
 				//console.debug('Item:%o', MultiDataItem);
+				
+				if (FormObject.checkLengthMismatch(Length, MultiDataItem.DataLength, MultiDataItem) == true) {	
+					try {
+						const CheckArray = FormObject[MultiDataItem.DataObjectKey];
 
-				if (FormObject.checkLengthMismatch(Length, MultiDataItem.DataLength, MultiDataItem) == true) {
-
-					const CheckArray = FormObject[MultiDataItem.DataObjectKey];
-
-					if (CheckArray.includes(FormValue) > 0) {
-						const DstObject = sysFactory.getObjectByID(MultiDataItem.OnMatchDstObject);
-						DstObject.setValue(FormValue);
-						MultiDataItem['FormfieldValue'] = FormValue;
-						const Handler = new XMLRPCHandler(MultiDataItem, FormObject);
-						Handler.callService();
+						if (CheckArray.includes(FormValue) > 0) {
+							const DstObject = sysFactory.getObjectByID(MultiDataItem.OnMatchDstObject);
+							DstObject.setValue(FormValue);
+							MultiDataItem['FormfieldValue'] = FormValue;
+							const Handler = new XMLRPCHandler(MultiDataItem, FormObject);
+							Handler.callService();
+						}
+						else {
+							if (MultiDataItem.ResetOnFailure == true) {
+								FormObject.reset();
+								FormObject.focus();
+							}
+						}
+					}
+					catch(err) {
 					}
 				}
 			}
@@ -108,6 +117,8 @@ sysIntervalHandler.prototype.processInterval = function(Config, FormObject, XMLR
 			const FormValue = FormObject.getRuntimeData();
 			const FormLength = FormValue.length;
 
+			//console.debug('::ValidateLength FormObject:%o Length:%s FormValue:%s FormLength:%s', FormObject, Length, FormValue, FormLength);
+
 			if (FormObject.checkLengthMismatch(FormLength, Length, IntervalConfig) == true) {
 
 				const IgnoreProps = IntervalConfig.DataLengthIgnore;
@@ -116,7 +127,8 @@ sysIntervalHandler.prototype.processInterval = function(Config, FormObject, XMLR
 					const DstObject = sysFactory.getObjectByID(IntervalConfig.DstObject);
 					DstObject.setValue(FormValue);
 					//DstObject.setValue(FormObject.ValidateLengthString);
-
+					console.debug('::ValidateLength DstObject:%o', DstObject);
+					
 					if (IgnoreProps.reset == true) {
 						FormObject.reset();
 						FormObject.focus();
