@@ -898,7 +898,7 @@ sysFactory.prototype.getGlobalVar = function(VarName) {
 //- Function "handleParentMessage"
 //------------------------------------------------------------------------------
 
-function handleParentMessage(event) {
+sysFactory.prototype.handleParentMessage = function(event) {
 	var accepted_origin = sysFactory.ParentWindowURL;
 	if (event.origin == accepted_origin) {
 		console.debug('::handleParentMessage Event:%o', event);
@@ -913,5 +913,18 @@ function handleParentMessage(event) {
 		}
 	} else {
 		console.log('handleParentMessage Unknown origin:%s', event.origin);
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//- Function "resetErrorContainer"
+//------------------------------------------------------------------------------
+
+sysFactory.prototype.resetErrorContainer = function() {
+	const ErrorContainerItems = this.getObjectsByType(this.ActualScreenID, 'ErrorContainer');
+	for (Index in ErrorContainerItems) {
+		const ErrorContainerItem = ErrorContainerItems[Index];
+		ErrorContainerItem.reset();
 	}
 }
