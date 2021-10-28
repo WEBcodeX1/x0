@@ -125,7 +125,13 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
 					else {
 						RequestObject.XMLRPCResultData = ResultData;
 					}
-					RequestObject.callbackXMLRPCAsync();
+					//console.debug('RequestObject:%o', RequestObject);
+					try {
+						RequestObject.callbackXMLRPCAsync();
+					}
+					catch(err) {
+						console.debug('Err:%s', err);
+					}
 				}
 			}
 		}

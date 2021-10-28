@@ -99,7 +99,7 @@ sysObjDiv.prototype.reset = function() {
 		const Attributes = this.JSONConfig.Attributes;
 		if (Attributes.Reset !== undefined) {
 			this.DOMValue = '';
-			this.setDOMElementValue();		
+			this.setDOMElementValue();
 		}
 	}
 	catch(err) {

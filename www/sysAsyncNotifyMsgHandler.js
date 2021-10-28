@@ -15,8 +15,10 @@
  * This should be replaced by WebSockets in future releases.
 */
 
-function sysAsyncNotifyMsgDelHandler()
+function sysAsyncNotifyMsgDelHandler(MsgHandlerRef)
 {
+	this.MsgHandlerRef = MsgHandlerRef;
+
 	this.RPC = new sysCallXMLRPC(sysFactory.MsgServerDelURL);
 	this.RPC.setRequestType('POST');
 	this.PostRequestData = {
@@ -27,6 +29,7 @@ function sysAsyncNotifyMsgDelHandler()
 
 sysAsyncNotifyMsgDelHandler.prototype.callbackXMLRPCAsync = function()
 {
+	this.MsgHandlerRef.getMsg();
 }
 
 
@@ -63,19 +66,19 @@ sysAsyncNotifyMsgHandler.prototype.callbackXMLRPCAsync = function()
 	console.debug('::callbackXMLRPCAsync XMLRPCResult:%o', this.XMLRPCResultData);
 
 	try {
-		const MsgArray = this.XMLRPCResultData.messages;
+		const MsgArray = this.XMLRPCResultData.Result.messages;
 		for (MessageIndex in MsgArray) {
 			const Message = MsgArray[MessageIndex];
 			this.processMsg(Message);
 		}
-		const Del = new sysAsyncNotifyMsgDelHandler();
+		var Del = new sysAsyncNotifyMsgDelHandler(this);
 	}
 	catch(err) {
 		console.log('::callbackXMLRPCAsync err:%s', err);
 	}
 
 	//- get/wait for next messages
-	this.getMsg();
+	//this.getMsg();
 }
 
 
@@ -84,7 +87,7 @@ sysAsyncNotifyMsgHandler.prototype.callbackXMLRPCAsync = function()
 //------------------------------------------------------------------------------
 
 /*
- * when switching to websockets messages including types will be encapsulated
+ * msgserver now is able to handle json messages with substructures not only strings
  * in json which makes parsing obsolete
 */
 
@@ -96,6 +99,8 @@ sysAsyncNotifyMsgHandler.prototype.processMsg = function(Message)
 	const RegexPhoneResult = RegexPhone.exec(Message);
 
 	var sysID;
+
+	console.debug('::processMsg Message:%o', Message);
 
 	//- incoming phone call
 	if (RegexPhoneResult) {
@@ -117,7 +122,7 @@ sysAsyncNotifyMsgHandler.prototype.processMsg = function(Message)
 		NotifyItem.updateDisplay();
 
 		sysFactory.switchScreen('ShipmentHistory');
-		console.log(sysFactory.getObjectByID('ShipmentHistoryTabContainer'));
+		console.debug(sysFactory.getObjectByID('ShipmentHistoryTabContainer'));
 
 		const PhoneFormList = sysFactory.getObjectByID('ShipmentHistoryReceiverPhoneFormfields');
 		const PhoneTabContainer = sysFactory.getObjectByID('ShipmentHistoryTabContainer').TabContainerObject;
@@ -195,12 +200,17 @@ sysAsyncNotifyMsgHandler.prototype.processMsg = function(Message)
 		}
 	}
 
+	/*
 	//- check for encrypted messages
 	const RegexEncryptedMsg = /^b'(.+)'$/g;
 	const RegexEncryptedMsgResult = RegexEncryptedMsg.exec(Message);
+	*/
 
-	if (RegexEncryptedMsgResult) {
-		const EncMsgHandler = sysEncryptionMsgHandler(RegexEncryptedMsgResult[1]);
+	/* try catch block for old style non object oriented messages */
+	try {
+		var EncMsgHandler = sysEncryptionMsgHandler(Message);
+	}
+	catch(err) {
 	}
 }
 
@@ -211,11 +221,36 @@ sysAsyncNotifyMsgHandler.prototype.processMsg = function(Message)
 
 function sysEncryptionMsgHandler(Message)
 {
-	this.PostRequestData = {
-		"message": Message
+	var CallURL;
+
+	if (Message.type == 10) {
+		this.PostRequestData = {
+			"message": Message.data,
+			"source": Message.session_src
+		}
+		//CallURL = sysFactory.AddEncryptedMsgURL;
+		CallURL = '/python/addEncryptedMessage.py';
 	}
 
-	var RPC = new sysCallXMLRPC(sysFactory.AddEncryptedMsgURL);
+	if (Message.type == 20) {
+		this.PostRequestData = {
+			"ContactID": Message.session_src,
+			"ContactRequestHash": Message.contactrequest_hash
+		}
+		//CallURL = sysFactory.AddContactRequestMsgURL;
+		CallURL = '/python/addContactRequestMessage.py';
+	}
+
+	if (Message.type == 30) {
+		this.PostRequestData = {
+			"ContactID": Message.session_src,
+			"ContactRequestHash": Message.contactrequest_hash,
+			"ContactPublicKey": Message.public_key
+		}
+		CallURL = '/python/approoveContact.py';
+	}
+
+	var RPC = new sysCallXMLRPC(CallURL);
 	RPC.setRequestType('POST');
 	RPC.Request(this);
 }

@@ -90,7 +90,15 @@ sysListRow.prototype.addColumns = function()
 {
 	//console.debug('::addColumns this.SetupData:%o', this.SetupData);
 
-	var Attributes = this.SourceObject.JSONConfig.Attributes;
+	var Attributes;
+	
+	try {
+		Attributes = this.SourceObject.JSONConfig.Attributes;
+	}
+	catch(err) {
+		Attributes = {};
+	}
+
 	//console.debug('::addColumns ObjectID:%s Attributes:%o', this.SourceObject.ObjectID, Attributes);
 
 	var Columns = (this.DynamicRow === true) ? Attributes.AddRowColumns : Attributes.Columns;
@@ -177,9 +185,19 @@ sysListRow.prototype.addColumns = function()
 						ColumnItem.DOMValue = LinkPrefixDisplay+'<a href="'+LinkContent+'" target="_blank" rel="noopener noreferrer">'+LinkDisplay+'</a>';
 					}
 				}
-				else if (ColumnConfig.Attributes !== undefined && ColumnConfig.Attributes.ObjectType == 'ButtonInternal') {
+				else if (ColumnConfig.Attributes !== undefined && ( ColumnConfig.Attributes.ObjectType == 'ButtonInternal' || ColumnConfig.Attributes.ObjectType == 'Button' )) {
 					if (DisplayColumn === true) {
-						var Button = new sysObjButtonInternal();
+
+						var Button;
+
+						if (ColumnConfig.Attributes.ObjectType == 'ButtonInternal') {
+							Button = new sysObjButtonInternal();
+						}
+
+						if (ColumnConfig.Attributes.ObjectType == 'Button') {
+							Button = new sysObjButton();
+						}
+
 						Button.ObjectID = ColumnItem.ObjectID + 'Button';
 						Button.JSONConfig = { "Attributes": ColumnConfig.Attributes.ButtonAttributes };
 						Button.ScreenObject = this.SourceObject.ScreenObject;
@@ -205,7 +223,7 @@ sysListRow.prototype.addColumns = function()
 					ColumnItem.addObject(FileUpload);
 					//ColumnItem = FileUpload;
 					// -> END: change
-					
+
 					this.ObjectRef[ColumnKey] = FileUpload;
 				}
 				else if (ColumnConfig.Attributes !== undefined && ColumnConfig.Attributes.ObjectType == 'Formfield') {

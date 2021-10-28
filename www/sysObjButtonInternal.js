@@ -28,6 +28,7 @@ sysObjButtonInternal.prototype = new sysBaseObject();
 sysObjButtonInternal.prototype.init = sysObjButton.prototype.init;
 sysObjButtonInternal.prototype.addEventListenerClick = sysObjButton.prototype.addEventListenerClick;
 sysObjButtonInternal.prototype.validateForm = sysObjButton.prototype.validateForm;
+sysObjButtonInternal.prototype.processActions = sysObjButton.prototype.processActions;
 
 //- inherit ContextMenu methods
 sysObjButtonInternal.prototype.setDstScreenProperties = sysContextMenuItem.prototype.setDstScreenProperties;
@@ -41,7 +42,7 @@ sysObjButtonInternal.prototype.EventListenerClick = function(Event) {
 
 	this.PostRequestData.reset();
 
-	var Attributes = this.JSONConfig.Attributes;
+	const Attributes = this.JSONConfig.Attributes;
 
 	//- reset validate result to true
 	var ValidateResult = true;
@@ -53,178 +54,7 @@ sysObjButtonInternal.prototype.EventListenerClick = function(Event) {
 
 	if (ValidateResult == true) {
 
-		console.debug('::EventListenerClick Config Attributes Action:%s', Attributes.Action);
-
-		//- copy object data
-		if (Attributes.Action == 'copy') {
-			this.copyData();
-		}
-
-		//- reset list
-		if (Attributes.Action == 'reset') {
-			const DstObject = sysFactory.getObjectByID(Attributes.ActionAttributes.ObjectID);
-			DstObject.reset();
-		}
-
-		//- deselect list
-		if (Attributes.Action == 'deselect') {
-			var ObjType = Attributes.ActionAttributes.ObjectType;
-			if (ObjType !== undefined && ObjType == 'List') {
-				this.deselectList();
-			}
-		}
-
-		//- switch tab
-		if (Attributes.Action == 'tabswitch') {
-            var TabContainerObj = sysFactory.getObjectByID(Attributes.ActionAttributes.TabContainer);
-            //console.debug('TabContainerObj:%o', TabContainerObj);
-            TabContainerObj.switchTab(Attributes.ActionAttributes.Tab);
-		}
-
-		//- screen overlay trigger
-		if (Attributes.Action == 'screenoverlay') {
-			sysFactory.switchScreenToOverlay(Attributes.Screen, Attributes.Override);
-		}
-
-		if (Attributes.Action == 'parentcopyrow') {
-			var DstListObj = sysFactory.getObjectByID(Attributes.DstObjectID);
-            //console.debug('::EventListenerClick copy DstObjectID:%o ListObject:%o RowData:%o', Attributes.DstObjectID, DstListObj, this.ParentRow);
-			DstListObj.appendData(this.ParentRow.SetupData);
-		}
-
-		if (Attributes.Action == 'parentremoverow') {
-			this.ParentRow.SourceObject.removeData(this.ParentRow.Index);
-		}
-
-		if (Attributes.Action == 'SetPOSTREquestData') {
-
-			const Column = Attributes.SrcColumn;
-			var Item = new Object();
-			const ColumnValue = this.ParentRow.SetupData[Column];
-			Item[Column] = ColumnValue;
-			var DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
-
-			if (Attributes.SetDBPrimaryKey === true) {
-				const ScreenObj = sysFactory.getScreenByID(Attributes.SetDBPrimaryKeyScreen);
-				ScreenObj.DBPrimaryKeyValue = ColumnValue;
-			}
-
-			if (Attributes.ResetObjectID !== undefined) {
-				const ResetObject = sysFactory.getObjectByID(Attributes.ResetObjectID);
-				//console.debug('ResetObject:%o ObjectID:%s', ResetObject, ResetObject.ObjectID);
-				ResetObject.reset();
-			}
-
-			try {
-				DstObject.PostRequestData.merge(Item);
-			}
-			catch(err) {
-				console.log('::EventListenerClick PostRequestData err:%s', err);
-			}
-
-			try {
-				DstObject.FocusObjectID = Attributes.SetFocusObjectID;
-			}
-			catch(err) {
-				console.log('::EventListenerClick FocusObjectID err:%s', err);
-			}
-		}
-
-		if (Attributes.Action == 'setrowcolumn') {
-			try {
-				const Column = Attributes.RowColumn;
-				var Item = new Object();
-				Item[Column] = this.ParentRow.SetupData[Column];
-				const DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
-				try {
-					DstObject.PostRequestData.merge(Item);
-				}
-				catch(err) {
-					console.log('::EventListenerClick PostRequestData err:%s', err);
-				}
-				DstObject.setValue(this.ParentRow.SetupData[Column]);
-				//console.debug('::EventListenerClick setrowcolumn ConnectorObject:%o', DstObject);
-			}
-			catch(err) {
-				console.log('::EventListenerClick setrowcolumn err:%s', err);
-			}
-		}
-
-		if (Attributes.Action == 'addrow') {
-			const DstObj = sysFactory.getObjectByID(Attributes.DstObjectID);
-			DstObj.addDynamicRow();
-		}
-
-		if (Attributes.Action == 'switchscreen') {
-			const ScreenObject = sysFactory.getScreenByID(Attributes.DstScreenID);
-			//console.debug(this.ParentRow.SetupData);
-			ScreenObject.DBPrimaryKeyValue = this.ParentRow.SetupData[Attributes.DBPrimaryKeyColumn];
-			ScreenObject.DBPrimaryKeyID = Attributes.DBPrimaryKeyColumn;
-			this.DstScreenID = Attributes.DstScreenID;
-		}
-
-		if (Attributes.Action == 'columndependend') {
-			const RowData = this.ParentRow.SetupData;
-			//console.debug('columndependend Attributes:%o RowData:%o', Attributes, RowData);
-			for (Index in Attributes.ColumnDependend) {
-				const ColConfig = Attributes.ColumnDependend[Index];
-				if (ColConfig.Column1 !== undefined) {
-					Col1Value = RowData[ColConfig.Column1];
-					Col1Compare = ColConfig.Column1Value;
-				}
-				if (ColConfig.Column2 !== undefined) {
-					Col2Value = RowData[ColConfig.Column2];
-					Col2Compare = ColConfig.Column2Value;
-				}
-				if (ColConfig.Column1 !== undefined && ColConfig.Column2 !== undefined) {
-					if (Col1Value == Col1Compare && Col2Value == Col2Compare) {
-						this.DstScreenID = ColConfig.DstScreenID;
-						break;
-					}
-				}
-				else if (ColConfig.Column1 !== undefined) {
-					if (Col1Value == Col1Compare) {
-						this.DstScreenID = ColConfig.DstScreenID;
-						break;
-					}
-				}
-			}
-		}
-
-		if (Attributes.Action == 'activate' || Attributes.Action == 'deactivate') {
-			for (Index in Attributes.Objects) {
-				const ObjectID = Attributes.Objects[Index];
-				const DstObj = sysFactory.getObjectByID(ObjectID);
-				if (Attributes.Action == 'activate') {
-					console.debug('::activate ObjectID:%s Object:%o', ObjectID, DstObj);
-					try {
-						DstObj.setValidate(true);
-					}
-					catch(err) {
-					}
-					DstObj.activateForce();
-				}				
-				if (Attributes.Action == 'deactivate') {
-					try {
-						DstObj.setValidate(false);
-					}
-					catch(err) {
-					}
-					DstObj.deactivate();
-				}
-			}
-		}
-
-		if (this.DstScreenID !== undefined && Attributes.Action !== undefined) {
-			if (Attributes.ResetAll === true) {
-				//console.debug('ButtonInternalDBG ResetAll:%s', Attributes.ResetAll);
-				const ScreenObj = sysFactory.getScreenByID(this.DstScreenID);
-				ScreenObj.HierarchyRootObject.processReset();
-			}
-
-			this.setDstScreenProperties();
-			sysFactory.switchScreen(this.DstScreenID);
-		}
+		this.processActions();
 
 		//- fire events
 		sysFactory.Reactor.fireEvents(Attributes.FireEvents);
