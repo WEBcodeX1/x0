@@ -2,7 +2,7 @@
 
 ## Unit Testing
 
-There will be *no* Focus on Unit Testing. Integration Tests roughly rationalise Unit Testing completely in our case.
+There will be **no** focus on Unit Testing. Integration Tests roughly rationalise Unit Testing completely in our case.
 Furthermore no suitable JavaScript Unit Testing Framework has been selected. For these reasons mentioned we ommit Unit Testing to begin completely.
 
 ## Integration Tests
