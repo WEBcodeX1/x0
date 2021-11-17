@@ -12,3 +12,4 @@ __pycache__
 *.tar.bz2
 *.kate-swp
 *.swp
+.DS_Store
