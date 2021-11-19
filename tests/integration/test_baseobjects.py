@@ -14,7 +14,7 @@ def config():
 	config["driver"].get("https://x0-test.webcodex.de/");
 	return config
 
-class TestBaseObjects:
+class TestBaseObjectsExistence:
 	def test_button(self, config):
 		d = config["driver"]
 		wait = WebDriverWait(d, config["wait"])
@@ -50,4 +50,36 @@ class TestBaseObjects:
 		elem = wait.until(EC.presence_of_element_located(
 			(By.CSS_SELECTOR, "#Test1_ServiceConnector1 #Test1_ServiceConnector1_List1 #Test1_ServiceConnector1_List1_List1HdrRow")
 		))
+		d.close()
+
+class TestBaseObjectsVariants:
+	def test_pulldown(self, config):
+		d, w = config["driver"], config["wait"]
+		wait = WebDriverWait(d, w)
+		elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#FormFieldPulldown1")))
+		options = d.find_elements(By.CSS_SELECTOR, "#FormFieldPulldown1 > *")
+		assert len(options) > 2, "Pulldown offers no choice."
+		d.close()
+
+	def test_dynpulldown(self, config):
+		d, w = config["driver"], config["wait"]
+		wait = WebDriverWait(d, w)
+		elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#FormFieldDynPulldown1")))
+		options = d.find_elements(By.CSS_SELECTOR, "#FormFieldDynPulldown1 > *")
+		assert len(options) > 2, "Dynamic pulldown offers no choice."
+		d.close()
+
+	def test_list(self, config):
+		d, w = config["driver"], config["wait"]
+		wait = WebDriverWait(d, w)
+		elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#Test1_ServiceConnector1_List1")))
+		# has rows?
+		rows = d.find_elements(By.CSS_SELECTOR, "#Test1_ServiceConnector1_List1 > *")
+		assert len(rows) > 2, "Table has no rows."
+		# buttons working?
+		buttons = d.find_elements(By.CSS_SELECTOR, "#Test1_ServiceConnector1_List1 .sysButton")
+		rows_before = d.find_elements(By.CSS_SELECTOR, "#Test1_ServiceConnector1_List1 > *")
+		buttons[1].click()
+		rows_after = d.find_elements(By.CSS_SELECTOR, "#Test1_ServiceConnector1_List1 > *")
+		assert rows_before != rows_after, 'Lists "next" button not working.'
 		d.close()

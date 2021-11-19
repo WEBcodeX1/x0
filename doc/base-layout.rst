@@ -45,10 +45,10 @@ Browser Screen Logical Separation
 +------------------------+------------------------------------------------------------------------+
 | **Menu Area**          | **Content Area**                                                       |
 +========================+========================================================================+
-| Link1                  | Content triggerd by Link press from Menu Area                          |
-+------------------------+------------------------------------------------------------------------+
+| Link1                  | << Content triggerd by Link press from Menu Area                       |
++------------------------+                                                                        |
 | Link2                  |                                                                        |
-+------------------------+------------------------------------------------------------------------+
++------------------------+                                                                        |
 | Link3                  |                                                                        |
 +------------------------+------------------------------------------------------------------------+
 
@@ -145,3 +145,14 @@ skelleton.json Example
 			}
 		]
 	}
+
+Bootstrap
+---------
+
+The system optionally can use Bootstrap for CSS Styles.
+
+Checkout the Documentation at https://getbootstrap.com how to use correctly.
+
+.. note::
+
+	The system does not rely on Bootstrap, everything works fine with self defined CSS Sytles as well.
