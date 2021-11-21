@@ -5,18 +5,41 @@ Base Objects
 
 The system Meta-Data Configuration consists of Objects-Declaration / Configuration in JSON.
 
+* DIV
 * SQLText
 * FormfieldList
 * Formfield
 * List
-* Button
-* ButtonInternal
 * TabContainer
-* ErrorContainer
 * RowContainer
-* ServiceConnector
-* DIV
+* Image
+* Link
+* LinkExternal
 
+DIV
+---
+
+Object Properties
+*****************
+
++---------------------+----------------------+-------------------------------------------------+
+| **Property**        | **Value(s)**         | **Description**                                 |
++=====================+======================+=================================================+
+| Style               | CSS Style Classes    | Likewise HTML DIV CSS Styles                    |
++---------------------+----------------------+-------------------------------------------------+
+
+JSON Structure Example
+**********************
+
+.. code-block:: javascript
+
+	"ObjectID":
+	{
+		"Type": "DIV",
+		"Attributes": {
+			"Style": "Style1 Style2 Style3"
+		}
+	}
 
 SQLText
 -------
@@ -62,6 +85,15 @@ Object Properties
 | FormFields          | Array of Strings     | List of Formfields, Formfield Objects           |
 |                     | (Formfield IDs)      |                                                 |
 +---------------------+----------------------+-------------------------------------------------+
+
+.. warning::
+
+	Object-Mapping takes place at "skeleton.json" file in general. To map Formfield Objects to
+	FormfieldList Object Type in a much more easier way this has been moved to the FormfieldList
+	Object itself.
+
+	In later Releases (Editor has been finished) the mapping will in certain circumstances be
+	moved back to "skeleton.json".
 
 JSON Structure Example
 **********************
@@ -110,17 +142,17 @@ Object Properties
 +---------------------+-----------+----------------+------------------------------------------+--------------+--------------+
 | StyleValidateFail   | Strings   | CSS Classes    | Styles which will be set On Failure      |              |              |
 +---------------------+-----------+----------------+------------------------------------------+--------------+--------------+
-| | ValidateRef       | | String  | | ID Reference | | Validate Reference from sysValidate.js | | x          |              |
-| |                   | |         | |              | | (Regex or JS Method)                   | |            |              |
+| | ValidateRef       | | String  | | ID Reference | | Validate (Regex or JS Method) Reference| | x          |              |
+| |                   | |         | |              | | from sysFormFieldValidate.js           | |            |              |
 +---------------------+-----------+----------------+------------------------------------------+--------------+--------------+
 | | ValidateNullable  | | Bool    | | true | false | | Override ValidateRef                   | | x          |              |
 | |                   | |         | |              | | If true: Formfield Value can be empty  | |            |              |
 +---------------------+-----------+----------------+------------------------------------------+--------------+--------------+
 
-
-.. note::
+.. warning::
 
 	Default Values for multiple Properties will be set in future Releases. Actually no Default Values exist.
+
 
 JSON Structure Example
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -247,6 +279,7 @@ Object Properties
 List
 ----
 
+Description Text.
 
 Object Properties
 *****************
@@ -332,7 +365,7 @@ JSON Structure Example
 
 .. code-block:: javascript
 
-	"TestList":
+	"List1":
 		{
 			"Type": "List",
 			"Attributes":
@@ -373,7 +406,7 @@ JSON Structure Example
 							"ButtonAttributes": {
 								"TextID": "TXT.BUTTON.TEST",
 								"Style": "sysButton",
-								"FireEvents": [ "ContactAssignSendMsg" ],
+								"FireEvents": [ "EventName" ],
 								"Action": "copy",
 								"SrcType": "ListRow",
 								"SrcColumn": "col2",
@@ -406,3 +439,93 @@ JSON Structure Example
 				}
 			}
 		}
+
+
+TabContainer
+------------
+
+The TabContainer Object renders multiple Tabs. The Tab Look is defined in the Tabs Object-Properties.
+Object-Mapping takes place in "skeleton.json" (Example below).
+
+On Tab Switch all Elements not connected to the Tab will de deactiveted / switched to CSS display::none.
+Style. The Elements 
+
+.. code-block:: javascript
+
+	+---------+---------+---------+
+	| Tab1    | Tab2    | Tab3    |
+	+---------+---------+---------+
+	    |         |         |
+	 Object1   Object4    Object6
+	 Object2   Object5    Object7
+	 Object3              Object8
+
+Object Properties
+*****************
+
++---------------------+-----------+----------------+-------------------------------------------------+--------------+--------------+
+| **Property**        | **Type**  | **Value(s)**   | **Description**                                 | **Optional** | **Default**  |
++=====================+===========+================+=================================================+==============+==============+
+| Tabs                | Objects   | Objects List   | Tabs Items List                                 |              |              |
++---------------------+-----------+----------------+-------------------------------------------------+--------------+--------------+
+
+Tab Properties
+**************
+
++---------------------+-----------+----------------+-------------------------------------------------+--------------+--------------+
+| **Property**        | **Type**  | **Value(s)**   | **Description**                                 | **Optional** | **Default**  |
++=====================+===========+================+=================================================+==============+==============+
+| Default             | Bool      | true | false   | Selected Default Tab                            |              |              |
++---------------------+-----------+----------------+-------------------------------------------------+--------------+--------------+
+| Width               | Integer   |                | Tab Width in Pixel                              |              |              |
++---------------------+-----------+----------------+-------------------------------------------------+--------------+--------------+
+| TextID              | String    |                | Backend Text ID (Tab Display Text)              |              |              |
++---------------------+-----------+----------------+-------------------------------------------------+--------------+--------------+
+
+JSON Structure Example
+**********************
+
+.. code-block:: javascript
+
+	"TabContainer1":
+	{
+		"Type": "TabContainer",
+		"Attributes":
+		{
+			"Tabs":
+			{
+				"Tab1":
+				{
+					"Attributes":
+					{
+						"Default": true,
+						"Width": 120,
+						"TextID": "TXT.TAB1"
+					}
+				},
+				"Tab2":
+				{
+					"Attributes":
+					{
+						"Default": false,
+						"Width": 120,
+						"TextID": "TXT.TAB2"
+					}
+				},
+				"Tab3":
+				{
+					"Attributes":
+					{
+						"Default": false,
+						"Width": 200,
+						"TextID": "TXT.TAB3"
+					}
+				}
+			}
+		}
+	}
+
+Skeleton Mapping Example
+************************
+
+See :ref:`ref-elidmap`.
