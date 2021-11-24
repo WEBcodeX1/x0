@@ -17,6 +17,8 @@ clickIT x0 (Cross Objects) JavaScript Framework Documentation
    object-communication
    backend-integration
    enhanced-objects
+   source-data
+   oop-model
    event-system
    wizards
 
