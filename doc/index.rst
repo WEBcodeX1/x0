@@ -15,10 +15,10 @@ clickIT x0 (Cross Objects) JavaScript Framework Documentation
    logic-objects
    enhanced-formating
    object-communication
-   backend-integration
-   enhanced-objects
    source-data
+   backend-integration
    oop-model
+   enhanced-objects
    event-system
    wizards
 
