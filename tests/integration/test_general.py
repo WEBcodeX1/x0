@@ -21,7 +21,7 @@ class TestGeneral:
 		wait = WebDriverWait(d, w)
 		elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, config["ready_selector"])))
 
-		elems = d.find_elements(By.XPATH, "//*[contains(@id,'null000')]")
+		elems = d.find_elements(By.XPATH, "//*[contains(@id,'null')]")
 		assert len(elems) == 0, 'Problematic string "null" found in one or more IDs'
 
 		d.close()
