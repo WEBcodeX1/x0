@@ -1,0 +1,173 @@
+{
+	"FormFieldList1": {
+		"Type": "FormFieldList",
+		"Attributes": {
+			"Style": "FormfieldList",
+			"FormFields": [
+				"FormField1Label",
+				"FormField1",
+				"FormFieldPulldown1",
+				"FormFieldDynPulldown1"
+			]
+		}
+	},
+	"FormField1Label": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "label",
+			"DisplayText": "Form Field 1",
+			"Style": "required sysHeadline",
+			"LabelFor": "FormField1"
+		}
+	},
+	"FormField1": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "DefaultString",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail"
+		}
+	},
+	"FormFieldPulldown1": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "pulldown",
+			"Style": "FormFieldBorderPulldown",
+			"StyleOnFocus": "StyleOnFocus",
+			"AddNoneItem": true,
+			"Options": {
+				"10": {
+					"TextID": "TXT.ID.1",
+					"Value": "10"
+				},
+				"20": {
+					"TextID": "TXT.ID.2",
+					"Value": "20"
+				}
+			}
+		}
+	},
+	"FormFieldDynPulldown1": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "dynpulldown",
+			"AddNoneItem": true,
+			"Style": "FormFieldBorderPulldown",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"ServiceURL": "python/DynPulldown.py",
+			"ServiceID": "dynpd_test"
+		}
+	},
+	"ServiceConnector1": {
+		"Type": "ServiceConnector",
+		"Attributes": {
+			"OnEvent": {
+				"Events": [ "InitSystem" ],
+				"ServiceCall": "python/getTestList1Data.py"
+			}
+		}
+	},
+	"List1": {
+		"Type": "List",
+		"Attributes": {
+			"RowCount": 10,
+			"Style": "sysList",
+			"HeaderRowStyle": "row sysListHeader",
+			"RowStyle": "row sysListContent",
+			"Navigation": {
+				"Type": "Page.Index"
+			},
+			"Columns": {
+				"country": {
+					"HeaderTextID": "TXT.TABLE.HEADER.CONTACT.NEW.PHONE.COUNTRY",
+					"sortable": true,
+					"HeaderStyle": "col-md-3"
+				},
+				"areacode": {
+					"HeaderTextID": "TXT.TABLE.HEADER.CONTACT.NEW.PHONE.AREACODE",
+					"sortable": true,
+					"HeaderStyle": "col-md-3"
+				},
+				"number": {
+					"HeaderTextID": "TXT.TABLE.HEADER.CONTACT.NEW.PHONE.NUMBER",
+					"sortable": true,
+					"HeaderStyle": "col-md-6"
+				}
+			},
+			"ElementsEnclosedByDivStyle": [
+				"col-md-3",
+				"col-md-3",
+				"col-md-6"
+			],
+			"ContextMenuItems": {
+				"Remove": {
+					"TextID": "TXT.CONTEXTMENU.REMOVE",
+					"Icon": "Delete",
+					"InternalFunction": "remove",
+					"InternalRemoveItemBy": "RowIndex"
+				},
+				"Reset": {
+					"TextID": "TXT.CONTEXTMENU.RESET",
+					"Icon": "Delete",
+					"InternalFunction": "reset"
+				}
+			}
+		}
+	},
+	"SQLText1": {
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "sqltext",
+			"TextID": "TXT.SQLTEXT.TEST"
+		}
+	},
+	"Button1": {
+		"Type": "Button",
+		"Attributes": {
+			"Style": "sysButton",
+			"TextID": "TXT.BUTTON1",
+			"OnClick": "python/BackendScript.py",
+			"FormValidate": false,
+			"FireEvents": [ "Event1" ]
+		}
+	},
+	"ButtonInternal1": {
+		"Type": "ButtonInternal",
+		"Attributes": {
+			"Style": "sysButton",
+			"TextID": "TXT.BUTTON.CONTACT_SEARCH.SUBMIT",
+			"FireEvents": ["ContactSearch"]
+		}
+	},
+	"FileUpload1": {
+		"Type": "FileUpload",
+		"Attributes": {
+			"TextID": "TXT.UPLOAD.NR1",
+			"Style": "sysUploadArea",
+			"StyleDescription": "GlobalUploadDescription",
+			"StyleSelectButton": "GlobalUploadSelectButton",
+			"StyleProgressContainer": "GlobalUploadProgressContainer",
+			"StyleUploadButton": "sysButton sysButtonUpload",
+			"ProgressBarStyle": "GlobalUploadProgressBar",
+			"ProgressBarPercentageStyle": "GlobalUploadProgressPercentage",
+			"UploadScript": "/python/Upload.py",
+			"Validate": {
+				"ObjectProperty": "Status",
+				"Operator": "!=",
+				"Value": "uploaded",
+				"ErrorContainer": "ErrorContainerID",
+				"ErrorMessage": "Der Anhang muss hinzugefügt werden!"
+			},
+			"DependOnGlobal": {
+				"Var": "GlobalVarID",
+				"Operator": "==",
+				"Value": "1",
+				"Action": "deactivate"
+			}
+		}
+	}
+}

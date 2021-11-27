@@ -10,10 +10,17 @@ clickIT x0 (Cross Objects) JavaScript Framework Documentation
    intro
    installation
    base-layout
+   config-files
    base-objects
-   enhanced-objects
+   logic-objects
+   enhanced-formating
    object-communication
+   source-data
    backend-integration
+   oop-model
+   enhanced-objects
+   event-system
+   wizards
 
 Indices and tables
 ==================

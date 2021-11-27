@@ -22,3 +22,6 @@ This documentation contains the following subsections:
 * Objects Definition
 * Objects Interaction
 * Backend Data Structure Guidelines
+
+Architecture
+------------
