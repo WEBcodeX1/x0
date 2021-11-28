@@ -13,6 +13,7 @@ clickIT x0 (Cross Objects) JavaScript Framework Documentation
    config-files
    base-objects
    logic-objects
+   pulldown-onchange
    enhanced-formating
    object-communication
    source-data
