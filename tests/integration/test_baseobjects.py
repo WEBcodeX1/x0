@@ -14,8 +14,10 @@ def config():
 	config["driver"].get("https://x0-test.webcodex.de/");
 	return config
 
+
 class TestBaseObjectsExistence:
 	def test_button(self, config):
+		"""Check if button element exists on site"""
 		d = config["driver"]
 		wait = WebDriverWait(d, config["wait"])
 		elem = wait.until(EC.presence_of_element_located(
@@ -24,6 +26,7 @@ class TestBaseObjectsExistence:
 		d.close()
 
 	def test_formfield(self, config):
+		"""Check if formfield element (includes field and pulldown) exists on site"""
 		d = config["driver"]
 		wait = WebDriverWait(d, config["wait"])
 		# field (aka input)
@@ -37,6 +40,7 @@ class TestBaseObjectsExistence:
 		d.close()
 
 	def test_sqltext(self, config):
+		"""Check if SQLText element exists on site"""
 		d = config["driver"]
 		wait = WebDriverWait(d, config["wait"])
 		elem = wait.until(EC.presence_of_element_located(
@@ -45,6 +49,7 @@ class TestBaseObjectsExistence:
 		d.close()
 
 	def test_list(self, config):
+		"""Check if list element exists on site"""
 		d = config["driver"]
 		wait = WebDriverWait(d, config["wait"])
 		elem = wait.until(EC.presence_of_element_located(
@@ -52,8 +57,10 @@ class TestBaseObjectsExistence:
 		))
 		d.close()
 
+
 class TestBaseObjectsVariants:
 	def test_pulldown(self, config):
+		"""Check if pulldown element exists on site"""
 		d, w = config["driver"], config["wait"]
 		wait = WebDriverWait(d, w)
 		elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#FormFieldPulldown1")))
@@ -62,6 +69,7 @@ class TestBaseObjectsVariants:
 		d.close()
 
 	def test_dynpulldown(self, config):
+		"""Check if dynpulldown element exists on site"""
 		d, w = config["driver"], config["wait"]
 		wait = WebDriverWait(d, w)
 		elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#FormFieldDynPulldown1")))
@@ -70,6 +78,7 @@ class TestBaseObjectsVariants:
 		d.close()
 
 	def test_list(self, config):
+		"""Check if list element exists on site"""
 		d, w = config["driver"], config["wait"]
 		wait = WebDriverWait(d, w)
 		elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#Test1_ServiceConnector1_List1")))
