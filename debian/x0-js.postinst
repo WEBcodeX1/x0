@@ -1,0 +1,39 @@
+#!/bin/sh
+
+#DEBHELPER#
+
+if [ "$1" = "configure" ]; then
+
+	# system vars
+	WEBSERVERDIR="/var/www/vhosts"
+	APPDIR="/${WEBSERVERDIR}/x0_js"
+	PYTHONDIR="/${APPDIR}/python"
+	CONFIGDIR="/${APPDIR}/static"
+
+	BASEDIR="/var/lib/x0"
+
+	DBNAME="x0"
+	DBUSER="x0"
+
+	# make postgres local unix domain socket connection trusted
+	find /etc/postgresql -name "pg_hba.conf" | xargs sed -r -e 's/^local\s+all\s+postgres\s+peer$/local   all             postgres                                trust/g' -i
+
+	# restart postgres
+	service postgresql restart
+
+	# check database x0 exists
+	psql -l -U postgres | grep -q ${DBNAME}
+
+	# if not exists, create database
+	if [ $? -eq 1 ]; then
+		psql -d ${DBNAME} -f ${BASEDIR}/database/x0.DB.sql -U postgres
+	fi
+
+	# copy apache config
+	cp ${BASEDIR}/conf/vhost-x0.conf /etc/apache2/sites-available/
+	cp ${BASEDIR}/conf/wsgi.conf /etc/apache2/mods-available/
+
+	# restart apache
+	service apache2 restart
+
+fi

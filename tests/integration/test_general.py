@@ -15,8 +15,10 @@ def config():
 	config["ready_selector"] = "#Test1" # selector to look for to declare DOM ready
 	return config
 
+
 class TestGeneral:
 	def test_suspicious_id_null(self, config):
+		"""Find suspicious ID names containing the string null"""
 		d, w = config["driver"], config["wait"]
 		wait = WebDriverWait(d, w)
 		elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, config["ready_selector"])))
@@ -25,7 +27,9 @@ class TestGeneral:
 		assert len(elems) == 0, 'Problematic string "null" found in one or more IDs'
 
 		d.close()
+
 	def test_suspicious_id_undefined(self, config):
+		"""Find suspicious ID names containing the string undefined"""
 		d, w = config["driver"], config["wait"]
 		wait = WebDriverWait(d, w)
 		elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, config["ready_selector"])))
