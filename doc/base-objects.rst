@@ -13,7 +13,6 @@ The system Meta-Data Configuration consists of Objects-Declaration / Configurati
 * TabContainer
 * RowContainer
 * Image
-* Link
 * LinkExternal
 
 DIV
@@ -528,4 +527,44 @@ JSON Structure Example
 Skeleton Mapping Example
 ************************
 
-See :ref:`ref-elidmap`.
+Also see :ref:`ref-elidmap`.
+
+LinkExternal
+------------
+
+JSON Structure Example Static
+*****************************
+
+.. code-block:: javascript
+
+	"Link1":
+	{
+		"Type": "LinkExternal",
+		"Attributes":
+		{
+			"LinkURL": "https://linkurl.com/test",
+			"LinkDisplay": "LinkDisplayText",
+			"OpenInTab": true
+		}
+	}
+
+JSON Structure Example Dynamic
+******************************
+
+.. code-block:: javascript
+
+	"Link2":
+	{
+		"Type": "LinkExternal",
+		"Attributes":
+		{
+			"LinkURL": "https://linkurl.com/python/Download.py?session_id=%session_id&filename=%value&userid=%userid",
+			"LinkDisplay": "%value",
+			"OpenInTab": true,
+			"ReplaceVars": {
+				"userid": "wpuser_id"
+			},
+			"DisplayTextNoData": "Null Value in Backend Data",
+			"DBColumn": "columnid"
+		}
+	}
