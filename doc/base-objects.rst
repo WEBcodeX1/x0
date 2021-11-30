@@ -12,7 +12,6 @@ The system Meta-Data Configuration consists of Objects-Declaration / Configurati
 * List
 * TabContainer
 * RowContainer
-* Image
 * LinkExternal
 
 DIV
