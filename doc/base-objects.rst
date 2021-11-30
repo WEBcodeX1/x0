@@ -528,6 +528,70 @@ Skeleton Mapping Example
 
 Also see :ref:`ref-elidmap`.
 
+RowContainer
+------------
+
+The RowContainer Object Type is primarily used to group and style multiple Objects together.
+
+The following Example shows a RowContainer Object grouping two ButtonInternal Objects in 
+two columns side by side.
+ 
+
+JSON Structure Example
+**********************
+
+Use following config in object.json and skeleton.json to check how RowContainer works.
+
+object.json
+^^^^^^^^^^^
+
+.. code-block:: javascript
+
+	"RowContainer1":
+	{
+		"Type": "RowContainer",
+		"Attributes":
+		{
+			"Style": "row NavigationButtonsContainer",
+			"Columns": [
+				{
+					"ObjectID": "NavigateBackwardButton",
+					"Style": "col-sm-12 text-center col-md-4 text-lg-right text-md-right"
+				},
+				{
+					"ObjectID": "NavigateForwardButton",
+					"Style": "col-sm-12 text-center col-md-4 text-lg-right text-md-right"
+				}
+			]
+		}
+	}
+
+skeleton.json
+^^^^^^^^^^^^^
+
+.. code-block:: javascript
+
+	{
+		"RowContainer1":
+		{
+			"RefID": "Screen1"
+		}
+	},
+	{
+		"ProjektUpdateKooperationspartnerNavigationButtonBackward":
+		{
+			"RefID": "RowContainer11",
+			"ElementID": "NavigateBackwardButton"
+		}
+	},
+	{
+		"ProjektUpdateKooperationspartnerNavigationButtonForward":
+		{
+			"RefID": "RowContainer11",
+			"ElementID": "NavigateForwardButton"
+		}
+	}
+
 LinkExternal
 ------------
 
