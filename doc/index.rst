@@ -22,6 +22,7 @@ clickIT x0 (Cross Objects) JavaScript Framework Documentation
    enhanced-objects
    object-instances
    event-system
+   error-handling
    wizards
 
 Indices and tables
