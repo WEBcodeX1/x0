@@ -10,5 +10,5 @@ Vcs-Git: git://git01.webcodex.de/clickit/x0_js
 Package: x0-js
 Section: utils
 Architecture: all
-Depends: python (>= 3.0), postgresql (>= 11.0), postgresql (< 13.0), apache2 (>= 2.4), libapache2-mod-wsgi (>= 3.3), python-dbpool (>= 0.1), ${shlibs:Depends}, ${misc:Depends}
+Depends: python (>= 2.0), postgresql (>= 11), postgresql (< 13), apache2 (>= 2.4), libapache2-mod-wsgi-py3 (>= 3.3), ${shlibs:Depends}, ${misc:Depends}
 Description: JavaScript Browser Framework with focus on Object-Interaction.

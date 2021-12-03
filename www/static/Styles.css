@@ -1,0 +1,541 @@
+/* --------------------------------------------- */
+/* Overrides                                     */
+
+.ckboxes {
+	padding: 25px;
+	background-color: #f5f5f5;
+	margin-bottom: 0px !important;	
+}
+
+.ckboxes label {
+	position: relative;
+	top: -37px;
+	left: 31px;
+}
+
+input[type='checkbox']:checked {-webkit-filter: grayscale(100%);}
+input[type='radio']:checked {-webkit-filter: grayscale(100%);}
+
+.FormFieldCheckbox {
+	width: 20px;
+}
+
+/* Overrides Bootstrap      */
+
+.sysArea {
+	padding-top: 15px;
+    margin-bottom: 15px;
+}
+
+.row {
+	margin-bottom: 25px;
+}
+
+::selection {
+    background: #000; /* WebKit/Blink Browsers */
+    color: #d7466b;
+}
+
+::-moz-selection {
+    background: #000; /* Gecko Browsers */
+    color: #d7466b;
+}
+
+/* ---------------------------------------------- */
+/* Chrisinaction Styles                           */
+
+.NavigationButtonsContainer {
+	margin-top: 50px;
+}
+
+.progress-bar {
+	background-color: #F3C7C7 !important;
+}
+
+
+.sysList {
+    margin-bottom: 35px;
+}
+
+.sysList .sysListHeader >div
+{
+    background-color: #d7466b;
+    color: #fff;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 0px !important;
+    font-weight: bold;
+    border-right: 1px solid white !important;
+}
+
+.sysList .sysListHeader div:last-child
+{
+    border-right: none !important;
+}
+
+.sysList .row {
+    margin-bottom: 0px !important;
+}
+
+.sysList .sysListContent {
+    text-align: center;
+}
+
+.sysList .sysListContent [class*="col"] {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.sysList .sysListContent [class*="col"]:last-child{
+    border-right: none !important;
+}
+
+.sysList .sysListContent:nth-child(odd)
+{
+	background: #f5f5f5;
+}
+
+.sysList .sysListContent:nth-child(even) 
+{
+    background: #F0F0F0;
+}
+
+input[disabled]  {
+  cursor: not-allowed;
+  pointer-events: all !important;
+  background-color: #F0F0F0;
+}
+
+.sysHeadline {
+	color: #d7466b;
+	text-transform: uppercase;
+	font-family: Gentona-Medium, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
+    font-size: 22px;
+    font-weight: normal !important;
+    margin-bottom: 5px;
+	letter-spacing: 0.9px;
+	line-height: 27px;
+}
+
+.sysSubHeadline {
+	margin-bottom: 0px;
+}
+
+.GlobalUploadDescription {
+	display: none;
+}
+
+.sysUploadArea {
+	margin-top: 35px;
+	margin-bottom: 35px;
+    position: relative;
+}
+
+
+/* Inputs Overrides
+ * -------------------------- */
+
+input, select {
+    font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
+    letter-spacing: 0.5px !important;
+    color: #000000;
+    font-size: 15px !important;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #bbbbbb;
+    width: 100%;
+    height: 36px;
+    font-family: sans-serif;
+    padding: 15px;
+    background-color: #ffffff;
+}
+
+input {
+    font-family: Gentona-Medium, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
+    color: #d7466b !important;
+}
+
+textarea {
+    font-family: Gentona-Medium, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
+    color: #d7466b !important;
+    font-size: 15px !important;
+}
+
+select {
+    margin-bottom: 15px !important;
+}
+
+.sysAdminHeadline {
+	letter-spacing: 2px !important;
+    text-transform: uppercase;
+    font-weight: normal !important;
+    font-size: 42px !important;
+	font-family: Gentona-Heavy !important;
+    color: #d7466b !important;
+}
+
+/* Placeholder Hacks
+ * -------------------------- */
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
+    letter-spacing: 0.5px !important;
+    color: #797979;
+    font-size: 15px;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
+    letter-spacing: 0.5px !important;
+    color: #797979;
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
+    letter-spacing: 0.5px !important;
+    color: #797979;
+}
+
+
+/* FONT PATH
+ * -------------------------- */
+
+.sr-only {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px
+}
+
+.sr-only-focusable:active, .sr-only-focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto
+}
+
+@font-face {
+    font-family: "Font Awesome 5 Brands";
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url(webFonts/fa-brands-400.eot);
+    src: url(webFonts/fa-brands-400.eot?#iefix) format("embedded-opentype"), url(webFonts/fa-brands-400.woff2) format("woff2"), url(webFonts/fa-brands-400.woff) format("woff"), url(webFonts/fa-brands-400.ttf) format("truetype"), url(webFonts/fa-brands-400.svg#fontawesome) format("svg")
+}
+
+.fab {
+    font-family: "Font Awesome 5 Brands"
+}
+
+@font-face {
+    font-family: "Font Awesome 5 Free";
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url(webFonts/fa-regular-400.eot);
+    src: url(webFonts/fa-regular-400.eot?#iefix) format("embedded-opentype"), url(webFonts/fa-regular-400.woff2) format("woff2"), url(webFonts/fa-regular-400.woff) format("woff"), url(webFonts/fa-regular-400.ttf) format("truetype"), url(webFonts/fa-regular-400.svg#fontawesome) format("svg")
+}
+
+.fab, .far {
+    font-weight: 400
+}
+
+@font-face {
+    font-family: "Font Awesome 5 Free";
+    font-style: normal;
+    font-weight: 900;
+    font-display: block;
+    src: url(webFonts/fa-solid-900.eot);
+    src: url(webFonts/fa-solid-900.eot?#iefix) format("embedded-opentype"), url(webFonts/fa-solid-900.woff2) format("woff2"), url(webFonts/fa-solid-900.woff) format("woff"), url(webFonts/fa-solid-900.ttf) format("truetype"), url(webFonts/fa-solid-900.svg#fontawesome) format("svg")
+}
+
+.fa, .far, .fas {
+    font-family: "Font Awesome 5 Free"
+}
+
+.fa, .fas {
+    font-weight: 900
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* --------------------------------------------- */
+/* Global Header Styles                          */
+
+.GlobalHeader {
+    font-family: Gentona-Heavy, Lucida Sans Unicode, Lucida Grande, Sans-Serif;
+    color: #d7466b;
+    font-weight: normal;
+    font-size: 22px;
+    position: relative;
+    top: 50px;
+}
+
+h2 {
+    margin: 0;
+}
+
+html, body {
+    font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
+    letter-spacing: 0.5px !important;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+textarea:focus, input:focus, select:focus {
+    outline: none !important;
+    border: 3px solid #d7466b;
+}
+
+input:-internal-autofill-selected {
+    appearance: menulist-button;
+    background-color: rgb(243, 199, 210) !important;
+    background-image: none !important;
+}
+
+/* Change the white to any color ;) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    background-color: rgb(243, 199, 210) !important;
+}
+
+[id*="DisplayMax"] {
+    text-align: right;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.FormListDefaultHeader {
+    font-family: Gentona-Medium, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
+    font-size: 16px;
+    font-weight: normal !important;
+    margin-bottom: 10px;
+}
+
+.FormListDefaultHeader::after {
+    content: "*";
+    color: red;
+    margin-left: 7px;
+}
+
+.required::after {
+    content: "*";
+    color: #d7466b;
+    margin-left: 5px;
+	top: -3px;
+	position: relative;
+}
+
+.spezial {
+	margin-top: 10px !important;
+	margin-bottom: 50px !important;
+}
+
+.sysAreaDescription::before {
+	font-family: 'Font Awesome 5 Free';
+    font-size: 15px;
+    content: "\f05a";
+    font-weight: 900;
+	color: #F3C7C7;
+	margin-right: 6px;
+}
+
+.FormListDefaultFooter {
+    font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif;
+    font-size: 13px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+
+/* --------------------------------------------- */
+/* Form Field Styles                             */
+
+.FormFieldDisplayOnly {
+    border: 1px dotted #bbbbbb;
+    width: 100%;
+    height: 20px;
+    font-family: sans-serif;
+    font-size: 12px;
+    padding: 2px;
+    background-color: #fefefe;
+}
+
+.FormFieldBorderValidateOk {
+    border: 3px;
+	border-color: #198754;
+    box-shadow: 0 0 0 0.25rem rgb(25 135 84 / 25%);
+}
+
+.FormFieldBorderValidateFail {
+    border: 3px;
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.25rem rgb(220 53 69 / 25%);
+}
+
+.FormFieldBorderPulldown {
+    border: 1px solid #bbbbbb;
+    width: 100%;
+    height: 37px;
+    font-family: sans-serif;
+    font-size: 13px;
+    padding: 4px;
+    padding-left: 15px;
+    background-color: #ffffff;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+}
+
+
+.FormFieldBorderTextarea {
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #bbbbbb;
+    width: 100%;
+    font-family: sans-serif;
+    font-size: 15px;
+    padding: 15px;
+}
+
+.FormfieldDefaultDescription {
+    font-family: sans-serif;
+    font-size: 12px;
+    color: #000731;
+    vertical-align: top;
+}
+
+.Header {
+	margin-bottom: 5px;
+}
+
+.Header::after {
+	content: "*";
+    color: red;
+    margin-left: 7px;
+}
+
+.sysAreaDescription {
+	margin-top: 0px;
+	font-size: 12px !important;
+}
+
+
+/* --------------------------------------------- */
+/* Error Styles                                  */
+
+.um-form .um-field-error {
+    background: #d7466b !important;
+}
+
+.um-faicon-caret-up:before {
+    content: "\f0d8";
+}
+
+[class^="um-faicon-"]:before, [class*=" um-faicon-"]:before {
+    font-family: 'Font Awesome 5 Free' !important;
+    font-style: normal !important;
+    font-weight: 900 !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.FormFieldBorderValidateOk {
+    border: 3px solid #5DE58E;
+}
+
+.um-form .um-field-error {
+    background: #d7466b !important;
+}
+
+.FormFieldBorderValidateFail {
+    border: 3px solid #d7466b;
+}
+
+.um-field-error {
+    width: auto;
+    max-width: 100%;
+    background: #d7466b;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color: #fff;
+    box-sizing: border-box;
+    position: relative;
+    padding: 12px;
+    font-size: 14px;
+    line-height: 20px !important;
+    margin-bottom: 30px;
+}
+
+.um-field-error a {
+    color: #fff !important;
+    text-decoration: underline !important
+}
+
+.um-field-arrow {
+    font-family: 'Font Awesome 5 Free';
+    top: -17px;
+    left: 10px;
+    position: absolute;
+    z-index: 1;
+    color: #d7466b;
+    font-size: 28px;
+    line-height: 1em !important;
+}
+
+.um-error-block {
+    width: auto;
+    max-width: 100%;
+    background: #d7466b;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    color: #fff;
+    box-sizing: border-box;
+    position: relative;
+    padding: 12px;
+    font-size: 14px;
+    line-height: 1em !important;
+    margin: 12px 0 0 0;
+}

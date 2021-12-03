@@ -44,11 +44,9 @@ SET row_security = off;
 CREATE SCHEMA webui;
 
 ALTER SCHEMA webui OWNER TO postgres;
-
+GRANT ALL ON SCHEMA webui TO x0;
 
 SET default_tablespace = '';
-
-SET default_table_access_method = heap;
 
 
 CREATE USER x0 WITH ENCRYPTED PASSWORD 'dummy';
@@ -89,7 +87,9 @@ TXT.CONTEXTMENU.RESET	contextmenu	Alle Zeilen löschen	\N	1
 TXT.CONTEXTMENU.REMOVE	contextmenu	Entfernen	\N	1
 TXT.CONTEXTMENU.APPLY	contextmenu	Zeile übernehmen	\N	1
 TXT.SYS.INDICATOR.INCOMINGPHONECALL	indicatorheader	Eingehender Anruf	\N	1
-TXT.SYS.INDICATOR.NETEVENT	indicatorheader	Netz Event	\N	1
+TXT.MENU.BASICEXAMPLE.ROOT	menu	MenuRoot	\N	1
+TXT.MENU.BASICEXAMPLE.SCREEN1	menu	Screen1	\N	1
+TXT.BASICEXAMPLE.TEXT1	sqltext	Hello World	\N	1
 \.
 
 
@@ -100,7 +100,7 @@ TXT.SYS.INDICATOR.NETEVENT	indicatorheader	Netz Event	\N	1
 ALTER TABLE ONLY webui.text
     ADD CONSTRAINT text_pkey PRIMARY KEY (id);
 
-    
+
 GRANT ALL ON webui.text TO x0;
 
 --

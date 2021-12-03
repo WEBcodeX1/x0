@@ -85,7 +85,7 @@ def application(environ, start_response):
                     sql_params[param] = None
 
             row_index = row_index_generator()
-            with dbpool.pool.Handler('clickit') as db:
+            with dbpool.pool.Handler('x0') as db:
                 try:
                     for rec in db.query(config['sql'], sql_params):
                         tmp_record = {}
