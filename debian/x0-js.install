@@ -1,4 +1,4 @@
-www/images var/www/vhosts/x0/static
+www/images var/www/vhosts/x0
 www/*.js var/www/vhosts/x0
 www/index.html var/www/vhosts/x0
 www/static/* var/www/vhosts/x0/static
@@ -12,3 +12,5 @@ database/* var/lib/x0/database
 doc/* var/lib/x0/doc
 tests/* var/lib/x0/tests
 conf/* var/lib/x0/conf
+conf/basic-vhost/*.js var/www/vhosts/x0
+conf/basic-vhost/*.json var/www/vhosts/x0/static

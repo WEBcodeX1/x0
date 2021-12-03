@@ -22,7 +22,7 @@ def application(environ, start_response):
                        "webui"."text"
                       ORDER BY orderby""";
 
-            with dbpool.pool.Handler('kunst') as db:
+            with dbpool.pool.Handler('x0') as db:
                 for tmpRecord in db.query(sql):
                     tmpDict = {
                         "id":       tmpRecord[0],

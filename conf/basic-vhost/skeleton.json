@@ -1,0 +1,11 @@
+{
+	"Screen1":
+	[
+		{
+			"HelloWorldText":
+			{
+				"RefID": "Screen1"
+			}
+		}
+	]
+}

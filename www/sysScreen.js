@@ -17,7 +17,7 @@
 
 function sysScreen() {
 
-    this.ScreenID				= null;							//- ScreenID
+	this.ScreenID				= null;							//- ScreenID
 	this.zIndex					= null;							//- Layer z-axis position
 	this.LinkObj				= null;							//- Menu Link Object
 
@@ -32,17 +32,17 @@ function sysScreen() {
 
 	this.DBResultRow			= null;							//- Database Result for (DBColumn(s))
 
-    this.SetupClasses = {
+	this.SetupClasses = {
 		'TabContainer': sysTabContainer,
 		'SQLText': sysObjSQLText,
 		'Button': sysObjButton,
-        'ButtonInternal': sysObjButtonInternal,
-        'NavigateForwardBackward': sysObjNavigateForwardBackward,
-        'List': sysList,
-        'FormFieldList': sysFormFieldList,
-        'ServiceConnector': sysServiceConnector,
-        'Div': sysObjDiv,
-        'FileUpload': sysFileUpload,
+		'ButtonInternal': sysObjButtonInternal,
+		'NavigateForwardBackward': sysObjNavigateForwardBackward,
+		'List': sysList,
+		'FormFieldList': sysFormFieldList,
+		'ServiceConnector': sysServiceConnector,
+		'Div': sysObjDiv,
+		'FileUpload': sysFileUpload,
 		'ErrorContainer': sysErrorContainer,
 		'Link': sysObjLink,
 		'LinkExternal': sysObjLinkExternal,
@@ -60,30 +60,31 @@ sysScreen.prototype.setup = function(DBPrimaryKeyValue) {
 
 	console.debug('::setup ScreenID:%s ScreenObject:%o DBPrimaryKeyValue:%s', this.ScreenID, this, DBPrimaryKeyValue);
 
+	//- DEPRECATED, DBPrimaryKeyValue should be replaced by self-defined variables
 	this.DBPrimaryKeyValue = DBPrimaryKeyValue;
 
 	this.HierarchyRootObject.ObjectID = this.ScreenID;
 	this.HierarchyRootObject.DOMStyle = 'sysScreenRoot col-lg-10 col-md-12';
 
-    this.setupObject(this.ScreenID, this.HierarchyRootObject);
+	this.setupObject(this.ScreenID, this.HierarchyRootObject);
 
-    //- dynamic update (prepare objects for rendering) formlist formitems
-    // (old style, should be unneccesarry after refactoring)
+	//- dynamic update (prepare objects for rendering) formlist formitems
+	// (old style, should be unneccesarry after refactoring)
 	this.HierarchyRootObject.renderFormlists();
 
-    //- connect ServiceConnector Objects
+	//- connect ServiceConnector Objects
 	this.HierarchyRootObject.connectServiceConnectorObjects();
 
-    //- recursive render screen root object
+	//- recursive render screen root object
 	this.HierarchyRootObject.renderObject();
 
 	//- deactivate non default tabs
 	this.HierarchyRootObject.deactivateTab();
 
-    //- deactivate non default tabs
+	//- deactivate non default tabs
 	this.HierarchyRootObject.ActivateActiveTab();
 
-    //- process event listeners
+	//- process event listeners
 	this.HierarchyRootObject.processEventListener();
 
 	//console.debug('sysScreen.setup() RootObject:%o', this.RootObject);

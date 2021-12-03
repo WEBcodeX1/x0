@@ -1,0 +1,10 @@
+{
+	"HelloWorldText":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "sysBase",
+			"TextID": "TXT.BASICEXAMPLE.TEXT1"
+		}
+	}
+}
