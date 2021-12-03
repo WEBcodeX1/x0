@@ -262,7 +262,7 @@ sysMenu.prototype.init = function()
 	//- process menu child objects recursive
 	//------------------------------------------------------------------------------
 	MenuItems = this.MenuRootItem.getObjects();
-	
+
 	for (MenuItemKey in MenuItems) {
 		MenuItem = MenuItems[MenuItemKey];
 		MenuTableRowObj = this.addRow(MenuItem, topPosGenerator);
@@ -396,7 +396,7 @@ sysMenu.prototype.addRow = function(MenuItem, PosGenerator)
 		console.log('setting Screen RootLayerStyle err:%s', err);
 	}
 
-    MenuTableColLinkLinkObj.init();
+	MenuTableColLinkLinkObj.init();
 
 	//- connect link object to menu item
 	//console.log('Add Link Object ScreenID:%s', MenuItem.ScreenID);

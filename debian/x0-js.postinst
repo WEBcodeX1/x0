@@ -10,13 +10,18 @@ if [ "$1" = "configure" ]; then
 	PYTHONDIR="/${APPDIR}/python"
 	CONFIGDIR="/${APPDIR}/static"
 
+	WEBSERVERCONFDIR="/etc/apache2"
+	VHOSTCONFIGFILE="vhost-x0.conf"
+
 	BASEDIR="/var/lib/x0"
 
 	DBNAME="x0"
 	DBUSER="x0"
 
 	# make postgres local unix domain socket connection trusted
-	find /etc/postgresql -name "pg_hba.conf" | xargs sed -r -e 's/^local\s+all\s+postgres\s+peer$/local   all             postgres                                trust/g' -i
+	PGCONFFILE=$(find /etc/postgresql -name "pg_hba.conf")
+
+	sed -i ${PGCONFFILE} -r -e 's/^local\s+all\s+postgres\s+peer$/local   all             postgres                                trust/g'
 
 	# restart postgres
 	service postgresql restart
@@ -26,12 +31,19 @@ if [ "$1" = "configure" ]; then
 
 	# if not exists, create database
 	if [ $? -eq 1 ]; then
-		psql -d ${DBNAME} -f ${BASEDIR}/database/x0.DB.sql -U postgres
+		psql -U postgres -f ${BASEDIR}/database/x0.DB.sql 
 	fi
 
 	# copy apache config
-	cp ${BASEDIR}/conf/vhost-x0.conf /etc/apache2/sites-available/
-	cp ${BASEDIR}/conf/wsgi.conf /etc/apache2/mods-available/
+	cp ${BASEDIR}/conf/${VHOSTCONFIGFILE} ${WEBSERVERCONFDIR}/sites-available/
+	cp ${BASEDIR}/conf/wsgi.conf ${WEBSERVERCONFDIR}/mods-available/
+
+	# activate apache vhost
+	ln -s ${WEBSERVERCONFDIR}/sites-available/${VHOSTCONFIGFILE} ${WEBSERVERCONFDIR}/sites-enabled/${VHOSTCONFIGFILE}
+
+	# replace vhost domain from /etc in vhost config
+	VHOSTDOMAIN=$(cat /etc/x0/domain.conf)
+	sed -i ${WEBSERVERCONFDIR}/sites-available/${VHOSTCONFIGFILE} -r -e "s/^.+<SERVERNAME>$/	ServerName ${VHOSTDOMAIN}/g"
 
 	# restart apache
 	service apache2 restart

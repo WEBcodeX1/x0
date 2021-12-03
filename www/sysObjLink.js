@@ -26,7 +26,7 @@ function sysObjLink() {
 	this.RaiseEvents	= null;
 
 	this.ActiveOnFormID	= null;
-	
+
 	this.LinkHilteStyle = 'sysMenuTableLinkHilite';
 
 }
