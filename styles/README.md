@@ -1,10 +1,7 @@
-@cpruefer 
 
-here again the menu structure and/or the tabs as desired.
+**Define a proposal for global CSS styles**
 
-> @ckase can you please reacheck if this structure is sufficient for building "graphical" tabs.
-
-yes, it must be clarified whether `<a>` or `<button>` elements should be used and / or both is possible
+Question: it must be clarified whether `<a>` or `<button>` elements should be used and / or both is possible
 
 As soon as it is a "navigation", we need the `<nav>` element around it.
 Note: The use of the `<nav>` element automatically communicates that a section has a navigation function. We should always use the correct semantic HTML element rather than ARIA that can come later.
