@@ -41,6 +41,9 @@ sysObjDiv.prototype.init = function() {
 
 		//- set dom type if given
 		this.DOMType = (Attributes.DOMType === undefined) ? 'div' : Attributes.DOMType;
+		
+		//- set dom style
+		this.DOMStyle = Attributes.Style;
 	}
 }
 
