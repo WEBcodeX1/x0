@@ -5,7 +5,7 @@ Base Objects
 
 The system Meta-Data Configuration consists of Objects-Declaration / Configuration in JSON.
 
-* DIV
+* Div
 * SQLText
 * FormfieldList
 * Formfield
@@ -14,7 +14,7 @@ The system Meta-Data Configuration consists of Objects-Declaration / Configurati
 * RowContainer
 * LinkExternal
 
-DIV
+Div
 ---
 
 Object Properties
