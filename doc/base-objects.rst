@@ -611,8 +611,8 @@ JSON Structure Example Static
 		}
 	}
 
-JSON Structure Example Dynamic
-******************************
+JSON Structure Example
+**********************
 
 .. code-block:: javascript
 
@@ -621,13 +621,15 @@ JSON Structure Example Dynamic
 		"Type": "LinkExternal",
 		"Attributes":
 		{
-			"LinkURL": "https://linkurl.com/python/Download.py?session_id=%session_id&filename=%value&userid=%userid",
-			"LinkDisplay": "%value",
+			"LinkURL": "https://app.projektfonds-kulturelle-bildung.berlin/python/Download.py",
+			"LinkDisplayValue": true,
+			"LinkDisplayOnValueUndefined": "No Data available.",
 			"OpenInTab": true,
 			"ReplaceVars": {
-				"userid": "wpuser_id"
+				"userid": "wpuser_id",
+				"filename": "$VALUE"
 			},
-			"DisplayTextNoData": "Null Value in Backend Data",
-			"DBColumn": "columnid"
+			"ReplaceSessionID": true,
+			"DBColumn": "test1"
 		}
 	}
