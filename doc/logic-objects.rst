@@ -3,7 +3,7 @@
 Control-Logic defining Objects
 ==============================
 
-The following Object-Types ... .
+The following Object-Types can be used to communicate among each other and with the backend.
 
 * ServiceConnector
 * Button
@@ -14,12 +14,11 @@ The following Object-Types ... .
 ServiceConnector
 ----------------
 
-A Service Connector Object will be connected / put "in front of" an Object capable of loading
-Service Data when Event(s) will be raised. This is done in skeleton.json (see Example below
-Object Property Definition).
+With help of a Service Connector Object you load backend data into already loaded
+System Obejcts (after initial app-rendering took place).
 
-If put e.g. in front of a List Type Object, the List will be "filled" with Backend Data on
-Event(s) occurence.
+You can trigger data load on System Event occurence, see: #TODO: link to Raising Events.
+
 
 Object Properties
 *****************
@@ -41,8 +40,8 @@ Event Properties
 | ServiceCall         | Backend Script       | Call Backend Script on raised Event(s)          |
 +---------------------+----------------------+-------------------------------------------------+
 
-JSON Example (object.json)
-**************************
+Example (object.json)
+*********************
 
 .. code-block:: javascript
 
@@ -59,8 +58,8 @@ JSON Example (object.json)
 		}
 	}
 
-JSON Example (skeleton.json)
-****************************
+Connecting Object (skeleton.json)
+*********************************
 
 The following Example maps a Service Connector Object to a Parent Tab Container Object and a FormfieldList
 Object Type to the Service Connector Object.
