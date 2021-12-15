@@ -1,4 +1,5 @@
 # modules import
+import re
 import sys
 import json
 
@@ -12,12 +13,17 @@ def application(environ, start_response):
 
     start_response('200 OK', [('Content-Type', 'application/json; charset=UTF-8')])
 
-    if environ['REQUEST_METHOD'].upper() == 'POST':
+    if environ['REQUEST_METHOD'].upper() == 'GET':
 
-        Result = []
+        RegexString = 'limit=([0-9][0-9]?)+$'
+        RegexObject = re.compile(RegexString)
+        URL = environ['QUERY_STRING']
+        Match = RegexObject.match(RegexString)
+        LimitRows = Match.group(1)
 
-        #try:
-        for i in range(1):
+        Result = {}
+
+        try:
             sql = """SELECT
                        country_code,
                        area_code,
@@ -27,7 +33,7 @@ def application(environ, start_response):
                     LIMIT %(LimitRows}"""
 
             sql_params = {
-                'LimitRows': data_req['LimitRows']
+                'LimitRows': LimitRows
             }
             with dbpool.pool.Handler('clickit') as db:
                 for Record in db.query(sql, sql_params):
@@ -37,9 +43,8 @@ def application(environ, start_response):
                     Row['number'] = Record['phone_number']
                     Result.append(Row)
 
-        #except Exception as e:
-            #Result['Error'] = True
-            #Result['Exception'] = type(e).__name__
-            #pass
+        except Exception as e:
+            Result['Error'] = True
+            Result['Exception'] = type(e).__name__
 
         yield bytes(json.dumps(Result), 'utf-8')
