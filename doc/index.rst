@@ -11,6 +11,7 @@ clickIT x0 (Cross Objects) JavaScript Framework Documentation
    installation
    base-layout
    config-files
+   hello-world
    base-objects
    logic-objects
    pulldown-onchange

@@ -18,10 +18,17 @@ Overview
 This documentation contains the following subsections:
 
 * System Installation
-* Base System Specs
-* Objects Definition
-* Objects Interaction
-* Backend Data Structure Guidelines
+* Base System Specification
+* System Object Definition
+* System Object Interaction
+* Backend Data Structures
+* System OOP Model
+* Example building System Objects
+* Building Hello World Example
+
+#TODO: Link to correct subsections
 
 Architecture
 ------------
+
+#TODO: Add architecture image
