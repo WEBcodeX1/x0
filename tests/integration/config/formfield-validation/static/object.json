@@ -1,0 +1,379 @@
+{
+	"FormFieldValidationList": {
+		"Type": "FormFieldList",
+		"Attributes": {
+			"Style": "formfield list",
+			"FormFields": [
+				"FormFieldDefaultString",
+				"FormFieldDefaultAtoZ",
+				"FormFieldDefaultInteger",
+				"FormFieldDefaultAtoZPlusNumbers",
+				"FormFieldDefaultAtoZUpper",
+				"FormFieldDefaultDateInternational",
+				"FormFieldDefaultDate",
+				"FormFieldDefaultDatepicker",
+				"FormFieldZipCode",
+				"FormFieldUserName",
+				"FormFieldRealName",
+				"FormFieldSurename",
+				"FormFieldUserPass",
+				"FormFieldUserGroup",
+				"FormFieldMailAddress",
+				"FormFieldPhoneNrInternational",
+				"FormFieldPhoneNr",
+				"FormFieldPhoneNrArea",
+				"FormFieldPhoneNrSingle",
+				"FormFieldQuantity",
+				"FormFieldCountry",
+				"FormFieldCity",
+				"FormFieldStreetNr",
+				"FormFieldEuroWithCents",
+				"FormFieldSPXBarcode",
+				"FormFieldSubmitButton"
+			]
+		}
+	},
+	"FormFieldDefaultString": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "DefaultString",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "DefaultString"
+		}
+	},
+	"FormFieldDefaultAtoZ": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "DefaultAtoZ",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "AtoZ"
+		}
+	},
+	"FormFieldDefaultInteger": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "DefaultInteger",
+			"ValidateNullable": false,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "DefaultInteger"
+		}
+	},
+	"FormFieldDefaultAtoZPlusNumbers": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "DefaultAtoZPlusNumbers",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "AtoZPlusNumbers"
+		}
+	},
+	"FormFieldDefaultAtoZUpper": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "DefaultAtoZUpper",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "AtoZUpper"
+		}
+	},
+	"FormFieldDefaultDateInternational": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "DefaultDateInternational",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "DefaultDateInternational"
+		}
+	},
+	"FormFieldDefaultDate": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "DefaultDate",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "DefaultDate"
+		}
+	},
+	"FormFieldDefaultDatepicker": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "DefaultDatepicker",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "DefaultDatepicker"
+		}
+	},
+	"FormFieldZipCode": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "ZipCode",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "ZipCode"
+		}
+	},
+	"FormFieldUserName": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "UserName",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "UserName"
+		}
+	},
+	"FormFieldRealName": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "RealName",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "RealName"
+		}
+	},
+	"FormFieldSurename": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "Surename",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "Surename"
+		}
+	},
+	"FormFieldUserPass": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "UserPass",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "UserPass"
+		}
+	},
+	"FormFieldUserGroup": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "UserGroup",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "UserGroup"
+		}
+	},
+	"FormFieldMailAddress": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "MailAddress",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "MailAddress"
+		}
+	},
+	"FormFieldPhoneNrInternational": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "PhoneNrInternational",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "PhoneNrInternational"
+		}
+	},
+	"FormFieldPhoneNr": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "PhoneNr",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "PhoneNr"
+		}
+	},
+	"FormFieldPhoneNrArea": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "PhoneNrArea",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "PhoneNrArea"
+		}
+	},
+	"FormFieldPhoneNrSingle": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "PhoneNrSingle",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "PhoneNrSingle"
+		}
+	},
+	"FormFieldQuantity": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "Quantity",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "Quantity"
+		}
+	},
+	"FormFieldCountry": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "Country",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "Country"
+		}
+	},
+	"FormFieldCity": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "City",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "City"
+		}
+	},
+	"FormFieldStreetNr": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "StreetNr",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "StreetNr"
+		}
+	},
+	"FormFieldEuroWithCents": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "EuroWithCents",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "EuroWithCents"
+		}
+	},
+	"FormFieldSPXBarcode": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"ValidateRef": "SPXBarcode",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Placeholder": "SPXBarcode"
+		}
+	},
+	"FormFieldSubmitButton": {
+		"Type": "Button",
+		"Attributes": {
+			"Style": "sysButton",
+			"TextID": "TXT.BUTTON",
+			"OnClick": "python/dummy.py",
+			"FormValidate": true,
+			"SrcDataObjects": {
+				"FormFieldValidationList": {
+					"Type": "FormfieldList",
+					"ScreenID": "Test1"
+				}
+			},
+			"ValidateObjects": [
+				"FormFieldValidationList"
+			]	
+		}
+	}
+}
