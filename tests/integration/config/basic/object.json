@@ -146,7 +146,7 @@
 	"FileUpload1": {
 		"Type": "FileUpload",
 		"Attributes": {
-			"TextID": "TXT.UPLOAD.NR1",
+			"TextID": "TXT.UPLOAD.BUTTON1",
 			"Style": "sysUploadArea",
 			"StyleDescription": "GlobalUploadDescription",
 			"StyleSelectButton": "GlobalUploadSelectButton",
@@ -154,7 +154,7 @@
 			"StyleUploadButton": "sysButton sysButtonUpload",
 			"ProgressBarStyle": "GlobalUploadProgressBar",
 			"ProgressBarPercentageStyle": "GlobalUploadProgressPercentage",
-			"UploadScript": "/python/Upload.py",
+			"UploadScript": "/python/IntegrationTestUpload.py",
 			"Validate": {
 				"ObjectProperty": "Status",
 				"Operator": "!=",

@@ -24,6 +24,12 @@
 			"List1": {
 				"RefID": "ServiceConnector1"
 			}
+		},
+		{
+			"FileUpload1": {
+				"RefID": "Test1"
+			}
 		}
+
 	]
 }
