@@ -2,13 +2,7 @@ import re
 import os
 import json
 
-import DB
-import DBMapping
-import dbpool.pool
-
 import POSTData
-
-dbpool.pool.Connection.init(DB.config)
 
 
 def application(environ, start_response):
@@ -119,12 +113,7 @@ def application(environ, start_response):
             for element in separator_data:
                 if element['type'] == 'file' and element['content_type'] == b'Content-Type: application/pdf':
                     tmp_result['file_format_pdf'] = True
-                    user_dir = upload_path + '/' + str(user_id)
-                    try:
-                        os.mkdir(user_dir)
-                    except Exception as e:
-                        pass
-                    write_file = user_dir + '/' + element['filename']
+                    write_file = upload_path + '/' + element['filename']
                     with open(write_file, 'wb') as fh:
                         for i in range(element['position'][0], element['position'][1]):
                             if i == element['position'][1]-1:
