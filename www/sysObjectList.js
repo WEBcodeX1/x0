@@ -305,9 +305,6 @@ function sysList()
 
 	this.DisplayRows			= 10;									//- Display Row Count
 
-	this.Navigation				= true;									//- Navigation active|inactive
-	this.NavigationPosition		= 0										//- Navigation Position
-
 	this.DataURL				= null;									//- getData XMLRPC URL
 	this.DataURLParams			= '';									//- getData XMLRPC URL Params
 
@@ -331,7 +328,6 @@ function sysList()
 	this.ColumnGenerators 		= new Object();							//- Column Generators Object
 	
 	this.doValidate				= true;									//- Default Validate
-
 }
 
 //- inherit sysBaseObject
@@ -764,10 +760,11 @@ sysList.prototype.setupHeader = function()
 sysList.prototype.setupNavigation = function()
 {
 	var RowContainer = new sysObjRowContainer();
+	RowContainer.ObjectID = 'RowContainer';
 
-	const NavLeftID = this.ObjectID + 'NavLeft';
-	const NavSpacerID = this.ObjectID +  'NavSpacer';
-	const NavRightID = this.ObjectID+'NavRight';
+	const NavLeftID = 'NavLeft';
+	const NavSpacerID = 'NavSpacer';
+	const NavRightID = 'NavRight';
 
 	RowContainer.JSONConfig = {
 		"Attributes": {
@@ -788,6 +785,8 @@ sysList.prototype.setupNavigation = function()
 	RowContainer.init();
 
 	var NavLeftButton = new sysObjButtonCallback();
+	NavLeftButton.ObjectID = 'Button';
+
 	NavLeftButton.setCallback(this, 'navLeft');
 
 	NavLeftButton.JSONConfig = {
@@ -802,6 +801,8 @@ sysList.prototype.setupNavigation = function()
 	RowContainer.runtimeAddObject(NavLeftID, NavLeftButton);
 
 	var NavRightButton = new sysObjButtonCallback();
+	NavRightButton.ObjectID = 'Button';
+
 	NavRightButton.setCallback(this, 'navRight');
 
 	NavRightButton.JSONConfig = {
@@ -924,13 +925,13 @@ sysList.prototype.renderPage = function()
 	}
 
 	//console.log('::renderPage List RowItems:%o', this.RowItems);
-	
+
 	PageSize = this.DisplayRows;
 	PageIndex = this.NavPageIndex+1;
 
 	PageBeginRow = (PageIndex*PageSize)-PageSize;
 	PageEndRow = (PageBeginRow+PageSize)-1;
-	
+
 	for (this.RowItemIndex in this.RowItems) {
 		const RowItem = this.RowItems[this.RowItemIndex];
 
