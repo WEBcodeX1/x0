@@ -231,11 +231,6 @@ sysFormFieldItem.prototype.setAttributes = function(Attributes)
 
 	this.UpdateOnTabSwitch				= Attributes.UpdateOnTabSwitch;
 
-	//- override Value when DBPrimaryKeyValue should be set as this.Value
-	if (Attributes.DBPrimaryKeyValue === true) {
-		console.debug('::DBPrimaryKeyValue FormfieldItem:%o', this);
-		this.Value = this.ScreenObject.DBPrimaryKeyValue;
-	}
 }
 
 

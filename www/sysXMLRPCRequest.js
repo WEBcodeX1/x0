@@ -72,6 +72,7 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
 		RequestObject.JSONConfig !== undefined &&
 		RequestObject.JSONConfig.Attributes !== undefined) {
 
+		/*
 		var DBPrimaryKeyID = RequestObject.JSONConfig.Attributes.DBPrimaryKeyID;
 
 		//console.debug('::Request DBPrimaryKeyID:%s', DBPrimaryKeyID);
@@ -83,6 +84,7 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
                 RequestObject.PostRequestData.add(DBPrimaryKeyValue, 'DBPrimaryKeyValue');
             }
 		}
+		*/
 	}
 
 	if (RequestObject !== undefined &&

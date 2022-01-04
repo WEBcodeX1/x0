@@ -16,7 +16,6 @@
 
 function sysContextMenuItem()
 {
-
 	this.PostRequestData		= new sysRequestDataHandler();
 
 	this.ID						= null;
@@ -24,16 +23,12 @@ function sysContextMenuItem()
 	this.Icon					= null;
 
 	this.DstScreenID			= null;
-	this.DstScreenSrcObjFilter	= null;
 
 	this.ServiceURL				= null;
 	this.ServiceID				= null;
 	this.Notify					= null;
 
 	this.UpdateSrcObject		= false;
-
-	this.DBPrimaryKeyID			= null;
-	this.DBPrimaryKeyValue		= null;
 
 	this.ScreenObject			= null;
 	this.SourceObject			= null;
@@ -54,11 +49,6 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 	//console.log('##### CONTEXT MENU EVENT LISTENER CLICK #####');
 
 	this.PostRequestData.reset();
-
-	/*
-	 * TODO: the following functions/logic must be moved to external class, including a method for
-	 * adding user defined java script functions
-	*/
 
 	if (this.InternalFunction != null) {
 
@@ -93,7 +83,6 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 				console.log('::EventListenerClick setrowcolumn err:%s', err);
 			}
 		}
-
 	}
 
 	if (this.ColumnDependend !== undefined) {
@@ -135,8 +124,8 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 		sysFactory.GlobalAsyncNotifyIndicator.addMsgItem(this.Notify);
 
 		var Item = new Object();
-		Item['DBPrimaryKeyValue'] = this.DBPrimaryKeyValue;
-		
+		//Item['DBPrimaryKeyValue'] = this.DBPrimaryKeyValue;
+
 		if (this.ServiceKeyColumn !== undefined) {
 			Item[this.ServiceKeyColumn] =  this.ContextMenuObject.RowData[this.ServiceKeyColumn];
 		}
@@ -151,39 +140,22 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 
 	}
 
-	/*
-	 * was intended for non-authenticated request and should be refactored
-	if (this.InternalFunction == null && (this.DBPrimaryKeyValue === undefined || this.DBPrimaryKeyValue == null)) {
-
-		var sysTextObj = sysFactory.ObjText;
-		var sysID = 'SYS__GLOBAL_MSG';
-
-		var ActionNotifyDef = {
-			"ID": sysID,
-			"DisplayHeader": sysTextObj.getTextBySystemLanguage('TXT.SYS.ERROR')
-		}
-
-		var AsyncNotifyObj = new sysObjAsyncNotify();
-
-		sysFactory.GlobalAsyncNotifyIndicator.addMsgItem(ActionNotifyDef);
-
-		var NotifyItem = sysFactory.GlobalAsyncNotifyIndicator.getMsgItemByName(sysID);
-
-		NotifyItem.setProcessStatus(1);
-		NotifyItem.setDisplayText(sysTextObj.getTextBySystemLanguage('TXT.SYS.EDITNOTALLOWED'));
-		NotifyItem.updateDisplay();
-
-		this.ContextMenuObject.close();
-
-		SwitchScreenAllowed = false;
-
-	}
-	*/
-
 	if (this.DstScreenID != null) {
 
-		//- set DB primary key attributes to screen object
-		this.setDstScreenProperties();
+		const ScreenObj = sysFactory.getScreenByID(this.DstScreenID);
+
+		console.debug('contextMenu this:%o', this);
+
+		if (this.RowColumn !== undefined && ScreenObj !== undefined) {
+
+			console.debug('contextMenu RowObject:%o', this.ContextMenuObject.RowObject);
+			
+			const setValue = this.ContextMenuObject.RowObject.SetupData[this.RowColumn];
+
+			console.debug('contextMenu setValue:%s', setValue);
+
+			ScreenObj.setGlobalVar(this.RowColumn, setValue);
+		}
 
 		//- close context menu
 		this.ContextMenuObject.close();
@@ -192,7 +164,6 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 		this.clearFormStyles();
 
 		if (this.ResetAll === true) {
-			const ScreenObj = sysFactory.getScreenByID(this.DstScreenID);
 			ScreenObj.HierarchyRootObject.processReset();
 		}
 
@@ -254,41 +225,6 @@ sysContextMenuItem.prototype.clearFormStyles = function(Event)
 
 
 //------------------------------------------------------------------------------
-//- METHOD "setDstScreenProperties"
-//------------------------------------------------------------------------------
-sysContextMenuItem.prototype.setDstScreenProperties = function()
-{
-	try {
-		var DstScreenObject = sysFactory.getScreenByID(this.DstScreenID);
-
-		//- set primary key id/value
-		DstScreenObject.DBPrimaryKeyID = this.DBPrimaryKeyID;
-		DstScreenObject.DBPrimaryKeyValue = this.DBPrimaryKeyValue;
-
-		//- set source list data (matrix)
-		DstScreenObject.SourceObject = this.SourceObject;
-
-		//- process (filtered) row elements
-		DstScreenObject.SourceObjectFilter = new Object();
-
-		for (var RowIndex in this.SourceObject.Data) {
-			var RowData = this.SourceObject.Data[RowIndex];
-			if (RowData[this.DBPrimaryKeyID] == this.DBPrimaryKeyValue) {
-				for (Index in this.DstScreenSrcObjFilter) {
-					var Column = this.DstScreenSrcObjFilter[Index];
-					//console.log('Set Column:'+Column+' RowData:'+RowData[Column]);
-					DstScreenObject.SourceObjectFilter[Column] = RowData[Column];
-				}
-			}
-		}
-		//console.debug(DstScreenObject.SourceObjectFilter);
-	}
-	catch(err) {
-	}
-}
-
-
-//------------------------------------------------------------------------------
 //- CONSTRUCTOR "sysContextMenu"
 //------------------------------------------------------------------------------
 
@@ -304,9 +240,6 @@ function sysContextMenu()
 
 	this.ScreenObject		= null;
 	this.SourceObject		= null;
-
-	this.DBPrimaryKeyID		= null;
-	this.DBPrimaryKeyValue	= null;
 
 	this.ChildObjects		= new Array();		//- Child Objects recursive
 }
@@ -371,7 +304,7 @@ sysContextMenu.prototype.init = function()
 	//- setup context menu header
 	//------------------------------------------------------------------------------
 
-	//console.log('###### SET CONTEXT MENU ###### x:' + this.pageX + ' y:' + this.pageY);
+	//console.debug('###### SET CONTEXT MENU ###### x:' + this.pageX + ' y:' + this.pageY);
 
 	this.setupHeader();
 
@@ -437,9 +370,6 @@ sysContextMenu.prototype.addItems = function()
 		ContextMenuItem.ColumnDependend			= ProcessItem.ColumnDependend;
 
 		ContextMenuItem.ResetAll				= ProcessItem.ResetAll;
-
-		ContextMenuItem.DBPrimaryKeyID			= this.DBPrimaryKeyID;
-		ContextMenuItem.DBPrimaryKeyValue		= this.DBPrimaryKeyValue;
 
 		ContextMenuItem.ScreenObject			= this.ScreenObject;
 		ContextMenuItem.SourceObject			= this.SourceObject;

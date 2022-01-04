@@ -46,7 +46,7 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
 	*/
 
 	var ObjectResultData = new Object();
-	
+
 	for (SrcObjectID in Objects) {
 
 		const SourceObject = Objects[SrcObjectID];
@@ -60,11 +60,13 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
 
 			switch (SrcObjectType) {
 
+				/*
 				case "DBPrimaryKey":
 					ObjectResultData['DBPrimaryKeyID'] = SourceObject.DBPrimaryKeyID;
 					ObjectResultData['DBPrimaryKeyValue'] = ScreenObj.DBPrimaryKeyValue;
 					
 					continue;
+				*/
 
 				case "SourceObject":
 
@@ -122,6 +124,15 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
 					var SrcObject = ScreenObj.HierarchyRootObject.getObjectByID(SrcObjectID);
 					ObjectResultData[SrcObjectID] = SrcObject.getObjectData();
 		
+					continue;
+
+				case "ScreenGlobalVar":
+
+					ObjectResultData[SrcObjectID] = ScreenObj.getGlobalVar(SrcObjectID);
+					continue;
+
+				case "GlobalVar":
+					// implement on refactoring
 					continue;
 
 			}

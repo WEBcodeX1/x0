@@ -17,9 +17,6 @@
 
 function sysListRow(ConfigObject)
 {
-	this.DBPrimaryKeyID		= null;
-	this.DBPrimaryKeyValue	= null;
-
 	this.ScreenObject		= null;
 	this.SourceObject		= null;
 
@@ -30,7 +27,7 @@ function sysListRow(ConfigObject)
 	this.SetupData			= null;
 
 	this.ColItems			= new Array();
-    this.ChildObjects		= new Array();
+	this.ChildObjects		= new Array();
 
 	this.ObjectRef			= new Object();
 	this.FormItems			= new Array();
@@ -50,21 +47,19 @@ sysListRow.prototype.EventListenerRightClick = function(Event)
 	//- check for right click on mousedown
 	if (Event.button == 2 && ContextMenuItems !== undefined) {
 
-		//console.log('##### EVENT LISTENER ROW RIGHT CLICK ##### DBKeyValue:' + this.DBPrimaryKeyValue);
-
 		var ContextMenu = new sysContextMenu();
 
 		ContextMenu.ID 					= this.SourceObject.ObjectID;
 		ContextMenu.ItemConfig 			= this.ContextMenuItems;
 		ContextMenu.ScreenObject 		= this.ScreenObject;
 		ContextMenu.SourceObject 		= this.SourceObject;
-		ContextMenu.DBPrimaryKeyID 		= this.DBPrimaryKeyID;
-		ContextMenu.DBPrimaryKeyValue 	= this.DBPrimaryKeyValue;
 		ContextMenu.pageX 				= Event.pageX;
 		ContextMenu.pageY 				= Event.pageY;
 
 		ContextMenu.RowData 			= this.SetupData;
 		ContextMenu.RowDataIndex 		= this.Index;
+
+		ContextMenu.RowObject 			= this;
 
 		ContextMenu.init();
 	}
@@ -91,7 +86,7 @@ sysListRow.prototype.addColumns = function()
 	//console.debug('::addColumns this.SetupData:%o', this.SetupData);
 
 	var Attributes;
-	
+
 	try {
 		Attributes = this.SourceObject.JSONConfig.Attributes;
 	}
@@ -114,19 +109,9 @@ sysListRow.prototype.addColumns = function()
 
 		//console.log('::addColumns Processing ColumnKey:%s ColumConfig:%o', ColumnKey, ColumnConfig);
 
-		//- set db primary key container
-		if (ColumnConfig.DBPrimaryKey == true) {
-			this.DBPrimaryKeyID = ColumnConfig.DBPrimaryKeyID;
-			this.DBPrimaryKeyValue = this.SetupData[ColumnConfig.DBPrimaryKeyID];
-			//console.log('::addColumns this.DBPrimaryKeyID:%s this.DBPrimaryKeyValue:%s', this.DBPrimaryKeyID, this.DBPrimaryKeyValue);
-		}
-
 		if (ColumnConfig.visible != false && ColumnConfig.DBPrimaryKey != true) {
 
 			ColumnItem.ObjectID = 'Column' + ColumnKey + '_' + this.Index;
-			if (ColumnConfig.AdditionalStyles !== undefined) {
-				ColumnItem.DOMStyles = ColumnConfig.AdditionalStyles;
-			}
 
 			try {
 
@@ -202,7 +187,7 @@ sysListRow.prototype.addColumns = function()
 						Button.JSONConfig = { "Attributes": ColumnConfig.Attributes.ButtonAttributes };
 						Button.ScreenObject = this.SourceObject.ScreenObject;
 						Button.SourceObject = this.SourceObject;
-						Button.DBPrimaryKeyValue = this.DBPrimaryKeyValue;
+						//Button.DBPrimaryKeyValue = this.DBPrimaryKeyValue;
 						Button.ParentRow = this;
 						Button.init();
 
@@ -279,11 +264,11 @@ sysListRow.prototype.addColumns = function()
 //- METHOD "getColumnById"
 //------------------------------------------------------------------------------
 
-sysListRow.prototype.getColumnById = function(Id)
+sysListRow.prototype.getColumnById = function(Column)
 {
 	for (Index in this.ColItems) {
 		const ColItem = this.ColItems[Index];
-		MatchId = 'Column' + Id + '_' + this.Index;
+		MatchId = 'Column' + Column + '_' + this.Index;
 		//console.debug('MatchId:%s ColObjectID:%s', MatchId, ColItem.ObjectID);
 		if (ColItem.ObjectID == MatchId) {
 			return ColItem;
@@ -316,6 +301,8 @@ sysListRow.prototype.updateRemovedRowEventListeners = function()
 
 function sysList()
 {
+	this.PrimaryKeyColumn		= null;									//- Primary Key Column
+
 	this.DisplayRows			= 10;									//- Display Row Count
 
 	this.Navigation				= true;									//- Navigation active|inactive
@@ -529,20 +516,6 @@ sysList.prototype.checkColumnValueSetStyle = function(Config)
 		}
 	}
 
-	/*
-	for (RowIndex in this.RowItems) {
-		const Row = this.RowItems[RowIndex];
-		//console.debug('RowObject:%o', Row);
-		const ColObject = Row.getColumnById(Config.DstObjectColumn);
-		const ColObjectValue = ColObject.getDOMValue();
-		//console.debug('ColObject:%o ColObjectValue:%s CheckValue:%s', ColObject, ColObjectValue, Config.FormfieldValue);
-		if (ColObjectValue == Config.FormfieldValue) {
-			Row.SourceObject.Data[Row.Index][Config.SetValueColumn] = Config.SetValue;
-			Row.addDOMElementStyle(Config.AddRowStyle);
-			this.RowItemsStyleClasses[RowIndex] = Config.AddRowStyle;
-		}
-	}
-	*/
 }
 
 
