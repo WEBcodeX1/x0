@@ -11,41 +11,27 @@
 //------------------------------------------------------------------------------
 
 function sysFactory() {
-    this.Screens					= new Object();			//- Screen Instances (references)
-	this.HideLayer					= new sysBaseObject();	//- Hide Layer on z-Axis
-	this.OverlayHideLayer			= new sysBaseObject();	//- Overlay Hide Layer on z-Axis
+	this.Screens			= new Object();			//- Screen Instances (references)
 }
 
 
-//------------------------------------------------------------------------------
+//- ------------------------------------------------------
 //- METHOD "init"
-//------------------------------------------------------------------------------
+//- ------------------------------------------------------
 
 sysFactory.prototype.init = function() {
 
-	//- --------------------------------------------------------------------------------
-	//- setup screen switch hide layer
-	//- --------------------------------------------------------------------------------
-    if (sysFactory.AdminInterface == true || sysFactory.HideLayerForceActivated == true) {
-		this.setupHideLayer();
-	}
-
-	//- --------------------------------------------------------------------------------
+	//- ------------------------------------------------------
 	//- loop on skeleton, create screen object, add to this.Screens
-	//- --------------------------------------------------------------------------------
+	//- ------------------------------------------------------
 	//console.debug(this.DataSkeleton);
 
-    //----------------------------------------------------------------------------
+	//- ------------------------------------------------------
 	//- Setup Base Divs for User Content
-	//----------------------------------------------------------------------------
+	//- ------------------------------------------------------
 	userInitLayerContent();
 
-	//- ------------------------------------------------------
-	//- render menu
-	//- ------------------------------------------------------
-	this.ObjMenu.init();
-
-	var SkeletonData = this.DataSkeleton.XMLRPCResultData;
+	const SkeletonData = this.DataSkeleton.XMLRPCResultData;
 
 	for(SkeletonKey in SkeletonData) {
 
@@ -59,21 +45,16 @@ sysFactory.prototype.init = function() {
 	}
 
 	//- ------------------------------------------------------
-	//- Move Content Layer 260px right if Admin (Menu) active
-	//- ------------------------------------------------------
-	//this.moveAdminContentRight();
-
-    //- ------------------------------------------------------
 	//- Initialize Dyn Pulldown Tab Switch Behaviour
 	//- ------------------------------------------------------
 	this.initDynPulldownTabSwitchBehaviour();
 
-    //- ------------------------------------------------------
+	//- ------------------------------------------------------
 	//- Deactivate all Objects flagged Deactivated = true
 	//- ------------------------------------------------------
 	this.deactivateObjects();
 
-    //- ------------------------------------------------------
+	//- ------------------------------------------------------
 	//- Initialize Dependend Pulldowns
 	//- ------------------------------------------------------
 	this.initDependendPulldowns();
@@ -83,7 +64,7 @@ sysFactory.prototype.init = function() {
 	//- ------------------------------------------------------
 	this.addOnTabSwitchElements();
 
-    //- ------------------------------------------------------
+	//- ------------------------------------------------------
 	//- Switch to Default Screen
 	//- ------------------------------------------------------
 	this.switchScreen(this.DisplayDefaultScreen);
@@ -94,26 +75,36 @@ sysFactory.prototype.init = function() {
 	this.deactivateGlobalDependendObjects();
 
 	//--------------------------------------------------------
+	//- Setup Menu "Screen"
+	//--------------------------------------------------------
+	var MenuScreen = new sysScreen();
+
+	MenuScreen.ScreenID = 'sysMenu';
+	MenuScreen.SkeletonData = this.DataMenu.XMLRPCResultData;
+
+	MenuScreen.setup();
+
+	//--------------------------------------------------------
 	//- Resize Iframe when run in external mode (e.g. WP)
 	//--------------------------------------------------------
 	this.resizeIframe();
 
-	//----------------------------------------------------------------------------
+	//- ------------------------------------------------------
 	//- Raise InitSystem Event
-	//----------------------------------------------------------------------------
+	//- ------------------------------------------------------
 	this.Reactor.dispatchEvent('InitSystem');
 
-	//----------------------------------------------------------------------------
+	//- ------------------------------------------------------
 	//- Start processing async Messages
-	//----------------------------------------------------------------------------
+	//- ------------------------------------------------------
 	this.sysGlobalAsyncNotifyHandler.getMsg();
 
 }
 
 
-//------------------------------------------------------------------------------
-//- METHOD "setupHideLayer"
-//------------------------------------------------------------------------------
+//- ------------------------------------------------------
+//- METHOD "resizeIframe"
+//- ------------------------------------------------------
 
 sysFactory.prototype.resizeIframe = function()
 {
@@ -134,55 +125,6 @@ sysFactory.prototype.resizeIframe = function()
 			console.debug('::resizeIframe err:%s', err);
 		}
 	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "setupHideLayer"
-//------------------------------------------------------------------------------
-
-sysFactory.prototype.setupHideLayer = function()
-{
-
-	/*
-	var LayerBase = 'sysScreenHideLayer';
-
-	this.HideLayer.ObjectID = LayerBase;
-	this.HideLayer.DOMStyle = 'sysScreenHideLayer';
-
-	this.HideLayerTable = new sysBaseObject();
-	this.HideLayerTable.ObjectID = LayerBase+'Table';
-	this.HideLayerTable.DOMStyle = 'sysScreenHideLayerTable';
-
-	this.HideLayerTableRow = new sysBaseObject();
-	this.HideLayerTableRow.ObjectID = LayerBase+'TableRow';
-	this.HideLayerTableRow.DOMStyle = 'sysScreenHideLayerTableRow';
-
-	this.HideLayerTable.addObject(this.HideLayerTableRow);
-
-	this.HideLayer.addObject(this.HideLayerTable);
-	this.HideLayer.renderObject();
-	*/
-
-    var LayerBase = 'sysScreenOverlayHideLayer';
-
-	this.OverlayHideLayer.ObjectID = LayerBase;
-	this.OverlayHideLayer.DOMStyle = 'sysScreenHideLayer';
-
-	this.OverlayHideLayerTable = new sysBaseObject();
-	this.OverlayHideLayerTable.ObjectID = LayerBase+'Table';
-	this.OverlayHideLayerTable.DOMStyle = 'sysScreenHideLayerTable';
-
-	this.OverlayHideLayerTableRow = new sysBaseObject();
-	this.OverlayHideLayerTableRow.ObjectID = LayerBase+'TableRow';
-	this.OverlayHideLayerTableRow.DOMStyle = 'sysScreenHideLayerTableRow';
-
-	this.OverlayHideLayerTable.addObject(this.OverlayHideLayerTableRow);
-
-	this.OverlayHideLayer.addObject(this.OverlayHideLayerTable);
-
-	this.OverlayHideLayer.renderObject();
-
 }
 
 
@@ -214,11 +156,11 @@ sysFactory.prototype.addScreen = function(ScreenID, SkeletonData) {
 
 	var ScreenObj = new sysScreen();
 
-	LinkObj = this.ObjMenu.getLinkObjByScreenID(ScreenID);
+	//LinkObj = this.ObjMenu.getLinkObjByScreenID(ScreenID);
 
 	ScreenObj.ScreenID = ScreenID;
 	ScreenObj.SkeletonData = SkeletonData;
-	ScreenObj.LinkObj = LinkObj;
+	//ScreenObj.LinkObj = LinkObj;
 
     //console.log('::addScreen add LinkObject:%o to ScreenObj:%o', LinkObj, ScreenObj);
 
@@ -467,7 +409,7 @@ sysFactory.prototype.switchScreen = function(ScreenID) {
 			this.switchScreensToBackground();
 
 			//- hilite link
-			ScreenObj.LinkObj.Hilite();
+			//ScreenObj.LinkObj.Hilite();
 
 			//- set global ActualScreenID
 			this.ActualScreenID = ScreenID;
@@ -476,13 +418,10 @@ sysFactory.prototype.switchScreen = function(ScreenID) {
 			this.updateFormData(ScreenObj);
 
 			//- trigger global screen data load
-			ScreenObj.triggerGlobalDataLoad();
+			//ScreenObj.triggerGlobalDataLoad();
 
 			//- switch selected screen to foreground
 			this.switchScreenToForeground(ScreenObj);
-
-			//- reset overlay hide layer
-			this.resetOverlayHideLayer();
 		}
 		catch(err) {
 			console.debug('::switchScreen err:%s', err);
@@ -557,18 +496,10 @@ sysFactory.prototype.getFormFieldValueByID = function(ScreenID, FormFieldContain
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.switchScreensToBackground = function() {
-	/*
-	for (ScreenKey in this.Screens) {
-		ScreenObj = this.Screens[ScreenKey];
-		ScreenObj.HierarchyRootObject.setZIndex(-1);
-		ScreenObj.LinkObj.DeHilite();
-	}
-	*/
-
 	for (ScreenKey in this.Screens) {
 		ScreenObj = this.Screens[ScreenKey];
 		ScreenObj.HierarchyRootObject.setDOMVisibleState('hidden');
-		ScreenObj.LinkObj.DeHilite();
+		//ScreenObj.LinkObj.DeHilite();
 	}	
 }
 
@@ -580,65 +511,6 @@ sysFactory.prototype.switchScreensToBackground = function() {
 sysFactory.prototype.switchScreenToForeground = function(ScreenObj) {
 	//ScreenObj.HierarchyRootObject.setZIndex(1);
 	ScreenObj.HierarchyRootObject.setDOMVisibleState('visible');
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "switchScreenToOverlay"
-//------------------------------------------------------------------------------
-
-sysFactory.prototype.switchScreenToOverlay = function(ScreenID, Overrides) {
-
-	//- override objects attributes
-	var OverrideObject = this.getObjectByID(Overrides['Object']);
-	//console.log('Override Overrides:%o OverrideObject:%o', Overrides, OverrideObject);
-	/*
-	OverrideObject.Attributes['SwitchScreen'] = Overrides['SwitchScreen'];
-	OverrideObject.Attributes['SwitchTabContainer'] = Overrides['SwitchTabContainer'];
-	OverrideObject.Attributes['SwitchTabID'] = Overrides['SwitchTabID'];
-	*/
-
-	//- save screen for switch back
-	this.OverlayScreenObject = this.Screens[ScreenID];
-
-	//- update form data
-	this.updateFormData(this.OverlayScreenObject);
-
-	//- add position style (transparent, x and y position +20 and box-shadow)
-	this.OverlayScreenObject.addDOMElementStyle('ScreenOverlay');
-
-	//- position screen layer in front of current selected root layer
-	this.OverlayScreenObject.setZIndex(3);
-
-    //- position overlay hide layer behind overlay screen
-	this.OverlayHideLayer.setZIndex(2);
-
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "switchScreenfromOverlayToBackground"
-//------------------------------------------------------------------------------
-
-sysFactory.prototype.switchScreenfromOverlayToBackground = function(ScreenObj) {
-
-    //- remove style to default
-	this.OverlayScreenObject.removeDOMElementStyle('ScreenOverlay');
-
-    //- position layer to background
-	this.OverlayScreenObject.setZIndex(-1);
-
-    this.resetOverlayHideLayer();
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "resetOverlayHideLayer"
-//------------------------------------------------------------------------------
-
-sysFactory.prototype.resetOverlayHideLayer = function() {
-    //- position overlay hide layer to background
-	this.OverlayHideLayer.setZIndex(-1);
 }
 
 

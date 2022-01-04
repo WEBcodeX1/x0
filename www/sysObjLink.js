@@ -22,12 +22,10 @@ function sysObjLink() {
 
 	this.ScreenID		= null;
 	this.TextID			= null;
-
 	this.RaiseEvents	= null;
-
 	this.ActiveOnFormID	= null;
 
-	this.LinkHilteStyle = 'sysMenuTableLinkHilite';
+	this.LinkHilteStyle = 'sysMenuLinkHilite';
 
 }
 
@@ -40,11 +38,24 @@ sysObjLink.prototype = new sysBaseObject();
 //------------------------------------------------------------------------------
 sysObjLink.prototype.init = function()
 {
+	const Attributes = this.JSONConfig.Attributes;
+
+	this.ScreenID		= Attributes.ScreenID;
+	this.TextID			= Attributes.TextID;
+	this.RaiseEvents	= Attributes.RaiseEvents;
+	this.ActiveOnFormID	= Attributes.ActiveOnFormID;
+
 	var SQLTextObj = new sysObjSQLText();
 	SQLTextObj.ObjectID = 'SQLText';
 	SQLTextObj.TextID = this.TextID;
 	SQLTextObj.init();
 	this.addObject(SQLTextObj);
+
+	var EventConfig = new Object();
+	EventConfig['Type'] = 'mousedown';
+	EventConfig['Element'] = this.EventListener.bind(this);
+
+	this.EventListeners["sysLink"] = EventConfig;
 }
 
 
@@ -53,11 +64,11 @@ sysObjLink.prototype.init = function()
 //------------------------------------------------------------------------------
 sysObjLink.prototype.EventListener = function(Event)
 {
-	//console.log('Link EventListener ScreenID:' + this.ScreenID);
+	console.debug('Link EventListener ScreenID:' + this.ScreenID);
 
 	var SwitchScreen = true;
 
-	if (this.ActiveOnFormID != null) {
+	if (this.ActiveOnFormI !== undefined && this.ActiveOnFormID != null) {
 		var FormItem = sysFactory.getFormFieldObjectByID(this.ActiveOnFormID);
 		var FormValue = FormItem.getDOMValue();
 		//console.log('FormValue:%s', FormValue);

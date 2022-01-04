@@ -19,6 +19,7 @@ sysObjRowContainer.prototype = new sysBaseObject();
 sysObjRowContainer.prototype.init = function()
 {
 	var Attributes = this.JSONConfig.Attributes;
+
 	this.DOMStyle = Attributes.Style;
 
 	const Columns = Attributes.Columns;

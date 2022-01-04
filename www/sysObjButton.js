@@ -47,12 +47,6 @@ sysObjButton.prototype.init = function()
 
 	this.DOMStyle = Attributes.Style;
 
-	/*
-	if (Attributes.AdditionalStyles !== undefined && Attributes.AdditionalStyles != null) {
-		this.DOMStyles = Attributes.AdditionalStyles;
-	}
-	*/
-
 	if (Attributes.Disabled === true) {
 		this.disable();
 	}

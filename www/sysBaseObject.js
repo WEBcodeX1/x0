@@ -279,7 +279,7 @@ sysBaseObject.prototype.activate = function()
 {
 	//console.log('::activate Type:%s ObjectID:%s', this.Type, this.ObjectID);
 
-	//- if formfield and set deactivated, do not set visible
+	//- if set deactivated, do not set visible
 	if (this.Deactivated == false || this.Deactivated === undefined) {
 		this.setDOMVisibleState("visible");
 	}

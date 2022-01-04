@@ -18,9 +18,6 @@
 function sysScreen() {
 
 	this.ScreenID				= null;							//- ScreenID
-	this.zIndex					= null;							//- Layer z-axis position
-	this.LinkObj				= null;							//- Menu Link Object
-
 	this.SkeletonData			= null;							//- JSON Skeleton Data (configuration)
 
 	this.HierarchyRootObject	= new sysObjDiv();				//- Base Recursive Root Object
@@ -57,7 +54,7 @@ function sysScreen() {
 
 sysScreen.prototype.setup = function() {
 
-	console.debug('::setup ScreenID:%s ScreenObject:%o', this.ScreenID, this);
+	//console.debug('::setup ScreenID:%s', this.ScreenID);
 
 	this.HierarchyRootObject.ObjectID = this.ScreenID;
 	this.HierarchyRootObject.DOMStyle = 'sysScreenRoot col-lg-10 col-md-12';
@@ -204,6 +201,8 @@ sysScreen.prototype.processRepolaceAtttributes = function(JSONConfig, JSONConfig
 
 sysScreen.prototype.getSkeletonObjectsByObjectRefId = function(ObjectId) {
 	var RefObjects = new Array();
+	
+	//console.debug('::getSkeletonObjectsByObjectRefId) SkelettonData:%o', this.SkeletonData);
 
 	for (ObjectIndex in this.SkeletonData) {
 		const ObjectItem = this.SkeletonData[ObjectIndex];
