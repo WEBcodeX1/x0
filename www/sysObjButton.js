@@ -82,12 +82,6 @@ sysObjButton.prototype.enable = function()
 
 	this.DOMStyle = Attributes.Style;
 
-	/*
-	if (Attributes.AdditionalStyles !== undefined && Attributes.AdditionalStyles != null) {
-		this.DOMStyles = Attributes.AdditionalStyles;
-	}
-	*/
-
 	this.setDOMElementStyle();
 
 	this.Disabled = false;
@@ -100,7 +94,6 @@ sysObjButton.prototype.enable = function()
 
 sysObjButton.prototype.disable = function()
 {
-	//this.DOMStyles = '';
 	this.DOMStyle = 'sysButtonDisabled';
 	this.setDOMElementStyle();
 	this.Disabled = true;
@@ -332,10 +325,12 @@ sysObjButton.prototype.processActions = function()
 
 			var DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
 
+			/*
 			if (Attributes.SetDBPrimaryKey === true) {
 				const ScreenObj = sysFactory.getScreenByID(Attributes.SetDBPrimaryKeyScreen);
 				ScreenObj.DBPrimaryKeyValue = ColumnValue;
 			}
+			*/
 
 			if (Attributes.ResetObjectID !== undefined) {
 				const ResetObject = sysFactory.getObjectByID(Attributes.ResetObjectID);
@@ -369,7 +364,7 @@ sysObjButton.prototype.processActions = function()
 
 			this.PostRequestData.merge(Item);
 		}
-		
+
 		if (Attributes.Action == 'setrowcolumn') {
 			try {
 				const Column = Attributes.RowColumn;
@@ -398,8 +393,10 @@ sysObjButton.prototype.processActions = function()
 		if (Attributes.Action == 'switchscreen') {
 			const ScreenObject = sysFactory.getScreenByID(Attributes.DstScreenID);
 			//console.debug(this.ParentRow.SetupData);
-			ScreenObject.DBPrimaryKeyValue = this.ParentRow.SetupData[Attributes.DBPrimaryKeyColumn];
-			ScreenObject.DBPrimaryKeyID = Attributes.DBPrimaryKeyColumn;
+
+			//-> REFACTORING REQUIRED
+			//ScreenObject.DBPrimaryKeyValue = this.ParentRow.SetupData[Attributes.DBPrimaryKeyColumn];
+			//ScreenObject.DBPrimaryKeyID = Attributes.DBPrimaryKeyColumn;
 			this.DstScreenID = Attributes.DstScreenID;
 		}
 
@@ -596,11 +593,13 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 			var ScreenObj = sysFactory.getScreenByID(this.ConfigAttributes.SwitchScreen);
 			var ScreenRootObj = ScreenObj.ConfigRootObject;
 
-			//- get primary key value from service result
+			//-> REFACTOR
+			/*
 			if (ConfigAttributes.ServiceResultKeyColumn !== undefined) {
 				ScreenObj.DBPrimaryKeyValue = this.XMLRPCResultData[ConfigAttributes.ServiceResultKeyColumn];
 				console.log(ScreenObj.DBPrimaryKeyValue);
 			}
+			*/
 
 			//- switch screen
 			sysFactory.switchScreen(ConfigAttributes.SwitchScreen);

@@ -55,7 +55,7 @@ sysFactory.prototype.init = function() {
 			SkeletonData[SkeletonKey]
 		)
 
-		ScreenObj.setup(this.DBPrimaryKeyContainer[SkeletonKey]);
+		ScreenObj.setup();
 	}
 
 	//- ------------------------------------------------------
@@ -475,7 +475,7 @@ sysFactory.prototype.switchScreen = function(ScreenID) {
 			//- update form data
 			this.updateFormData(ScreenObj);
 
-			//- trigger global screen data load (DBPrimaryKey)
+			//- trigger global screen data load
 			ScreenObj.triggerGlobalDataLoad();
 
 			//- switch selected screen to foreground

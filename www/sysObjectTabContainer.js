@@ -260,7 +260,7 @@ sysTab.prototype.processService = function()
 	if (this.ServiceURL !== undefined) {
 		const ScreenObject = sysFactory.getScreenByID(sysFactory.ActualScreenID);
 		this.PostRequestData.addServiceProperty('BackendServiceID', this.ServiceID);
-		this.PostRequestData.add(ScreenObject.DBPrimaryKeyValue, 'DBPrimaryKeyValue');
+		//this.PostRequestData.add(ScreenObject.DBPrimaryKeyValue, 'DBPrimaryKeyValue');
 		RPC = new sysCallXMLRPC(this.ServiceURL);
 		RPC.Request(this);
 	}

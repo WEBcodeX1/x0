@@ -21,9 +21,6 @@ function sysScreen() {
 	this.zIndex					= null;							//- Layer z-axis position
 	this.LinkObj				= null;							//- Menu Link Object
 
-	this.DBPrimaryKeyID			= null;							//- DB Primary Key Identifier
-	this.DBPrimaryKeyValue		= null;							//- DB Primary Key Value
-
 	this.SkeletonData			= null;							//- JSON Skeleton Data (configuration)
 
 	this.HierarchyRootObject	= new sysObjDiv();				//- Base Recursive Root Object
@@ -31,6 +28,8 @@ function sysScreen() {
 	this.PostRequestData		= new sysRequestDataHandler();	//- Base Recursive Root Object
 
 	this.DBResultRow			= null;							//- Database Result for (DBColumn(s))
+
+	this.GlobalVars				= new Object();					//- GLobal Variables
 
 	this.SetupClasses = {
 		'TabContainer': sysTabContainer,
@@ -56,12 +55,9 @@ function sysScreen() {
 //- METHOD "setup"
 //------------------------------------------------------------------------------
 
-sysScreen.prototype.setup = function(DBPrimaryKeyValue) {
+sysScreen.prototype.setup = function() {
 
-	console.debug('::setup ScreenID:%s ScreenObject:%o DBPrimaryKeyValue:%s', this.ScreenID, this, DBPrimaryKeyValue);
-
-	//- DEPRECATED, DBPrimaryKeyValue should be replaced by self-defined variables
-	this.DBPrimaryKeyValue = DBPrimaryKeyValue;
+	console.debug('::setup ScreenID:%s ScreenObject:%o', this.ScreenID, this);
 
 	this.HierarchyRootObject.ObjectID = this.ScreenID;
 	this.HierarchyRootObject.DOMStyle = 'sysScreenRoot col-lg-10 col-md-12';
@@ -247,7 +243,7 @@ sysScreen.prototype.triggerGlobalDataLoad = function() {
 
 	if (MenuItem.ServiceURL !== undefined) {
 		this.PostRequestData.addServiceProperty('BackendServiceID', MenuItem.ServiceID);
-		this.PostRequestData.add(this.DBPrimaryKeyValue, 'DBPrimaryKeyValue');
+		//this.PostRequestData.add(this.DBPrimaryKeyValue, 'DBPrimaryKeyValue');
 		RPC = new sysCallXMLRPC(MenuItem.ServiceURL);
 		RPC.Request(this);
 	}
@@ -271,4 +267,21 @@ sysScreen.prototype.callbackXMLRPCAsync = function()
 sysScreen.prototype.getDBColumnValue = function(id)
 {
 	return this.XMLRPCResultData[0][id];
+}
+
+//------------------------------------------------------------------------------
+//- METHOD "setGlobalVar"
+//------------------------------------------------------------------------------
+
+sysScreen.prototype.setGlobalVar = function(Key, Value) {
+	console.debug('setGlobalVar Key:%s Value:%s', Key, Value);
+	this.GlobalVars[Key] = Value;
+}
+
+//------------------------------------------------------------------------------
+//- METHOD "getGlobalVar"
+//------------------------------------------------------------------------------
+
+sysScreen.prototype.getGlobalVar = function(Key) {
+	return this.GlobalVars[Key];
 }
