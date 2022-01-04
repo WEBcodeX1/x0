@@ -11,7 +11,6 @@ clickIT x0 (Cross Objects) JavaScript Framework Documentation
    installation
    base-layout
    config-files
-   hello-world
    base-objects
    logic-objects
    pulldown-onchange
@@ -25,6 +24,7 @@ clickIT x0 (Cross Objects) JavaScript Framework Documentation
    event-system
    error-handling
    wizards
+   examples
 
 Indices and tables
 ==================
