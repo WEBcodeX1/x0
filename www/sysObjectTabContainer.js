@@ -323,7 +323,6 @@ sysTabContainer.prototype.init = function()
 	this.ContainerTable.addObject(this.ContainerTableRow);
 
 	this.addObject(this.ContainerTable);
-	//this.addObject(this.ContainerContent);
 
 	//- set base attributes
 	this.StyleActive = this.ContainerAttributes.StyleActive;
