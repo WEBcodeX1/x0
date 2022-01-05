@@ -15,7 +15,7 @@
 //- CONSTRUCTOR "sysScreen"
 //------------------------------------------------------------------------------
 
-function sysScreen() {
+function sysScreen(IsOverlay) {
 
 	this.ScreenID				= null;							//- ScreenID
 	this.SkeletonData			= null;							//- JSON Skeleton Data (configuration)
@@ -27,6 +27,8 @@ function sysScreen() {
 	this.DBResultRow			= null;							//- Database Result for (DBColumn(s))
 
 	this.GlobalVars				= new Object();					//- GLobal Variables
+
+	this.IsOverlay				= IsOverlay;
 
 	this.SetupClasses = {
 		'TabContainer': sysTabContainer,
@@ -56,7 +58,7 @@ sysScreen.prototype.setup = function() {
 
 	//console.debug('::setup ScreenID:%s', this.ScreenID);
 
-	this.HierarchyRootObject.ObjectID = this.ScreenID;
+	this.HierarchyRootObject.ObjectID = (this.IsOverlay !== true) ? this.ScreenID : this.ScreenID + '_overlay';
 	this.HierarchyRootObject.DOMStyle = 'sysScreenRoot col-lg-10 col-md-12';
 
 	this.setupObject(this.ScreenID, this.HierarchyRootObject);
@@ -268,6 +270,7 @@ sysScreen.prototype.getDBColumnValue = function(id)
 	return this.XMLRPCResultData[0][id];
 }
 
+
 //------------------------------------------------------------------------------
 //- METHOD "setGlobalVar"
 //------------------------------------------------------------------------------
@@ -276,6 +279,7 @@ sysScreen.prototype.setGlobalVar = function(Key, Value) {
 	console.debug('setGlobalVar Key:%s Value:%s', Key, Value);
 	this.GlobalVars[Key] = Value;
 }
+
 
 //------------------------------------------------------------------------------
 //- METHOD "getGlobalVar"
