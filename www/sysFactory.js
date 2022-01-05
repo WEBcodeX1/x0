@@ -11,7 +11,8 @@
 //------------------------------------------------------------------------------
 
 function sysFactory() {
-	this.Screens			= new Object();			//- Screen Instances (references)
+	this.OverlayObj		= new sysScreenOverlay(this);	//- Overlay Object Ref
+	this.Screens		= new Object();					//- Screen Instances (Refs)
 }
 
 
@@ -777,7 +778,6 @@ sysFactory.prototype.handleParentMessage = function(event) {
 		if (event.data['task'] == 'add_style') {
 			const AddClass = event.data['class'];
 			document.getElementById('body').classList.add(AddClass);
-			
 		}
 		if (event.data['task'] == 'remove_style') {
 			const RemoveClass = event.data['class'];

@@ -17,15 +17,16 @@
 
 function sysObjLink() {
 
-	this.EventListeners	= new Object(); //- event listeners
-	this.ChildObjects	= Array();		//- child objects recursive
+	this.EventListeners		= new Object(); 		//- event listeners
+	this.ChildObjects		= Array();				//- child objects recursive
 
-	this.ScreenID		= null;
-	this.TextID			= null;
-	this.RaiseEvents	= null;
-	this.ActiveOnFormID	= null;
+	this.ScreenID			= null;
+	this.TextID				= null;
+	this.RaiseEvents		= null;
+	this.ActiveOnFormID		= null;
+	this.ScreenOverlayID	= null;
 
-	this.LinkHilteStyle = 'sysMenuLinkHilite';
+	this.LinkHilteStyle 	= 'sysMenuLinkHilite';
 
 }
 
@@ -40,10 +41,13 @@ sysObjLink.prototype.init = function()
 {
 	const Attributes = this.JSONConfig.Attributes;
 
-	this.ScreenID		= Attributes.ScreenID;
-	this.TextID			= Attributes.TextID;
-	this.RaiseEvents	= Attributes.RaiseEvents;
-	this.ActiveOnFormID	= Attributes.ActiveOnFormID;
+	console.debug('set Attributes:%o', Attributes);
+
+	this.ScreenID			= Attributes.ScreenID;
+	this.TextID				= Attributes.TextID;
+	this.RaiseEvents		= Attributes.RaiseEvents;
+	this.ActiveOnFormID		= Attributes.ActiveOnFormID;
+	this.ScreenOverlayID	= Attributes.ScreenOverlayID;
 
 	var SQLTextObj = new sysObjSQLText();
 	SQLTextObj.ObjectID = 'SQLText';
@@ -64,11 +68,11 @@ sysObjLink.prototype.init = function()
 //------------------------------------------------------------------------------
 sysObjLink.prototype.EventListener = function(Event)
 {
-	console.debug('Link EventListener ScreenID:' + this.ScreenID);
+	console.debug('Link EventListener ScreenID:%s ScreenOverlayID:%s', this.ScreenID, this.ScreenOverlayID);
 
 	var SwitchScreen = true;
 
-	if (this.ActiveOnFormI !== undefined && this.ActiveOnFormID != null) {
+	if (this.ActiveOnFormID !== undefined && this.ActiveOnFormID != null) {
 		var FormItem = sysFactory.getFormFieldObjectByID(this.ActiveOnFormID);
 		var FormValue = FormItem.getDOMValue();
 		//console.log('FormValue:%s', FormValue);
@@ -92,13 +96,18 @@ sysObjLink.prototype.EventListener = function(Event)
 		}
 	}
 
-	if (SwitchScreen == true) {
+	if (SwitchScreen == true && this.ScreenID !== undefined) {
 		//console.log('SwitchScreen:true');
 		if (this.RaiseEvents != null) {
 			sysFactory.Reactor.fireEvents(this.RaiseEvents);
 		}
 		sysFactory.switchScreen(this.ScreenID);
 	}
+
+	if (this.ScreenOverlayID !== undefined) {
+		sysFactory.OverlayObj.setupOverlay(this.ScreenOverlayID);
+	}
+
 }
 
 
