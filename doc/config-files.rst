@@ -10,22 +10,11 @@ Actually the main configuration takes place in sysInitOnLoad.js.
 
 .. code-block:: javascript
 
-	// define .json configuration files
-	sysFactory.ObjMenu.requestXMLRPCData('static/menu.json');
-	sysFactory.DataObject.requestXMLRPCData('static/object.json');
-	sysFactory.DataSkeleton.requestXMLRPCData('static/skeleton.json');
+	sysFactory.SysDebugLevel			= 10;
+	sysFactory.ParentWindowURL			= 'domain.com';
+	sysFactory.DisplayDefaultScreen		= 'Screen1';
+	sysFactory.EnvUserLanguage			= 'de';
 
-	// set default screen which will be loaded at initialization
-	sysFactory.DisplayDefaultScreen = 'ScreenID';
-
-	// set menu visiable on true, on false disabled
-	sysFactory.AdminInterface = true;
-
-	// deprecated
-	sysFactory.HideLayerForceActivated = false;
-
-	// set default system display languaga
-	sysFactory.EnvUserLanguage = 'de';
 
 menu.json
 ---------

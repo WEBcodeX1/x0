@@ -1,6 +1,6 @@
 .. clickIT x0 Java Script Framework Documentation.
 
-clickIT x0 (Cross Objects) JavaScript Framework Documentation
+clickIT x0 (cross objects) JavaScript Framework Documentation
 =============================================================
 
 .. toctree::

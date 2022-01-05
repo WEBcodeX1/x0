@@ -1,10 +1,7 @@
 .. intro
 
-x0 JavaScript Browser Framework
-===============================
-
-Developer Documentation
------------------------
+Preface / Abstract
+==================
 
 The x0 JavaScript Browser Framework is a powerfull Web-Application Framework for
 building **Server-less Applications** with focus on Object-Interaction.
@@ -31,4 +28,9 @@ This documentation contains the following subsections:
 Architecture
 ------------
 
-#TODO: Add architecture image
+#TODO: add JSON / Return Data
+
+#TODO: add DBPool / Performance
+
+.. image:: D:\\Users\\cpruefer\\Documents\\app.png
+  :alt: x0 Architecture Picture
