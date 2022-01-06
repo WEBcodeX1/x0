@@ -3,29 +3,75 @@
 Examples
 ========
 
-Hello World
------------------------
+Examples 
+
+https://x0-test.webcodex.de/examples/
+
+1. Hello World / Structure
+--------------------------
 
 #TODO: add all necessary steps / (config) files / SQL (DB) to reproduce a hello-world example.
 
-Defining Source Objects / get List Detail Data
-----------------------------------------------
+
+2. Basic Menu / Screen
+----------------------
+
+The example shows a simple Menu / Screen mapping with 2 links. Each link points to a screen.
+
+* Link1 points to Screen1 / Link click switches over to Screen1
+* Link2 points to Screen2 / Link click switches over to Screen2
+
+2.1 menu.json
+~~~~~~~~~~~~~
+
+.. literalinclude:: ..\\example\\basic_menu_screen\\static\\menu.json
+   :linenos:
+
+2.2 skeleton.json
+~~~~~~~~~~~~~~~~~
+
+.. literalinclude:: ..\\example\\basic_menu_screen\\static\\skeleton.json
+   :linenos:
+
+2.3 object.json
+~~~~~~~~~~~~~~~
+
+.. literalinclude:: ..\\example\\basic_menu_screen\\static\\object.json
+   :linenos:
+
+2.4 DOM state
+~~~~~~~~~~~~~
+
+2.5 Explanation
+~~~~~~~~~~~~~~~
+
+2.6 Online Link
+~~~~~~~~~~~~~~~
+
+https://x0-test.webcodex.de/examples/basic_menu_screen/
+
+
+3. Hello World
+--------------
+
+4. Defining Source Objects / get List Detail Data
+-------------------------------------------------
 
 Source-Object specs see: #TODO Link to Source-Object.
 
-The example defines 3 Screens.
+The example defines 2 Screens.
 
-- Screen1: Dummy Screen
-- Screen2: 1 List with a Context-Menu "edit" entry (right click to edit list row in Screen3)
-- Screen3: 1 FormfieldList which contents will be loaded when using Screen2 List Context-Menu "edit"
+- Screen1: 1 List with a Context-Menu "edit" entry (right click to edit list row in Screen3)
+- Screen2: 1 FormfieldList which contents will be loaded when using Screen2 List Context-Menu "edit"
 
-SrcDataObjects Explanation
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+4.1 SrcDataObjects / Events
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 With the definition of "SrcDataObjects" attribute connected to the example List "TestList1", the
 hardcoded parameter "LimitRows" with value "10" will be added to the http POST request.
 
 .. code-block:: javascript
+	:linenos:
 
 	"SrcDataObjects":
 	{
@@ -42,6 +88,7 @@ The request is triggered when List Connector-Object "TestList1Connector" receive
 event which will be raised on system initialization.
 
 .. code-block:: javascript
+	:linenos:
 
 	"OnEvent":
 	{
@@ -53,6 +100,7 @@ With the definition of "SrcDataObjects" attribute connected to the example Formf
 the Screen Global Variable with key "id" will be read out of current screen and will be added to the http POST request.
 
 .. code-block:: javascript
+	:linenos:
 
 	"SrcDataObjects":
 		{
@@ -68,6 +116,7 @@ When additional property "RowColumn" is set e.g. to "id" the selected right-clic
 will be written to the Destination Screens Global Variable which later can be referenced by "SrcDataObjects".
 
 .. code-block:: javascript
+	:linenos:
 
 	"ContextMenuItems": {
 		"Edit": {
@@ -82,6 +131,7 @@ The request is triggered when FormfieldList Connector-Object "TestFormfields1Con
 event which will be raised by Context-Menu "FireEvents" data.
 
 .. code-block:: javascript
+	:linenos:
 
 	"OnEvent":
 	{
@@ -89,247 +139,20 @@ event which will be raised by Context-Menu "FireEvents" data.
 		"ServiceCall": "python/IntegrationTestGetTableData.py"
 	}
 
-Example Configuration
-~~~~~~~~~~~~~~~~~~~~~
+4.1 menu.json
+~~~~~~~~~~~~~
 
-menu.json
+.. literalinclude:: ..\\example\\list_detail_switch_screen\\static\\menu.json
+   :linenos:
 
-.. code-block:: javascript
+4.2 skeleton.json
+~~~~~~~~~~~~~~~~~
 
-	{
-		"BasicRoot":
-		{
-			"TextID": "TXT.MENU.BASICEXAMPLE.ROOT",
-			"RefID": "MenuRoot"
-		},
-		"Screen1":
-		{
-			"TextID": "TXT.MENU.BASICEXAMPLE.SCREEN1",
-			"ScreenID": "Screen1",
-			"RefID": "BasicRoot",
-			"IconStyle": "Search"
-		},
-		"Screen2":
-		{
-			"TextID": "TXT.MENU.BASICEXAMPLE.SCREEN2",
-			"ScreenID": "Screen2",
-			"RefID": "BasicRoot",
-			"IconStyle": "Search"
-		},
-		"Screen3":
-		{
-			"TextID": "TXT.MENU.BASICEXAMPLE.SCREEN3",
-			"ScreenID": "Screen3",
-			"RefID": "BasicRoot",
-			"IconStyle": "Search"
-		}
-	}
+.. literalinclude:: ..\\example\\list_detail_switch_screen\\static\\skeleton.json
+   :linenos:
 
-object.json
+4.3 object.json
+~~~~~~~~~~~~~~~
 
-.. code-block:: javascript
-
-	{
-		"Div1":
-		{
-			"Type": "Div",
-			"Attributes": {
-				"Style": "sysClass1"
-			}
-		},
-
-		"TestFormfields1Connector":
-		{
-			"Type": "ServiceConnector",
-			"Attributes":
-			{
-				"OnEvent":
-				{
-					"Events": [ "GetFormfieldData" ],
-					"ServiceCall": "python/IntegrationTestGetTableDetailData.py"
-				}
-			}
-		},
-
-		"TestFormfields1":
-		{
-			"Type": "FormFieldList",
-			"Attributes": {
-				"FormFields": [
-					"Formfield1",
-					"Formfield2",
-					"Formfield3"
-				],
-				"SrcDataObjects":
-				{
-					"id":
-					{
-						"Type": "ScreenGlobalVar"
-					}
-				}
-			}
-		},
-
-		"Formfield1":
-		{
-			"Type": "FormField",
-			"Attributes":
-			{
-				"Type": "text",
-				"DBColumn": "id",
-				"ValidateRef": "DefaultString",
-				"ValidateNullable": false,
-				"Style": "FormFieldBorder",
-				"StyleOnFocus": "FormFieldBorderOnFocus",
-				"StyleValidateOk": "FormFieldBorderValidateOk",
-				"StyleValidateFail": "FormFieldBorderValidateFail"
-			}
-		},
-
-		"Formfield2":
-		{
-			"Type": "FormField",
-			"Attributes":
-			{
-				"Type": "text",
-				"DBColumn": "col1",
-				"ValidateRef": "DefaultString",
-				"ValidateNullable": false,
-				"Style": "FormFieldBorder",
-				"StyleOnFocus": "FormFieldBorderOnFocus",
-				"StyleValidateOk": "FormFieldBorderValidateOk",
-				"StyleValidateFail": "FormFieldBorderValidateFail"
-			}
-		},
-
-		"Formfield3":
-		{
-			"Type": "FormField",
-			"Attributes":
-			{
-				"Type": "text",
-				"DBColumn": "col2",
-				"ValidateRef": "DefaultString",
-				"ValidateNullable": false,
-				"Style": "FormFieldBorder",
-				"StyleOnFocus": "FormFieldBorderOnFocus",
-				"StyleValidateOk": "FormFieldBorderValidateOk",
-				"StyleValidateFail": "FormFieldBorderValidateFail"
-			}
-		},
-
-		"TestList1Connector":
-		{
-			"Type": "ServiceConnector",
-			"Attributes":
-			{
-				"OnEvent":
-				{
-					"Events": [ "InitSystem" ],
-					"ServiceCall": "python/IntegrationTestGetTableData.py"
-				}
-			}
-		},
-
-		"TestList1":
-		{
-			"Type": "List",
-			"Attributes":
-			{
-				"Style": "sysList",
-				"HeaderRowStyle": "row sysListHeader",
-				"RowCount": 5,
-				"SrcDataObjects":
-				{
-					"Dummy":
-					{
-						"Type": "HardcodedValues",
-						"Values": {
-							"LimitRows": "10"
-						}
-					}
-				},
-				"Columns":
-				{
-					"id":
-					{
-						"visible": false
-					},
-					"col1":
-					{
-						"HeaderTextID": "TXT.TABLE.HEADER.COL1",
-						"sortable": true,
-						"HeaderStyle": "col-md-8"
-					},
-					"col2":
-					{
-						"HeaderTextID": "TXT.TABLE.HEADER.COL2",
-						"sortable": false,
-						"HeaderStyle": "col-md-4"
-					}
-				},
-				"ContextMenuItems": {
-					"Edit": {
-						"TextID": "TXT.CONTEXTMENU.EDIT",
-						"Icon": "Edit",
-						"DstScreenID": "Screen3",
-						"RowColumn": "id",
-						"FireEvents": [ "GetFormfieldData" ]
-					}
-				},
-				"CellGroupRowStyle": "row sysListContent",
-				"RowAfterElements": 2,
-				"ElementsEnclosedByDivStyle": [
-					"col-md-8",
-					"col-md-4"
-				]
-			}
-		}
-	}
-
-.. code-block:: javascript
-
-	skeleton.json
-
-	{
-		"Screen1":
-		[
-			{
-				"Div1":
-				{
-					"RefID": "Screen1"
-				}
-			}
-		],
-		"Screen2":
-		[
-			{
-				"TestList1Connector":
-				{
-					"RefID": "Screen2"
-				}
-			},
-			{
-				"TestList1":
-				{
-					"RefID": "TestList1Connector"
-				}
-			}
-		],
-		"Screen3":
-		[
-			{
-				"TestFormfields1Connector":
-				{
-					"RefID": "Screen3"
-				}
-			},
-			{
-				"TestFormfields1":
-				{
-					"RefID": "TestFormfields1Connector"
-				}
-			}
-		]
-
-	}
+.. literalinclude:: ..\\example\\list_detail_switch_screen\\static\\object.json
+   :linenos:
