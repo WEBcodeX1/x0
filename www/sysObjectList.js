@@ -766,6 +766,15 @@ sysList.prototype.setupNavigation = function()
 	const NavSpacerID = 'NavSpacer';
 	const NavRightID = 'NavRight';
 
+	const DSLeft = sysFactory.DefaultStyleListNavLeft;
+	const DSRight = sysFactory.DefaultStyleListNavRight;
+
+	const DSLeftDefault = 'col-6 pl-0';
+	const DSRightDefault = 'col-6 text-right pr-0';
+
+	const LeftStyle = (DSLeft !== undefined) ? DSLeft : DSLeftDefault;
+	const RightStyle = (DSRight !== undefined) ? DSRight : DSRightDefault;
+
 	RowContainer.JSONConfig = {
 		"Attributes": {
 			"Style": "row",
