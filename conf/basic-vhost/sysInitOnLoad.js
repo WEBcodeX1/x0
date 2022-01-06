@@ -27,27 +27,25 @@ function Init() {
 	sysFactory = new sysFactory();
 	sysFactory.DisplayDefaultScreen = 'Screen1';
 
-	sysFactory.DBPrimaryKeyContainer = new Object();
-
 	sysObjLoader = new sysObjectLoader(sysFactory);
 
 	sysFactory.ObjText = new sysText();
-	sysFactory.ObjMenu = new sysMenu();
+	sysFactory.DataMenu = new sysJSONData();
 	sysFactory.DataObject = new sysJSONData();
 	sysFactory.DataSkeleton = new sysJSONData();
 
 	sysObjLoader.add(sysFactory.ObjText);
-	sysObjLoader.add(sysFactory.ObjMenu);
+	sysObjLoader.add(sysFactory.DataMenu);
 	sysObjLoader.add(sysFactory.DataObject);
 	sysObjLoader.add(sysFactory.DataSkeleton);
 
 	sysFactory.ObjText.setLoaderObj(sysObjLoader);
-	sysFactory.ObjMenu.setLoaderObj(sysObjLoader);
+	sysFactory.DataMenu.setLoaderObj(sysObjLoader);
 	sysFactory.DataObject.setLoaderObj(sysObjLoader);
 	sysFactory.DataSkeleton.setLoaderObj(sysObjLoader);
 
 	sysFactory.ObjText.requestXMLRPCData('python/getText.py');
-	sysFactory.ObjMenu.requestXMLRPCData('static/menu.json');
+	sysFactory.DataMenu.requestXMLRPCData('static/menu.json');
 	sysFactory.DataObject.requestXMLRPCData('static/object.json');
 	sysFactory.DataSkeleton.requestXMLRPCData('static/skeleton.json');
 
@@ -65,8 +63,9 @@ function Init() {
 	sysFactory.MsgServerDelURL			= '/python/delMessages.py';
 	sysFactory.AddEncryptedMsgURL		= '/python/addEncryptedMessage.py';
 
-	sysFactory.AdminInterface			= true;
-	sysFactory.HideLayerForceActivated	= false;
+	sysFactory.DefaultStyleScreen		= 'sysScreenRoot col-lg-10 col-md-12';
+	sysFactory.DefaultStyleListNavLeft	= 'col-6 pl-0';
+	sysFactory.DefaultStyleListNavRight	= 'col-6 text-right pr-0';
 
 	sysFactory.ParentWindowURL			= null;
 

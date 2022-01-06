@@ -58,8 +58,13 @@ sysScreen.prototype.setup = function() {
 
 	//console.debug('::setup ScreenID:%s', this.ScreenID);
 
-	this.HierarchyRootObject.ObjectID = (this.IsOverlay !== true) ? this.ScreenID : this.ScreenID + '_overlay';
-	this.HierarchyRootObject.DOMStyle = 'sysScreenRoot col-lg-10 col-md-12';
+	const DfS = sysFactory.DefaultStyleScreen;
+	const iOv = this.IsOverlay;
+
+	const FallbackStyle = 'sysScreenRoot col-lg-10 col-md-12';
+
+	this.HierarchyRootObject.ObjectID = (iOv !== true) ? this.ScreenID : this.ScreenID + '_overlay';
+	this.HierarchyRootObject.DOMStyle = (DfS !== undefined) ? DfS : FallbackStyle;
 
 	this.setupObject(this.ScreenID, this.HierarchyRootObject);
 
