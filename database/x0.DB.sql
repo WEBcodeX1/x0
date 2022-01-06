@@ -87,9 +87,6 @@ TXT.CONTEXTMENU.RESET	contextmenu	Alle Zeilen löschen	\N	1
 TXT.CONTEXTMENU.REMOVE	contextmenu	Entfernen	\N	1
 TXT.CONTEXTMENU.APPLY	contextmenu	Zeile übernehmen	\N	1
 TXT.SYS.INDICATOR.INCOMINGPHONECALL	indicatorheader	Eingehender Anruf	\N	1
-TXT.MENU.BASICEXAMPLE.ROOT	menu	MenuRoot	\N	1
-TXT.MENU.BASICEXAMPLE.SCREEN1	menu	Screen1	\N	1
-TXT.BASICEXAMPLE.TEXT1	sqltext	Hello World	\N	1
 \.
 
 
