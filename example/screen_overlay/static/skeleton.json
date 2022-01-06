@@ -1,0 +1,26 @@
+{
+	"Screen1":
+	[
+		{
+			"HelloWorldText":
+			{
+				"RefID": "Screen1"
+			}
+		},
+		{
+			"LinkOverlay":
+			{
+				"RefID": "Screen1"
+			}
+		}	
+	],
+	"Screen2":
+	[
+		{
+			"HelloWorldText2":
+			{
+				"RefID": "Screen2"
+			}
+		}
+	]
+}
