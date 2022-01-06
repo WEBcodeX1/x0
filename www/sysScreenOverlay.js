@@ -29,6 +29,11 @@ sysScreenOverlay.prototype.setupOverlay = function(ScreenID)
 
 	const SkeletonData = this.FactoryRef.DataSkeleton.XMLRPCResultData[ScreenID];
 
+	const DefaultStyle = sysFactory.DefaultStyleScreenOverlay;
+	const OverlayStyle = (DefaultStyle !== undefined) ? DefaultStyle : 'sysScreenOverlay col-lg-10 col-md-12';
+
+	OverlayScreen.setStyle(OverlayStyle);
+
 	console.debug('ScreenID:%s SkeletonData:%o', ScreenID, SkeletonData);
 
 	OverlayScreen.ScreenID = ScreenID;

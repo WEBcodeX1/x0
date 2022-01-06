@@ -80,9 +80,12 @@ sysFactory.prototype.init = function() {
 	//--------------------------------------------------------
 	var MenuScreen = new sysScreen();
 
+	const DefaultStyle = sysFactory.DefaultStyleMenu;
+	const MenuStyle = (DefaultStyle !== undefined) ? DefaultStyle : 'col-lg-2 col-md-12';
+
 	MenuScreen.ScreenID = 'sysMenu';
 	MenuScreen.SkeletonData = this.DataMenu.XMLRPCResultData;
-
+	MenuScreen.setStyle(MenuStyle);
 	MenuScreen.setup();
 
 	//--------------------------------------------------------

@@ -47,6 +47,23 @@ function sysScreen(IsOverlay) {
 		'RowContainer': sysObjRowContainer,
 		'FormulaField': sysObjFormula
 	};
+
+	this.setStyle();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "setStyle"
+//------------------------------------------------------------------------------
+
+sysScreen.prototype.setStyle = function(Style) {
+	if (Style === undefined) {
+		const DefaultStyle = sysFactory.DefaultStyleScreen;
+		this.CSSStyle = (DefaultStyle !== undefined) ? DefaultStyle : 'sysScreenRoot col-lg-10 col-md-12';
+	}
+	else {
+		this.CSSStyle = Style;
+	}
 }
 
 
@@ -58,13 +75,10 @@ sysScreen.prototype.setup = function() {
 
 	//console.debug('::setup ScreenID:%s', this.ScreenID);
 
-	const DfS = sysFactory.DefaultStyleScreen;
 	const iOv = this.IsOverlay;
 
-	const FallbackStyle = 'sysScreenRoot col-lg-10 col-md-12';
-
-	this.HierarchyRootObject.ObjectID = (iOv !== true) ? this.ScreenID : this.ScreenID + '_overlay';
-	this.HierarchyRootObject.DOMStyle = (DfS !== undefined) ? DfS : FallbackStyle;
+	this.HierarchyRootObject.ObjectID = (iOv !== true) ? this.ScreenID : this.ScreenID + '__overlay';
+	this.HierarchyRootObject.DOMStyle = this.CSSStyle;
 
 	this.setupObject(this.ScreenID, this.HierarchyRootObject);
 
