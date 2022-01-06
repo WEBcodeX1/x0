@@ -54,22 +54,23 @@ function Init() {
 	//- Set System Vars
 	//----------------------------------------------------------------------------
 
-	var paramString						= new URLSearchParams(document.URL);
+	var paramString							= new URLSearchParams(document.URL);
 
-	sysFactory.SysDebugLevel			= 10;
-	sysFactory.SysSessionID				= 'SYS_SESSION';
-	sysFactory.SysSessionValue			= '';
-	sysFactory.MsgServerGetURL			= '/python/getMessages.py';
-	sysFactory.MsgServerDelURL			= '/python/delMessages.py';
-	sysFactory.AddEncryptedMsgURL		= '/python/addEncryptedMessage.py';
+	sysFactory.SysDebugLevel				= 10;
+	sysFactory.SysSessionID					= 'SYS_SESSION';
+	sysFactory.SysSessionValue				= '';
+	sysFactory.MsgServerGetURL				= '/python/getMessages.py';
+	sysFactory.MsgServerDelURL				= '/python/delMessages.py';
+	sysFactory.AddEncryptedMsgURL			= '/python/addEncryptedMessage.py';
 
-	sysFactory.DefaultStyleScreen		= 'sysScreenRoot col-lg-10 col-md-12';
-	sysFactory.DefaultStyleListNavLeft	= 'col-6 pl-0';
-	sysFactory.DefaultStyleListNavRight	= 'col-6 text-right pr-0';
+	sysFactory.DefaultStyleScreen			= 'sysScreenRoot col-lg-10 col-md-12';
+	sysFactory.DefaultStyleMenu				= 'col-lg-2 col-md-12';
+	sysFactory.DefaultStyleScreenOverlay	= 'sysScreenOverlay col-lg-10 col-md-12';
+	sysFactory.DefaultStyleListNavLeft		= 'col-6 pl-0';
+	sysFactory.DefaultStyleListNavRight		= 'col-6 text-right pr-0';
 
-	sysFactory.ParentWindowURL			= null;
+	sysFactory.ParentWindowURL				= null;
 
-	console.debug('::Init SessionID:%s', sysFactory.SysSessionValue);
 
 	//----------------------------------------------------------------------------
 	//- User Functions
