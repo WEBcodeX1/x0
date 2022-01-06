@@ -79,7 +79,6 @@ sysBaseObject.prototype.renderObject = function(Prefix)
 
 sysBaseObject.prototype.processEventListener = function()
 {
-
 	//console.log('### PROCESS EVENT LISTENER ### DOMObjectID:'+this.DOMObjectID)
 	if (this.EventListeners != null || this.EventListeners !== undefined) {
 		var ListenerKeys = Object.keys(this.EventListeners);
@@ -87,7 +86,7 @@ sysBaseObject.prototype.processEventListener = function()
 		if (ListenerKeys.length > 0) {
 			for (ListenerKey in this.EventListeners) {
 				EventListener = this.EventListeners[ListenerKey];
-                this.DOMaddEventListener(EventListener.Type, EventListener.Element);
+				this.DOMaddEventListener(EventListener.Type, EventListener.Element);
 			}
 		}
 	}
