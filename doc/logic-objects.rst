@@ -46,7 +46,7 @@ Example (object.json)
 .. code-block:: javascript
 
 	"ContactSearchListConnector":
-	{
+    {
 		"Type": "ServiceConnector",
 		"Attributes":
 		{

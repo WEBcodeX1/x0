@@ -36,6 +36,7 @@ For building with `dpkg-buildpackage` you need to install additional packages.
 After package installation generate a GPG Signing Key used for every Package generation.
 
 .. code-block:: bash
+	:linenos:
 
 	# generate gpg signing key
 	gpg --full-generate-key
@@ -43,6 +44,7 @@ After package installation generate a GPG Signing Key used for every Package gen
 Build Package (as linux user).
 
 .. code-block:: bash
+	:linenos:
 
 	# cd to system root / project dir
 	cd ${PROJECT_DIR}
@@ -63,6 +65,7 @@ Installation
 Install the package with the following commands.
 
 .. code-block:: bash
+	:linenos:
 
 	# install package
 	sudo dpkg --install <x0.deb>
@@ -82,6 +85,7 @@ Apache2 Vhost Example
 *********************
 
 .. code-block:: bash
+	:linenos:
 
 	<VirtualHost *:443>
 		ServerName x0.domain.com
