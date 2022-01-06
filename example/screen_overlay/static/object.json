@@ -1,0 +1,36 @@
+{
+	"Link1":
+	{
+		"Type": "Link",
+		"Attributes": {
+			"Style": "sysLink",
+			"TextID": "TXT.MENU.OVERLAYEXAMPLE.SCREEN1",
+			"ScreenID": "Screen1"
+		}
+	},
+	"HelloWorldText":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "sysBase",
+			"TextID": "TXT.OVERLAYEXAMPLE.TEXT1"
+		}
+	},
+	"LinkOverlay":
+	{
+		"Type": "Link",
+		"Attributes": {
+			"Style": "sysLink",
+			"TextID": "TXT.LINK.OVERLAYEXAMPLE",
+			"ScreenOverlayID": "Screen2"
+		}
+	},
+	"HelloWorldText2":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "sysBase",
+			"TextID": "TXT.OVERLAYEXAMPLE.TEXT2"
+		}
+	}
+}

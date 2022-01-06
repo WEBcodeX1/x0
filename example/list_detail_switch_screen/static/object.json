@@ -1,0 +1,170 @@
+{
+	"Link1":
+	{
+		"Type": "Link",
+		"Attributes": {
+			"Style": "sysLink",
+			"TextID": "TXT.MENU.LISTDETAILVIEW.SCREEN1",
+			"ScreenID": "Screen1"
+		}
+	},
+
+	"Link2":
+	{
+		"Type": "Link",
+		"Attributes": {
+			"Style": "sysLink",
+			"TextID": "TXT.MENU.LISTDETAILVIEW.SCREEN2",
+			"ScreenID": "Screen2"
+		}
+	},
+
+	"TestFormfields1Connector":
+	{
+		"Type": "ServiceConnector",
+		"Attributes":
+		{
+			"OnEvent":
+			{
+				"Events": [ "GetFormfieldData" ],
+				"ServiceCall": "/python/IntegrationTestGetTableDetailData.py"
+			}
+		}
+	},
+
+	"TestFormfields1":
+	{
+		"Type": "FormFieldList",
+		"Attributes": {
+			"FormFields": [
+				"Formfield1",
+				"Formfield2",
+				"Formfield3"
+			],
+			"SrcDataObjects":
+			{
+				"id":
+				{
+					"Type": "ScreenGlobalVar"
+				}
+			}
+		}
+	},
+
+	"Formfield1":
+	{
+		"Type": "FormField",
+		"Attributes":
+		{
+			"Type": "text",
+			"DBColumn": "id",
+			"ValidateRef": "DefaultString",
+			"ValidateNullable": false,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail"
+		}
+	},
+
+	"Formfield2":
+	{
+		"Type": "FormField",
+		"Attributes":
+		{
+			"Type": "text",
+			"DBColumn": "col1",
+			"ValidateRef": "DefaultString",
+			"ValidateNullable": false,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail"
+		}
+	},
+
+	"Formfield3":
+	{
+		"Type": "FormField",
+		"Attributes":
+		{
+			"Type": "text",
+			"DBColumn": "col2",
+			"ValidateRef": "DefaultString",
+			"ValidateNullable": false,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail"
+		}
+	},
+
+	"TestList1Connector":
+	{
+		"Type": "ServiceConnector",
+		"Attributes":
+		{
+			"OnEvent":
+			{
+				"Events": [ "InitSystem" ],
+				"ServiceCall": "/python/IntegrationTestGetTableData.py"
+			}
+		}
+	},
+
+	"TestList1":
+	{
+		"Type": "List",
+		"Attributes":
+		{
+			"Style": "sysList",
+			"HeaderRowStyle": "row sysListHeader",
+			"RowCount": 10,
+			"Navigation": true,
+			"SrcDataObjects":
+			{
+				"Dummy":
+				{
+					"Type": "HardcodedValues",
+					"Values": {
+						"LimitRows": "20"
+					}
+				}
+			},
+			"Columns":
+			{
+				"id":
+				{
+					"visible": false
+				},
+				"col1":
+				{
+					"HeaderTextID": "TXT.TABLE.LISTDETAILVIEW.HEADER.COL1",
+					"sortable": true,
+					"HeaderStyle": "col-md-8"
+				},
+				"col2":
+				{
+					"HeaderTextID": "TXT.TABLE.LISTDETAILVIEW.HEADER.COL2",
+					"sortable": false,
+					"HeaderStyle": "col-md-4"
+				}
+			},
+			"ContextMenuItems": {
+				"Edit": {
+					"TextID": "TXT.CONTEXTMENU.LISTDETAILVIEW.EDIT",
+					"Icon": "Edit",
+					"DstScreenID": "Screen2",
+					"RowColumn": "id",
+					"FireEvents": [ "GetFormfieldData" ]
+				}
+			},
+			"CellGroupRowStyle": "row sysListContent",
+			"RowAfterElements": 2,
+			"ElementsEnclosedByDivStyle": [
+				"col-md-8",
+				"col-md-4"
+			]
+		}
+	}
+}
