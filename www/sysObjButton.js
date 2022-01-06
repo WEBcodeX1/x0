@@ -136,9 +136,6 @@ sysObjButton.prototype.EventListenerClick = function(Event)
 		//- process connected source objects
 		this.processSourceObjects();
 
-		//- process filter
-		this.processFilter();
-
 		//----- PROCESSING ORDER CHANGED after processActions() method has moved
 		//----- to:sysOjButton from:sysObjButtonInternal
 		//----- 		this.processActions() WAS after this.processFormFieldListObjects();
@@ -193,17 +190,6 @@ sysObjButton.prototype.processFormFieldListObjects = function()
 		*/
 		this.callService();
 	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "processFilter"
-//------------------------------------------------------------------------------
-
-sysObjButton.prototype.processFilter = function()
-{
-	var FilterObject = new RequestDataFilter(this);
-	FilterObject.process();
 }
 
 
