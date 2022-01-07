@@ -1,7 +1,7 @@
-.. clickIT x0 Java Script Framework Documentation.
+.. clickIT x0 (cross objects) JavaScript framework documentation.
 
-clickIT x0 (cross objects) JavaScript Framework Documentation
-=============================================================
+clickIT x0 framework documentation
+==================================
 
 .. toctree::
    :maxdepth: 2
@@ -12,7 +12,7 @@ clickIT x0 (cross objects) JavaScript Framework Documentation
    base-layout
    config-files
    base-objects
-   logic-objects
+   control-logic
    pulldown-onchange
    enhanced-formating
    object-communication

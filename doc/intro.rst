@@ -3,7 +3,7 @@
 Preface / Abstract
 ==================
 
-The x0 JavaScript browser framework is a powerfull Web-Application framework for
+The x0 (cross-objects) JavaScript browser framework is a powerfull Web-Application framework for
 building **server-less applications** with focus on object interaction / communication.
 
 The rendering process takes place completely in the browser. Backends only supply

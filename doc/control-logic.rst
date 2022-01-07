@@ -1,7 +1,7 @@
-.. logic-objects
+.. control-logic
 
-Control-Logic defining Objects
-==============================
+Control Logic
+=============
 
 The following Object-Types can be used to communicate among each other and with the backend.
 

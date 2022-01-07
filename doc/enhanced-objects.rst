@@ -1,7 +1,7 @@
 .. enhanced-objects
 
-Enhanced Objects / Object Chaining
-==================================
+Object Chaining
+===============
 
 Building Objects
 ----------------

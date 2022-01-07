@@ -1,7 +1,7 @@
 .. object-communication
 
-Inter Object Communication
-==========================
+Object Communication
+====================
 
 List to List
 ------------

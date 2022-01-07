@@ -1,7 +1,7 @@
 .. enhanced-formating
 
-Enhanced Formating Techniques
-=============================
+Enhanced Formating
+==================
 
 Some Object Types offer extended Formating Properties. Actually the following Object-Types are supported:
 
