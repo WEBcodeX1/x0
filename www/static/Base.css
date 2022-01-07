@@ -43,7 +43,7 @@ h1 {
 
 .GlobalUploadProgressContainer {
     flex: 70%;
-    height: 40px%;
+    height: 40px;
 }
 
 .GlobalUploadUploadButton {
@@ -150,7 +150,6 @@ h1 {
 .sysTabTableRow div{
 	position: static !important;
 	width: auto !important;
-	//max-width: 120px !important;
 	white-space:nowrap;
 	overflow: hidden !important;
 	text-overflow: ellipsis !important;
