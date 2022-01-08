@@ -89,14 +89,11 @@ sysScreen.prototype.setup = function() {
 	//- connect ServiceConnector Objects
 	this.HierarchyRootObject.connectServiceConnectorObjects();
 
-	//- recursive render screen root object
+	//- render screen root object (recurse)
 	this.HierarchyRootObject.renderObject();
 
-	//- deactivate non default tabs
-	this.HierarchyRootObject.deactivateTab();
-
-	//- deactivate non default tabs
-	this.HierarchyRootObject.ActivateActiveTab();
+	//- process object reset (recurse)
+	this.HierarchyRootObject.processReset();
 
 	//- process event listeners
 	this.HierarchyRootObject.processEventListener();
@@ -154,7 +151,7 @@ sysScreen.prototype.setupObject = function(ObjectID, HierarchyObject, HierarchyL
 
 			if (SkeletonItem.ElementID !== undefined && SkeletonItem.ElementID != null) {
 				var AddObject = this.HierarchyRootObject.getObjectByID(SkeletonItem.ElementID);
-				//console.debug('::setupObject AddObject:%o', AddObject);
+				console.debug('::setupObject AddObject:%o', AddObject);
 				AddObject.addObject(AddHierarchyObject);
 			}
 			else {

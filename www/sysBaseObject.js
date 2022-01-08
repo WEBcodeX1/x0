@@ -99,50 +99,11 @@ sysBaseObject.prototype.processEventListener = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "ActivateActiveTab"
-//------------------------------------------------------------------------------
-
-sysBaseObject.prototype.ActivateActiveTab = function()
-{
-
-	if (this.ObjectType == 'TabContainer') {
-		this.activateActiveTab();
-	}
-
-	for (i in this.ChildObjects) {
-		var ChildItem = this.ChildObjects[i];
-		ChildItem.ActivateActiveTab();
-	}
-
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "deactivateTab"
-//------------------------------------------------------------------------------
-
-sysBaseObject.prototype.deactivateTab = function()
-{
-
-	if (this.ObjectType == 'Tab') {
-		this.deactivate();
-	}
-
-	for (i in this.ChildObjects) {
-		var ChildItem = this.ChildObjects[i];
-		ChildItem.deactivateTab();
-	}
-
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "renderFormlists"
 //------------------------------------------------------------------------------
 
 sysBaseObject.prototype.renderFormlists = function()
 {
-
 	if (this.ObjectType == 'FormFieldList') {
 		this.render();
 	}
@@ -151,12 +112,11 @@ sysBaseObject.prototype.renderFormlists = function()
 		var ChildItem = this.ChildObjects[i];
 		ChildItem.renderFormlists();
 	}
-
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "renderFormlists"
+//- METHOD "connectServiceConnectorObjects"
 //------------------------------------------------------------------------------
 
 sysBaseObject.prototype.connectServiceConnectorObjects = function()
@@ -272,46 +232,19 @@ sysBaseObject.prototype.getObjectCount = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "activate"
+//- METHOD "deactivateDeactivated"
 //------------------------------------------------------------------------------
-sysBaseObject.prototype.activate = function()
-{
-	//console.log('::activate Type:%s ObjectID:%s', this.Type, this.ObjectID);
 
-	//- if set deactivated, do not set visible
-	if (this.Deactivated == false || this.Deactivated === undefined) {
-		this.setDOMVisibleState("visible");
+sysBaseObject.prototype.deactivateDeactivated = function()
+{
+	console.debug('deactivate deactivated:%s', this.Deactivated);
+	if (this.Deactivated === true) {
+		this.setDOMVisibleState("hidden");
 	}
+
 	for (i in this.ChildObjects) {
 		const ChildItem = this.ChildObjects[i];
-		ChildItem.activate();
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "activateForce"
-//------------------------------------------------------------------------------
-sysBaseObject.prototype.activateForce = function()
-{
-	this.setDOMVisibleState("visible");
-	for (i in this.ChildObjects) {
-		const ChildItem = this.ChildObjects[i];
-		ChildItem.activate();
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "deactivate"
-//------------------------------------------------------------------------------
-
-sysBaseObject.prototype.deactivate = function()
-{
-	this.setDOMVisibleState("hidden");
-	for (i in this.ChildObjects) {
-		const ChildItem = this.ChildObjects[i];
-		ChildItem.deactivate();
+		ChildItem.deactivateDeactivated();
 	}
 }
 
@@ -327,22 +260,6 @@ sysBaseObject.prototype.toggle = function()
 	for (i in this.ChildObjects) {
 		var ChildItem = this.ChildObjects[i];
 		ChildItem.toggle();
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "setZIndex"
-//------------------------------------------------------------------------------
-
-sysBaseObject.prototype.setZIndex = function(ZIndex)
-{
-	this.DOMStyleZIndex = ZIndex;
-	this.setDOMElementStyleAttributes();
-
-	for (i in this.ChildObjects) {
-		var ChildItem = this.ChildObjects[i];
-		ChildItem.setZIndex(ZIndex);
 	}
 }
 

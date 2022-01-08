@@ -26,6 +26,8 @@ function sysObjLink() {
 	this.ActiveOnFormID		= null;
 	this.ScreenOverlayID	= null;
 
+	this.DOMType			= 'button'				//- Set DOM Element Type
+
 	this.LinkHilteStyle 	= 'sysMenuLinkHilite';
 
 }
