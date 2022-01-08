@@ -419,7 +419,7 @@ sysObjButton.prototype.processActions = function()
 					}
 					catch(err) {
 					}
-					DstObj.activateForce();
+					DstObj.activate();
 				}				
 				if (Attributes.Action == 'deactivate') {
 					try {

@@ -20,6 +20,8 @@ function sysTab()
 	this.ObjectID										= null;							//- ObjectID
 	this.TabID											= null;							//- TabID
 
+	this.DOMType										= 'button'						//- Set DOM Element Type
+
 	this.Default										= false;						//- false | true
 
 	this.TextID											= null;							//- TextID
@@ -33,22 +35,15 @@ function sysTab()
 
 	this.ValidateStatus									= null;							//- Child Form Validate Status
 
-	this.PositionLeft									= null;							//- Left Tab Start Position
-	this.Width											= null;							//- Tab Width (Pixel)
-
 	this.StyleActive									= null;							//- Active Style
 	this.StyleInactive									= null;							//- Inactive Style
-
-	this.ObjLeft										= null;							//- System Object Left Tab Part
-	this.ObjMiddle										= null;							//- System Object Middle Tab Part
-	this.ObjRight										= null;							//- System Object Right Tab Part
-	this.ObjText										= null;							//- System Object SQL Text Tab Part
 
 	this.UpdateDynPulldowns								= new Array();					//- Update DynPulldowns on Tab Switch
 	this.UpdateFormFieldValues							= new Array();					//- Update FormField Values
 
 	this.UpdateElements									= new Array();					//- Upadte Elements
 																						//- should replace UpdateDynPulldowns and UpdateFormFieldValues
+	this.EventListeners									= new Object();					//- Event Listeners
 
 	this.ChildObjects									= new Array();					//- Child Objects
 
@@ -66,17 +61,8 @@ sysTab.prototype = new sysBaseObject();
 
 sysTab.prototype.EventListenerClick = function(Event)
 {
-	//console.debug('::EventListenerClick sysTab TabID:' + this.TabID);
+	console.debug('::EventListenerClick sysTab TabID:' + this.TabID);
 	this.TabContainer.switchTab(this.TabID);
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "resetPulldownFormListStatus"
-//------------------------------------------------------------------------------
-
-sysTab.prototype.resetPulldownFormListStatus = function()
-{
 }
 
 
@@ -86,8 +72,8 @@ sysTab.prototype.resetPulldownFormListStatus = function()
 
 sysTab.prototype.addPulldownFormList = function(FormListID, Type)
 {
-    this.PDFormListsToActivateDeactivate[Type].push(FormListID);
-    //console.log('::addPulldownFormList TabID:%s FormListID:%s Type:%s this.ActivateDeactivate:%o', this.ID, FormListID, Type, this.PDFormListsToActivateDeactivate);
+	this.PDFormListsToActivateDeactivate[Type].push(FormListID);
+	//console.log('::addPulldownFormList TabID:%s FormListID:%s Type:%s this.ActivateDeactivate:%o', this.ID, FormListID, Type, this.PDFormListsToActivateDeactivate);
 }
 
 
@@ -97,7 +83,7 @@ sysTab.prototype.addPulldownFormList = function(FormListID, Type)
 
 sysTab.prototype.removePulldownFormList = function(FormListID, Status, Type)
 {
-    var ArrayIndex = this.PDFormListsToActivateDeactivate[Type].indexOf(FormListID);
+	var ArrayIndex = this.PDFormListsToActivateDeactivate[Type].indexOf(FormListID);
 	delete this.PDFormListsToActivateDeactivate[Type][ArrayIndex];
 }
 
@@ -108,7 +94,7 @@ sysTab.prototype.removePulldownFormList = function(FormListID, Status, Type)
 
 sysTab.prototype.updateDynPulldowns = function()
 {
-    //console.debug('::updateDynPulldowns Pulldowns:%o', this.UpdateDynPulldowns);
+	//console.debug('::updateDynPulldowns Pulldowns:%o', this.UpdateDynPulldowns);
 	for (i in this.UpdateDynPulldowns) {
 		this.UpdateDynPulldowns[i].updateValue();
 	}
@@ -122,7 +108,7 @@ sysTab.prototype.updateDynPulldowns = function()
 sysTab.prototype.updateDynFormValues = function()
 {
 	for (i in this.UpdateFormFieldValues) {
-        try {
+		try {
 			var FormFieldItem = this.UpdateFormFieldValues[i];
 			var SourceConfig = FormFieldItem.UpdateOnTabSwitch;
 			var SourceFormListObject = sysFactory.getObjectByID(SourceConfig.SourceFormFieldList);
@@ -185,60 +171,17 @@ sysTab.prototype.addOnChangeElement = function(Element)
 
 
 //------------------------------------------------------------------------------
-//- METHOD "EventListenerMouseover"
-//------------------------------------------------------------------------------
-
-sysTab.prototype.EventListenerMouseover = function()
-{
-    /*
-	//console.log('Event Hoover', this);
-	var TooltipElement = document.getElementById('SYSGlobalTooltips');
-
-	if (this.TooltipSite != null) {
-		TooltipElement.innerHTML = '<object type="text/html data="'+this.TooltipSite+'" width="200" height="200" style="overflow:auto"></object>';
-	}
-
-	if (this.TooltipText != null) {
-		TooltipElement.innerHTML = this.TooltipText;
-	}
-
-	if (this.TooltipSite == null && this.TooltipText == null) {
-		TooltipElement.innerHTML = '';
-	}
-
-	var FormElement = document.getElementById(this.DOMObjectID);
-	var x1pos = FormElement.getBoundingClientRect().x;
-	var y1pos = FormElement.getBoundingClientRect().y;
-	var x2pos = x1pos+FormElement.getBoundingClientRect().width;
-	var y2pos = y1pos+FormElement.getBoundingClientRect().height-14;
-	//console.log('DIV Layer coordinates x1:%s y1:%s', x1pos, y1pos);
-	TooltipElement.style.transform = 'translate3d('+x2pos+'px, '+y2pos+'px, 0)';
-    */
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "switchStyle"
 //------------------------------------------------------------------------------
 sysTab.prototype.switchStyle = function()
 {
 
 	//- remove style
-	this.ObjLeft.removeDOMElementStyle(this.StyleRemove + 'Left');
-	this.ObjMiddle.setDOMElementStyle(this.StyleRemove + 'Middle');
-	this.ObjRight.setDOMElementStyle(this.StyleRemove + 'Right');
-	this.ObjText.setDOMElementStyle(this.StyleRemove + 'Text');
+	this.removeDOMElementStyle(this.StyleRemove);
 
 	//- set style
-	this.ObjLeft.DOMStyle	= this.Style + 'Left';
-	this.ObjMiddle.DOMStyle	= this.Style + 'Middle';
-	this.ObjRight.DOMStyle	= this.Style + 'Right';
-	this.ObjText.DOMStyle	= this.Style + 'Text';
-
-	this.ObjLeft.setDOMElementStyle();
-	this.ObjMiddle.setDOMElementStyle();
-	this.ObjRight.setDOMElementStyle();
-	this.ObjText.setDOMElementStyle();
+	this.DOMStyle = this.Style;
+	this.setDOMElementStyle();
 
 }
 
@@ -308,21 +251,30 @@ sysTabContainer.prototype.init = function()
 
 	//console.debug('::init TabContainer ObjectUD:%s', this.ObjectID);
 
-	//- setup container elements
-	this.ContainerTable = new sysBaseObject();
-	this.ContainerTable.ObjectID = 'Tabs';
-	this.ContainerTable.DOMStyle = 'sysTabTable';
-	this.ContainerTable.DOMStyleTop = this.ContainerAttributes.PositionTop + 'px';
-	this.ContainerTable.DOMStyleLeft = this.ContainerAttributes.PositionLeft + 'px';
+	//- setup container divs
+	NavDiv = new sysObjDiv();
+	NavDiv.ObjectID = 'Nav';
+	NavDiv.JSONConfig = {
+		"Attributes": {
+			"DOMType": "nav",
+			"DOMStyle": "test"
+		}
+	};
+	NavDiv.init();
 
-	this.ContainerTableRow = new sysBaseObject();
-	this.ContainerTableRow.ObjectID = 'Row';
-	this.ContainerTableRow.DOMStyle = 'sysTabTableRow';
+	this.NavListDiv = new sysObjDiv();
+	this.NavListDiv.ObjectID = 'Ul';
+	this.NavListDiv.JSONConfig = {
+		"Attributes": {
+			"DOMType": "ul",
+			"DOMStyle": "test"
+		}
+	};
+	this.NavListDiv.init();
 
-	//- connect base elements
-	this.ContainerTable.addObject(this.ContainerTableRow);
-
-	this.addObject(this.ContainerTable);
+	//- connect objects
+	NavDiv.addObject(this.NavListDiv);
+	this.addObject(NavDiv);
 
 	//- set base attributes
 	this.StyleActive = this.ContainerAttributes.StyleActive;
@@ -342,7 +294,6 @@ sysTabContainer.prototype.addTabs = function()
 {
 
 	var Tabs = this.ContainerAttributes.Tabs;
-	var TabLeftPosition = 0;
 
 	for (TabKey in Tabs) {
 
@@ -352,11 +303,9 @@ sysTabContainer.prototype.addTabs = function()
 		var TabAttributes = TabConfigElement.Attributes;
 
 		TabElement.TabID				= TabKey;
-		TabElement.ObjectID				= TabKey;
-		TabElement.ObjectType			= 'Tab';
+		TabElement.ObjectID				= TabKey+'Container';
 		TabElement.Default				= TabAttributes.Default;
 		TabElement.TextID				= TabAttributes.TextID;
-		TabElement.Width				= TabAttributes.Width;
 		TabElement.TooltipText			= TabAttributes.TooltipText;
 		TabElement.TooltipSite			= TabAttributes.TooltipSite;
 		TabElement.ServiceURL			= TabAttributes.ServiceURL;
@@ -366,8 +315,6 @@ sysTabContainer.prototype.addTabs = function()
 		TabElement.StyleInactive		= this.ContainerAttributes.StyleInactive;
 		TabElement.DOMStyle				= TabAttributes.Style;
 		TabElement.Index				= TabConfigElement.Index;
-
-		TabElement.PositionLeft			= TabLeftPosition;
 
 		TabElement.TabContainer			= this;
 
@@ -381,8 +328,6 @@ sysTabContainer.prototype.addTabs = function()
 			TabElement.Style	= this.ContainerAttributes.StyleInactive;
 		}
 
-		TabLeftPosition += TabElement.Width+4;
-
 		this.Tabs[TabKey] = TabElement;
 
 		if (TabElement.Index !== undefined) {
@@ -391,7 +336,7 @@ sysTabContainer.prototype.addTabs = function()
 
 		this.appendTabObject(TabElement);
 
-        this.addObject(TabElement);
+        this.NavListDiv.addObject(TabElement);
 	}
 
 }
@@ -414,57 +359,41 @@ sysTabContainer.prototype.getTabByTabID = function(TabID)
 sysTabContainer.prototype.appendTabObject = function(TabElement)
 {
 
-	var TabLeft = new sysBaseObject();
-	TabLeft.ObjectID = 'TabLeft' + TabElement.ObjectID;
-	TabLeft.DOMStyle = TabElement.Style + 'Left';
-	TabLeft.DOMValue = '<img border="0" src="/images/spacer.png" width="4" height="4">';
-	TabLeft.DOMStyleLeft = TabElement.PositionLeft + 'px';
-
-	var TabMiddle = new sysBaseObject();
-	TabMiddle.ObjectID = 'TabMiddle' + TabElement.ObjectID;
-	TabMiddle.DOMStyle = TabElement.Style + 'Middle';
-	TabMiddle.DOMStyleLeft = TabElement.PositionLeft + 4 + 'px';
-	TabMiddle.DOMStyleWidth = TabElement.Width + 'px';
-
-	var TabRight = new sysBaseObject();
-	TabRight.ObjectID = 'TabRight' + TabElement.ObjectID;
-	TabRight.DOMStyle = TabElement.Style + 'Right';
-	TabRight.DOMValue = '<img border="0" src="/images/spacer.png" width="4" height="4">';
-	TabRight.DOMStyleLeft = TabElement.PositionLeft + TabElement.Width + 'px';
-
 	var SQLTextObj = new sysObjSQLText();
-	SQLTextObj.ObjectID = 'SQLText'  + TabElement.ObjectID;
+	SQLTextObj.ObjectID = TabElement.ObjectID;
 	SQLTextObj.TextID = TabElement.TextID;
 	SQLTextObj.DOMStyle = TabElement.Style + 'Text';
 	SQLTextObj.init();
 
-	TabMiddle.addObject(SQLTextObj);
+	TabContentObj = new sysObjDiv();
+	TabContentObj.ObjectID = TabElement.TabID;
+	TabContentObj.ObjectType = 'TabContent';
+	TabContentObj.JSONConfig = {
+		"Attributes": {
+			"DOMStyle": "test"
+		}
+	};
+	TabContentObj.init();
 
-	//- add tab elements to container table row element
-	this.ContainerTableRow.addObject(TabLeft);
-	this.ContainerTableRow.addObject(TabMiddle);
-	this.ContainerTableRow.addObject(TabRight);
+	TabElement.TabContentObj = TabContentObj;
 
-	//- add event listener to sql text element (destination tab element)
+	this.addObject(TabContentObj);
+
 	var EventListenerObj = new Object();
+
 	EventListenerObj['Type'] = 'mousedown';
 	EventListenerObj['Element'] = TabElement.EventListenerClick.bind(TabElement);
 
-	SQLTextObj.EventListeners["ClickTab"] = EventListenerObj;
+	TabElement.EventListeners["clickTab"] = EventListenerObj;
 
-	//- add tooltip event listener
-	EventListenerObj = new Object();
+	/*
 	EventListenerObj['Type'] = 'mouseover';
 	EventListenerObj['Element'] = TabElement.EventListenerMouseover.bind(TabElement);
 
-	SQLTextObj.EventListeners["HooverTab"] = EventListenerObj;
+	TabElement.EventListeners["hooverTab"] = EventListenerObj;
+	*/
 
-	//- connect container element to root object
-	TabElement.ObjLeft		= TabLeft;
-	TabElement.ObjMiddle	= TabMiddle;
-	TabElement.ObjRight		= TabRight;
-	TabElement.ObjText		= SQLTextObj;
-
+	TabElement.addObject(SQLTextObj);
 }
 
 
@@ -486,34 +415,36 @@ sysTabContainer.prototype.setGlobalCurrentTab = function(TabID, TabElement)
 
 sysTabContainer.prototype.switchTab = function(TabID)
 {
-	var Tabs = this.Tabs;
+	console.debug('::switchTab TabID:%s', TabID);
 
-	//- do not process click on active tab
-	for (TabKey in Tabs) {
-		var TabElement = Tabs[TabKey];
-		if (TabElement.TabID == TabID && TabElement.Active == true) { return; }
-	}
+	var Tabs = this.Tabs;
 
 	for (TabKey in Tabs) {
 		var TabElement = Tabs[TabKey];
 
 		if (TabElement.Active == true) {
+
+			console.debug('::switchTab TabKey:%s Active==True', TabKey);
+
 			TabElement.Active = false;
 			TabElement.StyleRemove = TabElement.StyleActive;
 			TabElement.Style = TabElement.StyleInactive;
-            
-			TabElement.deactivate();
+
 		}
 
 		if (TabElement.TabID == TabID) {
 			//console.debug('Switching active tab in container:%s', this.ObjectID);
 
+			console.debug('::switchTab TabKey:%s Active==True', TabKey);
+
 			this.setGlobalCurrentTab(TabID, TabElement);
+
 			TabElement.Active = true;
 			TabElement.StyleRemove = TabElement.StyleInactive;
 			TabElement.Style = TabElement.StyleActive;
 
-			TabElement.activate();
+			TabElement.TabContentObj.setDOMVisibleState('visible');
+			TabElement.TabContentObj.Deactivated = false;
 
 			//- fire events
 			TabElement.fireEvents();
@@ -533,6 +464,10 @@ sysTabContainer.prototype.switchTab = function(TabID)
 			//- trigger iframe resize
 			sysFactory.resizeIframe();
 
+		}
+		else {
+			TabElement.TabContentObj.Deactivated = true;
+			TabElement.TabContentObj.setDOMVisibleState('hidden');
 		}
 
 		TabElement.switchStyle();
@@ -620,12 +555,12 @@ sysTabContainer.prototype.getActiveTabID = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "activateActivaTab"
+//- METHOD "switchActiveTab"
 //------------------------------------------------------------------------------
 
-sysTabContainer.prototype.activateActiveTab = function()
+sysTabContainer.prototype.switchActiveTab = function()
 {
-	this.getTabByTabID(this.getActiveTabID()).activate();
+	this.switchTab(this.getActiveTabID());
 }
 
 
@@ -658,6 +593,7 @@ sysTabContainer.prototype.switchDefaultTab = function()
 
 sysTabContainer.prototype.reset = function()
 {
+	console.debug('::reset');
 	this.switchDefaultTab();
 }
 

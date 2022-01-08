@@ -133,24 +133,6 @@ sysFactory.prototype.resizeIframe = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "moveAdminContentRight"
-//------------------------------------------------------------------------------
-
-sysFactory.prototype.moveAdminContentRight = function() {
-	if (this.AdminInterface == true) {
-		const Elements = document.getElementsByClassName('sysScreenRoot');
-		for (ElementIndex in Elements) {;
-			ProcessElement = Elements[ElementIndex];
-			if (ProcessElement.nodeName == 'DIV') {
-				console.debug('::Menu Set layer Style Left:%spx right Element:%o', sysFactory.SysScreenRootLeftPx, ProcessElement);
-				ProcessElement.style.left = sysFactory.SysScreenRootLeftPx+'px';
-			}
-		}
-	}
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "addScreen"
 //------------------------------------------------------------------------------
 
@@ -412,9 +394,6 @@ sysFactory.prototype.switchScreen = function(ScreenID) {
 			//- switch all screens to background
 			this.switchScreensToBackground();
 
-			//- hilite link
-			//ScreenObj.LinkObj.Hilite();
-
 			//- set global ActualScreenID
 			this.ActualScreenID = ScreenID;
 
@@ -426,6 +405,10 @@ sysFactory.prototype.switchScreen = function(ScreenID) {
 
 			//- switch selected screen to foreground
 			this.switchScreenToForeground(ScreenObj);
+
+			//- deactivate deactivated objects
+			ScreenObj.HierarchyRootObject.deactivateDeactivated();
+
 		}
 		catch(err) {
 			console.debug('::switchScreen err:%s', err);
@@ -503,7 +486,6 @@ sysFactory.prototype.switchScreensToBackground = function() {
 	for (ScreenKey in this.Screens) {
 		ScreenObj = this.Screens[ScreenKey];
 		ScreenObj.HierarchyRootObject.setDOMVisibleState('hidden');
-		//ScreenObj.LinkObj.DeHilite();
 	}	
 }
 
@@ -513,7 +495,6 @@ sysFactory.prototype.switchScreensToBackground = function() {
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.switchScreenToForeground = function(ScreenObj) {
-	//ScreenObj.HierarchyRootObject.setZIndex(1);
 	ScreenObj.HierarchyRootObject.setDOMVisibleState('visible');
 }
 
