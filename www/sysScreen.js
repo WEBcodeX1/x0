@@ -45,7 +45,8 @@ function sysScreen(IsOverlay) {
 		'Link': sysObjLink,
 		'LinkExternal': sysObjLinkExternal,
 		'RowContainer': sysObjRowContainer,
-		'FormulaField': sysObjFormula
+		'FormulaField': sysObjFormula,
+		'MenuEnclose': sysObjMenuEnclose
 	};
 
 	this.setStyle();
