@@ -70,17 +70,6 @@ sysListRow.prototype.EventListenerRightClick = function(Event)
 //- METHOD "addColumns"
 //------------------------------------------------------------------------------
 
-/*
-
-	:: REFACTORING
-
-	- complete dynamic column objects need refactoring/cleanup
-	  (objects should be addable in a generic way) / serialization
-
-	- links/button logic must be handled in single class
-
-*/
-
 sysListRow.prototype.addColumns = function()
 {
 	//console.debug('::addColumns this.SetupData:%o', this.SetupData);
@@ -141,113 +130,63 @@ sysListRow.prototype.addColumns = function()
 					}
 				}
 
-				//console.log('::addColumns Column Attributes:%o', ColumnItem.Attributes);
-				if (ColumnConfig.Attributes !== undefined && ColumnConfig.Attributes.Action == 'ExternalLink') {
+				const ColAttributes = ColumnConfig.Attributes;
 
-					/*
-					 * ::Refactoring
-					 * merge with sysObjLinkExternal
-					*/
+				if (ColAttributes !== undefined) {
+					var ColumnObj = new this.SourceObject.ScreenObject.SetupClasses[ColAttributes.ObjectType]();
 
-					var LinkContent = ColumnConfig.Attributes.LinkURL;
-					var LinkDisplay = ColumnConfig.Attributes.LinkDisplay;
-					const LinkPrefix = ColumnConfig.Attributes.LinkPrefix
-					const LinkPrefixDisplay = (LinkPrefix === undefined) ? '' : LinkPrefix;
-					const ReplaceValues = ColumnConfig.Attributes.ReplaceValues;
-					for (Index in ReplaceValues) {
-						const ReplaceItem = ReplaceValues[Index];
-						const ReplaceVar = ReplaceItem.ReplaceVar;
-						const ReplaceColumn = ReplaceItem.ReplaceColumn;
-						const ReplaceGlobalRow = ReplaceItem.ReplaceGlobalRow;
-						const ReplaceValue = (ReplaceGlobalRow !== undefined) ? this.SourceObject.ScreenObject.getDBColumnValue(ReplaceGlobalRow) : this.SetupData[ReplaceColumn];
-						LinkContent = LinkContent.replace(ReplaceVar, ReplaceValue);
-						LinkDisplay = LinkDisplay.replace(ReplaceVar, ReplaceValue);
-					}
+					ColumnObj.ObjectID = ColumnItem.ObjectID;
 
-					LinkContent = LinkContent.replace('%session_id', sysFactory.SysSessionValue);
-					if (DisplayColumn === true) {
-						if (LinkDisplay === undefined || LinkDisplay == 'undefined') { LinkDisplay = ''; }
-						ColumnItem.DOMValue = LinkPrefixDisplay+'<a href="'+LinkContent+'" target="_blank" rel="noopener noreferrer">'+LinkDisplay+'</a>';
-					}
-				}
-				else if (ColumnConfig.Attributes !== undefined && ( ColumnConfig.Attributes.ObjectType == 'ButtonInternal' || ColumnConfig.Attributes.ObjectType == 'Button' )) {
-					if (DisplayColumn === true) {
+					ColumnObj.JSONConfig = {
+						"Attributes": ColumnConfig.Attributes
+					};
 
-						var Button;
+					ColumnObj.ScreenObject = this.SourceObject.ScreenObject;
+					ColumnObj.SourceObject = this.SourceObject;
+					ColumnObj.ParentRow = this;
 
-						if (ColumnConfig.Attributes.ObjectType == 'ButtonInternal') {
-							Button = new sysObjButtonInternal();
-						}
-
-						if (ColumnConfig.Attributes.ObjectType == 'Button') {
-							Button = new sysObjButton();
-						}
-
-						Button.ObjectID = ColumnItem.ObjectID + 'Button';
-						Button.JSONConfig = { "Attributes": ColumnConfig.Attributes.ButtonAttributes };
-						Button.ScreenObject = this.SourceObject.ScreenObject;
-						Button.SourceObject = this.SourceObject;
-						//Button.DBPrimaryKeyValue = this.DBPrimaryKeyValue;
-						Button.ParentRow = this;
-						Button.init();
-
-						// -> BEGIN: change
-						ColumnItem.addObject(Button);
-						//ColumnItem = Button;
-						// -> END: change
-					}
-				}
-				else if (ColumnConfig.Attributes !== undefined && ColumnConfig.Attributes.ObjectType == 'FileUpload') {
-					var FileUpload = new sysFileUpload();
-					FileUpload.ObjectID = ColumnItem.ObjectID + 'FileUpload';
-					FileUpload.JSONConfig = { "Attributes": ColumnConfig.Attributes.UploadAttributes };
-					FileUpload.ScreenObject = this.SourceObject.ScreenObject;
-					FileUpload.init();
-
-					// -> BEGIN: change
-					ColumnItem.addObject(FileUpload);
-					//ColumnItem = FileUpload;
-					// -> END: change
-
-					this.ObjectRef[ColumnKey] = FileUpload;
-				}
-				else if (ColumnConfig.Attributes !== undefined && ColumnConfig.Attributes.ObjectType == 'Formfield') {
-
-					var FormItem = new sysFormFieldItem();
-					FormItem.JSONConfig = { "Attributes": ColumnConfig.Attributes.FormfieldAttributes };
-
-					FormItem.ObjectID = this.SourceObject.ObjectID + ColumnItem.ObjectID + 'Formfield';
-					//FormItem.ObjectType = FormItem.JSONConfig.Attributes.Type;
-					FormItem.ObjectType = 'FormField';
-					FormItem.TableColumn = ColumnKey;
-					FormItem.ScreenObject = this.SourceObject.ScreenObject;
-					FormItem.ParentObject = ColumnItem;
-					FormItem.Index = 1;
-					FormItem.JSONConfig.Attributes.Value = this.SetupData[ColumnKey];
-					FormItem.init();
-
-					//- workaround, should be generic for all types
-					if (ColumnConfig.disabled === true) { FormItem.Disabled = true; }
-
-					FormItem.generateHTML();
-
-					const FormulaRefObjects = this.SourceObject.RealtimeEventListeners[ColumnKey];
-					//console.debug('::FormulaRefObjects:%o', FormulaRefObjects);
-					if (FormulaRefObjects !== undefined) {
-						for (Index in FormulaRefObjects) {
-							FormItem.setupEventListenerFormula(FormulaRefObjects[Index]);
-						}
-					}
-
-					ColumnItem = FormItem;
-					//ColumnItem.addObject(FormItem);
-
-					this.ObjectRef[ColumnKey] = FormItem;
-					this.FormItems.push(FormItem);
+					ColumnObj.init();
+					ColumnItem.addObject(ColumnObj);
 				}
 				else {
 					ColumnItem.DOMValue = this.SetupData[ColumnKey];
 				}
+
+				/*
+				 * implement after formfield refactoring
+				 * 
+				var FormItem = new sysFormFieldItem();
+				FormItem.JSONConfig = { "Attributes": ColumnConfig.Attributes.FormfieldAttributes };
+
+				FormItem.ObjectID = this.SourceObject.ObjectID + ColumnItem.ObjectID + 'Formfield';
+				//FormItem.ObjectType = FormItem.JSONConfig.Attributes.Type;
+				FormItem.ObjectType = 'FormField';
+				FormItem.TableColumn = ColumnKey;
+				FormItem.ScreenObject = this.SourceObject.ScreenObject;
+				FormItem.ParentObject = ColumnItem;
+				FormItem.Index = 1;
+				FormItem.JSONConfig.Attributes.Value = this.SetupData[ColumnKey];
+				FormItem.init();
+
+				//- workaround, should be generic for all types
+				if (ColumnConfig.disabled === true) { FormItem.Disabled = true; }
+
+				FormItem.generateHTML();
+
+				const FormulaRefObjects = this.SourceObject.RealtimeEventListeners[ColumnKey];
+				//console.debug('::FormulaRefObjects:%o', FormulaRefObjects);
+				if (FormulaRefObjects !== undefined) {
+					for (Index in FormulaRefObjects) {
+						FormItem.setupEventListenerFormula(FormulaRefObjects[Index]);
+					}
+				}
+
+				ColumnItem = FormItem;
+				//ColumnItem.addObject(FormItem);
+
+				this.ObjectRef[ColumnKey] = FormItem;
+				this.FormItems.push(FormItem);
+				*/
 			}
 			catch(err) {
 				ColumnItem.DOMValue = 'Error';
