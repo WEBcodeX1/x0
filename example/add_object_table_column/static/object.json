@@ -1,0 +1,89 @@
+{
+	"Link1":
+	{
+		"Type": "Link",
+		"Attributes": {
+			"Style": "sysLink",
+			"TextID": "TXT.MENU.EXAMPLETABLECOLOBJECTS.SCREEN1",
+			"ScreenID": "Screen1"
+		}
+	},
+
+	"TestList1Connector":
+	{
+		"Type": "ServiceConnector",
+		"Attributes":
+		{
+			"OnEvent":
+			{
+				"Events": [ "InitSystem" ],
+				"ServiceCall": "/python/IntegrationTestGetTableData.py"
+			}
+		}
+	},
+
+	"TestList1":
+	{
+		"Type": "List",
+		"Attributes":
+		{
+			"Style": "sysList",
+			"HeaderRowStyle": "row sysListHeader",
+			"RowCount": 10,
+			"Navigation": true,
+			"SrcDataObjects":
+			{
+				"Dummy":
+				{
+					"Type": "HardcodedValues",
+					"Values": {
+						"LimitRows": "10"
+					}
+				}
+			},
+			"Columns":
+			{
+				"id":
+				{
+					"visible": false
+				},
+				"col1":
+				{
+					"HeaderTextID": "TXT.TABLE.EXAMPLETABLECOLOBJECTS.HEADER.COL1",
+					"sortable": true,
+					"HeaderStyle": "col-md-8",
+					"Attributes": {
+						"ObjectType": "ButtonInternal",
+						"Style": "sysButton",
+						"TextID": "TXT.BUTTON.EXAMPLETABLECOLOBJECTS",
+						"ScrollTop": true
+					}
+				},
+				"col2":
+				{
+					"HeaderTextID": "TXT.TABLE.EXAMPLETABLECOLOBJECTS.HEADER.COL2",
+					"sortable": false,
+					"HeaderStyle": "col-md-4",
+					"Attributes": {
+						"ObjectType": "FileUpload",
+						"TextID": "TXT.EXAMPLETABLECOLOBJECTS.UPLOAD",
+						"Style": "sysUploadArea",
+						"StyleDescription": "GlobalUploadDescription",
+						"StyleSelectButton": "GlobalUploadSelectButton",
+						"StyleProgressContainer": "GlobalUploadProgressContainer",
+						"StyleUploadButton": "sysButton sysButtonUpload",
+						"ProgressBarStyle": "GlobalUploadProgressBar",
+						"ProgressBarPercentageStyle": "GlobalUploadProgressPercentage",
+						"UploadScript": "/python/Upload.py"
+					}
+				}
+			},
+			"CellGroupRowStyle": "row sysListContent",
+			"RowAfterElements": 2,
+			"ElementsEnclosedByDivStyle": [
+				"col-md-8",
+				"col-md-4"
+			]
+		}
+	}
+}

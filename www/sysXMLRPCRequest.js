@@ -71,20 +71,6 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
 	if (RequestObject !== undefined &&
 		RequestObject.JSONConfig !== undefined &&
 		RequestObject.JSONConfig.Attributes !== undefined) {
-
-		/*
-		var DBPrimaryKeyID = RequestObject.JSONConfig.Attributes.DBPrimaryKeyID;
-
-		//console.debug('::Request DBPrimaryKeyID:%s', DBPrimaryKeyID);
-
-		if (DBPrimaryKeyID != null && DBPrimaryKeyID !== undefined) {
-			var DBPrimaryKeyValue = RequestObject.ScreenObject.DBPrimaryKeyValue;
-			//console.debug('::Request DBPrimaryKeyValue:%s', DBPrimaryKeyValue);
-            if (DBPrimaryKeyValue != null) {
-                RequestObject.PostRequestData.add(DBPrimaryKeyValue, 'DBPrimaryKeyValue');
-            }
-		}
-		*/
 	}
 
 	if (RequestObject !== undefined &&
@@ -128,12 +114,12 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
 						RequestObject.XMLRPCResultData = ResultData;
 					}
 					//console.debug('RequestObject:%o', RequestObject);
-					try {
+					//try {
 						RequestObject.callbackXMLRPCAsync();
-					}
-					catch(err) {
-						console.debug('Err:%s', err);
-					}
+					//}
+					//catch(err) {
+					//	console.debug('Err:%s', err);
+					//}
 				}
 			}
 		}

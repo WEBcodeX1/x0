@@ -33,33 +33,36 @@ sysObjMenuEnclose.prototype.init = function() {
 
 		//- setup header div
 		HeaderDiv = new sysObjDiv();
-		HeaderDiv.ObjectID = 'Header';
+		HeaderDiv.ObjectID = this.ObjectID + 'Header';
+		HeaderDiv.ObjectShortID = 'Header';
 		HeaderDiv.JSONConfig = {
 			"Attributes": {
 				"DOMType": "header",
-				"DOMStyle": Attributes.StyleHeader;
+				"DOMStyle": Attributes.StyleHeader
 			}
 		};
 		HeaderDiv.init();
 
 		//- setup nav div
 		NavDiv = new sysObjDiv();
-		NavDiv.ObjectID = 'Nav';
+		NavDiv.ObjectID = this.ObjectID + 'Nav';
+		NavDiv.ObjectShortID = 'Nav';
 		NavDiv.JSONConfig = {
 			"Attributes": {
 				"DOMType": "nav",
-				"DOMStyle": Attributes.StyleNav;
+				"DOMStyle": Attributes.StyleNav
 			}
 		};
 		NavDiv.init();
 
 		//- setup ul div
 		UlDiv = new sysObjDiv();
-		UlDiv.ObjectID = 'Ul';
+		UlDiv.ObjectID = this.ObjectID + 'Ul';
+		UlDiv.ObjectShortID = 'Ul';
 		UlDiv.JSONConfig = {
 			"Attributes": {
 				"DOMType": "ul",
-				"DOMStyle": Attributes.StyleUl;
+				"DOMStyle": Attributes.StyleUl
 			}
 		};
 		UlDiv.init();

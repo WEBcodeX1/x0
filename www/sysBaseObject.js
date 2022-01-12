@@ -38,7 +38,6 @@ sysBaseObject.prototype = new sysBaseDOMElement();
 
 sysBaseObject.prototype.addObject = function(ChildObject)
 {
-    var ObjectID = ChildObject.ObjectID;
 	ChildObject.ParentObject = this;
 	this.ChildObjects.push(ChildObject);
 }
@@ -50,11 +49,13 @@ sysBaseObject.prototype.addObject = function(ChildObject)
 
 sysBaseObject.prototype.renderObject = function(Prefix)
 {
+	const setObjectID = (this.ObjectShortID !== undefined) ? this.ObjectShortID : this.ObjectID;
+
 	if (Prefix == null) {
-		this.DOMObjectID = this.ObjectID;
+		this.DOMObjectID = setObjectID;
 	}
 	else {
-		this.DOMObjectID = Prefix + '_' + this.ObjectID;
+		this.DOMObjectID = Prefix + '_' + setObjectID;
 		this.DOMParentID = Prefix;
 	}
 

@@ -203,7 +203,6 @@ sysTab.prototype.processService = function()
 	if (this.ServiceURL !== undefined) {
 		const ScreenObject = sysFactory.getScreenByID(sysFactory.ActualScreenID);
 		this.PostRequestData.addServiceProperty('BackendServiceID', this.ServiceID);
-		//this.PostRequestData.add(ScreenObject.DBPrimaryKeyValue, 'DBPrimaryKeyValue');
 		RPC = new sysCallXMLRPC(this.ServiceURL);
 		RPC.Request(this);
 	}
@@ -306,8 +305,6 @@ sysTabContainer.prototype.addTabs = function()
 		TabElement.ObjectID				= TabKey+'Container';
 		TabElement.Default				= TabAttributes.Default;
 		TabElement.TextID				= TabAttributes.TextID;
-		TabElement.TooltipText			= TabAttributes.TooltipText;
-		TabElement.TooltipSite			= TabAttributes.TooltipSite;
 		TabElement.ServiceURL			= TabAttributes.ServiceURL;
 		TabElement.ServiceID			= TabAttributes.ServiceID;
 		TabElement.FireEvents			= TabAttributes.FireEvents;
