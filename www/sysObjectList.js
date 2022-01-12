@@ -102,7 +102,7 @@ sysListRow.prototype.addColumns = function()
 
 			ColumnItem.ObjectID = 'Column' + ColumnKey + '_' + this.Index;
 
-			try {
+			//try {
 
 				var DisplayColumn = true;
 
@@ -187,11 +187,13 @@ sysListRow.prototype.addColumns = function()
 				this.ObjectRef[ColumnKey] = FormItem;
 				this.FormItems.push(FormItem);
 				*/
+			/*
 			}
 			catch(err) {
 				ColumnItem.DOMValue = 'Error';
 				console.debug('::addColumns err:%s', err);
 			}
+			*/
 			//console.log('::addColumns Push ColItem DOMValue:%o', ColumnItem);
 			this.ColItems.push(ColumnItem);
 		}
