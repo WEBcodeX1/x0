@@ -45,6 +45,8 @@ sysObjLink.prototype.init = function()
 
 	console.debug('set Attributes:%o', Attributes);
 
+	this.DOMStyle			= Attributes.Style;
+
 	this.ScreenID			= Attributes.ScreenID;
 	this.TextID				= Attributes.TextID;
 	this.RaiseEvents		= Attributes.RaiseEvents;
@@ -75,19 +77,19 @@ sysObjLink.prototype.EventListener = function(Event)
 	var SwitchScreen = true;
 
 	if (this.ActiveOnFormID !== undefined && this.ActiveOnFormID != null) {
-		var FormItem = sysFactory.getFormFieldObjectByID(this.ActiveOnFormID);
-		var FormValue = FormItem.getDOMValue();
+		const FormItem = sysFactory.getFormFieldObjectByID(this.ActiveOnFormID);
+		const FormValue = FormItem.getDOMValue();
 		//console.log('FormValue:%s', FormValue);
 		if (FormValue === undefined || FormValue.length == 0) {
 			SwitchScreen = false;
-			var sysID = 'SYS__GLOBAL_MSG';
+			const sysID = 'SYS__GLOBAL_MSG';
 
 			ActionNotifyDef = {
 				"ID": sysID,
 				"DisplayHeader": 'Bearbeitung'
 			}
 
-			var AsyncNotifyObj = new sysObjAsyncNotify();
+			const AsyncNotifyObj = new sysObjAsyncNotify();
 			sysFactory.GlobalAsyncNotifyIndicator.addMsgItem(ActionNotifyDef);
 
 			var NotifyItem = sysFactory.GlobalAsyncNotifyIndicator.getMsgItemByName(sysID);
