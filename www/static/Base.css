@@ -1,36 +1,111 @@
 /* ---------------------------------------------- */
-/* GLOBAL Styles                                  */
 
-body {
-	font-family: Gentona-Book !important;
-	color: black !important;	
-	letter-spacing: 0.9px! important;
-	height: 100% !important;
-	margin:0px;
-    padding:0px;
-	height: 100vh; 
+
+/* Header & Menu Styles                                  */
+
+.sysHeader {
+    padding: 25px;
 }
 
-br {
-   line-height: 2px;
-}
-
-p {
-   margin-top: 6px;
-   margin-bottom: 8px;
+.sysBG-grey {
+    background-color: #BEBEBE;
 }
 
 ul {
-   margin-top: 6px;
-   margin-bottom: 8px;
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+.sysMenu-link {
+    font-family: 'Quicksand', sans-serif;
+    padding: 12px 18px;
+    background-color: #eee;
+    color: #888888;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: normal;
+    text-transform: uppercase;
+    transition: 0.2s;
+    transition: all 0.5s ease-out;
+    border: 1px solid #BEBEBE;
+    width: auto;
+    overflow: hidden;
+    user-select: none;
+}
+
+.sysMenu-link.small {
+    padding: 6px 9px;
+}
+
+.sysMenu-link.big {
+    padding: 24px 32px;
+}
+
+.sysMenu-link:hover {
+    background-color: #E0E0E0;
+}
+
+.nav-item {
+    width: auto;
+    display: inline-block;
+}
+
+@media only screen and (min-width: 300px) {
+    .nav-item {
+        margin-right: 15px;
+    }
+}
+
+@media only screen and (max-width: 382px) {
+    .SysNavList>li>button:first-child {
+        margin-bottom: 15px;
+    }
+}
+
+.sysMenu-nav {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+
+/* GLOBAL Styles                                  */
+
+body {
+    font-family: Gentona-Book !important;
+    color: black !important;
+    letter-spacing: 0.9px! important;
+    height: 100% !important;
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+}
+
+br {
+    line-height: 2px;
+}
+
+p {
+    margin-top: 6px;
+    margin-bottom: 8px;
+}
+
+ul {
+    margin-top: 6px;
+    margin-bottom: 8px;
 }
 
 h1 {
-   font-size: 16px;
+    font-size: 16px;
 }
 
 
 /* ---------------------------------------------- */
+
+
 /* Upload Global Styles                           */
 
 .GlobalUploadDescription {
@@ -53,7 +128,7 @@ h1 {
 .GlobalUploadProgressBar {
     top: 50%;
     height: 2px;
-	width: 0%;
+    width: 0%;
     background: #d7466b;
 }
 
@@ -64,16 +139,17 @@ h1 {
 
 
 /* --------------------------------------------- */
+
+
 /* System AsyncNotifyIndicator Styles            */
 
-
 #SYSGlobalAsyncNotifyIndicator {
-	opacity: 1 !important;
-	position: fixed !important;
-	width: 100% !important;
-	top: 169px !important;
-	left: 0px !important;
-	height: 0px !important;
+    opacity: 1 !important;
+    position: fixed !important;
+    width: 100% !important;
+    top: 169px !important;
+    left: 0px !important;
+    height: 0px !important;
     z-index: 1;
 }
 
@@ -89,29 +165,25 @@ h1 {
 }
 
 .SYSGlobalAsyncNotifyIndicatorItemBKGRDProcessStatus::after {
-	font-family: 'Font Awesome 5 Free';
-	font-weight: 900;	  
-	font-size: 20px;
-	content: "\f00c";
-	display: inline-block;
-	margin-left: 15px;
-	color: #fff;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 20px;
+    content: "\f00c";
+    display: inline-block;
+    margin-left: 15px;
+    color: #fff;
 }
 
 .SYSGlobalAsyncNotifyIndicatorItemBKGRDProcessStatus {
-	color: #fff;
+    color: #fff;
 }
 
 .SYSGlobalAsyncNotifyIndicatorItemProcessStatusIcon img {
-	display: none;
-}
-
-.SYSGlobalAsyncNotifyIndicatorItemBKGRDBorder {
-    
+    display: none;
 }
 
 .SYSGlobalAsyncNotifyIndicatorItemClose {
-	position: absolute;
+    position: absolute;
     width: 20px;
     height: 20px;
     right: 1px;
@@ -127,518 +199,537 @@ h1 {
 }
 
 .xxx::after {
-	font-family: 'Font Awesome 5 Free';
-	font-weight: 900;	  
-	font-size: 20px;
-	content: "\f110";
-	animation: rotate 1.5s linear infinite;
-	display: inline-block;
-	margin-left: 15px;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 20px;
+    content: "\f110";
+    animation: rotate 1.5s linear infinite;
+    display: inline-block;
+    margin-left: 15px;
 }
 
-
-@keyframes rotate{
-  to{ transform: rotate(360deg); }
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
 }
-
-
 
 
 /* --------------------------------------------- */
+
+
 /* System TAB Styles                             */
 
-.sysTabTableRow div{
-	position: static !important;
-	width: auto !important;
-	white-space:nowrap;
-	overflow: hidden !important;
-	text-overflow: ellipsis !important;
-	display: inline-block !important;
-	font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
+.sysTabTableRow div {
+    position: static !important;
+    width: auto !important;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: inline-block !important;
+    font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
     letter-spacing: 0.9px !important;
-	font-weight: normal !important;
-	font-size: 16px;
-	text-transform: none;
-	-webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+    font-weight: normal !important;
+    font-size: 16px;
+    text-transform: none;
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
 .sysTabActiveMiddle {
-   display: inline-block;
-   position: absolute;
+    display: inline-block;
+    position: absolute;
 }
 
 .sysTabActiveText {
-	border-top-right-radius: 8px;
-	border-top-left-radius: 8px;
-	cursor: pointer;
-	padding: 20px;
-	font-size: 12px;
-	color: #000731;
-	background-color: #d7466b;
-	color: #fff;
-	border: solid 2px #fff;
-	border-bottom: 2px #4c4c4c;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    cursor: pointer;
+    padding: 20px;
+    font-size: 12px;
+    color: #000731;
+    background-color: #d7466b;
+    color: #fff;
+    border: solid 2px #fff;
+    border-bottom: 2px #4c4c4c;
 }
 
 .sysScreenRoot img {
-	display: none !important;
+    display: none !important;
 }
 
 .sysTabInactiveMiddle {
-   display: inline-block;
-   width: auto;
-   position: absolute;
+    display: inline-block;
+    width: auto;
+    position: absolute;
 }
 
 .sysTabInactiveText {
-	border-top-right-radius: 8px;
-	border-top-left-radius: 8px;
-	cursor: pointer;
-	background-color: #eee;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    cursor: pointer;
+    background-color: #eee;
     padding: 20px;
     font-size: 12px;
     color: #000731;
     width: auto;
-	border: solid 2px #fff;
-	border-bottom: 2px #4c4c4c;
+    border: solid 2px #fff;
+    border-bottom: 2px #4c4c4c;
 }
 
 .sysTabInactiveText:hover {
-	background-color: #d7466b;
-	color: #fff;
-	-webkit-transition: background-color 0.4s linear;
+    background-color: #d7466b;
+    color: #fff;
+    -webkit-transition: background-color 0.4s linear;
     -ms-transition: background-color 0.4s linear;
     transition: background-color 0.4s linear;
 }
 
 
 /* --------------------------------------------- */
-/* sysMenu Styles                                */
- 
- .sysMenuTableLinkHilite {
-	color: #d7466b !important;
-	background-color: #F3C7C7;
- }
- 
- .sysMenuTableLink{
-	 padding-left: 35px !important;
-	 padding-right: 35px !important;
-	 padding-top: 15px;
-	 padding-bottom: 15px;
-	 cursor: pointer;
-	 display: block !important;
-	 transition: all 0.4s; 
- }
- 
-  .sysMenuTableLink:hover {
-	  background-color: #F3C7C7;
-  }  
-  
-  .sysMenuTableLink:hover div {
-	  color: #d7466b !important;
-  }
 
-.sysMenuTableRow {
+
+/* sysMenu Styles                                */
+
+.sysMenuTableLinkHilite {
+    color: #d7466b !important;
+    background-color: #F3C7C7;
+}
+
+.sysMenuTableLink {
+    padding-left: 35px !important;
+    padding-right: 35px !important;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    cursor: pointer;
+    display: block !important;
+    transition: all 0.4s;
+}
+
+.sysMenuTableLink:hover {
+    background-color: #F3C7C7;
+}
+
+.sysMenuTableLink:hover div {
+    color: #d7466b !important;
 }
 
 .sysMenuTableRowColOpenClose {
-  display: none;
+    display: none;
 }
 
 .sysMenuHierarchyLevelImage {
-   width: 16px;
-   height: 16px;
-   background: url("/images/") repeat-y scroll 0 0;
-   background-size: 16px 16px;
-   position: absolute;
+    width: 16px;
+    height: 16px;
+    background: url("/images/") repeat-y scroll 0 0;
+    background-size: 16px 16px;
+    position: absolute;
 }
 
 .sysMenuOpenCloseImageOpened {
-   width: 16px;
-   height: 16px;
-   background: url("/images/MenuOpenCloseOpened.png") repeat-y scroll 0 0 #2d373c;
-   background-size: 16px 16px;
-   position: absolute;
-   top: -4px;
+    width: 16px;
+    height: 16px;
+    background: url("/images/MenuOpenCloseOpened.png") repeat-y scroll 0 0 #2d373c;
+    background-size: 16px 16px;
+    position: absolute;
+    top: -4px;
 }
 
 .sysMenuOpenCloseImageClosed {
-   width: 16px;
-   height: 16px;
-   background: url("/images/MenuOpenCloseClosed.png") repeat-y scroll 0 0 #2d373c;
-   background-size: 16px 16px;
-   position: absolute;
-   top: -4px;
+    width: 16px;
+    height: 16px;
+    background: url("/images/MenuOpenCloseClosed.png") repeat-y scroll 0 0 #2d373c;
+    background-size: 16px 16px;
+    position: absolute;
+    top: -4px;
 }
 
 .sysMenuIconDefaultText {
-   width: 16px;
-   height: 16px;
-   background: url("/images/MenuIconDefaultText.png") repeat-y scroll 0 0;
-   background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
+    background: url("/images/MenuIconDefaultText.png") repeat-y scroll 0 0;
+    background-size: 16px 16px;
 }
 
 .sysMenuIconEdit {
-   width: 16px;
-   height: 16px;
-   background: url("/images/MenuIconEdit.png") repeat-y scroll 0 0;
-   background-size: 16px 16px;
-   position: absolute;
+    width: 16px;
+    height: 16px;
+    background: url("/images/MenuIconEdit.png") repeat-y scroll 0 0;
+    background-size: 16px 16px;
+    position: absolute;
 }
 
 .sysMenuIconSearch {
-   width: 16px;
-   height: 16px;
-   background: url("/images/MenuIconSearch.png") repeat-y scroll 0 0;
-   background-size: 16px 16px;
-   position: absolute;
+    width: 16px;
+    height: 16px;
+    background: url("/images/MenuIconSearch.png") repeat-y scroll 0 0;
+    background-size: 16px 16px;
+    position: absolute;
 }
 
 .sysMenuIconContactNew {
-   width: 16px;
-   height: 16px;
-   background: url("/images/MenuIconContactNew.png") repeat-y scroll 0 0;
-   background-size: 16px 16px;
-   position: absolute;
+    width: 16px;
+    height: 16px;
+    background: url("/images/MenuIconContactNew.png") repeat-y scroll 0 0;
+    background-size: 16px 16px;
+    position: absolute;
 }
 
 .sysMenuIconArticleNew {
-   width: 16px;
-   height: 16px;
-   background: url("/images/MenuIconArticleNew.png") repeat-y scroll 0 0;
-   background-size: 16px 16px;
-   position: absolute;
+    width: 16px;
+    height: 16px;
+    background: url("/images/MenuIconArticleNew.png") repeat-y scroll 0 0;
+    background-size: 16px 16px;
+    position: absolute;
 }
 
 .sysMenuIconShipment {
-   width: 16px;
-   height: 16px;
-   background: url("/images/MenuIconShipment.png") repeat-y scroll 0 0;
-   background-size: 16px 16px;
-   position: absolute;
+    width: 16px;
+    height: 16px;
+    background: url("/images/MenuIconShipment.png") repeat-y scroll 0 0;
+    background-size: 16px 16px;
+    position: absolute;
 }
 
 
-
-
 /* --------------------------------------------- */
+
+
 /* Switch Screen Hide Layer                      */
 
 .sysScreenRoot {
-   top: 121px;
-   padding: 0px;
-   z-index: 0;
-   position: absolute;
-   width: 820px;
+    top: 121px;
+    padding: 0px;
+    z-index: 0;
+    position: absolute;
+    width: 820px;
 }
 
 
 /* --------------------------------------------- */
+
+
 /* Switch Screen Hide Layer                      */
 
 .sysScreenHideLayer {
-   width: 100%;
-   height: 100%;
-   top: 0px;
-   left: 0px;
-   background-color: #ffffff;
-   padding: 0px;
-   z-index: 0;
-   position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: #ffffff;
+    padding: 0px;
+    z-index: 0;
+    position: absolute;
 }
 
 .sysScreenHideLayerTable {
-   display: table;
-   width: 100%;
-   height: 100%;
-   background-color: #ffffff;
-   padding: 0px;
-   z-index: 0;
+    display: table;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    padding: 0px;
+    z-index: 0;
 }
 
 .sysScreenHideLayerTableRow {
-   display: table-row;
-   margin: 0px;
-   padding: 0px;
-   z-index: 0;
+    display: table-row;
+    margin: 0px;
+    padding: 0px;
+    z-index: 0;
 }
 
 
 /* --------------------------------------------- */
+
+
 /* Default Styles                                */
 
 .DefaultSpacer {
-   width: 10px;
-   height: 10px;
-   background: url("/images/MenuOpenCloseClosed.png") repeat-y scroll 0 0 #efefef;
-   background-size: 10px 10px;
+    width: 10px;
+    height: 10px;
+    background: url("/images/MenuOpenCloseClosed.png") repeat-y scroll 0 0 #efefef;
+    background-size: 10px 10px;
 }
 
 .DefaultTable {
-   display: table;
-   width: 800px;
-   height: 100px;
-   top: 40px;
-   left: 280px;
-   background-color: #f1f3f4;
-   border: 1px solid #d5d5d5;
-   border-spacing: 1px;
-   border-radius: 0px 5px 5px 0px;
-   padding: 1px;
-   position: absolute;
+    display: table;
+    width: 800px;
+    height: 100px;
+    top: 40px;
+    left: 280px;
+    background-color: #f1f3f4;
+    border: 1px solid #d5d5d5;
+    border-spacing: 1px;
+    border-radius: 0px 5px 5px 0px;
+    padding: 1px;
+    position: absolute;
 }
 
 .DefaultTableRow {
-   display: table-row;
-   margin: 0px;
-   padding: 0px;
-   position: absolute;
+    display: table-row;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
 }
 
 .TableColSpacer {
-   float: none;
-   display: table-column;
-   width: 10px;
-   height: 10px;
-   left: 100px;
-   position: absolute;
+    float: none;
+    display: table-column;
+    width: 10px;
+    height: 10px;
+    left: 100px;
+    position: absolute;
 }
 
 .TableColSQLText1 {
-   float: none;
-   display: table-column;
-   width: 10px;
-   height: 10px;
-   left: 200px;
-   position: absolute;
+    float: none;
+    display: table-column;
+    width: 10px;
+    height: 10px;
+    left: 200px;
+    position: absolute;
 }
 
 
 /* --------------------------------------------- */
+
+
 /* Form Field Styles                             */
 
 .DefaultFormListTable {
-   display: table;
-   left: 0px;
-   height: 600px;
-   background-color: #ffffff;
-   padding: 1px;
-   position: absolute;
+    display: table;
+    left: 0px;
+    height: 600px;
+    background-color: #ffffff;
+    padding: 1px;
+    position: absolute;
 }
 
 .DefaultFormListTableWidth {
-   width: 1076px;
+    width: 1076px;
 }
 
 .DefaultFormListTableRow {
-   display: table-row;
-   width: 800px;
-   margin: 0px;
-   padding: 0px;
-   position: absolute;
+    display: table-row;
+    width: 800px;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
 }
 
 .DefaultFormListColDescription {
-   display: table-column;
-   width: 260px;
-   left: 0px;
-   position: absolute;
+    display: table-column;
+    width: 260px;
+    left: 0px;
+    position: absolute;
 }
 
 .DefaultFormListColSpacer {
-   display: table-column;
-   width: 10px;
-   left: 160px;
-   position: absolute;
+    display: table-column;
+    width: 10px;
+    left: 160px;
+    position: absolute;
 }
 
 .DefaultFormListColForm {
-   display: table-column;
-   width: 760px;
-   left: 170px;
-   position: absolute;
+    display: table-column;
+    width: 760px;
+    left: 170px;
+    position: absolute;
 }
 
 .DefaultFormListDescription {
-   padding-left: 2px;
-   padding-top: 12px;
-   font-family: "Verdana","Lucida Sans Unicode","Lucida Grande",Sans-Serif;
-   font-size: 14px;
-   color: #000731;
+    padding-left: 2px;
+    padding-top: 12px;
+    font-family: "Verdana", "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 14px;
+    color: #000731;
 }
 
 
 /* --------------------------------------------- */
+
+
 /* System Context Menu Styles                    */
 
 .sysContextMenuTable {
-   display: table;
-   width: 200px;
-   height: 200px;
-   border: 1px solid #bbbbbb;
-   background-color: #ffffff;
-   position: absolute;
-   z-index: 100;
+    display: table;
+    width: 200px;
+    height: 200px;
+    border: 1px solid #bbbbbb;
+    background-color: #ffffff;
+    position: absolute;
+    z-index: 100;
 }
 
 .sysContextMenuHeaderRow {
-   display: table-row;
-   margin: 0px;
-   padding: 0px;
-   height: 22px;
-   position: absolute;
-   z-index: 100;
+    display: table-row;
+    margin: 0px;
+    padding: 0px;
+    height: 22px;
+    position: absolute;
+    z-index: 100;
 }
 
 .sysContextMenuHeaderColDescription {
-   float: none;
-   display: table-column;
-   left: 0px;
-   width: 180px;
-   padding: 0px 0px 0px 0px;
-   position: absolute;
-   z-index: 100;
+    float: none;
+    display: table-column;
+    left: 0px;
+    width: 180px;
+    padding: 0px 0px 0px 0px;
+    position: absolute;
+    z-index: 100;
 }
 
 .sysContextMenuHeaderDescriptionText {
-   padding-left: 8px;
-   font-family: "Helvetica","Lucida Sans Unicode","Lucida Grande",Sans-Serif;
-   font-size: 14px;
-   position: absolute;
-   z-index: 100;
+    padding-left: 8px;
+    font-family: "Helvetica", "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 14px;
+    position: absolute;
+    z-index: 100;
 }
 
 .sysContextMenuHeaderColClose {
-   float: none;
-   display: table-column;
-   background: url("/images/context_menu_close.png") repeat-x scroll 0 0 #ffffff;
-   left: 185px;
-   width: 10px;
-   height: 20px;
-   padding: 0px 0px 0px 0px;
-   position: absolute;
-   z-index: 100;
+    float: none;
+    display: table-column;
+    background: url("/images/context_menu_close.png") repeat-x scroll 0 0 #ffffff;
+    left: 185px;
+    width: 10px;
+    height: 20px;
+    padding: 0px 0px 0px 0px;
+    position: absolute;
+    z-index: 100;
 }
 
 .sysContextMenuItemRow {
-   display: table-row;
-   margin: 0px;
-   padding: 0px;
-   height: 21px;
-   position: absolute;
-   z-index: 100;
+    display: table-row;
+    margin: 0px;
+    padding: 0px;
+    height: 21px;
+    position: absolute;
+    z-index: 100;
 }
 
 .sysContextMenuItemColDescription {
-   float: none;
-   display: table-column;
-   left: 0px;
-   width: 180px;
-   height: 21px;
-   background-color: #becdd7;
-   padding: 0px 0px 0px 0px;
-   position: absolute;
-   z-index: 100;
+    float: none;
+    display: table-column;
+    left: 0px;
+    width: 180px;
+    height: 21px;
+    background-color: #becdd7;
+    padding: 0px 0px 0px 0px;
+    position: absolute;
+    z-index: 100;
 }
 
 .sysContextMenuItemDescriptionText {
-   padding-left: 8px;
-   font-family: "Helvetica","Lucida Sans Unicode","Lucida Grande",Sans-Serif;
-   font-size: 12px;
-   height: 21px;
-   color: #000731;
-   position: absolute;
-   z-index: 100;
+    padding-left: 8px;
+    font-family: "Helvetica", "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 12px;
+    height: 21px;
+    color: #000731;
+    position: absolute;
+    z-index: 100;
 }
 
 .sysContextMenuItemIconEdit {
-   float: none;
-   display: table-column;
-   background: url("/images/context_menu_edit.png") repeat-x scroll 0 0 #2387aa;
-   background-color: #efefef;
-   border: 1px dotted #bbbbbb;
-   border-right-style: none;
-   left: 180px;
-   width: 20px;
-   height: 20px;
-   padding: 0px 0px 0px 0px;
-   position: absolute;
-   z-index: 100;
+    float: none;
+    display: table-column;
+    background: url("/images/context_menu_edit.png") repeat-x scroll 0 0 #2387aa;
+    background-color: #efefef;
+    border: 1px dotted #bbbbbb;
+    border-right-style: none;
+    left: 180px;
+    width: 20px;
+    height: 20px;
+    padding: 0px 0px 0px 0px;
+    position: absolute;
+    z-index: 100;
 }
 
 .sysContextMenuItemIconDelete {
-   float: none;
-   display: table-column;
-   color: #ffffff;
-   background: url("/images/context_menu_delete.png") repeat-x scroll 0 0 #ffffff;
-   background-color: #efefef;
-   border: 1px dotted #bbbbbb;
-   border-radius: 0px 0px 0px 8px;
-   border-right-style: none;
-   left: 180px;
-   width: 20px;
-   height: 20px;
-   padding: 0px 0px 0px 0px;
-   position: absolute;
-   z-index: 100;
+    float: none;
+    display: table-column;
+    color: #ffffff;
+    background: url("/images/context_menu_delete.png") repeat-x scroll 0 0 #ffffff;
+    background-color: #efefef;
+    border: 1px dotted #bbbbbb;
+    border-radius: 0px 0px 0px 8px;
+    border-right-style: none;
+    left: 180px;
+    width: 20px;
+    height: 20px;
+    padding: 0px 0px 0px 0px;
+    position: absolute;
+    z-index: 100;
 }
 
 .SYSGlobalContextMenuTable tbody tr:hover td {
-   background: url("/images/gradhover.png") repeat-x scroll 0 0 #000000;
-   color: #333399;
+    background: url("/images/gradhover.png") repeat-x scroll 0 0 #000000;
+    color: #333399;
 }
 
 
 /* --------------------------------------------- */
+
+
 /* Custom Link Styles                            */
 
 .MenuLinkTable {
-   display: table;
-   width: 160px;
-   height: 20px;
-   padding: 2px;
-   position: absolute;
-   z-index: 10;
+    display: table;
+    width: 160px;
+    height: 20px;
+    padding: 2px;
+    position: absolute;
+    z-index: 10;
 }
 
 .MenuLinkTableRow {
-   display: table-row;
-   margin: 0px;
-   padding: 0px;
-   position: absolute;
-   z-index: 10;
+    display: table-row;
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    z-index: 10;
 }
 
 .MenuLinkDescription {
-   float: none;
-   display: table-column;
-   cursor: pointer;
-   height: 18px;
-   background-color: #d7466b;
-   border-radius: 1px;
-   padding: 7px;
-   font-family: "Gentona-Book", "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-   font-size: 13px;
-   font-weight: bold;
-   color: #ffffff;
-   position: absolute;
-   z-index: 10;
-   transition: 0.3s;
+    float: none;
+    display: table-column;
+    cursor: pointer;
+    height: 18px;
+    background-color: #d7466b;
+    border-radius: 1px;
+    padding: 7px;
+    font-family: "Gentona-Book", "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: #ffffff;
+    position: absolute;
+    z-index: 10;
+    transition: 0.3s;
 }
 
 .MenuLinkDescription:hover {
-	background-color: #c13f60;
+    background-color: #c13f60;
 }
 
 
 /* --------------------------------------------- */
+
+
 /* Tooltip Styles                                */
+
 
 /*
 tooltip {
