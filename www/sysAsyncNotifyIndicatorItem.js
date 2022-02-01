@@ -48,7 +48,7 @@ sysObjAsyncNotifyIndicatorItem.prototype.init = function()
 	//console.debug('::init IndicatorItem');
 
 	this.DOMStyleZIndex = this.ParentObj.zIndex;
-	this.setDOMElementStyleAttributes();
+	this.setDOMElementZIndex();
 
 	var HeaderObj = new sysBaseObject();
 	HeaderObj.ObjectID = 'Header';

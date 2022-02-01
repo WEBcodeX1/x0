@@ -18,6 +18,7 @@
 function sysServiceConnector() {
 	this.ChildObjects 		= new Array();
 	this.PostRequestData	= new sysRequestDataHandler();
+	this.ObjectShortID		= 'SC';
 }
 
 //- inherit sysBaseDOMFormElement

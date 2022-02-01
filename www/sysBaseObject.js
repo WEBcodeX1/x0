@@ -51,22 +51,26 @@ sysBaseObject.prototype.renderObject = function(Prefix)
 {
 	const setObjectID = (this.ObjectShortID !== undefined) ? this.ObjectShortID : this.ObjectID;
 
-	if (Prefix == null) {
-		this.DOMObjectID = setObjectID;
+	this.DOMParentID = Prefix;
+
+	if (this.overrideDOMObjectID !== true) {
+		if (Prefix == null) {
+			this.DOMObjectID = setObjectID;
+		}
+		else {
+			this.DOMObjectID = Prefix + '_' + setObjectID;
+		}
 	}
-	else {
-		this.DOMObjectID = Prefix + '_' + setObjectID;
-		this.DOMParentID = Prefix;
-	}
 
-    this.createDOMElement(this.DOMObjectID);
-    this.appendDOMParentElement();
+	this.createDOMElement(this.DOMObjectID);
+	this.appendDOMParentElement();
 
-    this.setDOMElementValue();
-    this.setDOMElementStyle();
-    this.setDOMElementStyleAttributes();
+	this.setDOMAttributes();
+	this.setDOMElementValue();
+	this.setDOMElementStyle();
+	this.setDOMElementStyleAttributes();
 
-    //console.log(':renderObject ObjectID:%s ChildObjects:%o:', this.ObjectID, this.ChildObjects);
+    //console.debug(':renderObject ObjectID:%s ChildObjects:%o:', this.ObjectID, this.ChildObjects);
 	for (i in this.ChildObjects) {
 		var ChildItem = this.ChildObjects[i];
 		ChildItem.renderObject(this.DOMObjectID);
@@ -95,23 +99,6 @@ sysBaseObject.prototype.processEventListener = function()
 	for (i in this.ChildObjects) {
 		var ChildItem = this.ChildObjects[i];
 		ChildItem.processEventListener();
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "renderFormlists"
-//------------------------------------------------------------------------------
-
-sysBaseObject.prototype.renderFormlists = function()
-{
-	if (this.ObjectType == 'FormFieldList') {
-		this.render();
-	}
-
-	for (i in this.ChildObjects) {
-		var ChildItem = this.ChildObjects[i];
-		ChildItem.renderFormlists();
 	}
 }
 
@@ -238,7 +225,7 @@ sysBaseObject.prototype.getObjectCount = function()
 
 sysBaseObject.prototype.deactivateDeactivated = function()
 {
-	console.debug('deactivate deactivated:%s', this.Deactivated);
+	//console.debug('deactivate deactivated:%s', this.Deactivated);
 	if (this.Deactivated === true) {
 		this.setDOMVisibleState("hidden");
 	}
@@ -251,19 +238,63 @@ sysBaseObject.prototype.deactivateDeactivated = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "toggle"
+//- METHOD "setActivated"
 //------------------------------------------------------------------------------
 
-sysBaseObject.prototype.toggle = function()
+sysBaseObject.prototype.setActivated = function()
 {
-	this.switchDOMVisibleState();
+	this.Deactivated = false;
 
 	for (i in this.ChildObjects) {
-		var ChildItem = this.ChildObjects[i];
-		ChildItem.toggle();
+		const ChildItem = this.ChildObjects[i];
+		ChildItem.setActivated();
 	}
 }
 
+
+//------------------------------------------------------------------------------
+//- METHOD "setDeactivated"
+//------------------------------------------------------------------------------
+
+sysBaseObject.prototype.setDeactivated = function()
+{
+	this.Deactivated = true;
+
+	for (i in this.ChildObjects) {
+		const ChildItem = this.ChildObjects[i];
+		ChildItem.setActivated();
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "setTabActivated"
+//------------------------------------------------------------------------------
+
+sysBaseObject.prototype.setTabActivated = function()
+{
+	this.TabDeactivated = false;
+
+	for (i in this.ChildObjects) {
+		const ChildItem = this.ChildObjects[i];
+		ChildItem.setActivated();
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "setTabDeactivated"
+//------------------------------------------------------------------------------
+
+sysBaseObject.prototype.setTabDeactivated = function()
+{
+	this.TabDeactivated = true;
+
+	for (i in this.ChildObjects) {
+		const ChildItem = this.ChildObjects[i];
+		ChildItem.setActivated();
+	}
+}
 
 //------------------------------------------------------------------------------
 //- METHOD "remove"
@@ -283,7 +314,6 @@ sysBaseObject.prototype.remove = function()
 		console.log('::remove ObjectID:%s error:%s', this.ObjectID, err);
 	}
 }
-
 
 //------------------------------------------------------------------------------
 //- METHOD "getObjectData"
@@ -329,10 +359,42 @@ sysBaseObject.prototype.reset = function()
 
 
 //------------------------------------------------------------------------------
+//- METHOD "processUpdate"
+//------------------------------------------------------------------------------
+
+sysBaseObject.prototype.processUpdate = function()
+{
+	this.updateValue();
+	for (i in this.ChildObjects) {
+		var ChildItem = this.ChildObjects[i];
+		ChildItem.processUpdate();
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "updateValue" Template Function
+//------------------------------------------------------------------------------
+
+sysBaseObject.prototype.updateValue = function()
+{
+}
+
+
+//------------------------------------------------------------------------------
 //- METHOD "updateInstanceObjectNames"
 //------------------------------------------------------------------------------
 
 sysBaseObject.prototype.updateInstanceObjectNames = function()
+{
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "rewriteOverlayFormitemNames"
+//------------------------------------------------------------------------------
+
+sysBaseObject.prototype.rewriteOverlayFormitemNames = function()
 {
 }
 

@@ -21,14 +21,6 @@ function sysBaseDOMElement()
 
 	this.DOMValue		= null;
 	this.DOMStyle		= null;
-
-	/* - START remove when menu and tabs is completely css based */ 
-	this.DOMStyleTop	= null;
-	this.DOMStyleLeft	= null;
-	this.DOMStyleWidth	= null;
-	this.DOMStyleHeight	= null;
-	this.DOMStyleZIndex	= null;
-	/* - END remove when menu and tabs is completely css based */ 
 }
 
 
@@ -50,8 +42,13 @@ sysBaseDOMElement.prototype.createDOMElement = function()
 
 sysBaseDOMElement.prototype.setDOMAttribute = function(Attribute, Value)
 {
-	var divElement = document.getElementById(this.DOMObjectID);
-	divElement.setAttribute(Attribute, Value);
+	try {
+		var divElement = document.getElementById(this.DOMObjectID);
+		divElement.setAttribute(Attribute, Value);
+	}
+	catch(err) {
+		console.debug('::setDOMAttribute DOMObjectID:%s err:%s', this.DOMObjectID, err);
+	}
 }
 
 
@@ -116,11 +113,12 @@ sysBaseDOMElement.prototype.removeDOMElement = function()
 
 sysBaseDOMElement.prototype.setDOMElementValue = function()
 {
-    if (this.DOMValue != null && this.DOMValue !== undefined) {
-        var divElement = document.getElementById(this.DOMObjectID);
-        if (divElement != null && divElement !== undefined) {
-            divElement.innerHTML = this.DOMValue;
-        }
+	//console.debug('::setDOMElementValue this:%o', this);
+	if (this.DOMValue != null && this.DOMValue !== undefined) {
+		var divElement = document.getElementById(this.DOMObjectID);
+		if (divElement != null && divElement !== undefined) {
+			divElement.innerHTML = this.DOMValue;
+		}
 	}
 }
 
@@ -150,15 +148,46 @@ sysBaseDOMElement.prototype.setDOMElementStyle = function()
 
 sysBaseDOMElement.prototype.setDOMElementStyleAttributes = function()
 {
-	var divElement = document.getElementById(this.DOMObjectID);
-    
+	const divElement = document.getElementById(this.DOMObjectID);
+
+	//console.debug('set Style Attributes: Element:%o, DOMObjectID:%s Top:%s Left:%s', divElement, this.DOMObjectID, this.DOMStyleTop, this.DOMStyleLeft);
+
 	if (divElement !== undefined && divElement != null) {
+		if (this.DOMStyleZIndex != null) {		divElement.style.zIndex			= this.DOMStyleZIndex; }
 		if (this.DOMStyleTop != null) {			divElement.style.top			= this.DOMStyleTop; }
 		if (this.DOMStyleLeft != null) {		divElement.style.left			= this.DOMStyleLeft; }
 		if (this.DOMStyleWidth != null) {		divElement.style.width			= this.DOMStyleWidth; }
 		if (this.DOMStyleHeight != null) {		divElement.style.height			= this.DOMStyleHeight; }
-		if (this.DOMStylePaddingLeft != null) {	divElement.style.paddingLeft	= this.DOMStylePaddingLeft; }
-		if (this.DOMStyleZIndex != null) {		divElement.style.zIndex			= this.DOMStyleZIndex; }
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "setDOMElementZIndex"
+//------------------------------------------------------------------------------
+
+sysBaseDOMElement.prototype.setDOMElementZIndex = function()
+{
+	const divElement = document.getElementById(this.DOMObjectID);    
+	if (divElement !== undefined && divElement != null && this.DOMStyleZIndex != null) {
+		divElement.style.zIndex = this.DOMStyleZIndex;
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "setDOMAttributes"
+//------------------------------------------------------------------------------
+
+sysBaseDOMElement.prototype.setDOMAttributes = function()
+{
+	const divElement = document.getElementById(this.DOMObjectID);
+
+	//console.debug('set Style Attributes: Element:%o, DOMObjectID:%s Top:%s Left:%s', divElement, this.DOMObjectID, this.DOMStyleTop, this.DOMStyleLeft);
+
+	for (AttrKey in this.DOMAttributes) {
+		AttrValue = this.DOMAttributes[AttrKey];
+		this.setDOMAttribute(AttrKey, AttrValue);
 	}
 }
 
