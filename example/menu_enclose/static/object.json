@@ -2,7 +2,7 @@
     "Link1": {
         "Type": "Link",
         "Attributes": {
-            "Style": "sysMenu-link",
+            "Style": "sysLink small",
             "TextID": "TXT.MENU.BASICEXAMPLE.SCREEN1",
             "ScreenID": "Screen1"
         }
@@ -10,7 +10,7 @@
     "Link2": {
         "Type": "Link",
         "Attributes": {
-            "Style": "sysMenu-link",
+            "Style": "sysLink small",
             "TextID": "TXT.MENU.BASICEXAMPLE.SCREEN2",
             "ScreenID": "Screen2"
         }
