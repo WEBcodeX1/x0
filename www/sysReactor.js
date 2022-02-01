@@ -75,7 +75,7 @@ sysReactor.prototype.dispatchEvent = function(EventID) {
 
 		if (EventObj.ID == EventID) {
 
-			var ProcessObj = EventObj.ObjectRef;
+			const ProcessObj = EventObj.ObjectRef;
 
 			//console.debug('Reactor Dispatch Event. EventObject:%o ProcessObj:%o', EventObj, ProcessObj);
 
@@ -104,7 +104,7 @@ sysReactor.prototype.dispatchEvent = function(EventID) {
 				case "SetObjectPropertyValues":
 
 					//console.debug('Reactor Dispatch Event. SetObjectPropertyValues:%o', ProcessObj);
-					var s = new SetObjectPropertyValues(EventObj);
+					var s = new setObjectPropertyValues(EventObj);
 
 					continue;
 
@@ -131,10 +131,10 @@ sysReactor.prototype.fireEvents = function(FireEvents) {
 
 
 //------------------------------------------------------------------------------
-//- CONSTRUCTOR "SetObjectPropertyValues"
+//- CONSTRUCTOR "setObjectPropertyValues"
 //------------------------------------------------------------------------------
 
-function SetObjectPropertyValues(EventObj) {
+function setObjectPropertyValues(EventObj) {
 	this.EventObj = EventObj;
 	this.callService();
 }
@@ -144,7 +144,7 @@ function SetObjectPropertyValues(EventObj) {
 //- METHOD "callService"
 //------------------------------------------------------------------------------
 
-SetObjectPropertyValues.prototype.callService = function()
+setObjectPropertyValues.prototype.callService = function()
 {
 	const Attributes = this.EventObj.Attributes;
 
@@ -170,7 +170,7 @@ SetObjectPropertyValues.prototype.callService = function()
 //- METHOD "callbackXMLRPCAsync"
 //------------------------------------------------------------------------------
 
-SetObjectPropertyValues.prototype.callbackXMLRPCAsync = function()
+setObjectPropertyValues.prototype.callbackXMLRPCAsync = function()
 {
 	const Attributes = this.EventObj.Attributes;
 

@@ -32,13 +32,13 @@ function sysObjLink() {
 
 }
 
-//- inherit sysBaseObject
 sysObjLink.prototype = new sysBaseObject();
 
 
 //------------------------------------------------------------------------------
 //- METHOD "init"
 //------------------------------------------------------------------------------
+
 sysObjLink.prototype.init = function()
 {
 	const Attributes = this.JSONConfig.Attributes;
@@ -49,7 +49,7 @@ sysObjLink.prototype.init = function()
 
 	this.ScreenID			= Attributes.ScreenID;
 	this.TextID				= Attributes.TextID;
-	this.RaiseEvents		= Attributes.RaiseEvents;
+	this.FireEvents			= Attributes.FireEvents;
 	this.ActiveOnFormID		= Attributes.ActiveOnFormID;
 	this.ScreenOverlayID	= Attributes.ScreenOverlayID;
 
@@ -70,6 +70,7 @@ sysObjLink.prototype.init = function()
 //------------------------------------------------------------------------------
 //- METHOD "EventListener"
 //------------------------------------------------------------------------------
+
 sysObjLink.prototype.EventListener = function(Event)
 {
 	console.debug('Link EventListener ScreenID:%s ScreenOverlayID:%s', this.ScreenID, this.ScreenOverlayID);
@@ -77,6 +78,7 @@ sysObjLink.prototype.EventListener = function(Event)
 	var SwitchScreen = true;
 
 	if (this.ActiveOnFormID !== undefined && this.ActiveOnFormID != null) {
+
 		const FormItem = sysFactory.getFormFieldObjectByID(this.ActiveOnFormID);
 		const FormValue = FormItem.getDOMValue();
 		//console.log('FormValue:%s', FormValue);
@@ -100,16 +102,16 @@ sysObjLink.prototype.EventListener = function(Event)
 		}
 	}
 
-	if (SwitchScreen == true && this.ScreenID !== undefined) {
-		//console.log('SwitchScreen:true');
-		if (this.RaiseEvents != null) {
-			sysFactory.Reactor.fireEvents(this.RaiseEvents);
-		}
+	if (SwitchScreen === true && this.ScreenID !== undefined) {
 		sysFactory.switchScreen(this.ScreenID);
 	}
 
 	if (this.ScreenOverlayID !== undefined) {
 		sysFactory.OverlayObj.setupOverlay(this.ScreenOverlayID);
+	}
+
+	if (this.FireEvents !== undefined) {
+		sysFactory.Reactor.fireEvents(this.FireEvents);
 	}
 
 }
@@ -118,6 +120,7 @@ sysObjLink.prototype.EventListener = function(Event)
 //------------------------------------------------------------------------------
 //- METHOD "Hilite"
 //------------------------------------------------------------------------------
+
 sysObjLink.prototype.Hilite = function(Event)
 {
 	//console.debug('::Hilite Style:%s', this.LinkHilteStyle);
@@ -128,6 +131,7 @@ sysObjLink.prototype.Hilite = function(Event)
 //------------------------------------------------------------------------------
 //- METHOD "DeHilite"
 //------------------------------------------------------------------------------
+
 sysObjLink.prototype.DeHilite = function(Event)
 {
 	//console.debug('::DeHilite Style:%s', this.LinkHilteStyle);

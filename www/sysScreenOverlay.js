@@ -23,9 +23,10 @@ function sysScreenOverlay(FactoryRef) {
 //------------------------------------------------------------------------------
 //- METHOD "setupOverlay"
 //------------------------------------------------------------------------------
+
 sysScreenOverlay.prototype.setupOverlay = function(ScreenID)
 {
-	var OverlayScreen = new sysScreen(true);
+	OverlayScreen = new sysScreen(true);
 
 	const SkeletonData = this.FactoryRef.DataSkeleton.XMLRPCResultData[ScreenID];
 
@@ -34,7 +35,7 @@ sysScreenOverlay.prototype.setupOverlay = function(ScreenID)
 
 	OverlayScreen.setStyle(OverlayStyle);
 
-	console.debug('ScreenID:%s SkeletonData:%o', ScreenID, SkeletonData);
+	//console.debug('ScreenID:%s SkeletonData:%o', ScreenID, SkeletonData);
 
 	OverlayScreen.ScreenID = ScreenID;
 	OverlayScreen.SkeletonData = SkeletonData;
@@ -52,6 +53,8 @@ sysScreenOverlay.prototype.setupOverlay = function(ScreenID)
 
 	OverlayScreen.setup();
 
+	OverlayScreen.HierarchyRootObject.processUpdate();
+
 	CloseObject.processEventListener();
 }
 
@@ -59,6 +62,7 @@ sysScreenOverlay.prototype.setupOverlay = function(ScreenID)
 //------------------------------------------------------------------------------
 //- METHOD "EventListenerClick"
 //------------------------------------------------------------------------------
+
 sysScreenOverlay.prototype.EventListenerClick = function()
 {
 	console.debug('click');

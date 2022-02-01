@@ -30,6 +30,7 @@ function sysScreen(IsOverlay) {
 
 	this.IsOverlay				= IsOverlay;
 
+	// TODO: move to sysFactory (no need putting into each screen instance)
 	this.SetupClasses = {
 		'TabContainer': sysTabContainer,
 		'SQLText': sysObjSQLText,
@@ -37,7 +38,8 @@ function sysScreen(IsOverlay) {
 		'ButtonInternal': sysObjButtonInternal,
 		'NavigateForwardBackward': sysObjNavigateForwardBackward,
 		'List': sysList,
-		'FormFieldList': sysFormFieldList,
+		'FormfieldList': sysFormfieldList,
+		'FormFieldList': sysFormfieldList,
 		'ServiceConnector': sysServiceConnector,
 		'Div': sysObjDiv,
 		'FileUpload': sysFileUpload,
@@ -46,7 +48,9 @@ function sysScreen(IsOverlay) {
 		'LinkExternal': sysObjLinkExternal,
 		'RowContainer': sysObjRowContainer,
 		'FormulaField': sysObjFormula,
-		'MenuEnclose': sysObjMenuEnclose
+		'MenuEnclose': sysObjMenuEnclose,
+		'RegRequirementItem': RegRequirementItem,
+		'RegDataItem': RegDataItem
 	};
 
 	this.setStyle();
@@ -83,12 +87,10 @@ sysScreen.prototype.setup = function() {
 
 	this.setupObject(this.ScreenID, this.HierarchyRootObject);
 
-	//- dynamic update (prepare objects for rendering) formlist formitems
-	// (old style, should be unneccesarry after refactoring)
-	this.HierarchyRootObject.renderFormlists();
-
 	//- connect ServiceConnector Objects
 	this.HierarchyRootObject.connectServiceConnectorObjects();
+
+	//console.debug('HierarchyRoot:%o', this.HierarchyRootObject);
 
 	//- render screen root object (recurse)
 	this.HierarchyRootObject.renderObject();
@@ -98,6 +100,9 @@ sysScreen.prototype.setup = function() {
 
 	//- process event listeners
 	this.HierarchyRootObject.processEventListener();
+
+	//- call update() function on all objects recursive
+	this.HierarchyRootObject.processUpdate();
 
 	//console.debug('sysScreen.setup() RootObject:%o', this.RootObject);
 }
@@ -118,15 +123,15 @@ sysScreen.prototype.setupObject = function(ObjectID, HierarchyObject, HierarchyL
 		const SkeletonItem = ObjectItem[Key];
 		var JSONConfig = sysFactory.DataObject.XMLRPCResultData[Key];
 
-		//console.debug('::setupObject ParamObjectID:%s ProcessObjectKey:%s', ObjectID, Key);
+		//console.debug('::setupObject ParamObjectID:%s ProcessObjectKey:%s JSONConfig:%o', ObjectID, Key, JSONConfig);
 
 		try {
 
-			if (JSONConfig.RefID !== undefined) {
+			if (JSONConfig !== undefined && JSONConfig.RefID !== undefined) {
 				var JSONConfigRef = sysFactory.DataObject.XMLRPCResultData[JSONConfig.RefID];
 				JSONConfig = sysMergeObjects(JSONConfig, JSONConfigRef);
 				this.processOverwriteAtttributes(JSONConfig);
-				this.processRepolaceAtttributes(JSONConfig, JSONConfigRef);
+				this.processReplaceAtttributes(JSONConfig, JSONConfigRef);
 			}
 
 			//console.debug('::setupObject ProcessSkeletonObjectKey:%s SkeletonItem:%o JSONConfig:%o', Key, SkeletonItem, JSONConfig);
@@ -144,15 +149,20 @@ sysScreen.prototype.setupObject = function(ObjectID, HierarchyObject, HierarchyL
 
 			//console.debug('::setupObject ObjectID:%s ParentID:%s', Key, AddHierarchyObject.ParentID);
 
-			if (JSONConfig.RefID !== undefined) {
+			if (JSONConfig.InstancePrefix !== undefined && JSONConfig.RefID !== undefined) {
 				AddHierarchyObject.updateInstanceObjectNames();
+			}
+
+			if (this.IsOverlay === true) {
+				AddHierarchyObject.rewriteOverlayFormitemNames();
 			}
 
 			AddHierarchyObject.init();
 
 			if (SkeletonItem.ElementID !== undefined && SkeletonItem.ElementID != null) {
-				var AddObject = this.HierarchyRootObject.getObjectByID(SkeletonItem.ElementID);
-				console.debug('::setupObject AddObject:%o', AddObject);
+				//var AddObject = this.HierarchyRootObject.getObjectByID(SkeletonItem.ElementID);
+				var AddObject = sysFactory.getObjectByID(SkeletonItem.ElementID);
+				//console.debug('::setupObject AddObject:%o', AddObject);
 				AddObject.addObject(AddHierarchyObject);
 			}
 			else {
@@ -163,13 +173,12 @@ sysScreen.prototype.setupObject = function(ObjectID, HierarchyObject, HierarchyL
 			HierarchyLevel +=1;
 			this.setupObject(Key, AddHierarchyObject, HierarchyLevel);
 			HierarchyLevel -=1;
+		
 		}
 		catch(err) {
 			console.debug('::setupObject ObjectID:%s err:%s', Key, err);
 		}
-
 	}
-
 }
 
 
@@ -178,6 +187,7 @@ sysScreen.prototype.setupObject = function(ObjectID, HierarchyObject, HierarchyL
 //------------------------------------------------------------------------------
 
 sysScreen.prototype.processOverwriteAtttributes = function(JSONConfig) {
+
 	const AttributesOverwrite = JSONConfig.AttributesOverwrite;
 	//console.debug('processOverwriteAtttributes JSONConfig:%o', JSONConfig);
 	if (AttributesOverwrite !== undefined) {
@@ -187,16 +197,17 @@ sysScreen.prototype.processOverwriteAtttributes = function(JSONConfig) {
 			JSONConfig.Attributes[ConfigKey] = ConfigValue;
 		}
 	}
+
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "processRepolaceAtttributes"
+//- METHOD "processReplaceAtttributes"
 //------------------------------------------------------------------------------
 
-sysScreen.prototype.processRepolaceAtttributes = function(JSONConfig, JSONConfigRef) {
+sysScreen.prototype.processReplaceAtttributes = function(JSONConfig, JSONConfigRef) {
+
 	const AttributesReplace = JSONConfig.AttributesReplace;
-	//console.debug('processReplaceAtttributes AttributesReplace:%o JSONConfig:%o JSONConfigRef:%o', AttributesReplace, JSONConfig, JSONConfigRef);
 	if (AttributesReplace !== undefined) {
 		for (Index in AttributesReplace) {
 			const Config = AttributesReplace[Index];
@@ -211,6 +222,7 @@ sysScreen.prototype.processRepolaceAtttributes = function(JSONConfig, JSONConfig
 			//console.debug('::processReplaceAtttributes replaced JSONConfig:%o', JSONConfig.Attributes);
 		}
 	}
+
 }
 
 
@@ -219,23 +231,31 @@ sysScreen.prototype.processRepolaceAtttributes = function(JSONConfig, JSONConfig
 //------------------------------------------------------------------------------
 
 sysScreen.prototype.getSkeletonObjectsByObjectRefId = function(ObjectId) {
-	var RefObjects = new Array();
-	
-	//console.debug('::getSkeletonObjectsByObjectRefId) SkelettonData:%o', this.SkeletonData);
 
-	for (ObjectIndex in this.SkeletonData) {
-		const ObjectItem = this.SkeletonData[ObjectIndex];
-		const ObjectKey = Object.keys(ObjectItem)[0];
-		//console.debug('::getSkeletonObjectsByObjectRefId ObjectId:%s ObjectKey:%s', ObjectId, ObjectKey);
-		const ProcessObj = ObjectItem[ObjectKey];
-		if (ProcessObj.RefID == ObjectId) {
-			var AddObject = new Object();
-			AddObject[ObjectKey] = ProcessObj;
-			RefObjects.push(AddObject);
+	var RefObjects = new Array();
+
+	const SkeletonComplete = sysFactory.DataSkeleton.XMLRPCResultData;
+
+	for (ScreenID in SkeletonComplete) {
+
+		const SkeletonScreen = SkeletonComplete[ScreenID];
+
+		for (ObjectIndex in SkeletonScreen) {
+
+			const ObjectItem = SkeletonScreen[ObjectIndex];
+			const ObjectKey = Object.keys(ObjectItem)[0];
+			const ProcessObj = ObjectItem[ObjectKey];
+
+			if (ProcessObj.RefID == ObjectId) {
+				var AddObject = new Object();
+				AddObject[ObjectKey] = ProcessObj;
+				RefObjects.push(AddObject);
+			}
 		}
 	}
 
 	return RefObjects;
+
 }
 
 
@@ -243,7 +263,9 @@ sysScreen.prototype.getSkeletonObjectsByObjectRefId = function(ObjectId) {
 //- METHOD "triggerGlobalDataLoad"
 //------------------------------------------------------------------------------
 
+// TODO: get config (old menuitem) from skeleton.json
 sysScreen.prototype.triggerGlobalDataLoad = function() {
+
 	var MenuItem = this.LinkObj.MenuItem;
 	//console.debug('::triggerGlobalDataLoad LinkObj MenuItem:%o', MenuItem);
 
@@ -259,32 +281,6 @@ sysScreen.prototype.triggerGlobalDataLoad = function() {
 		}
 	}
 
-	if (MenuItem.ServiceURL !== undefined) {
-		this.PostRequestData.addServiceProperty('BackendServiceID', MenuItem.ServiceID);
-		//this.PostRequestData.add(this.DBPrimaryKeyValue, 'DBPrimaryKeyValue');
-		RPC = new sysCallXMLRPC(MenuItem.ServiceURL);
-		RPC.Request(this);
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "callbackXMLRPCAsync"
-//------------------------------------------------------------------------------
-
-sysScreen.prototype.callbackXMLRPCAsync = function()
-{
-	sysFactory.updateServiceDBColumnObjects(this.HierarchyRootObject, this);
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "getDBColumnValue"
-//------------------------------------------------------------------------------
-
-sysScreen.prototype.getDBColumnValue = function(id)
-{
-	return this.XMLRPCResultData[0][id];
 }
 
 
@@ -293,7 +289,7 @@ sysScreen.prototype.getDBColumnValue = function(id)
 //------------------------------------------------------------------------------
 
 sysScreen.prototype.setGlobalVar = function(Key, Value) {
-	console.debug('setGlobalVar Key:%s Value:%s', Key, Value);
+	//console.debug('setGlobalVar Key:%s Value:%s', Key, Value);
 	this.GlobalVars[Key] = Value;
 }
 

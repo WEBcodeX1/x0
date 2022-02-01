@@ -136,10 +136,6 @@ sysObjButton.prototype.EventListenerClick = function(Event)
 		//- process connected source objects
 		this.processSourceObjects();
 
-		//----- PROCESSING ORDER CHANGED after processActions() method has moved
-		//----- to:sysOjButton from:sysObjButtonInternal
-		//----- 		this.processActions() WAS after this.processFormFieldListObjects();
-
 		//- process actions
 		this.processActions();
 
@@ -246,6 +242,7 @@ sysObjButton.prototype.processActions = function()
 			const DstObject = sysFactory.getObjectByID(ActionAttributes.DstObjectID);
 			DstObject.disable();
 		}
+
 		if (Attributes.Action == 'Enable') {
 			const DstObject = sysFactory.getObjectByID(ActionAttributes.DstObjectID);
 			DstObject.enable();

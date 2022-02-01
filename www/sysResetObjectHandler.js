@@ -41,7 +41,7 @@ sysResetObjectHandler.prototype.processResetObjects = function() {
 			var ScreenID = Objects[ResetObjectID];
 			//console.log(ScreenID);
 
-			var ScreenObj = (ScreenID != null && ScreenID !== undefined) ? sysFactory.getScreenByID(ScreenID): sysFactory.getScreenByID(sysFactory.ActualScreenID);
+			var ScreenObj = (ScreenID != null && ScreenID !== undefined) ? sysFactory.getScreenByID(ScreenID): sysFactory.getScreenByID(sysFactory.CurrentScreenID);
 			//console.log(ScreenObj);
 
 			var TmpObject = ScreenObj.HierarchyRootObject.getObjectByID(ResetObjectID);

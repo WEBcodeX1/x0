@@ -34,7 +34,6 @@ sysObjSQLText.prototype.init = function() {
 
 	if (this.JSONConfig !== undefined && this.JSONConfig.Attributes !== undefined) {
 		this.DOMStyle = this.JSONConfig.Attributes.Style;
-		this.DOMStyles = this.JSONConfig.Attributes.AdditionalStyles;
 
 		if (this.JSONConfig.Attributes.TextID !== undefined) {
 			this.TextID = this.JSONConfig.Attributes.TextID;

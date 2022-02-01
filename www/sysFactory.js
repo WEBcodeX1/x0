@@ -22,17 +22,20 @@ function sysFactory() {
 
 sysFactory.prototype.init = function() {
 
-    //- ------------------------------------------------------
-    //- loop on skeleton, create screen object, add to this.Screens
-    //- ------------------------------------------------------
-    //console.debug(this.DataSkeleton);
+	//- ------------------------------------------------------
+	//- loop on skeleton, create screen object, add to this.Screens
+	//- ------------------------------------------------------
+	//console.debug('Skeleton Data:%o', this.DataSkeleton);
 
     //- ------------------------------------------------------
     //- Setup Base Divs for User Content
     //- ------------------------------------------------------
     userInitLayerContent();
 
-    const SkeletonData = this.DataSkeleton.XMLRPCResultData;
+	//- ------------------------------------------------------
+	//- Add all System Screens
+	//- ------------------------------------------------------
+	const SkeletonData = this.DataSkeleton.XMLRPCResultData;
 
     for (SkeletonKey in SkeletonData) {
 
@@ -45,30 +48,15 @@ sysFactory.prototype.init = function() {
         ScreenObj.setup();
     }
 
-    //- ------------------------------------------------------
-    //- Initialize Dyn Pulldown Tab Switch Behaviour
-    //- ------------------------------------------------------
-    this.initDynPulldownTabSwitchBehaviour();
+	//- ------------------------------------------------------
+	//- Deactivate all Objects flagged Deactivated = true
+	//- ------------------------------------------------------
+	this.deactivateObjects();
 
-    //- ------------------------------------------------------
-    //- Deactivate all Objects flagged Deactivated = true
-    //- ------------------------------------------------------
-    this.deactivateObjects();
-
-    //- ------------------------------------------------------
-    //- Initialize Dependend Pulldowns
-    //- ------------------------------------------------------
-    this.initDependendPulldowns();
-
-    //- ------------------------------------------------------
-    //- Add OnTabSwitchElements (Global) to Tabs
-    //- ------------------------------------------------------
-    this.addOnTabSwitchElements();
-
-    //- ------------------------------------------------------
-    //- Switch to Default Screen
-    //- ------------------------------------------------------
-    this.switchScreen(this.DisplayDefaultScreen);
+	//- ------------------------------------------------------
+	//- Switch to Default Screen
+	//- ------------------------------------------------------
+	this.switchScreen(this.DisplayDefaultScreen);
 
     //- ------------------------------------------------------
     //- Deactivate dependend on Global Variables objects
@@ -176,15 +164,11 @@ sysFactory.prototype.getScreenByID = function(ScreenID) {
 //- METHOD "getLastScreenObject"
 //------------------------------------------------------------------------------
 
-/*
- * Very fast hack/workaround for getting the last screen object
- */
-
 sysFactory.prototype.getLastScreenObject = function() {
-    for (ScreenID in this.Screens) {
-        ScreenObj = this.Screens[ScreenID];
-    }
-    return ScreenObj;
+	for (ScreenID in this.Screens) {
+		ScreenObj = this.Screens[ScreenID];
+	}
+	return ScreenObj;
 }
 
 
@@ -193,13 +177,13 @@ sysFactory.prototype.getLastScreenObject = function() {
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.getObjectByID = function(ObjectID) {
-    for (ScreenID in this.Screens) {
-        var ScreenObj = this.Screens[ScreenID];
-        var ResultObj = ScreenObj.HierarchyRootObject.getObjectByID(ObjectID);
-        if (ResultObj !== undefined && ResultObj != null) {
-            return ResultObj;
-        }
-    }
+	for (ScreenID in this.Screens) {
+		const ScreenObj = this.Screens[ScreenID];
+		const ResultObj = ScreenObj.HierarchyRootObject.getObjectByID(ObjectID);
+		if (ResultObj !== undefined && ResultObj != null) {
+			return ResultObj;
+		}
+	}
 }
 
 
@@ -218,47 +202,14 @@ sysFactory.prototype.getObjectsByAttribute = function(Attribute) {
 
 
 //------------------------------------------------------------------------------
-//- METHOD "initDependendPulldowns"
-//------------------------------------------------------------------------------
-
-sysFactory.prototype.initDependendPulldowns = function() {
-
-    for (ScreenID in this.Screens) {
-        const FormFieldItems = this.getObjectsByType(ScreenID, 'FormField');
-        //- deactivate objects (recursion not required)
-        for (FormID in FormFieldItems) {
-            const FormItem = FormFieldItems[FormID];
-            //console.log('initDependendPulldowns FormItem:%o', FormItem);
-            const FormObject = this.getFormFieldObjectByID(FormItem.ObjectID);
-            //console.log('initDependendPulldowns FormObject:%o', FormFieldObject);
-            if (FormObject !== undefined) {
-                FormObject.initReferencedPulldowns();
-            }
-        }
-        //console.log('::initDependendPulldowns FormFieldItems:%o', FormFieldItems);
-        //- activate "RootPulldown"s default EnableOnValues recursive
-        for (FormID in FormFieldItems) {
-            const FormItem = FormFieldItems[FormID];
-            //console.log('initDependendPulldowns FormItem:%o', FormItem);
-            const FormObject = this.getFormFieldObjectByID(FormItem.ObjectID);
-            //console.info('initDependendPulldowns FormObject:%o', FormObject);
-            if (FormObject !== undefined && FormObject.JSONConfig.Attributes.Type == 'pulldown' && FormObject.JSONConfig.Attributes.RootPulldown == true) {
-                sysFactory.initReferencedPulldownsActivate(FormObject);
-            }
-        }
-    }
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "deactivateGlobalDependendObjects"
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.deactivateGlobalDependendObjects = function() {
 
-    const DependendObjects = this.getObjectsByAttribute('DependOnGlobal');
-    const ProcessObjects = DependendObjects[this.ActualScreenID];
-    //console.debug('::deactivateGlobalDependendObjects ProcessObjects:%o CurrentScreen:%s', ProcessObjects, this.ActualScreenID);
+	const DependendObjects = this.getObjectsByAttribute('DependOnGlobal');
+	const ProcessObjects = DependendObjects[this.CurrentScreenID];
+	//console.debug('::deactivateGlobalDependendObjects ProcessObjects:%o CurrentScreen:%s', ProcessObjects, this.CurrentScreenID);
 
     for (ObjIndex in ProcessObjects) {
 
@@ -299,72 +250,18 @@ sysFactory.prototype.deactivateGlobalDependendObjects = function() {
 
 
 //------------------------------------------------------------------------------
-//- METHOD "initReferencedPulldownsActivate"
-//------------------------------------------------------------------------------
-
-sysFactory.prototype.initReferencedPulldownsActivate = function(PulldownItem) {
-    const Default = PulldownItem.getDefault();
-    if (Default !== undefined) {
-        //const selectedValue = this.getRuntimeData();
-        const ProcessElements = PulldownItem.JSONConfig.Attributes.OnChange.ObjectsEnableOnValues[Default];
-        for (Index in ProcessElements) {
-            const ProcessObj = sysFactory.getObjectByID(ProcessElements[Index]);
-            if (ProcessObj !== undefined) {
-                ProcessObj.Deactivated = false;
-                ProcessObj.activate();
-
-                try {
-                    ProcessObj.setValidate(true);
-                } catch (err) {}
-
-                //console.debug('::initReferencedPulldownsActivate ProcessObj:%o', ProcessObj);
-
-                if (ProcessObj.JSONConfig.Attributes.Type == 'pulldown') {
-                    this.initReferencedPulldownsActivate(ProcessObj);
-                }
-            } else {
-                console.debug('::initReferencedPulldownsActivate ProcessObjID:%s not found!', ProcessElements[Index]);
-            }
-        }
-    }
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "initDynPulldownTabSwitchBehaviour"
-//------------------------------------------------------------------------------
-
-sysFactory.prototype.initDynPulldownTabSwitchBehaviour = function() {
-
-    for (ScreenID in this.Screens) {
-        const ScreenObject = this.getScreenByID(ScreenID);
-        const RootObj = ScreenObject.HierarchyRootObject;
-        const FormLists = RootObj.getObjectsByType('FormFieldList');
-        for (ObjKey in FormLists) {
-            var FormListObj = FormLists[ObjKey];
-            //console.log('::initDynPulldownTabSwitchBehaviour FormListObj:%o', FormListObj);
-            FormListObj.setupTabSwitchBehaviour();
-        }
-    }
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "deactivateObjects"
 //------------------------------------------------------------------------------
 
+// TODO: this can be done easily in sysScreen setup directly: set object property
+// "Deactivated" = true when JSONConfig contains "Deactivated" property
 sysFactory.prototype.deactivateObjects = function() {
-    for (ScreenID in this.Screens) {
-        const ScreenObj = this.Screens[ScreenID];
-        var Items = ScreenObj.HierarchyRootObject.getObjectsByAttribute('Deactivated');
-        for (ObjectKey in Items) {
-            Item = Items[ObjectKey];
-            Item.deactivate();
-            Item.Deactivated = true;
-            try {
-                Item.setValidate(false);
-            } catch (err) {}
-        }
+	for (ScreenID in this.Screens) {
+		const ScreenObj = this.Screens[ScreenID];
+		var Items = ScreenObj.HierarchyRootObject.getObjectsByAttribute('Deactivated');
+		for (ObjectKey in Items) {
+			Item.Deactivated = true;
+		}
     }
 }
 
@@ -375,7 +272,7 @@ sysFactory.prototype.deactivateObjects = function() {
 
 sysFactory.prototype.switchScreen = function(ScreenID) {
 
-    console.debug('::switchScreen ScreenID:%s Current ScreenID:%s', ScreenID, this.ActualScreenID);
+	console.debug('::switchScreen ScreenID:%s Current ScreenID:%s', ScreenID, this.CurrentScreenID);
 
     if (ScreenID !== undefined) {
 
@@ -386,11 +283,11 @@ sysFactory.prototype.switchScreen = function(ScreenID) {
             //- switch all screens to background
             this.switchScreensToBackground();
 
-            //- set global ActualScreenID
-            this.ActualScreenID = ScreenID;
+			//- set global ActualScreenID
+			this.CurrentScreenID = ScreenID;
 
-            //- update form data
-            this.updateFormData(ScreenObj);
+			//- => rename, name is misleading. shoud be "UpdateRefDeactivated"
+			//this.updateFormData(ScreenObj);
 
             //- trigger global screen data load
             //ScreenObj.triggerGlobalDataLoad();
@@ -398,13 +295,13 @@ sysFactory.prototype.switchScreen = function(ScreenID) {
             //- switch selected screen to foreground
             this.switchScreenToForeground(ScreenObj);
 
-            //- deactivate deactivated objects
-            ScreenObj.HierarchyRootObject.deactivateDeactivated();
-
-        } catch (err) {
-            console.debug('::switchScreen err:%s', err);
-        }
-    }
+			//- deactivate deactivated objects
+			ScreenObj.HierarchyRootObject.deactivateDeactivated();
+		}
+		catch(err) {
+			console.debug('::switchScreen err:%s', err);
+		}
+	}
 
 }
 
@@ -665,75 +562,11 @@ sysFactory.prototype.getObjectContainingTabData = function(CheckObjectID) {
 
 
 //------------------------------------------------------------------------------
-//- METHOD "updateServiceDBColumnObjects"
-//------------------------------------------------------------------------------
-
-sysFactory.prototype.updateServiceDBColumnObjects = function(ObjectRef, XMLResultRef) {
-
-    const DBColumnObjects = ObjectRef.getObjectsByAttribute('DBColumn');
-    console.debug('::callbackXMLRPCAsync DBColumnObjects:%o', DBColumnObjects);
-
-    for (i in DBColumnObjects) {
-        try {
-            var SetObject = DBColumnObjects[i];
-            //console.debug('::callbackXMLRPCAsync SetObject:%o', SetObject);
-            var RowData = XMLResultRef.XMLRPCResultData[0];
-            var DBValue = RowData[SetObject.JSONConfig.Attributes.DBColumn];
-            //console.debug('::callbackXMLRPCAsync DBValue:%s DBColumn:%s', DBValue, SetObject.JSONConfig.Attributes.DBColumn);
-
-            if (DBValue == null) { DBValue = ''; }
-
-            SetObject.reset();
-            SetObject.Value = DBValue;
-            SetObject.updateValue();
-
-            if (SetObject.ObjectType == 'FormField') {
-                //console.debug('::callbackXMLRPCAsync triggering FormItem OnChange');
-                SetObject.processOnChangeItem();
-            }
-            /* be sure to activate deactivate object */
-            if (SetObject.Deactivated === true && SetObject.Value.length > 0) {
-                //console.debug('::callbackXMLRPCAsync triggering FormItem OnChange');
-                SetObject.Deactivated = false;
-                SetObject.activate();
-                SetObject.enable();
-            }
-        } catch (e) {}
-    }
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "addOnTabSwitchElements"
-//------------------------------------------------------------------------------
-
-sysFactory.prototype.addOnTabSwitchElements = function() {
-    for (ScreenID in this.Screens) {
-        const ScreenObj = this.Screens[ScreenID];
-        const UpdateElements = ScreenObj.HierarchyRootObject.getObjectsByAttribute('UpdateOnTabSwitchGlobal');
-        //console.debug('::addOnTabSwitchElements ScreenID:%s UpdateElements:%o', ScreenID, UpdateElements);
-        for (Index in UpdateElements) {
-            const Element = UpdateElements[Index];
-            try {
-                const ElementAttributes = Element.JSONConfig.Attributes.UpdateOnTabSwitchGlobal;
-                const TabContainer = this.getObjectByID(ElementAttributes.TabContainer);
-                TabContainer.addUpdateOnSwitchElement(ElementAttributes.Tab, Element);
-            } catch (e) {}
-        }
-    }
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "getGlobalVar"
 //------------------------------------------------------------------------------
 
-sysFactory.prototype.getGlobalVar = function(VarName) {
-    const XMLData = this.ObjGlobalData.XMLRPCResultData;
-    for (RowIndex in XMLData) {
-        const Row = XMLData[RowIndex];
-        if (Row.id == VarName) { return Row.Value; }
-    }
+sysFactory.prototype.getGlobalVar = function(Key) {
+	return (Key === undefined || Key == null) ? '' : this.ObjGlobalData[Key];
 }
 
 
@@ -764,9 +597,24 @@ sysFactory.prototype.handleParentMessage = function(event) {
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.resetErrorContainer = function() {
-    const ErrorContainerItems = this.getObjectsByType(this.ActualScreenID, 'ErrorContainer');
-    for (Index in ErrorContainerItems) {
-        const ErrorContainerItem = ErrorContainerItems[Index];
-        ErrorContainerItem.reset();
-    }
+	const ErrorContainerItems = this.getObjectsByType(this.CurrentScreenID, 'ErrorContainer');
+	for (Index in ErrorContainerItems) {
+		const ErrorContainerItem = ErrorContainerItems[Index];
+		ErrorContainerItem.reset();
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "getText"
+//------------------------------------------------------------------------------
+
+sysFactory.prototype.getText = function(TextID) {
+	const TextObj = this.ObjText.getTextObjectByID(TextID);
+	var RetValue = TextObj[this.EnvUserLanguage];
+	if (RetValue === undefined) {
+		RetValue = 'Missing:' + TextID;
+		console.debug('Text not found for given TextID:' + TextID);
+	}
+	return RetValue;
 }
