@@ -2,13 +2,14 @@ Source: x0-js
 Section: utils
 Priority: extra
 Maintainer: Claus Prüfer <c.pruefer@click-it.online>
-Standards-Version: 3.9.3
-Build-Depends: debhelper (>= 9), python
+Standards-Version: 4.5.1
+Build-Depends: debhelper (>= 11)
 Homepage: http://click-it.online/
 Vcs-Git: git://git01.webcodex.de/clickit/x0_js
 
 Package: x0-js
 Section: utils
 Architecture: all
-Depends: python (>= 2.0), postgresql (>= 11), postgresql (< 13), apache2 (>= 2.4), libapache2-mod-wsgi-py3 (>= 3.3), ${shlibs:Depends}, ${misc:Depends}
-Description: JavaScript Browser Framework with focus on Object-Interaction.
+Depends: python (>= 2.0), postgresql (>= 11), postgresql (<= 13), apache2 (>= 2.4), libapache2-mod-wsgi-py3 (>= 3.3)
+Description: Serverless, easy extendable OOP JavaScript browser framework.
+ Long description.
