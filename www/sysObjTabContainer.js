@@ -16,7 +16,6 @@
 
 function sysTab()
 {
-
 	this.ObjectID										= null;							//- ObjectID
 	this.TabID											= null;							//- TabID
 
@@ -28,9 +27,6 @@ function sysTab()
 
 	this.Active											= false;						//- false | true
 
-	this.StyleRemove									= null;							//- Remove Style
-	this.Style											= null;							//. Set Style
-
 	this.TabContainer									= null;							//- TabContainer Object
 
 	this.ValidateStatus									= null;							//- Child Form Validate Status
@@ -38,17 +34,11 @@ function sysTab()
 	this.StyleActive									= null;							//- Active Style
 	this.StyleInactive									= null;							//- Inactive Style
 
-	this.UpdateDynPulldowns								= new Array();					//- Update DynPulldowns on Tab Switch
-	this.UpdateFormFieldValues							= new Array();					//- Update FormField Values
-
-	this.UpdateElements									= new Array();					//- Upadte Elements
-																						//- should replace UpdateDynPulldowns and UpdateFormFieldValues
 	this.EventListeners									= new Object();					//- Event Listeners
 
 	this.ChildObjects									= new Array();					//- Child Objects
 
 	this.PostRequestData								= new sysRequestDataHandler();	//- Base Recursive Root Object
-
 }
 
 
@@ -61,90 +51,8 @@ sysTab.prototype = new sysBaseObject();
 
 sysTab.prototype.EventListenerClick = function(Event)
 {
-	console.debug('::EventListenerClick sysTab TabID:' + this.TabID);
+	//console.debug('::EventListenerClick sysTab TabID:' + this.TabID);
 	this.TabContainer.switchTab(this.TabID);
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "addPulldownFormList"
-//------------------------------------------------------------------------------
-
-sysTab.prototype.addPulldownFormList = function(FormListID, Type)
-{
-	this.PDFormListsToActivateDeactivate[Type].push(FormListID);
-	//console.log('::addPulldownFormList TabID:%s FormListID:%s Type:%s this.ActivateDeactivate:%o', this.ID, FormListID, Type, this.PDFormListsToActivateDeactivate);
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "removePulldownFormList"
-//------------------------------------------------------------------------------
-
-sysTab.prototype.removePulldownFormList = function(FormListID, Status, Type)
-{
-	var ArrayIndex = this.PDFormListsToActivateDeactivate[Type].indexOf(FormListID);
-	delete this.PDFormListsToActivateDeactivate[Type][ArrayIndex];
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "updateDynPulldowns"
-//------------------------------------------------------------------------------
-
-sysTab.prototype.updateDynPulldowns = function()
-{
-	//console.debug('::updateDynPulldowns Pulldowns:%o', this.UpdateDynPulldowns);
-	for (i in this.UpdateDynPulldowns) {
-		this.UpdateDynPulldowns[i].updateValue();
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "updateDynFormValues"
-//------------------------------------------------------------------------------
-
-sysTab.prototype.updateDynFormValues = function()
-{
-	for (i in this.UpdateFormFieldValues) {
-		try {
-			var FormFieldItem = this.UpdateFormFieldValues[i];
-			var SourceConfig = FormFieldItem.UpdateOnTabSwitch;
-			var SourceFormListObject = sysFactory.getObjectByID(SourceConfig.SourceFormFieldList);
-			var SourceFormFieldItem = SourceFormListObject.getFormFieldItemByID(SourceConfig.SourceFormField);
-			FormFieldItem.setValue(SourceFormFieldItem.getObjectData());
-		}
-		catch(err) {
-            console.log('::updateDynFormValues err:%s', err);
-		}
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "updateOnSwitchElements"
-//------------------------------------------------------------------------------
-
-sysTab.prototype.updateOnSwitchElements = function()
-{
-	console.debug('::updateOnSwitchElements Elements:%o', this.UpdateElements);
-	for (i in this.UpdateElements) {
-		try {
-			const UpdateElement = this.UpdateElements[i];
-			const Attributes = UpdateElement.JSONConfig.Attributes.UpdateOnTabSwitchGlobal;
-
-			const CheckFunction = Attributes.CheckFunction;
-			const CheckFunctionParams = Attributes.CheckFunctionParams;
-			const CheckResult = sysFactory.UserFunctions[CheckFunction](CheckFunctionParams);
-
-			const UpdateFunctionParams = Attributes.UpdateFunctionParams;
-			UpdateElement.updateOnTabSwitch(UpdateFunctionParams, CheckResult);
-		}
-		catch(e) {
-			console.debug('::updateOnSwitchElements Error:%s', e);
-		}
-	}
 }
 
 
@@ -161,47 +69,28 @@ sysTab.prototype.fireEvents = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "addOnChangeElement"
-//------------------------------------------------------------------------------
-
-sysTab.prototype.addOnChangeElement = function(Element)
-{
-	this.UpdateElements.push(Element);
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "switchStyle"
 //------------------------------------------------------------------------------
+
 sysTab.prototype.switchStyle = function()
 {
-
 	//- remove style
 	this.removeDOMElementStyle(this.StyleRemove);
 
 	//- set style
 	this.DOMStyle = this.Style;
 	this.setDOMElementStyle();
-
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "setValidateStatus"
-//------------------------------------------------------------------------------
-sysTab.prototype.setValidateStatus = function(Status)
-{
-	this.ValidateStatus = Status;
 }
 
 
 //------------------------------------------------------------------------------
 //- METHOD "processService"
 //------------------------------------------------------------------------------
+
 sysTab.prototype.processService = function()
 {
 	if (this.ServiceURL !== undefined) {
-		const ScreenObject = sysFactory.getScreenByID(sysFactory.ActualScreenID);
+		//const ScreenObject = sysFactory.getScreenByID(sysFactory.CurrentScreenID);
 		this.PostRequestData.addServiceProperty('BackendServiceID', this.ServiceID);
 		RPC = new sysCallXMLRPC(this.ServiceURL);
 		RPC.Request(this);
@@ -212,9 +101,16 @@ sysTab.prototype.processService = function()
 //------------------------------------------------------------------------------
 //- METHOD "callbackXMLRPCAsync"
 //------------------------------------------------------------------------------
+
 sysTab.prototype.callbackXMLRPCAsync = function()
 {
-	sysFactory.updateServiceDBColumnObjects(this, this);
+	const DBColumnObjects = this.getObjectsByAttribute('DBColumn');
+	//console.debug('::callbackXMLRPCAsync DBColumnObjects:%o', DBColumnObjects);
+
+	for (i in DBColumnObjects) {
+		const DstObject = DBColumnObjects[i];
+		DstObject.updateDBValue(this.XMLRPCResultData[0]);
+	}
 }
 
 
@@ -256,7 +152,7 @@ sysTabContainer.prototype.init = function()
 	NavDiv.JSONConfig = {
 		"Attributes": {
 			"DOMType": "nav",
-			"DOMStyle": "test"
+			"Style": "nav"
 		}
 	};
 	NavDiv.init();
@@ -266,7 +162,7 @@ sysTabContainer.prototype.init = function()
 	this.NavListDiv.JSONConfig = {
 		"Attributes": {
 			"DOMType": "ul",
-			"DOMStyle": "test"
+			"Style": "ul"
 		}
 	};
 	this.NavListDiv.init();
@@ -291,7 +187,6 @@ sysTabContainer.prototype.init = function()
 
 sysTabContainer.prototype.addTabs = function()
 {
-
 	var Tabs = this.ContainerAttributes.Tabs;
 
 	for (TabKey in Tabs) {
@@ -335,7 +230,6 @@ sysTabContainer.prototype.addTabs = function()
 
         this.NavListDiv.addObject(TabElement);
 	}
-
 }
 
 
@@ -355,7 +249,6 @@ sysTabContainer.prototype.getTabByTabID = function(TabID)
 
 sysTabContainer.prototype.appendTabObject = function(TabElement)
 {
-
 	var SQLTextObj = new sysObjSQLText();
 	SQLTextObj.ObjectID = TabElement.ObjectID;
 	SQLTextObj.TextID = TabElement.TextID;
@@ -367,7 +260,7 @@ sysTabContainer.prototype.appendTabObject = function(TabElement)
 	TabContentObj.ObjectType = 'TabContent';
 	TabContentObj.JSONConfig = {
 		"Attributes": {
-			"DOMStyle": "test"
+			"Style": "sysTabContent"
 		}
 	};
 	TabContentObj.init();
@@ -382,13 +275,6 @@ sysTabContainer.prototype.appendTabObject = function(TabElement)
 	EventListenerObj['Element'] = TabElement.EventListenerClick.bind(TabElement);
 
 	TabElement.EventListeners["clickTab"] = EventListenerObj;
-
-	/*
-	EventListenerObj['Type'] = 'mouseover';
-	EventListenerObj['Element'] = TabElement.EventListenerMouseover.bind(TabElement);
-
-	TabElement.EventListeners["hooverTab"] = EventListenerObj;
-	*/
 
 	TabElement.addObject(SQLTextObj);
 }
@@ -412,7 +298,7 @@ sysTabContainer.prototype.setGlobalCurrentTab = function(TabID, TabElement)
 
 sysTabContainer.prototype.switchTab = function(TabID)
 {
-	console.debug('::switchTab TabID:%s', TabID);
+	//console.debug('::switchTab TabID:%s', TabID);
 
 	var Tabs = this.Tabs;
 
@@ -421,7 +307,7 @@ sysTabContainer.prototype.switchTab = function(TabID)
 
 		if (TabElement.Active == true) {
 
-			console.debug('::switchTab TabKey:%s Active==True', TabKey);
+			//console.debug('::switchTab TabKey:%s Active==True', TabKey);
 
 			TabElement.Active = false;
 			TabElement.StyleRemove = TabElement.StyleActive;
@@ -430,9 +316,9 @@ sysTabContainer.prototype.switchTab = function(TabID)
 		}
 
 		if (TabElement.TabID == TabID) {
-			//console.debug('Switching active tab in container:%s', this.ObjectID);
 
-			console.debug('::switchTab TabKey:%s Active==True', TabKey);
+			//console.debug('Switching active tab:%s', this.ObjectID);
+			//console.debug('::switchTab TabKey:%s Active==True', TabKey);
 
 			this.setGlobalCurrentTab(TabID, TabElement);
 
@@ -440,6 +326,7 @@ sysTabContainer.prototype.switchTab = function(TabID)
 			TabElement.StyleRemove = TabElement.StyleInactive;
 			TabElement.Style = TabElement.StyleActive;
 
+			TabElement.TabContentObj.setTabActivated();
 			TabElement.TabContentObj.setDOMVisibleState('visible');
 			TabElement.TabContentObj.Deactivated = false;
 
@@ -449,21 +336,15 @@ sysTabContainer.prototype.switchTab = function(TabID)
 			//- trigger service data load
 			TabElement.processService();
 
-			//- update dynamic pulldowns
-			TabElement.updateDynPulldowns();
-
-            //- update dynamic form field values
-			TabElement.updateDynFormValues();
-
-			//- update on tab switch elements
-			TabElement.updateOnSwitchElements();
+			//- deactivate all objects in state "Deactivated"
+			TabElement.TabContentObj.deactivateDeactivated();
 
 			//- trigger iframe resize
 			sysFactory.resizeIframe();
-
 		}
 		else {
 			TabElement.TabContentObj.Deactivated = true;
+			TabElement.TabContentObj.setTabDeactivated();
 			TabElement.TabContentObj.setDOMVisibleState('hidden');
 		}
 
@@ -482,58 +363,13 @@ sysTabContainer.prototype.loadAll = function()
 	const TabsOrdered = this.TabsOrdered;
 	for (Index in TabsOrdered) {
 		const TabElement = TabsOrdered[Index];
-		console.debug('::loadAll Index:%s TabElement:%o', Index, TabElement);
+		//console.debug('::loadAll Index:%s TabElement:%o', Index, TabElement);
 
 		//- fire events
 		TabElement.fireEvents();
 
 		//- trigger service data load
 		TabElement.processService();
-
-		//- update dynamic pulldowns
-		TabElement.updateDynPulldowns();
-
-		//- update dynamic form field values
-		TabElement.updateDynFormValues();
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "addUpdateOnTabSwitchElement"
-//------------------------------------------------------------------------------
-
-sysTabContainer.prototype.addUpdateOnTabSwitchElement = function(TabID, Element)
-{
-	try {
-		var Tab = this.getTabByTabID(TabID);
-        //console.log('::addUpdateOnTabSwitchElement TabID:%s Element:%o', TabID, Element);
-		if (Element.Type == 'dynpulldown') {
-			Tab.UpdateDynPulldowns.push(Element);
-        }
-		if (Element.Type == 'text') {
-			Tab.UpdateFormFieldValues.push(Element);
-        }
-	}
-	catch(err) {
-        console.log('::addUpdateOnTabSwitchElement err:%s', err);
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "addUpdateOnSwitchElement"
-//------------------------------------------------------------------------------
-
-sysTabContainer.prototype.addUpdateOnSwitchElement = function(TabID, Element)
-{
-	try {
-		const Tab = this.getTabByTabID(TabID);
-        //console.log('::addUpdateOnTabSwitchElement TabID:%s Element:%o', TabID, Element);
-		Tab.UpdateElements.push(Element);
-	}
-	catch(err) {
-        console.log('::addUpdateOnSwitchElement err:%s', err);
 	}
 }
 
@@ -590,7 +426,7 @@ sysTabContainer.prototype.switchDefaultTab = function()
 
 sysTabContainer.prototype.reset = function()
 {
-	console.debug('::reset');
+	//console.debug('::reset');
 	this.switchDefaultTab();
 }
 
@@ -598,6 +434,17 @@ sysTabContainer.prototype.reset = function()
 //------------------------------------------------------------------------------
 //- METHOD "setValidateStatus"
 //------------------------------------------------------------------------------
+
+sysTabContainer.prototype.setValidateStatus = function(Status)
+{
+	this.ValidateStatus = Status;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "switchFirstTabContainingErrors"
+//------------------------------------------------------------------------------
+
 sysTabContainer.prototype.switchFirstTabContainingErrors = function()
 {
 	for (TabKey in this.Tabs) {

@@ -242,14 +242,13 @@ sysListRow.prototype.updateRemovedRowEventListeners = function()
 
 function sysList()
 {
-	this.PrimaryKeyColumn		= null;									//- Primary Key Column
-
 	this.DisplayRows			= 10;									//- Display Row Count
 
 	this.DataURL				= null;									//- getData XMLRPC URL
 	this.DataURLParams			= '';									//- getData XMLRPC URL Params
 
-	this.RuntimeGetDataFunc		= this.getObjectData					//- Get Runtime Data
+	this.RuntimeGetDataFunc		= this.getObjectData;					//- Get Runtime Data
+	this.RuntimeSetDataFunc		= this.appendData;						//- Set (append) Runtime Data
 
 	this.PostRequestData		= new sysRequestDataHandler();			//- Request Data Handler
 
@@ -267,11 +266,8 @@ function sysList()
 
 	this.RealtimeEventListeners = new Object();							//- Realtime Event Listeners
 	this.ColumnGenerators 		= new Object();							//- Column Generators Object
-	
-	this.doValidate				= true;									//- Default Validate
 }
 
-//- inherit sysBaseObject
 sysList.prototype = new sysBaseObject();
 
 
@@ -302,15 +298,6 @@ sysList.prototype.setRealtimeEventListener = function(ColumnID, RefObject)
 sysList.prototype.appendData = function(DataObj)
 {
 	console.debug('::appendData Data:%o', DataObj);
-	/*
-	const RegexTemplate = {
-		'link': '^https?:\\/\\/([\w\d\\-]+\\.)+\w{2,}(\\/.+)?$'
-	};
-	*/
-
-	const RegexTemplate = {
-		'link': '^(http|https):\\/\\/.+$'
-	};
 
 	const ErrorObj = sysFactory.getObjectByID(this.JSONConfig.Attributes.ErrorContainer);
 	if (ErrorObj !== undefined) {
@@ -1067,7 +1054,7 @@ sysList.prototype.syncRealtimeData = function()
 		const ColItems = this.RowItems[DataIndex].ColItems;
 		for (ColIndex in ColItems) {
 			const ColumnObject = ColItems[ColIndex];
-			if (ColumnObject.ObjectType == 'FormField') {
+			if (ColumnObject.ObjectType == 'Formfield') {
 				//console.debug('ColObject Object:%o', ColumnObject);			
 				const SetData = ColumnObject.getRuntimeData();
 				console.debug('::addDynamicRow SetData:%s TableColumn:%s', SetData, ColumnObject.TableColumn);
@@ -1107,15 +1094,4 @@ sysList.prototype.getObjectData = function()
 {
 	this.syncRealtimeData();
 	return this.Data;
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "getRuntimeData"
-//------------------------------------------------------------------------------
-
-//- SHOULD BE: generic way in all objects via this.RuntimeGetDataFunc
-sysList.prototype.getRuntimeData = function()
-{
-	return this.getObjectData();
 }

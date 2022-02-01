@@ -34,9 +34,9 @@
 
 	"TestFormfields1":
 	{
-		"Type": "FormFieldList",
+		"Type": "FormfieldList",
 		"Attributes": {
-			"FormFields": [
+			"Formfields": [
 				"Formfield1",
 				"Formfield2",
 				"Formfield3"

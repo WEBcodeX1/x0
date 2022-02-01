@@ -123,7 +123,7 @@ sysFileUpload.prototype.startUpload = function() {
 //- METHOD "updateProgress"
 //------------------------------------------------------------------------------
 sysFileUpload.prototype.updateProgress = function(progress) {
-	console.log('::updateProgress progress:%o', progress);
+    console.log('::updateProgress progress:%o', progress);
     try {
         this.ProgressPercent = Math.round(progress.loaded * 100 / progress.total);
     }
@@ -138,7 +138,7 @@ sysFileUpload.prototype.updateProgress = function(progress) {
 //- METHOD "UploadFinished"
 //------------------------------------------------------------------------------
 sysFileUpload.prototype.UploadFinished = function(progress) {
-	this.Status = 'uploaded';
+    this.Status = 'uploaded';
     this.ProgressPercent = 100;
     this.renderProgressBar();
 }
@@ -151,7 +151,6 @@ sysFileUpload.prototype.renderProgressBar = function() {
     var ProgressBarElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressBar');
     var ProgressPercentageElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressPercentage');
     ProgressBarElement.DOMStyleWidth = this.ProgressPercent + '%'
-    ProgressBarElement.setDOMElementStyleAttributes();            
     ProgressPercentageElement.DOMValue = Math.round(this.ProgressPercent) + '%';
     ProgressPercentageElement.setDOMElementValue();
 }

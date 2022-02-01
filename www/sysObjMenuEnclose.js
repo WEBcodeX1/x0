@@ -38,7 +38,7 @@ sysObjMenuEnclose.prototype.init = function() {
 		HeaderDiv.JSONConfig = {
 			"Attributes": {
 				"DOMType": "header",
-				"DOMStyle": Attributes.StyleHeader
+				"Style": Attributes.StyleHeader
 			}
 		};
 		HeaderDiv.init();
@@ -50,7 +50,7 @@ sysObjMenuEnclose.prototype.init = function() {
 		NavDiv.JSONConfig = {
 			"Attributes": {
 				"DOMType": "nav",
-				"DOMStyle": Attributes.StyleNav
+				"Style": Attributes.StyleNav
 			}
 		};
 		NavDiv.init();
@@ -62,7 +62,7 @@ sysObjMenuEnclose.prototype.init = function() {
 		UlDiv.JSONConfig = {
 			"Attributes": {
 				"DOMType": "ul",
-				"DOMStyle": Attributes.StyleUl
+				"Style": Attributes.StyleUl
 			}
 		};
 		UlDiv.init();

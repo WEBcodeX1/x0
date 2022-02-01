@@ -10,219 +10,6 @@
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 
-//------------------------------------------------------------------------------
-//- CONSTRUCTOR "sysContextMenuItem"
-//------------------------------------------------------------------------------
-
-function sysContextMenuItem()
-{
-	this.PostRequestData		= new sysRequestDataHandler();
-
-	this.ID						= null;
-	this.TextID					= null;
-	this.Icon					= null;
-
-	this.DstScreenID			= null;
-
-	this.ServiceURL				= null;
-	this.ServiceID				= null;
-	this.Notify					= null;
-
-	this.UpdateSrcObject		= false;
-
-	this.ScreenObject			= null;
-	this.SourceObject			= null;
-
-	this.ContextMenuObject		= null;
-
-	this.FireEvents				= null;
-
-	this.InternalFunction		= null;
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "EventListenerClick"
-//------------------------------------------------------------------------------
-sysContextMenuItem.prototype.EventListenerClick = function(Event)
-{
-	//console.log('##### CONTEXT MENU EVENT LISTENER CLICK #####');
-
-	this.PostRequestData.reset();
-
-	if (this.InternalFunction != null) {
-
-		//console.log('RowData:%o RowDataIndex:%s Function:%s', this.ContextMenuObject.RowData, this.ContextMenuObject.RowDataIndex, this.InternalFunction);
-
-		if (this.InternalFunction == 'remove' && this.InternalRemoveItemBy == 'RowIndex') {
-            this.SourceObject.removeData(this.ContextMenuObject.RowDataIndex);
-			this.ContextMenuObject.close();
-		}
-
-		if (this.InternalFunction == 'reset') {
-			this.SourceObject.reset();
-			this.ContextMenuObject.close();
-		}
-
-		if (this.InternalFunction == 'copy') {
-            var ScreenObj = sysFactory.getScreenByID(this.DstScreenID);
-			var ListObj = this.ScreenObject.HierarchyRootObject.getObjectByID(this.DstObjectID);
-            //console.log('::ContextMenu copy ListObject:%o RowData:%o', ListObj, this.ContextMenuObject.RowData);
-			ListObj.appendData(this.ContextMenuObject.RowData);
-		}
-
-		if (this.InternalFunction == 'setrowcolumn') {
-			try {
-				const RowData = this.ContextMenuObject.RowData;
-				//console.log('setrowcolumn RowData:%o', RowData);
-				const DstObject = sysFactory.getObjectByID(this.DstObjectID);
-				DstObject.setValue(RowData[this.RowColumn]);
-				//console.log('setrowcolumn ConnectorObject:%o', DstObject);
-			}
-			catch(err) {
-				console.log('::EventListenerClick setrowcolumn err:%s', err);
-			}
-		}
-	}
-
-	if (this.ColumnDependend !== undefined) {
-		const RowData = this.ContextMenuObject.RowData;
-		console.debug('::ContextMenu ColumnDependend RowData:%o', RowData);
-
-		var Col1Value;
-		var Col1Compare;
-		var Col2Value;
-		var Col2Compare;
-
-		for (Index in this.ColumnDependend) {
-			const ColConfig = this.ColumnDependend[Index];
-			if (ColConfig.Column1 !== undefined) {
-				Col1Value = RowData[ColConfig.Column1];
-				Col1Compare = ColConfig.Column1Value;
-			}
-			if (ColConfig.Column2 !== undefined) {
-				Col2Value = RowData[ColConfig.Column2];
-				Col2Compare = ColConfig.Column2Value;
-			}
-			if (ColConfig.Column1 !== undefined && ColConfig.Column2 !== undefined) {
-				if (Col1Value == Col1Compare && Col2Value == Col2Compare) {
-					this.DstScreenID = ColConfig.DstScreenID;
-					break;
-				}
-			}
-			else if (ColConfig.Column1 !== undefined) {
-				if (Col1Value == Col1Compare) {
-					this.DstScreenID = ColConfig.DstScreenID;
-					break;
-				}
-			}					
-		}
-	}
-
-	if (this.ServiceURL != null) {
-
-		sysFactory.GlobalAsyncNotifyIndicator.addMsgItem(this.Notify);
-
-		var Item = new Object();
-		//Item['DBPrimaryKeyValue'] = this.DBPrimaryKeyValue;
-
-		if (this.ServiceKeyColumn !== undefined) {
-			Item[this.ServiceKeyColumn] =  this.ContextMenuObject.RowData[this.ServiceKeyColumn];
-		}
-
-		this.PostRequestData.merge(Item);
-
-		if (this.ServiceID != null) {
-			this.PostRequestData.addServiceProperty('BackendServiceID', this.ServiceID);
-		}
-
-		this.callService();
-
-	}
-
-	if (this.DstScreenID != null) {
-
-		const ScreenObj = sysFactory.getScreenByID(this.DstScreenID);
-
-		console.debug('contextMenu this:%o', this);
-
-		if (this.RowColumn !== undefined && ScreenObj !== undefined) {
-
-			console.debug('contextMenu RowObject:%o', this.ContextMenuObject.RowObject);
-			
-			const setValue = this.ContextMenuObject.RowObject.SetupData[this.RowColumn];
-
-			console.debug('contextMenu setValue:%s', setValue);
-
-			ScreenObj.setGlobalVar(this.RowColumn, setValue);
-		}
-
-		//- close context menu
-		this.ContextMenuObject.close();
-
-		//- clear form field styles
-		this.clearFormStyles();
-
-		if (this.ResetAll === true) {
-			ScreenObj.HierarchyRootObject.processReset();
-		}
-
-		//- switch screen
-		sysFactory.switchScreen(this.DstScreenID);
-
-	}
-
-	//- fire events
-	sysFactory.Reactor.fireEvents(this.FireEvents);
-
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "callService"
-//------------------------------------------------------------------------------
-sysContextMenuItem.prototype.callService = function()
-{
-	if (this.ServiceURL != null && this.ServiceURL !== undefined) {
-		RPC = new sysCallXMLRPC(this.ServiceURL);
-		RPC.Request(this);
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "callbackXMLRPCAsync"
-//------------------------------------------------------------------------------
-sysContextMenuItem.prototype.callbackXMLRPCAsync = function()
-{
-	//console.log(this.XMLRPCResultData.error);
-
-	var MsgHandler = sysFactory.sysGlobalAsyncNotifyHandler;
-	var XMLRPCStatus = this.XMLRPCResultData.error;
-	var NotifyStatus = 'ERROR';
-
-	if (XMLRPCStatus === undefined) {
-		NotifyStatus = 'SUCCESS';
-	}
-
-	if (this.Notify.ID !== undefined) {
-		const IndicatorID = this.Notify.ID;
-		const Message = 'SYS__'+IndicatorID+'__'+NotifyStatus;
-		MsgHandler.processMsg(Message);
-	}
-
-	this.ContextMenuObject.close();
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "clearFormStyles"
-//------------------------------------------------------------------------------
-sysContextMenuItem.prototype.clearFormStyles = function(Event)
-{
-	sysFactory.clearFormStylesByScreenID(this.DstScreenID);
-}
-
 
 //------------------------------------------------------------------------------
 //- CONSTRUCTOR "sysContextMenu"
@@ -327,6 +114,7 @@ sysContextMenu.prototype.init = function()
 
 	this.renderObject();
 	this.processEventListener();
+
 }
 
 
@@ -353,6 +141,9 @@ sysContextMenu.prototype.addItems = function()
 		ContextMenuItem.DstObjectID				= ProcessItem.DstObjectID;
 		ContextMenuItem.DstObjectIDs			= ProcessItem.DstObjectIDs;
 		ContextMenuItem.DstScreenSrcObjFilter	= ProcessItem.DstScreenSrcObjFilter;
+
+		ContextMenuItem.ScreenOverlayID			= ProcessItem.ScreenOverlayID;
+		ContextMenuItem.ScreenOverlaySetObjects	= ProcessItem.ScreenOverlaySetObjects;
 
 		ContextMenuItem.ServiceURL				= ProcessItem.ServiceURL;
 		ContextMenuItem.ServiceID				= ProcessItem.ServiceID;
@@ -398,7 +189,7 @@ sysContextMenu.prototype.processItems = function()
 		//console.log(ItemObj);
 
 		var ItemRowObj = new sysBaseObject();
-		ItemRowObj.ObjectID = 'ContextMenuTableItemRow' + ItemObj.ID;
+		ItemRowObj.ObjectID = 'ContextMenuRow' + ItemObj.ID;
 		ItemRowObj.DOMStyle = 'sysContextMenuItemRow';
 		ItemRowObj.DOMStyleTop = topPosGenerator.next().value;
 		ItemRowObj.EventListeners = new Object();
@@ -494,4 +285,226 @@ sysContextMenu.prototype.setupHeader = function()
 	this.HeaderRowObj.addObject(this.HeaderColCloseObj);
 
 	this.TableObj.addObject(this.HeaderRowObj);
+}
+
+
+//------------------------------------------------------------------------------
+//- CONSTRUCTOR "sysContextMenuItem"
+//------------------------------------------------------------------------------
+
+function sysContextMenuItem()
+{
+	this.PostRequestData		= new sysRequestDataHandler();
+
+	this.ID						= null;
+	this.TextID					= null;
+	this.Icon					= null;
+
+	this.DstScreenID			= null;
+
+	this.ServiceURL				= null;
+	this.ServiceID				= null;
+	this.Notify					= null;
+
+	this.UpdateSrcObject		= false;
+
+	this.ScreenObject			= null;
+	this.SourceObject			= null;
+
+	this.ContextMenuObject		= null;
+
+	this.FireEvents				= null;
+
+	this.InternalFunction		= null;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "EventListenerClick"
+//------------------------------------------------------------------------------
+sysContextMenuItem.prototype.EventListenerClick = function(Event)
+{
+	//console.log('##### CONTEXT MENU EVENT LISTENER CLICK #####');
+
+	this.PostRequestData.reset();
+
+	if (this.InternalFunction != null) {
+
+		//console.log('RowData:%o RowDataIndex:%s Function:%s', this.ContextMenuObject.RowData, this.ContextMenuObject.RowDataIndex, this.InternalFunction);
+
+		if (this.InternalFunction == 'remove' && this.InternalRemoveItemBy == 'RowIndex') {
+            this.SourceObject.removeData(this.ContextMenuObject.RowDataIndex);
+			this.ContextMenuObject.close();
+		}
+
+		if (this.InternalFunction == 'reset') {
+			this.SourceObject.reset();
+			this.ContextMenuObject.close();
+		}
+
+		if (this.InternalFunction == 'copy') {
+            var ScreenObj = sysFactory.getScreenByID(this.DstScreenID);
+			var ListObj = this.ScreenObject.HierarchyRootObject.getObjectByID(this.DstObjectID);
+            //console.log('::ContextMenu copy ListObject:%o RowData:%o', ListObj, this.ContextMenuObject.RowData);
+			ListObj.appendData(this.ContextMenuObject.RowData);
+		}
+
+		if (this.InternalFunction == 'setrowcolumn') {
+			try {
+				const RowData = this.ContextMenuObject.RowData;
+				//console.log('setrowcolumn RowData:%o', RowData);
+				const DstObject = sysFactory.getObjectByID(this.DstObjectID);
+				DstObject.setValue(RowData[this.RowColumn]);
+				//console.log('setrowcolumn ConnectorObject:%o', DstObject);
+			}
+			catch(err) {
+				console.log('::EventListenerClick setrowcolumn err:%s', err);
+			}
+		}
+
+		if (this.InternalFunction == 'openOverlay') {
+			sysFactory.OverlayObj.setupOverlay(this.ScreenOverlayID);
+			for (Index in this.ScreenOverlaySetDataObjects) {
+				DstObject = sysFactory.getObjectByID(this.ScreenOverlaySetDataObjects[Index]);
+				DstObject.RuntimeSetDataFunc(RowData[this.RowColumn]);
+			}
+		}
+	}
+
+	if (this.ColumnDependend !== undefined) {
+		const RowData = this.ContextMenuObject.RowData;
+		console.debug('::ContextMenu ColumnDependend RowData:%o', RowData);
+
+		var Col1Value;
+		var Col1Compare;
+		var Col2Value;
+		var Col2Compare;
+
+		for (Index in this.ColumnDependend) {
+			const ColConfig = this.ColumnDependend[Index];
+			if (ColConfig.Column1 !== undefined) {
+				Col1Value = RowData[ColConfig.Column1];
+				Col1Compare = ColConfig.Column1Value;
+			}
+			if (ColConfig.Column2 !== undefined) {
+				Col2Value = RowData[ColConfig.Column2];
+				Col2Compare = ColConfig.Column2Value;
+			}
+			if (ColConfig.Column1 !== undefined && ColConfig.Column2 !== undefined) {
+				if (Col1Value == Col1Compare && Col2Value == Col2Compare) {
+					this.DstScreenID = ColConfig.DstScreenID;
+					break;
+				}
+			}
+			else if (ColConfig.Column1 !== undefined) {
+				if (Col1Value == Col1Compare) {
+					this.DstScreenID = ColConfig.DstScreenID;
+					break;
+				}
+			}					
+		}
+	}
+
+	if (this.ServiceURL != null) {
+
+		sysFactory.GlobalAsyncNotifyIndicator.addMsgItem(this.Notify);
+
+		var Item = new Object();
+		//Item['DBPrimaryKeyValue'] = this.DBPrimaryKeyValue;
+
+		if (this.ServiceKeyColumn !== undefined) {
+			Item[this.ServiceKeyColumn] =  this.ContextMenuObject.RowData[this.ServiceKeyColumn];
+		}
+
+		this.PostRequestData.merge(Item);
+
+		if (this.ServiceID != null) {
+			this.PostRequestData.addServiceProperty('BackendServiceID', this.ServiceID);
+		}
+
+		this.callService();
+
+	}
+
+	if (this.DstScreenID !== undefined && this.DstScreenID != null) {
+
+		const ScreenObj = sysFactory.getScreenByID(this.DstScreenID);
+
+		console.debug('contextMenu this:%o', this);
+
+		if (this.RowColumn !== undefined && ScreenObj !== undefined) {
+
+			console.debug('contextMenu RowObject:%o', this.ContextMenuObject.RowObject);
+			
+			const setValue = this.ContextMenuObject.RowObject.SetupData[this.RowColumn];
+
+			console.debug('contextMenu setValue:%s', setValue);
+
+			ScreenObj.setGlobalVar(this.RowColumn, setValue);
+		}
+
+		//- close context menu
+		this.ContextMenuObject.close();
+
+		//- clear form field styles
+		this.clearFormStyles();
+
+		if (this.ResetAll === true) {
+			ScreenObj.HierarchyRootObject.processReset();
+		}
+
+		//- switch screen
+		sysFactory.switchScreen(this.DstScreenID);
+
+	}
+
+	//- fire events
+	sysFactory.Reactor.fireEvents(this.FireEvents);
+
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "callService"
+//------------------------------------------------------------------------------
+sysContextMenuItem.prototype.callService = function()
+{
+	if (this.ServiceURL != null && this.ServiceURL !== undefined) {
+		RPC = new sysCallXMLRPC(this.ServiceURL);
+		RPC.Request(this);
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "callbackXMLRPCAsync"
+//------------------------------------------------------------------------------
+sysContextMenuItem.prototype.callbackXMLRPCAsync = function()
+{
+	//console.log(this.XMLRPCResultData.error);
+
+	var MsgHandler = sysFactory.sysGlobalAsyncNotifyHandler;
+	var XMLRPCStatus = this.XMLRPCResultData.error;
+	var NotifyStatus = 'ERROR';
+
+	if (XMLRPCStatus === undefined) {
+		NotifyStatus = 'SUCCESS';
+	}
+
+	if (this.Notify.ID !== undefined) {
+		const IndicatorID = this.Notify.ID;
+		const Message = 'SYS__'+IndicatorID+'__'+NotifyStatus;
+		MsgHandler.processMsg(Message);
+	}
+
+	this.ContextMenuObject.close();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "clearFormStyles"
+//------------------------------------------------------------------------------
+sysContextMenuItem.prototype.clearFormStyles = function(Event)
+{
+	sysFactory.clearFormStylesByScreenID(this.DstScreenID);
 }

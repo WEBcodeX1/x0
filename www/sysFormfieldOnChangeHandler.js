@@ -386,7 +386,6 @@ sysFormFieldOnChangeHandler.prototype.processObjectsEnableOnValuesDeactivate = f
 
 				ListObj.Deactivated = true;
 				ListObj.deactivate();
-				ListObj.setDOMElementStyleAttributes();
 
 				// recurse on single list element
 				var PulldownFormItems = ListObj.getFormFieldItemsByType('pulldown');
