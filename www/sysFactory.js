@@ -11,8 +11,8 @@
 //------------------------------------------------------------------------------
 
 function sysFactory() {
-    this.OverlayObj = new sysScreenOverlay(this); //- Overlay Object Ref
-    this.Screens = new Object(); //- Screen Instances (Refs)
+	this.OverlayObj		= new sysScreenOverlay(this);	//- Overlay Object Ref
+	this.Screens		= new Object();					//- Screen Instances (Refs)
 }
 
 
@@ -27,26 +27,26 @@ sysFactory.prototype.init = function() {
 	//- ------------------------------------------------------
 	//console.debug('Skeleton Data:%o', this.DataSkeleton);
 
-    //- ------------------------------------------------------
-    //- Setup Base Divs for User Content
-    //- ------------------------------------------------------
-    userInitLayerContent();
+	//- ------------------------------------------------------
+	//- Setup Base Divs for User Content
+	//- ------------------------------------------------------
+	userInitLayerContent();
 
 	//- ------------------------------------------------------
 	//- Add all System Screens
 	//- ------------------------------------------------------
 	const SkeletonData = this.DataSkeleton.XMLRPCResultData;
 
-    for (SkeletonKey in SkeletonData) {
+	for(SkeletonKey in SkeletonData) {
 
-        //- add screen object
-        ScreenObj = this.addScreen(
-            SkeletonKey,
-            SkeletonData[SkeletonKey]
-        )
+		//- add screen object
+		ScreenObj = this.addScreen(
+			SkeletonKey,
+			SkeletonData[SkeletonKey]
+		)
 
-        ScreenObj.setup();
-    }
+		ScreenObj.setup();
+	}
 
 	//- ------------------------------------------------------
 	//- Deactivate all Objects flagged Deactivated = true
@@ -58,38 +58,38 @@ sysFactory.prototype.init = function() {
 	//- ------------------------------------------------------
 	this.switchScreen(this.DisplayDefaultScreen);
 
-    //- ------------------------------------------------------
-    //- Deactivate dependend on Global Variables objects
-    //- ------------------------------------------------------
-    this.deactivateGlobalDependendObjects();
+	//- ------------------------------------------------------
+	//- Deactivate dependend on Global Variables objects
+	//- ------------------------------------------------------
+	this.deactivateGlobalDependendObjects();
 
-    //--------------------------------------------------------
-    //- Setup Menu "Screen"
-    //--------------------------------------------------------
-    var MenuScreen = new sysScreen();
+	//--------------------------------------------------------
+	//- Setup Menu "Screen"
+	//--------------------------------------------------------
+	var MenuScreen = new sysScreen();
 
-    const DefaultStyle = sysFactory.DefaultStyleMenu;
-    const MenuStyle = (DefaultStyle !== undefined) ? DefaultStyle : '';
+	const DefaultStyle = sysFactory.DefaultStyleMenu;
+	const MenuStyle = (DefaultStyle !== undefined) ? DefaultStyle : 'col-lg-2 col-md-12';
 
-    MenuScreen.ScreenID = 'sysMenu';
-    MenuScreen.SkeletonData = this.DataMenu.XMLRPCResultData;
-    MenuScreen.setStyle(MenuStyle);
-    MenuScreen.setup();
+	MenuScreen.ScreenID = 'sysMenu';
+	MenuScreen.SkeletonData = this.DataMenu.XMLRPCResultData;
+	MenuScreen.setStyle(MenuStyle);
+	MenuScreen.setup();
 
-    //--------------------------------------------------------
-    //- Resize Iframe when run in external mode (e.g. WP)
-    //--------------------------------------------------------
-    this.resizeIframe();
+	//--------------------------------------------------------
+	//- Resize Iframe when run in external mode (e.g. WP)
+	//--------------------------------------------------------
+	this.resizeIframe();
 
-    //- ------------------------------------------------------
-    //- Raise InitSystem Event
-    //- ------------------------------------------------------
-    this.Reactor.dispatchEvent('InitSystem');
+	//- ------------------------------------------------------
+	//- Raise InitSystem Event
+	//- ------------------------------------------------------
+	this.Reactor.dispatchEvent('InitSystem');
 
-    //- ------------------------------------------------------
-    //- Start processing async Messages
-    //- ------------------------------------------------------
-    this.sysGlobalAsyncNotifyHandler.getMsg();
+	//- ------------------------------------------------------
+	//- Start processing async Messages
+	//- ------------------------------------------------------
+	this.sysGlobalAsyncNotifyHandler.getMsg();
 
 }
 
@@ -98,22 +98,25 @@ sysFactory.prototype.init = function() {
 //- METHOD "resizeIframe"
 //- ------------------------------------------------------
 
-sysFactory.prototype.resizeIframe = function() {
-    if (this.ParentWindowURL !== undefined) {
-        const CurrentHeight = document.getElementsByTagName('html')[0].scrollHeight;
-        //console.debug('::resizeIframe Current Height:%s', CurrentHeight);
-        try {
-            window.parent.postMessage({
-                    'task': 'resize_iframe',
-                    'iframe_id': 'inneriframe',
-                    'iframe_height': CurrentHeight
-                },
-                this.ParentWindowURL
-            );
-        } catch (err) {
-            console.debug('::resizeIframe err:%s', err);
-        }
-    }
+sysFactory.prototype.resizeIframe = function()
+{
+	if (this.ParentWindowURL !== undefined) {
+		const CurrentHeight = document.getElementsByTagName('html')[0].scrollHeight;
+		//console.debug('::resizeIframe Current Height:%s', CurrentHeight);
+		try {
+			window.parent.postMessage(
+				{
+					'task': 'resize_iframe',
+					'iframe_id': 'inneriframe',
+					'iframe_height': CurrentHeight
+				},
+				this.ParentWindowURL
+			);
+		}
+		catch(err) {
+			console.debug('::resizeIframe err:%s', err);
+		}
+	}
 }
 
 
@@ -123,21 +126,21 @@ sysFactory.prototype.resizeIframe = function() {
 
 sysFactory.prototype.addScreen = function(ScreenID, SkeletonData) {
 
-    //console.debug('::addScreen ScreenID:%s SkeletonData:%o', ScreenID, SkeletonData);
+	//console.debug('::addScreen ScreenID:%s SkeletonData:%o', ScreenID, SkeletonData);
 
-    var ScreenObj = new sysScreen();
+	var ScreenObj = new sysScreen();
 
-    //LinkObj = this.ObjMenu.getLinkObjByScreenID(ScreenID);
+	//LinkObj = this.ObjMenu.getLinkObjByScreenID(ScreenID);
 
-    ScreenObj.ScreenID = ScreenID;
-    ScreenObj.SkeletonData = SkeletonData;
-    //ScreenObj.LinkObj = LinkObj;
+	ScreenObj.ScreenID = ScreenID;
+	ScreenObj.SkeletonData = SkeletonData;
+	//ScreenObj.LinkObj = LinkObj;
 
     //console.log('::addScreen add LinkObject:%o to ScreenObj:%o', LinkObj, ScreenObj);
 
-    this.Screens[ScreenID] = ScreenObj;
+	this.Screens[ScreenID] = ScreenObj;
 
-    return this.Screens[ScreenID];
+	return this.Screens[ScreenID];
 
 }
 
@@ -147,7 +150,7 @@ sysFactory.prototype.addScreen = function(ScreenID, SkeletonData) {
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.getScreens = function() {
-    return this.Screens;
+	return this.Screens;
 }
 
 
@@ -156,7 +159,7 @@ sysFactory.prototype.getScreens = function() {
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.getScreenByID = function(ScreenID) {
-    return this.Screens[ScreenID];
+	return this.Screens[ScreenID];
 }
 
 
@@ -192,12 +195,12 @@ sysFactory.prototype.getObjectByID = function(ObjectID) {
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.getObjectsByAttribute = function(Attribute) {
-    var ResultObjects = new Object();
-    for (ScreenID in this.Screens) {
-        ScreenObj = this.Screens[ScreenID];
-        ResultObjects[ScreenID] = ScreenObj.HierarchyRootObject.getObjectsByAttribute(Attribute);
-    }
-    return ResultObjects;
+	var ResultObjects = new Object();
+	for (ScreenID in this.Screens) {
+		ScreenObj = this.Screens[ScreenID];
+		ResultObjects[ScreenID] = ScreenObj.HierarchyRootObject.getObjectsByAttribute(Attribute);
+	}
+	return ResultObjects;
 }
 
 
@@ -211,41 +214,41 @@ sysFactory.prototype.deactivateGlobalDependendObjects = function() {
 	const ProcessObjects = DependendObjects[this.CurrentScreenID];
 	//console.debug('::deactivateGlobalDependendObjects ProcessObjects:%o CurrentScreen:%s', ProcessObjects, this.CurrentScreenID);
 
-    for (ObjIndex in ProcessObjects) {
+	for (ObjIndex in ProcessObjects) {
 
-        const ProcessObject = ProcessObjects[ObjIndex];
-        const ProcessObjectAttributes = ProcessObject.JSONConfig.Attributes.DependOnGlobal;
+		const ProcessObject = ProcessObjects[ObjIndex];
+		const ProcessObjectAttributes = ProcessObject.JSONConfig.Attributes.DependOnGlobal;
 
-        //console.debug('::deactivateGlobalDependendObjects ProcessObjectAttributes:%o', ProcessObjectAttributes);
+		//console.debug('::deactivateGlobalDependendObjects ProcessObjectAttributes:%o', ProcessObjectAttributes);
 
-        if (ProcessObjectAttributes.Operator == '==') {
-            const XMLData = this.ObjGlobalData.XMLRPCResultData;
-            var CheckProperty;
-            for (RowIndex in XMLData) {
-                const Row = XMLData[RowIndex];
-                if (Row.id == ProcessObjectAttributes.Var) {
-                    CheckProperty = Row.Value;
-                }
-            }
+		if (ProcessObjectAttributes.Operator == '==') {
+			const XMLData = this.ObjGlobalData.XMLRPCResultData;
+			var CheckProperty;
+			for (RowIndex in XMLData) {
+				const Row = XMLData[RowIndex];
+				if (Row.id == ProcessObjectAttributes.Var) {
+					CheckProperty = Row.Value;
+				}
+			}
 
-            const CheckValue = ProcessObjectAttributes.Value;
-            //console.debug('::deactivateGlobalDependendObjects CheckProperty:%s CheckValue:%s', CheckProperty, CheckValue);
+			const CheckValue = ProcessObjectAttributes.Value;
+			//console.debug('::deactivateGlobalDependendObjects CheckProperty:%s CheckValue:%s', CheckProperty, CheckValue);
 
-            var ValidateStatus = true;
+			var ValidateStatus = true;
 
-            if (CheckProperty !== undefined && CheckProperty == CheckValue) {
+			if (CheckProperty !== undefined && CheckProperty == CheckValue) {
 
-                ProcessObject.Deactivated = true;
-                ProcessObject.DependendDeactivated = true;
-                ProcessObject.deactivate();
+				ProcessObject.Deactivated = true;
+				ProcessObject.DependendDeactivated = true;
+				ProcessObject.deactivate();
 
-                ValidateStatus = false;
-            }
+				ValidateStatus = false;
+			}
 
-            ProcessObject.setValidate(ValidateStatus);
+			ProcessObject.setValidate(ValidateStatus);
 
-        }
-    }
+		}
+	}
 }
 
 
@@ -274,14 +277,14 @@ sysFactory.prototype.switchScreen = function(ScreenID) {
 
 	console.debug('::switchScreen ScreenID:%s Current ScreenID:%s', ScreenID, this.CurrentScreenID);
 
-    if (ScreenID !== undefined) {
+	if (ScreenID !== undefined) {
 
-        try {
-            //- get screen object by screen id
-            const ScreenObj = this.getScreenByID(ScreenID);
+		try {
+			//- get screen object by screen id
+			const ScreenObj = this.getScreenByID(ScreenID);
 
-            //- switch all screens to background
-            this.switchScreensToBackground();
+			//- switch all screens to background
+			this.switchScreensToBackground();
 
 			//- set global ActualScreenID
 			this.CurrentScreenID = ScreenID;
@@ -289,11 +292,11 @@ sysFactory.prototype.switchScreen = function(ScreenID) {
 			//- => rename, name is misleading. shoud be "UpdateRefDeactivated"
 			//this.updateFormData(ScreenObj);
 
-            //- trigger global screen data load
-            //ScreenObj.triggerGlobalDataLoad();
+			//- trigger global screen data load
+			//ScreenObj.triggerGlobalDataLoad();
 
-            //- switch selected screen to foreground
-            this.switchScreenToForeground(ScreenObj);
+			//- switch selected screen to foreground
+			this.switchScreenToForeground(ScreenObj);
 
 			//- deactivate deactivated objects
 			ScreenObj.HierarchyRootObject.deactivateDeactivated();
@@ -312,11 +315,11 @@ sysFactory.prototype.switchScreen = function(ScreenID) {
 
 sysFactory.prototype.updateFormData = function(ScreenObj) {
 
-    //- trigger dynamic pull down update
-    this.processDynPulldown(ScreenObj);
+		//- trigger dynamic pull down update
+		this.processDynPulldown(ScreenObj);
 
-    //- update dynamic form field refs
-    this.updateFormItemRefValues(ScreenObj);
+		//- update dynamic form field refs
+		this.updateFormItemRefValues(ScreenObj);
 }
 
 
@@ -326,18 +329,18 @@ sysFactory.prototype.updateFormData = function(ScreenObj) {
 
 sysFactory.prototype.updateFormItemRefValues = function(ScreenObj) {
 
-    var Objects = sysFactory.getFormFieldListObjectsByScreenObj(ScreenObj);
+	var Objects = sysFactory.getFormFieldListObjectsByScreenObj(ScreenObj);
 
-    /*
-    console.log('### updateFormItemRefValues ### Objects:%o', Objects);
-    */
+	/*
+	console.log('### updateFormItemRefValues ### Objects:%o', Objects);
+	*/
 
-    for (ObjectKey in Objects) {
-        var FormFields = Objects[ObjectKey].FormFieldItems;
-        for (FormfieldKey in FormFields) {
-            FormFields[FormfieldKey].updateRefValue();
-        }
-    }
+	for (ObjectKey in Objects) {
+		var FormFields = Objects[ObjectKey].FormFieldItems;
+		for (FormfieldKey in FormFields) {
+			FormFields[FormfieldKey].updateRefValue();
+		}
+	}
 
 }
 
@@ -348,21 +351,21 @@ sysFactory.prototype.updateFormItemRefValues = function(ScreenObj) {
 
 sysFactory.prototype.getFormFieldValueByID = function(ScreenID, FormFieldContainer, FormFieldID) {
 
-    var DstScreenObject = sysFactory.getScreenByID(ScreenID);
-    var FormListObjs = DstScreenObject.HierarchyRootObject.getObjectsByType('FormFieldList');
+	var DstScreenObject = sysFactory.getScreenByID(ScreenID);
+	var FormListObjs = DstScreenObject.HierarchyRootObject.getObjectsByType('FormFieldList');
 
-    for (ObjKey in FormListObjs) {
-        if (ObjKey == FormFieldContainer) {
-            var FormFields = FormListObjs[ObjKey].FormFieldItems;
-            for (FormfieldKey in FormFields) {
-                if (FormfieldKey == FormFieldID) {
-                    return FormFields[FormfieldKey].getDOMValue();
-                }
-            }
-        }
-    }
+	for (ObjKey in FormListObjs) {
+		if (ObjKey == FormFieldContainer) {
+			var FormFields = FormListObjs[ObjKey].FormFieldItems;
+			for (FormfieldKey in FormFields) {
+				if (FormfieldKey == FormFieldID) {
+					return FormFields[FormfieldKey].getDOMValue();
+				}
+			}
+		}
+	}
 
-    return 'NotFound';
+	return 'NotFound';
 }
 
 
@@ -371,10 +374,10 @@ sysFactory.prototype.getFormFieldValueByID = function(ScreenID, FormFieldContain
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.switchScreensToBackground = function() {
-    for (ScreenKey in this.Screens) {
-        ScreenObj = this.Screens[ScreenKey];
-        ScreenObj.HierarchyRootObject.setDOMVisibleState('hidden');
-    }
+	for (ScreenKey in this.Screens) {
+		ScreenObj = this.Screens[ScreenKey];
+		ScreenObj.HierarchyRootObject.setDOMVisibleState('hidden');
+	}	
 }
 
 
@@ -383,7 +386,7 @@ sysFactory.prototype.switchScreensToBackground = function() {
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.switchScreenToForeground = function(ScreenObj) {
-    ScreenObj.HierarchyRootObject.setDOMVisibleState('visible');
+	ScreenObj.HierarchyRootObject.setDOMVisibleState('visible');
 }
 
 
@@ -392,10 +395,10 @@ sysFactory.prototype.switchScreenToForeground = function(ScreenObj) {
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.getObjectsByType = function(ScreenID, Type) {
-    //console.log('::getObjectsByType ScreenID:%s Type:%s', ScreenID, Type);
-    var DstScreenObject = sysFactory.getScreenByID(ScreenID);
-    var RootObj = DstScreenObject.HierarchyRootObject;
-    return RootObj.getObjectsByType(Type);
+	//console.log('::getObjectsByType ScreenID:%s Type:%s', ScreenID, Type);
+	var DstScreenObject = sysFactory.getScreenByID(ScreenID);
+	var RootObj = DstScreenObject.HierarchyRootObject;
+	return RootObj.getObjectsByType(Type);
 }
 
 
@@ -405,19 +408,20 @@ sysFactory.prototype.getObjectsByType = function(ScreenID, Type) {
 
 /*
  * check if needed after refactoring
- */
+*/
 sysFactory.prototype.processDynPulldown = function(ScreenObj) {
 
-    var FormListObjs = ScreenObj.HierarchyRootObject.getObjectsByType('FormFieldList');
+	var FormListObjs = ScreenObj.HierarchyRootObject.getObjectsByType('FormFieldList');
 
-    for (ObjKey in FormListObjs) {
-        var FormList = FormListObjs[ObjKey];
-        try {
+	for (ObjKey in FormListObjs) {
+		var FormList = FormListObjs[ObjKey];
+		try {
             FormList.processSwitchScreen();
-        } catch (err) {
+        }
+        catch(err) {
             console.log('::processDynPulldown err%s:', err);
         }
-    }
+	}
 }
 
 
@@ -427,12 +431,12 @@ sysFactory.prototype.processDynPulldown = function(ScreenObj) {
 
 sysFactory.prototype.clearFormStylesByScreenID = function(ScreenID) {
 
-    var FormListObjs = this.getObjectsByType(ScreenID, 'FormFieldList');
+	var FormListObjs = this.getObjectsByType(ScreenID, 'FormFieldList');
 
-    for (ObjKey in FormListObjs) {
-        var FormListObj = FormListObjs[ObjKey];
-        FormListObj.clearStyle();
-    }
+	for (ObjKey in FormListObjs) {
+		var FormListObj = FormListObjs[ObjKey];
+		FormListObj.clearStyle();
+	}
 
 }
 
@@ -443,12 +447,12 @@ sysFactory.prototype.clearFormStylesByScreenID = function(ScreenID) {
 
 sysFactory.prototype.resetFormValuesByScreenID = function(ScreenID) {
 
-    var FormListObjs = this.getObjectsByType(ScreenID, 'FormFieldList');
+	var FormListObjs = this.getObjectsByType(ScreenID, 'FormFieldList');
 
-    for (ObjKey in FormListObjs) {
-        var FormListConfigObj = FormListObjs[ObjKey];
-        FormListConfigObj.ConnectorObject.resetFormElementsDefault();
-    }
+	for (ObjKey in FormListObjs) {
+		var FormListConfigObj = FormListObjs[ObjKey];
+		FormListConfigObj.ConnectorObject.resetFormElementsDefault();
+	}
 
 }
 
@@ -459,12 +463,12 @@ sysFactory.prototype.resetFormValuesByScreenID = function(ScreenID) {
 
 sysFactory.prototype.disableFormValuesByScreenID = function(ScreenID) {
 
-    var FormListObjs = this.getObjectsByType(ScreenID, 'FormFieldList');
+	var FormListObjs = this.getObjectsByType(ScreenID, 'FormFieldList');
 
-    for (ObjKey in FormListObjs) {
-        var FormListConfigObj = FormListObjs[ObjKey];
-        FormListConfigObj.ConnectorObject.disable();
-    }
+	for (ObjKey in FormListObjs) {
+		var FormListConfigObj = FormListObjs[ObjKey];
+		FormListConfigObj.ConnectorObject.disable();
+	}
 
 }
 
@@ -475,12 +479,12 @@ sysFactory.prototype.disableFormValuesByScreenID = function(ScreenID) {
 
 sysFactory.prototype.enableFormValuesByScreenID = function(ScreenID) {
 
-    var FormListObjs = this.getObjectsByType(ScreenID, 'FormFieldList');
+	var FormListObjs = this.getObjectsByType(ScreenID, 'FormFieldList');
 
-    for (ObjKey in FormListObjs) {
-        var FormListConfigObj = FormListObjs[ObjKey];
-        FormListConfigObj.ConnectorObject.enable();
-    }
+	for (ObjKey in FormListObjs) {
+		var FormListConfigObj = FormListObjs[ObjKey];
+		FormListConfigObj.ConnectorObject.enable();
+	}
 
 }
 
@@ -491,17 +495,17 @@ sysFactory.prototype.enableFormValuesByScreenID = function(ScreenID) {
 
 sysFactory.prototype.getFormFieldListObjectsByScreenObj = function(ScreenObject) {
 
-    var RootObject = ScreenObject.HierarchyRootObject;
-    var FormListObjects = RootObject.getObjectsByType('FormFieldList');
+	var RootObject = ScreenObject.HierarchyRootObject;
+	var FormListObjects = RootObject.getObjectsByType('FormFieldList');
 
-    var ReturnObjects = new Object();
+	var ReturnObjects = new Object();
 
-    for (ObjectKey in FormListObjects) {
-        ReturnObjects[ObjectKey] = FormListObjects[ObjectKey];
-    }
+	for (ObjectKey in FormListObjects) {
+		ReturnObjects[ObjectKey] = FormListObjects[ObjectKey];
+	}
 
-    //console.log('Factory::getFormFieldListObjectsByScreenObj ReturnObjects:%s', ReturnObjects);
-    return ReturnObjects;
+	//console.log('Factory::getFormFieldListObjectsByScreenObj ReturnObjects:%s', ReturnObjects);
+	return ReturnObjects;
 
 }
 
@@ -512,13 +516,13 @@ sysFactory.prototype.getFormFieldListObjectsByScreenObj = function(ScreenObject)
 
 sysFactory.prototype.getFormFieldListObjectByID = function(ScreenObject, ObjectID) {
 
-    var FormListObjects = this.getFormFieldListObjectsByScreenObj(ScreenObject);
+	var FormListObjects = this.getFormFieldListObjectsByScreenObj(ScreenObject);
 
-    for (ObjectKey in FormListObjects) {
-        if (ObjectKey == ObjectID) {
-            return FormListObjects[ObjectKey];
-        }
-    }
+	for (ObjectKey in FormListObjects) {
+		if (ObjectKey == ObjectID) {
+			return FormListObjects[ObjectKey];
+		}
+	}
 
 }
 
@@ -528,19 +532,19 @@ sysFactory.prototype.getFormFieldListObjectByID = function(ScreenObject, ObjectI
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.getFormFieldObjectByID = function(ObjectID) {
-    for (ScreenObjKey in this.Screens) {
+	for (ScreenObjKey in this.Screens) {
 
-        var ScreenObj = this.Screens[ScreenObjKey];
-        var FormObjects = this.getFormFieldListObjectsByScreenObj(ScreenObj);
+		var ScreenObj = this.Screens[ScreenObjKey];
+		var FormObjects = this.getFormFieldListObjectsByScreenObj(ScreenObj);
 
-        for (FormListObjKey in FormObjects) {
-            var FormListObj = FormObjects[FormListObjKey];
-            //console.log(FormListObj);
-            var FormFieldObj = FormListObj.getFormFieldItemByID(ObjectID);
-            if (FormFieldObj !== undefined) { return FormFieldObj; }
-        }
-
-    }
+		for (FormListObjKey in FormObjects) {
+			var FormListObj = FormObjects[FormListObjKey];
+			//console.log(FormListObj);
+			var FormFieldObj = FormListObj.getFormFieldItemByID(ObjectID);
+			if (FormFieldObj !== undefined) { return FormFieldObj; }
+		}
+			
+	}
 }
 
 
@@ -575,20 +579,20 @@ sysFactory.prototype.getGlobalVar = function(Key) {
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.handleParentMessage = function(event) {
-    var accepted_origin = sysFactory.ParentWindowURL;
-    if (event.origin == accepted_origin) {
-        console.debug('::handleParentMessage Event:%o', event);
-        if (event.data['task'] == 'add_style') {
-            const AddClass = event.data['class'];
-            document.getElementById('body').classList.add(AddClass);
-        }
-        if (event.data['task'] == 'remove_style') {
-            const RemoveClass = event.data['class'];
-            document.getElementById('body').classList.r(AddClass);
-        }
-    } else {
-        console.log('handleParentMessage Unknown origin:%s', event.origin);
-    }
+	var accepted_origin = sysFactory.ParentWindowURL;
+	if (event.origin == accepted_origin) {
+		console.debug('::handleParentMessage Event:%o', event);
+		if (event.data['task'] == 'add_style') {
+			const AddClass = event.data['class'];
+			document.getElementById('body').classList.add(AddClass);
+		}
+		if (event.data['task'] == 'remove_style') {
+			const RemoveClass = event.data['class'];
+			document.getElementById('body').classList.r(AddClass);
+		}
+	} else {
+		console.log('handleParentMessage Unknown origin:%s', event.origin);
+	}
 }
 
 
