@@ -302,13 +302,6 @@ sysObjButton.prototype.processActions = function()
 
 			var DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
 
-			/*
-			if (Attributes.SetDBPrimaryKey === true) {
-				const ScreenObj = sysFactory.getScreenByID(Attributes.SetDBPrimaryKeyScreen);
-				ScreenObj.DBPrimaryKeyValue = ColumnValue;
-			}
-			*/
-
 			if (Attributes.ResetObjectID !== undefined) {
 				const ResetObject = sysFactory.getObjectByID(Attributes.ResetObjectID);
 				//console.debug('ResetObject:%o ObjectID:%s', ResetObject, ResetObject.ObjectID);
@@ -370,10 +363,6 @@ sysObjButton.prototype.processActions = function()
 		if (Attributes.Action == 'switchscreen') {
 			const ScreenObject = sysFactory.getScreenByID(Attributes.DstScreenID);
 			//console.debug(this.ParentRow.SetupData);
-
-			//-> REFACTORING REQUIRED
-			//ScreenObject.DBPrimaryKeyValue = this.ParentRow.SetupData[Attributes.DBPrimaryKeyColumn];
-			//ScreenObject.DBPrimaryKeyID = Attributes.DBPrimaryKeyColumn;
 			this.DstScreenID = Attributes.DstScreenID;
 		}
 
@@ -449,12 +438,11 @@ sysObjButton.prototype.processActions = function()
 
 sysObjButton.prototype.callbackXMLRPCAsync = function()
 {
-	var MsgHandler = sysFactory.sysGlobalAsyncNotifyHandler;
-	var XMLRPCError = this.XMLRPCResultData.error;
-	var NotifyStatus = 'ERROR';
+	const MsgHandler = sysFactory.sysGlobalAsyncNotifyHandler;
+	const NotifyStatus = 'ERROR';
 
 	//- check error
-	if (XMLRPCError === undefined) {
+	if (this.XMLRPCResultData.ErrorCode === undefined && this.XMLRPCResultData.error === undefined) {
 
 		const ConfigAttributes = this.JSONConfig.Attributes;
 		const SwitchScreen = ConfigAttributes.SwitchScreen;
@@ -569,14 +557,6 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 
 			var ScreenObj = sysFactory.getScreenByID(this.ConfigAttributes.SwitchScreen);
 			var ScreenRootObj = ScreenObj.ConfigRootObject;
-
-			//-> REFACTOR
-			/*
-			if (ConfigAttributes.ServiceResultKeyColumn !== undefined) {
-				ScreenObj.DBPrimaryKeyValue = this.XMLRPCResultData[ConfigAttributes.ServiceResultKeyColumn];
-				console.log(ScreenObj.DBPrimaryKeyValue);
-			}
-			*/
 
 			//- switch screen
 			sysFactory.switchScreen(ConfigAttributes.SwitchScreen);
