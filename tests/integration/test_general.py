@@ -10,7 +10,9 @@ from selenium.webdriver.support import expected_conditions as EC
 def config():
 	config = {}
 	config["wait"] = 10
-	config["driver"] = webdriver.Chrome()
+	config["options"] = webdriver.ChromeOptions()
+	config["options"].add_argument('ignore-certificate-errors')
+	config["driver"] = webdriver.Chrome(options=config["options"])
 	config["driver"].get("https://x0-test.webcodex.de/");
 	config["ready_selector"] = "#Test1" # selector to look for to declare DOM ready
 	return config
@@ -36,5 +38,16 @@ class TestGeneral:
 
 		elems = d.find_elements(By.XPATH, "//*[contains(@id,'undefined')]")
 		assert len(elems) == 0, 'Problematic string "undefined" found in one or more IDs'
+
+		d.close()
+
+	def test_suspicious_parameter_values(self, config):
+		"""Find suspicious element parameter values (containing null or undefined)"""
+		d, w = config["driver"], config["wait"]
+		wait = WebDriverWait(d, w)
+		elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, config["ready_selector"])))
+
+		elems = d.find_elements(By.XPATH, "//*[@*='null' or @*='undefined']")
+		assert len(elems) == 0, 'Found ' + str(len(elems)) + ' occurrences of string "undefined" in one or more parameter values on page'
 
 		d.close()
