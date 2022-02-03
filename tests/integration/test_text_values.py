@@ -34,7 +34,7 @@ class TestTextValues:
 		el6 = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#Screen1_SQLText6")))
 		el7 = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#Screen1_SQLText7")))
 
-		assert el1.text == "Link1", "Test element has wrong text!"
+		assert el1.text == "Link 1", "Test element has wrong text!"
 		assert el2.text == "SQL Text Test", "Test element has wrong text!"
 		assert el3.text == "Button 1", "Test element has wrong text!"
 		assert el4.text == "Button left <<", "Test element has wrong text!"
