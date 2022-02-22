@@ -24,38 +24,146 @@ function sysScreenOverlay(FactoryRef) {
 //- METHOD "setupOverlay"
 //------------------------------------------------------------------------------
 
-sysScreenOverlay.prototype.setupOverlay = function(ScreenID)
+sysScreenOverlay.prototype.setupOverlay = function(ScreenID, Attributes)
 {
-	OverlayScreen = new sysScreen(true);
+	this.OverlayScreen = new sysScreen(true);
+
+	this.OverlayScreenID = ScreenID;
 
 	const SkeletonData = this.FactoryRef.DataSkeleton.XMLRPCResultData[ScreenID];
 
 	const DefaultStyle = sysFactory.DefaultStyleScreenOverlay;
 	const OverlayStyle = (DefaultStyle !== undefined) ? DefaultStyle : 'sysScreenOverlay col-lg-10 col-md-12';
 
-	OverlayScreen.setStyle(OverlayStyle);
+	this.OverlayScreen.setStyle(OverlayStyle);
 
 	//console.debug('ScreenID:%s SkeletonData:%o', ScreenID, SkeletonData);
 
-	OverlayScreen.ScreenID = ScreenID;
-	OverlayScreen.SkeletonData = SkeletonData;
+	this.OverlayScreen.ScreenID = ScreenID;
+	this.OverlayScreen.SkeletonData = SkeletonData;
 
-	CloseObject = new sysObjDiv();
-	CloseObject.ObjectID = 'close';
-	CloseObject.EventListeners = new Object();
+	sysFactory.Screens[ScreenID] = this.OverlayScreen;
+
+	this.OverlayScreen.CloseObject = new sysObjDiv();
+	this.OverlayScreen.CloseObject.ObjectID = 'ovl_close';
+	this.OverlayScreen.CloseObject.EventListeners = new Object();
+
+	var CloseObjectText = new sysObjSQLText();
+	CloseObjectText.ObjectID = 'ovl_closetext';
+	CloseObjectText.TextID = 'TXT.SYS.OVERLAY-CLOSE';
+	CloseObjectText.DOMStyle = 'sysOverlayClose';
+	CloseObjectText.init();
+
+	this.OverlayScreen.CloseObject.addObject(CloseObjectText);
 
 	var EventConfig = new Object();
 	EventConfig['Type'] = 'mousedown';
 	EventConfig['Element'] = this.EventListenerClick.bind(this);
-	CloseObject.EventListeners["closeOverlay"] = EventConfig;
+	this.OverlayScreen.CloseObject.EventListeners["closeOverlay"] = EventConfig;
 
-	OverlayScreen.HierarchyRootObject.addObject(CloseObject);
+	this.OverlayScreen.HierarchyRootObject.addObject(this.OverlayScreen.CloseObject);
 
-	OverlayScreen.setup();
+	this.OverlayScreen.setup();
 
-	OverlayScreen.HierarchyRootObject.processUpdate();
+	this.processUpdate();
 
-	CloseObject.processEventListener();
+	this.OverlayScreen.CloseObject.processEventListener();
+
+	this.processDataLoad(Attributes);
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "processDataLoad"
+//------------------------------------------------------------------------------
+
+sysScreenOverlay.prototype.processDataLoad = function(Attributes)
+{
+	console.debug('Attributes:%o', Attributes);
+
+	var SourceData;
+
+	if (Attributes.SourceType == 'ScreenGlobal') {
+		try {
+			const ScreenObj = sysFactory.getScreenByID(Attributes.SourceScreenID);
+			console.debug('ScreenObj:%o', ScreenObj);
+			SourceData = ScreenObj.getGlobalVars();
+		}
+		catch(err) {
+			console.debug('err:%s', err);
+		}
+	}
+	else {
+		SourceData = Attributes.SourceData;
+	}
+
+	const DstObjects = Attributes.DstObjects;
+
+	console.debug('SourceData:%o DstObjects:%o', SourceData, DstObjects);
+
+	if (Attributes.DataMapping !== undefined) {
+		var NewData = new Object();
+		for (DataKey in Attributes.DataMapping) {
+			var NewKey = DataKey;
+			if (DataKey in SourceData) {
+				NewKey = Attributes.DataMapping[DataKey];
+			}
+			NewData[NewKey] = SourceData[DataKey];
+		}
+		SourceData = NewData;
+	}
+
+	for (Index in DstObjects) {
+		var SetData = SourceData;
+
+		const DstObjectID = DstObjects[Index] + '__overlay';
+		//console.debug('DstObjectID:%s', DstObjectID);
+		//console.debug('HierarchyRootObject:%o', this.OverlayScreen.HierarchyRootObject);
+
+		try {
+			DstObject = this.OverlayScreen.HierarchyRootObject.getObjectByID(DstObjectID);
+			DstObject.RuntimeSetDataFunc(
+				this.prepareSetData(SetData, DstObject)
+			);
+		}
+		catch(err) {
+			console.debug('DstObjectID:%s err:%s', DstObjectID, err);
+		}
+
+		//console.debug('ObjectID:%s RowData:%o', DstObjectID, RowData);
+
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "prepareSetData"
+//------------------------------------------------------------------------------
+
+sysScreenOverlay.prototype.prepareSetData = function(DataObj, DstObject)
+{
+	const InstancePrefix = DstObject.JSONConfig.InstancePrefix;
+	const OverlayPostfix = '__overlay';
+
+	var NewData = new Object();
+
+	for (DataKey in DataObj) {
+		var NewKey;
+		NewKey = (InstancePrefix !== undefined) ? InstancePrefix + DataKey : DataKey;
+		NewKey = NewKey + OverlayPostfix;
+		NewData[NewKey] = DataObj[DataKey];
+	}
+	return NewData;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "processUpdate"
+//------------------------------------------------------------------------------
+
+sysScreenOverlay.prototype.processUpdate = function()
+{
+	this.OverlayScreen.HierarchyRootObject.processUpdate();
 }
 
 
@@ -66,4 +174,6 @@ sysScreenOverlay.prototype.setupOverlay = function(ScreenID)
 sysScreenOverlay.prototype.EventListenerClick = function()
 {
 	console.debug('click');
+	this.OverlayScreen.HierarchyRootObject.remove();
+	delete sysFactory.Screens[this.OverlayScreenID];
 }

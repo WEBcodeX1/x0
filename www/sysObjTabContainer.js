@@ -52,7 +52,9 @@ sysTab.prototype = new sysBaseObject();
 sysTab.prototype.EventListenerClick = function(Event)
 {
 	//console.debug('::EventListenerClick sysTab TabID:' + this.TabID);
-	this.TabContainer.switchTab(this.TabID);
+	if (this.TabContainer.ContainerAttributes.Clickable !== false) {
+		this.TabContainer.switchTab(this.TabID);
+	}
 }
 
 

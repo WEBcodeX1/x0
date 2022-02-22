@@ -38,6 +38,7 @@ sysContextMenu.prototype = new sysBaseObject();
 //------------------------------------------------------------------------------
 //- METHOD "EventListenerClickClose"
 //------------------------------------------------------------------------------
+
 sysContextMenu.prototype.EventListenerClickClose = function(Event)
 {
 	//console.log('##### CONTEXT MENU EVENT LISTENER CLICK CLOSE #####');
@@ -48,6 +49,7 @@ sysContextMenu.prototype.EventListenerClickClose = function(Event)
 //------------------------------------------------------------------------------
 //- METHOD "close"
 //------------------------------------------------------------------------------
+
 sysContextMenu.prototype.close = function(Event)
 {
 	this.removeRootElement();
@@ -58,6 +60,7 @@ sysContextMenu.prototype.close = function(Event)
 //------------------------------------------------------------------------------
 //- METHOD "removeRootElement"
 //------------------------------------------------------------------------------
+
 sysContextMenu.prototype.removeRootElement = function(Event)
 {
 	var ContextMenuRootElementID = 'ContextMenu' + this.ID;
@@ -132,40 +135,40 @@ sysContextMenu.prototype.addItems = function()
 
 		var ContextMenuItem = new sysContextMenuItem();
 
-		ContextMenuItem.ID						= ItemKey;
+		ContextMenuItem.ID							= ItemKey;
 
-		ContextMenuItem.TextID					= ProcessItem.TextID;
-		ContextMenuItem.Icon					= ProcessItem.Icon;
+		ContextMenuItem.TextID						= ProcessItem.TextID;
+		ContextMenuItem.Icon						= ProcessItem.Icon;
 
-		ContextMenuItem.DstScreenID				= ProcessItem.DstScreenID;
-		ContextMenuItem.DstObjectID				= ProcessItem.DstObjectID;
-		ContextMenuItem.DstObjectIDs			= ProcessItem.DstObjectIDs;
-		ContextMenuItem.DstScreenSrcObjFilter	= ProcessItem.DstScreenSrcObjFilter;
+		ContextMenuItem.DstScreenID					= ProcessItem.DstScreenID;
+		ContextMenuItem.DstObjectID					= ProcessItem.DstObjectID;
+		ContextMenuItem.DstObjectIDs				= ProcessItem.DstObjectIDs;
+		ContextMenuItem.DstScreenSrcObjFilter		= ProcessItem.DstScreenSrcObjFilter;
 
-		ContextMenuItem.ScreenOverlayID			= ProcessItem.ScreenOverlayID;
-		ContextMenuItem.ScreenOverlaySetObjects	= ProcessItem.ScreenOverlaySetObjects;
+		ContextMenuItem.ScreenOverlayID				= ProcessItem.ScreenOverlayID;
+		ContextMenuItem.ScreenOverlaySetDataObjects	= ProcessItem.ScreenOverlaySetDataObjects;
 
-		ContextMenuItem.ServiceURL				= ProcessItem.ServiceURL;
-		ContextMenuItem.ServiceID				= ProcessItem.ServiceID;
-		ContextMenuItem.ServiceKeyColumn		= ProcessItem.ServiceKeyColumn;
-		ContextMenuItem.Notify					= ProcessItem.Notify;
+		ContextMenuItem.ServiceURL					= ProcessItem.ServiceURL;
+		ContextMenuItem.ServiceID					= ProcessItem.ServiceID;
+		ContextMenuItem.ServiceKeyColumn			= ProcessItem.ServiceKeyColumn;
+		ContextMenuItem.Notify						= ProcessItem.Notify;
 
-		ContextMenuItem.UpdateSrcObject			= ProcessItem.UpdateSrcObject;
+		ContextMenuItem.UpdateSrcObject				= ProcessItem.UpdateSrcObject;
 
-		ContextMenuItem.FireEvents				= ProcessItem.FireEvents;
+		ContextMenuItem.FireEvents					= ProcessItem.FireEvents;
 
-		ContextMenuItem.InternalFunction		= ProcessItem.InternalFunction;
-		ContextMenuItem.RowColumn				= ProcessItem.RowColumn;
-		ContextMenuItem.DstObjectID				= ProcessItem.DstObjectID;
-		ContextMenuItem.InternalRemoveItemBy	= ProcessItem.InternalRemoveItemBy;
-		ContextMenuItem.ColumnDependend			= ProcessItem.ColumnDependend;
+		ContextMenuItem.InternalFunction			= ProcessItem.InternalFunction;
+		ContextMenuItem.RowColumn					= ProcessItem.RowColumn;
+		ContextMenuItem.DstObjectID					= ProcessItem.DstObjectID;
+		ContextMenuItem.InternalRemoveItemBy		= ProcessItem.InternalRemoveItemBy;
+		ContextMenuItem.ColumnDependend				= ProcessItem.ColumnDependend;
 
-		ContextMenuItem.ResetAll				= ProcessItem.ResetAll;
+		ContextMenuItem.ResetAll					= ProcessItem.ResetAll;
 
-		ContextMenuItem.ScreenObject			= this.ScreenObject;
-		ContextMenuItem.SourceObject			= this.SourceObject;
+		ContextMenuItem.ScreenObject				= this.ScreenObject;
+		ContextMenuItem.SourceObject				= this.SourceObject;
 
-		ContextMenuItem.ContextMenuObject		= this;
+		ContextMenuItem.ContextMenuObject			= this;
 
 		this.Items[ItemKey] = ContextMenuItem;
 	}
@@ -322,6 +325,7 @@ function sysContextMenuItem()
 //------------------------------------------------------------------------------
 //- METHOD "EventListenerClick"
 //------------------------------------------------------------------------------
+
 sysContextMenuItem.prototype.EventListenerClick = function(Event)
 {
 	//console.log('##### CONTEXT MENU EVENT LISTENER CLICK #####');
@@ -331,6 +335,7 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 	if (this.InternalFunction != null) {
 
 		//console.log('RowData:%o RowDataIndex:%s Function:%s', this.ContextMenuObject.RowData, this.ContextMenuObject.RowDataIndex, this.InternalFunction);
+		const RowData = this.ContextMenuObject.RowData;
 
 		if (this.InternalFunction == 'remove' && this.InternalRemoveItemBy == 'RowIndex') {
             this.SourceObject.removeData(this.ContextMenuObject.RowDataIndex);
@@ -345,13 +350,12 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 		if (this.InternalFunction == 'copy') {
             var ScreenObj = sysFactory.getScreenByID(this.DstScreenID);
 			var ListObj = this.ScreenObject.HierarchyRootObject.getObjectByID(this.DstObjectID);
-            //console.log('::ContextMenu copy ListObject:%o RowData:%o', ListObj, this.ContextMenuObject.RowData);
-			ListObj.appendData(this.ContextMenuObject.RowData);
+            //console.log('::ContextMenu copy ListObject:%o RowData:%o', ListObj, RowData);
+			ListObj.appendData(RowData);
 		}
 
 		if (this.InternalFunction == 'setrowcolumn') {
 			try {
-				const RowData = this.ContextMenuObject.RowData;
 				//console.log('setrowcolumn RowData:%o', RowData);
 				const DstObject = sysFactory.getObjectByID(this.DstObjectID);
 				DstObject.setValue(RowData[this.RowColumn]);
@@ -363,11 +367,16 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 		}
 
 		if (this.InternalFunction == 'openOverlay') {
-			sysFactory.OverlayObj.setupOverlay(this.ScreenOverlayID);
-			for (Index in this.ScreenOverlaySetDataObjects) {
-				DstObject = sysFactory.getObjectByID(this.ScreenOverlaySetDataObjects[Index]);
-				DstObject.RuntimeSetDataFunc(RowData[this.RowColumn]);
-			}
+
+			sysFactory.OverlayObj.setupOverlay(
+				this.ScreenOverlayID,
+				{
+					"SourceData": RowData,
+					"DstObjects": this.ScreenOverlaySetDataObjects
+				}
+			);
+
+			this.ContextMenuObject.close();
 		}
 	}
 
@@ -443,7 +452,6 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 			ScreenObj.setGlobalVar(this.RowColumn, setValue);
 		}
 
-		//- close context menu
 		this.ContextMenuObject.close();
 
 		//- clear form field styles
@@ -467,6 +475,7 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 //------------------------------------------------------------------------------
 //- METHOD "callService"
 //------------------------------------------------------------------------------
+
 sysContextMenuItem.prototype.callService = function()
 {
 	if (this.ServiceURL != null && this.ServiceURL !== undefined) {
@@ -479,6 +488,7 @@ sysContextMenuItem.prototype.callService = function()
 //------------------------------------------------------------------------------
 //- METHOD "callbackXMLRPCAsync"
 //------------------------------------------------------------------------------
+
 sysContextMenuItem.prototype.callbackXMLRPCAsync = function()
 {
 	//console.log(this.XMLRPCResultData.error);
@@ -504,6 +514,7 @@ sysContextMenuItem.prototype.callbackXMLRPCAsync = function()
 //------------------------------------------------------------------------------
 //- METHOD "clearFormStyles"
 //------------------------------------------------------------------------------
+
 sysContextMenuItem.prototype.clearFormStyles = function(Event)
 {
 	sysFactory.clearFormStylesByScreenID(this.DstScreenID);

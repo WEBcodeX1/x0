@@ -17,7 +17,7 @@
 //- Constructor "sysCallXMLRPC"
 //------------------------------------------------------------------------------
 
-function sysCallXMLRPC(URL, URLParams = '')
+function sysCallXMLRPC(URL, URLParams='')
 {
 	this.RandURLOption		= '?a__=';
 

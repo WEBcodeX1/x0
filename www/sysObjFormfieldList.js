@@ -25,8 +25,8 @@ function sysFormfieldList()
 	this.CellGroupIndex			= 0;								//- CellGroups Index
 
 	this.PostRequestData		= new sysRequestDataHandler();		//- Request Data Handler
-	
-	this.RuntimeGetDataFunc		= this.getFormFieldItemData;		//- Get Runtime Data (Formfield data Key/Value)
+
+	this.RuntimeGetDataFunc		= this.getFormfieldItemData;		//- Get Runtime Data (Formfield data Key/Value)
 	this.RuntimeSetDataFunc		= this.setData;						//- Set Runtime Data
 }
 
@@ -62,13 +62,13 @@ sysFormfieldList.prototype.init = function()
 		this.FormfieldEnclosedByDivStyle = this.JSONConfig.Attributes.FormfieldEnclosedByDivStyle;
 	}
 
-	if (this.CellGroupColumns !== null) {
+	if (this.CellGroupColumns !== undefined) {
 		this.Segments = this.SegmentGenerator(this.CellGroupColumns);
 		this.CellGroupGen = this.CellGroupGenerator();
 	}
 	this.CellEnclosedByGen = this.CellEnclosedByGenerator();
 
-	//console.debug('::init XMLRPCData:%o', sysFactory.DataObject.XMLRPCResultData);
+	console.debug('CellGroupColumns:%o DivEnclose:%o Segments:%o', this.CellGroupColumns, this.FormfieldEnclosedByDivStyle, this.Segments);
 
 	for (FormIndex in Formfields) {
 
@@ -89,14 +89,14 @@ sysFormfieldList.prototype.init = function()
 
 				FormObj.ObjectID			= 'enclose__' + FormID;
 				FormObj.FormObjectID		= FormID;
+				FormObj.overrideDOMObjectID	= true;
+				FormObj.DOMObjectID			= this.ObjectID + '__enclose__' + FormID;
 				FormObj.ObjectType			= Attributes.Type;
 				FormObj.ScreenObject 		= this.ScreenObject;
 				FormObj.ParentObject		= this;
 				FormObj.Index				= FormIndex;
 
 				FormObj.init();
-
-				this.addObject(FormObj);
 
 				this.FormfieldItems[FormID] = FormObj;
 			}
@@ -106,8 +106,8 @@ sysFormfieldList.prototype.init = function()
 		}
 	}
 
+	this.render();
 	//console.debug('::init FormfieldItems:%o', this.FormfieldItems);
-
 }
 
 
@@ -171,20 +171,6 @@ sysFormfieldList.prototype.SegmentGenerator = function*(Config)
 
 
 //------------------------------------------------------------------------------
-//- METHOD "setupTabSwitchBehaviour"
-//------------------------------------------------------------------------------
-
-sysFormfieldList.prototype.setupTabSwitchBehaviour = function()
-{
-    var FormFieldItems = this.FormFieldItems;
-	for (ItemKey in FormFieldItems) {
-        var FormFieldItem = FormFieldItems[ItemKey];
-		FormFieldItem.setupTabSwitchBehaviour();
-	}
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "render"
 //------------------------------------------------------------------------------
 
@@ -192,15 +178,16 @@ sysFormfieldList.prototype.render = function()
 {
 
 	const Attributes = this.JSONConfig.Attributes;
-	const OrderedItems = this.getFormFieldItemsOrdered();
+	const OrderedItems = this.getFormfieldItemsOrdered();
 
-	//console.debug('::render Attributes:%o OrderedItems:%o', Attributes, OrderedItems);
+	console.debug('::render Attributes:%o OrderedItems:%o', Attributes, OrderedItems);
 
 	for (Index in OrderedItems) {
 		var FormItem = OrderedItems[Index];
 		//FormItem.generateHTML();
 
 		if (this.FormfieldEnclosedByDivStyle !== undefined) {
+			console.debug('Enclose Object');
 			var EncloseObj = new sysBaseObject();
 			EncloseObj.ObjectID = FormItem.ObjectID + '_enclosedby';
 			EncloseObj.DOMStyle = this.CellEnclosedByGen.next().value;
@@ -272,12 +259,18 @@ sysFormfieldList.prototype.callbackXMLRPCAsync = function()
 
 sysFormfieldList.prototype.setData = function(DataObj)
 {
-	for (Key in DataObj) {
-		const Value = DataObj[Key];
-		FormItem = this.FormFieldItems[Key];
-		if (FormItem !== undefined) {
-			FormItem.Value = Value;
-			FormItem.updateValue();
+	//console.debug('::setData DataObj:%o Formfields:%o isOverlay:%s', DataObj, this.FormfieldItems, this.isOverlay);
+
+	//console.debug('NewData:%o', NewData);
+
+	if (DataObj !== undefined) {
+		for (var FormID in this.FormfieldItems) {
+			FormItem = this.FormfieldItems[FormID];
+			//console.debug('FormItem:%o', FormItem);
+			if (FormItem !== undefined) {
+				FormItem.Value = DataObj[FormID];
+				FormItem.updateFormItemValue();
+			}
 		}
 	}
 }
@@ -365,83 +358,11 @@ sysFormfieldList.prototype.validate = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "checkMaxSelected"
+//- METHOD "getFormfieldItemData"
 //------------------------------------------------------------------------------
 
-sysFormfieldList.prototype.checkMaxSelected = function()
+sysFormfieldList.prototype.getFormfieldItemData = function()
 {
-	var CountSelected = 0;
-	const FormItems = this.getFormItemByType(['checkbox']);
-	//console.debug('::getMaxSelected FormItems:%o', FormItems);
-	for (i in FormItems) {
-		const FormItem = FormItems[i];
-		//console.debug('::getMaxSelected Item:%o', FormItem);
-		const FormValue = FormItem.getObjectData();
-		//console.debug('::getMaxSelected Value:%s', FormValue);
-		if (FormItem.Type == 'checkbox' && FormValue === true) { CountSelected += 1; }
-	}
-	return CountSelected;
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "resetFormElementsDefault"
-//------------------------------------------------------------------------------
-
-sysFormfieldList.prototype.resetFormElementsDefault = function()
-{
-	for (ItemKey in this.FormFieldItems) {
-		this.FormFieldItems[ItemKey].reset();
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "disable"
-//------------------------------------------------------------------------------
-
-sysFormfieldList.prototype.disable = function()
-{
-	for (ItemKey in this.FormFieldItems) {
-		const FormItem = this.FormFieldItems[ItemKey];
-		FormItem.disable();
-	}
-
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "enable"
-//------------------------------------------------------------------------------
-
-sysFormfieldList.prototype.enable = function()
-{
-	for (ItemKey in this.FormFieldItems) {
-		const FormItem = this.FormFieldItems[ItemKey];
-		FormItem.enable();
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "processSwitchScreen"
-//------------------------------------------------------------------------------
-sysFormfieldList.prototype.processSwitchScreen = function()
-{
-	for (ItemKey in this.FormFieldItems) {
-		const FormItem = this.FormFieldItems[ItemKey];
-		FormItem.processSwitchScreen();
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "getFormFieldItemData"
-//------------------------------------------------------------------------------
-
-sysFormfieldList.prototype.getFormFieldItemData = function()
-{
-	//console.debug('getFormFieldItemData this:%o', this);
 	var ResultData = new Object();
 
 	for (ItemKey in this.FormfieldItems) {
@@ -453,17 +374,32 @@ sysFormfieldList.prototype.getFormFieldItemData = function()
 		}
 	}
 
-	return ResultData;
+	//- TODO: think of placing somewhere else
+	const InstancePrefix = this.JSONConfig.InstancePrefix;
+	const OverlayPostfix = '__overlay';
+
+	console.debug('InstancePrefix:%s', InstancePrefix);
+
+	var NewData = new Object();
+
+	for (DataKey in ResultData) {
+		var NewKey = DataKey;
+		NewKey = (InstancePrefix !== undefined) ? NewKey.replace(InstancePrefix, '') : NewKey;
+		NewKey = NewKey.replace('__overlay', '');
+		NewData[NewKey] = ResultData[DataKey];
+	}
+
+	return NewData;
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "getFormFieldItemByID"
+//- METHOD "getFormfieldItemByID"
 //------------------------------------------------------------------------------
 
-sysFormfieldList.prototype.getFormFieldItemByID = function(ObjectID)
+sysFormfieldList.prototype.getFormfieldItemByID = function(ObjectID)
 {
-	return this.FormFieldItems[ObjectID];
+	return this.FormfieldItems[ObjectID];
 }
 
 
@@ -473,7 +409,7 @@ sysFormfieldList.prototype.getFormFieldItemByID = function(ObjectID)
 
 sysFormfieldList.prototype.reset = function()
 {
-	this.resetFormElementsDefault();
+	//- TODO: implement in correct way
 }
 
 
@@ -488,18 +424,18 @@ sysFormfieldList.prototype.clearStyle = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "getFormFieldItemsByType"
+//- METHOD "getFormfieldItemsByType"
 //------------------------------------------------------------------------------
 
-sysFormfieldList.prototype.getFormFieldItemsByType = function(Type)
+sysFormfieldList.prototype.getFormfieldItemsByType = function(Type)
 {
 	var ResultData = new Object();
 
-	for (ItemKey in this.FormFieldItems) {
-		var FormItem = this.getFormFieldItemByID(ItemKey);
-        if (FormItem.Type == Type) {
-            ResultData[FormItem.ID] = FormItem;
-        }
+	for (ItemKey in this.FormfieldItems) {
+		var FormItem = this.getFormfieldItemByID(ItemKey);
+		if (FormItem.Type == Type) {
+			ResultData[FormItem.ID] = FormItem;
+		}
 	}
 
 	return ResultData;
@@ -507,35 +443,35 @@ sysFormfieldList.prototype.getFormFieldItemsByType = function(Type)
 
 
 //------------------------------------------------------------------------------
-//- METHOD "getFormFieldItemsOrdered"
+//- METHOD "getFormfieldItemsOrdered"
 //------------------------------------------------------------------------------
 
-sysFormfieldList.prototype.getFormFieldItemsOrdered = function()
+sysFormfieldList.prototype.getFormfieldItemsOrdered = function()
 {
 	var ReturnItems = new Array();
-	for (ItemKey in this.FormFieldItems) {
-		const FormItem = this.FormFieldItems[ItemKey];
-		//console.debug('::getFormFieldItemsOrdered FormItem:%o', FormItem);
-		ReturnItems.push(this.getFormFieldItemByIndex(FormItem.Index));
+	for (ItemKey in this.FormfieldItems) {
+		const FormItem = this.FormfieldItems[ItemKey];
+		//console.debug('::getFormfieldItemsOrdered FormItem:%o', FormItem);
+		ReturnItems.push(this.getFormfieldItemByIndex(FormItem.Index));
 	}
 	return ReturnItems;
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "getFormItemByIndex"
+//- METHOD "getFormfieldItemByIndex"
 //------------------------------------------------------------------------------
 
-sysFormfieldList.prototype.getFormFieldItemByIndex = function(CheckIndex)
+sysFormfieldList.prototype.getFormfieldItemByIndex = function(CheckIndex)
 {
-	for (ItemKey in this.FormFieldItems) {
-        FormItem = this.FormFieldItems[ItemKey];
-        FormItemIndex = FormItem.Index;
-        //console.log('::getFormItemByIndex FormItemIndex:%s CheckIndex:%s ObjectID:%s', FormItemIndex, CheckIndex, this.ObjectID);
+	for (ItemKey in this.FormfieldItems) {
+		FormItem = this.FormfieldItems[ItemKey];
+		FormItemIndex = FormItem.Index;
+		//console.log('::getFormfieldItemByIndex FormItemIndex:%s CheckIndex:%s ObjectID:%s', FormItemIndex, CheckIndex, this.ObjectID);
 		if (FormItemIndex == CheckIndex) {
-            //console.log('::getFormItemByIndex return Item:%o', FormItem);
-            return FormItem;
-        }
+			//console.log('::getFormfieldItemByIndex return Item:%o', FormItem);
+			return FormItem;
+		}
 	}
 }
 
@@ -549,12 +485,26 @@ sysFormfieldList.prototype.getFormItemByType = function(CheckTypes)
 	var FormItems = new Array();
 	for (i in CheckTypes) {
 		const CheckType = CheckTypes[i];
-		for (ItemKey in this.FormFieldItems) {
-			const FormItem = this.FormFieldItems[ItemKey];
+		for (ItemKey in this.FormfieldItems) {
+			const FormItem = this.FormfieldItems[ItemKey];
 			if (FormItem.Type == CheckType) { FormItems.push(FormItem); }
 		}
 	}
 	return FormItems;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "initOnChangeItems"
+//------------------------------------------------------------------------------
+
+sysFormfieldList.prototype.initOnChangeItems = function()
+{
+	console.debug('::initOnChangeItems');
+	for (ItemKey in this.FormfieldItems) {
+		//console.debug('ItemKey:%s', ItemKey);
+		this.FormfieldItems[ItemKey].processOnChangeItem();
+	}
 }
 
 
@@ -607,17 +557,21 @@ sysFormfieldList.prototype.updateInstanceObjectNames = function()
 sysFormfieldList.prototype.rewriteOverlayFormitemNames = function()
 {
 	const FormlistFormfields = this.JSONConfig.Attributes.Formfields;
+	const FormOverlayPrefix = '__overlay';
 
 	var NewFormfields = new Array();
 
 	for (Index in FormlistFormfields) {
 
 		FormID = FormlistFormfields[Index];
-		FormOverlayID = FormID + '__overlay';
+		FormOverlayID = (FormID.includes(FormOverlayPrefix)) ? FormID : FormID + FormOverlayPrefix;
+
 		NewFormfields.push(FormOverlayID);
 
 		var GlobalObjectConfig = sysFactory.DataObject.XMLRPCResultData;
 		GlobalObjectConfig[FormOverlayID] = GlobalObjectConfig[FormID];
+
 	}
+
 	this.JSONConfig.Attributes.Formfields = NewFormfields;
 }

@@ -15,22 +15,20 @@
 //- CONSTRUCTOR "sysObjButtonInternal"
 //------------------------------------------------------------------------------
 
-function sysObjButtonInternal() {
+function sysObjButtonInternal()
+{
     this.EventListeners		= new Object();
 	this.ChildObjects		= new Array();
     this.PostRequestData	= new sysRequestDataHandler();
 }
 
-//- inherit sysBaseObject
 sysObjButtonInternal.prototype = new sysBaseObject();
 
-//- inherit Button methods
 sysObjButtonInternal.prototype.init = sysObjButton.prototype.init;
 sysObjButtonInternal.prototype.addEventListenerClick = sysObjButton.prototype.addEventListenerClick;
 sysObjButtonInternal.prototype.validateForm = sysObjButton.prototype.validateForm;
 sysObjButtonInternal.prototype.processActions = sysObjButton.prototype.processActions;
 
-//- inherit ContextMenu methods
 sysObjButtonInternal.prototype.setDstScreenProperties = sysContextMenuItem.prototype.setDstScreenProperties;
 
 
@@ -38,11 +36,13 @@ sysObjButtonInternal.prototype.setDstScreenProperties = sysContextMenuItem.proto
 //- METHOD "EventListenerClick"
 //------------------------------------------------------------------------------
 
-sysObjButtonInternal.prototype.EventListenerClick = function(Event) {
+sysObjButtonInternal.prototype.EventListenerClick = function(Event)
+{
 	this.PostRequestData.reset();
 
 	const Attributes = this.JSONConfig.Attributes;
 
+	/*
 	//- reset validate result to true
 	var ValidateResult = true;
 
@@ -55,6 +55,11 @@ sysObjButtonInternal.prototype.EventListenerClick = function(Event) {
 		this.processActions();
 		sysFactory.Reactor.fireEvents(Attributes.FireEvents);
 	}
+	*/
+
+	this.processActions();
+	sysFactory.Reactor.fireEvents(Attributes.FireEvents);
+
 }
 
 
@@ -62,20 +67,54 @@ sysObjButtonInternal.prototype.EventListenerClick = function(Event) {
 //- METHOD "copyData"
 //------------------------------------------------------------------------------
 
-sysObjButtonInternal.prototype.copyData = function() {
-
+sysObjButtonInternal.prototype.copyData = function()
+{
 	const Attributes = this.JSONConfig.Attributes;
+
+	console.debug('Attributes:%o', Attributes);
 
 	var DstData = new Object();
 
 	for (Index in Attributes.SrcObjects) {
-		const ObjectID = Attributes.SrcObjects[Index];
+		const inOverlay = Attributes.SrcObjectsInOverlay;
+		const tmpID = Attributes.SrcObjects[Index];
+		const ObjectID = (inOverlay === true) ? tmpID + '__overlay' : tmpID;
 		const ObjectData = sysFactory.getObjectByID(ObjectID).RuntimeGetDataFunc();
-		console.debug('ObjectID:%s Data:%o', ObjectID, ObjectData);
+		//console.debug('Data:%o', ObjectData);
 		DstData = sysMergeObjects(DstData, ObjectData);
 	}
 
-	sysFactory.getObjectByID(Attributes.DstObject).RuntimeSetDataFunc(DstData);
+	console.debug('DstObjectID:%s DstData:%o', Attributes.DstObject, DstData);
+
+	const DstObject = sysFactory.getObjectByID(Attributes.DstObject);
+
+	console.debug('DstObject:%o DstDataPrepared:%o', DstObject, DstData);
+
+	if (Attributes.DstObjectRowIDColumn !== undefined) {
+		const InstancePrefix = DstObject.JSONConfig.InstancePrefix;
+		const OverlayPostfix = '__overlay';
+
+		var NewData = new Object();
+
+		for (DataKey in DstData) {
+			var NewKey = DataKey;
+			NewKey = (InstancePrefix !== undefined) ? NewKey.replace(InstancePrefix, '') : NewKey;
+			NewKey = NewKey.replace('__overlay', '');
+			NewData[NewKey] = DstData[DataKey];
+		}
+
+		const Index = NewData[Attributes.DstObjectRowIDColumn];
+		DstObject.updateRow(Index, NewData);
+	}
+	else if (Attributes.DstScreenGlobal !== undefined) {
+		console.debug('DstScreenGlobal:%s', Attributes.DstScreenGlobal);
+		const DstScreenObj = sysFactory.getScreenByID(Attributes.DstScreenGlobal);
+		DstScreenObj.mergeGlobalVars(DstData);
+		console.debug('GlobalVars:%o', DstScreenObj.getGlobalVars());
+	}
+	else {
+		DstObject.RuntimeSetDataFunc(DstData);
+	}
 
 	//- workaround because actually no multiple actions can be executed, has to be refactored
 	if (Attributes.SwitchScreenID !== undefined) {
@@ -85,18 +124,11 @@ sysObjButtonInternal.prototype.copyData = function() {
 
 
 //------------------------------------------------------------------------------
-//- METHOD "resetList"
-//------------------------------------------------------------------------------
-sysObjButtonInternal.prototype.resetList = function() {
-	var ScreenObj = sysFactory.getScreenByID(this.ConfigAttributes.ActionAttributes.ScreenID);
-	ScreenObj.HierarchyRootObject.getObjectByID(this.ConfigAttributes.ActionAttributes.ObjectID).reset();
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "deselectList"
 //------------------------------------------------------------------------------
-sysObjButtonInternal.prototype.deselectList = function() {
+
+sysObjButtonInternal.prototype.deselectList = function()
+{
 	var ActionAttributes = this.ConfigAttributes.ActionAttributes;
 	var ScreenObject = sysFactory.getScreenByID(ActionAttributes.ScreenID);
 	var ListObject = ScreenObject.RootObject.getObjectByID(ActionAttributes.ObjectID);
@@ -124,8 +156,9 @@ sysObjButtonInternal.prototype.deselectList = function() {
 //------------------------------------------------------------------------------
 //- METHOD "setDstObjectPostRequestData"
 //------------------------------------------------------------------------------
-sysObjButtonInternal.prototype.setDstObjectPostRequestData = function() {
 
+sysObjButtonInternal.prototype.setDstObjectPostRequestData = function()
+{
 	var DstScreen = this.ConfigAttributes.DstScreen;
 	var DstObject = this.ConfigAttributes.DstObject;
 
@@ -140,5 +173,4 @@ sysObjButtonInternal.prototype.setDstObjectPostRequestData = function() {
 		Value = DynValues[ValueKey];
 		DestinationObj.PostRequestData.add(Value, ValueKey);
 	}
-
 }

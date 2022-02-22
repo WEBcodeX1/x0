@@ -26,9 +26,6 @@ function sysTooltipHandler() {
 
 sysTooltipHandler.prototype.initLayer = function()
 {
-
-    /*
-	//- Construct DIV html
 	var tmpdiv;
 
 	tmpdiv = document.createElement('div');
@@ -47,11 +44,10 @@ sysTooltipHandler.prototype.initLayer = function()
 
 	tmpdiv.style.opacity		= 0.9;
 
-    tmpdiv.setAttribute('class', 'tooltip');
+    tmpdiv.setAttribute('class', 'sysTooltip');
 
     tmpdiv.innerHTML			= '';
 
 	//- Append DIV to DOM body
 	document.body.appendChild(tmpdiv);
-    */
 }

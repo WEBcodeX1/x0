@@ -57,7 +57,6 @@ sysReactor.prototype.registerEvent = function(Attributes, ProcessObject, Type='S
 			this.Events.push(Event);
 		}
 	}
-
 }
 
 
@@ -75,6 +74,7 @@ sysReactor.prototype.dispatchEvent = function(EventID) {
 
 		if (EventObj.ID == EventID) {
 
+			const Attributes = ProcessObj.ServiceConnector.JSONConfig.Attributes;
 			const ProcessObj = EventObj.ObjectRef;
 
 			//console.debug('Reactor Dispatch Event. EventObject:%o ProcessObj:%o', EventObj, ProcessObj);
@@ -86,10 +86,13 @@ sysReactor.prototype.dispatchEvent = function(EventID) {
 					//console.debug('Reactor Dispatch Event. ServiceConnector Object:%o', ProcessObj.ServiceConnector);
 
 					ProcessObj.processSourceObjects();
-					ProcessObj.DataURL = ProcessObj.ServiceConnector.JSONConfig.Attributes.OnEvent.ServiceCall;
+					ProcessObj.DataURL = Attributes.OnEvent.ServiceCall;
 
 					//- add backend service identifier
-					ProcessObj.PostRequestData.addServiceProperty('BackendServiceID', ProcessObj.ServiceConnector.JSONConfig.Attributes.OnEvent.ServiceID);
+					ProcessObj.PostRequestData.addServiceProperty(
+						'BackendServiceID',
+						Attributes.OnEvent.ServiceID
+					);
 					ProcessObj.getData();
 	
 					continue;

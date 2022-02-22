@@ -21,7 +21,6 @@ function sysServiceConnector() {
 	this.ObjectShortID		= 'SC';
 }
 
-//- inherit sysBaseDOMFormElement
 sysServiceConnector.prototype = new sysBaseObject();
 
 
@@ -40,8 +39,8 @@ sysServiceConnector.prototype.init = function()
 
 sysServiceConnector.prototype.connect = function()
 {
-	var DstObject = this.getChildObjectByIndex(0);
-    //console.debug('::connect ChildObjects:%o DstObject:%o this:%o', this.ChildObjects, DstObject, this);
+	const DstObject = this.getChildObjectByIndex(0);
+    console.debug('::connect ChildObjects:%o DstObject:%o', this.ChildObjects, DstObject);
 	try {
 		DstObject.ServiceConnector = this;
 		sysFactory.Reactor.registerEvent(this.JSONConfig.Attributes, DstObject);

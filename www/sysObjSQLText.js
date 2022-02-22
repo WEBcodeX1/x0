@@ -40,6 +40,17 @@ sysObjSQLText.prototype.init = function() {
 		}
 	}
 
+	this.update();
+
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "update"
+//------------------------------------------------------------------------------
+
+sysObjSQLText.prototype.update = function() {
+
 	this.setTextObj();
 
 	try {
@@ -49,18 +60,6 @@ sysObjSQLText.prototype.init = function() {
 		this.DOMValue = 'NoTextError'
 		console.debug('::init SetText TextID:%s Error:%s', this.TextID, err);
 	};
-
-	try {
-		const ReplaceParams = this.JSONConfig.Attributes.ReplaceParams;
-		//console.debug('::init ReplaceParams:%o', ReplaceParams);
-		for (Index in ReplaceParams) {
-			const ReplaceParam = ReplaceParams[Index];
-			const ReplaceValue = sysFactory.getGlobalVar(ReplaceParam);
-			//console.debug('::init ReplaceParam:%s ReplaceValue:%s', ReplaceParam, ReplaceValue);
-			this.DOMValue = this.DOMValue.replace('$'+ReplaceParam, ReplaceValue);
-		}
-	}
-	catch(err) {}
 
 }
 

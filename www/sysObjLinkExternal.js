@@ -53,12 +53,26 @@ sysObjLinkExternal.prototype.updateValue = function()
 	}
 
 	if (Attributes.ReplaceSessionID === true) {
-		LinkContent += '&session_id=', sysFactory.SysSessionValue;
+		LinkContent += '&session_id='+sysFactory.SysSessionValue;
 	}
 
-	for (ReplaceKey in Attributes.ReplaceVars) {
+	for (ReplaceKey in Attributes.ReplaceDBVars) {
 		const DBColumn = Attributes.ReplaceVars[ReplaceKey];
 		LinkContent += (DBColumn == '$VALUE') ? this.Value : '&'+ReplaceKey+'='+this.ScreenObject.getDBColumnValue(DBColumn);
+	}
+
+	for (ReplaceKey in Attributes.ReplaceGlobalVars) {
+		const ReplaceValue = Attributes.ReplaceGlobalVars[ReplaceKey];
+		LinkContent += '&'+ReplaceKey+'='+sysFactory.getGlobalVar(ReplaceValue);
+	}
+
+	if (Attributes.ScreenGlobalVars !== undefined) {
+		const ScreenGlobalVars = sysFactory.getScreenByID(Attributes.ScreenGlobalVars);
+		//console.debug('ScreenObj:%o', ScreenGlobalVars);
+		for (ReplaceKey in Attributes.ReplaceScreenGlobalVars) {
+			const ReplaceValue = Attributes.ReplaceScreenGlobalVars[ReplaceKey];
+			LinkContent += '&'+ReplaceKey+'='+ScreenGlobalVars.getGlobalVar(ReplaceValue);
+		}
 	}
 
 	this.DOMValue = '<a href="'+LinkContent+'"'+TabParams+'>'+LinkDisplay+'</a>';
