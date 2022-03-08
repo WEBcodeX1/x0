@@ -16,7 +16,7 @@ def application(environ, start_response):
 
     if environ['REQUEST_METHOD'].upper() == 'POST':
 
-        tmpResult = []
+        Result = []
 
         service_json = json.loads(POSTData.Environment.getPOSTData(environ))
         data_req = service_json['RequestData']
@@ -38,13 +38,13 @@ def application(environ, start_response):
                 try:
                     for tmpRecord in db.query(sql, sql_params):
                         tmpDict = {
-                            "display":  tmpRecord[0],
-                            "value":    tmpRecord[1],
+                            "Display":  tmpRecord[0],
+                            "Value":    tmpRecord[1],
                         }
-                        tmpResult.append(tmpDict)
+                        Result.append(tmpDict)
                 except Exception:
                     pass
-                yield bytes(json.dumps(tmpResult), 'utf-8')
+                yield bytes(json.dumps(Result), 'utf-8')
 
         except Exception as e:
             errorResult = {}

@@ -1,13 +1,13 @@
 mapping = {
-        'demo_sql_dynpulldown': {
+    'test_dynpulldown1': {
         'sql': """ SELECT
-                   testvalue AS value
+                   testkey AS Display,
+                   testvalue AS Value
                    FROM
-                   tablename
-                   WHERE id = %(DBPrimaryKeyValue)s
+                   integrationtest.dynpulldown
+                   WHERE "group" = 'dynpulldown1'
                    ORDER BY id ASC""",
         'params': [
-            'DBPrimaryKeyValue'
         ]
-    },
+    }
 }
