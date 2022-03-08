@@ -1,0 +1,72 @@
+{
+	"TabContainer1": {
+		"Type": "TabContainer",
+		"Attributes": {
+			"StyleActive": "sysTabActive",
+			"StyleInactive": "sysTabInactive",
+			"Tabs": {
+				"Tab1": {
+					"Attributes": {
+						"TextID": "TXT.BASIC-TABCONTAINER.TAB1",
+						"Style": "col-md-4"
+					}
+				},
+				"Tab2": {
+					"Attributes": {
+						"Default": true,
+						"TextID": "TXT.BASIC-TABCONTAINER.TAB2",
+						"Style": "col-md-4"
+					}
+				},
+				"Tab3": {
+					"Attributes": {
+						"TextID": "TXT.BASIC-TABCONTAINER.TAB1",
+						"Style": "col-md-4"
+					}
+				},
+				"Tab4": {
+					"Attributes": {
+						"TextID": "TXT.BASIC-TABCONTAINER.TAB2",
+						"Style": "col-md-4"
+					}
+				}
+			}
+		}
+	},
+	"Link1": {
+		"Type": "Link",
+		"Attributes": {
+			"Style": "sysLink",
+			"TextID": "TXT.MENU.BASIC-TABCONTAINER.SCREEN1",
+			"ScreenID": "Screen1"
+		}
+	},
+	"SQLText1": {
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "sysBase",
+			"TextID": "TXT.BASIC-TABCONTAINER.TEXT1"
+		}
+	},
+	"SQLText2": {
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "sysBase",
+			"TextID": "TXT.BASIC-TABCONTAINER.TEXT2"
+		}
+	},
+	"SQLText3": {
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "sysBase",
+			"TextID": "TXT.BASIC-TABCONTAINER.TEXT1"
+		}
+	},
+	"SQLText4": {
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "sysBase",
+			"TextID": "TXT.BASIC-TABCONTAINER.TEXT2"
+		}
+	}
+}

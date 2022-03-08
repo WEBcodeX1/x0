@@ -1,0 +1,34 @@
+{
+	"Screen1":
+	[
+		{
+			"TabContainer1": {
+				"RefID": "Screen1"
+			}
+		},
+		{
+			"SQLText1": {
+				"RefID": "TabContainer1",
+				"ElementID": "Tab1"
+			}
+		},
+		{
+			"SQLText2": {
+				"RefID": "TabContainer1",
+				"ElementID": "Tab2"
+			}
+		},
+		{
+			"SQLText3": {
+				"RefID": "TabContainer1",
+				"ElementID": "Tab3"
+			}
+		},
+		{
+			"SQLText4": {
+				"RefID": "TabContainer1",
+				"ElementID": "Tab4"
+			}
+		}
+	]
+}
