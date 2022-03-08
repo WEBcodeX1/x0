@@ -66,7 +66,10 @@ sysFormFieldOnChangeHandler.prototype.processOnChangeItem = function()
 					const DestinationObject = sysFactory.getObjectByID(ObjectID);
 					const FormElementValue = this.FormItemGetValue();
 					const CurrentLength = FormElementValue.length;
-					const Value = (OnChangeElement.MaxLength - CurrentLength);
+					const TextPre = sysFactory.getText(OnChangeElement.TextPreID);
+					const TextPost = sysFactory.getText(OnChangeElement.TextPostID);
+					const Value = TextPre + (OnChangeElement.MaxLength - CurrentLength) + TextPost;
+
 					//console.debug('DestinationObject:%o', DestinationObject);
 					DestinationObject.ParentObject.Value = Value;
 					DestinationObject.ParentObject.FormItemSetValue();

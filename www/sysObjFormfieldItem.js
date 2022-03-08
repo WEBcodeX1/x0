@@ -47,7 +47,7 @@ sysFormfieldItem.prototype.FormItemInit = function()
 	FormElement.DOMObjectID = this.FormObjectID;
 	FormElement.ParentObject = this;
 	FormElement.overrideDOMObjectID = true;
-
+	
 	FormElement.DOMAttributes = {
 		"type": this.ObjectType
 	};
@@ -170,7 +170,7 @@ sysFormfieldItem.prototype.FormItemAddStyle = function(StyleClass)
 {
 	try {
 		const FormElement = document.getElementById(this.FormElement.ObjectID);
-		FormElement.classList.add('class', StyleClass);
+		FormElement.classList.add(StyleClass);
 	}
 	catch(err) {
 		console.debug('::DOMFormElementAddStyle err:%s ObjectID:%s DOMObjectID:%o', err, this.ObjectID, this.DOMObjectID);
@@ -263,36 +263,37 @@ sysFormfieldItem.prototype.updateDBValue = function(RowData)
 
 sysFormfieldItem.prototype.validate = function()
 {
-	//console.log('::validate type:%s OverrideValidate:%s', this.Type, this.OverrideValidate);
+	console.debug('::validate type:%s OverrideValidate:%s', this.Type, this.OverrideValidate);
+
+	const Attributes = this.JSONConfig.Attributes;
 
 	//- ignore pulldown type
-	//if (this.Type == 'pulldown' || this.Type == 'dynpulldown' || this.Type == 'dummy') { return true; }
+	if (this.Type == 'pulldown' || this.Type == 'dynpulldown' || this.Type == 'dummy') { return true; }
 
 	//- if deactivated, do not validate
 	if (this.Deactivated === true || this.TabDeactivated === true) { return true; }
 
-	//- ignore dummy type
-	if (this.Type == 'dummy') { return true; }
-
 	//- if disabled do not process
-	if (this.Disabled == true && this.OverrideValidate == false) { return true; }
+	if (this.Disabled === true && this.OverrideValidate === false) { return true; }
 
 	//- ignore form field without validate regex set
-	if (this.ValidateRef == null || this.ValidateRef === undefined) { return true; }
+	if (Attributes.ValidateRef == null || Attributes.ValidateRef === undefined) { return true; }
 
 	//- if nullable and value length = 0, do not mark as failed
-	if (this.ValidateNullable == true && this.getDOMFormElementValue().length == 0) {
+	if (Attributes.ValidateNullable == true && this.FormItemGetValue().length == 0) {
 
-		this.DOMFormElementRemoveStyle(this.StyleClassValidateFail);
-		this.DOMFormElementAddStyle(this.StyleClassValidateOk);
+		this.FormItemRemoveStyle(Attributes.StyleValidateFail);
+		this.FormItemAddStyle(Attributes.StyleValidateOk);
 
 		return true;
 	}
 
-	const Result = sysFactory.ObjFormValidate.validate(this.ValidateRef, this.getDOMFormElementValue());
+	const Result = sysFactory.ObjValidate.validate(Attributes.ValidateRef, this.FormItemGetValue());
 	//console.debug('::validate FormItem ObjectID:%s Result:%s', this.ObjectID, Result);
 
-	return this.setValidateStyle(Result);
+	this.setValidateStyle(Result);
+
+	return Result;
 }
 
 
@@ -330,15 +331,14 @@ sysFormfieldItem.prototype.setupIntervalHandler = function()
 
 sysFormfieldItem.prototype.setValidateStyle = function(Result)
 {
-	if (Result == -1) {
-		this.DOMFormElementRemoveStyle(this.StyleClassValidateOk);
-		this.DOMFormElementAddStyle(this.StyleClassValidateFail);
-		return false;
+	const Attributes = this.JSONConfig.Attributes;
+	if (Result === false) {
+		this.FormItemRemoveStyle(Attributes.StyleValidateOk);
+		this.FormItemAddStyle(Attributes.StyleValidateFail);
 	}
-	else {
-		this.DOMFormElementRemoveStyle(this.StyleClassValidateFail);
-		this.DOMFormElementAddStyle(this.StyleClassValidateOk);
-		return true;
+	if (Result === true) {
+		this.FormItemRemoveStyle(Attributes.StyleValidateFail);
+		this.FormItemAddStyle(Attributes.StyleValidateOk);
 	}
 }
 

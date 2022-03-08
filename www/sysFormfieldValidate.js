@@ -19,55 +19,52 @@ function sysFormFieldValidate() {
 	//- validate regex
 	this.ValidateRegex =
 	{
-		'DefaultString':			'^[a-zA-ZäöüÄÖÜß0-9 \\"\\/\\.\\-\\+:;,=<>_§#&\\$\\!\\?\\(\\)]+$',
-		'DefaultAtoZ':				'^[a-zA-Z]+$',
-		'DefaultInteger':			'^[0-9]+$',
-		'DefaultAtoZPlusNumbers':	'^[a-zA-Z0-9]+$',
-		'DefaultAtoZUpper':			'^[A-Z]+$',
-		'DefaultDateInternational':	'^[0-9][0-9][0-9][0-9]\\-[0-9][0-9]\\-[0-9][0-9]$',
-		'DefaultDate':				'^[0-9][0-9]\\.[0-9][0-9]\\.[0-9][0-9][0-9][0-9]$',
-		'DefaultDatepicker':		'^[0-9][0-9][0-9][0-9]\\-[0-9][0-9]\\-[0-9][0-9]$',
-		'ZipCode':					'^[0-9][0-9][0-9][0-9][0-9]$',
-		'UserName':					'^[a-zA-Z0-9_]+$',
-		'RealName':					'^[a-zA-Z0-9äöüÄÖÜ ]+$',
-		'Surename':					'^[a-zA-Z0-9äöüÄÖÜ]+$',
-		'UserPass':					'^[a-zA-Z0-9!?_#]+$',
-		'UserGroup':				'^[a-zA-Z0-9_]+$',
-		'MailAddress':				'^[a-zA-Z0-9\\-\\.]+\@[a-zA-Z0-9\\-\\.]+$',
-		'PhoneNrInternational':		'^\\+[0-9][0-9] ?\\([0-9]{2,6}\\) ?[0-9]{4,12}$',
-		'PhoneNr':					'^\\([0-9]{2,6}\\) ?[0-9]{4,12}$',
-		'PhoneNrArea':				'^[0-9]{2,6}$',
-		'PhoneNrSingle':			'^[0-9]{4,12}$',
-		'Quantity':					'^[0-9]+$',
-		'Country':					'^(DE|EN)$',
-		'City':						'^[A-ZÄÖÜ][a-zäöüß]+$',
-		'StreetNr':					'^[0-9abc]+$',
-		'EuroWithCents':			'^[0-9]+,[0-9][0-9]$',
-		'SPXBarcode':				'^[0-9]{20,20}+$',
-		'TransparenzDBNummer':		'^vr_[0-9A-Z]+$'
+		'DefaultString':					'^[a-zA-ZäöüÄÖÜß0-9 \\"\\/\\.\\-\\+:;,=<>_§#&\\$\\!\\?\\(\\)]+$',
+		'DefaultAtoZ':						'^[a-zA-Z]+$',
+		'DefaultInteger':					'^[0-9]+$',
+		'DefaultAtoZPlusNumbers':			'^[a-zA-Z0-9]+$',
+		'DefaultAtoZUpper':					'^[A-Z]+$',
+		'DefaultDateInternational':			'^[0-9][0-9][0-9][0-9]\\-[0-9][0-9]\\-[0-9][0-9]$',
+		'DefaultDate':						'^[0-9][0-9]\\.[0-9][0-9]\\.[0-9][0-9][0-9][0-9]$',
+		'DefaultDatepicker':				'^[0-9][0-9][0-9][0-9]\\-[0-9][0-9]\\-[0-9][0-9]$',
+		'ZipCode':							'^[0-9][0-9][0-9][0-9][0-9]$',
+		'UserName':							'^[a-zA-Z0-9_]+$',
+		'RealName':							'^[a-zA-Z0-9äöüÄÖÜ ]+$',
+		'Surename':							'^[a-zA-Z0-9äöüÄÖÜ]+$',
+		'UserPass':							'^[a-zA-Z0-9!?_#]+$',
+		'UserGroup':						'^[a-zA-Z0-9_]+$',
+		'MailAddress':						'^[a-zA-Z0-9\\-\\.]+\@[a-zA-Z0-9\\-\\.]+$',
+		'PhoneNrInternational':				'^\\+[0-9][0-9] ?\\([0-9]{2,6}\\) ?[0-9]{4,12}$',
+		'PhoneNr':							'^\\([0-9]{2,6}\\) ?[0-9]{4,12}$',
+		'PhoneNrArea':						'^[0-9]{2,6}$',
+		'PhoneNrSingle':					'^[0-9]{4,12}$',
+		'Quantity':							'^[0-9]+$',
+		'Country':							'^(DE|EN)$',
+		'City':								'^[A-ZÄÖÜ][a-zäöüß]+$',
+		'StreetNr':							'^[0-9][0-9abc]+$',
+		'EuroWithCents':					'^[0-9]+,[0-9][0-9]$',
+		'SPXBarcode':						'^[0-9]{20,20}+$'
 	};
 
 	//- validate functions
 	this.ValidateFunc =
 	{
-		'IPAddress':								this.IPAddress,
-		'IPAddressSubnet':							this.IPAddressSubnet,
-		'IPPort':									this.IPPort,
+		'IPAddress':						this.IPAddress,
+		'IPAddressSubnet':					this.IPAddressSubnet,
+		'IPPort':							this.IPPort,
 	};
 
 	//- validate group functions
 	this.ValidateGroupFunc =
 	{
-		'CheckUniqueSparten':						this.CheckUniqueSparten,
-		'ZielgruppeGesamt':							this.ZielgruppeGesamt,
-		'CheckDatesPeriodOneYear':					this.CheckDatesPeriodOneYear,
-		'CheckDatesStartEnd':						this.CheckDatesStartEnd,
-		'CheckDatesStartEndVorzeitig':				this.CheckDatesStartEndVorzeitig,
-		'CheckMinMax':								this.CheckMinMax,
-		'CheckNull':								this.CheckNull,
-		'CheckEmpty':								this.CheckEmpty,
-		'CheckProjektPeriod':						this.CheckProjektPeriod,
-		'CheckProjektleitungZuwendungsempofaenger':	this.CheckProjektleitungZuwendungsempofaenger
+		'CheckUnique':						this.CheckUnique,
+		'CheckMinMax':						this.CheckMinMax,
+		'CheckNull':						this.CheckNull,
+		'CheckEmpty':						this.CheckEmpty,
+		'CheckDatePeriodOneYear':			this.CheckDatePeriodOneYear,
+		'CheckItemsOr':						this.CheckItemsOr,
+		'CheckTableRows':					this.CheckTableRows,
+		'MinOneItemNotNull':				this.MinOneItemNotNull
     }
 
 }
@@ -77,27 +74,23 @@ function sysFormFieldValidate() {
 //- METHOD "validate"
 //------------------------------------------------------------------------------
 
-sysFormFieldValidate.prototype.validate = function(ValidateID, Value) {
+sysFormFieldValidate.prototype.validate = function(ValidateID, Value)
+{
+	console.debug('::validate ValidateID:%s, Value:%s', ValidateID, Value);
 
-    console.debug('::validate ValidateID:%s, Value:%s', ValidateID, Value);
-
-    var RegexString = this.ValidateRegex[ValidateID];
+	const RegexString = this.ValidateRegex[ValidateID];
 
 	if (RegexString !== undefined && Value !== undefined) {
-		var Regex = new RegExp(RegexString, 'g');
-		return Value.search(Regex);
+		const Regex = new RegExp(RegexString, 'g');
+		return (Value.search(Regex) == -1) ? false : true;
 	}
 
 	try {
-		var ValidateFunc = this.ValidateFunc[ValidateID];
-
-		if (ValidateFunc !== undefined) {
-			return ValidateFunc(Value);
-		}
+		return this.ValidateFunc[ValidateID]();
 	}
 	catch(err) {
-        console.debug('::validate err:%s', err);
-    }
+		console.debug('::validate err:%s', err);
+	}
 }
 
 
@@ -105,14 +98,16 @@ sysFormFieldValidate.prototype.validate = function(ValidateID, Value) {
 //- METHOD "validateGroup"
 //------------------------------------------------------------------------------
 
-sysFormFieldValidate.prototype.validateGroup = function(FunctionID, FormfieldItems, FunctionParams) {
+sysFormFieldValidate.prototype.validateGroup = function(FunctionID, FormfieldItems)
+{
 	try {
-		var ValidateFunc = this.ValidateGroupFunc[FunctionID];
-    	return ValidateFunc(FormfieldItems, FunctionParams);
-    }
-    catch(err) {
-        console.debug('::validateGroup err:%s', err);
-    }
+		return this.ValidateGroupFunc[FunctionID](
+			FormfieldItems
+		);
+	}
+	catch(err) {
+		console.debug('::validateGroup err:%s', err);
+	}
 }
 
 
@@ -125,15 +120,15 @@ sysFormFieldValidate.prototype.IPAddress = function(Value) {
 	var IPArray = Value.split('.');
 
 	//- check correct octet count
-	if (IPArray.length != 4) { return -1; }
+	if (IPArray.length != 4) { return false; }
 
 	//- first octet should not start with 0
-	if (parseInt(IPArray[0]) == 0) { return -1; }
+	if (parseInt(IPArray[0]) == 0) { return false; }
 
 	for (Index in IPArray) {
 		IPOctet = IPArray[Index];
 		var checkNumber = parseInt(IPOctet);
-		if (checkNumber < 0 || checkNumber > 255) { return -1; }
+		if (checkNumber < 0 || checkNumber > 255) { false; }
 	}
 
 	return true;
@@ -149,15 +144,15 @@ sysFormFieldValidate.prototype.IPAddressSubnet = function(Value) {
 	var NetArray = Value.split('/');
 
 	//- check correct octet count
-	if (NetArray.length != 2) { return -1; }
+	if (NetArray.length != 2) { return false; }
 
 	//- check correct ip address
 	var IPCheck = sysFactory.ObjFormValidate.IPAddress(NetArray[0]);
-	if (IPCheck == -1) { return -1; }
+	if (IPCheck == -1) { return false; }
 
 	//- check subnet mask
 	var MaskBits = parseInt(NetArray[1]);
-	if (MaskBits < 1 || MaskBits > 32) { return -1; }
+	if (MaskBits < 1 || MaskBits > 32) { return false; }
 
 	return true;
 }
@@ -170,21 +165,21 @@ sysFormFieldValidate.prototype.IPAddressSubnet = function(Value) {
 sysFormFieldValidate.prototype.IPPort = function(Value) {
 
 	//- check empty string given
-	if (Value.length == 0) { return -1; }
+	if (Value.length == 0) { return false; }
 
 	//- cast/check numerical value
 	var Port = parseInt(Value);
-	if (Port < 1 || Port > 65535) { return -1; }
+	if (Port < 1 || Port > 65535) { return false; }
 
 	return true;
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "FormItemGroupNonUnique"
+//- METHOD "CheckUnique"
 //------------------------------------------------------------------------------
 
-sysFormFieldValidate.prototype.FormItemGroupNonUnique = function(Items, Params) {
+sysFormFieldValidate.prototype.CheckUnique = function(Items) {
 
 	//console.debug('FormValidate GroupNonUnique Items:%o', Items);
 	var UniqueElements = new Object();
@@ -210,64 +205,10 @@ sysFormFieldValidate.prototype.FormItemGroupNonUnique = function(Items, Params) 
 
 
 //------------------------------------------------------------------------------
-//- METHOD "FormItemGroupUser1"
-//------------------------------------------------------------------------------
-
-sysFormFieldValidate.prototype.CheckUniqueSparten = function(Items, Params) {
-
-	var NewItems = new Array();
-
-	if (Items.ProjektNewSparte1Sonstige.getObjectData().length > 0) {
-		NewItems.push(Items.ProjektNewSparte1Sonstige);
-	}
-	else {
-		NewItems.push(Items.ProjektNewSparte1);
-	}
-
-	if (Items.ProjektNewSparte2Sonstige.getObjectData().length > 0) {
-		NewItems.push(Items.ProjektNewSparte2Sonstige);
-	}
-	else {
-		NewItems.push(Items.ProjektNewSparte2);
-	}
-
-	if (Items.ProjektNewSparte3Sonstige.getObjectData().length > 0) {
-		NewItems.push(Items.ProjektNewSparte3Sonstige);
-	}
-	else {
-		NewItems.push(Items.ProjektNewSparte3);
-	}
-
-	var Items = NewItems;
-	//console.debug('FormValidate GroupNonUnique Items:%o', Items);
-
-	var UniqueElements = new Object();
-
-	for (ItemID in Items) {
-		Item = Items[ItemID];
-		UniqueElements[Item.getObjectData()] = 0;
-	}
-
-	for (ItemID in Items) {
-		Item = Items[ItemID];
-		UniqueElements[Item.getObjectData()] += 1;
-	}
-
-	var FormFieldsCount = Object.keys(Items).length;
-	var UniqueCount = Object.keys(UniqueElements).length;
-
-	//console.debug('::validate grouped UniqueElements:%o FormCount:%s UniqueCount:%s', UniqueElements, FormFieldsCount, UniqueCount);
-
-	return (UniqueCount == FormFieldsCount ? true : false);
-
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "CheckMinMax"
 //------------------------------------------------------------------------------
 
-sysFormFieldValidate.prototype.CheckMinMax = function(Items, Params) {
+sysFormFieldValidate.prototype.CheckMinMax = function(Items) {
 	var i=0;
 	for (Index in Items) { i++; }
 	//return (Params.min < i ? false : true);
@@ -279,7 +220,7 @@ sysFormFieldValidate.prototype.CheckMinMax = function(Items, Params) {
 //- METHOD "CheckNull"
 //------------------------------------------------------------------------------
 
-sysFormFieldValidate.prototype.CheckNull = function(Items, Params) {
+sysFormFieldValidate.prototype.CheckNull = function(Items) {
 	var i=0;
 	for (Index in Items) {
 		var Item = Items[Index];
@@ -295,7 +236,7 @@ sysFormFieldValidate.prototype.CheckNull = function(Items, Params) {
 //- METHOD "CheckEmpty"
 //------------------------------------------------------------------------------
 
-sysFormFieldValidate.prototype.CheckEmpty = function(Items, Params) {
+sysFormFieldValidate.prototype.CheckEmpty = function(Items) {
 	var i=0;
 	for (Index in Items) {
 		var Item = Items[Index];
@@ -308,132 +249,148 @@ sysFormFieldValidate.prototype.CheckEmpty = function(Items, Params) {
 
 
 //------------------------------------------------------------------------------
-//- METHOD "ProjektNewZielgruppeGesamt"
+//- METHOD "CheckDatePeriodOneYear"
 //------------------------------------------------------------------------------
 
-sysFormFieldValidate.prototype.ZielgruppeGesamt = function(Items, Params) {
-	var ZielgruppeCount = Items.ProjektNewZielgruppeGesamt.getObjectData();
-	console.debug('::validate grouped Ziegruppe Count:%s', ZielgruppeCount);
-	return (ZielgruppeCount == 0 ? false : true);
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "CheckDatesPeriodOneYear"
-//------------------------------------------------------------------------------
-
-sysFormFieldValidate.prototype.CheckDatesPeriodOneYear = function(Items) {
+sysFormFieldValidate.prototype.CheckDatePeriodOneYear = function(Items) {
 	try {
-		var BeginnTag = Items.ProjektNewDauerProjektbeginnTag.getObjectData();
-		var BeginnMonat = Items.ProjektNewDauerProjektbeginnMonat.getObjectData();
-		var BeginnJahr = Items.ProjektNewDauerProjektbeginnJahr.getObjectData();
+		const ItemStartDay = Items[0];
+		const ItemStartMonth = Items[1];
+		const ItemStartYear = Items[2];
 
-		var EndeTag = Items.ProjektNewDauerProjektendeTag.getObjectData();
-		var EndeMonat = Items.ProjektNewDauerProjektendeMonat.getObjectData();
-		var EndeJahr = Items.ProjektNewDauerProjektendeJahr.getObjectData();
+		const ItemEndDay = Items[3];
+		const ItemEndMonth = Items[4];
+		const ItemEndYear = Items[5];
 
-		var DateBeginn = new Date(BeginnMonat+"/"+BeginnTag+"/"+BeginnJahr);
-		var DateEnd = new Date(EndeMonat+"/"+EndeTag+"/"+EndeJahr);
+		var BeginDay = ItemStartDay.getObjectData();
+		var BeginMonth = ItemStartMonth.getObjectData();
+		var BeginYear = ItemStartYear.getObjectData();
 
-		var ZeitspanneTime = DateEnd.getTime()-DateBeginn.getTime();
-		var ZeitspanneDays = ZeitspanneTime / (1000*3600*24);
+		var EndDay = ItemEndDay.getObjectData();
+		var EndMonth = ItemEndMonth.getObjectData();
+		var EndYear = ItemEndYear.getObjectData();
+
+		var DateBeginn = new Date(BeginMonth+"/"+BeginDay+"/"+BeginYear);
+		var DateEnd = new Date(EndMonth+"/"+EndDay+"/"+EndYear);
+
+		var PeriodTime = DateEnd.getTime()-DateBeginn.getTime();
+		var PeriodDays = PeriodTime / (1000*3600*24);
 	}
 	catch(err) {
-		ZeitspanneDays = 1000;
-		console.debug('::CheckDatesPeriodOneYear err:%s', err);
+		PeriodDays = 1000;
+		console.debug('::CheckDatePeriodOneYear err:%s', err);
 	}
-	console.debug('::validate grouped CheckDatesPeriodOneYear BT:%s BM:%s MJ:%s ET:%s EM:%s EJ:%s DateBeginn:%s DateEnd:%s Zeitspanne:%s', BeginnTag, BeginnMonat, BeginnJahr, EndeTag, EndeMonat, EndeJahr, DateBeginn, DateEnd, ZeitspanneDays);
-	return (ZeitspanneDays > 365 ? false : true);    
+	console.debug('::validate grouped CheckDatePeriodOneYear BT:%s BM:%s MJ:%s ET:%s EM:%s EJ:%s DateBeginn:%s DateEnd:%s Period:%s', BeginDay, BeginMonth, BeginYear, EndDay, EndMonth, EndYear, DateBeginn, DateEnd, PeriodDays);
+	return (PeriodDays > 365 ? false : true);    
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "CheckDatesStartEnd"
+//- METHOD "CheckItemsOr"
 //------------------------------------------------------------------------------
 
-sysFormFieldValidate.prototype.CheckDatesStartEnd = function(Items) {
-	try {
-		var BeginnTag = Items.ProjektNewDauerProjektbeginnTag.getObjectData();
-		var BeginnMonat = Items.ProjektNewDauerProjektbeginnMonat.getObjectData();
-		var BeginnJahr = Items.ProjektNewDauerProjektbeginnJahr.getObjectData();
+sysFormFieldValidate.prototype.CheckItemsOr = function(Items) {
 
-		var EndeTag = Items.ProjektNewDauerProjektendeTag.getObjectData();
-		var EndeMonat = Items.ProjektNewDauerProjektendeMonat.getObjectData();
-		var EndeJahr = Items.ProjektNewDauerProjektendeJahr.getObjectData();
+	var ErrorStatus = false;
 
-		var DateBeginn = new Date(BeginnMonat+"/"+BeginnTag+"/"+BeginnJahr);
-		var DateEnd = new Date(EndeMonat+"/"+EndeTag+"/"+EndeJahr);
+	const ErrorText = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.FIELD-OR');
+	const ErrorMessage = ErrorText + ' (' + Items[0].ObjectID + ', ' + Items[1].ObjectID + ')';
+
+	const Item1Value = Items[0].ParentObject.getObjectData();
+	const Item2Value = Items[1].ParentObject.getObjectData();
+
+	console.debug('Val1:%s Val2:%s', Item1Value.length, Item2Value.length);
+
+	if (Item1Value.length > 0 && Item2Value.length > 0) {
+		ErrorStatus = false;
 	}
-	catch(err) {
-		console.debug('::CheckDatesStartEnd err:%s', err);
-		return false;
+	else if (Item1Value.length == 0 && Item2Value.length == 0) {
+		ErrorStatus = false;
 	}
-	console.debug('::validate grouped CheckDatesStartEnd BT:%s BM:%s MJ:%s ET:%s EM:%s EJ:%s DateBeginn:%s DateEnd:%s', BeginnTag, BeginnMonat, BeginnJahr, EndeTag, EndeMonat, EndeJahr, DateBeginn, DateEnd);
-	return (DateBeginn.getTime() > DateEnd.getTime() ? false : true);
+	else {
+		ErrorStatus = true;
+	}
+
+	const ReturnObject = {
+		"Error": ErrorStatus,
+		"Message": ErrorMessage
+	};
+
+	return ReturnObject;
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "CheckDatesStartEndVorzeitig"
+//- METHOD "MinOneItemNotNull"
 //------------------------------------------------------------------------------
 
-sysFormFieldValidate.prototype.CheckDatesStartEndVorzeitig = function(Items) {
-	try {
-		var BeginnTag = Items.ProjektNewDVorzeitigerMassnahmenbeginnTag.getObjectData();
-		var BeginnMonat = Items.ProjektNewDVorzeitigerMassnahmenbeginnMonat.getObjectData();
-		var BeginnJahr = Items.ProjektNewDVorzeitigerMassnahmenbeginnJahr.getObjectData();
+sysFormFieldValidate.prototype.MinOneItemNotNull = function(Items) {
 
-		var EndeTag = Items.ProjektNewDauerProjektbeginnTag.getObjectData();
-		var EndeMonat = Items.ProjektNewDauerProjektbeginnMonat.getObjectData();
-		var EndeJahr = Items.ProjektNewDauerProjektbeginnJahr.getObjectData();
+	var ErrorStatus = false;
 
-		var DateBeginn = new Date(BeginnMonat+"/"+BeginnTag+"/"+BeginnJahr);
-		var DateEnd = new Date(EndeMonat+"/"+EndeTag+"/"+EndeJahr);
+	var ErrorMessage = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.MINITEMNOTNULL');
+
+	var ItemsNotNull = 0;
+
+	for (Index in Items) {
+		Item = Items[Index];
+		const ItemValue = Items[Index].ParentObject.getObjectData();
+		if (ItemValue.length > 0) {
+			ItemsNotNull += 1;
+		}
 	}
-	catch(err) {
-		console.debug('::CheckDatesStartEndVorzeitig err:%s', err);
-		return false;
+
+	if (ItemsNotNull == 0) {
+
+		ErrorStatus = false;
+		var ErrorMessageAppend = ' (';
+
+		for (Index in Items) {
+			Item = Items[Index];
+			ErrorMessageAppend += Items[Index].ObjectID + ', ';
+		}
+
+		ErrorMessageAppend = ErrorMessageAppend.replace(/, $/g, '');
+
+		ErrorMessageAppend += ')';
+		ErrorMessage += ErrorMessageAppend;
 	}
-	console.debug('::validate grouped CheckDatesStartEndVorzeitig BT:%s BM:%s MJ:%s ET:%s EM:%s EJ:%s DateBeginn:%s DateEnd:%s', BeginnTag, BeginnMonat, BeginnJahr, EndeTag, EndeMonat, EndeJahr, DateBeginn, DateEnd);
-	return (DateBeginn.getTime() > DateEnd.getTime() ? false : true);
+
+	if (ItemsNotNull > 0) {
+		ErrorStatus = true;
+	}
+
+	const ReturnObject = {
+		"Error": ErrorStatus,
+		"Message": ErrorMessage
+	};
+
+	return ReturnObject;
 }
 
-
 //------------------------------------------------------------------------------
-//- METHOD "CheckProjektPeriod"
+//- METHOD "CheckTableRows"
 //------------------------------------------------------------------------------
 
-sysFormFieldValidate.prototype.CheckProjektPeriod = function(Items) {
-	try {
-		var BeginnTag = Items.ProjektNewDauerProjektbeginnTag.getObjectData();
-		var BeginnMonat = Items.ProjektNewDauerProjektbeginnMonat.getObjectData();
-		var BeginnJahr = Items.ProjektNewDauerProjektbeginnJahr.getObjectData();
+sysFormFieldValidate.prototype.CheckTableRows = function(Items) {
 
-		var EndeTag = Items.ProjektNewDauerProjektendeTag.getObjectData();
-		var EndeMonat = Items.ProjektNewDauerProjektendeMonat.getObjectData();
-		var EndeJahr = Items.ProjektNewDauerProjektendeJahr.getObjectData();
+	var ErrorStatus = false;
 
-		var DateBeginn = new Date(BeginnMonat+"/"+BeginnTag+"/"+BeginnJahr);
-		var DateEnd = new Date(EndeMonat+"/"+EndeTag+"/"+EndeJahr);
-		var ZeitspanneTime = DateEnd.getTime()-DateBeginn.getTime();
-		var ZeitspanneDays = ZeitspanneTime / (1000*3600*24);
+	const ErrorMessage = sysFactory.getText('TXT.SYS.ERROR.TABLE-NO-ROWS');
+
+	const TableData = Items[0].getObjectData();
+
+	if (TableData.length == 0) {
+		ErrorStatus = false;
 	}
-	catch(err) {
-		ZeitspanneDays = 10;
-		console.debug('::CheckProjektPeriod err:%s', err);
-		return false;
+	else {
+		ErrorStatus = true;
 	}
-	console.debug('::validate grouped CheckProjektPeriod BT:%s BM:%s MJ:%s ET:%s EM:%s EJ:%s DateBeginn:%s DateEnd:%s', BeginnTag, BeginnMonat, BeginnJahr, EndeTag, EndeMonat, EndeJahr, DateBeginn, DateEnd);
-	return (ZeitspanneDays > 30 ? true : false);
-}
 
+	const ReturnObject = {
+		"Error": ErrorStatus,
+		"Message": ErrorMessage
+	};
 
-//------------------------------------------------------------------------------
-//- METHOD "CheckProjektleitungZuwendungsempofaenger"
-//------------------------------------------------------------------------------
-
-sysFormFieldValidate.prototype.CheckProjektleitungZuwendungsempofaenger = function(Items) {
-	const ProjektleitungID = Items.ProjektNewProjektleitungZuwendungsempfängerAuswahlProjektleitung.getObjectData();
-	const ZuwendungsempfaengerID = Items.ProjektNewProjektleitungZuwendungsempfängerAuswahlZuwendungsempfänger.getObjectData();
-	return (ProjektleitungID != ZuwendungsempfaengerID ? true : false);
+	return ReturnObject;
 }

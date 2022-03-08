@@ -117,6 +117,16 @@ sysTab.prototype.callbackXMLRPCAsync = function()
 
 
 //------------------------------------------------------------------------------
+//- METHOD "setValidateStatus"
+//------------------------------------------------------------------------------
+
+sysTab.prototype.setValidateStatus = function(Status)
+{
+	this.ValidateStatus = Status;
+}
+
+
+//------------------------------------------------------------------------------
 //- CONSTRUCTOR "sysTabContainer"
 //------------------------------------------------------------------------------
 
@@ -434,16 +444,6 @@ sysTabContainer.prototype.reset = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "setValidateStatus"
-//------------------------------------------------------------------------------
-
-sysTabContainer.prototype.setValidateStatus = function(Status)
-{
-	this.ValidateStatus = Status;
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "switchFirstTabContainingErrors"
 //------------------------------------------------------------------------------
 
@@ -451,9 +451,9 @@ sysTabContainer.prototype.switchFirstTabContainingErrors = function()
 {
 	for (TabKey in this.Tabs) {
 		TabElement = this.Tabs[TabKey];
-		if (TabElement.ValidateStatus == false) {
-            this.switchTab(TabKey);
-            break;
-        }
-    }
+		if (TabElement.ValidateStatus === false) {
+			this.switchTab(TabKey);
+			break;
+		}
+	}
 }

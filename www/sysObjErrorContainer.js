@@ -17,6 +17,7 @@ sysErrorContainer.prototype = new sysBaseObject();
 
 sysErrorContainer.prototype.init = function()
 {
+	console.debug('Init Error Container');
 }
 
 

@@ -121,27 +121,18 @@ sysObjButton.prototype.EventListenerClick = function(Event)
 
 		console.debug('::EventListenerClick Button not disabled.');
 
-		this.CallURL = this.JSONConfig.Attributes.OnClick;
-		this.CallService = false;
-
-		//- trigger scrollTop
-		this.scrollTop();
+		this.CallURL = Attributes.OnClick;
 
 		//console.log('sysObjButton.EventListenerClick() JSONConfig:%o', this.JSONConfig);
 
-		//- reset post request data
 		this.PostRequestData.reset();
 
-		//- process connected source objects
-		this.processSourceObjects();
-
-		//- process actions
-		this.processActions();
-
-		//- if no source objects connected, process formlistobjects
-		//this.processFormFieldListObjects();
-
-		this.callService();
+		if (this.validateForm() === true) {
+			this.scrollTop();
+			this.processSourceObjects();
+			this.processActions();
+			this.callService();
+		}
 	}
 }
 
@@ -157,34 +148,13 @@ sysObjButton.prototype.scrollTop = function()
 			const Attributes = this.JSONConfig.Attributes;
 
 			if (Attributes.ScrollTop !== undefined && Attributes.ScrollTop == true) {
-				//console.debug('::validateForm ScrollTop:true');
+				//console.debug('::scrollTop ScrollTop:true');
 				window.parent.postMessage({'task': 'scroll_top'}, sysFactory.ParentWindowURL);
 			}
 		}
 		catch(err) {
 			console.debug('::scrollTop err:%s', err);
 		}
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "processFormFieldListObjects"
-//------------------------------------------------------------------------------
-
-sysObjButton.prototype.processFormFieldListObjects = function()
-{
-	var ValidateResult = this.validateForm();
-	console.debug('sysObjButton ValidateResult:%s', ValidateResult);
-
-	//- if validate ok, setup get params, call service
-	if (ValidateResult === true) {
-		/*
-		console.log('##### BUTTON FORM VALIDATION OK #####');
-		console.log(this.ConfigObject);
-		console.log(this.PostRequestData);
-		*/
-		this.callService();
 	}
 }
 
@@ -227,6 +197,141 @@ sysObjButton.prototype.addNotifyHandler = function()
 
 
 //------------------------------------------------------------------------------
+//- METHOD "validateForm"
+//------------------------------------------------------------------------------
+
+sysObjButton.prototype.validateForm = function()
+{
+	const Attributes = this.JSONConfig.Attributes;
+
+	var ValidateResult = true;
+	var ValidateFormlistObjects = new Array();
+
+	if (Attributes.Validate !== undefined) {
+		const ScreenTabs = this.ScreenObject.HierarchyRootObject.getObjectsByType('Tab');
+		for (TabKey in ScreenTabs) {
+			const TabElement = ScreenTabs[TabKey];
+			TabElement.setValidateStatus(true);
+		}
+
+		if (Attributes.Validate.FormlistsAll !== undefined) {
+			const Formfieldlists = this.ScreenObject.HierarchyRootObject.getObjectsByType('FormfieldList');
+			for (Key in Formfieldlists) {
+				ValidateFormlistObjects = ValidateFormlists.concat(
+					ValidateFormlistObjects,
+					Formfieldlists[Key]
+				);
+			}
+		}
+
+		if (Attributes.Validate.Formlists !== undefined) {
+			for (Index in Attributes.Validate.Formlists) {
+				const FormlistID = Attributes.Validate.Formlists[Index];
+				ValidateFormlistObjects.push(sysFactory.getObjectByID(FormlistID));
+			}
+		}
+
+		console.debug('::validate FormlistObjects:%o', ValidateFormlistObjects);
+
+		for (Index in ValidateFormlistObjects) {
+			const FormlistObj = ValidateFormlistObjects[Index];
+			const Result = FormlistObj.validate();
+			if (Result === true) {
+				this.PostRequestData.merge(FormlistObj.RuntimeGetDataFunc());
+			}
+			else {
+				const ParentObject = FormlistObj.ParentObject;
+				if (ParentObject !== undefined && ParentObject.ObjectType == 'Tab') {
+					ParentObject.setValidateStatus(Result);
+				}
+				ValidateResult = false;
+			}
+		}
+
+		// ----------------------------------------------------------------
+		// - make uique function / method with sysObjFormfieldList validate
+		// ----------------------------------------------------------------
+		const ValidateObjects = Attributes.Validate.Objects;
+		if (ValidateObjects !== undefined) {
+			console.debug('ValidateObjects:%o', ValidateObjects);
+			for (GroupKey in ValidateObjects) {				
+
+				const GroupConf = ValidateObjects[GroupKey];
+				const GroupFunction = GroupConf.FunctionRef;
+				const ErrorObj = sysFactory.getObjectByID(GroupConf.ErrorContainer);
+
+				if (ErrorObj !== undefined) {
+
+					ErrorObj.reset();
+
+					var Objects = new Array();
+					for (ObjectKey in GroupConf.ObjectIDs) {
+						Objects.push(sysFactory.getObjectByID(GroupConf.ObjectIDs[ObjectKey]));
+					}
+
+					const Result = sysFactory.ObjValidate.validateGroup(
+						GroupFunction,
+						Objects
+					);
+
+					if (Result['Error'] !== undefined && Result['Error'] === false) {
+						ErrorDisplayText = Result['Message'];
+						ValidateResult = false;
+						ErrorObj.displayError(ErrorDisplayText);
+					}
+				}
+			}
+		}
+		// ----------------------------------------------------------------
+		// - make uique function / method with sysObjFormfieldList validate
+		// ----------------------------------------------------------------
+
+		for (TabKey in ScreenTabs) {
+			const TabElement = ScreenTabs[TabKey];
+			TabElement.TabContainer.switchFirstTabContainingErrors();
+		}
+
+		//- add screen id to request data
+		var IdObj = Object();
+		IdObj['BackendServiceID'] = Attributes.ServiceID;
+		this.PostRequestData['ServiceData'] = IdObj;
+
+		console.debug('::validate result:%s PostRequestData:%o', ValidateResult, this.PostRequestData);
+
+		if (ValidateResult === true) {
+
+			if (Attributes.Validate.OnValidateOk !== undefined) {
+				if (Attributes.OnValidateOk.click !== undefined) {
+					const ClickObject = sysFactory.getObjectByID(Attributes.OnValidateOk.click);
+					ClickObject.EventListenerClick('ClickedBySystem');
+				}
+			}
+
+			if (Attributes.Validate.POSTRequestDataTransform !== undefined) {
+				this.PostRequestData.transform(Attributes.POSTRequestDataTransform);
+			}
+
+			if (Attributes.Validate.POSTRequestDataRemovePrefix !== undefined) {
+				this.PostRequestData.removePrefix(Attributes.POSTRequestDataRemovePrefix);
+			}
+
+			if (Attributes.Validate.ResetValidateOnSuccess == true) {
+				for (ObjKey in FormListObjs) {
+					var FormListConfigObj = FormListObjs[ObjKey];
+					FormListConfigObj.clearStyle();
+				}
+			}
+		}
+	}
+
+	//- trigger iframe resize
+	sysFactory.resizeIframe();
+
+	return ValidateResult;
+}
+
+
+//------------------------------------------------------------------------------
 //- METHOD "processActions"
 //------------------------------------------------------------------------------
 
@@ -235,14 +340,6 @@ sysObjButton.prototype.processActions = function()
 	const Attributes = this.JSONConfig.Attributes;
 
 	console.debug('::processActions Attributes:%o', Attributes);
-
-	if (Attributes.CloseOverlay !== undefined && Attributes.CloseOverlay === true) {
-		try {
-			sysFactory.OverlayObj.EventListenerClick();
-		}
-		catch(err) {
-		}
-	}
 
 	if (Attributes.Action !== undefined) {
 
@@ -448,6 +545,15 @@ sysObjButton.prototype.processActions = function()
 		}
 		
 	}
+
+	if (Attributes.CloseOverlay !== undefined && Attributes.CloseOverlay === true) {
+		try {
+			sysFactory.OverlayObj.EventListenerClick();
+		}
+		catch(err) {
+		}
+	}
+
 }
 
 
@@ -578,12 +684,6 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 
 			console.debug('switchScreen:%s', SwitchScreen);
 
-			//- reset form field styles
-			//sysFactory.clearFormStylesByScreenID(this.ScreenObject.ScreenID);
-
-			//- reset form field values
-			//sysFactory.resetFormValuesByScreenID(this.ScreenObject.ScreenID);
-
 			//- switch screen
 			sysFactory.switchScreen(ConfigAttributes.SwitchScreen);
 
@@ -642,224 +742,4 @@ sysObjButton.prototype.fireNetEvents = function()
 		RPC.setRequestType('GET');
 		RPC.Request();
 	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "validateForm"
-//------------------------------------------------------------------------------
-
-/*
- *  :: refactoring
- *     - ValidateForm / ValidateObject Logic must be OOP conform / moved to Object(s) itself
-*/
-
-sysObjButton.prototype.validateForm = function()
-{
-	var ValidateResult = true;
-
-	var ValidateFormListObjs = new Object();
-	var ValidateObjectsConfig = this.JSONConfig.Attributes.ValidateObjects;
-
-	for (i in ValidateObjectsConfig) {
-		var ValidateObjectID = ValidateObjectsConfig[i];
-		ValidateFormListObjs[ValidateObjectID] = true;
-	}
-
-	var ValidateObjectsDependendFormList = this.JSONConfig.Attributes.ValidateObjectsDependendFormList;
-	var ValidateObjectsDependendFormField = this.JSONConfig.Attributes.ValidateObjectsDependendFormField;
-	var ValidateObjectDependendValues = this.JSONConfig.Attributes.ValidateObjectsDependendValues;
-
-	for (CheckValue in ValidateObjectDependendValues) {
-		var DstFormListIDs = ValidateObjectDependendValues[CheckValue];
-		var SrcFormList = sysFactory.getObjectByID(ValidateObjectsDependendFormList);
-		var SrcFormField = SrcFormList.getFormFieldItemByID(ValidateObjectsDependendFormField);
-		var SrcFormFieldValue = SrcFormField.getRuntimeData();
-		if (SrcFormFieldValue == CheckValue) {
-			if (Array.isArray(DstFormListIDs) != true) {
-				DstFormListIDs = [ DstFormListIDs ];
-			}
-			for (i in DstFormListIDs) {
-				try {
-					DstFormListID = DstFormListIDs[i];
-					const FormListObj = sysFactory.getObjectByID(DstFormListID);
-					this.PostRequestData.merge(FormListObj.getFormFieldItemData());
-					ValidateFormListObjs[DstFormListID] = true;
-				}
-				catch(e) {
-				}
-			}
-		}
-		//console.log('::validateForm CheckValue:%s DstFormListID:%s SrcFormList:%o SrcFormField:%o SrcFormFieldValue:%s', CheckValue, DstFormListID, SrcFormList, SrcFormField, SrcFormFieldValue);
-	}
-
-	//console.debug('::validateForm Button this:%o', this);
-
-	//- reset all Screen Tabs "ValidateStatus"
-	const ScreenTabs = this.ScreenObject.HierarchyRootObject.getObjectsByType('Tab');
-	for (TabKey in ScreenTabs) {
-		TabElement = ScreenTabs[TabKey];
-		TabElement.setValidateStatus(true);
-	}
-
-	const FormListObjs = sysFactory.getFormFieldListObjectsByScreenObj(this.ScreenObject);
-
-	//console.debug('::validateForm FormListObjects:%o ValidateFormListObjs:%o', FormListObjs, ValidateFormListObjs);
-
-	for (ObjKey in FormListObjs) {
-
-		var FormListObject = FormListObjs[ObjKey];
-		var FormListValidateResult = true;
-		console.debug('::validateForm FormListObjID:%s FormListObj:%o', ObjKey, FormListObject);
-
-        var ParentObject;
-		if (this.JSONConfig.Attributes.FormValidate === true &&
-			FormListObject.doValidate === true
-			&& ValidateFormListObjs[ObjKey] === true
-		) {
-			console.debug('::validateForm processing ItemID:%s', ObjKey);
-			FormListValidateResult = FormListObject.validate();
-            ParentObject = FormListObject.ParentObject;
-            console.debug('::validateForm ParentObject:%o', ParentObject);
-            if (ParentObject !== undefined && ParentObject.ObjectType == 'Tab') {
-                ParentObject.setValidateStatus(FormListValidateResult);
-            }
-            if (ParentObject !== undefined && ParentObject.ObjectType == 'ServiceConnector') {
-                ParentObject.ParentObject.setValidateStatus(FormListValidateResult);
-            }
-		}
-
-		if (ParentObject !== undefined && ParentObject.ObjectType == 'Tab') {
-            ParentObject.TabContainer.switchFirstTabContainingErrors();
-        }
-		if (ParentObject !== undefined && ParentObject.ObjectType == 'ServiceConnector') {
-            ParentObject.ParentObject.TabContainer.switchFirstTabContainingErrors();
-        }
-
-		if (FormListValidateResult !== true) {
-			ValidateResult = false;
-		}
-	}
-
-	//- process other validate objects (non FormfieldList)
-	if (ValidateResult === true) {
-		//const ValidateObjects = this.ScreenObject.HierarchyRootObject.getObjectsByAttribute('Validate');
-
-		const ValidateObjects = this.JSONConfig.Attributes.ValidateObjects;
-
-		if (ValidateObjects !== undefined && this.JSONConfig.Attributes.FormValidate == true) {
-			console.debug('::validateForm ValidateObjects:%o', ValidateObjects);
-
-			for (ObjIndex in ValidateObjects) {
-
-				const ValidateObjectID = ValidateObjects[ObjIndex];
-				const ValidateObject = sysFactory.getObjectByID(ValidateObjectID);
-
-				console.debug('::validate ValidateObject:%o', ValidateObject);
-
-				if (ValidateObject !== undefined && ValidateObject.doValidate === true) {
-
-					if (ValidateObject.ObjectType == 'FormFieldList') {
-						this.PostRequestData.merge(ValidateObject.getFormFieldItemData());
-					}
-
-					if (	ValidateObject.JSONConfig !== undefined &&
-							ValidateObject.JSONConfig.Attributes !== undefined &&
-							ValidateObject.JSONConfig.Attributes.Validate !== undefined
-					   ) {
-
-						const ValidateObjectAttributes = ValidateObject.JSONConfig.Attributes.Validate;
-
-						const ErrorObj = sysFactory.getObjectByID(ValidateObjectAttributes.ErrorContainer);
-						console.debug('::validateForm ErrorContainer:%s ErrorObject:%o', ValidateObjectAttributes.ErrorContainer, ErrorObj);
-
-						if (ErrorObj !== undefined) {
-							ErrorObj.reset();
-						}
-
-						console.debug('::validateForm ValidateObject ValidateAttributes:%o', ValidateObjectAttributes);
-
-						if (ValidateObjectAttributes.CheckValue === true && ValidateObjectAttributes.Operator == '==') {
-							const ObjectData = ValidateObject.getObjectData();
-							const CheckValue = ValidateObjectAttributes.Value;
-							if (ObjectData == CheckValue) {
-								ValidateResult = false;
-								if (ErrorObj !== undefined) {
-									ErrorObj.displayError(ValidateObjectAttributes.ErrorMessage);
-								}
-							}
-						}
-
-						if (ValidateObjectAttributes.Operator !== undefined && ValidateObjectAttributes.Operator == '!=') {
-							const CheckProperty = ValidateObject[ValidateObjectAttributes.ObjectProperty];
-							const CheckValue = ValidateObjectAttributes.Value;
-
-							console.debug('::validateForm CheckProperty:%s CheckValue:%s', CheckProperty, CheckValue);
-
-							if (CheckProperty != CheckValue) {
-								ValidateResult = false;
-								if (ErrorObj !== undefined) {
-									ErrorObj.displayError(ValidateObjectAttributes.ErrorMessage);
-								}
-							}
-						}
-
-						if (ValidateObjectAttributes.UserFunction !== undefined) {
-
-							console.debug('::validateForm UserFunction:%s', ValidateObjectAttributes.UserFunction);
-
-							const ErrorMessage = sysFactory.UserFunctions[ValidateObjectAttributes.UserFunction](ValidateObjectAttributes.ObjectIDs);
-							if (ErrorMessage !== false) {
-								ValidateResult = false;
-								if (ErrorObj !== undefined) {
-									ErrorObj.displayError(ErrorMessage);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-
-	//- add screen id to request data
-	var IdObj = Object();
-	IdObj['BackendServiceID'] = this.JSONConfig.Attributes.ServiceID;
-	this.PostRequestData['ServiceData'] = IdObj;
-
-	console.debug('::validate result:%s PostRequestData:%o', ValidateResult, this.PostRequestData);
-
-	if (ValidateResult === true) {
-
-		const Attributes = this.JSONConfig.Attributes;
-
-		if (Attributes.OnValidateOk !== undefined) {
-			if (Attributes.OnValidateOk.click !== undefined) {
-				const ClickObject = sysFactory.getObjectByID(Attributes.OnValidateOk.click);
-				ClickObject.EventListenerClick('ClickedBySystem');
-			}
-		}
-
-		if (Attributes.POSTRequestDataTransform !== undefined) {
-			this.PostRequestData.transform(Attributes.POSTRequestDataTransform);
-		}
-
-		if (Attributes.POSTRequestDataRemovePrefix !== undefined) {
-			this.PostRequestData.removePrefix(Attributes.POSTRequestDataRemovePrefix);
-		}
-
-		if (this.JSONConfig.Attributes.ResetValidateOnSuccess == true) {
-			for (ObjKey in FormListObjs) {
-				var FormListConfigObj = FormListObjs[ObjKey];
-				FormListConfigObj.clearStyle();
-			}
-		}
-
-	}
-
-	//- trigger iframe resize
-	sysFactory.resizeIframe();
-
-	return ValidateResult;
 }

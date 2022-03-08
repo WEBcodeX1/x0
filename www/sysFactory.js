@@ -23,7 +23,6 @@ function sysFactory()
 		'NavigateForwardBackward': sysObjNavigateForwardBackward,
 		'List': sysList,
 		'FormfieldList': sysFormfieldList,
-		'FormFieldList': sysFormfieldList,
 		'ServiceConnector': sysServiceConnector,
 		'Div': sysObjDiv,
 		'FileUpload': sysFileUpload,

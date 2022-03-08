@@ -17,9 +17,9 @@
 
 function sysObjButtonInternal()
 {
-    this.EventListeners		= new Object();
+	this.EventListeners		= new Object();
 	this.ChildObjects		= new Array();
-    this.PostRequestData	= new sysRequestDataHandler();
+	this.PostRequestData	= new sysRequestDataHandler();
 }
 
 sysObjButtonInternal.prototype = new sysBaseObject();
@@ -42,24 +42,10 @@ sysObjButtonInternal.prototype.EventListenerClick = function(Event)
 
 	const Attributes = this.JSONConfig.Attributes;
 
-	/*
-	//- reset validate result to true
-	var ValidateResult = true;
-
-	//- validate form fields
-	if (Attributes.FormValidate == true) {
-		ValidateResult = this.validateForm();
-	}
-
-	if (ValidateResult == true) {
+	if (this.validateForm() === true) {
 		this.processActions();
 		sysFactory.Reactor.fireEvents(Attributes.FireEvents);
 	}
-	*/
-
-	this.processActions();
-	sysFactory.Reactor.fireEvents(Attributes.FireEvents);
-
 }
 
 
@@ -79,8 +65,8 @@ sysObjButtonInternal.prototype.copyData = function()
 		const inOverlay = Attributes.SrcObjectsInOverlay;
 		const tmpID = Attributes.SrcObjects[Index];
 		const ObjectID = (inOverlay === true) ? tmpID + '__overlay' : tmpID;
+		console.debug('SrcObject ObjectID:%s', ObjectID);
 		const ObjectData = sysFactory.getObjectByID(ObjectID).RuntimeGetDataFunc();
-		//console.debug('Data:%o', ObjectData);
 		DstData = sysMergeObjects(DstData, ObjectData);
 	}
 

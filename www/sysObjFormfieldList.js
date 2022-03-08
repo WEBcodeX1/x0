@@ -282,74 +282,63 @@ sysFormfieldList.prototype.setData = function(DataObj)
 
 sysFormfieldList.prototype.validate = function()
 {
-	ErrorObj = sysFactory.getObjectByID(this.JSONConfig.Attributes.ErrorContainer);
-	if (ErrorObj !== undefined) {
-		ErrorObj.reset();
-	}
+	const Attributes = this.JSONConfig.Attributes;
+
+	console.debug('::validate Attributes:%o', Attributes);
+
+	const ErrorContainerID = (Attributes.ErrorContainerOverlay === true) ? Attributes.ErrorContainer + '__overlay' : Attributes.ErrorContainer;
+	const ErrorObj = sysFactory.getObjectByID(ErrorContainerID);
 
 	var ValidateStatus = true;
 
-	for (ItemKey in this.FormFieldItems) {
-		FormItem = this.FormFieldItems[ItemKey];
-		var FormItemValidate = FormItem.validate();
-		if (FormItemValidate == false) { ValidateStatus = false; }
-	}
+	console.debug('::validate ErrorContainerID:%s ErrorObj:%o', ErrorContainerID, ErrorObj);
 
-	const ConfigAttributes = this.JSONConfig.Attributes;
+	if (ErrorObj !== undefined) {
+		ErrorObj.reset();
 
-	if (ConfigAttributes !== undefined && ConfigAttributes.ValidateGroup !== undefined) {
+		var ErrorDisplayTextID = 'SYS_DEFAULT_ERROR_TEXT';
+		var ErrorDisplayText = 'Undefined';
 
-		//console.debug('::validate grouped Formfield check ValidateGroup:%o', ConfigAttributes.ValidateGroup);
-
-		for (ElementIndex in ConfigAttributes.ValidateGroup) {
-
-			try {
-				const ValidateObj = ConfigAttributes.ValidateGroup[ElementIndex];
-				//console.debug('::validate grouped ElementIndex:%s', ElementIndex);
-				//console.debug('::validate grouped ValidateObj:%o', ValidateObj);
-
-				var FormItems = new Object();
-				var ItemDeactivated = false;
-
-				for (FormFieldIndex in ValidateObj.Formfields) {
-					var FormFieldID = ValidateObj.Formfields[FormFieldIndex];
-					var FormItem = sysFactory.getObjectByID(FormFieldID);
-					//console.debug('::validate grouped FormItem:%o', FormItem);
-					/*
-					* Workaround, quick fix. If DependendOnGlobal is set on FormFieldList,
-					* just the FormField List Object.Deactivated will be set to 1, not the relevant FormField
-					*/
-					if (FormItem.DependendDeactivated == true || FormItem.ParentObject.DependendDeactivated == true) {
-						ItemDeactivated = true;
-					}
-					FormItems[FormFieldID] = FormItem;
-				}
-
-				if (ItemDeactivated == false) {
-					var result = sysFactory.ObjFormValidate.validateGroup(ValidateObj.ValidateFunction, FormItems, ValidateObj.ValidateFunctionParams);
-					//console.debug('::validate grouped FormItems:%o Result:%s', FormItems, result);
-					if (result == false) {
-						ValidateStatus = false;
-						//console.debug('::validate grouped ErrorContainer adding error display div ObjectID:%s', this.ObjectID);
-						if (ErrorObj !== undefined) {
-							ErrorObj.displayError(ValidateObj.ValidateMessage);
-						}
-						//console.debug('::validate grouped processing error display Message:%s', ValidateObj.ValidateMessage);
-					}
-					//console.debug('::validate grouped Formfield check result:%s', result);
-				}
-			}
-			catch(err) {
-				console.log('::validate grouped err:%s ObjectID:%s DOMObjectID:%s', err, this.ObjectID, this.DOMObjectID);
+		for (Key in this.FormfieldItems) {
+			console.debug('Formfield Key:%s', Key);
+			const FormItem = this.FormfieldItems[Key];
+			const FormValidateTextID = FormItem.JSONConfig.Attributes.ValidateTextID;
+			if (FormItem.validate() === false) {
+				console.debug('FormValidateTextID:%s', FormValidateTextID);
+				ErrorDisplayTextID = (FormValidateTextID !== undefined) ? FormValidateTextID : 'SYS_DEFAULT_ERROR_TEXT';
+				ErrorDisplayText = sysFactory.getText(ErrorDisplayTextID); 
+				ValidateStatus = false;
 			}
 		}
-	}
 
-	const MaxSelected = ConfigAttributes.MaxSelected;
-	if (MaxSelected !== undefined) {
-		if (this.checkMaxSelected() > MaxSelected) {
-			ErrorObj.displayError(ConfigAttributes.ErrorMessage);
-			ValidateStatus = false;
+		// ----------------------------------------------------------------
+		// - make uique function / method with sysButton validate
+		// ----------------------------------------------------------------
+		if (Attributes.GroupValidate !== undefined) {
+			for (GroupKey in Attributes.GroupValidate) {
+				const GroupConf = Attributes.GroupValidate[GroupKey];
+				const GroupFunction = GroupConf.FunctionRef;
+				var Objects = new Array();
+				for (ObjectKey in GroupConf.ObjectIDs) {
+					Objects.push(sysFactory.getObjectByID(GroupConf.ObjectIDs[ObjectKey]));
+				}
+				const Result = sysFactory.ObjValidate.validateGroup(
+					GroupFunction,
+					Objects
+				);
+				if (Result['Error'] !== undefined && Result['Error'] === false) {
+					ErrorDisplayText = Result['Message'];
+					ValidateStatus = false;
+				}
+			}
+		}
+		// ----------------------------------------------------------------
+		// - make uique function / method with sysButton validate
+		// ----------------------------------------------------------------
+
+		if (ValidateStatus === false) {
+			console.debug('ErrorObj:%o', ErrorObj);
+			ErrorObj.displayError(ErrorDisplayText);
 		}
 	}
 
