@@ -1,5 +1,5 @@
 function handleMessage(event) {
-	var accepted_origin = 'https://app.projektfonds-kulturelle-bildung.berlin';
+	var accepted_origin = 'https://domain.com';
 	if (event.origin == accepted_origin) {
 		//console.debug('::handleMessage Event:%o', event);
 		if (event.data['task'] == 'scroll_top') {

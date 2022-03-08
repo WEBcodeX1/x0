@@ -17,18 +17,18 @@
 
 function sysObjLink() {
 
-	this.EventListeners		= new Object(); 		//- event listeners
-	this.ChildObjects		= Array();				//- child objects recursive
+	this.EventListeners				= new Object(); 		//- event listeners
+	this.ChildObjects				= Array();				//- child objects recursive
 
-	this.ScreenID			= null;
-	this.TextID				= null;
-	this.RaiseEvents		= null;
-	this.ActiveOnFormID		= null;
-	this.ScreenOverlayID	= null;
+	this.ScreenID					= null;
+	this.TextID						= null;
+	this.RaiseEvents				= null;
+	this.ScreenOverlayID			= null;
+	this.ScreenOverlayAttributes	= null;
 
-	this.DOMType			= 'button'				//- Set DOM Element Type
+	this.DOMType					= 'button'				//- Set DOM Element Type
 
-	this.LinkHilteStyle 	= 'sysMenuLinkHilite';
+	this.LinkHilteStyle 			= 'sysMenuLinkHilite';
 
 }
 
@@ -45,19 +45,19 @@ sysObjLink.prototype.init = function()
 
 	console.debug('set Attributes:%o', Attributes);
 
-	this.DOMStyle			= Attributes.Style;
+	this.DOMStyle = Attributes.Style;
 
-	this.ScreenID			= Attributes.ScreenID;
-	this.TextID				= Attributes.TextID;
-	this.FireEvents			= Attributes.FireEvents;
-	this.ActiveOnFormID		= Attributes.ActiveOnFormID;
-	this.ScreenOverlayID	= Attributes.ScreenOverlayID;
+	this.ScreenID = Attributes.ScreenID;
+	this.TextID	= Attributes.TextID;
+	this.FireEvents	= Attributes.FireEvents;
+	this.ScreenOverlayID= Attributes.ScreenOverlayID;
+	this.ScreenOverlayAttributes = Attributes.ScreenOverlayAttributes;
 
-	var SQLTextObj = new sysObjSQLText();
-	SQLTextObj.ObjectID = 'SQLText';
-	SQLTextObj.TextID = this.TextID;
-	SQLTextObj.init();
-	this.addObject(SQLTextObj);
+	this.SQLTextObj = new sysObjSQLText();
+	this.SQLTextObj.ObjectID = 'SQLText';
+	this.SQLTextObj.TextID = this.TextID;
+	this.SQLTextObj.init();
+	this.addObject(this.SQLTextObj);
 
 	var EventConfig = new Object();
 	EventConfig['Type'] = 'mousedown';
@@ -77,37 +77,12 @@ sysObjLink.prototype.EventListener = function(Event)
 
 	var SwitchScreen = true;
 
-	if (this.ActiveOnFormID !== undefined && this.ActiveOnFormID != null) {
-
-		const FormItem = sysFactory.getFormFieldObjectByID(this.ActiveOnFormID);
-		const FormValue = FormItem.getDOMValue();
-		//console.log('FormValue:%s', FormValue);
-		if (FormValue === undefined || FormValue.length == 0) {
-			SwitchScreen = false;
-			const sysID = 'SYS__GLOBAL_MSG';
-
-			ActionNotifyDef = {
-				"ID": sysID,
-				"DisplayHeader": 'Bearbeitung'
-			}
-
-			const AsyncNotifyObj = new sysObjAsyncNotify();
-			sysFactory.GlobalAsyncNotifyIndicator.addMsgItem(ActionNotifyDef);
-
-			var NotifyItem = sysFactory.GlobalAsyncNotifyIndicator.getMsgItemByName(sysID);
-
-			NotifyItem.setProcessStatus(0);
-			NotifyItem.setDisplayText('Kein Datensatz (bearbeiten) ausgewaehlt');
-			NotifyItem.updateDisplay();
-		}
-	}
-
 	if (SwitchScreen === true && this.ScreenID !== undefined) {
 		sysFactory.switchScreen(this.ScreenID);
 	}
 
 	if (this.ScreenOverlayID !== undefined) {
-		sysFactory.OverlayObj.setupOverlay(this.ScreenOverlayID);
+		sysFactory.OverlayObj.setupOverlay(this.ScreenOverlayID, this.ScreenOverlayAttributes);
 	}
 
 	if (this.FireEvents !== undefined) {

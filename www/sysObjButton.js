@@ -15,8 +15,8 @@
 //- CONSTRUCTOR "sysObjButton"
 //------------------------------------------------------------------------------
 
-function sysObjButton() {
-
+function sysObjButton()
+{
     this.EventListeners		= new Object();
 	this.ChildObjects		= new Array();
 
@@ -26,7 +26,6 @@ function sysObjButton() {
 	this.CallService		= false;
 
 	this.FormValidate		= false;
-
 }
 
 //- inherit sysBaseObject
@@ -140,8 +139,9 @@ sysObjButton.prototype.EventListenerClick = function(Event)
 		this.processActions();
 
 		//- if no source objects connected, process formlistobjects
-		this.processFormFieldListObjects();
+		//this.processFormFieldListObjects();
 
+		this.callService();
 	}
 }
 
@@ -236,6 +236,14 @@ sysObjButton.prototype.processActions = function()
 
 	console.debug('::processActions Attributes:%o', Attributes);
 
+	if (Attributes.CloseOverlay !== undefined && Attributes.CloseOverlay === true) {
+		try {
+			sysFactory.OverlayObj.EventListenerClick();
+		}
+		catch(err) {
+		}
+	}
+
 	if (Attributes.Action !== undefined) {
 
 		if (Attributes.Action == 'Disable') {
@@ -253,6 +261,11 @@ sysObjButton.prototype.processActions = function()
 		//- copy object data
 		if (Attributes.Action == 'copy') {
 			this.copyData();
+		}
+
+		//- copy object data
+		if (Attributes.Action == 'updaterow') {
+			this.updateTableRow();
 		}
 
 		//- reset list
@@ -418,6 +431,11 @@ sysObjButton.prototype.processActions = function()
 			}
 		}
 
+		const UserFuncAttributes = Attributes.UserFunctionAttributes;
+		if (UserFuncAttributes !== undefined && UserFuncAttributes.FunctionID !== undefined) {
+			sysFactory.UserFunctions[UserFuncAttributes.FunctionID](sysFactory);
+		}
+		
 		if (this.DstScreenID !== undefined && Attributes.Action !== undefined) {
 			if (Attributes.ResetAll === true) {
 				//console.debug('ButtonInternalDBG ResetAll:%s', Attributes.ResetAll);
@@ -425,9 +443,10 @@ sysObjButton.prototype.processActions = function()
 				ScreenObj.HierarchyRootObject.processReset();
 			}
 
-			this.setDstScreenProperties();
+			//this.setDstScreenProperties();
 			sysFactory.switchScreen(this.DstScreenID);
 		}
+		
 	}
 }
 
@@ -439,7 +458,9 @@ sysObjButton.prototype.processActions = function()
 sysObjButton.prototype.callbackXMLRPCAsync = function()
 {
 	const MsgHandler = sysFactory.sysGlobalAsyncNotifyHandler;
-	const NotifyStatus = 'ERROR';
+	var NotifyStatus = 'ERROR';
+
+	console.debug('Error result:%o', this.XMLRPCResultData);
 
 	//- check error
 	if (this.XMLRPCResultData.ErrorCode === undefined && this.XMLRPCResultData.error === undefined) {
@@ -550,22 +571,21 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 		}
 
 		//- process reset objects
-		this.processResetObjects();
+		//this.processResetObjects();
 
 		//- switch screen
 		if (SwitchScreen !== undefined && SwitchScreen != false) {
 
-			var ScreenObj = sysFactory.getScreenByID(this.ConfigAttributes.SwitchScreen);
-			var ScreenRootObj = ScreenObj.ConfigRootObject;
+			console.debug('switchScreen:%s', SwitchScreen);
+
+			//- reset form field styles
+			//sysFactory.clearFormStylesByScreenID(this.ScreenObject.ScreenID);
+
+			//- reset form field values
+			//sysFactory.resetFormValuesByScreenID(this.ScreenObject.ScreenID);
 
 			//- switch screen
 			sysFactory.switchScreen(ConfigAttributes.SwitchScreen);
-
-			//- reset form field styles
-			sysFactory.clearFormStylesByScreenID(this.ScreenObject.ScreenID);
-
-			//- reset form field values
-			sysFactory.resetFormValuesByScreenID(this.ScreenObject.ScreenID);
 
 		}
 

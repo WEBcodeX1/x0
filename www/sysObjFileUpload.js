@@ -15,13 +15,15 @@
 //- CONSTRUCTOR "sysFileUpload"
 //------------------------------------------------------------------------------
 
-function sysFileUpload() {
+function sysFileUpload()
+{
 	this.DOMType				= 'form';
 	this.DOMAttributes			= { 'enctype': 'multipart/form-data' };
     this.EventListeners			= new Object();
 	this.ChildObjects			= new Array();
 	this.FileName				= null;
 	this.Status					= null;
+	this.RuntimeSetDataFunc		= this.UploadFinished;
 }
 
 sysFileUpload.prototype = new sysBaseObject();
@@ -31,16 +33,12 @@ sysFileUpload.prototype = new sysBaseObject();
 //- METHOD "init"
 //------------------------------------------------------------------------------
 
-sysFileUpload.prototype.init = function() {
-
+sysFileUpload.prototype.init = function()
+{
 	var Attributes = this.JSONConfig.Attributes;
 
 	this.DOMStyle = Attributes.Style;
 	this.DOMType = 'form';
-
-	if (Attributes.AdditionalStyles !== undefined && Attributes.AdditionalStyles != null) {
-		this.DOMStyles = Attributes.AdditionalStyles;
-	}
 
 	//console.log('::init Attributes:%o', Attributes);
 
@@ -96,14 +94,15 @@ sysFileUpload.prototype.init = function() {
 	UploadButton.EventListeners['UploadButtonCallback'] = EventListenerObj;
 
 	this.addObject(UploadButton);
-
 }
 
 
 //------------------------------------------------------------------------------
 //- METHOD "startUpload"
 //------------------------------------------------------------------------------
-sysFileUpload.prototype.startUpload = function() {
+
+sysFileUpload.prototype.startUpload = function()
+{
 	if (this.getObjectData().length > 0) {
 		this.FormObject = new FormData(this.getDOMelement());
 		this.FormObject.append("SessionID", sysFactory.SysSessionValue);
@@ -122,44 +121,52 @@ sysFileUpload.prototype.startUpload = function() {
 //------------------------------------------------------------------------------
 //- METHOD "updateProgress"
 //------------------------------------------------------------------------------
-sysFileUpload.prototype.updateProgress = function(progress) {
-    console.log('::updateProgress progress:%o', progress);
-    try {
-        this.ProgressPercent = Math.round(progress.loaded * 100 / progress.total);
-    }
-    catch(err) {
-        this.ProgressPercent = 0;
-    }
-    this.renderProgressBar();
+
+sysFileUpload.prototype.updateProgress = function(progress)
+{
+	console.debug('::updateProgress progress:%o', progress);
+	try {
+		this.ProgressPercent = Math.round(progress.loaded * 100 / progress.total);
+	}
+	catch(err) {
+		this.ProgressPercent = 0;
+	}
+	this.renderProgressBar();
 }
 
 
 //------------------------------------------------------------------------------
 //- METHOD "UploadFinished"
 //------------------------------------------------------------------------------
-sysFileUpload.prototype.UploadFinished = function(progress) {
-    this.Status = 'uploaded';
-    this.ProgressPercent = 100;
-    this.renderProgressBar();
+
+sysFileUpload.prototype.UploadFinished = function(progress)
+{
+	this.Status = 'uploaded';
+	this.ProgressPercent = 100;
+	this.renderProgressBar();
 }
 
 
 //------------------------------------------------------------------------------
 //- METHOD "renderProgressBar"
 //------------------------------------------------------------------------------
-sysFileUpload.prototype.renderProgressBar = function() {
-    var ProgressBarElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressBar');
-    var ProgressPercentageElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressPercentage');
-    ProgressBarElement.DOMStyleWidth = this.ProgressPercent + '%'
-    ProgressPercentageElement.DOMValue = Math.round(this.ProgressPercent) + '%';
-    ProgressPercentageElement.setDOMElementValue();
+
+sysFileUpload.prototype.renderProgressBar = function()
+{
+	var ProgressBarElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressBar');
+	var ProgressPercentageElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressPercentage');
+	ProgressBarElement.DOMStyleWidth = this.ProgressPercent + '%'
+	ProgressPercentageElement.DOMValue = Math.round(this.ProgressPercent) + '%';
+	ProgressPercentageElement.setDOMElementValue();
 }
 
 
 //------------------------------------------------------------------------------
 //- METHOD "getObjectData"
 //------------------------------------------------------------------------------
-sysFileUpload.prototype.getObjectData = function() {
+
+sysFileUpload.prototype.getObjectData = function()
+{
 	const FileUploadElement = this.ObjectID + '_select';
 	return document.getElementById(FileUploadElement).value;
 }
@@ -168,9 +175,15 @@ sysFileUpload.prototype.getObjectData = function() {
 //------------------------------------------------------------------------------
 //- METHOD "appendUserData"
 //------------------------------------------------------------------------------
-sysFileUpload.prototype.appendUserData = function() {
-	const UserIDColumn = this.JSONConfig.Attributes.UserIDColumn;
-	if (UserIDColumn !== undefined) {
-		this.FormObject.append("UserID", this.ScreenObject.getDBColumnValue(UserIDColumn));
+
+sysFileUpload.prototype.appendUserData = function()
+{
+	const Attributes = this.JSONConfig.Attributes;
+
+	if (Attributes.UserIDColumn !== undefined) {
+		this.FormObject.append("UserID", this.ScreenObject.getDBColumnValue(Attributes.UserIDColumn));
+	}
+	if (Attributes.FileNr !== undefined) {
+		this.FormObject.append("FileNr", Attributes.FileNr);
 	}
 }

@@ -48,244 +48,211 @@ sysFormFieldOnChangeHandler.prototype.checkLengthMismatch = function(Length, Che
 sysFormFieldOnChangeHandler.prototype.processOnChangeItem = function()
 {
 
-	//console.log('::processOnChangeItem Processing OnChange Item:%o', this);
-
 	const JSONConfig = this.JSONConfig.Attributes.OnChange;
-    const OnChangeConfig = Array.isArray(JSONConfig) ? JSONConfig : [ JSONConfig ];
 
-	for (i in OnChangeConfig) {
-		const OnChangeElement = OnChangeConfig[i];
+	//console.debug('::processOnChangeItem this:%o JSONConfig:%o', this, JSONConfig);
 
-		//console.debug('::processOnChangeItem OnChangeElement:%o', OnChangeElement);
+	if (JSONConfig !== undefined) {
+		const OnChangeConfig = Array.isArray(JSONConfig) ? JSONConfig : [ JSONConfig ];
 
-		if (OnChangeElement.DeactivateRefObjects !== undefined) {
-			const ValidateFunction = sysFactory.UserFunctions[OnChangeElement.DeactivateRefObjectFunction];
-			const Result = ValidateFunction(this.getRuntimeData());
-			const DeactivateObjects = OnChangeElement.DeactivateRefObjects;
-			for (Index in DeactivateObjects) {
+		for (i in OnChangeConfig) {
+			const OnChangeElement = OnChangeConfig[i];
+
+			//console.debug('::processOnChangeItem OnChangeElement:%o', OnChangeElement);
+
+			if (OnChangeElement.UpdateFormfield !== undefined) {
 				try {
-					ObjectID = DeactivateObjects[Index];
-					DestinationObject = sysFactory.getObjectByID(ObjectID);
-					//console.debug('DeactivateRefObjects ObjectID:%s Result:%s DestinationObject:%o', ObjectID, Result, DestinationObject);
-					if (Result === false) {
-						DestinationObject.deactivate();
-						DestinationObject.Deactivated = true;
-						try {
-							DestinationObject.setValidate(false);
-						}
-						catch(err) {
-						}
+					const ObjectID = (this.InstancePrefix === undefined) ? OnChangeElement.UpdateFormfield : this.InstancePrefix + OnChangeElement.UpdateFormfield;
+					const DestinationObject = sysFactory.getObjectByID(ObjectID);
+					const FormElementValue = this.FormItemGetValue();
+					const CurrentLength = FormElementValue.length;
+					const Value = (OnChangeElement.MaxLength - CurrentLength);
+					//console.debug('DestinationObject:%o', DestinationObject);
+					DestinationObject.ParentObject.Value = Value;
+					DestinationObject.ParentObject.FormItemSetValue();
+
+					//console.log('::processOnChangeItem FooterObject:%o CurrentLength:%s CharsLeft:%s', ListAdditionalFooterObj, CurrentLength, CharsLeft);
+				}
+				catch (err) {
+					console.debug('FormfieldOnChangeHandler UpdateFormfield err:%s', err);
+				}
+			}
+
+			if (OnChangeElement.OnChecked === true) {
+				//console.debug('::processOnChangeItem OnChangeElement:%o', OnChangeElement);
+				try {
+					const ObjectID = (this.InstancePrefix === undefined) ? OnChangeElement.ObjectID : this.InstancePrefix + OnChangeElement.ObjectID;
+					const DstObj = sysFactory.getObjectByID(ObjectID);
+					const Value = this.RuntimeGetDataFunc();
+					console.debug('::processOnChangeItem OnValue ObjectID:%s', ObjectID);
+					//console.debug('::processOnChangeItem OnValue Object Runtime Data:%s OnChangeValue:%s', FormValue, OnChangeElement.OnValue);
+					if (Value === true) {
+						DstObj.enable();
 					}
-					if (Result === true) {
-						DestinationObject.Deactivated = false;
-						DestinationObject.activate();
-						try {
-							DestinationObject.setValidate(true);
-						}
-						catch(err) {
-						}
+					else {
+						DstObj.disable();
 					}
 				}
 				catch (err) {
-					console.debug('DeactivateRefObjects DstObj:%s err:%s', ObjectID, err);
+					console.debug('FormfieldOnChangeHandler OnChecked err:%s', err);
 				}
 			}
-		}
 
-		if (OnChangeElement.UpdateFormfield !== undefined) {
-			try {
-				const ObjectID = (this.InstancePrefix === undefined) ? OnChangeElement.UpdateFormfield : this.InstancePrefix + OnChangeElement.UpdateFormfield;
-				const DestinationObject = sysFactory.getObjectByID(ObjectID);
-				const FormElementValue = this.getDOMFormElementValue();
-				const CurrentLength = FormElementValue.length;
-				const CharsLeft = (OnChangeElement.MaxLength - CurrentLength);
-				const Value = OnChangeElement.UpdateTextPrefix + CharsLeft + OnChangeElement.UpdateTextPostfix;
-				DestinationObject.DOMValue = Value;
-				DestinationObject.setDOMElementValue();
-
-				//console.log('::processOnChangeItem FooterObject:%o CurrentLength:%s CharsLeft:%s', ListAdditionalFooterObj, CurrentLength, CharsLeft);
+			if (OnChangeElement.OnValue !== undefined) {
+				console.debug('::processOnChangeItem OnChangeElement:%o', OnChangeElement);
+				try {
+					const ObjectID = (this.InstancePrefix === undefined) ? OnChangeElement.ObjectID : this.InstancePrefix + OnChangeElement.ObjectID;
+					console.debug('::processOnChangeItem OnValue Prefix:%s ObjectID:%s EObjectID:%s', this.InstancePrefix, ObjectID, OnChangeElement.ObjectID);
+					const DstObj = sysFactory.getObjectByID(ObjectID);
+					const FormValue = this.RuntimeGetDataFunc();
+					//console.debug('::processOnChangeItem OnValue Object Runtime Data:%s OnChangeValue:%s', FormValue, OnChangeElement.OnValue);
+					if (FormValue == OnChangeElement.OnValue) {
+						DstObj.enable();
+					}
+					else {
+						DstObj.disable();
+					}
+				}
+				catch (err) {
+					console.debug('FormfieldOnChangeHandler OnChange err:%s', err);
+				}
 			}
-			catch (err) {
-				console.debug('FormfieldOnChangeHandler UpdateFormfield err:%s', err);
-			}
-		}
 
-		if (OnChangeElement.OnChecked === true) {
-			//console.debug('::processOnChangeItem OnChangeElement:%o', OnChangeElement);
-			try {
+			if (OnChangeElement.ActivateOnValues !== undefined) {
+
 				const ObjectID = (this.InstancePrefix === undefined) ? OnChangeElement.ObjectID : this.InstancePrefix + OnChangeElement.ObjectID;
-				const DstObj = sysFactory.getObjectByID(ObjectID);
-				const Value = this.getRuntimeData();
-				console.debug('::processOnChangeItem OnValue ObjectID:%s', ObjectID);
-				//console.debug('::processOnChangeItem OnValue Object Runtime Data:%s OnChangeValue:%s', FormValue, OnChangeElement.OnValue);
-				if (Value === true) {
-					DstObj.enable();
+				var DstObj = sysFactory.getObjectByID(ObjectID);
+				var FormValue = this.RuntimeGetDataFunc();
+				console.debug('::processOnChangeItem ActivateOnValues ObjectID:%s DstObj:%o FormValue:', ObjectID, DstObj, FormValue);
+				var ActiveOnValues = OnChangeElement.ActivateOnValues;
+				for (i in ActiveOnValues) {
+					if (ActiveOnValues[i] == FormValue) {
+						//console.debug('::processOnChangeItem enable()');
+						DstObj.Deactivated = false;
+						DstObj.setDOMVisibleState('visible');
+					}
 				}
-				else {
-					DstObj.disable();
-				}
-			}
-			catch (err) {
-				console.debug('FormfieldOnChangeHandler OnChecked err:%s', err);
-			}
-		}
-
-		if (OnChangeElement.OnValue !== undefined) {
-			console.debug('::processOnChangeItem OnChangeElement:%o', OnChangeElement);
-			try {
-				const ObjectID = (this.InstancePrefix === undefined) ? OnChangeElement.ObjectID : this.InstancePrefix + OnChangeElement.ObjectID;
-				console.debug('::processOnChangeItem OnValue Prefix:%s ObjectID:%s EObjectID:%s', this.InstancePrefix, ObjectID, OnChangeElement.ObjectID);
-				const DstObj = sysFactory.getObjectByID(ObjectID);
-				const FormValue = this.getRuntimeData();
-				//console.debug('::processOnChangeItem OnValue Object Runtime Data:%s OnChangeValue:%s', FormValue, OnChangeElement.OnValue);
-				if (FormValue == OnChangeElement.OnValue) {
-					DstObj.enable();
-				}
-				else {
-					DstObj.disable();
+				var DeactivateOnValues = OnChangeElement.DeactivateOnValues;
+				for (i in DeactivateOnValues) {
+					if (DeactivateOnValues[i] == FormValue) {
+						//console.debug('::processOnChangeItem disable()');
+						DstObj.setDOMVisibleState('hidden');
+						DstObj.Deactivated = true;
+					}
 				}
 			}
-			catch (err) {
-				console.debug('FormfieldOnChangeHandler OnChange err:%s', err);
+
+			if (OnChangeElement.ObjectsEnableOnValues !== undefined) {
+				this.processObjectsEnableOnValues(OnChangeElement);
 			}
-		}
 
-		if (OnChangeElement.ActivateOnValues !== undefined) {
+			if (OnChangeElement.EnableDependOnValues !== undefined) {
 
-			const ObjectID = (this.InstancePrefix === undefined) ? OnChangeElement.ObjectID : this.InstancePrefix + OnChangeElement.ObjectID;
-			var DstObj = sysFactory.getObjectByID(ObjectID);
-			var FormValue = this.getRuntimeData();
-			//console.debug('::processOnChangeItem ActivateOnValues FormValue:', FormValue);
-			var ActiveOnValues = OnChangeElement.ActivateOnValues;
-			for (i in ActiveOnValues) {
-				if (ActiveOnValues[i] == FormValue) {
-					//console.debug('::processOnChangeItem enable()');
-					DstObj.Deactivated = false;
-					DstObj.activate();
-					DstObj.enable();
-				}
-			}
-			var DeactivateOnValues = OnChangeElement.DeactivateOnValues;
-			for (i in DeactivateOnValues) {
-				if (DeactivateOnValues[i] == FormValue) {
-					//console.debug('::processOnChangeItem disable()');
-					DstObj.disable();
-					DstObj.deactivate();
-					DstObj.Deactivated = true;
-				}
-			}
-		}
+				const EnableDependOnValues = OnChangeElement.EnableDependOnValues;
 
-		if (OnChangeElement.ObjectsEnableOnValues !== undefined) {
-			this.processObjectsEnableOnValues(OnChangeElement);
-		}
-
-		if (OnChangeElement.EnableDependOnValues !== undefined) {
-
-			const EnableDependOnValues = OnChangeElement.EnableDependOnValues;
-
-			for (DependID in EnableDependOnValues) {
-				const DependItem = EnableDependOnValues[DependID];
-				if (DependItem.DependOn !== undefined) {
-					const DependOnActivate = DependItem.DependOnActivate;
-					for (DisableID in DependOnActivate) {
-						const DisableArray = DependOnActivate[DisableID];
-						for (Index in DisableArray) {
-							console.debug('::DisableObject ObjectID:%s', DisableArray[Index]);
-							const DisableObject = sysFactory.getObjectByID(DisableArray[Index]);
+				for (DependID in EnableDependOnValues) {
+					const DependItem = EnableDependOnValues[DependID];
+					if (DependItem.DependOn !== undefined) {
+						const DependOnActivate = DependItem.DependOnActivate;
+						for (DisableID in DependOnActivate) {
+							const DisableArray = DependOnActivate[DisableID];
+							for (Index in DisableArray) {
+								console.debug('::DisableObject ObjectID:%s', DisableArray[Index]);
+								const DisableObject = sysFactory.getObjectByID(DisableArray[Index]);
+								DisableObject.setValidate(false);
+								DisableObject.Deactivated = true;
+								DisableObject.deactivate();
+							}
+						}
+					}
+					else {
+						for (Index in DependItem) {
+							const DisableObject = sysFactory.getObjectByID(DependItem[Index]);
 							DisableObject.setValidate(false);
 							DisableObject.Deactivated = true;
 							DisableObject.deactivate();
 						}
 					}
 				}
-				else {
-					for (Index in DependItem) {
-						const DisableObject = sysFactory.getObjectByID(DependItem[Index]);
-						DisableObject.setValidate(false);
-						DisableObject.Deactivated = true;
-						DisableObject.deactivate();
-					}
-				}
-			}
 
-			for (DependValue in EnableDependOnValues) {
-				const DependItem = EnableDependOnValues[DependValue];
-				if (this.getRuntimeData() == DependValue) {
-					if (DependItem.DependOn !== undefined) {
-						const DependendObject = sysFactory.getObjectByID(DependItem.DependOn);
-						const DependendObjectValue = DependendObject.getRuntimeData();
-						const ActivateArray = DependItem.DependOnActivate[DependendObjectValue];
-						for (Index in ActivateArray) {
-							const EnableObject = sysFactory.getObjectByID(ActivateArray[Index]);
-							EnableObject.setValidate(true);
-							EnableObject.Deactivated = false;
-							EnableObject.activate();
+				for (DependValue in EnableDependOnValues) {
+					const DependItem = EnableDependOnValues[DependValue];
+					if (this.getRuntimeData() == DependValue) {
+						if (DependItem.DependOn !== undefined) {
+							const DependendObject = sysFactory.getObjectByID(DependItem.DependOn);
+							const DependendObjectValue = DependendObject.getRuntimeData();
+							const ActivateArray = DependItem.DependOnActivate[DependendObjectValue];
+							for (Index in ActivateArray) {
+								const EnableObject = sysFactory.getObjectByID(ActivateArray[Index]);
+								EnableObject.setValidate(true);
+								EnableObject.Deactivated = false;
+								EnableObject.activate();
+							}
+							
 						}
-						
-					}
-					else {
-						for (Index in DependItem) {
-							const EnableObject = sysFactory.getObjectByID(DependItem[Index]);
-							EnableObject.setValidate(true);
-							EnableObject.Deactivated = false;
-							EnableObject.activate();
+						else {
+							for (Index in DependItem) {
+								const EnableObject = sysFactory.getObjectByID(DependItem[Index]);
+								EnableObject.setValidate(true);
+								EnableObject.Deactivated = false;
+								EnableObject.activate();
+							}
 						}
 					}
 				}
 			}
-		}
 
-		if (OnChangeElement.GroupId !== undefined) {
+			if (OnChangeElement.GroupId !== undefined) {
 
-			var ListObj = sysFactory.getObjectByID(OnChangeElement.ListObject);
+				var ListObj = sysFactory.getObjectByID(OnChangeElement.ListObject);
 
-			//console.debug('::processOnChangeItem GroupId:%s ListObj:%o FormListObjectID:%s', OnChangeElement.GroupId, ListObj,  OnChangeElement.ListObject);
+				//console.debug('::processOnChangeItem GroupId:%s ListObj:%o FormListObjectID:%s', OnChangeElement.GroupId, ListObj,  OnChangeElement.ListObject);
 
-			//var GroupId = sysFactory.getObjectByID(OnChangeElement.GroupId);
+				//var GroupId = sysFactory.getObjectByID(OnChangeElement.GroupId);
 
-			var ListAttributes = ListObj.JSONConfig.Attributes;
-			var GroupOperator = ListAttributes.GroupOperator;
-			var DstObj = ListObj.getFormFieldItemByID(ListAttributes.GroupOperatorDstObject);
-			var FormFields = ListAttributes.GroupOperatorFormFields;
+				var ListAttributes = ListObj.JSONConfig.Attributes;
+				var GroupOperator = ListAttributes.GroupOperator;
+				var DstObj = ListObj.getFormFieldItemByID(ListAttributes.GroupOperatorDstObject);
+				var FormFields = ListAttributes.GroupOperatorFormFields;
 
-			//console.debug('::processOnChangeItem GroupId:%s ListAttributes:%o FormFields:%o', OnChangeElement.GroupId, ListAttributes, FormFields);
+				//console.debug('::processOnChangeItem GroupId:%s ListAttributes:%o FormFields:%o', OnChangeElement.GroupId, ListAttributes, FormFields);
 
-			if (GroupOperator == 'sum') {
-				var sum = 0;
-				try {
-					for (ArrayIndex in FormFields) {
-						//console.log('::processOnChangeItem ArrayIndex:%s', ArrayIndex);
-						FormFieldId = FormFields[ArrayIndex];
-						var FormFieldItem = ListObj.getFormFieldItemByID(FormFieldId);
-						var FormFieldValue = FormFieldItem.getRuntimeData();
-						//console.debug('::processOnChangeItem FormFieldItem:%o FormFieldValue:%s', FormFieldItem, FormFieldValue);
-						sum += +FormFieldValue;
+				if (GroupOperator == 'sum') {
+					var sum = 0;
+					try {
+						for (ArrayIndex in FormFields) {
+							//console.log('::processOnChangeItem ArrayIndex:%s', ArrayIndex);
+							FormFieldId = FormFields[ArrayIndex];
+							var FormFieldItem = ListObj.getFormFieldItemByID(FormFieldId);
+							var FormFieldValue = FormFieldItem.getRuntimeData();
+							//console.debug('::processOnChangeItem FormFieldItem:%o FormFieldValue:%s', FormFieldItem, FormFieldValue);
+							sum += +FormFieldValue;
+						}
 					}
+					catch(err) {
+						sum = 0;
+					}
+					DstObj.Value = sum;
+					DstObj.updateValue();
 				}
-				catch(err) {
-					sum = 0;
+			}
+
+			if (OnChangeElement.FireEvents !== undefined) {
+				var FireEvents = OnChangeElement.FireEvents;
+				//console.log('Formfield On Change Handler FireEvents:%o', FireEvents);
+				if (FireEvents !== undefined) {
+					sysFactory.Reactor.fireEvents(FireEvents);
 				}
-				DstObj.Value = sum;
-				DstObj.updateValue();
 			}
-		}
 
-		if (OnChangeElement.FireEvents !== undefined) {
-			var FireEvents = OnChangeElement.FireEvents;
-			//console.log('Formfield On Change Handler FireEvents:%o', FireEvents);
-			if (FireEvents !== undefined) {
-				sysFactory.Reactor.fireEvents(FireEvents);
+			if (OnChangeElement.EnableObjectsDependOnBackendService !== undefined) {
+				console.debug('::EnableObjectsDependOnBackendService called');
+				const Config = OnChangeElement.EnableObjectsDependOnBackendService;
+				var O = new EnableObjectHandler(Config, this);
+				O.callService();
 			}
-		}
 
-		if (OnChangeElement.EnableObjectsDependOnBackendService !== undefined) {
-			console.debug('::EnableObjectsDependOnBackendService called');
-			const Config = OnChangeElement.EnableObjectsDependOnBackendService;
-			var O = new EnableObjectHandler(Config, this);
-			O.callService();
 		}
-
 	}
 
 	//- reset all error container
@@ -329,7 +296,7 @@ sysFormFieldOnChangeHandler.prototype.processObjectsEnableOnValuesActivate = fun
 					for (i in PulldownFormItems) {
 						var FormItem = PulldownFormItems[i];
 						//console.log('::processObjectsEnableOnValues Activate FormItem:%o', FormItem);
-						FormItem.setupOnChangeConfig();
+						//FormItem.setupOnChangeConfig();
 						try {
 							const RefOnChangeElement = FormItem.OnChangeElements[0];
 						}

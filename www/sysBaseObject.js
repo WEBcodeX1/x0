@@ -296,6 +296,7 @@ sysBaseObject.prototype.setTabDeactivated = function()
 	}
 }
 
+
 //------------------------------------------------------------------------------
 //- METHOD "remove"
 //------------------------------------------------------------------------------
@@ -314,6 +315,7 @@ sysBaseObject.prototype.remove = function()
 		console.log('::remove ObjectID:%s error:%s', this.ObjectID, err);
 	}
 }
+
 
 //------------------------------------------------------------------------------
 //- METHOD "getObjectData"
@@ -396,14 +398,4 @@ sysBaseObject.prototype.updateInstanceObjectNames = function()
 
 sysBaseObject.prototype.rewriteOverlayFormitemNames = function()
 {
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "setValidate"
-//------------------------------------------------------------------------------
-
-sysBaseObject.prototype.setValidate = function(validate)
-{
-    this.doValidate = validate;
 }

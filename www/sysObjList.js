@@ -74,68 +74,28 @@ sysListRow.prototype.addColumns = function()
 {
 	//console.debug('::addColumns this.SetupData:%o', this.SetupData);
 
-	var Attributes;
-
-	try {
-		Attributes = this.SourceObject.JSONConfig.Attributes;
-	}
-	catch(err) {
-		Attributes = {};
-	}
+	const Attributes = this.SourceObject.JSONConfig.Attributes;
 
 	//console.debug('::addColumns ObjectID:%s Attributes:%o', this.SourceObject.ObjectID, Attributes);
 
-	var Columns = (this.DynamicRow === true) ? Attributes.AddRowColumns : Attributes.Columns;
-
-	for (ColumnKey in Columns) {
+	for (ColumnKey in Attributes.Columns) {
 
 		var ColumnItem = new sysBaseObject();
-		ColumnConfig = Columns[ColumnKey];
-
-		if (this.DynamicRow === true && ColumnConfig.RefID !== undefined) {
-			ColumnConfig = Attributes.Columns[ColumnKey];
-		}
+		const ColumnConfig = Attributes.Columns[ColumnKey];
 
 		//console.log('::addColumns Processing ColumnKey:%s ColumConfig:%o', ColumnKey, ColumnConfig);
 
-		if (ColumnConfig.visible != false && ColumnConfig.DBPrimaryKey != true) {
+		if (ColumnConfig.visible != false && this.getDisplayStatus(ColumnConfig) === true) {
 
-			ColumnItem.ObjectID = 'Column' + ColumnKey + '_' + this.Index;
-
-			//try {
-
-				var DisplayColumn = true;
-
-				if (ColumnConfig.Attributes !== undefined && ColumnConfig.Attributes.DependsOn !== undefined) {
-					DisplayColumn = false;
-					const DependsOn = ColumnConfig.Attributes.DependsOn;
-					if (DependsOn.Column !== undefined) {
-						var ColumnValue = Number(parseInt(this.SetupData[DependsOn.Column]));
-						//console.debug('Check Column:%s Value:%s DependsOnValue:%s', ColumnKey, ColumnValue, DependsOn.Value);
-						if (DependsOn.Operator == '>') {
-							if (ColumnValue > DependsOn.Value) {
-								DisplayColumn = true
-							}
-						}
-						if (DependsOn.Operator == '<') {
-							if (ColumnValue < DependsOn.Value) {
-								DisplayColumn = true
-							}
-						}
-						if (DependsOn.Operator == '==') {
-							if (ColumnValue == DependsOn.Value) {
-								DisplayColumn = true
-							}
-						}
-					}
-				}
+			try {
+				ColumnItem.ObjectID = 'Column' + ColumnKey + '_' + this.Index;
 
 				const ColAttributes = ColumnConfig.Attributes;
 
 				if (ColAttributes !== undefined) {
 					var ColumnObj = new this.SourceObject.ScreenObject.SetupClasses[ColAttributes.ObjectType]();
 
-					ColumnObj.ObjectID = ColumnItem.ObjectID;
+					ColumnObj.ObjectID = ColumnItem.ObjectID + '_' + this.Index;
 
 					ColumnObj.JSONConfig = {
 						"Attributes": ColumnConfig.Attributes
@@ -148,56 +108,57 @@ sysListRow.prototype.addColumns = function()
 					ColumnObj.init();
 					ColumnItem.addObject(ColumnObj);
 				}
+				else if(ColumnConfig.IndexGenerator === true) {
+					const setValue = this.Index+1;
+					ColumnItem.DOMValue = setValue;
+					this.SourceObject.Data[this.Index][ColumnKey] = setValue;
+				}
 				else {
 					ColumnItem.DOMValue = this.SetupData[ColumnKey];
 				}
-
-				/*
-				 * implement after formfield refactoring
-				 * 
-				var FormItem = new sysFormFieldItem();
-				FormItem.JSONConfig = { "Attributes": ColumnConfig.Attributes.FormfieldAttributes };
-
-				FormItem.ObjectID = this.SourceObject.ObjectID + ColumnItem.ObjectID + 'Formfield';
-				//FormItem.ObjectType = FormItem.JSONConfig.Attributes.Type;
-				FormItem.ObjectType = 'FormField';
-				FormItem.TableColumn = ColumnKey;
-				FormItem.ScreenObject = this.SourceObject.ScreenObject;
-				FormItem.ParentObject = ColumnItem;
-				FormItem.Index = 1;
-				FormItem.JSONConfig.Attributes.Value = this.SetupData[ColumnKey];
-				FormItem.init();
-
-				//- workaround, should be generic for all types
-				if (ColumnConfig.disabled === true) { FormItem.Disabled = true; }
-
-				FormItem.generateHTML();
-
-				const FormulaRefObjects = this.SourceObject.RealtimeEventListeners[ColumnKey];
-				//console.debug('::FormulaRefObjects:%o', FormulaRefObjects);
-				if (FormulaRefObjects !== undefined) {
-					for (Index in FormulaRefObjects) {
-						FormItem.setupEventListenerFormula(FormulaRefObjects[Index]);
-					}
-				}
-
-				ColumnItem = FormItem;
-				//ColumnItem.addObject(FormItem);
-
-				this.ObjectRef[ColumnKey] = FormItem;
-				this.FormItems.push(FormItem);
-				*/
-			/*
 			}
 			catch(err) {
 				ColumnItem.DOMValue = 'Error';
 				console.debug('::addColumns err:%s', err);
 			}
-			*/
 			//console.log('::addColumns Push ColItem DOMValue:%o', ColumnItem);
 			this.ColItems.push(ColumnItem);
 		}
 	}
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "getDisplayStatus"
+//------------------------------------------------------------------------------
+
+sysListRow.prototype.getDisplayStatus = function(ColumnConfig)
+{
+	var displayColumn = true;
+	if (ColumnConfig.Attributes !== undefined && ColumnConfig.Attributes.DependsOn !== undefined) {
+		displayColumn = false;
+		const DependsOn = ColumnConfig.Attributes.DependsOn;
+		if (DependsOn.Column !== undefined) {
+			var ColumnValue = Number(parseInt(this.SetupData[DependsOn.Column]));
+			//console.debug('Check Column:%s Value:%s DependsOnValue:%s', ColumnKey, ColumnValue, DependsOn.Value);
+			if (DependsOn.Operator == '>') {
+				if (ColumnValue > DependsOn.Value) {
+					displayColumn = true;
+				}
+			}
+			if (DependsOn.Operator == '<') {
+				if (ColumnValue < DependsOn.Value) {
+					displayColumn = true;
+				}
+			}
+			if (DependsOn.Operator == '==') {
+				if (ColumnValue == DependsOn.Value) {
+					displayColumn = true;
+				}
+			}
+		}
+	}
+	return displayColumn;
 }
 
 
@@ -344,70 +305,6 @@ sysList.prototype.appendData = function(DataObj)
 
 
 //------------------------------------------------------------------------------
-//- METHOD "removeData"
-//------------------------------------------------------------------------------
-
-sysList.prototype.removeData = function(Position)
-{
-	//console.debug('::removeData at Position:%s Data:%o RowItems:%o', Position, this.Data, this.RowItems);
-
-	const ErrorObj = sysFactory.getObjectByID(this.JSONConfig.Attributes.ErrorContainer);
-	if (ErrorObj !== undefined) {
-		ErrorObj.reset();
-	}
-
-	//console.log('######## CHILD OBJECTS:%o', this.ChildObjects);
-
-	const RowObject = this.RowItems[Position];
-
-	if (RowObject !== undefined) {
-		const UpdateFormItems = RowObject.updateRemovedRowEventListeners();
-
-		this.Data.splice(Position, 1);
-		this.RowItems.splice(Position, 1);
-
-		for (Index in UpdateFormItems) {
-			const FormItem = UpdateFormItems[Index];
-			FormItem.updateEventListenerFormula(1);
-		}
-	}
-
-	this.UpdateCount++;
-	
-	this.updateDynamicRowNumbering();
-
-	this.renderPage();
-
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "updateDynamicRowNumbering"
-//------------------------------------------------------------------------------
-
-sysList.prototype.updateDynamicRowNumbering = function()
-{
-	const Columns = this.JSONConfig.Attributes.AddRowColumns;
-
-	for (DataIndex in this.Data) {
-
-		const DataRow = this.Data[DataIndex];
-		for (ColumnKey in Columns) {
-			if (Columns[ColumnKey].Generator !== undefined) {
-				try {
-					const SetValue = Columns[ColumnKey].Generator.Prefix + (Number(DataIndex)+1) + Columns[ColumnKey].Generator.Postfix;
-					this.Data[DataIndex][ColumnKey] = SetValue;
-				}
-				catch(err) {
-					console.debug('::updateDynamicRowNumbering err:%s', err);
-				}
-			}
-		}
-	}
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "checkColumnValue"
 //------------------------------------------------------------------------------
 
@@ -449,7 +346,6 @@ sysList.prototype.checkColumnValueSetStyle = function(Config)
 
 sysList.prototype.removeMultiData = function(IndexArray)
 {
-
 }
 
 
@@ -1010,78 +906,42 @@ sysList.prototype.getRowByIndex = function(Index)
 
 
 //------------------------------------------------------------------------------
-//- METHOD "addDynamicRow"
+//- METHOD "updateRow"
 //------------------------------------------------------------------------------
 
-sysList.prototype.addDynamicRow = function()
+sysList.prototype.updateRow = function(Index, Data)
 {
-	const AddRowColumns = this.JSONConfig.Attributes.AddRowColumns;
-	//console.debug('::addDynamicRow AddRowColumns:%o', AddRowColumns);
-	var RowData = new Object();
-
-	//const DataIndex = this.Data.length;
-
-	for (ColumnKey in AddRowColumns) {
-		const ColConfig = AddRowColumns[ColumnKey];
-		if (ColConfig.Value !== undefined) {
-			RowData[ColumnKey] = ColConfig.Value;
-		}
-	}
-
-	//console.debug('::addDynamicRow RowData:%o', RowData);
-
-	this.syncRealtimeData();
-
-	this.Data.push(RowData);
-	
-	//console.debug('::addDynamicRow Data:%o', this.Data);
-
-	this.updateDynamicRowNumbering();
-
+	console.debug('::updateRow Index:%s Data:%o', Index, Data);
+	this.Data[(Index-1)] = Data;
+	this.UpdateCount++;
 	this.renderPage();
-
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "syncRealtimeData"
+//- METHOD "removeData"
 //------------------------------------------------------------------------------
 
-sysList.prototype.syncRealtimeData = function()
+sysList.prototype.removeData = function(Position)
 {
-	for (DataIndex in this.Data) {
-		//console.debug('::addDynamicRow Data Index:%s', DataIndex);
-		const ColItems = this.RowItems[DataIndex].ColItems;
-		for (ColIndex in ColItems) {
-			const ColumnObject = ColItems[ColIndex];
-			if (ColumnObject.ObjectType == 'Formfield') {
-				//console.debug('ColObject Object:%o', ColumnObject);			
-				const SetData = ColumnObject.getRuntimeData();
-				console.debug('::addDynamicRow SetData:%s TableColumn:%s', SetData, ColumnObject.TableColumn);
-				this.Data[DataIndex][ColumnObject.TableColumn] = SetData;
-			}
-		}
+	//console.debug('::removeData at Position:%s Data:%o RowItems:%o', Position, this.Data, this.RowItems);
+
+	const ErrorObj = sysFactory.getObjectByID(this.JSONConfig.Attributes.ErrorContainer);
+	if (ErrorObj !== undefined) {
+		ErrorObj.reset();
 	}
-}
 
+	//console.log('######## CHILD OBJECTS:%o', this.ChildObjects);
 
-//------------------------------------------------------------------------------
-//- METHOD "updateOnTabSwitch"
-//------------------------------------------------------------------------------
+	const RowObject = this.RowItems[Position];
 
-sysList.prototype.updateOnTabSwitch = function(Columns, Result)
-{
-	console.debug('::updateOnTabSwitch Result:%o', Result);
-	for (Jahr in Result) {
-		const JahrValue = Result[Jahr];
-		const ColumnID = Columns[Jahr];
-		if (JahrValue === false) {
-			this.JSONConfig.Attributes.Columns[ColumnID]['disabled'] = true;
-		}
-		else {
-			this.JSONConfig.Attributes.Columns[ColumnID]['disabled'] = false;
-		}
+	if (RowObject !== undefined) {
+		this.Data.splice(Position, 1);
+		this.RowItems.splice(Position, 1);
 	}
+
+	this.UpdateCount++;
+
 	this.renderPage();
 }
 
@@ -1092,6 +952,6 @@ sysList.prototype.updateOnTabSwitch = function(Columns, Result)
 
 sysList.prototype.getObjectData = function()
 {
-	this.syncRealtimeData();
+	//this.syncRealtimeData();
 	return this.Data;
 }
