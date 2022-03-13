@@ -29,7 +29,7 @@ def application(environ, start_response):
             data_req = service_json['RequestData']
             data_srv = service_json['ServiceData']
 
-            config = DBMapping.mapping[data_srv['BackendServiceID']]
+            config = DBMapping.mapping[data_srv['ServiceID']]
 
             sql_params = {}
 

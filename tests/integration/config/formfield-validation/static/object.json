@@ -1,9 +1,19 @@
 {
-	"FormFieldValidationList": {
-		"Type": "FormFieldList",
+	"Link1":
+	{
+		"Type": "Link",
 		"Attributes": {
-			"Style": "formfield list",
-			"FormFields": [
+			"Style": "sysLink",
+			"TextID": "TXT.MENU.INTEGRATIONTEST.SCREEN-TEST1",
+			"ScreenID": "Test1"
+		}
+	},
+
+	"FormFieldValidationList": {
+		"Type": "FormfieldList",
+		"Attributes": {
+			"Style": "sysFormfieldBorder",
+			"Formfields": [
 				"FormFieldDefaultString",
 				"FormFieldDefaultAtoZ",
 				"FormFieldDefaultInteger",
@@ -127,7 +137,7 @@
 	"FormFieldDefaultDatepicker": {
 		"Type": "FormField",
 		"Attributes": {
-			"Type": "text",
+			"Type": "date",
 			"ValidateRef": "DefaultDatepicker",
 			"ValidateNullable": true,
 			"Style": "FormFieldBorder",

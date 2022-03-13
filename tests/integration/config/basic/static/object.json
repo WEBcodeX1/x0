@@ -1,9 +1,18 @@
 {
+	"Link1":
+	{
+		"Type": "Link",
+		"Attributes": {
+			"Style": "sysLink",
+			"TextID": "TXT.MENU.INTEGRATIONTEST.SCREEN-TEST1",
+			"ScreenID": "Test1"
+		}
+	},
 	"FormFieldList1": {
-		"Type": "FormFieldList",
+		"Type": "FormfieldList",
 		"Attributes": {
 			"Style": "FormfieldList",
-			"FormFields": [
+			"Formfields": [
 				"FormField1Label",
 				"FormField1",
 				"FormFieldPulldown1",
@@ -39,16 +48,17 @@
 			"Style": "FormFieldBorderPulldown",
 			"StyleOnFocus": "StyleOnFocus",
 			"AddNoneItem": true,
-			"Options": {
-				"10": {
+			"Options": [
+				{
 					"TextID": "TXT.ID.1",
 					"Value": "10"
 				},
-				"20": {
+				{
 					"TextID": "TXT.ID.2",
-					"Value": "20"
+					"Value": "20",
+					"Default": true
 				}
-			}
+			]
 		}
 	},
 	"FormFieldDynPulldown1": {
@@ -56,10 +66,11 @@
 		"Attributes": {
 			"Type": "dynpulldown",
 			"AddNoneItem": true,
+			"Default": null,
 			"Style": "FormFieldBorderPulldown",
 			"StyleOnFocus": "FormFieldBorderOnFocus",
 			"ServiceURL": "python/DynPulldown.py",
-			"ServiceID": "dynpd_test"
+			"ServiceID": "test_dynpulldown1"
 		}
 	},
 	"ServiceConnector1": {

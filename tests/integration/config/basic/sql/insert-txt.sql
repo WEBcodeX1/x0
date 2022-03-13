@@ -5,4 +5,5 @@ INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.TABLE.HEADER.CONTACT
 INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.TABLE.HEADER.CONTACT.NEW.PHONE.NUMBER', 'tableheader', 'PhoneNumber');
 INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.UPLOAD.BUTTON1', 'button', 'Upload Button Descr');
 INSERT INTO webui.text (id, "group", value_de) VALUES ('SYSTEM.UPLOAD.BUTTON', 'button', 'Upload Button');
-INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.ID.1', NULL, 'Test ID 1');
+INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.ID.1', 'pdoption', 'Test Pulldown Option1');
+INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.ID.2', 'pdoption', 'Test Pulldown Option2');
