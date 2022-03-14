@@ -20,9 +20,7 @@ def application(environ, start_response):
         service_json = json.loads(POSTData.Environment.getPOSTData(environ))
         data_req = service_json['RequestData']
 
-        #try:
-        for i in range(1):
-
+        try:
             sql = """SELECT
                        id,
                        col1,
@@ -31,9 +29,14 @@ def application(environ, start_response):
                     integrationtest.list1
                     LIMIT %(LimitRows)s"""
 
-            sql_params = {
-                'LimitRows': data_req['LimitRows']
-            }
+            try:
+                sql_params = {
+                    'LimitRows': data_req['LimitRows']
+                }
+            except Exception as e:
+                sql_params = {
+                    'LimitRows': 100
+                }
 
             with dbpool.pool.Handler('x0') as db:
                 for Record in db.query(sql, sql_params):
@@ -43,9 +46,6 @@ def application(environ, start_response):
                     Row['col2'] = Record['col2']
                     Result.append(Row)
 
-        #except Exception as e:
-            #Result['Error'] = True
-            #Result['Exception'] = type(e).__name__
-            #pass
-
+        except Exception as e:
+            pass
         yield bytes(json.dumps(Result), 'utf-8')

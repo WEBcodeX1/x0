@@ -10,14 +10,14 @@
 		"Type": "SQLText",
 		"Attributes": {
 			"Style": "sqltext",
-			"TextID": "TXT.SQLTEXT.TEST"
+			"TextID": "TXT.TESTTEXTVALUES.SQLTEXT"
 		}
 	},
 	"SQLText3": {
 		"Type": "SQLText",
 		"Attributes": {
 			"Style": "sqltext",
-			"TextID": "TXT.BUTTON1"
+			"TextID": "TXT.TESTTEXTVALUES.BUTTON1"
 		}
 	},
 	"SQLText4": {

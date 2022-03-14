@@ -5,15 +5,34 @@
 if [ "$1" = "configure" ]; then
 
 	# system vars
-	WEBSERVERDIR="/var/www/vhosts"
-	APPDIR="/${WEBSERVERDIR}/x0_js"
-	PYTHONDIR="/${APPDIR}/python"
-	CONFIGDIR="/${APPDIR}/static"
+	WEBSERVER_DIR="/var/www"
+	APP_DIR="/${WEBSERVER_DIR}/vhosts/x0"
+	APP_PYTHONDIR="/${APP_DIR}/python"
+	APP_STATICDIR="/${APP_DIR}/static"
 
-	WEBSERVERCONFDIR="/etc/apache2"
-	VHOSTCONFIGFILE="vhost-x0.conf"
+	ETC_SSL="/etc/ssl"
+	ETC_SSL_APACHE="${ETC_SSL}/apache"
+
+	CERT_CA_FILE="${ETC_SSL_APACHE}/x0-ca-cert.pem"
+	CERT_CA_KEY_FILE="${ETC_SSL_APACHE}/x0-ca-cert-key.pem"
+	CERT_FILE="${ETC_SSL_APACHE}/x0-cert.pem"
+	CERT_KEY_FILE="${ETC_SSL_APACHE}/x0-cert-key.pem"
+	CERT_CSR_FILE="${ETC_SSL_APACHE}/x0-csr.pem"
+
+	CERT_CA_PASSPHRASE="change4prod-ca"
+	CERT_PASSPHRASE="change4prod"
+
+	DEMO_FQDN="x0-test.webcodex.de"
+
+	WEBSERVER_CONF_DIR="/etc/apache2"
+	VHOST_CONFIG_FILE="vhost-x0.conf"
+
+	VHOST_UPDATE_CONFIG_FILE="/etc/x0-vhosts.conf"
 
 	BASEDIR="/var/lib/x0"
+
+	TEST_CONFIG_DIR="${BASEDIR}/tests/integration/config"
+	EXAMPLE_CONFIG_DIR="${BASEDIR}/example"
 
 	DBNAME="x0"
 	DBUSER="x0"
@@ -31,19 +50,87 @@ if [ "$1" = "configure" ]; then
 
 	# if not exists, create database
 	if [ $? -eq 1 ]; then
-		psql -U postgres -f ${BASEDIR}/database/x0.DB.sql 
+		psql -U postgres -f ${BASEDIR}/database/x0.DB.sql
+		psql -U postgres -d x0 -f ${BASEDIR}/database/insert-sys-config.sql
+		psql -U postgres -d x0 -f ${BASEDIR}/database/sys-text.sql
 	fi
 
+	# create ssl /etc dir if not exists
+	if [ ! -d ${ETC_SSL_APACHE} ]; then
+		mkdir -p ${ETC_SSL_APACHE};
+	fi
+
+	# generate apache ssl cert
+	if [ ! -e ${CERT_FILE} ]; then
+		openssl genrsa -des3 -out ${CERT_CA_KEY_FILE} -passout pass:${CERT_CA_PASSPHRASE} 4096
+		openssl req -x509 -new -nodes -key ${CERT_CA_KEY_FILE} -sha512 -days 365 -out ${CERT_CA_FILE} -subj "/C=DE/ST=MA/O=clickIT/CN=ca.local" -passin pass:${CERT_CA_PASSPHRASE}
+		openssl genrsa -out ${CERT_KEY_FILE} -passout pass:${CERT_PASSPHRASE} 4096
+		openssl req -new -sha512 -key ${CERT_KEY_FILE} -subj "/C=DE/ST=MA/O=clickIT/CN=${DEMO_FQDN}" -out ${CERT_CSR_FILE} -passin pass:${CERT_PASSPHRASE}
+		openssl x509 -req -in ${CERT_CSR_FILE} -CA ${CERT_CA_FILE} -CAkey ${CERT_CA_KEY_FILE} -CAcreateserial -out ${CERT_FILE} -days 365 -sha512 -passin pass:${CERT_CA_PASSPHRASE}
+	fi
+
+	# enable apache2 ssl mod
+	a2enmod ssl
+
 	# copy apache config
-	cp ${BASEDIR}/conf/${VHOSTCONFIGFILE} ${WEBSERVERCONFDIR}/sites-available/
-	cp ${BASEDIR}/conf/wsgi.conf ${WEBSERVERCONFDIR}/mods-available/
+	cp ${BASEDIR}/conf/${VHOST_CONFIG_FILE} ${WEBSERVER_CONF_DIR}/sites-available/
+	cp ${BASEDIR}/conf/wsgi.conf ${WEBSERVER_CONF_DIR}/mods-available/
 
 	# activate apache vhost
-	ln -s ${WEBSERVERCONFDIR}/sites-available/${VHOSTCONFIGFILE} ${WEBSERVERCONFDIR}/sites-enabled/${VHOSTCONFIGFILE}
+	ln -s ${WEBSERVER_CONF_DIR}/sites-available/${VHOST_CONFIG_FILE} ${WEBSERVER_CONF_DIR}/sites-enabled/${VHOST_CONFIG_FILE} || echo "Apache vhost conf already exists."
 
-	# replace vhost domain from /etc in vhost config
-	VHOSTDOMAIN=$(cat /etc/x0/domain.conf)
-	sed -i ${WEBSERVERCONFDIR}/sites-available/${VHOSTCONFIGFILE} -r -e "s/^.+<SERVERNAME>$/	ServerName ${VHOSTDOMAIN}/g"
+	# if vhost config exists
+	if [ -e ${VHOST_UPDATE_CONFIG_FILE} ]; then
+
+		# copy base system files to given vhosts (on update)
+		for vhost in $(cat ${VHOST_UPDATE_CONFIG_FILE} ); do
+			cp ${APP_DIR}/*.js ${vhost}/
+			cp ${APP_DIR}/index.html ${vhost}/
+			cp ${APP_DIR}/static/* ${vhost}/static/
+			cp ${APP_DIR}/python/*.py ${vhost}/python/
+			chown -R www-data:deploy ${vhost}
+		done
+	fi;
+
+	# install psycopg2 from pip3
+	pip3 install psycopg2
+
+	# install python-dbpool
+	pip3 install ${BASEDIR}/bin/python-dbpool-0.1.0a0.tar.gz
+
+	# patch psycopg2
+	find /usr/local/lib -name "extensions.py" | while read line; do
+		echo "Patching psycopg2 file:${line}"
+		cp ${BASEDIR}/bin/extensions.py ${line}
+	done
+
+	# process tests (config in db, copy to vhost subdir)
+	ls ${TEST_CONFIG_DIR} | while read dirname; do
+		echo "Processing test-config:${dirname}"
+		CONF_SQL_DIR="${TEST_CONFIG_DIR}/${dirname}/sql"
+		ls ${CONF_SQL_DIR} *.sql | while read sqlfile; do
+			psql -U postgres -d x0 -f ${CONF_SQL_DIR}/${sqlfile}
+		done
+		CONF_STATIC_DIR="${TEST_CONFIG_DIR}/${dirname}/static"
+		DST_TEST_DIR="${APP_DIR}/tests/${dirname}"
+		mkdir -p ${DST_TEST_DIR}
+		cp ${CONF_STATIC_DIR}/* ${DST_TEST_DIR}/
+		cp ${APP_DIR}/static/*.css ${DST_TEST_DIR}/
+	done
+
+	# process examples (config in db, copy to vhost subdir)
+	ls ${EXAMPLE_CONFIG_DIR} | while read dirname; do
+		echo "Processing test-config:${dirname}"
+		CONF_SQL_DIR="${EXAMPLE_CONFIG_DIR}/${dirname}/sql"
+		ls ${CONF_SQL_DIR} *.sql | while read sqlfile; do
+			psql -U postgres -d x0 -f ${CONF_SQL_DIR}/${sqlfile}
+		done
+		CONF_STATIC_DIR="${EXAMPLE_CONFIG_DIR}/${dirname}/static"
+		DST_EXAMPLE_DIR="${APP_DIR}/examples/${dirname}"
+		mkdir -p ${DST_EXAMPLE_DIR}
+		cp ${CONF_STATIC_DIR}/* ${DST_EXAMPLE_DIR}/
+		cp ${APP_DIR}/static/*.css ${DST_EXAMPLE_DIR}/
+	done
 
 	# restart apache
 	service apache2 restart

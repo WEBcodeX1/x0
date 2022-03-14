@@ -16,25 +16,23 @@ function sysFactory()
 	this.Screens		= new Object();					//- Screen Instances (Refs)
 
 	this.SetupClasses = {
-		'TabContainer': sysTabContainer,
-		'SQLText': sysObjSQLText,
-		'Button': sysObjButton,
-		'ButtonInternal': sysObjButtonInternal,
-		'NavigateForwardBackward': sysObjNavigateForwardBackward,
-		'List': sysList,
-		'FormfieldList': sysFormfieldList,
-		'ServiceConnector': sysServiceConnector,
-		'Div': sysObjDiv,
-		'FileUpload': sysFileUpload,
-		'ErrorContainer': sysErrorContainer,
-		'Link': sysObjLink,
-		'LinkExternal': sysObjLinkExternal,
-		'RowContainer': sysObjRowContainer,
-		'FormulaField': sysObjFormula,
-		'MenuEnclose': sysObjMenuEnclose,
-		'FormfieldText': sysFormfieldItemText,
-		'RegRequirementItem': RegRequirementItem,
-		'RegDataItem': RegDataItem
+		"TabContainer": sysTabContainer,
+		"SQLText": sysObjSQLText,
+		"Button": sysObjButton,
+		"ButtonInternal": sysObjButtonInternal,
+		"NavigateForwardBackward": sysObjNavigateForwardBackward,
+		"List": sysList,
+		"FormfieldList": sysFormfieldList,
+		"ServiceConnector": sysServiceConnector,
+		"Div": sysObjDiv,
+		"FileUpload": sysFileUpload,
+		"ErrorContainer": sysErrorContainer,
+		"Link": sysObjLink,
+		"LinkExternal": sysObjLinkExternal,
+		"RowContainer": sysObjRowContainer,
+		"FormulaField": sysObjFormula,
+		"MenuEnclose": sysObjMenuEnclose,
+		"FormfieldText": sysFormfieldItemText
 	};
 }
 
@@ -49,11 +47,6 @@ sysFactory.prototype.init = function()
 	//- loop on skeleton, create screen object, add to this.Screens
 	//- ------------------------------------------------------
 	//console.debug('Skeleton Data:%o', this.DataSkeleton);
-
-	//- ------------------------------------------------------
-	//- Setup Base Divs for User Content
-	//- ------------------------------------------------------
-	userInitLayerContent();
 
 	//- ------------------------------------------------------
 	//- Add all System Screens

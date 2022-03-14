@@ -599,6 +599,8 @@ sysFormfieldItemDynPulldown.prototype.init = function()
 
 	this.FormElement.DOMType = 'select';
 
+	this.getDynPulldownData();
+
 	this.FormItemInitFinish();
 }
 

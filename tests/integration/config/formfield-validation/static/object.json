@@ -1,9 +1,17 @@
 {
-	"FormFieldValidationList": {
-		"Type": "FormFieldList",
+	"Link1": {
+		"Type": "Link",
 		"Attributes": {
-			"Style": "formfield list",
-			"FormFields": [
+			"Style": "sysLink",
+			"TextID": "TXT.MENU.INTEGRATIONTEST.SCREEN-TEST1",
+			"ScreenID": "Test1"
+		}
+	},
+	"FormFieldValidationList": {
+		"Type": "FormfieldList",
+		"Attributes": {
+			"Style": "sysFormfieldBorder",
+			"Formfields": [
 				"FormFieldDefaultString",
 				"FormFieldDefaultAtoZ",
 				"FormFieldDefaultInteger",
@@ -30,7 +38,13 @@
 				"FormFieldEuroWithCents",
 				"FormFieldSPXBarcode",
 				"FormFieldSubmitButton"
-			]
+			],
+			"ErrorContainer": "FormFieldValidationListError"
+		}
+	},
+	"FormFieldValidationListError": {
+		"Type": "ErrorContainer",
+		"Attributes": {
 		}
 	},
 	"FormFieldDefaultString": {
@@ -127,7 +141,7 @@
 	"FormFieldDefaultDatepicker": {
 		"Type": "FormField",
 		"Attributes": {
-			"Type": "text",
+			"Type": "date",
 			"ValidateRef": "DefaultDatepicker",
 			"ValidateNullable": true,
 			"Style": "FormFieldBorder",
@@ -364,16 +378,14 @@
 			"Style": "sysButton",
 			"TextID": "TXT.BUTTON",
 			"OnClick": "python/dummy.py",
-			"FormValidate": true,
-			"SrcDataObjects": {
-				"FormFieldValidationList": {
-					"Type": "FormfieldList",
-					"ScreenID": "Test1"
-				}
-			},
-			"ValidateObjects": [
+			"SrcObjects": [
 				"FormFieldValidationList"
-			]	
+			],
+			"Validate": {
+				"Formlists": [
+					"FormFieldValidationList"
+				]
+			}
 		}
 	}
 }

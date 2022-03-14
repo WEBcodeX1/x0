@@ -93,7 +93,7 @@ sysListRow.prototype.addColumns = function()
 				const ColAttributes = ColumnConfig.Attributes;
 
 				if (ColAttributes !== undefined) {
-					var ColumnObj = new this.SourceObject.ScreenObject.SetupClasses[ColAttributes.ObjectType]();
+					var ColumnObj = new sysFactory.SetupClasses[ColAttributes.ObjectType]();
 
 					ColumnObj.ObjectID = ColumnItem.ObjectID + '_' + this.Index;
 
@@ -400,7 +400,7 @@ sysList.prototype.reset = function()
 sysList.prototype.init = function()
 {
 	//console.debug('::List init ObjectID:%s', this.ObjectID);
-	var Attributes = this.JSONConfig.Attributes;
+	const Attributes = this.JSONConfig.Attributes;
 
 	if (Attributes.RowCount != null && Attributes !== undefined) {
 		this.DisplayRows = Attributes.RowCount;
@@ -418,7 +418,6 @@ sysList.prototype.init = function()
 	//----------------------------------------------------------------------
 
 	this.DOMStyle = Attributes.Style;
-	this.DOMStyles = Attributes.AdditionalStyles;
 
     this.renderPage();
 }

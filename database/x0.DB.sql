@@ -2,9 +2,6 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.1
--- Dumped by pg_dump version 12.3
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -37,23 +34,22 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- Name: webui; Type: SCHEMA; Schema: -; Owner: postgres
---
 
 CREATE SCHEMA webui;
 
 ALTER SCHEMA webui OWNER TO postgres;
 GRANT ALL ON SCHEMA webui TO x0;
 
+CREATE SCHEMA sys;
+
+ALTER SCHEMA sys OWNER TO postgres;
+GRANT ALL ON SCHEMA sys TO x0;
+
 SET default_tablespace = '';
 
 
 CREATE USER x0 WITH ENCRYPTED PASSWORD 'dummy';
 
---
--- Name: text; Type: TABLE; Schema: webui; Owner: postgres
---
 
 CREATE TABLE webui.text (
     id character varying NOT NULL,
@@ -63,13 +59,29 @@ CREATE TABLE webui.text (
     orderby integer DEFAULT 1 NOT NULL
 );
 
-
 ALTER TABLE webui.text OWNER TO postgres;
 
 
---
--- Data for Name: text; Type: TABLE DATA; Schema: webui; Owner: postgres
---
+CREATE TABLE sys.config (
+    id bigserial NOT NULL,
+    app_id character varying NOT NULL DEFAULT 'default',
+    config_group character varying NOT NULL,
+    "value" character varying NOT NULL
+);
+
+ALTER TABLE sys.config OWNER TO postgres;
+
+ALTER TABLE ONLY webui.text
+    ADD CONSTRAINT text_pkey PRIMARY KEY (id);
+
+GRANT ALL ON webui.text TO x0;
+
+ALTER TABLE ONLY sys.config
+    ADD CONSTRAINT config_pkey PRIMARY KEY (id);
+
+GRANT ALL ON sys.config TO x0;
+
+CREATE UNIQUE INDEX sys_config_app_value ON sys.config (app_id, config_group, "value");
 
 COPY webui.text (id, "group", value_de, value_en, orderby) FROM stdin;
 TXT.FORMFIELD.GLOBAL.YES	formfield	ja	\N	1
@@ -88,18 +100,3 @@ TXT.CONTEXTMENU.REMOVE	contextmenu	Entfernen	\N	1
 TXT.CONTEXTMENU.APPLY	contextmenu	Zeile übernehmen	\N	1
 TXT.SYS.INDICATOR.INCOMINGPHONECALL	indicatorheader	Eingehender Anruf	\N	1
 \.
-
-
---
--- Name: text text_pkey; Type: CONSTRAINT; Schema: webui; Owner: postgres
---
-
-ALTER TABLE ONLY webui.text
-    ADD CONSTRAINT text_pkey PRIMARY KEY (id);
-
-
-GRANT ALL ON webui.text TO x0;
-
---
--- PostgreSQL database dump complete
---

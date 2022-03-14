@@ -74,8 +74,8 @@ sysReactor.prototype.dispatchEvent = function(EventID) {
 
 		if (EventObj.ID == EventID) {
 
-			const Attributes = ProcessObj.ServiceConnector.JSONConfig.Attributes;
 			const ProcessObj = EventObj.ObjectRef;
+			const Attributes = ProcessObj.ServiceConnector.JSONConfig.Attributes;
 
 			//console.debug('Reactor Dispatch Event. EventObject:%o ProcessObj:%o', EventObj, ProcessObj);
 
