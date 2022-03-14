@@ -14,10 +14,10 @@ HTMLTop = """<!DOCTYPE html>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="icon" href="favicon.ico" type="image/png">
   <link rel="shortcut icon" href="favicon.ico" type="image/png">
-  <link href="{subdir}static/Base.css" rel="stylesheet" type="text/css">
-  <link href="{subdir}static/Styles.css" rel="stylesheet" type="text/css">
-  <link href="{subdir}static/Button.css" rel="stylesheet" type="text/css">
-  <link href="{subdir}static/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="{subdir}/Base.css" rel="stylesheet" type="text/css">
+  <link href="{subdir}/Styles.css" rel="stylesheet" type="text/css">
+  <link href="{subdir}/Button.css" rel="stylesheet" type="text/css">
+  <link href="{subdir}/bootstrap.css" rel="stylesheet" type="text/css">
   <script type="text/javascript" src="/userFunctions.js"></script>
   <script type="text/javascript" src="/sysHelper.js"></script>
   <script type="text/javascript" src="/sysSourceObjectHandler.js"></script>
@@ -90,13 +90,13 @@ HTMLDynScript = """
  </script>
 """
 
-sql_template = """
+sql = """
 SELECT
  "value"
 FROM
  sys.config
 WHERE
-app_id = %(AppID)s AND config_group = '{}'""";
+app_id = %(AppID)s AND config_group = %(ConfigGroup)s""";
 
 
 def application(environ, start_response):
@@ -106,7 +106,7 @@ def application(environ, start_response):
     if environ['REQUEST_METHOD'].upper() == 'GET':
 
         try:
-            RegexString = 'appid=([0-9a-zA-Z]{4,64})$'
+            RegexString = 'appid=([0-9a-zA-Z_]{4,64})$'
             RegexObject = re.compile(RegexString)
             QueryString = environ['QUERY_STRING']
             m = RegexObject.match(QueryString)
@@ -117,47 +117,46 @@ def application(environ, start_response):
 
         with dbpool.pool.Handler('x0') as db:
 
-            sql = sql_template.format('index_title')
+            SQLParams['ConfigGroup'] = 'index_title'
             for Record in db.query(sql, SQLParams):
                 SiteTitle = Record[0]
 
-            sql = sql_template.format('subdir')
+            SQLParams['ConfigGroup'] = 'subdir'
             for Record in db.query(sql, SQLParams):
                 SubDirEnclosed = '"{}"'.format(Record[0])
                 SubDir = Record[0]
 
-            sql = sql_template.format('template_file')
-
+            SQLParams['ConfigGroup'] = 'template_file'
             ScriptLines = ''
             for Record in db.query(sql, SQLParams):
                 ScriptLine = """<script type="text/javascript" src="/{}"></script>""".format(Record[0])
                 ScriptLines += script_line
 
-            sql = sql_template.format('config_file_menu')
+            SQLParams['ConfigGroup'] = 'config_file_menu'
             for Record in db.query(sql, SQLParams):
                 ConfigFileMenu = '"{}"'.format(Record[0])
 
-            sql = sql_template.format('config_file_object')
+            SQLParams['ConfigGroup'] = 'config_file_object'
             for Record in db.query(sql, SQLParams):
                 ConfigFileObject = '"{}"'.format(Record[0])
 
-            sql = sql_template.format('config_file_skeleton')
+            SQLParams['ConfigGroup'] = 'config_file_skeleton'
             for Record in db.query(sql, SQLParams):
                 ConfigFileSkeleton = '"{}"'.format(Record[0])
 
-            sql = sql_template.format('debug_level')
+            SQLParams['ConfigGroup'] = 'debug_level'
             for Record in db.query(sql, SQLParams):
                 DebugLevel = Record[0]
 
-            sql = sql_template.format('display_language')
+            SQLParams['ConfigGroup'] = 'display_language'
             for Record in db.query(sql, SQLParams):
                 DisplayLanguage = '"{}"'.format(Record[0])
 
-            sql = sql_template.format('default_screen')
+            SQLParams['ConfigGroup'] = 'default_screen'
             for Record in db.query(sql, SQLParams):
                 DefaultScreen = '"{}"'.format(Record[0])
 
-            sql = sql_template.format('parent_window_url')
+            SQLParams['ConfigGroup'] = 'parent_window_url'
             for Record in db.query(sql, SQLParams):
                 ParentWindowURL = Record[0]
 

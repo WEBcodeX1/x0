@@ -6,6 +6,11 @@
 			}
 		},
 		{
+			"FormFieldValidationListError": {
+				"RefID": "Test1"
+			}
+		},
+		{
 			"FormFieldSubmitButton": {
 				"RefID": "Test1"
 			}

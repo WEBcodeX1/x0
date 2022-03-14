@@ -81,57 +81,59 @@ sysScreenOverlay.prototype.processDataLoad = function(Attributes)
 {
 	console.debug('Attributes:%o', Attributes);
 
-	var SourceData;
+	if (Attributes !== undefined) {
+		var SourceData;
 
-	if (Attributes.SourceType == 'ScreenGlobal') {
-		try {
-			const ScreenObj = sysFactory.getScreenByID(Attributes.SourceScreenID);
-			console.debug('ScreenObj:%o', ScreenObj);
-			SourceData = ScreenObj.getGlobalVars();
-		}
-		catch(err) {
-			console.debug('err:%s', err);
-		}
-	}
-	else {
-		SourceData = Attributes.SourceData;
-	}
-
-	const DstObjects = Attributes.DstObjects;
-
-	console.debug('SourceData:%o DstObjects:%o', SourceData, DstObjects);
-
-	if (Attributes.DataMapping !== undefined) {
-		var NewData = new Object();
-		for (DataKey in Attributes.DataMapping) {
-			var NewKey = DataKey;
-			if (DataKey in SourceData) {
-				NewKey = Attributes.DataMapping[DataKey];
+		if (Attributes.SourceType == 'ScreenGlobal') {
+			try {
+				const ScreenObj = sysFactory.getScreenByID(Attributes.SourceScreenID);
+				console.debug('ScreenObj:%o', ScreenObj);
+				SourceData = ScreenObj.getGlobalVars();
 			}
-			NewData[NewKey] = SourceData[DataKey];
+			catch(err) {
+				console.debug('err:%s', err);
+			}
 		}
-		SourceData = NewData;
-	}
-
-	for (Index in DstObjects) {
-		var SetData = SourceData;
-
-		const DstObjectID = DstObjects[Index] + '__overlay';
-		//console.debug('DstObjectID:%s', DstObjectID);
-		//console.debug('HierarchyRootObject:%o', this.OverlayScreen.HierarchyRootObject);
-
-		try {
-			DstObject = this.OverlayScreen.HierarchyRootObject.getObjectByID(DstObjectID);
-			DstObject.RuntimeSetDataFunc(
-				this.prepareSetData(SetData, DstObject)
-			);
-		}
-		catch(err) {
-			console.debug('DstObjectID:%s err:%s', DstObjectID, err);
+		else {
+			SourceData = Attributes.SourceData;
 		}
 
-		//console.debug('ObjectID:%s RowData:%o', DstObjectID, RowData);
+		const DstObjects = Attributes.DstObjects;
 
+		console.debug('SourceData:%o DstObjects:%o', SourceData, DstObjects);
+
+		if (Attributes.DataMapping !== undefined) {
+			var NewData = new Object();
+			for (DataKey in Attributes.DataMapping) {
+				var NewKey = DataKey;
+				if (DataKey in SourceData) {
+					NewKey = Attributes.DataMapping[DataKey];
+				}
+				NewData[NewKey] = SourceData[DataKey];
+			}
+			SourceData = NewData;
+		}
+
+		for (Index in DstObjects) {
+			var SetData = SourceData;
+
+			const DstObjectID = DstObjects[Index] + '__overlay';
+			//console.debug('DstObjectID:%s', DstObjectID);
+			//console.debug('HierarchyRootObject:%o', this.OverlayScreen.HierarchyRootObject);
+
+			try {
+				DstObject = this.OverlayScreen.HierarchyRootObject.getObjectByID(DstObjectID);
+				DstObject.RuntimeSetDataFunc(
+					this.prepareSetData(SetData, DstObject)
+				);
+			}
+			catch(err) {
+				console.debug('DstObjectID:%s err:%s', DstObjectID, err);
+			}
+
+			//console.debug('ObjectID:%s RowData:%o', DstObjectID, RowData);
+
+		}
 	}
 }
 

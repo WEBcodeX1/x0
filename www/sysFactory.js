@@ -49,11 +49,6 @@ sysFactory.prototype.init = function()
 	//console.debug('Skeleton Data:%o', this.DataSkeleton);
 
 	//- ------------------------------------------------------
-	//- Setup Base Divs for User Content
-	//- ------------------------------------------------------
-	userInitLayerContent();
-
-	//- ------------------------------------------------------
 	//- Add all System Screens
 	//- ------------------------------------------------------
 	const SkeletonData = this.DataSkeleton.XMLRPCResultData;

@@ -69,7 +69,7 @@
 			"Default": null,
 			"Style": "FormFieldBorderPulldown",
 			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"ServiceURL": "python/DynPulldown.py",
+			"ServiceURL": "DynPulldown.py",
 			"ServiceID": "test_dynpulldown1"
 		}
 	},
@@ -78,55 +78,60 @@
 		"Attributes": {
 			"OnEvent": {
 				"Events": [ "InitSystem" ],
-				"ServiceCall": "python/getTestList1Data.py"
+				"ServiceCall": "IntegrationTestGetTableData.py"
 			}
 		}
 	},
-	"List1": {
+	"List1":
+	{
 		"Type": "List",
-		"Attributes": {
-			"RowCount": 10,
+		"Attributes":
+		{
 			"Style": "sysList",
 			"HeaderRowStyle": "row sysListHeader",
-			"RowStyle": "row sysListContent",
-			"Navigation": {
-				"Type": "Page.Index"
-			},
-			"Columns": {
-				"country": {
-					"HeaderTextID": "TXT.TABLE.HEADER.CONTACT.NEW.PHONE.COUNTRY",
-					"sortable": true,
-					"HeaderStyle": "col-md-3"
-				},
-				"areacode": {
-					"HeaderTextID": "TXT.TABLE.HEADER.CONTACT.NEW.PHONE.AREACODE",
-					"sortable": true,
-					"HeaderStyle": "col-md-3"
-				},
-				"number": {
-					"HeaderTextID": "TXT.TABLE.HEADER.CONTACT.NEW.PHONE.NUMBER",
-					"sortable": true,
-					"HeaderStyle": "col-md-6"
+			"RowCount": 5,
+			"SrcDataObjects":
+			{
+				"Dummy":
+				{
+					"Type": "HardcodedValues",
+					"Values": {
+						"LimitRows": "10"
+					}
 				}
 			},
-			"ElementsEnclosedByDivStyle": [
-				"col-md-3",
-				"col-md-3",
-				"col-md-6"
-			],
+			"Columns":
+			{
+				"id":
+				{
+					"visible": false
+				},
+				"col1":
+				{
+					"HeaderTextID": "TXT.TABLE.HEADER.COL1",
+					"HeaderStyle": "col-md-8"
+				},
+				"col2":
+				{
+					"HeaderTextID": "TXT.TABLE.HEADER.COL2",
+					"HeaderStyle": "col-md-4"
+				}
+			},
 			"ContextMenuItems": {
-				"Remove": {
-					"TextID": "TXT.CONTEXTMENU.REMOVE",
-					"Icon": "Delete",
-					"InternalFunction": "remove",
-					"InternalRemoveItemBy": "RowIndex"
-				},
-				"Reset": {
-					"TextID": "TXT.CONTEXTMENU.RESET",
-					"Icon": "Delete",
-					"InternalFunction": "reset"
+			    "Edit": {
+					"TextID": "TXT.CONTEXTMENU.EDIT",
+					"Icon": "Edit",
+					"DstScreenID": "Screen3",
+					"RowColumn": "id",
+					"FireEvents": [ "GetFormfieldData" ]
 				}
-			}
+			},
+			"CellGroupRowStyle": "row sysListContent",
+			"RowAfterElements": 2,
+			"ElementsEnclosedByDivStyle": [
+				"col-md-8",
+				"col-md-4"
+			]
 		}
 	},
 	"SQLText1": {

@@ -17,7 +17,7 @@
 
 function sysObjButton()
 {
-    this.EventListeners		= new Object();
+	this.EventListeners		= new Object();
 	this.ChildObjects		= new Array();
 
 	this.PostRequestData	= new sysRequestDataHandler();
@@ -33,7 +33,6 @@ sysObjButton.prototype = new sysBaseObject();
 
 //- inherit methods
 sysObjButton.prototype.processSourceObjects = sysSourceObjectHandler.prototype.processSourceObjects;
-sysObjButton.prototype.processResetObjects = sysResetObjectHandler.prototype.processResetObjects;
 
 
 //------------------------------------------------------------------------------

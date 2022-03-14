@@ -1,6 +1,5 @@
 {
-	"Link1":
-	{
+	"Link1": {
 		"Type": "Link",
 		"Attributes": {
 			"Style": "sysLink",
@@ -8,7 +7,6 @@
 			"ScreenID": "Test1"
 		}
 	},
-
 	"FormFieldValidationList": {
 		"Type": "FormfieldList",
 		"Attributes": {
@@ -40,7 +38,13 @@
 				"FormFieldEuroWithCents",
 				"FormFieldSPXBarcode",
 				"FormFieldSubmitButton"
-			]
+			],
+			"ErrorContainer": "FormFieldValidationListError"
+		}
+	},
+	"FormFieldValidationListError": {
+		"Type": "ErrorContainer",
+		"Attributes": {
 		}
 	},
 	"FormFieldDefaultString": {
@@ -374,16 +378,14 @@
 			"Style": "sysButton",
 			"TextID": "TXT.BUTTON",
 			"OnClick": "python/dummy.py",
-			"FormValidate": true,
-			"SrcDataObjects": {
-				"FormFieldValidationList": {
-					"Type": "FormfieldList",
-					"ScreenID": "Test1"
-				}
-			},
-			"ValidateObjects": [
+			"SrcObjects": [
 				"FormFieldValidationList"
-			]	
+			],
+			"Validate": {
+				"Formlists": [
+					"FormFieldValidationList"
+				]
+			}
 		}
 	}
 }

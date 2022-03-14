@@ -20,13 +20,13 @@
 				},
 				"Tab3": {
 					"Attributes": {
-						"TextID": "TXT.BASIC-TABCONTAINER.TAB1",
+						"TextID": "TXT.BASIC-TABCONTAINER.TAB3",
 						"Style": "col-md-4"
 					}
 				},
 				"Tab4": {
 					"Attributes": {
-						"TextID": "TXT.BASIC-TABCONTAINER.TAB2",
+						"TextID": "TXT.BASIC-TABCONTAINER.TAB4",
 						"Style": "col-md-4"
 					}
 				}
@@ -59,14 +59,14 @@
 		"Type": "SQLText",
 		"Attributes": {
 			"Style": "sysBase",
-			"TextID": "TXT.BASIC-TABCONTAINER.TEXT1"
+			"TextID": "TXT.BASIC-TABCONTAINER.TEXT3"
 		}
 	},
 	"SQLText4": {
 		"Type": "SQLText",
 		"Attributes": {
 			"Style": "sysBase",
-			"TextID": "TXT.BASIC-TABCONTAINER.TEXT2"
+			"TextID": "TXT.BASIC-TABCONTAINER.TEXT4"
 		}
 	}
 }

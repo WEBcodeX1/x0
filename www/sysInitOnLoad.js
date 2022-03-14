@@ -99,9 +99,9 @@ function InitOk(XHR) {
 	sysFactory.DataSkeleton.setLoaderObj(sysObjLoader);
 
 	sysFactory.ObjText.requestXMLRPCData('/python/getText.py');
-	sysFactory.DataMenu.requestXMLRPCData(sysVarAppSubdir + '/static/' + sysVarConfigMenuFile);
-	sysFactory.DataObject.requestXMLRPCData(sysVarAppSubdir + '/static/' + sysVarConfigObjectFile);
-	sysFactory.DataSkeleton.requestXMLRPCData(sysVarAppSubdir + '/static/' + sysVarConfigSkeletonFile);
+	sysFactory.DataMenu.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigMenuFile);
+	sysFactory.DataObject.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigObjectFile);
+	sysFactory.DataSkeleton.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigSkeletonFile);
 
 
 	//----------------------------------------------------------------------------

@@ -454,9 +454,6 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 
 		this.ContextMenuObject.close();
 
-		//- clear form field styles
-		this.clearFormStyles();
-
 		if (this.ResetAll === true) {
 			ScreenObj.HierarchyRootObject.processReset();
 		}
@@ -510,12 +507,3 @@ sysContextMenuItem.prototype.callbackXMLRPCAsync = function()
 	this.ContextMenuObject.close();
 }
 
-
-//------------------------------------------------------------------------------
-//- METHOD "clearFormStyles"
-//------------------------------------------------------------------------------
-
-sysContextMenuItem.prototype.clearFormStyles = function(Event)
-{
-	sysFactory.clearFormStylesByScreenID(this.DstScreenID);
-}
