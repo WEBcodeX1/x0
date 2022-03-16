@@ -75,10 +75,11 @@ HTMLBottom = """
 
 HTMLDynScript = """
  <script>
-  var sysVarPreLoadScript = undefined;
   var sysVarUserSetupClasses = new Object();
   var sysVarGlobalData = new Object();
   var sysVarUserFunctions = new Object();
+  var sysVarPreLoadVars = new Object();
+  var sysVarPreLoadScript = {preload_script};
   var sysVarAppSubdir = {subdir};
   var sysVarConfigMenuFile = {config_menu};
   var sysVarConfigObjectFile = {config_object};
@@ -87,6 +88,10 @@ HTMLDynScript = """
   var sysVarDebugLevel = {debug_level};
   var sysVarParentWindowURL = {parent_window_url};
   var sysVarDisplayLanguage = {display_language};
+  var sysVarScreenConfig = {screen_config};
+  {preload_vars}
+  {user_functions}
+  {setup_classes}
  </script>
 """
 
@@ -106,7 +111,7 @@ def application(environ, start_response):
     if environ['REQUEST_METHOD'].upper() == 'GET':
 
         try:
-            RegexString = 'appid=([0-9a-zA-Z_]{4,64})$'
+            RegexString = 'appid=([0-9a-zA-Z_]{4,64})(&user_session=([0-9a-zA-Z])+)?$'
             RegexObject = re.compile(RegexString)
             QueryString = environ['QUERY_STRING']
             m = RegexObject.match(QueryString)
@@ -116,6 +121,29 @@ def application(environ, start_response):
             SQLParams = { "AppID": "default" }
 
         with dbpool.pool.Handler('x0') as db:
+
+            PreLoadScript = 'undefined';
+            SQLParams['ConfigGroup'] = 'preload_script'
+            for Record in db.query(sql, SQLParams):
+                PreLoadScript = Record[0]
+
+            PreLoadVars = ''
+            SQLParams['ConfigGroup'] = 'preload_var'
+            for Record in db.query(sql, SQLParams):
+                PreLoadVarLine = 'sysVarPreLoadVars{};'.format(Record[0])
+                PreLoadVars += PreLoadVarLine
+
+            UserFunctions = ''
+            SQLParams['ConfigGroup'] = 'user_function'
+            for Record in db.query(sql, SQLParams):
+                UserFunctionLine = 'sysVarUserFunctions{};'.format(Record[0])
+                UserFunctions += UserFunctionLine
+
+            SetupClasses = ''
+            SQLParams['ConfigGroup'] = 'setup_class'
+            for Record in db.query(sql, SQLParams):
+                SetupClassLine = 'sysVarUserSetupClasses{};'.format(Record[0])
+                SetupClasses += SetupClassLine
 
             SQLParams['ConfigGroup'] = 'index_title'
             for Record in db.query(sql, SQLParams):
@@ -127,10 +155,10 @@ def application(environ, start_response):
                 SubDir = Record[0]
 
             SQLParams['ConfigGroup'] = 'template_file'
-            ScriptLines = ''
+            TemplateFiles = ''
             for Record in db.query(sql, SQLParams):
                 ScriptLine = """<script type="text/javascript" src="/{}"></script>""".format(Record[0])
-                ScriptLines += script_line
+                TemplateFiles += ScriptLine
 
             SQLParams['ConfigGroup'] = 'config_file_menu'
             for Record in db.query(sql, SQLParams):
@@ -160,13 +188,22 @@ def application(environ, start_response):
             for Record in db.query(sql, SQLParams):
                 ParentWindowURL = Record[0]
 
+            ScreenConfig = 'undefined'
+            SQLParams['ConfigGroup'] = 'screen_config'
+            for Record in db.query(sql, SQLParams):
+                ScreenConfig = Record[0]
+
             HTMLTopR = HTMLTop.format(
                 title = SiteTitle,
                 subdir = SubDir,
-                user_templates = ScriptLines
+                user_templates = TemplateFiles
             )
 
             HTMLDynScriptR = HTMLDynScript.format(
+                preload_script = PreLoadScript,
+                preload_vars = PreLoadVars,
+                setup_classes = SetupClasses,
+                user_functions = UserFunctions,
                 subdir = SubDirEnclosed,
                 config_menu = ConfigFileMenu,
                 config_object = ConfigFileObject,
@@ -174,7 +211,8 @@ def application(environ, start_response):
                 debug_level = DebugLevel,
                 display_language = DisplayLanguage,
                 default_screen = DefaultScreen,
-                parent_window_url = ParentWindowURL                
+                parent_window_url = ParentWindowURL,
+                screen_config = ScreenConfig
             )
 
         Result = "{}{}{}".format(HTMLTopR, HTMLDynScriptR, HTMLBottom);

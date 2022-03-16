@@ -50,9 +50,9 @@ if [ "$1" = "configure" ]; then
 
 	# if not exists, create database
 	if [ $? -eq 1 ]; then
-		psql -U postgres -f ${BASEDIR}/database/x0.DB.sql
-		psql -U postgres -d x0 -f ${BASEDIR}/database/insert-sys-config.sql
-		psql -U postgres -d x0 -f ${BASEDIR}/database/sys-text.sql
+		psql -U postgres -f ${BASEDIR}/database/x0.DB.sql > /dev/null 2>/dev/null
+		psql -U postgres -d x0 -f ${BASEDIR}/database/insert-sys-config.sql > /dev/null 2>/dev/null
+		psql -U postgres -d x0 -f ${BASEDIR}/database/sys-text.sql > /dev/null 2>/dev/null
 	fi
 
 	# create ssl /etc dir if not exists
@@ -79,13 +79,15 @@ if [ "$1" = "configure" ]; then
 	# activate apache vhost
 	ln -s ${WEBSERVER_CONF_DIR}/sites-available/${VHOST_CONFIG_FILE} ${WEBSERVER_CONF_DIR}/sites-enabled/${VHOST_CONFIG_FILE} || echo "Apache vhost conf already exists."
 
-	# if vhost config exists
+	# if vhost config exists update system data
 	if [ -e ${VHOST_UPDATE_CONFIG_FILE} ]; then
 
+		echo "Processing ${VHOST_UPDATE_CONFIG_FILE}"
+
 		# copy base system files to given vhosts (on update)
-		for vhost in $(cat ${VHOST_UPDATE_CONFIG_FILE} ); do
+		cat ${VHOST_UPDATE_CONFIG_FILE} | while read vhost; do
+			echo "Processing vhost:${vhost}"
 			cp ${APP_DIR}/*.js ${vhost}/
-			cp ${APP_DIR}/index.html ${vhost}/
 			cp ${APP_DIR}/static/* ${vhost}/static/
 			cp ${APP_DIR}/python/*.py ${vhost}/python/
 			chown -R www-data:deploy ${vhost}
@@ -108,8 +110,8 @@ if [ "$1" = "configure" ]; then
 	ls ${TEST_CONFIG_DIR} | while read dirname; do
 		echo "Processing test-config:${dirname}"
 		CONF_SQL_DIR="${TEST_CONFIG_DIR}/${dirname}/sql"
-		ls ${CONF_SQL_DIR} *.sql | while read sqlfile; do
-			psql -U postgres -d x0 -f ${CONF_SQL_DIR}/${sqlfile}
+		ls ${CONF_SQL_DIR} | while read sqlfile; do
+			psql -U postgres -d x0 -f ${CONF_SQL_DIR}/${sqlfile} > /dev/null 2>/dev/null
 		done
 		CONF_STATIC_DIR="${TEST_CONFIG_DIR}/${dirname}/static"
 		DST_TEST_DIR="${APP_DIR}/tests/${dirname}"
@@ -122,8 +124,8 @@ if [ "$1" = "configure" ]; then
 	ls ${EXAMPLE_CONFIG_DIR} | while read dirname; do
 		echo "Processing test-config:${dirname}"
 		CONF_SQL_DIR="${EXAMPLE_CONFIG_DIR}/${dirname}/sql"
-		ls ${CONF_SQL_DIR} *.sql | while read sqlfile; do
-			psql -U postgres -d x0 -f ${CONF_SQL_DIR}/${sqlfile}
+		ls ${CONF_SQL_DIR} | while read sqlfile; do
+			psql -U postgres -d x0 -f ${CONF_SQL_DIR}/${sqlfile} > /dev/null 2>/dev/null
 		done
 		CONF_STATIC_DIR="${EXAMPLE_CONFIG_DIR}/${dirname}/static"
 		DST_EXAMPLE_DIR="${APP_DIR}/examples/${dirname}"

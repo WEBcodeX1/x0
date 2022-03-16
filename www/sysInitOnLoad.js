@@ -31,7 +31,7 @@ function Init() {
 
 		var XHR = new XMLHttpRequest();
 		XHR.upload.addEventListener('error', this.InitError);
-		XHR.open('POST', './python/CalculatorOfferNew.py');
+		XHR.open('POST', sysVarPreLoadScript);
 		XHR.send(JSON.stringify(UserSession));
 		XHR.onreadystatechange = function() {
 			if (XHR.readyState == 4 && XHR.status == 200) {
@@ -54,7 +54,7 @@ function InitOk(XHR) {
 	const paramString = new URLSearchParams(document.URL);
 	const UserSession = paramString.get('user_session');
 
-	
+
 	//----------------------------------------------------------------------------
 	//- Construct Global Object Factory (Main Object Handler)
 	//----------------------------------------------------------------------------
@@ -70,10 +70,19 @@ function InitOk(XHR) {
 
 	if (sysVarPreLoadScript !== undefined) {
 		const InsertResult = JSON.parse(XHR.responseText);
-		sysFactory.ObjGlobalData = Object.assign(
-			sysFactory.ObjGlobalData,
-			sysVarGlobalData
-		);
+		for (Key in sysVarPreLoadVars) {
+			sysFactory.ObjGlobalData[Key] = InsertResult[sysVarPreLoadVars[Key]];
+		}
+	}
+
+	if (sysVarScreenConfig !== undefined) {
+		sysFactory.ScreenConfig = sysVarScreenConfig;
+		try {
+			sysFactory.ScreenConfig['Register']['OnScreenSwitch']['ScriptParams']['UserSession'] = UserSession;
+		}
+		catch(err) {
+			console.debug('User session replacement failed.');
+		}
 	}
 
 
