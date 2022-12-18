@@ -14,10 +14,11 @@ HTMLTop = """<!DOCTYPE html>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="icon" href="favicon.ico" type="image/png">
   <link rel="shortcut icon" href="favicon.ico" type="image/png">
-  <link href="{subdir}/Base.css" rel="stylesheet" type="text/css">
-  <link href="{subdir}/Styles.css" rel="stylesheet" type="text/css">
-  <link href="{subdir}/Button.css" rel="stylesheet" type="text/css">
-  <link href="{subdir}/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="{subdir}/Base.css" rel="stylesheet">
+  <link href="{subdir}/Styles.css" rel="stylesheet">
+  <link href="{subdir}/Button.css" rel="stylesheet">
+  <link href="{subdir}/bootstrap.css" rel="stylesheet">
+  <link href="{subdir}/fonts/fontawesome/css/all.min.css" rel="stylesheet">
   <script type="text/javascript" src="/userFunctions.js"></script>
   <script type="text/javascript" src="/sysHelper.js"></script>
   <script type="text/javascript" src="/sysSourceObjectHandler.js"></script>
@@ -77,7 +78,7 @@ HTMLDynScript = """
  <script>
   var sysVarUserSetupClasses = new Object();
   var sysVarGlobalData = new Object();
-  var sysVarUserFunctions = new Object();
+  var sysVarUserFunctions = new Array();
   var sysVarPreLoadVars = new Object();
   var sysVarPreLoadScript = {preload_script};
   var sysVarAppSubdir = {subdir};
@@ -99,7 +100,7 @@ sql = """
 SELECT
  "value"
 FROM
- sys.config
+ system.config
 WHERE
 app_id = %(AppID)s AND config_group = %(ConfigGroup)s""";
 

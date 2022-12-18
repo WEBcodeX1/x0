@@ -1,3 +1,6 @@
+GRANT ALL ON SCHEMA sys TO x0;
+GRANT SELECT ON TABLE sys.config TO x0;
+
 INSERT INTO sys.config (config_group, "value") VALUES ('index_title', 'x0 JS-Framework Default');
 INSERT INTO sys.config (config_group, "value") VALUES ('debug_level', '10');
 INSERT INTO sys.config (config_group, "value") VALUES ('display_language', 'de');

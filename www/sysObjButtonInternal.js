@@ -20,6 +20,8 @@ function sysObjButtonInternal()
 	this.EventListeners		= new Object();
 	this.ChildObjects		= new Array();
 	this.PostRequestData	= new sysRequestDataHandler();
+
+	this.ValidateResult		= true;
 }
 
 sysObjButtonInternal.prototype = new sysBaseObject();
@@ -38,11 +40,19 @@ sysObjButtonInternal.prototype.setDstScreenProperties = sysContextMenuItem.proto
 
 sysObjButtonInternal.prototype.EventListenerClick = function(Event)
 {
+	console.debug('Button click');
+
+	this.ValidateResult	= true;
+
 	this.PostRequestData.reset();
 
 	const Attributes = this.JSONConfig.Attributes;
 
-	if (this.validateForm() === true) {
+	this.validateForm();
+
+	console.debug('ValidateResult:%s', this.ValidateResult);
+
+	if (this.ValidateResult === true) {
 		this.processActions();
 		sysFactory.Reactor.fireEvents(Attributes.FireEvents);
 	}

@@ -37,15 +37,34 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
 	var ObjectResultData = new Object();
 	// array processing
 	if (Array.isArray(Objects) === true) {
+
 		for (Index in Objects) {
 			var ObjectID = Objects[Index];
-			ObjectRef = sysFactory.getObjectByID(ObjectID);
+			const ObjectRef = sysFactory.getObjectByID(ObjectID);
+			console.debug('SourceObjectHandler Object:%o', ObjectRef);
+
 			ObjectID = ObjectID.replace('__overlay', '');
-			ObjectResultData[ObjectID] = ObjectRef.getObjectData();
+
+			//- Formfields (ParentObject handling) should be generic and put somewhere else
+			var ObjectRuntimeData;
+			try {
+				ObjectRuntimeData = ObjectRef.ParentObject.getObjectData();
+			}
+			catch(err) {
+				ObjectRuntimeData = ObjectRef.getObjectData();
+			}
+
+			ObjectResultData[ObjectID] = ObjectRuntimeData;
+
+			//- backward compatibility ("plain" data handling)
+			if (typeof(ObjectRuntimeData) == 'object') {
+				for (Key in ObjectRuntimeData) {
+					ObjectResultData[Key] = ObjectRuntimeData[Key];
+				}
+			}
 		}
 	}
 
-	// old style object processing (deprecated)
 	else {
 		for (SrcObjectID in Objects) {
 
@@ -77,6 +96,7 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
 
 						continue;
 
+					/*
 					case "FormfieldList":
 
 						const ProcessObject = ScreenObj.HierarchyRootObject.getObjectByID(SrcObjectID);
@@ -103,6 +123,7 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
 						ObjectResultData[SrcObjectID] = ListObject.getObjectData();
 
 						continue;
+					*/
 
 					case "FileUpload":
 

@@ -12,8 +12,10 @@
 
 function sysFactory()
 {
-	this.OverlayObj		= new sysScreenOverlay(this);	//- Overlay Object Ref
-	this.Screens		= new Object();					//- Screen Instances (Refs)
+	this.OverlayObj			= new sysScreenOverlay(this);	//- Overlay Object Ref
+	this.Screens			= new Object();					//- Screen Instances (Refs)
+
+	this.OverlayRefCount	= 0;
 
 	this.SetupClasses = {
 		"TabContainer": sysTabContainer,
@@ -47,6 +49,16 @@ sysFactory.prototype.init = function()
 	//- loop on skeleton, create screen object, add to this.Screens
 	//- ------------------------------------------------------
 	//console.debug('Skeleton Data:%o', this.DataSkeleton);
+
+	//- ------------------------------------------------------
+	//- Set User Functions
+	//- ------------------------------------------------------
+
+	for (Index in sysVarUserFunctions) {
+		UserFunctionID = sysVarUserFunctions[Index];
+		console.debug('Setting User Functions. FunctionID:%s', UserFunctionID);
+		this.UserFunctions[UserFunctionID] = window[UserFunctionID];
+	}
 
 	//- ------------------------------------------------------
 	//- Add all System Screens
@@ -287,13 +299,34 @@ sysFactory.prototype.switchScreen = function(ScreenID)
 			this.switchScreenToForeground(ScreenObj);
 
 			//- trigger global screen data load
-			ScreenObj.triggerGlobalDataLoad();
+			this.triggerScreenDataLoad(ScreenID);
 
 			//- deactivate deactivated objects
 			ScreenObj.HierarchyRootObject.deactivateDeactivated();
 		}
 		catch(err) {
 			console.debug('::switchScreen err:%s', err);
+		}
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "triggerScreenDataLoad"
+//------------------------------------------------------------------------------
+
+sysFactory.prototype.triggerScreenDataLoad = function(ScreenID)
+{
+	if (ScreenID !== undefined) {
+		try {
+			//- get screen object by screen id
+			const ScreenObj = this.getScreenByID(ScreenID);
+
+			//- trigger global screen data load
+			ScreenObj.triggerGlobalDataLoad();
+		}
+		catch(err) {
+			console.debug('::triggerScreenDataLoad err:%s', err);
 		}
 	}
 }
@@ -454,10 +487,13 @@ sysFactory.prototype.resetErrorContainer = function() {
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.getText = function(TextID) {
-	const TextObj = this.ObjText.getTextObjectByID(TextID);
-	var RetValue = TextObj[this.EnvUserLanguage];
-	if (RetValue === undefined) {
-		RetValue = 'Missing:' + TextID;
+	var RetValue;
+	try {
+		const TextObj = this.ObjText.getTextObjectByID(TextID);
+		RetValue = TextObj[this.EnvUserLanguage];
+	}
+	catch(err) {
+		RetValue = 'Missing Text with ID:' + TextID;
 		console.debug('Text not found for given TextID:' + TextID);
 	}
 	return RetValue;

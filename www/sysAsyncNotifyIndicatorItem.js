@@ -15,15 +15,15 @@
 //- CONSTRUCTOR "sysObjAsyncNotifyIndicatorItem"
 //------------------------------------------------------------------------------
 
-function sysObjAsyncNotifyIndicatorItem(NotifyConfig, ParentRef) {
-
+function sysObjAsyncNotifyIndicatorItem(NotifyConfig, ParentRef)
+{
 	this.EventListeners	= new Object();
 	this.ChildObjects	= new Array();
 
 	this.ParentObj		= ParentRef;										// Async Indicator Object Ref
 
 	this.ObjectID		= 'IndicatorItem' + this.ParentObj.zIndex;			// ObjectID
-	this.DOMStyle		= 'sysIndicatorItem row IndicatorLoading';			// Base Indicator Item Style
+	this.DOMStyle		= 'sysIndicatorItem IndicatorLoading';				// Base Indicator Item Style
 
 	this.NotifyConfig	= NotifyConfig;										// Notify Config
 	this.ID				= NotifyConfig.ID;									// Unique Name
@@ -33,7 +33,6 @@ function sysObjAsyncNotifyIndicatorItem(NotifyConfig, ParentRef) {
 	this.ProcessStatus	= -1;												// -1: processing, 0: processed ok
 
 	this.init();
-
 }
 
 sysObjAsyncNotifyIndicatorItem.prototype = new sysBaseObject();
@@ -50,22 +49,51 @@ sysObjAsyncNotifyIndicatorItem.prototype.init = function()
 	this.DOMStyleZIndex = this.ParentObj.zIndex;
 	this.setDOMElementZIndex();
 
-	var HeaderObj = new sysBaseObject();
-	HeaderObj.ObjectID = 'Header';
-	HeaderObj.DOMStyle = 'sysIndicatorItemHeader';
-	HeaderObj.DOMValue = this.DisplayHeader;
+	var BtnEnclose = new sysBaseObject();
+	BtnEnclose.ObjectID = 'enclose';
+
+	var BtnClose = new sysBaseObject();
+	BtnClose.ObjectID = 'btnclose';
+	BtnClose.DOMType = 'button';
+	BtnClose.DOMStyle = 'btn-close';
+	BtnClose.DOMAttributes = new Object();	
+	BtnClose.DOMAttributes['type'] = 'button';
+	BtnClose.DOMAttributes['title'] = 'Notifikation schließen';
+
+	BtnEnclose.addObject(BtnClose);
+	this.addObject(BtnEnclose);
+
+	var RowContainer = new sysBaseObject();
+	RowContainer.ObjectID = 'rowcontainer';
+	RowContainer.DOMStyle = 'row';
+
+	var IconEnclose = new sysBaseObject();
+	IconEnclose.ObjectID = 'iconenclose';
+	IconEnclose.DOMStyle = 'col-1';
+
+	this.IconObj = new sysBaseObject();
+	this.IconObj.ObjectID = 'icon';
+	this.IconObj.DOMStyle = 'fa fa-spinner fa-spin';
+
+	var ResultEnclose = new sysBaseObject();
+	ResultEnclose.ObjectID = 'resultenclose';
+	ResultEnclose.DOMStyle = 'col-11';
 
 	this.ResultObj = new sysBaseObject();
-	this.ResultObj.ObjectID = 'Result';
+	this.ResultObj.ObjectID = 'result';
 	this.ResultObj.DOMStyle = 'sysIndicatorItemResult';
+	this.ResultObj.DOMValue = 'Die Daten werden zum Server gesendet und verarbeitet.';
 
-	this.addObject(HeaderObj);
-	this.addObject(this.ResultObj);
+	IconEnclose.addObject(this.IconObj);
+	RowContainer.addObject(IconEnclose);
+	ResultEnclose.addObject(this.ResultObj);
+	RowContainer.addObject(ResultEnclose);
+
+	this.addObject(RowContainer);
 
 	this.ParentObj.addObject(this);
 
 	this.renderObject(this.ParentObj.DOMObjectID);
-	//console.debug('::init IndicatorItem rendered Parent DOMObjectID:%s', this.ParentObj.DOMObjectID);
 
 	this.DOMaddEventListener('mousedown', this.close.bind(this));
 }
@@ -108,20 +136,19 @@ sysObjAsyncNotifyIndicatorItem.prototype.updateDisplay = function()
 
 sysObjAsyncNotifyIndicatorItem.prototype.processResult = function(status)
 {
-
 	var UpdateDisplayText = '';
 
 	if (status == 'SUCCESS') {
 		this.setProcessStatus(0);
-		UpdateDisplayText = 'Aktion erfolgreich';
+		UpdateDisplayText = 'Die durchgeführte Aktion "' + this.ID + '" war erfolgreich.';
 	}
 	else if (status == 'ERROR') {
 		this.setProcessStatus(1);
-		UpdateDisplayText = 'Fehler aufgetreten';
+		UpdateDisplayText = 'Bei der Aktion "' + this.ID + '" ist ein Fehler aufgetreten.';
 	}
 	else {
 		this.setProcessStatus(2);
-		UpdateDisplayText = 'Unbekannter Fehler aufgetreten';
+		UpdateDisplayText = 'Es ist ein Systemfehler aufgetreten.';
 	}
 
 	this.setDisplayText(UpdateDisplayText);
@@ -129,14 +156,13 @@ sysObjAsyncNotifyIndicatorItem.prototype.processResult = function(status)
 
 	//- on success, update given system object and switch screen if defined
 	if (status == 'SUCCESS') {
-
-		if (this.NotifyConfig.OnSuccess !== undefined) {
+		if (this.NotifyConfig.OnSuccess !== undefined && this.NotifyConfig.OnSuccess.FireEvents !== undefined) {
 			//console.log(this.NotifyConfig.OnSuccess.FireEvents);
-			sysFactory.Reactor.fireEvents(this.NotifyConfig.OnSuccess.FireEvents);
+			sysFactory.Reactor.fireEvents(
+				this.NotifyConfig.OnSuccess.FireEvents
+			);
 		}
-
 	}
-
 }
 
 
@@ -146,8 +172,21 @@ sysObjAsyncNotifyIndicatorItem.prototype.processResult = function(status)
 
 sysObjAsyncNotifyIndicatorItem.prototype.updateProcessStatus = function()
 {
-	if (this.ProcessStatus == 0)  { this.addDOMElementStyle('IndicatorSuccess'); }
-	if (this.ProcessStatus >  0)  { this.addDOMElementStyle('IndicatorError'); }
+	if (this.ProcessStatus == 0)  {
+		this.addDOMElementStyle('IndicatorSuccess');
+		this.IconObj.DOMStyle = 'fa fa-check';
+		this.IconObj.setDOMElementStyle();
+	}
+	if (this.ProcessStatus == 1)  {
+		this.addDOMElementStyle('IndicatorWarning');
+		this.IconObj.DOMStyle = 'fa fa-exclamation';
+		this.IconObj.setDOMElementStyle();
+	}
+	if (this.ProcessStatus == 2)  {
+		this.addDOMElementStyle('IndicatorError');
+		this.IconObj.DOMStyle = 'fa fa-bug';
+		this.IconObj.setDOMElementStyle();	
+	}
 }
 
 

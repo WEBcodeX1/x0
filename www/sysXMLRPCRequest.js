@@ -66,7 +66,7 @@ sysCallXMLRPC.prototype.setRequestBasicAuth = function(Username, Password)
 
 sysCallXMLRPC.prototype.Request = function(RequestObject)
 {
-	//console.debug('::sysCallXMLRPC RequestObject RequestObject:', RequestObject);
+	console.debug('::sysCallXMLRPC RequestObject RequestObject:%o Type:%s', RequestObject, typeof(RequestObject));
 
 	if (RequestObject !== undefined &&
 		RequestObject.JSONConfig !== undefined &&
@@ -96,10 +96,6 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
 			//- if valid request, evaluate result json object
 			if (request.readyState == 4 && request.status == 200) {
 
-				if (this.RequestType == 'GET') {
-					console.debug('::sysCallXMLRPC RequestObject ResponseText:%s', request.responseText);
-				}
-
 				var ResultData = '';
 
 				if (request.responseText.length > 0) {
@@ -114,12 +110,13 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
 						RequestObject.XMLRPCResultData = ResultData;
 					}
 					//console.debug('RequestObject:%o', RequestObject);
-					//try {
+					
+					try {
 						RequestObject.callbackXMLRPCAsync();
-					//}
-					//catch(err) {
-					//	console.debug('Err:%s', err);
-					//}
+					}
+					catch(err) {
+						console.debug('XMLRPC Callback Error:%s', err);
+					}
 				}
 			}
 		}
@@ -193,11 +190,11 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
 		//- SEND REQUEST
 		//------------------------------------------------------------------------------
 
-		if (this.RequestType == 'GET') {
+		if (this.RequestType == 'GET' && this.URL !== undefined) {
 			request.send();
 		}
 
-		if (this.RequestType == 'POST') {
+		if (this.RequestType == 'POST' && this.URL !== undefined) {
 			request.send(JSON.stringify(this.PostData));
 		}
 	}

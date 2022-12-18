@@ -15,21 +15,20 @@
 //- CONSTRUCTOR "sysObjLink"
 //------------------------------------------------------------------------------
 
-function sysObjLink() {
-
+function sysObjLink()
+{
 	this.EventListeners				= new Object(); 		//- event listeners
 	this.ChildObjects				= Array();				//- child objects recursive
 
 	this.ScreenID					= null;
 	this.TextID						= null;
-	this.RaiseEvents				= null;
+	this.FireEvents					= null;
 	this.ScreenOverlayID			= null;
 	this.ScreenOverlayAttributes	= null;
 
 	this.DOMType					= 'button'				//- Set DOM Element Type
 
 	this.LinkHilteStyle 			= 'sysMenuLinkHilite';
-
 }
 
 sysObjLink.prototype = new sysBaseObject();
@@ -43,7 +42,7 @@ sysObjLink.prototype.init = function()
 {
 	const Attributes = this.JSONConfig.Attributes;
 
-	console.debug('set Attributes:%o', Attributes);
+	console.debug('set Link Attributes:%o', Attributes);
 
 	this.DOMStyle = Attributes.Style;
 
@@ -53,17 +52,18 @@ sysObjLink.prototype.init = function()
 	this.ScreenOverlayID= Attributes.ScreenOverlayID;
 	this.ScreenOverlayAttributes = Attributes.ScreenOverlayAttributes;
 
-	this.SQLTextObj = new sysObjSQLText();
-	this.SQLTextObj.ObjectID = 'SQLText';
-	this.SQLTextObj.TextID = this.TextID;
-	this.SQLTextObj.init();
-	this.addObject(this.SQLTextObj);
+	if (Attributes.ShowLink === undefined && Attributes.ShowLink !== true) {
+		this.SQLTextObj = new sysObjSQLText();
+		this.SQLTextObj.ObjectID = 'SQLText';
+		this.SQLTextObj.TextID = this.TextID;
+		this.SQLTextObj.init();
+		this.addObject(this.SQLTextObj);
+	}
 
 	var EventConfig = new Object();
 	EventConfig['Type'] = 'mousedown';
 	EventConfig['Element'] = this.EventListener.bind(this);
-
-	this.EventListeners["sysLink"] = EventConfig;
+	this.EventListeners['sysLink'] = EventConfig;
 }
 
 

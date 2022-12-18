@@ -28,6 +28,8 @@ function sysFormfieldList()
 
 	this.RuntimeGetDataFunc		= this.getFormfieldItemData;		//- Get Runtime Data (Formfield data Key/Value)
 	this.RuntimeSetDataFunc		= this.setData;						//- Set Runtime Data
+
+	this.DOMType				= 'form';							//- Enclosed Form Element
 }
 
 sysFormfieldList.prototype = new sysBaseObject();
@@ -82,7 +84,7 @@ sysFormfieldList.prototype.init = function()
 
 			//console.debug('::init FormJSON:%o FormAttributes:%o', FormJSONConfig, Attributes);
 
-			var FormObj = sysFormfieldSelector(Attributes.Type);
+			var FormObj = new sysFormfieldSelector(Attributes.Type);
 
 			if (FormObj !== undefined) {
 				FormObj.JSONConfig			= FormJSONConfig;
@@ -215,10 +217,6 @@ sysFormfieldList.prototype.render = function()
 		}
 	}
 
-	this.ErrorObj = new sysBaseObject();
-	this.ErrorObj.ObjectID = this.ObjectID + 'Error';
-	this.addObject(this.ErrorObj);
-
 	for (Index in this.CellGroups) {
 		CellGroupObject = this.CellGroups[Index];
 		this.addObject(CellGroupObject);
@@ -296,8 +294,8 @@ sysFormfieldList.prototype.validate = function()
 	if (ErrorObj !== undefined) {
 		ErrorObj.reset();
 
-		var ErrorDisplayTextID = 'SYS_DEFAULT_ERROR_TEXT';
-		var ErrorDisplayText = 'Undefined';
+		var ErrorDisplayTextID;
+		var ErrorDisplayText;
 
 		for (Key in this.FormfieldItems) {
 			console.debug('Formfield Key:%s', Key);
@@ -305,16 +303,18 @@ sysFormfieldList.prototype.validate = function()
 			const FormValidateTextID = FormItem.JSONConfig.Attributes.ValidateTextID;
 			if (FormItem.validate() === false) {
 				console.debug('FormValidateTextID:%s', FormValidateTextID);
-				ErrorDisplayTextID = (FormValidateTextID !== undefined) ? FormValidateTextID : 'SYS_DEFAULT_ERROR_TEXT';
+				ErrorDisplayTextID = (FormValidateTextID !== undefined) ? FormValidateTextID : 'TXT.SYS.ERROR.FORMVALIDATE.DEFAULT';
 				ErrorDisplayText = sysFactory.getText(ErrorDisplayTextID); 
 				ValidateStatus = false;
 			}
 		}
 
 		// ----------------------------------------------------------------
-		// - make uique function / method with sysButton validate
+		// - group validate
 		// ----------------------------------------------------------------
+
 		if (Attributes.GroupValidate !== undefined) {
+			console.debug('GroupValidate:%o', Attributes.GroupValidate);
 			for (GroupKey in Attributes.GroupValidate) {
 				const GroupConf = Attributes.GroupValidate[GroupKey];
 				const GroupFunction = GroupConf.FunctionRef;
@@ -332,8 +332,9 @@ sysFormfieldList.prototype.validate = function()
 				}
 			}
 		}
+
 		// ----------------------------------------------------------------
-		// - make uique function / method with sysButton validate
+		// - check validate status
 		// ----------------------------------------------------------------
 
 		if (ValidateStatus === false) {
@@ -398,7 +399,13 @@ sysFormfieldList.prototype.getFormfieldItemByID = function(ObjectID)
 
 sysFormfieldList.prototype.reset = function()
 {
-	//- TODO: implement in correct way
+	console.debug('Formlist reset() called.');
+	for (FormKey in this.FormfieldItems) {
+		const FormItemID = this.FormfieldItems[FormKey].ObjectID;
+		const FormItemObj = sysFactory.getObjectByID(FormItemID);
+		console.debug('reset Object:%o', FormItemObj);
+		FormItemObj.reset();
+	}
 }
 
 
@@ -563,4 +570,5 @@ sysFormfieldList.prototype.rewriteOverlayFormitemNames = function()
 	}
 
 	this.JSONConfig.Attributes.Formfields = NewFormfields;
+	console.debug('Overlay Formfields:%o', this.JSONConfig.Attributes.Formfields);
 }

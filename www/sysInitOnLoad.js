@@ -133,9 +133,9 @@ function InitOk(XHR) {
 	//- Style Defaults
 	//----------------------------------------------------------------------------
 
-	sysFactory.DefaultStyleScreen			= 'sysScreenRoot col-lg-10 col-md-12';
+	sysFactory.DefaultStyleScreen			= 'sysScreenRoot col-lg-10 col-md-12 ms-auto me-auto';
 	sysFactory.DefaultStyleMenu				= 'col-lg-2 col-md-12';
-	sysFactory.DefaultStyleScreenOverlay	= 'sysScreenOverlay col-lg-10 col-md-12';
+	sysFactory.DefaultStyleScreenOverlay	= 'sysScreenOverlay model-dialog modal-lg';
 	sysFactory.DefaultStyleListNavLeft		= 'col-6 pl-0';
 	sysFactory.DefaultStyleListNavRight		= 'col-6 text-right pr-0';
 
@@ -151,7 +151,7 @@ function InitOk(XHR) {
 	//- User Functions
 	//----------------------------------------------------------------------------
 
-	sysFactory.UserFunctions = sysVarUserFunctions;
+	sysFactory.UserFunctions = new Object();
 
 
 	//----------------------------------------------------------------------------

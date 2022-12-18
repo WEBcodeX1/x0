@@ -19,7 +19,7 @@ function sysFileUpload()
 {
 	this.DOMType				= 'form';
 	this.DOMAttributes			= { 'enctype': 'multipart/form-data' };
-    this.EventListeners			= new Object();
+	this.EventListeners			= new Object();
 	this.ChildObjects			= new Array();
 	this.FileName				= null;
 	this.Status					= null;
@@ -35,7 +35,7 @@ sysFileUpload.prototype = new sysBaseObject();
 
 sysFileUpload.prototype.init = function()
 {
-	var Attributes = this.JSONConfig.Attributes;
+	const Attributes = this.JSONConfig.Attributes;
 
 	this.DOMStyle = Attributes.Style;
 	this.DOMType = 'form';
@@ -77,7 +77,8 @@ sysFileUpload.prototype.init = function()
 
 	var UploadButton = new sysObjButtonInternal();
 	UploadButton.ObjectID = this.ObjectID + 'UploadButton';
-	UploadButton.JSONConfig = { "Attributes": {
+	UploadButton.JSONConfig = {
+		"Attributes": {
 			"Style": Attributes.StyleUploadButton,
 			"TextID": "SYSTEM.UPLOAD.BUTTON",
 			"Action": "upload"
@@ -144,6 +145,12 @@ sysFileUpload.prototype.UploadFinished = function(progress)
 	this.Status = 'uploaded';
 	this.ProgressPercent = 100;
 	this.renderProgressBar();
+
+	const Attributes = this.JSONConfig.Attributes;
+
+	if (Attributes.ScreenDataLoad !== undefined) {
+		sysFactory.triggerScreenDataLoad(Attributes.ScreenDataLoad);
+	}
 }
 
 
@@ -153,11 +160,17 @@ sysFileUpload.prototype.UploadFinished = function(progress)
 
 sysFileUpload.prototype.renderProgressBar = function()
 {
-	var ProgressBarElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressBar');
-	var ProgressPercentageElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressPercentage');
-	ProgressBarElement.DOMStyleWidth = this.ProgressPercent + '%'
-	ProgressPercentageElement.DOMValue = Math.round(this.ProgressPercent) + '%';
-	ProgressPercentageElement.setDOMElementValue();
+	try {
+		const ProgressBarElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressBar');
+		const ProgressPercentageElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressPercentage');
+		ProgressBarElement.DOMStyleWidth = this.ProgressPercent + '%'
+		ProgressBarElement.setDOMElementStyleAttributes();
+		ProgressPercentageElement.DOMValue = Math.round(this.ProgressPercent) + '%';
+		ProgressPercentageElement.setDOMElementValue();
+	}
+	catch(err) {
+		console.debug('FileUpload Progress Bar exception:%o', err);
+	}
 }
 
 

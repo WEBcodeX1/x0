@@ -23,11 +23,12 @@ function sysIntervalHandler() {
 //- METHOD "process"
 //------------------------------------------------------------------------------
 
-sysIntervalHandler.prototype.processInterval = function(Config, FormObject, XMLRPCHandler)
+sysIntervalHandler.prototype.processInterval = function(Config, ParentFormObject, XMLRPCHandler)
 {
-	//console.debug('::processInterval Config:%o', IntervalConfig);
+	//console.debug('::processInterval Config:%o FormObject:%o', Config, ParentFormObject);
 
 	const CheckObjects = Config.ValidateMultiDataOnSuccess;
+	const FormObject = ParentFormObject.ChildObjects[0];
 
 	for (Index in Config.Items) {
 
@@ -37,33 +38,34 @@ sysIntervalHandler.prototype.processInterval = function(Config, FormObject, XMLR
 
 			//console.debug('::ValidateData');
 
-			const FormValue = FormObject.getRuntimeData();
+			const FormValue = ParentFormObject.getRuntimeData();
 			const Length = FormValue.length;
 
 			//console.debug('ValidateIntervalConfig Length:%s DataObjectKey:%s', Length, IntervalConfig.DataObjectKey);
 			//console.debug('ValidateIntervalConfig this:%o', this);
 
-			if (FormObject.checkLengthMismatch(Length, IntervalConfig.DataLength, IntervalConfig) == true) {
-				
+			if (ParentFormObject.checkLengthMismatch(Length, IntervalConfig.DataLength, IntervalConfig) === true) {
+
 				const IgnoreProps = IntervalConfig.DataLengthIgnore;
 
-				if (IgnoreProps.prefix !== undefined && FormValue.startsWith(IgnoreProps.prefix) == true) {
+				if (IgnoreProps.prefix !== undefined && FormValue.startsWith(IgnoreProps.prefix) === true) {
 
 					const CheckArray = FormObject[IntervalConfig.DataObjectKey];
 
 					// --> START UGLY, must be fixed in setValidateStyle()
 					if (CheckArray.includes(FormValue) == 0) {
-						FormObject.setValidateStyle(-1);
+						ParentFormObject.setValidateStyle(-1);
 					}
 					else {
-						FormObject.setValidateStyle(0);
+						ParentFormObject.setValidateStyle(0);
 					}
 					// --> END UGLY
 
 					IntervalConfig['FormfieldValue'] = FormValue;
 
 					if (IntervalConfig.ServiceURL !== undefined) {
-						const Handler = new XMLRPCHandler(IntervalConfig, FormObject);
+						ParentFormObject.reset();
+						const Handler = new XMLRPCHandler(IntervalConfig, ParentFormObject);
 						Handler.callService();
 					}
 				}
@@ -75,38 +77,36 @@ sysIntervalHandler.prototype.processInterval = function(Config, FormObject, XMLR
 			//console.debug('::ValidateMultiData');
 
 			const MultiData = IntervalConfig.Items;
-			const FormValue = FormObject.getRuntimeData();
+			const FormValue = ParentFormObject.getRuntimeData();
 			const Length = FormValue.length;
 
 			for (Index in MultiData) {
 
 				MultiDataItem = MultiData[Index];
 
-				//console.debug('Item:%o', MultiDataItem);
-				
-				if (FormObject.checkLengthMismatch(Length, MultiDataItem.DataLength, MultiDataItem) == true) {	
+				//console.debug('Multidata Item:%o', MultiDataItem);
+
+				if (ParentFormObject.checkLengthMismatch(Length, MultiDataItem.DataLength, MultiDataItem) === true) {
 					try {
 						const CheckArray = FormObject[MultiDataItem.DataObjectKey];
 
 						if (CheckArray.includes(FormValue) > 0) {
 							const DstObject = sysFactory.getObjectByID(MultiDataItem.OnMatchDstObject);
-							DstObject.setValue(FormValue);
+							DstObject.ParentObject.setValue(FormValue);
 							MultiDataItem['FormfieldValue'] = FormValue;
-							const Handler = new XMLRPCHandler(MultiDataItem, FormObject);
+							const Handler = new XMLRPCHandler(MultiDataItem, ParentFormObject);
 							Handler.callService();
 						}
-						else {
-							if (MultiDataItem.ResetOnFailure == true) {
-								FormObject.reset();
-								FormObject.focus();
-							}
+						else if (MultiDataItem.ResetOnFailure === true){
+							ParentFormObject.reset();
+							ParentFormObject.focus();
 						}
 					}
 					catch(err) {
+						console.debug('Multidata Exception:%s', err);
 					}
 				}
 			}
-
 		}
 
 		if (IntervalConfig.Type == 'ValidateLength') {
@@ -114,37 +114,37 @@ sysIntervalHandler.prototype.processInterval = function(Config, FormObject, XMLR
 			//console.debug('::ValidateLength');
 
 			const Length = IntervalConfig.DataLength;
-			const FormValue = FormObject.getRuntimeData();
+			const FormValue = ParentFormObject.getRuntimeData();
 			const FormLength = FormValue.length;
 
 			//console.debug('::ValidateLength FormObject:%o Length:%s FormValue:%s FormLength:%s', FormObject, Length, FormValue, FormLength);
 
-			if (FormObject.checkLengthMismatch(FormLength, Length, IntervalConfig) == true) {
+			if (ParentFormObject.checkLengthMismatch(FormLength, Length, IntervalConfig) == true) {
 
 				const IgnoreProps = IntervalConfig.DataLengthIgnore;
 
 				if (IgnoreProps.prefix !== undefined && FormValue.startsWith(IgnoreProps.prefix) == true) {
 					const DstObject = sysFactory.getObjectByID(IntervalConfig.DstObject);
-					DstObject.setValue(FormValue);
+					DstObject.ParentObject.setValue(FormValue);
 					//DstObject.setValue(FormObject.ValidateLengthString);
 					console.debug('::ValidateLength DstObject:%o', DstObject);
-					
+
 					if (IgnoreProps.reset == true) {
-						FormObject.reset();
-						FormObject.focus();
+						ParentFormObject.reset();
+						ParentFormObject.focus();
 					}
 				}
 			}
 		}
-		
+
 		if (IntervalConfig.Type == 'MatchTableColumn') {
 
-			const FormValue = FormObject.getRuntimeData();
+			const FormValue = ParentFormObject.getRuntimeData();
 			const Length = FormValue.length;
 
 			//console.debug('MatchTableColumn FormValue:%s Length:%s', FormValue, Length);
 
-			if (FormObject.checkLengthMismatch(Length, IntervalConfig.DataLength, IntervalConfig) == true) {
+			if (ParentFormObject.checkLengthMismatch(Length, IntervalConfig.DataLength, IntervalConfig) == true) {
 
 				const DstObject = sysFactory.getObjectByID(IntervalConfig.DstObjectID);
 				const DstObjectColumn = IntervalConfig.DstObjectColumn;
@@ -168,16 +168,15 @@ sysIntervalHandler.prototype.processInterval = function(Config, FormObject, XMLR
 					//console.debug('Table Rows:%s MatchRows:%s', CheckRowCount, MatchRowsCount);
 
 					const ActivateObject = sysFactory.getObjectByID(ActivateObjProps.ObjectID);
-					
+
 					if (CheckRowCount == MatchRowsCount) {
 						ActivateObject.enable();
 					}
 				}
 				if (IntervalConfig.ResetOnSuccess === true) {
-					FormObject.reset();
-					FormObject.focus();
+					ParentFormObject.reset();
+					ParentFormObject.focus();
 				}
-
 			}
 		}
 
@@ -189,13 +188,14 @@ sysIntervalHandler.prototype.processInterval = function(Config, FormObject, XMLR
 				for (Index in CheckObjects.CheckObjects) {
 					const CheckObject = sysFactory.getObjectByID(CheckObjects.CheckObjects[Index]);
 					//console.debug('::CheckObject Object:%o', CheckObject);
-					const ObjectData = CheckObject.getRuntimeData();
+					const ObjectData = CheckObject.ParentObject.getObjectData();
 					//console.debug('::CheckObjects ObjectData:%o', ObjectData);
 					if (ObjectData.length > 0) { CheckCount++; }
 				}
-				
+
 				if (CheckCount == CheckObjects.CheckObjects.length) {
 					const ActivateObject = sysFactory.getObjectByID(CheckObjects.ActivateObject);
+					//console.debug('::CheckObjects ActivateObject:%o', ActivateObject);
 					ActivateObject.enable();
 				}
 			}
@@ -203,12 +203,12 @@ sysIntervalHandler.prototype.processInterval = function(Config, FormObject, XMLR
 		catch(err) {
 		}
 
-		FormObject.focus();
+		ParentFormObject.focus();
 
 	}
 
 	//console.debug('::processInterval setTimeout Interval:%s', IntervalConfig.Interval);
 
-	setTimeout(FormObject.processInterval, Config.Interval, Config, FormObject, XMLRPCHandler);
+	setTimeout(ParentFormObject.processInterval, Config.Interval, Config, ParentFormObject, XMLRPCHandler);
 
 }

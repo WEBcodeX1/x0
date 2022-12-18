@@ -355,8 +355,13 @@ sysList.prototype.removeMultiData = function(IndexArray)
 
 sysList.prototype.getData = function()
 {
+
+	this.resetData();
+	this.remove();
+
 	RPC = new sysCallXMLRPC(this.DataURL, this.DataURLParams);
 	RPC.Request(this);
+
 }
 
 
@@ -376,7 +381,7 @@ sysList.prototype.callbackXMLRPCAsync = function()
 sysList.prototype.update = function()
 {
 	this.UpdateCount++;
-	this.resetData();
+	this.remove();
 	this.setUpdateResult();
 	this.renderPage();
 }

@@ -16,6 +16,10 @@
 //------------------------------------------------------------------------------
 
 function sysObjLinkExternal() {
+	/*
+	this.ChildObjects		= new Array();
+	this.DOMAttributes		= new Array();
+	*/
 }
 
 sysObjLinkExternal.prototype = new sysBaseObject();
@@ -42,14 +46,13 @@ sysObjLinkExternal.prototype.updateValue = function()
 	var LinkContent = Attributes.LinkURL+'?a=1';
 	var LinkDisplay = (Attributes.LinkDisplay === undefined) ? Attributes.LinkURL : Attributes.LinkDisplay;
 
-	if (Attributes.LinkDisplayOnValueUndefined === true && this.Value === undefined) {
-		LinkDisplay = Attributes.LinkDisplayOnValueUndefined;
-	}
-
 	var TabParams = '';
+
+	var DoNotSetDOMValue = false;
 
 	if (Attributes.OpenInTab === true) {
 		TabParams = ' target="_blank" rel="noopener noreferrer"';
+		//TabParams = '_blank" rel="noopener noreferrer';
 	}
 
 	if (Attributes.ReplaceSessionID === true) {
@@ -70,12 +73,35 @@ sysObjLinkExternal.prototype.updateValue = function()
 		const ScreenGlobalVars = sysFactory.getScreenByID(Attributes.ScreenGlobalVars);
 		//console.debug('ScreenObj:%o', ScreenGlobalVars);
 		for (ReplaceKey in Attributes.ReplaceScreenGlobalVars) {
-			const ReplaceValue = Attributes.ReplaceScreenGlobalVars[ReplaceKey];
-			LinkContent += '&'+ReplaceKey+'='+ScreenGlobalVars.getGlobalVar(ReplaceValue);
+			const ReplaceVar = Attributes.ReplaceScreenGlobalVars[ReplaceKey];
+			const ReplaceValue = ScreenGlobalVars.getGlobalVar(ReplaceVar);
+			console.debug('Replace Value:%s', ReplaceValue);
+			if (ReplaceValue === undefined || ReplaceValue == null) {
+				DoNotSetDOMValue = true;
+				LinkDisplay = Attributes.LinkDisplayOnValueUndefined;
+				break;
+			}
+			LinkContent += '&'+ReplaceKey+'='+ReplaceValue;
 		}
 	}
 
-	this.DOMValue = '<a href="'+LinkContent+'"'+TabParams+'>'+LinkDisplay+'</a>';
+	if (DoNotSetDOMValue === true) {
+		LinkContent = '#';
+		TabParams = '';
+	}
+
+	console.debug('DoNotSetDOMValue:%s', DoNotSetDOMValue);
+
+	/*
+	this.DOMType = 'button';
+	this.DOMValue = LinkDisplay;
+	this.DOMStyle = Attributes.Style;
+	this.DOMAttributes['href'] = LinkContent;
+	this.DOMAttributes['target'] = TabParams;
+	*/
+
+	this.DOMValue = '<a href="'+LinkContent+'"'+TabParams+' class="'+Attributes.Style+'">'+LinkDisplay+'</a>';
+	console.debug('Link DOM Value:%s', this.DOMValue);
 	this.setDOMElementValue();
 }
 

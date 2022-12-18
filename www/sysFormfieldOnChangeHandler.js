@@ -90,10 +90,12 @@ sysFormFieldOnChangeHandler.prototype.processOnChangeItem = function()
 					console.debug('::processOnChangeItem OnValue ObjectID:%s', ObjectID);
 					//console.debug('::processOnChangeItem OnValue Object Runtime Data:%s OnChangeValue:%s', FormValue, OnChangeElement.OnValue);
 					if (Value === true) {
-						DstObj.enable();
+						DstObj.setActivated();
+						DstObj.setDOMVisibleStateRecursive('visible');
 					}
 					else {
-						DstObj.disable();
+						DstObj.setDOMVisibleStateRecursive('hidden');
+						DstObj.setDeactivated();
 					}
 				}
 				catch (err) {
@@ -110,10 +112,12 @@ sysFormFieldOnChangeHandler.prototype.processOnChangeItem = function()
 					const FormValue = this.RuntimeGetDataFunc();
 					//console.debug('::processOnChangeItem OnValue Object Runtime Data:%s OnChangeValue:%s', FormValue, OnChangeElement.OnValue);
 					if (FormValue == OnChangeElement.OnValue) {
-						DstObj.enable();
+						DstObj.setActivated();
+						DstObj.setDOMVisibleStateRecursive('visible');
 					}
 					else {
-						DstObj.disable();
+						DstObj.setDOMVisibleStateRecursive('hidden');
+						DstObj.setDeactivated();
 					}
 				}
 				catch (err) {
@@ -125,22 +129,22 @@ sysFormFieldOnChangeHandler.prototype.processOnChangeItem = function()
 
 				const ObjectID = (this.InstancePrefix === undefined) ? OnChangeElement.ObjectID : this.InstancePrefix + OnChangeElement.ObjectID;
 				var DstObj = sysFactory.getObjectByID(ObjectID);
-				var FormValue = this.RuntimeGetDataFunc();
-				console.debug('::processOnChangeItem ActivateOnValues ObjectID:%s DstObj:%o FormValue:', ObjectID, DstObj, FormValue);
+				const FormValue = this.RuntimeGetDataFunc();
+				//console.debug('::processOnChangeItem ActivateOnValues ObjectID:%s DstObj:%o FormValue:', ObjectID, DstObj, FormValue);
 				var ActiveOnValues = OnChangeElement.ActivateOnValues;
 				for (i in ActiveOnValues) {
 					if (ActiveOnValues[i] == FormValue) {
 						//console.debug('::processOnChangeItem enable()');
-						DstObj.Deactivated = false;
-						DstObj.setDOMVisibleState('visible');
+						DstObj.setActivated();
+						DstObj.setDOMVisibleStateRecursive('visible');
 					}
 				}
 				var DeactivateOnValues = OnChangeElement.DeactivateOnValues;
 				for (i in DeactivateOnValues) {
 					if (DeactivateOnValues[i] == FormValue) {
 						//console.debug('::processOnChangeItem disable()');
-						DstObj.setDOMVisibleState('hidden');
-						DstObj.Deactivated = true;
+						DstObj.setDOMVisibleStateRecursive('hidden');
+						DstObj.setDeactivated();
 					}
 				}
 			}
@@ -162,18 +166,16 @@ sysFormFieldOnChangeHandler.prototype.processOnChangeItem = function()
 							for (Index in DisableArray) {
 								console.debug('::DisableObject ObjectID:%s', DisableArray[Index]);
 								const DisableObject = sysFactory.getObjectByID(DisableArray[Index]);
-								DisableObject.setValidate(false);
-								DisableObject.Deactivated = true;
-								DisableObject.deactivate();
+								DstObj.setDOMVisibleStateRecursive('hidden');
+								DstObj.setDeactivated();
 							}
 						}
 					}
 					else {
 						for (Index in DependItem) {
 							const DisableObject = sysFactory.getObjectByID(DependItem[Index]);
-							DisableObject.setValidate(false);
-							DisableObject.Deactivated = true;
-							DisableObject.deactivate();
+							DstObj.setDOMVisibleStateRecursive('hidden');
+							DstObj.setDeactivated();
 						}
 					}
 				}
@@ -187,18 +189,16 @@ sysFormFieldOnChangeHandler.prototype.processOnChangeItem = function()
 							const ActivateArray = DependItem.DependOnActivate[DependendObjectValue];
 							for (Index in ActivateArray) {
 								const EnableObject = sysFactory.getObjectByID(ActivateArray[Index]);
-								EnableObject.setValidate(true);
-								EnableObject.Deactivated = false;
-								EnableObject.activate();
+								DstObj.setActivated();
+								DstObj.setDOMVisibleStateRecursive('visible');
 							}
 							
 						}
 						else {
 							for (Index in DependItem) {
 								const EnableObject = sysFactory.getObjectByID(DependItem[Index]);
-								EnableObject.setValidate(true);
-								EnableObject.Deactivated = false;
-								EnableObject.activate();
+								DstObj.setActivated();
+								DstObj.setDOMVisibleStateRecursive('visible');
 							}
 						}
 					}
@@ -284,15 +284,8 @@ sysFormFieldOnChangeHandler.prototype.processObjectsEnableOnValuesActivate = fun
 					var ListObj = sysFactory.getObjectByID(ListElement);
 					//console.debug('::processObjectsEnableOnValues Activate ListElement:%s', ListElement);
 
-					try {
-						ListObj.setValidate(true);
-					}
-					catch(err) {
-						console.debug('::processObjectsEnableOnValues Activate err:%s ObjectID:%s', err, ListElement);
-					}
-
-					ListObj.Deactivated = false;
-					ListObj.activate();
+					ListObj.setActivated();
+					ListObj.setDOMVisibleStateRecursive('visible');
 
 					// recurse on single list element
 					var PulldownFormItems = ListObj.getFormFieldItemsByType('pulldown');
@@ -346,16 +339,8 @@ sysFormFieldOnChangeHandler.prototype.processObjectsEnableOnValuesDeactivate = f
 				const ListObj = sysFactory.getObjectByID(ListElement);
 				//console.debug('::processObjectsEnableOnValuesDeactivate ObjectsEnableOnValues ListElementID:%s', ListElement);
 
-				//- do not validate deactivated form lists
-				try {
-					ListObj.setValidate(false);
-				}
-				catch(err) {
-					console.debug('::processObjectsEnableOnValuesDeactivate err:%s ObjectID:%s', err, ListElement);
-				}
-
-				ListObj.Deactivated = true;
-				ListObj.deactivate();
+				ListObj.setDOMVisibleStateRecursive('hidden');
+				ListObj.setDeactivated();
 
 				// recurse on single list element
 				var PulldownFormItems = ListObj.getFormFieldItemsByType('pulldown');
@@ -520,13 +505,8 @@ EnableObjectHandler.prototype.callbackXMLRPCAsync = function()
 	for (Index in DisableObjects) {
 		console.debug('::DisableObject ObjectID:%s', DisableObjects[Index]);
 		const DisableObject = sysFactory.getObjectByID(DisableObjects[Index]);
-		try {
-			DisableObject.setValidate(false);
-		}
-		catch(e) {
-		}
-		DisableObject.Deactivated = true;
-		DisableObject.deactivate();
+		DisableObject.setDOMVisibleStateRecursive('hidden');
+		DisableObject.setDeactivated();
 	}
 
 	if (ResultValue !== undefined) {
@@ -534,13 +514,8 @@ EnableObjectHandler.prototype.callbackXMLRPCAsync = function()
 		for (Index in EnableObjects) {
 			console.debug('::EnableObject ObjectID:%s', EnableObjects[Index]);
 			const EnableObject = sysFactory.getObjectByID(EnableObjects[Index]);
-			try {
-				EnableObject.setValidate(true);
-			}
-			catch(e) {
-			}
-			EnableObject.Deactivated = false;
-			EnableObject.activate();
+			EnableObject.setActivated();
+			EnableObject.setDOMVisibleStateRecursive('visible');
 		}
 	}
 

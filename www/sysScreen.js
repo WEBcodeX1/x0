@@ -40,7 +40,7 @@ sysScreen.prototype.setStyle = function(Style)
 {
 	if (Style === undefined) {
 		const DefaultStyle = sysFactory.DefaultStyleScreen;
-		this.CSSStyle = (DefaultStyle !== undefined) ? DefaultStyle : 'sysScreenRoot col-lg-10 col-md-12';
+		this.CSSStyle = (DefaultStyle !== undefined) ? DefaultStyle : 'sysScreenRoot col-10';
 	}
 	else {
 		this.CSSStyle = Style;
@@ -98,7 +98,7 @@ sysScreen.prototype.setupObject = function(ObjectID, HierarchyObject, HierarchyL
 
 		//console.debug('::setupObject ParamObjectID:%s ProcessObjectKey:%s JSONConfig:%o', ObjectID, Key, JSONConfig);
 
-		//try {
+		try {
 
 			if (JSONConfig !== undefined && JSONConfig.RefID !== undefined) {
 				var JSONConfigRef = sysFactory.DataObject.XMLRPCResultData[JSONConfig.RefID];
@@ -147,10 +147,10 @@ sysScreen.prototype.setupObject = function(ObjectID, HierarchyObject, HierarchyL
 			this.setupObject(Key, AddHierarchyObject, HierarchyLevel);
 			HierarchyLevel -=1;
 		
-		//}
-		//catch(err) {
-		//	console.debug('::setupObject ObjectID:%s err:%s', Key, err);
-		//}
+		}
+		catch(err) {
+			console.debug('::setupObject ObjectID:%s err:%s', Key, err);
+		}
 	}
 }
 
@@ -205,7 +205,13 @@ sysScreen.prototype.getSkeletonObjectsByObjectRefId = function(ObjectId)
 {
 	var RefObjects = new Array();
 
-	const SkeletonComplete = sysFactory.DataSkeleton.XMLRPCResultData;
+	var SkeletonComplete = sysFactory.DataSkeleton.XMLRPCResultData;
+
+	//console.debug('SkeletonComplete:%o', SkeletonComplete);
+
+	if (ObjectId == 'sysMenu') {
+		SkeletonComplete['sysMenu'] = sysFactory.DataMenu.XMLRPCResultData;
+	}
 
 	for (ScreenID in SkeletonComplete) {
 

@@ -36,7 +36,7 @@ function sysReactor() {
 //- METHOD "registerEvent"
 //------------------------------------------------------------------------------
 
-sysReactor.prototype.registerEvent = function(Attributes, ProcessObject, Type='ServiceConnector') {
+sysReactor.prototype.registerEvent = function(Attributes, ProcessObject, Type) {
 
 	//console.debug('::registerEvent Attributes:%o ProcessObject:%o, Type:%s', Attributes, ProcessObject, Type);
 
@@ -48,7 +48,6 @@ sysReactor.prototype.registerEvent = function(Attributes, ProcessObject, Type='S
 			const EventAttributes = EAttributes.Attributes;
 			const EventType = EAttributes.Type;
 
-			//- Type from JSON.Attributes OVERRIDES Function "Type" Argument
 			if (EventType !== undefined) {
 				Type = EventType;
 			}
@@ -75,7 +74,14 @@ sysReactor.prototype.dispatchEvent = function(EventID) {
 		if (EventObj.ID == EventID) {
 
 			const ProcessObj = EventObj.ObjectRef;
-			const Attributes = ProcessObj.ServiceConnector.JSONConfig.Attributes;
+
+			var Attributes;
+			try {
+				Attributes = ProcessObj.ServiceConnector.JSONConfig.Attributes;
+			}
+			catch(err) {
+				Attributes = ProcessObj.JSONConfig.Attributes;
+			}
 
 			//console.debug('Reactor Dispatch Event. EventObject:%o ProcessObj:%o', EventObj, ProcessObj);
 
@@ -100,7 +106,7 @@ sysReactor.prototype.dispatchEvent = function(EventID) {
 				case "Dynpulldown":
 
 					//console.debug('Reactor Dispatch Event. Dynpulldown:%o', ProcessObj);
-					ProcessObj.updateValue();
+					ProcessObj.updateFormItemValue();
 
 					continue;
 
@@ -156,7 +162,12 @@ setObjectPropertyValues.prototype.callService = function()
 		const DstProperty = Attributes.DstProperties[Index];
 		const DstObject = sysFactory.getObjectByID(DstProperty.ObjectID);
 
-		DstObject.disable();
+		try {
+			DstObject.ParentObject.disable();
+		}
+		catch(err) {
+			console.debug('Dst Object disable() failed. ObjectID:%s Object:%o', DstProperty.ObjectID, DstObject);
+		}
 
 		if (DstProperty.SetStyle !== undefined) {
 			DstObject.addDOMElementStyle(DstProperty.SetStyle);
@@ -188,7 +199,13 @@ setObjectPropertyValues.prototype.callbackXMLRPCAsync = function()
 			DstObject.removeDOMElementStyle(DstProperty.SetStyle);
 		}
 
-		DstObject.enable();
+		try {
+			DstObject.ParentObject.enable();
+		}
+		catch(err) {
+			console.debug('Dst Object enable() failed. ObjectID:%s Object:%o', DstProperty.ObjectID, DstObject);
+		}
+
 		DstObject.getDOMelement().focus();
 	}
 }

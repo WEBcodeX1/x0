@@ -275,6 +275,7 @@ sysContextMenu.prototype.setupHeader = function()
 	this.HeaderColCloseObj = new sysBaseObject();
 	this.HeaderColCloseObj.ObjectID = 'ContextMenuTableHeaderClose';
 	this.HeaderColCloseObj.DOMStyle = 'sysContextMenuHeaderColClose';
+	this.HeaderColCloseObj.DOMValue = 'X';
 	this.HeaderColCloseObj.EventListeners = Object();
 
 	//- add close event listener

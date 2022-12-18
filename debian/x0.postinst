@@ -35,7 +35,10 @@ if [ "$1" = "configure" ]; then
 	EXAMPLE_CONFIG_DIR="${BASEDIR}/example"
 
 	DBNAME="x0"
-	DBUSER="x0"
+
+	# enable german UTF-8 locale
+	sed -i 's/^# de_DE.UTF-8 UTF-8$/de_DE.UTF-8 UTF-8/g' /etc/locale.gen 
+	locale-gen
 
 	# make postgres local unix domain socket connection trusted
 	PGCONFFILE=$(find /etc/postgresql -name "pg_hba.conf")
@@ -94,17 +97,10 @@ if [ "$1" = "configure" ]; then
 		done
 	fi;
 
-	# install psycopg2 from pip3
-	pip3 install psycopg2
-
 	# install python-dbpool
-	pip3 install ${BASEDIR}/bin/python-dbpool-0.1.0a0.tar.gz
-
-	# patch psycopg2
-	find /usr/local/lib -name "extensions.py" | while read line; do
-		echo "Patching psycopg2 file:${line}"
-		cp ${BASEDIR}/bin/extensions.py ${line}
-	done
+	if [ "$(pip3 list | grep python-dbpool | cut -d ' ' -f1)" != "python-dbpool" ]; then 
+		pip3 install ${BASEDIR}/bin/python-dbpool-0.1.0a0.tar.gz
+	fi
 
 	# process tests (config in db, copy to vhost subdir)
 	ls ${TEST_CONFIG_DIR} | while read dirname; do

@@ -34,7 +34,10 @@ sysObjDiv.prototype.init = function() {
 
 		//- set dom type if given
 		this.DOMType = (Attributes.DOMType === undefined) ? 'div' : Attributes.DOMType;
-		
+
+		//- set dom value if given
+		this.DOMValue = (Attributes.Value === undefined) ? '' : Attributes.Value;
+
 		//- set dom style
 		this.DOMStyle = Attributes.Style;
 	}

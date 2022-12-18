@@ -1,4 +1,4 @@
-Source: x0-js
+Source: x0
 Section: utils
 Priority: extra
 Maintainer: Claus Prüfer (CTO) <c.pruefer@click-it.online>
@@ -7,9 +7,15 @@ Build-Depends: debhelper (>= 11)
 Homepage: http://click-it.online/
 Vcs-Git: git://git01.webcodex.de/clickit/x0
 
-Package: x0-js
+Package: x0
 Section: utils
 Architecture: all
-Depends: python3 (>= 3.4), python3-pip (>= 18), postgresql-13 (>= 13.0), postgresql-13 (< 14.0), libpq-dev (>= 13.0), apache2 (>= 2.4), libapache2-mod-wsgi-py3 (>= 3.3)
-Description: Serverless, easy extendable OOP JavaScript browser framework.
- Long description.
+Depends: python3 (>= 3.4), python3-pip (>= 18), postgresql-13 (>= 12.0), postgresql-13 (<= 13.9), libpq-dev (>= 13.0), apache2 (>= 2.4), libapache2-mod-wsgi-py3 (>= 3.3)
+Description: Easy, serverless and extendable OOP JavaScript browser-framework.
+ An easy, serverless and extendable OOP JavaScript browser-framework.
+
+Package: x0-psycopg2-patched
+Section: utils
+Architecture: all
+Depends: x0 (>= 0.9)
+Description: Working (patched) psycopg2 for Debian 11 (missing python module).

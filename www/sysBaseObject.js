@@ -238,6 +238,20 @@ sysBaseObject.prototype.deactivateDeactivated = function()
 
 
 //------------------------------------------------------------------------------
+//- METHOD "setDOMVisibleStateRecursive"
+//------------------------------------------------------------------------------
+
+sysBaseObject.prototype.setDOMVisibleStateRecursive = function(state)
+{
+	this.setDOMVisibleState(state);
+	for (i in this.ChildObjects) {
+		const ChildItem = this.ChildObjects[i];
+		ChildItem.setDOMVisibleStateRecursive(state);
+	}
+}
+
+
+//------------------------------------------------------------------------------
 //- METHOD "setActivated"
 //------------------------------------------------------------------------------
 
@@ -262,7 +276,7 @@ sysBaseObject.prototype.setDeactivated = function()
 
 	for (i in this.ChildObjects) {
 		const ChildItem = this.ChildObjects[i];
-		ChildItem.setActivated();
+		ChildItem.setDeactivated();
 	}
 }
 
@@ -277,7 +291,7 @@ sysBaseObject.prototype.setTabActivated = function()
 
 	for (i in this.ChildObjects) {
 		const ChildItem = this.ChildObjects[i];
-		ChildItem.setActivated();
+		ChildItem.setTabActivated();
 	}
 }
 
@@ -292,7 +306,7 @@ sysBaseObject.prototype.setTabDeactivated = function()
 
 	for (i in this.ChildObjects) {
 		const ChildItem = this.ChildObjects[i];
-		ChildItem.setActivated();
+		ChildItem.setTabDeactivated();
 	}
 }
 
@@ -323,17 +337,25 @@ sysBaseObject.prototype.remove = function()
 
 sysBaseObject.prototype.getObjectData = function()
 {
+	//console.debug('BaseObject getObjectData() this:%o', this);
 	return this.RuntimeGetDataFunc();
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "getObjectDataStringified"
+//- METHOD "setObjectData"
 //------------------------------------------------------------------------------
 
-sysBaseObject.prototype.getObjectDataStringified = function()
+sysBaseObject.prototype.setObjectData = function(Data)
 {
-	return JSON.stringify(this.RuntimeGetDataFunc());
+	//console.debug('BaseObject setObjectData() this:%o Data:%o', this, Data);
+	try {
+		this.ParentObject.RuntimeSetDataFunc(Data);
+	}
+	catch(err) {
+		this.RuntimeSetDataFunc(Data);
+	}
+	
 }
 
 

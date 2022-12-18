@@ -19,7 +19,7 @@ function sysTab()
 	this.ObjectID										= null;							//- ObjectID
 	this.TabID											= null;							//- TabID
 
-	this.DOMType										= 'button'						//- Set DOM Element Type
+	this.DOMType										= 'li'							//- Set DOM Element Type
 
 	this.Default										= false;						//- false | true
 
@@ -76,12 +76,25 @@ sysTab.prototype.fireEvents = function()
 
 sysTab.prototype.switchStyle = function()
 {
+
+	const SwitchObject1 = sysFactory.getObjectByID(this.SwitchStyleObject1ID);
+	const SwitchObject2 = sysFactory.getObjectByID(this.SwitchStyleObject2ID);
+
 	//- remove style
 	this.removeDOMElementStyle(this.StyleRemove);
+	SwitchObject1.removeDOMElementStyle(this.StyleRemove);
+	SwitchObject2.removeDOMElementStyle(this.StyleRemove + 'Text');
 
 	//- set style
 	this.DOMStyle = this.Style;
 	this.setDOMElementStyle();
+
+	SwitchObject1.DOMStyle = this.Style;
+	SwitchObject1.setDOMElementStyle();
+
+	SwitchObject2.DOMStyle = this.Style + 'Text';
+	SwitchObject2.setDOMElementStyle();
+
 }
 
 
@@ -217,7 +230,6 @@ sysTabContainer.prototype.addTabs = function()
 		TabElement.FireEvents			= TabAttributes.FireEvents;
 		TabElement.StyleActive			= this.ContainerAttributes.StyleActive;
 		TabElement.StyleInactive		= this.ContainerAttributes.StyleInactive;
-		TabElement.DOMStyle				= TabAttributes.Style;
 		TabElement.Index				= TabConfigElement.Index;
 
 		TabElement.TabContainer			= this;
@@ -261,21 +273,27 @@ sysTabContainer.prototype.getTabByTabID = function(TabID)
 
 sysTabContainer.prototype.appendTabObject = function(TabElement)
 {
-	var SQLTextObj = new sysObjSQLText();
-	SQLTextObj.ObjectID = TabElement.ObjectID;
-	SQLTextObj.TextID = TabElement.TextID;
-	SQLTextObj.DOMStyle = TabElement.Style + 'Text';
-	SQLTextObj.init();
-
 	TabContentObj = new sysObjDiv();
 	TabContentObj.ObjectID = TabElement.TabID;
 	TabContentObj.ObjectType = 'TabContent';
-	TabContentObj.JSONConfig = {
-		"Attributes": {
-			"Style": "sysTabContent"
-		}
-	};
+
+	/*
+		// MISSING: get style(s) from JSON config, issue #121
+	*/
 	TabContentObj.init();
+
+	ButtonObj = new sysObjDiv();
+	ButtonObj.ObjectID = TabElement.TabID + 'li';
+	ButtonObj.DOMType = 'button';
+	ButtonObj.DOMStyle = TabElement.Style;
+	ButtonObj.init();
+
+	var SQLTextObj = new sysObjSQLText();
+	SQLTextObj.ObjectID = TabElement.ObjectID + 'text';
+	SQLTextObj.TextID = TabElement.TextID;
+	SQLTextObj.DOMStyle = TabElement.Style + 'Text';
+	SQLTextObj.DOMType = 'span';
+	SQLTextObj.init();
 
 	TabElement.TabContentObj = TabContentObj;
 
@@ -288,7 +306,11 @@ sysTabContainer.prototype.appendTabObject = function(TabElement)
 
 	TabElement.EventListeners["clickTab"] = EventListenerObj;
 
-	TabElement.addObject(SQLTextObj);
+	ButtonObj.addObject(SQLTextObj);
+	TabElement.addObject(ButtonObj);
+
+	TabElement.SwitchStyleObject1ID = ButtonObj.ObjectID;
+	TabElement.SwitchStyleObject2ID = SQLTextObj.ObjectID;
 }
 
 

@@ -28,6 +28,7 @@ function sysFormFieldValidate() {
 		'DefaultDate':						'^[0-9][0-9]\\.[0-9][0-9]\\.[0-9][0-9][0-9][0-9]$',
 		'DefaultDatepicker':				'^[0-9][0-9][0-9][0-9]\\-[0-9][0-9]\\-[0-9][0-9]$',
 		'ZipCode':							'^[0-9][0-9][0-9][0-9][0-9]$',
+		'ZipCodeGermany':					'^[0-9][0-9][0-9][0-9][0-9]$',
 		'UserName':							'^[a-zA-Z0-9_]+$',
 		'RealName':							'^[a-zA-Z0-9äöüÄÖÜ ]+$',
 		'Surename':							'^[a-zA-Z0-9äöüÄÖÜ]+$',
@@ -37,11 +38,12 @@ function sysFormFieldValidate() {
 		'PhoneNrInternational':				'^\\+[0-9][0-9] ?\\([0-9]{2,6}\\) ?[0-9]{4,12}$',
 		'PhoneNr':							'^\\([0-9]{2,6}\\) ?[0-9]{4,12}$',
 		'PhoneNrArea':						'^[0-9]{2,6}$',
+		'PhoneNrCountryCode':				'^\\+[0-9][0-9]$',
 		'PhoneNrSingle':					'^[0-9]{4,12}$',
 		'Quantity':							'^[0-9]+$',
 		'Country':							'^(DE|EN)$',
 		'City':								'^[A-ZÄÖÜ][a-zäöüß]+$',
-		'StreetNr':							'^[0-9][0-9abc]+$',
+		'StreetNr':							'^[0-9]*[0-9abc]+$',
 		'EuroWithCents':					'^[0-9]+,[0-9][0-9]$',
 		'SPXBarcode':						'^[0-9]{20,20}+$'
 	};
@@ -63,6 +65,7 @@ function sysFormFieldValidate() {
 		'CheckEmpty':						this.CheckEmpty,
 		'CheckDatePeriodOneYear':			this.CheckDatePeriodOneYear,
 		'CheckItemsOr':						this.CheckItemsOr,
+		'CheckItemsMatch':					this.CheckItemsMatch,
 		'CheckTableRows':					this.CheckTableRows,
 		'MinOneItemNotNull':				this.MinOneItemNotNull
     }
@@ -86,7 +89,9 @@ sysFormFieldValidate.prototype.validate = function(ValidateID, Value)
 	}
 
 	try {
-		return this.ValidateFunc[ValidateID]();
+		if (Value !== undefined) {
+			return this.ValidateFunc[ValidateID](Value);
+		}
 	}
 	catch(err) {
 		console.debug('::validate err:%s', err);
@@ -117,7 +122,7 @@ sysFormFieldValidate.prototype.validateGroup = function(FunctionID, FormfieldIte
 
 sysFormFieldValidate.prototype.IPAddress = function(Value) {
 
-	var IPArray = Value.split('.');
+	const IPArray = Value.split('.');
 
 	//- check correct octet count
 	if (IPArray.length != 4) { return false; }
@@ -127,8 +132,8 @@ sysFormFieldValidate.prototype.IPAddress = function(Value) {
 
 	for (Index in IPArray) {
 		IPOctet = IPArray[Index];
-		var checkNumber = parseInt(IPOctet);
-		if (checkNumber < 0 || checkNumber > 255) { false; }
+		const checkNumber = parseInt(IPOctet);
+		if (checkNumber < 0 || checkNumber > 255) { return false; }
 	}
 
 	return true;
@@ -141,18 +146,19 @@ sysFormFieldValidate.prototype.IPAddress = function(Value) {
 
 sysFormFieldValidate.prototype.IPAddressSubnet = function(Value) {
 
-	var NetArray = Value.split('/');
+	const NetArray = Value.split('.');
 
 	//- check correct octet count
-	if (NetArray.length != 2) { return false; }
+	if (NetArray.length != 4) { return false; }
 
-	//- check correct ip address
-	var IPCheck = sysFactory.ObjFormValidate.IPAddress(NetArray[0]);
-	if (IPCheck == -1) { return false; }
+	const CheckNumbers = [ 0, 1, 2, 4, 8, 16, 32, 64, 128, 255 ];
 
 	//- check subnet mask
-	var MaskBits = parseInt(NetArray[1]);
-	if (MaskBits < 1 || MaskBits > 32) { return false; }
+	for (Index in NetArray) {
+		NetOctet = NetArray[Index];
+		const checkNumber = parseInt(NetOctet);
+		if (CheckNumbers.indexOf(checkNumber) == -1) { return false; }
+	}
 
 	return true;
 }
@@ -182,16 +188,19 @@ sysFormFieldValidate.prototype.IPPort = function(Value) {
 sysFormFieldValidate.prototype.CheckUnique = function(Items) {
 
 	//console.debug('FormValidate GroupNonUnique Items:%o', Items);
+
+	const ErrorMessage = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.FIELDS-NONUNIQUE');
+
 	var UniqueElements = new Object();
 
 	for (ItemID in Items) {
 		Item = Items[ItemID];
-		UniqueElements[Item.getObjectData()] = 0;
+		UniqueElements[Item.ParentObject.getObjectData()] = 0;
 	}
 
 	for (ItemID in Items) {
 		Item = Items[ItemID];
-		UniqueElements[Item.getObjectData()] += 1;
+		UniqueElements[Item.ParentObject.getObjectData()] += 1;
 	}
 
 	var FormFieldsCount = Object.keys(Items).length;
@@ -199,8 +208,14 @@ sysFormFieldValidate.prototype.CheckUnique = function(Items) {
 
 	//console.debug('FormValidate UniqueElements:%o FormCount:%s UniqueCount:%s', UniqueElements, FormFieldsCount, UniqueCount);
 
-	return (UniqueCount == FormFieldsCount ? true : false);
+	const ErrorStatus = (UniqueCount == FormFieldsCount ? true : false);
 
+	const ReturnObject = {
+		"Error": ErrorStatus,
+		"Message": ErrorMessage
+	};
+
+	return ReturnObject;
 }
 
 
@@ -224,7 +239,7 @@ sysFormFieldValidate.prototype.CheckNull = function(Items) {
 	var i=0;
 	for (Index in Items) {
 		var Item = Items[Index];
-			var ItemData = Item.getObjectData();
+			var ItemData = Item.ParentObject.getObjectData();
 			console.debug('::CheckNull Item:%o ItemData:%s', Item, ItemData);
 			if (ItemData == '<NULL>') { return false; }
 	}
@@ -240,7 +255,7 @@ sysFormFieldValidate.prototype.CheckEmpty = function(Items) {
 	var i=0;
 	for (Index in Items) {
 		var Item = Items[Index];
-			var ItemData = Item.getObjectData();
+			var ItemData = Item.ParentObject.getObjectData();
 			console.debug('::CheckEmpty Item:%o ItemData:%s', Item, ItemData);
 			if (ItemData.length == 0) { return false; }
 	}
@@ -262,13 +277,13 @@ sysFormFieldValidate.prototype.CheckDatePeriodOneYear = function(Items) {
 		const ItemEndMonth = Items[4];
 		const ItemEndYear = Items[5];
 
-		var BeginDay = ItemStartDay.getObjectData();
-		var BeginMonth = ItemStartMonth.getObjectData();
-		var BeginYear = ItemStartYear.getObjectData();
+		var BeginDay = ItemStartDay.ParentObject.getObjectData();
+		var BeginMonth = ItemStartMonth.ParentObject.getObjectData();
+		var BeginYear = ItemStartYear.ParentObject.getObjectData();
 
-		var EndDay = ItemEndDay.getObjectData();
-		var EndMonth = ItemEndMonth.getObjectData();
-		var EndYear = ItemEndYear.getObjectData();
+		var EndDay = ItemEndDay.ParentObject.getObjectData();
+		var EndMonth = ItemEndMonth.ParentObject.getObjectData();
+		var EndYear = ItemEndYear.ParentObject.getObjectData();
 
 		var DateBeginn = new Date(BeginMonth+"/"+BeginDay+"/"+BeginYear);
 		var DateEnd = new Date(EndMonth+"/"+EndDay+"/"+EndYear);
@@ -294,7 +309,7 @@ sysFormFieldValidate.prototype.CheckItemsOr = function(Items) {
 	var ErrorStatus = false;
 
 	const ErrorText = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.FIELD-OR');
-	const ErrorMessage = ErrorText + ' (' + Items[0].ObjectID + ', ' + Items[1].ObjectID + ')';
+	const ErrorMessage = ErrorText + ' (' + Items[0].Attributest.ValidateFormfieldDisplay + ', ' + Items[1].Attributest.ValidateFormfieldDisplay + ')';
 
 	const Item1Value = Items[0].ParentObject.getObjectData();
 	const Item2Value = Items[1].ParentObject.getObjectData();
@@ -305,6 +320,41 @@ sysFormFieldValidate.prototype.CheckItemsOr = function(Items) {
 		ErrorStatus = false;
 	}
 	else if (Item1Value.length == 0 && Item2Value.length == 0) {
+		ErrorStatus = false;
+	}
+	else {
+		ErrorStatus = true;
+	}
+
+	const ReturnObject = {
+		"Error": ErrorStatus,
+		"Message": ErrorMessage
+	};
+
+	return ReturnObject;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "CheckItemsMatch"
+//------------------------------------------------------------------------------
+
+sysFormFieldValidate.prototype.CheckItemsMatch = function(Items) {
+
+	var ErrorStatus = false;
+
+	const Attributes1 = Items[0].JSONConfig.Attributes;
+	const Attributes2 = Items[1].JSONConfig.Attributes;
+
+	const ErrorText = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.FIELDS-MATCH');
+	const ErrorMessage = ErrorText + ' ("' + Attributes1.ValidateFormfieldDisplay + '", "' + Attributes2.ValidateFormfieldDisplay + '")';
+
+	const Item1Value = Items[0].ParentObject.getObjectData();
+	const Item2Value = Items[1].ParentObject.getObjectData();
+
+	console.debug('Val1:%s Val2:%s', Item1Value.length, Item2Value.length);
+
+	if (Item1Value != Item2Value) {
 		ErrorStatus = false;
 	}
 	else {
@@ -347,7 +397,9 @@ sysFormFieldValidate.prototype.MinOneItemNotNull = function(Items) {
 
 		for (Index in Items) {
 			Item = Items[Index];
-			ErrorMessageAppend += Items[Index].ObjectID + ', ';
+			const Attributes = Item.JSONConfig.Attributes;
+			console.debug(Items[Index].JSONConfig);
+			ErrorMessageAppend += Attributes.ValidateFormfieldDisplay + ', ';
 		}
 
 		ErrorMessageAppend = ErrorMessageAppend.replace(/, $/g, '');
@@ -367,6 +419,7 @@ sysFormFieldValidate.prototype.MinOneItemNotNull = function(Items) {
 
 	return ReturnObject;
 }
+
 
 //------------------------------------------------------------------------------
 //- METHOD "CheckTableRows"

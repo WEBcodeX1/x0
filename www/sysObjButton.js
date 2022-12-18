@@ -26,6 +26,8 @@ function sysObjButton()
 	this.CallService		= false;
 
 	this.FormValidate		= false;
+
+	this.ValidateResult		= true;
 }
 
 //- inherit sysBaseObject
@@ -70,12 +72,11 @@ sysObjButton.prototype.init = function()
 
 sysObjButton.prototype.enable = function()
 {
+	console.debug('Button enabling.');
 	const Attributes = this.JSONConfig.Attributes;
 
 	this.DOMStyle = Attributes.Style;
-
 	this.setDOMElementStyle();
-
 	this.Disabled = false;
 }
 
@@ -86,6 +87,7 @@ sysObjButton.prototype.enable = function()
 
 sysObjButton.prototype.disable = function()
 {
+	console.debug('Button disabling.');
 	this.DOMStyle = 'sysButtonDisabled';
 	this.setDOMElementStyle();
 	this.Disabled = true;
@@ -123,10 +125,17 @@ sysObjButton.prototype.EventListenerClick = function(Event)
 		this.CallURL = Attributes.OnClick;
 
 		//console.log('sysObjButton.EventListenerClick() JSONConfig:%o', this.JSONConfig);
+		//console.log('sysObjButton.EventListenerClick() ScreenObject:%o', this.ScreenObject.ScreenID);
+		//console.log('sysObjButton.EventListenerClick() ScreenObjects:%o', sysFactory.getObjectsByType(this.ScreenObject.ScreenID, 'FormfieldList'));
 
 		this.PostRequestData.reset();
 
-		if (this.validateForm() === true) {
+		this.ValidateResult = true;
+
+		this.validateForm();
+		this.checkObjectValues();
+
+		if (this.ValidateResult === true) {
 			this.scrollTop();
 			this.processSourceObjects();
 			this.processActions();
@@ -165,10 +174,8 @@ sysObjButton.prototype.callService = function()
 {
 	if (this.CallURL != null && this.CallURL !== undefined) {
 
-		//- add async notify handler item
 		this.addNotifyHandler();
 
-		//- trigger async service request
 		RPC = new sysCallXMLRPC(this.CallURL);
 		RPC.Request(this);
 
@@ -182,16 +189,16 @@ sysObjButton.prototype.callService = function()
 
 sysObjButton.prototype.addNotifyHandler = function()
 {
-    try {
-        var NotifyAttributes = this.JSONConfig.Attributes.Notify;
-    
-        sysFactory.GlobalAsyncNotifyIndicator.addMsgItem(
-            NotifyAttributes
-        );
-    }
-    catch(err) {
+	try {
+		var NotifyAttributes = this.JSONConfig.Attributes.Notify;
+
+		sysFactory.GlobalAsyncNotifyIndicator.addMsgItem(
+			NotifyAttributes
+		);
+	}
+	catch(err) {
 		console.debug('::addNotifyHandler err:%s', err);
-    }
+	}
 }
 
 
@@ -203,7 +210,6 @@ sysObjButton.prototype.validateForm = function()
 {
 	const Attributes = this.JSONConfig.Attributes;
 
-	var ValidateResult = true;
 	var ValidateFormlistObjects = new Array();
 
 	if (Attributes.Validate !== undefined) {
@@ -243,17 +249,19 @@ sysObjButton.prototype.validateForm = function()
 				if (ParentObject !== undefined && ParentObject.ObjectType == 'Tab') {
 					ParentObject.setValidateStatus(Result);
 				}
-				ValidateResult = false;
+				this.ValidateResult = false;
 			}
 		}
 
 		// ----------------------------------------------------------------
-		// - make uique function / method with sysObjFormfieldList validate
+		// - Validte Objects
 		// ----------------------------------------------------------------
+
 		const ValidateObjects = Attributes.Validate.Objects;
+
 		if (ValidateObjects !== undefined) {
 			console.debug('ValidateObjects:%o', ValidateObjects);
-			for (GroupKey in ValidateObjects) {				
+			for (GroupKey in ValidateObjects) {
 
 				const GroupConf = ValidateObjects[GroupKey];
 				const GroupFunction = GroupConf.FunctionRef;
@@ -275,14 +283,15 @@ sysObjButton.prototype.validateForm = function()
 
 					if (Result['Error'] !== undefined && Result['Error'] === false) {
 						ErrorDisplayText = Result['Message'];
-						ValidateResult = false;
+						this.ValidateResult = false;
 						ErrorObj.displayError(ErrorDisplayText);
 					}
 				}
 			}
 		}
+
 		// ----------------------------------------------------------------
-		// - make uique function / method with sysObjFormfieldList validate
+		// - Post Validate Steps
 		// ----------------------------------------------------------------
 
 		for (TabKey in ScreenTabs) {
@@ -290,14 +299,14 @@ sysObjButton.prototype.validateForm = function()
 			TabElement.TabContainer.switchFirstTabContainingErrors();
 		}
 
-		//- add screen id to request data
+		//- add service data to request data
 		var IdObj = Object();
 		IdObj['BackendServiceID'] = Attributes.ServiceID;
 		this.PostRequestData['ServiceData'] = IdObj;
 
-		console.debug('::validate result:%s PostRequestData:%o', ValidateResult, this.PostRequestData);
+		console.debug('::validate Result:%s PostRequestData:%o', this.ValidateResult, this.PostRequestData);
 
-		if (ValidateResult === true) {
+		if (this.ValidateResult === true) {
 
 			if (Attributes.Validate.OnValidateOk !== undefined) {
 				if (Attributes.OnValidateOk.click !== undefined) {
@@ -325,8 +334,6 @@ sysObjButton.prototype.validateForm = function()
 
 	//- trigger iframe resize
 	sysFactory.resizeIframe();
-
-	return ValidateResult;
 }
 
 
@@ -380,9 +387,9 @@ sysObjButton.prototype.processActions = function()
 
 		//- switch tab
 		if (Attributes.Action == 'tabswitch') {
-            var TabContainerObj = sysFactory.getObjectByID(Attributes.ActionAttributes.TabContainer);
-            //console.debug('TabContainerObj:%o', TabContainerObj);
-            TabContainerObj.switchTab(Attributes.ActionAttributes.Tab);
+			var TabContainerObj = sysFactory.getObjectByID(Attributes.ActionAttributes.TabContainer);
+			//console.debug('TabContainerObj:%o', TabContainerObj);
+			TabContainerObj.switchTab(Attributes.ActionAttributes.Tab);
 		}
 
 		//- screen overlay trigger
@@ -392,7 +399,7 @@ sysObjButton.prototype.processActions = function()
 
 		if (Attributes.Action == 'parentcopyrow') {
 			var DstListObj = sysFactory.getObjectByID(Attributes.DstObjectID);
-            //console.debug('::EventListenerClick copy DstObjectID:%o ListObject:%o RowData:%o', Attributes.DstObjectID, DstListObj, this.ParentRow);
+			//console.debug('::EventListenerClick copy DstObjectID:%o ListObject:%o RowData:%o', Attributes.DstObjectID, DstListObj, this.ParentRow);
 			DstListObj.appendData(this.ParentRow.SetupData);
 		}
 
@@ -404,12 +411,16 @@ sysObjButton.prototype.processActions = function()
 
 			const Column = Attributes.SrcColumn;
 			var Item = new Object();
-			const ColumnValue = this.ParentRow.SetupData[Column];
-			Item[Column] = ColumnValue;
+			const DstValue = this.ParentRow.SetupData[Column];
+			Item[Column] = DstValue;
 
 			console.debug('SetPOSTREquestData ColumnItem:%o', Item);
 
 			var DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
+
+			if (Attributes.DstObjectIDSetValue !== undefined) {
+				sysFactory.getObjectByID(Attributes.DstObjectIDSetValue).setObjectData(DstValue);
+			}
 
 			if (Attributes.ResetObjectID !== undefined) {
 				const ResetObject = sysFactory.getObjectByID(Attributes.ResetObjectID);
@@ -454,13 +465,13 @@ sysObjButton.prototype.processActions = function()
 					DstObject.PostRequestData.merge(Item);
 				}
 				catch(err) {
-					console.log('::EventListenerClick PostRequestData err:%s', err);
+					console.log('PostRequestData err:%s', err);
 				}
 				DstObject.setValue(this.ParentRow.SetupData[Column]);
 				//console.debug('::EventListenerClick setrowcolumn ConnectorObject:%o', DstObject);
 			}
 			catch(err) {
-				console.log('::EventListenerClick setrowcolumn err:%s', err);
+				console.log('setrowcolumn err:%s', err);
 			}
 		}
 
@@ -515,7 +526,7 @@ sysObjButton.prototype.processActions = function()
 					catch(err) {
 					}
 					DstObj.activate();
-				}				
+				}
 				if (Attributes.Action == 'deactivate') {
 					try {
 						DstObj.setValidate(false);
@@ -529,9 +540,10 @@ sysObjButton.prototype.processActions = function()
 
 		const UserFuncAttributes = Attributes.UserFunctionAttributes;
 		if (UserFuncAttributes !== undefined && UserFuncAttributes.FunctionID !== undefined) {
+			console.debug('UserFunctionID:%s UserFunctions:%o', UserFuncAttributes.FunctionID, sysFactory.UserFunctions);
 			sysFactory.UserFunctions[UserFuncAttributes.FunctionID](sysFactory);
 		}
-		
+
 		if (this.DstScreenID !== undefined && Attributes.Action !== undefined) {
 			if (Attributes.ResetAll === true) {
 				//console.debug('ButtonInternalDBG ResetAll:%s', Attributes.ResetAll);
@@ -542,7 +554,11 @@ sysObjButton.prototype.processActions = function()
 			//this.setDstScreenProperties();
 			sysFactory.switchScreen(this.DstScreenID);
 		}
-		
+
+		if (Attributes.Action.FireEvents !== undefined) {
+			sysFactory.Reactor.fireEvents(Attributes.Action.FireEvents);
+		}
+
 	}
 
 	if (Attributes.CloseOverlay !== undefined && Attributes.CloseOverlay === true) {
@@ -595,6 +611,8 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 
 				const Result = ResultConfig[Index];
 				const setResultValues = Result.setResultValues;
+
+				console.debug('::ButtonAfterRPC ConfigAttributes new:%o', ConfigAttributes.OnResult);
 
 				if (setResultValues !== undefined) {
 					var DstObject = sysFactory.getObjectByID(setResultValues.DstObjectID);
@@ -659,7 +677,7 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 					}
 					if (Result.Action == 'Focus') {
 						const DstObject = sysFactory.getObjectByID(Result.DstObjectID);
-						DstObject.focus();
+						DstObject.ParentObject.focus();
 					}
 
 					if (Result.Action == 'TabSwitch') {
@@ -667,10 +685,10 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 						console.debug('TabContainerObj:%o', TabContainerObj);
 						TabContainerObj.switchTab(Result.Tab);
 					}
-					//- global fire events
-					if (Result.FireEvents !== undefined) {
-						sysFactory.Reactor.fireEvents(Result.FireEvents);
-					}
+				}
+				//- global fire events
+				if (Result.FireEvents !== undefined) {
+					sysFactory.Reactor.fireEvents(Result.FireEvents);
 				}
 			}
 		}
@@ -694,7 +712,7 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 			TabObj.TabContainerObject.switchTab(SwitchTabID);
 		}
 
-        //- fire events
+		//- fire events
 		sysFactory.Reactor.fireEvents(this.JSONConfig.Attributes.FireEvents);
 
 		//- fire net events
@@ -716,6 +734,58 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
         console.log('err:%s', err);
     }
 
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "callbackXMLRPCAsync"
+//------------------------------------------------------------------------------
+
+sysObjButton.prototype.checkObjectValues = function()
+{
+	const Attributes = this.JSONConfig.Attributes;
+	const CheckAttributes = Attributes.Check;
+
+	if (CheckAttributes !== undefined) {
+
+		const CheckGlobalData = CheckAttributes.GlobalData;
+
+		var NegativeCount = 0;
+
+		for (Index in CheckGlobalData) {
+
+			const CheckItem = CheckGlobalData[Index];
+			const CheckOperator = CheckItem.Operator;
+			const CheckValues = CheckItem.CheckValues;
+			const ScreenObj = sysFactory.getScreenByID(CheckItem.ScreenID);
+
+			if (ScreenObj === undefined) {
+				this.ValidateResult = false;
+				return;
+			}
+
+			for (CheckKey in CheckValues) {
+				const CheckValue = CheckValues[CheckKey];
+				const GlobalVarValue = ScreenObj.getGlobalVar(CheckKey);
+				if (CheckValue != GlobalVarValue) {
+					NegativeCount++;
+				}
+			}
+		}
+		console.log('Button CheckObjectValues NegativeCount:%s', NegativeCount);
+		if (NegativeCount > 0) {
+			this.ValidateResult = false;
+			if (CheckAttributes.ErrorContainer !== undefined && CheckAttributes.ErrorTxtID !== undefined) {
+				try {
+					sysFactory.getObjectByID(CheckAttributes.ErrorContainer).displayError(
+						sysFactory.getText(CheckAttributes.ErrorTxtID)
+					);
+				}
+				catch(err) {
+				}
+			}
+		}
+	}
 }
 
 

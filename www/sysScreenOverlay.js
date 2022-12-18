@@ -26,6 +26,14 @@ function sysScreenOverlay(FactoryRef) {
 
 sysScreenOverlay.prototype.setupOverlay = function(ScreenID, Attributes)
 {
+	if (this.FactoryRef.OverlayRefCount == 1) {
+		return;
+	}
+
+	if (this.FactoryRef.OverlayRefCount == 0) {
+		this.FactoryRef.OverlayRefCount = 1;
+	}
+
 	this.OverlayScreen = new sysScreen(true);
 
 	this.OverlayScreenID = ScreenID;
@@ -48,13 +56,12 @@ sysScreenOverlay.prototype.setupOverlay = function(ScreenID, Attributes)
 	this.OverlayScreen.CloseObject.ObjectID = 'ovl_close';
 	this.OverlayScreen.CloseObject.EventListeners = new Object();
 
-	var CloseObjectText = new sysObjSQLText();
-	CloseObjectText.ObjectID = 'ovl_closetext';
-	CloseObjectText.TextID = 'TXT.SYS.OVERLAY-CLOSE';
-	CloseObjectText.DOMStyle = 'sysOverlayClose';
-	CloseObjectText.init();
+	var CloseObject = new sysObjDiv();
+	CloseObject.ObjectID = 'ovl_close';
+	CloseObject.DOMStyle = 'btn-close';
+	CloseObject.init();
 
-	this.OverlayScreen.CloseObject.addObject(CloseObjectText);
+	this.OverlayScreen.CloseObject.addObject(CloseObject);
 
 	var EventConfig = new Object();
 	EventConfig['Type'] = 'mousedown';
@@ -115,10 +122,11 @@ sysScreenOverlay.prototype.processDataLoad = function(Attributes)
 		}
 
 		for (Index in DstObjects) {
-			var SetData = SourceData;
+			const SetData = SourceData;
+			console.debug('SetData:%o', SetData);
 
 			const DstObjectID = DstObjects[Index] + '__overlay';
-			//console.debug('DstObjectID:%s', DstObjectID);
+			console.debug('DstObjectID:%s', DstObjectID);
 			//console.debug('HierarchyRootObject:%o', this.OverlayScreen.HierarchyRootObject);
 
 			try {
@@ -175,7 +183,7 @@ sysScreenOverlay.prototype.processUpdate = function()
 
 sysScreenOverlay.prototype.EventListenerClick = function()
 {
-	console.debug('click');
 	this.OverlayScreen.HierarchyRootObject.remove();
 	delete sysFactory.Screens[this.OverlayScreenID];
+	this.FactoryRef.OverlayRefCount = 0;
 }
