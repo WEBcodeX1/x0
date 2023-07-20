@@ -9,8 +9,8 @@ import dbpool.pool
 
 DBName = 'x0'
 DBUser = 'x0'
-DBHost = '127.0.0.1'
-DBPass = 'dummy'
+DBHost = 'mypostgres'
+DBPass = 'changeme'
 
 config = {
     'db': {
@@ -21,7 +21,7 @@ config = {
         'ssl': 'disable',
         'connect_timeout': 30,
         'connection_retry_sleep': 1,
-        'query_timeout': 30,
+        'query_timeout': 30000,
         'session_tmp_buffer': 128
     },
     'groups': {
@@ -41,7 +41,7 @@ config_ac_disabled = {
         'ssl': 'disable',
         'connect_timeout': 30,
         'connection_retry_sleep': 1,
-        'query_timeout': 30,
+        'query_timeout': 30000,
         'session_tmp_buffer': 128
     },
     'groups': {
