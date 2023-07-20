@@ -1,0 +1,21 @@
+apiVersion: kubegres.reactive-tech.io/v1
+kind: Kubegres
+metadata:
+  name: mypostgres
+  namespace: x0-test
+spec:
+   replicas: 2
+   image: postgres:14
+   database:
+      size: 1Gi
+   env:
+      - name: POSTGRES_PASSWORD
+        valueFrom:
+           secretKeyRef:
+              name: mypostgres-secret
+              key: superUserPassword
+      - name: POSTGRES_REPLICATION_PASSWORD
+        valueFrom:
+           secretKeyRef:
+              name: mypostgres-secret
+              key: replicationUserPassword

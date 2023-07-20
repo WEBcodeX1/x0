@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: syslog
+spec:
+  selector:
+    name: syslog
+  clusterIP: None
+  ports:
+  - name: syslog-svc
+    port: 514
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: syslog1
+  labels:
+    name: syslog
+spec:
+  hostname: syslog-1
+  subdomain: syslog
+  containers:
+  - image: balabit/syslog-ng
+    command:
+      - sleep
+      - "3600"
+    name: syslog
+  restartPolicy: Always

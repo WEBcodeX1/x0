@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: x0-app-svc
+  namespace: x0-test
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: x0
+  type: ClusterIP

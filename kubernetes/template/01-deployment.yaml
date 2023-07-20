@@ -1,0 +1,24 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ${x0_APP_ID}-${x0_APP_ENV}-deployment
+  labels:
+    app: ${x0_APP_ID}-${x0_APP_ENV}-app
+  namespace: ${x0_NAMESPACE}
+spec:
+  replicas: ${x0_KUBERNETES_REPLICAS}
+  selector:
+    matchLabels:
+      app: ${x0_APP_ID}-${x0_APP_ENV}-app
+  template:
+    metadata:
+      labels:
+        app: ${x0_APP_ID}-${x0_APP_ENV}-app
+    spec:
+      containers:
+      - name: ${x0_APP_ID}-${x0_APP_ENV}-app
+        image: ${x0_KUBERNETES_IMAGE}
+        resources:
+          requests:
+            cpu: ${x0_KUBERNETES_CPU}
+            memory: ${x0_KUBERNETES_MEMORY}

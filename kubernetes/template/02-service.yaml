@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ${x0_APP_ID}-${x0_VHOST_ID}-${x0_APP_ENV}-svc
+  namespace: ${x0_NAMESPACE}
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: ${x0_APP_ID}-${x0_APP_ENV}-app
