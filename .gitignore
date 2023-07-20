@@ -15,6 +15,6 @@ __pycache__
 *.DS_Store
 *.vs
 debian/x0-psycopg2-patched
-debian/x0
+debian/x0-app
+debian/x0-db
 debian/.debhelper
-
