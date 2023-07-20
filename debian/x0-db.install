@@ -1,0 +1,5 @@
+app-setup/* var/lib/x0/app-setup
+database/* var/lib/x0/database
+test/* var/lib/x0/test
+conf/* var/lib/x0/conf
+example/* var/lib/x0/example

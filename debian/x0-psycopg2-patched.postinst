@@ -14,7 +14,7 @@ if [ "$1" = "configure" ]; then
 
 	# patch psycopg2
 	find /usr/local/lib -name "extensions.py" | while read line; do
-		echo "Patching psycopg2 file:${line}"
+		echo "Patching psycopg2 file:${line}"#
 		cp ${BASEDIR}/bin/extensions.py ${line}
 	done
 

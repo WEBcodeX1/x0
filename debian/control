@@ -1,5 +1,5 @@
 Source: x0
-Section: utils
+Section: javascript
 Priority: extra
 Maintainer: Claus Prüfer (CTO) <c.pruefer@click-it.online>
 Standards-Version: 4.5.1
@@ -7,15 +7,33 @@ Build-Depends: debhelper (>= 11)
 Homepage: http://click-it.online/
 Vcs-Git: git://git01.webcodex.de/clickit/x0
 
-Package: x0
-Section: utils
+Package: x0-app
+Section: javascript
 Architecture: all
-Depends: python3 (>= 3.4), python3-pip (>= 18), postgresql-13 (>= 12.0), postgresql-13 (<= 13.9), libpq-dev (>= 13.0), apache2 (>= 2.4), libapache2-mod-wsgi-py3 (>= 3.3)
+Depends: python3 (>= 3.4), python3-pip (>= 18), libpq-dev (>= 13.0), postgresql-client, apache2 (>= 2.4), libapache2-mod-wsgi-py3 (>= 3.3), ${misc:Depends}
 Description: Easy, serverless and extendable OOP JavaScript browser-framework.
- An easy, serverless and extendable OOP JavaScript browser-framework.
+ An easy, serverless and extendable OOP JavaScript browser framework.
+ Web-Application component.
+
+Package: x0-db
+Section: database
+Architecture: all
+Depends: postgresql (>=14), ${misc:Depends}
+Description: Easy, serverless and extendable OOP JavaScript browser-framework.
+ An easy, serverless and extendable OOP JavaScript browser framework.
+ Database component.
 
 Package: x0-psycopg2-patched
-Section: utils
+Section: python
 Architecture: all
-Depends: x0 (>= 0.9)
-Description: Working (patched) psycopg2 for Debian 11 (missing python module).
+Depends: x0-app (>= 0.9), ${misc:Depends}
+Description: Working (patched) psycopg2 for Debian (missing python module).
+ Patched due to bug.
+
+Package: x0-db-install
+Section: database
+Architecture: all
+Depends: postgresql-client (>=14), ${misc:Depends}
+Description: Transparent Database installer package.
+ User to transparently install database in distributed (docker / kubernetes)
+ scalable environments.

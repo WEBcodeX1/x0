@@ -6,12 +6,17 @@ if [ "$1" = "configure" ]; then
 
 	# system vars
 	WEBSERVER_DIR="/var/www"
+	GLOBAL_PYTHONDIR="/${WEBSERVER_DIR}/python"
+
 	APP_DIR="/${WEBSERVER_DIR}/vhosts/x0"
 	APP_PYTHONDIR="/${APP_DIR}/python"
 	APP_STATICDIR="/${APP_DIR}/static"
 
 	ETC_SSL="/etc/ssl"
 	ETC_SSL_APACHE="${ETC_SSL}/apache"
+
+	APACHE_GLOBAL_CONF="/etc/apache2/apache2.conf"
+	APACHE_DEFAULT_VHOST_CONF="/etc/apache2/sites-enabled/000-default.conf"
 
 	CERT_CA_FILE="${ETC_SSL_APACHE}/x0-ca-cert.pem"
 	CERT_CA_KEY_FILE="${ETC_SSL_APACHE}/x0-ca-cert-key.pem"
@@ -22,41 +27,26 @@ if [ "$1" = "configure" ]; then
 	CERT_CA_PASSPHRASE="change4prod-ca"
 	CERT_PASSPHRASE="change4prod"
 
-	DEMO_FQDN="x0-test.webcodex.de"
+	DEMO_FQDN="x0-test.local"
 
 	WEBSERVER_CONF_DIR="/etc/apache2"
 	VHOST_CONFIG_FILE="vhost-x0.conf"
 
-	VHOST_UPDATE_CONFIG_FILE="/etc/x0-vhosts.conf"
-
 	BASEDIR="/var/lib/x0"
 
-	TEST_CONFIG_DIR="${BASEDIR}/tests/integration/config"
+	TEST_CONFIG_DIR="${BASEDIR}/test/integration/config"
 	EXAMPLE_CONFIG_DIR="${BASEDIR}/example"
 
-	DBNAME="x0"
-
-	# enable german UTF-8 locale
-	sed -i 's/^# de_DE.UTF-8 UTF-8$/de_DE.UTF-8 UTF-8/g' /etc/locale.gen 
+	# enable de_DE and en_US UTF-8 locale
+	sed -i 's/^# de_DE.UTF-8 UTF-8$/de_DE.UTF-8 UTF-8/g' /etc/locale.gen
+	sed -i 's/^# en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/g' /etc/locale.gen
 	locale-gen
 
-	# make postgres local unix domain socket connection trusted
-	PGCONFFILE=$(find /etc/postgresql -name "pg_hba.conf")
+	# add apache2 ServerName directive
+	echo "ServerName x0-test.local" >> ${APACHE_GLOBAL_CONF}
 
-	sed -i ${PGCONFFILE} -r -e 's/^local\s+all\s+postgres\s+peer$/local   all             postgres                                trust/g'
-
-	# restart postgres
-	service postgresql restart
-
-	# check database x0 exists
-	psql -l -U postgres | grep -q ${DBNAME}
-
-	# if not exists, create database
-	if [ $? -eq 1 ]; then
-		psql -U postgres -f ${BASEDIR}/database/x0.DB.sql > /dev/null 2>/dev/null
-		psql -U postgres -d x0 -f ${BASEDIR}/database/insert-sys-config.sql > /dev/null 2>/dev/null
-		psql -U postgres -d x0 -f ${BASEDIR}/database/sys-text.sql > /dev/null 2>/dev/null
-	fi
+	# remove default vhost config
+	rm ${APACHE_DEFAULT_VHOST_CONF}
 
 	# create ssl /etc dir if not exists
 	if [ ! -d ${ETC_SSL_APACHE} ]; then
@@ -82,47 +72,30 @@ if [ "$1" = "configure" ]; then
 	# activate apache vhost
 	ln -s ${WEBSERVER_CONF_DIR}/sites-available/${VHOST_CONFIG_FILE} ${WEBSERVER_CONF_DIR}/sites-enabled/${VHOST_CONFIG_FILE} || echo "Apache vhost conf already exists."
 
-	# if vhost config exists update system data
-	if [ -e ${VHOST_UPDATE_CONFIG_FILE} ]; then
-
-		echo "Processing ${VHOST_UPDATE_CONFIG_FILE}"
-
-		# copy base system files to given vhosts (on update)
-		cat ${VHOST_UPDATE_CONFIG_FILE} | while read vhost; do
-			echo "Processing vhost:${vhost}"
-			cp ${APP_DIR}/*.js ${vhost}/
-			cp ${APP_DIR}/static/* ${vhost}/static/
-			cp ${APP_DIR}/python/*.py ${vhost}/python/
-			chown -R www-data:deploy ${vhost}
-		done
-	fi;
-
 	# install python-dbpool
-	if [ "$(pip3 list | grep python-dbpool | cut -d ' ' -f1)" != "python-dbpool" ]; then 
-		pip3 install ${BASEDIR}/bin/python-dbpool-0.1.0a0.tar.gz
+	if [ "$(pip3 list | grep python-dbpool | cut -d ' ' -f1)" != "python-dbpool" ]; then
+		pip3 install --no-deps ${BASEDIR}/bin/python-dbpool-0.1.0a0.tar.gz
 	fi
 
-	# process tests (config in db, copy to vhost subdir)
+	# copy DB.py and DBMapping.py
+	cp ${BASEDIR}/python/DB.py ${GLOBAL_PYTHONDIR}/
+	cp ${BASEDIR}/python/DBMapping.py ${GLOBAL_PYTHONDIR}/
+
+	# process tests (copy to vhost subdir)
 	ls ${TEST_CONFIG_DIR} | while read dirname; do
-		echo "Processing test-config:${dirname}"
+		echo "Processing tests-config (static):${dirname}"
 		CONF_SQL_DIR="${TEST_CONFIG_DIR}/${dirname}/sql"
-		ls ${CONF_SQL_DIR} | while read sqlfile; do
-			psql -U postgres -d x0 -f ${CONF_SQL_DIR}/${sqlfile} > /dev/null 2>/dev/null
-		done
 		CONF_STATIC_DIR="${TEST_CONFIG_DIR}/${dirname}/static"
-		DST_TEST_DIR="${APP_DIR}/tests/${dirname}"
+		DST_TEST_DIR="${APP_DIR}/test/${dirname}"
 		mkdir -p ${DST_TEST_DIR}
 		cp ${CONF_STATIC_DIR}/* ${DST_TEST_DIR}/
 		cp ${APP_DIR}/static/*.css ${DST_TEST_DIR}/
 	done
 
-	# process examples (config in db, copy to vhost subdir)
+	# process examples (copy to vhost subdir)
 	ls ${EXAMPLE_CONFIG_DIR} | while read dirname; do
-		echo "Processing test-config:${dirname}"
+		echo "Processing example-config (static):${dirname}"
 		CONF_SQL_DIR="${EXAMPLE_CONFIG_DIR}/${dirname}/sql"
-		ls ${CONF_SQL_DIR} | while read sqlfile; do
-			psql -U postgres -d x0 -f ${CONF_SQL_DIR}/${sqlfile} > /dev/null 2>/dev/null
-		done
 		CONF_STATIC_DIR="${EXAMPLE_CONFIG_DIR}/${dirname}/static"
 		DST_EXAMPLE_DIR="${APP_DIR}/examples/${dirname}"
 		mkdir -p ${DST_EXAMPLE_DIR}

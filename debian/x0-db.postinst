@@ -1,0 +1,57 @@
+#!/bin/sh
+
+#DEBHELPER#
+
+if [ "$1" = "configure" ]; then
+
+	# system vars
+	BASEDIR="/var/lib/x0"
+	CONFDIR="${BASEDIR}/conf"
+	DB_CONFDIR="${CONFDIR}/postgresql"
+	DB_DATADIR="/var/lib/postgresql/14/main"
+
+	DB_CONFFILE_AUTH="pg_hba.conf"
+	DB_CONFFILE_CONF="postgresql.conf"
+
+	ETC_POSTGRES_CONFDIR="/etc/postgresql/14/main"
+
+	SYSDB="x0"
+
+	# enable de_DE and en_US UTF-8 locale
+	sed -i 's/^# de_DE.UTF-8 UTF-8$/de_DE.UTF-8 UTF-8/g' /etc/locale.gen
+	sed -i 's/^# en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/g' /etc/locale.gen
+	locale-gen
+
+	# copy postgres configuration files
+	cp ${DB_CONFDIR}/${DB_CONFFILE_AUTH} ${DB_DATADIR}/
+	cp ${DB_CONFDIR}/${DB_CONFFILE_CONF} ${DB_DATADIR}/
+
+	chown postgres:postgres ${DB_CONFDIR}/${DB_CONFFILE_AUTH}
+	chown postgres:postgres ${DB_CONFDIR}/${DB_CONFFILE_CONF}
+
+	chmod 400 ${DB_CONFDIR}/${DB_CONFFILE_AUTH}
+	chmod 400 ${DB_CONFDIR}/${DB_CONFFILE_CONF}
+
+	# make postgres local unix domain socket connection trusted
+	PGCONFFILE=$(find /etc/postgresql -name "pg_hba.conf")
+
+	sed -i ${PGCONFFILE} -r -e 's/^local\s+all\s+postgres\s+peer$/local   all             postgres                                trust/g'
+
+	# restart postgres
+	service postgresql restart
+
+	# set postgres user password and allow to login
+	psql -l -U postgres -c "ALTER ROLE postgres WITH ENCRYPTED PASSWORD 'changeme' LOGIN"
+
+	# check database x0 exists
+	psql -l -U postgres | grep -q ${SYSDB}
+
+	# if not exists, create database
+	if [ $? -eq 1 ]; then
+		${BASEDIR}/app-setup/bin/create-sys-db.sh
+	fi
+
+	# insert test and example data into db
+	${BASEDIR}/app-setup/bin/db-tests-examples.sh
+
+fi
