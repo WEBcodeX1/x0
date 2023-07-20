@@ -1,10 +1,10 @@
 .. object-instances
 
-Object Instances
-================
+15. Object Instances
+====================
 
-Topic1
-------
+5.1 Topic1
+----------
 
-Topic2
-------
+15.2 Topic2
+-----------

@@ -1,7 +1,7 @@
 .. control-logic
 
-Control Logic
-=============
+7. Control Logic
+================
 
 The following Object-Types can be used to communicate among each other and with the backend.
 
@@ -10,9 +10,8 @@ The following Object-Types can be used to communicate among each other and with 
 * ButtonInternal
 * ErrorContainer
 
-
-ServiceConnector
-----------------
+7.1 ServiceConnector
+--------------------
 
 With help of a Service Connector Object you load backend data into already loaded
 System Obejcts (after initial app-rendering took place).
@@ -92,8 +91,8 @@ Script will be loaded into the FormfieldList Object.
 		}
 	]
 
-Button
-------
+7.2 Button
+----------
 
 Object Properties
 *****************
@@ -169,8 +168,8 @@ JSON Structure Example
 		}
 	}
 
-ButtonInternal
---------------
+7.3 ButtonInternal
+------------------
 
 Object Properties
 *****************
@@ -202,8 +201,8 @@ JSON Structure Example (simple)
 	}
 
 
-ErrorContainer
---------------
+7.4 ErrorContainer
+------------------
 
 Actually ErrorContainer Object Type is an Attribute-less Object to view Error Output (e.g. on
 Validation).

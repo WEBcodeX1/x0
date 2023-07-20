@@ -1,7 +1,7 @@
 .. event-system
 
-Event-System
-============
+16. Event-System
+================
 
-Raising Events
---------------
+16.1 Raising Events
+-------------------

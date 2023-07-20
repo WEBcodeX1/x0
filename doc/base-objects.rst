@@ -1,7 +1,7 @@
 .. base-objects
 
-Base Objects
-============
+6. Base Objects
+===============
 
 The system Meta-Data Configuration consists of Objects-Declaration / Configuration in JSON.
 
@@ -14,8 +14,8 @@ The system Meta-Data Configuration consists of Objects-Declaration / Configurati
 * RowContainer
 * LinkExternal
 
-Div
----
+6.1 Div
+-------
 
 Object Properties
 *****************
@@ -39,8 +39,8 @@ JSON Structure Example
 		}
 	}
 
-SQLText
--------
+6.2 SQLText
+-----------
 
 Object Properties
 *****************
@@ -69,8 +69,8 @@ JSON Structure Example
 	}
 
 
-FormfieldList
--------------
+6.3 FormfieldList
+-----------------
 
 Object Properties
 *****************
@@ -112,8 +112,8 @@ JSON Structure Example
 	}
 
 
-Formfield
----------
+6.4 Formfield
+-------------
 
 Following Sub-Types exist:
 
@@ -274,8 +274,8 @@ Object Properties
 +---------------------+-----------+----------------+-------------------------------------------------+--------------+--------------+
 
 
-List
-----
+6.5 List
+--------
 
 Description Text.
 
@@ -330,18 +330,6 @@ Columns Properties
 +---------------------+-----------+----------------+-------------------------------------------------+--------------+--------------+
 | Attributes          | Object    | JS Object      | Connect any System Object to Column             | x            |              |
 +---------------------+-----------+----------------+-------------------------------------------------+--------------+--------------+
-| DBPrimaryKey        | Bool      | true | false   | Deprecated                                      | x            |              |
-+---------------------+-----------+----------------+-------------------------------------------------+--------------+--------------+
-| DBPrimaryKeyID      | String    |                | Deprecated                                      | x            |              |
-+---------------------+-----------+----------------+-------------------------------------------------+--------------+--------------+
-
-
-.. warning::
-
-	"DBPrimaryKey" and "DBPrimaryKeyID" Properties are deprecated. The Database Primary Key Column name (e.g. "id") is sufficient.
-	
-	Automatically storing "DBPrimaryKeyID" into a "Screen Container" will be removed from future Releases.
-
 
 ContextMenuItems Properties
 ***************************
@@ -439,8 +427,8 @@ JSON Structure Example
 		}
 
 
-TabContainer
-------------
+6.6 TabContainer
+----------------
 
 The TabContainer Object renders multiple Tabs. The Tab Look is defined in the Tabs Object-Properties.
 Object-Mapping takes place in "skeleton.json" (Example below).
@@ -528,8 +516,8 @@ Skeleton Mapping Example
 
 Also see :ref:`ref-elidmap`.
 
-RowContainer
-------------
+6.7 RowContainer
+----------------
 
 The RowContainer Object Type is primarily used to group and style multiple Objects together.
 
@@ -592,8 +580,8 @@ skeleton.json
 		}
 	}
 
-LinkExternal
-------------
+6.8 LinkExternal
+----------------
 
 JSON Structure Example Static
 *****************************

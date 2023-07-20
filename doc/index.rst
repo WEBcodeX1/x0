@@ -1,7 +1,7 @@
-.. clickIT x0 (cross objects) JavaScript framework documentation.
+.. clickIT x0 (Cross-Objects) JavaScript Framework Documentation.
 
-clickIT x0 framework documentation
-==================================
+clickIT x0 Framework Documentation v1.0rc2
+===========================================
 
 .. toctree::
    :maxdepth: 2
@@ -11,6 +11,7 @@ clickIT x0 framework documentation
    installation
    base-layout
    config-files
+   system-workflows
    base-objects
    control-logic
    pulldown-onchange
@@ -25,6 +26,7 @@ clickIT x0 framework documentation
    error-handling
    wizards
    examples
+   tests
 
 Indices and tables
 ==================

@@ -1,7 +1,7 @@
 .. wizards
 
-Wizards
-=======
+18. Wizards
+===========
 
-Navigation / Steps
-------------------
+18.1 Navigation / Steps
+-----------------------

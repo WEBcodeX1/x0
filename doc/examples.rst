@@ -1,61 +1,65 @@
 .. examples
 
-Examples
-========
+19. Examples
+============
 
-Examples 
+Use the following URL to start the example applications. Actually 7 Examples exist.
 
-https://x0-test.webcodex.de/examples/
+https://127.0.0.1?appid=example1
 
-1. Hello World / Structure
---------------------------
+.. note::
+
+	In Multi-VHost-Configurations the 127.0.0.1 URL is bound to the first Array[0] defined
+	virtual host in app-config.json configuration file.
+
+19.1 Dynamic Table / File Upload Column
+---------------------------------------
 
 #TODO: add all necessary steps / (config) files / SQL (DB) to reproduce a hello-world example.
 
-
-2. Basic Menu / Screen
-----------------------
+19.2 Basic Menu / Screen
+------------------------
 
 The example shows a simple Menu / Screen mapping with 2 links. Each link points to a screen.
 
 * Link1 points to Screen1 / Link click switches over to Screen1
 * Link2 points to Screen2 / Link click switches over to Screen2
 
-2.1 menu.json
-~~~~~~~~~~~~~
+19.2.1 menu.json
+~~~~~~~~~~~~~~~~
 
-.. literalinclude:: ..\\example\\basic_menu_screen\\static\\menu.json
+.. literalinclude:: ../example/basic_menu_screen/static/menu.json
    :linenos:
 
-2.2 skeleton.json
-~~~~~~~~~~~~~~~~~
+19.2.2 skeleton.json
+~~~~~~~~~~~~~~~~~~~~
 
-.. literalinclude:: ..\\example\\basic_menu_screen\\static\\skeleton.json
+.. literalinclude:: ../example/basic_menu_screen/static/skeleton.json
    :linenos:
 
-2.3 object.json
-~~~~~~~~~~~~~~~
+19.2.3 object.json
+~~~~~~~~~~~~~~~~~~
 
-.. literalinclude:: ..\\example\\basic_menu_screen\\static\\object.json
+.. literalinclude:: ../example/basic_menu_screen/static/object.json
    :linenos:
 
-2.4 DOM state
-~~~~~~~~~~~~~
+19.2.4 DOM state
+~~~~~~~~~~~~~~~~
 
-2.5 Explanation
-~~~~~~~~~~~~~~~
+19.2.5 Explanation
+~~~~~~~~~~~~~~~~~~
 
-2.6 Online Link
-~~~~~~~~~~~~~~~
+19.2.6 Online Link
+~~~~~~~~~~~~~~~~~~
 
 https://x0-test.webcodex.de/examples/basic_menu_screen/
 
 
-3. Hello World
---------------
+19.3 Hello World
+----------------
 
-4. Defining Source Objects / get List Detail Data
--------------------------------------------------
+19.3.1 Defining Source Objects / get List Detail Data
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Source-Object specs see: #TODO Link to Source-Object.
 
@@ -64,8 +68,8 @@ The example defines 2 Screens.
 - Screen1: 1 List with a Context-Menu "edit" entry (right click to edit list row in Screen3)
 - Screen2: 1 FormfieldList which contents will be loaded when using Screen2 List Context-Menu "edit"
 
-4.1 SrcDataObjects / Events
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+19.3.2 SrcDataObjects / Events
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 With the definition of "SrcDataObjects" attribute connected to the example List "TestList1", the
 hardcoded parameter "LimitRows" with value "10" will be added to the http POST request.
@@ -139,20 +143,20 @@ event which will be raised by Context-Menu "FireEvents" data.
 		"ServiceCall": "python/IntegrationTestGetTableData.py"
 	}
 
-4.1 menu.json
-~~~~~~~~~~~~~
+19.4.1 menu.json
+~~~~~~~~~~~~~~~~
 
-.. literalinclude:: ..\\example\\list_detail_switch_screen\\static\\menu.json
+.. literalinclude:: ../example/list_detail_switch_screen/static/menu.json
    :linenos:
 
-4.2 skeleton.json
-~~~~~~~~~~~~~~~~~
+19.4.2 skeleton.json
+~~~~~~~~~~~~~~~~~~~~
 
-.. literalinclude:: ..\\example\\list_detail_switch_screen\\static\\skeleton.json
+.. literalinclude:: ../example/list_detail_switch_screen/static/skeleton.json
    :linenos:
 
-4.3 object.json
-~~~~~~~~~~~~~~~
+19.4.3 object.json
+~~~~~~~~~~~~~~~~~~
 
-.. literalinclude:: ..\\example\\list_detail_switch_screen\\static\\object.json
+.. literalinclude:: ../example/list_detail_switch_screen/static/object.json
    :linenos:

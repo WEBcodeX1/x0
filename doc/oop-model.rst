@@ -1,12 +1,12 @@
 .. oop-model
 
-OOP Model
-=========
+13. OOP Model
+=============
 
-Base Classes
-------------
+13.1 Base Classes
+-----------------
 
-The following base classes exist ...
+The following base classes
 
 - sysBaseObject.js
 - sysBaseDOMElement.js
@@ -21,10 +21,9 @@ sysBaseDOMElement.js
 sysBaseDOMFormElement.js
 ************************
 
-Object Inheritance
-------------------
+13.2 Object Inheritance
+-----------------------
 
-Example building Enhanced Object
---------------------------------
-
+13.3 Example building Enhanced Object
+-------------------------------------
 

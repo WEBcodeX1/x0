@@ -1,58 +1,105 @@
 .. intro
 
-Preface / Abstract
-==================
+1. Preface / Abstract
+=====================
 
-The x0 (cross-objects) JavaScript browser framework is a powerful Web-Application framework for
-building **server-less applications** with focus on object interaction / communication.
+The x0 (cross-objects) JavaScript Framework is a modern tool for building
+powerful Web-Browser **Realtime-SPA (Single Page Applications)** easily.
 
-The rendering process takes place completely in the browser. Backends only supply
-information in form of structured JSON data.
+Decoupled GUI-Logic from the backend into the browsers x0 JavaScript system
+let Spaghetti-Code say goodbye, Model-View-Control and OSI-Layer-Model how it should be!
 
-Overview
---------
+Providing combinable **OOP based templates** makes **Real-time Instanciable Objects**
+possible. Chained Objects containing Base-Classes, Container-Data and Logic-Callbacks
+easily can be copied in realtime without communicating with Backend-Services.
 
-#TODO: add overview text, move "subsections" to end
+Example see: :ref:`enhancedobjects`
 
-This documentation contains the following subsections:
+The system provides "*Standalone*", "*Docker*" and "*Kubernetes*" installers.
 
-* System Installation
-* Base System Specification
-* System Object Definition
-* System Object Interaction
-* Backend Data Structures
-* System OOP Model
-* Example building System Objects
-* Building Hello World Example
+See: :ref:`installation`
 
-#TODO: Link to correct subsections
+1.1 Architecture Overview
+-------------------------
 
-MVC (Model-View-Control)
-------------------------
+.. image:: /images/x0-architecture-overview.png
+  :alt: Image - x0 Architecture
 
-#TODO: add 100% html less description
-#TODO: add 100% separation of 1. code (OOP) 2. gfx-style 3. data
-#TODO: add 100% event driven (after refactoring complete)
+1.2 CSS Themes / Bootstrap
+--------------------------
 
-Architecture
-------------
+By implementing OpenSource Frameworks **Bootstrap** and some Free Font Libraries
+x0-System is easily themeable.
 
-#TODO: add JSON / return data type
+Also Delveloping Times will be reduced by selecting the following theme types:
 
-#TODO: add DBPool / performance
+* Use Commercial Themes
+* Use Open Source Themes
+* Design / Let develop Custom Themes by Experts
 
-#TODO: describe middleware
+1.3 Simplicity / Highly Structured Data
+---------------------------------------
 
-#TODO: add components / modules (python-db-pool, python-micro-esb)
+The highly structured OOP based code and Object-definition makes x0 usable for
+big projects containing large amounts of Object-Data / Screens.
 
-.. image:: \\images\\app.png
-  :alt: x0 Architecture Picture
+Recursive **Object Data Serialization*** allows very simple data structure handling
+of single and combined objects (e.g. Lists containing Complex Object Types).
 
+Data is returned in structured / hierarichal JSON format, see: :ref:`dataserialization`.
 
-WYSWYG Editor
+All mentioned topics make the x0-System very Dev-Ops friendly.
+
+1.4 Middleware / Web-Services
+-----------------------------
+
+External Systems-Integration (e.g. Business Logic) is done by a) defining **Direct Web-Services Calls**
+from within the Browser / x0-Application or b) using the shipped **x0-High-Speed-WebServices-Gateway**.
+
+The following components make it very easy to model and administer very big, high structured
+Service-Oriented-Architectures (**SOA**) without **Performance-Compromises**.
+
+Components:
+***********
+
+* High Performance Python-Application-Server / Web-Services Gateway / Middleware
+* ESB (Enterprice Service BUS) / Python Class-Mapper / Automated API-Generator
+
+1.5 Licensing
 -------------
 
-What you see what you get Editor "ready". Do not blame us, the systems OOP
-design has been set up so that every object is realtime editable.
+The Base System is licensed under the OpenSource AGPLv3 license.
 
-TODO: add detailed description
+Some components like the WSIWYG-Editor will be released under different licensing-models
+(not yet defined).
+
+1.6 Security
+------------
+
+#TODO: add detailed description
+
+1.7 Future Milestones
+---------------------
+
+The systems internal OOP based architecture allows extending it further with suitable
+functionality. One of em is a **What-You-See-Is-What-You-Get Editor**.
+
+WYSWYG Editor / Screen Designer
+*******************************
+
+The editor should provide:
+
+* An Object Editor IDE like QT-Designer or MS Visual Studio for Visual Basic
+* An Direct Object Editing by right clicking on the related Object (SPA Edit-Mode-Switch)
+* Object Modeling / Edit Object Relations / Edit Screen Relations
+* Minimal Direct Code Editing Functionality
+
+The editor makes it even possible to decrease Time To Market / Developing Time by a factor
+of **x**.
+
+#TODO: calculate / measure factor value
+
+Enhanced Template Instancing
+****************************
+
+#TODO: add detailed description

@@ -1,35 +1,134 @@
 .. installation
 
-Installation
-============
+.. _installation:
 
-The following documentation describes installing the x0-js Framework on a standard Debian Linux System.
+2. Base-System Installation
+===========================
 
-Package Prerequisites
----------------------
+This documentation describes installing the x0-Framework on a standard Ubuntu 22.04 LTE Linux System.
 
-* python3
-* python3-psycopg2
-* apache2
-* apache2-wsgi
-* postgresql-12
+The following OpenSource software components are used:
 
-Debian Package
+* Apache2 / Python3 WSGI (https://httpd.apache.org)
+* PostgreSQL Relational Database 14 (http://www.postgresql.org)
+* Psycopg2 high-speed threaded PostgreSQL DB interface (https://pypi.org/project/psycopg2)
+* Python DB-Pool for Apache2 (https://github.com/clauspruefer/python-db-pool)
+* Bootstrap CSS (https://getbootstrap.com)
+* Sphinx Documentation Generator and RTD Theme (https://www.sphinx-doc.org)
+* Selenium Test Framework (https://www.selenium.dev)
+* Chromedriver for Chromium Browser (https://chromedriver.chromium.org)
+* Docker (https://www.docker.com)
+
+.. note::
+
+	The Kubernetes install runs 100% without Single-Point-Of-Failure.
+
+For Kubernetes, additionally the following components are used:
+
+* Kubegres (https://www.kubegres.io)
+* ingress-nginx (https://kubernetes.github.io/ingress-nginx)
+* cert-manager (https://cert-manager.io)
+
+The Apache2 webserver will be replaced by the internal clickIT Python-AS-Middleware soon.
+
+The git repository is located at: https://git01.click-it.online.
+
+We recommend using HSM-based Smartcards for security reasons (https://www.smartcard-hsm.com).
+
+.. warning::
+
+	Architectures different than Ubuntu Linux are untested and need slightly modifications in the debian
+	package management metadata (especially package relations). Feel free to contribute.
+
+.. note::
+
+	The installation subsection (2) only covers the Base-System installation, running local Docker-Containers and
+	deploying the Base-System to Kubernetes (for x0-System Developers).
+
+	Building and running own x0-Applications does not require a Base-System-Installation, we recommend to read
+	through the installation process to understand basic x0-System aspects.
+
+	Application building, configuration and deployment can be found here: :ref:`appconfiguration`.
+
+2.1 Docker
+----------
+
+The x0-System is shipped with 3 build files for docker container (**docker.io** package required).
+
+1. **"x0-app"** (Base Application containing Web-Server www-data)
+2. **"x0-db"** (PostgreSQL 14 Database)
+3. **"x0-db-install"** (App Database Installer used for Kubernetes DB installs without CI integration)
+
+.. note::
+
+	Also it is preferable to use a local ubuntu package mirror if you are a x0-Developer and change things a lot.
+
+The most easy way to get a x0-Test-System up and running is to build all containers and start them afterwards.
+
+.. code-block:: bash
+	:linenos:
+
+	# build container(s)
+	cd ${PROJECT_DIR}docker
+
+	./x0-build-app.sh &
+	./x0-build-db.sh &
+	./x0-build-db-install.sh &
+
+Start the containers.
+
+.. code-block:: bash
+	:linenos:
+
+	# start container(s)
+	cd ${PROJECT_DIR}docker
+
+	./x0-start-containers.sh
+
+Open the following URLs to check if the system is working correctly.
+
+.. note::
+
+	http://127.0.0.1/python/Index.py (Base "Hello World")
+
+.. note::
+
+	http://127.0.0.1/python/Index.py?appid=example1 (Examples, replace example number)
+
+2.2 Kubernetes
 --------------
 
-You can decide if you install a prebuild package by downloading from our services or to build a debian
-package with dpkg-debuild from linux terminal.
+The following installer script needs kubectl and openstack client(s) to be setupand a correctly configured
+and accessible kubernetes cluster.
 
-Download
-********
+.. warning::
 
-TODO: add links for source and package
+	You need a cofigured Openstack::Designate DNS Zone up and running. The kubernetes installer script
+	will try to add the LoadBalancer Floating-IP from the app-config.js automatically.
 
-Building
-********
+.. code-block:: bash
+	:linenos:
 
-For building with `dpkg-buildpackage` you need to install additional packages.
+	# install x0-test-app
+	cd ${PROJECT_DIR}/kubernetes
+	./install.sh
 
+Documentation see: #TODO: add (rendered) documentation
+
+2.3 Standalone
+--------------
+
+Download a prebuilt package from our website or build the standalone installation Debian Package with
+Debian Package Build Tools.
+
+#TODO: add link(s) for source and package after CI integration.
+
+2.3.1 Building
+**************
+
+For building with `dpkg-buildpackage` or `debuild` you need to install following packages:
+
+* git
 * gpg
 * debhelper
 
@@ -41,71 +140,30 @@ After package installation generate a GPG Signing Key used for every Package gen
 	# generate gpg signing key
 	gpg --full-generate-key
 
-Build Package (as linux user).
+.. note::
+
+	The gpg ID (name and comment in brackets) must match exactly the git user you are building with!
+
+Build Package (as non root user).
 
 .. code-block:: bash
 	:linenos:
 
-	# cd to system root / project dir
+	# build package
 	cd ${PROJECT_DIR}
+	debuild
 
-	# build package from project root
-	dpkg-buildpackage --sign-key=$KEY_ID
+2.3.2 Installation
+******************
 
-This will generate the Debian .deb and related Package(s) in the filesystem parent folder.
-
-Installation
-************
-
-.. note::
-
-	You can specify the vhost domain in "/etc/x0/domain.conf". If this file is non existent,
-	the default domain "x0.local" will be inserted.
-
-Install the package with the following commands.
+Install the package with the following command. Replace $DEB_FILE_NAME with real .deb file name.
 
 .. code-block:: bash
 	:linenos:
 
-	# install package
-	sudo dpkg --install <x0.deb>
+	# install package (suppress output)
+	apt-get -qq install -y ./$DEB_FILE_NAME
 
 .. note::
 
-	The installer generates a working "Hello World" example which is accesible from
-	http://x0.local after you put in /etc/hosts or your local DNS server configuration.
-
-Webserver Config
-----------------
-
-If you install by source option, you have to setup a working apache2 configuration and .
-
-
-Apache2 Vhost Example
-*********************
-
-.. code-block:: bash
-	:linenos:
-
-	<VirtualHost *:443>
-		ServerName x0.domain.com
-		ServerAdmin admin@x0
-		DocumentRoot /var/www/vhosts/x0
-		LogLevel warn
-
-		SSLEngine on
-		SSLCertificateFile /etc/ssl/apache/cert.pem
-		SSLCertificateKeyFile /etc/ssl/apache/key.pem
-		SSLCertificateChainFile /etc/ssl/apache/ca-chain.pem
-
-		<Directory /var/www/vhosts/x0/python>
-			SSLOptions +StdEnvVars
-			AddHandler wsgi-script .py
-			Options Indexes FollowSymLinks ExecCGI
-			AllowOverride None
-			Require all granted
-		</Directory>
-
-		ErrorLog /var/log/apache2/x0.error.log
-		CustomLog /var/log/apache2/x0.access.log combined
-	</VirtualHost>
+	The apt package installation will automatically install all required package dependencies.

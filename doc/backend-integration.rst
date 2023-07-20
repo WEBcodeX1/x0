@@ -1,10 +1,10 @@
 .. backend-integration
 
-Backend Integration
-===================
+12. Backend Integration
+=======================
 
-Result JSON Format
-------------------
+12.1 Result JSON Format
+-----------------------
 
-Python WSGI Example
--------------------
+12.2 Python WSGI Example
+------------------------

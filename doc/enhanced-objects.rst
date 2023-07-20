@@ -1,178 +1,69 @@
 .. enhanced-objects
 
-Object Chaining
-===============
+.. _enhancedobjects:
 
-Building Objects
-----------------
+14. Enhanced Objects / Chaining
+===============================
 
+14.1 Overview
+-------------
 
-Example (FileUpload)
---------------------
+The following example shows how to combine two system objects, 1. **Type::FileUpload** with 2. **Type::List**).
 
-.. code-block:: javascript
+Also the Type::FileUpload is constructed from referenced sysObjects shown in the following graphical explanation.
 
-	//------------------------------------------------------------------------------
-	//- CONSTRUCTOR "sysFileUpload"
-	//------------------------------------------------------------------------------
+.. image:: /images/x0-enhanced-object-creation1.png
+  :alt: Image - x0 Architecture
 
-	function sysFileUpload() {
-		this.DOMType				= 'form';
-		this.DOMAttributes			= { 'enctype': 'multipart/form-data' };
-		this.EventListeners			= new Object();
-		this.ChildObjects			= new Array();
-		this.FileName				= null;
-		this.Status					= null;
-	}
+The x0-sysObject::List is able to integrate **ANY** x0-SystemObject including **UserDefined** inherited Objects
+into a column.
 
-	sysFileUpload.prototype = new sysBaseObject();
+.. note::
 
+	For example, a Type::FormField Object can be used and **cloned** including the User-Input-Data.
 
-	//------------------------------------------------------------------------------
-	//- METHOD "init"
-	//------------------------------------------------------------------------------
+.. image:: /images/x0-enhanced-object-creation2.png
+  :alt: Image - x0 Architecture
 
-	sysFileUpload.prototype.init = function() {
+The x0-System is able to clone an sysObject in realtime (if you push the "Add file" button.
 
-		var Attributes = this.JSONConfig.Attributes;
+.. _dataserialization:
 
-		this.DOMStyle = Attributes.Style;
-		this.DOMType = 'form';
+14.2 Data-Serialization
+-----------------------
 
-		if (Attributes.AdditionalStyles !== undefined && Attributes.AdditionalStyles != null) {
-			this.DOMStyles = Attributes.AdditionalStyles;
-		}
+If you will call **Method::getRuntimeData()** of the sysObject::List, you will get the following JSON result data:
 
-		//console.log('::init Attributes:%o', Attributes);
+  .. code-block:: javascript
+	:linenos:
 
-		var SQLTextObj = new sysObjSQLText();
-		SQLTextObj.ObjectID = 'SQLText';
-		SQLTextObj.TextID = Attributes.TextID;
-		SQLTextObj.JSONConfig = { "Attributes": { "Style": Attributes.StyleDescription } };
-		SQLTextObj.init();
-		this.addObject(SQLTextObj);
-
-		var FileSelectButtonHTML = '<input ';
-		FileSelectButtonHTML += 'type="file" ';
-		FileSelectButtonHTML += 'id="' + this.ObjectID + '_select" ';
-		FileSelectButtonHTML += 'name="' + this.ObjectID + '_file">';
-
-		var FileSelectButton = new sysBaseObject();
-		FileSelectButton.ObjectID = this.ObjectID + 'FileButton';
-		FileSelectButton.DOMStyle = Attributes.StyleSelectButton;
-		FileSelectButton.DOMValue = FileSelectButtonHTML;
-		this.addObject(FileSelectButton);
-
-		var ProgressContainer = new sysBaseObject();
-		ProgressContainer.ObjectID = this.ObjectID + 'Progress';
-		ProgressContainer.DOMStyle = Attributes.StyleProgressContainer;
-		this.addObject(ProgressContainer);
-
-		var ProgressBar = new sysBaseObject();
-		ProgressBar.ObjectID = this.ObjectID + 'ProgressBar';
-		ProgressBar.DOMStyle = Attributes.ProgressBarStyle;
-		ProgressContainer.addObject(ProgressBar);
-
-		var ProgressPercentage = new sysBaseObject();
-		ProgressPercentage.ObjectID = this.ObjectID + 'ProgressPercentage';
-		ProgressPercentage.DOMStyle = Attributes.ProgressBarPercentageStyle;
-		ProgressContainer.addObject(ProgressPercentage);
-
-		var UploadButton = new sysObjButtonInternal();
-		UploadButton.ObjectID = this.ObjectID + 'UploadButton';
-		UploadButton.JSONConfig = { "Attributes": {
-				"Style": Attributes.StyleUploadButton,
-				"TextID": "SYSTEM.UPLOAD.BUTTON",
-				"Action": "upload"
-			}
-		};
-		UploadButton.ScreenObject = this.ScreenObject;
-		UploadButton.init();
-
-		//- set callback function for upload button
-		var EventListenerObj = new Object();
-		EventListenerObj['Type'] = 'mousedown';
-		EventListenerObj['Element'] = this.startUpload.bind(this);
-
-		UploadButton.EventListeners['UploadButtonCallback'] = EventListenerObj;
-
-		this.addObject(UploadButton);
-
+	"ResultData":
+	[0]: {
+		"SelectedFile": "upload1.pdf",
+		"UploadStatus": 1
+	},
+	[1]: {
+		"SelectedFile": "upload2.pdf",
+		"UploadStatus": 0,
+		"UploadException": 123
+	},
+	[2]: {
+		"SelectedFile": null
 	}
 
 
-	//------------------------------------------------------------------------------
-	//- METHOD "startUpload"
-	//------------------------------------------------------------------------------
-	sysFileUpload.prototype.startUpload = function() {
-		if (this.getObjectData().length > 0) {
-			this.FormObject = new FormData(this.getDOMelement());
-			this.FormObject.append("SessionID", sysFactory.SysSessionValue);
+14.3 Building Objects
+---------------------
 
-			this.appendUserData();
+#TODO: Add description.
 
-			var XHR = new XMLHttpRequest();
-			XHR.upload.addEventListener('progress', this.updateProgress.bind(this));
-			XHR.upload.addEventListener('load', this.UploadFinished.bind(this));
-			XHR.open('POST', this.JSONConfig.Attributes.UploadScript);
-			XHR.send(this.FormObject);
-		}
-	}
+14.2 Developer Documentation
+----------------------------
 
+#TODO: Add description.
 
-	//------------------------------------------------------------------------------
-	//- METHOD "updateProgress"
-	//------------------------------------------------------------------------------
-	sysFileUpload.prototype.updateProgress = function(progress) {
-		console.log('::updateProgress progress:%o', progress);
-		try {
-			this.ProgressPercent = Math.round(progress.loaded * 100 / progress.total);
-		}
-		catch(err) {
-			this.ProgressPercent = 0;
-		}
-		this.renderProgressBar();
-	}
+14.2.1 Example Code (FileUpload)
+********************************
 
-
-	//------------------------------------------------------------------------------
-	//- METHOD "UploadFinished"
-	//------------------------------------------------------------------------------
-	sysFileUpload.prototype.UploadFinished = function(progress) {
-		this.Status = 'uploaded';
-		this.ProgressPercent = 100;
-		this.renderProgressBar();
-	}
-
-
-	//------------------------------------------------------------------------------
-	//- METHOD "renderProgressBar"
-	//------------------------------------------------------------------------------
-	sysFileUpload.prototype.renderProgressBar = function() {
-		var ProgressBarElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressBar');
-		var ProgressPercentageElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressPercentage');
-		ProgressBarElement.DOMStyleWidth = this.ProgressPercent + '%'
-		ProgressBarElement.setDOMElementStyleAttributes();            
-		ProgressPercentageElement.DOMValue = Math.round(this.ProgressPercent) + '%';
-		ProgressPercentageElement.setDOMElementValue();
-	}
-
-
-	//------------------------------------------------------------------------------
-	//- METHOD "getObjectData"
-	//------------------------------------------------------------------------------
-	sysFileUpload.prototype.getObjectData = function() {
-		const FileUploadElement = this.ObjectID + '_select';
-		return document.getElementById(FileUploadElement).value;
-	}
-
-
-	//------------------------------------------------------------------------------
-	//- METHOD "appendUserData"
-	//------------------------------------------------------------------------------
-	sysFileUpload.prototype.appendUserData = function() {
-		const UserIDColumn = this.JSONConfig.Attributes.UserIDColumn;
-		if (UserIDColumn !== undefined) {
-			this.FormObject.append("UserID", this.ScreenObject.getDBColumnValue(UserIDColumn));
-		}
-	}
+.. literalinclude:: ../www/sysObjFileUpload.js
+   :linenos:

@@ -1,7 +1,7 @@
 .. enhanced-formating
 
-Enhanced Formating
-==================
+9. Enhanced Formating
+=====================
 
 Some Object Types offer extended Formating Properties. Actually the following Object-Types are supported:
 
@@ -10,8 +10,8 @@ Some Object Types offer extended Formating Properties. Actually the following Ob
 
 This Technique replaces Table Row/Colspan with a simple mechanism without loosing functionality.
 
-List
-----
+9.1 List
+--------
 
 The following Examples (Bootstrap Table Styles) will show you how to use correctly.
 
@@ -43,8 +43,8 @@ Example 1
 	| Col3 (col-md2) | Col4 (col-md3) | Col5 (col-md3) | Col6 (col-md5) |
 	+----------------+----------------+----------------+----------------+
 
-FormfieldList
--------------
+9.2 FormfieldList
+-----------------
 
 Same rendering takes place with slightly modified Property Naming.
 

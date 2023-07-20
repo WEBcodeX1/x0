@@ -1,90 +1,30 @@
 .. config-files
 
-Configuration Files
-===================
+4. App Metadata-Definitions
+===========================
 
-sysInitOnLoad.js
-----------------
-
-Actually the main configuration takes place in sysInitOnLoad.js.
-
-.. code-block:: javascript
-
-	sysFactory.SysDebugLevel			= 10;
-	sysFactory.ParentWindowURL			= 'domain.com';
-	sysFactory.DisplayDefaultScreen		= 'Screen1';
-	sysFactory.EnvUserLanguage			= 'de';
-
-
-menu.json
----------
-
-The menu.json configuration file contains a non-nested Associative Array, for each **Link** one
-Object. The Object Properties are listed in the following table:
-
-.. table:: Test1
-    :widths: 30 70
-
-    +------------------------+------------------------------------------------------------------------+
-    | **Property**           | **Description**                                                        |
-    +========================+========================================================================+
-    | TextID                 | Backend Text ID (Database) stored in Table "webui.text"                |
-    +------------------------+------------------------------------------------------------------------+
-    | ScreenID               | Screen Reference, which Screen will be loaded in Content Area on click |
-    +------------------------+------------------------------------------------------------------------+
-    | RefID                  | Parent Menu Reference (recursive)                                      |
-    +------------------------+------------------------------------------------------------------------+
-    | IconStyle              | Menu Icon CSS Style                                                    |
-    +------------------------+------------------------------------------------------------------------+
-
-
-menu.json Example
------------------
-
-.. code-block:: javascript
-
-	{
-		"Link1Root":
-		{
-			"TextID": "TXT.MENU.LINK1",
-			"RefID": "MenuRoot"
-		},
-		"SubLink1":
-		{
-			"TextID": "TXT.MENU.SUBLINK1",
-			"ScreenID": "Sublink1",
-			"RefID": "Link1Root",
-			"IconStyle": "StandardLink"
-		},
-		"SubLink2":
-		{
-			"TextID": "TXT.MENU.SUBLINK2",
-			"ScreenID": "Sublink2",
-			"RefID": "Link1Root",
-			"IconStyle": "StandardLink"
-		},
-		"SubSubLink1":
-		{
-			"TextID": "TXT.MENU.SUBSUBLINK1",
-			"ScreenID": "SubSubLink1",
-			"RefID": "SubLink2",
-			"IconStyle": "StandardLink"
-		}
-	}
-
-
-skeleton.json
+4.1 menu.json
 -------------
 
-The skelleton.json file connects objects defined in objects.json with Screens defined in menu.json.
+#TODO: update to new specifications.
 
-You can map multiple Objects to multiple Screens.
+4.1.1 menu.json Example
+***********************
+
+#TODO: update to new specifications.
+
+4.2 skeleton.json
+-----------------
+
+The *skeleton.json* file connects **x0 System-Objects** defined in *objects.json* with **x0 System-Screens** defined in *menu.json*.
+
+A single **x0 System-Object** can be mapped / referenced to multiple **x0 System-Screens**.
 
 
-skeleton.json Example
----------------------
+4.2.1 skeleton.json Example
+***************************
 
-The following JSON Example shows simple Object to Screen / Hierarchical Object to Object Mapping.
+The following JSON Example shows simple **Object to Screen** mapping.
 
 .. code-block:: javascript
 
@@ -120,8 +60,8 @@ The following JSON Example shows simple Object to Screen / Hierarchical Object t
 ElementID Mapping
 *****************
 
-The additional Property "ElementID" in skeleton.json allows mapping to Sub-Elements of some
-Type of Objects.
+The additional Property "ElementID" in *skeleton.json* allows mapping to Sub-Elements of **x0 System-Objects**
+which welche die Property "ElementID" unterstützen.
 
 .. note::
 

@@ -1,10 +1,10 @@
 .. error-handling
 
-Error Handling
-==============
+17. Error Handling
+==================
 
-Client Indicator
-----------------
+17.1 Client Indicator
+---------------------
 
-Server Result Codes
--------------------
+17.2 Server Result Codes
+------------------------
