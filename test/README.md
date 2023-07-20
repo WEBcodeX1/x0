@@ -15,3 +15,7 @@ The following logical Test Groups will be implemented:
 * Base Objects Dynamic Parameters (Object Variants)
 * Base Objects Clickable Interactions
 * Object to Object Interactions
+
+## Run Tests
+
+Execute **./run-tests.sh** script.

@@ -3,7 +3,7 @@ INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_formfiel
 INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_formfield_validation', 'display_language', 'de');
 INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_formfield_validation', 'default_screen', 'Test1');
 INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_formfield_validation', 'parent_window_url', 'null');
-INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_formfield_validation', 'subdir', '/tests/formfield-validation');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_formfield_validation', 'subdir', '/test/formfield-validation');
 INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_formfield_validation', 'config_file_menu', 'menu.json');
 INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_formfield_validation', 'config_file_object', 'object.json');
 INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_formfield_validation', 'config_file_skeleton', 'skeleton.json');

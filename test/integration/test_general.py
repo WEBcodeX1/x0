@@ -9,11 +9,12 @@ from selenium.webdriver.support import expected_conditions as EC
 
 def config():
     config = {}
-    config["wait"] = 10
+    config["wait"] = 5
     config["options"] = webdriver.ChromeOptions()
     config["options"].add_argument('ignore-certificate-errors')
+    config["options"].add_argument('headless')
     config["driver"] = webdriver.Chrome(options=config["options"])
-    config["driver"].get("https://x0-test.webcodex.de/python/Index.py?appid=test_base");
+    config["driver"].get("http://127.0.0.1/python/Index.py?appid=test_base");
     config["ready_selector"] = "#Test1" # selector to look for to declare DOM ready
     return config
 

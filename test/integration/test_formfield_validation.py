@@ -8,11 +8,12 @@ from selenium.webdriver.support import expected_conditions as EC
 
 def config():
     config = {}
-    config["wait"] = 10
+    config["wait"] = 5
     config["options"] = webdriver.ChromeOptions()
     config["options"].add_argument('ignore-certificate-errors')
+    config["options"].add_argument('headless')
     config["driver"] = webdriver.Chrome(options=config["options"])
-    config["driver"].get("https://x0-test.webcodex.de/python/Index.py?appid=test_formfield_validation")
+    config["driver"].get("http://127.0.0.1/python/Index.py?appid=test_formfield_validation")
     return config
 
 def is_valid_in_formfield(d, w, input, keys, submit, css_class):
