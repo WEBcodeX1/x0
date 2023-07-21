@@ -18,4 +18,5 @@ debian/x0-psycopg2-patched
 debian/x0-app
 debian/x0-db
 debian/x0-test
+debian/x0-db-install
 debian/.debhelper
