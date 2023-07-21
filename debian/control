@@ -37,3 +37,10 @@ Depends: postgresql-client (>=14), ${misc:Depends}
 Description: Transparent Database installer package.
  User to transparently install database in distributed (docker / kubernetes)
  scalable environments.
+
+Package: x0-test
+Section: misc
+Architecture: all
+Depends: python3 (>= 3.4), chromium-browser, chromium-chromedriver, python3-selenium, python3-sphinx, python3-sphinx-rtd-theme, texlive-full, ${misc:Depends}
+Description: Integration-Tests execution and documentation generation.
+ Integration-Tests execution and documentation generation.
