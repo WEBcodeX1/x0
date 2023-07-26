@@ -14,7 +14,7 @@ def config():
     config["options"].add_argument('ignore-certificate-errors')
     config["options"].add_argument('headless')
     config["driver"] = webdriver.Chrome(options=config["options"])
-    config["driver"].get("http://127.0.0.1/python/Index.py?appid=test_tabcontainer")
+    config["driver"].get("https://x0-app.kicker-finder.de/python/Index.py?appid=test_tabcontainer")
     return config
 
 class TestTabContainer:

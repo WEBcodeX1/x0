@@ -17,7 +17,7 @@ def config():
     config["options"].add_argument('ignore-certificate-errors')
     config["options"].add_argument('headless')
     config["driver"] = webdriver.Chrome(options=config["options"])
-    config["driver"].get("http://127.0.0.1/python/Index.py?appid=test_base");
+    config["driver"].get("https://x0-app.kicker-finder.de/python/Index.py?appid=test_base");
 
     config["json"] = {}
     with open("integration/config/basic/static/object.json") as file:
