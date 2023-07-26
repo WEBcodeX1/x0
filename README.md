@@ -1,4 +1,3 @@
-# x0_js
+# x0 JavaScript Framework
 
-x0 - (cross objects) JavaScript framework. 
-A powerful web application framework for building server-less applications with focus on object interaction / communication.
+The x0 (cross-objects) JavaScript Framework is a modern tool for building powerful Web-Browser Realtime-SPA (Single Page Applications) easily.
