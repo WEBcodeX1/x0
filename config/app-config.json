@@ -1,0 +1,59 @@
+{
+    "project": {
+        "name": "x0-base",
+        "id": "x0-base"
+    },
+    "installer": {
+        "type": "x0"
+    },
+    "database": {
+        "name": "x0",
+        "su_password": "changeme",
+        "repl_password": "changeme",
+        "size": "1Gi"
+    },
+    "env_list": [ "test" ],
+    "environment": "test",
+    "environments": {
+        "test": {
+            "kubernetes": {
+                "deployment": {
+                    "image": "registry.code.syseleven.de/webcodex/x0/x0-app",
+                    "replicas": 1,
+                    "cpu": "200m",
+                    "memory": "512Mi",
+                    "autoscale": false
+                },
+                "namespace": "x0-app",
+                "app_templates": [ "kubegres" ]
+            }
+        }
+    },
+    "vhosts": {
+        "x0-app": {
+            "apps": [ "x0" ],
+            "env": {
+                "test": {
+                    "dns": "x0-app.kicker-finder.de",
+                    "ip": {
+                        "v4": {
+                            "dns_register": true,
+                            "dns_register_type": "openstack"
+                        }
+                    },
+                    "tls": {
+                        "certs": {
+                            "ca-cert": "ca.x0-app.CA.crt.pem",
+                            "cert": "x0-app.Server.crt.pem",
+                            "key": "x0-app.Server.key.unencrypted.pem"
+                        }
+                    }
+                }
+            },
+            "loadbalancer": {
+                "ref": "ingress-x0-app",
+                "paths": [ "/" ]
+            }
+        }
+    }
+}
