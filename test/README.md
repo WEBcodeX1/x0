@@ -16,6 +16,15 @@ The following logical Test Groups will be implemented:
 * Base Objects Clickable Interactions
 * Object to Object Interactions
 
+## Test Types
+
+Two Test Types exist:
+
+1. Local Docker Test which starts up the necessary Docker Containers (x0-app and x0-db).
+2. Kubernetes Tests in already deployed Kubernetes Environment.
+
 ## Run Tests
 
-Execute **./run-tests.sh** script.
+Execute **./run-tests-docker.sh** to start local testing.
+
+Execute **./run-tests.sh** to start testing in kubernetes environment (deployed).
