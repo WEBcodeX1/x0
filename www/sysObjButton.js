@@ -17,6 +17,8 @@
 
 function sysObjButton()
 {
+	this.DOMType			= 'button'
+
 	this.EventListeners		= new Object();
 	this.ChildObjects		= new Array();
 
