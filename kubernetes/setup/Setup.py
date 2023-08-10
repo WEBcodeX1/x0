@@ -8,8 +8,8 @@ import logging
 import subprocess
 
 
-dir_repo = sys.argv[1]
-dir_x0_app_config = '{}/config'.format(dir_repo)
+dir_config = sys.argv[1]
+dir_x0_app_config = '{}/config'.format(dir_config)
 dir_x0_kubernetes_tpl = '../template'
 
 app_config_file = '{}/app-config.json'.format(dir_x0_app_config)
@@ -40,6 +40,7 @@ def kubernetes_exec(configs):
     #log_message('kubernetes_exec', 'configs:{}'.format(configs))
     for config_data in configs:
         filename_out = '/tmp/kube-tpl-process-{}.yaml'.format(uuid.uuid4())
+        log_message('kubernetes_exec', 'Processing file:{}'.format(filename_out))
         with open(filename_out, 'w') as fh:
             fh.write(config_data)
         cmd = 'kubectl apply -f {}'.format(filename_out)
@@ -337,13 +338,16 @@ if __name__ == '__main__':
                     pass
 
                 # replace hostname
+                venv = vhost_config['env'][environment]
                 try:
                     dns_replace_var = '${x0_APP_VHOST_DNS}'
-                    dns_name = vhost_config['env'][environment]['dns']
-
+                    dns_name = '{}.{}'.format(
+                        venv['dns']['hostname'],
+                        venv['dns']['domain']
+                    )
                     tpl_ingress = tpl_ingress.replace(dns_replace_var, dns_name)
                 except Exception as e:
-                    pass
+                    dns_name = None
 
                 log_message(log_prefix, 'Tpl Service Env:{} Template:{}'.format(environment, tpl_service))
                 log_message(log_prefix, 'Tpl Ingress Env:{} Template:{}'.format(environment, tpl_ingress))
@@ -354,3 +358,42 @@ if __name__ == '__main__':
                 ]
 
                 kubernetes_exec(configs_app)
+
+                if dns_name is not None and venv['ip']['v4']['dns_register'] is True:
+
+                    zone_id = venv['dns']['domain']
+
+                    # get ingress loadbalancer ip
+                    cmd = 'kubectl --namespace {} get ingress -o json'.format(kube_namespace)
+                    ingress_result = subprocess.run(cmd.split(), capture_output=True)
+                    kube_ingress = json.loads(ingress_result.stdout)
+
+                    loadbalancer_ip = kube_ingress['items'][0]['status']['loadBalancer']['ingress'][0]['ip']
+
+                    log_message('DNS', 'Zone:{} LoadBalancer IP:{}'.format(zone_id, loadbalancer_ip))
+
+                    # get openstack zone id
+                    cmd = 'openstack zone list -f json'
+                    zone_result = subprocess.run(cmd.split(), capture_output=True)
+                    zones = json.loads(zone_result.stdout)
+
+                    for zone in zones:
+                        if zone['name'] == '{}.'.format(zone_id):
+                            log_message('DNS', 'Zone found:{}'.format(zone))
+
+                            cmd = 'openstack recordset list {} -f json'.format(zone['id'])
+                            records_result = subprocess.run(cmd.split(), capture_output=True)
+                            records = json.loads(records_result.stdout)
+
+                            log_message('DNS', 'Records:{}'.format(records))
+
+                            cmd = 'openstack recordset create --type A --record {} {} {} -f json'.format(
+                                loadbalancer_ip,
+                                zone['id'],
+                                venv['dns']['hostname']
+                            )
+
+                            rs_create_result = subprocess.run(cmd.split(), capture_output=True)
+                            record = json.loads(rs_create_result.stdout)
+
+                            log_message('DNS', 'Record create:{}'.format(record))
