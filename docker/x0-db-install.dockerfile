@@ -5,6 +5,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ARG APP_DEB_FILE=x0-db-install_0.98rc_all.deb
 
+COPY ./x0/docker/tmp/apt-sources.list /etc/apt/sources.list
+
 COPY ./$APP_DEB_FILE ./
 
 RUN rm /var/lock
