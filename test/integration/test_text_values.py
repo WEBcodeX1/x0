@@ -10,20 +10,27 @@ import logging
 
 
 def config():
+
+    try:
+        test_url_env = os.environ['TEST_DOMAIN']
+        test_url = 'https://{}'.format(test_url_env)
+    except:
+        test_url = 'http://127.0.0.1'
+
     config = {}
-    config["wait"] = 5
+    config["timeout"] = 10
     config["options"] = webdriver.ChromeOptions()
     config["options"].add_argument('ignore-certificate-errors')
     config["options"].add_argument('headless')
     config["driver"] = webdriver.Chrome(options=config["options"])
-    config["driver"].get("https://x0-app.kicker-finder.de/python/Index.py?appid=test_text_values")
+    config["driver"].get('{}/python/Index.py?appid=test_text_values'.format(test_url))
     return config
 
 
 class TestTextValues:
     def test_text_values(self, config):
         """Check if the standard text values are present in the DB"""
-        d, w = config["driver"], config["wait"]
+        d, w = config["driver"], config["timeout"]
         wait = WebDriverWait(d, w)
 
         logging.info("Checking presence of correct text in elements..")

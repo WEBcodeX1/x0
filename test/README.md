@@ -2,8 +2,10 @@
 
 ## Unit Testing
 
-There will be **no** focus on Unit Testing. Integration Tests roughly rationalise Unit Testing completely in our case.
-Furthermore no suitable JavaScript Unit Testing Framework has been selected. For these reasons mentioned we ommit Unit Testing to begin completely.
+There will be **no** focus on Unit Testing. Integration Tests roughly rationalise Unit Testing
+completely in our case. Furthermore no suitable JavaScript Unit Testing Framework has been selected.
+
+For these reasons mentioned we ommit Unit Testing to begin completely.
 
 ## Integration Tests
 
@@ -25,6 +27,6 @@ Two Test Types exist:
 
 ## Run Tests
 
-Execute **./run-tests-docker.sh** to start local testing.
+Execute **./run-tests-local.sh** to start local testing (docker containers x0-app and x0-db).
 
-Execute **./run-tests.sh** to start testing in kubernetes environment (deployed).
+Execute **./run-tests.sh** to start testing in kubernetes "test" environment (realtime kubernetes deployment).
