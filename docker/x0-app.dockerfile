@@ -16,7 +16,7 @@ RUN mkdir -p /var/lock/
 
 RUN apt-get -qq update -y
 
-RUN TZ="Europe/Berlin" apt-get -qq install -y tzdata
+RUN TZ="Europe/Berlin" apt-get -qq install -y tzdata locales
 
 RUN apt-get -qq install -y ./$APP_DEB_FILE
 RUN apt-get -qq install -y ./$APP_PSYCOP_DEB_FILE

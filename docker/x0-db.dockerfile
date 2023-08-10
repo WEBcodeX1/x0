@@ -15,6 +15,8 @@ RUN mkdir -p /var/lock/
 
 RUN apt-get -qq update -y
 
+RUN TZ="Europe/Berlin" apt-get -qq install -y tzdata locales
+
 RUN apt-get -qq install -y ./$DB_DEB_FILE
 
 CMD /root/start-postgresql.sh
