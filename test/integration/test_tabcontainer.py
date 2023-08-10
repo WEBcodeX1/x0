@@ -6,29 +6,35 @@ from selenium.webdriver.support import expected_conditions as EC
 import logging
 
 @pytest.fixture
-
 def config():
+
+    try:
+        test_url_env = os.environ['TEST_DOMAIN']
+        test_url = 'https://{}'.format(test_url_env)
+    except:
+        test_url = 'http://127.0.0.1'
+
     config = {}
-    config["wait"] = 5
+    config["timeout"] = 30
     config["options"] = webdriver.ChromeOptions()
     config["options"].add_argument('ignore-certificate-errors')
     config["options"].add_argument('headless')
     config["driver"] = webdriver.Chrome(options=config["options"])
-    config["driver"].get("https://x0-app.kicker-finder.de/python/Index.py?appid=test_tabcontainer")
+    config["driver"].get('{}/python/Index.py?appid=test_tabcontainer'.format(test_url))
     return config
 
 class TestTabContainer:
     def test_tabcontainer(self, config):
         """Check if TabContainer is working as expected"""
         d = config["driver"]
-        wait = WebDriverWait(d, config["wait"])
+        wait = WebDriverWait(d, config["timeout"])
 
         wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#Screen1_TabContainer1_Nav_Ul_Tab2Container")))
 
-        tab1_button = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Nav_Ul_Tab1Container")
-        tab2_button = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Nav_Ul_Tab2Container")
-        tab3_button = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Nav_Ul_Tab3Container")
-        tab4_button = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Nav_Ul_Tab4Container")
+        tab1_button = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Nav_Ul_Tab1Container_Tab1li")
+        tab2_button = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Nav_Ul_Tab2Container_Tab2li")
+        tab3_button = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Nav_Ul_Tab3Container_Tab3li")
+        tab4_button = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Nav_Ul_Tab4Container_Tab4li")
 
         tab1_container = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Tab1")
         tab2_container = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Tab2")
