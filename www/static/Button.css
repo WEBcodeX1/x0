@@ -62,12 +62,6 @@ a:hover {
     color: #ffffff !important;
 }
 
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragsabschluss_ProjektNewAntragAbschliessenPDFDownload a:hover {
-    background-color: #286ea0 !important;
-    color: #ffffff !important;
-    text-decoration: none !important;
-}
-
 .sysButton a:hover {
     background-color: #286ea0 !important;
     color: #ffffff !important;
@@ -89,13 +83,6 @@ a:hover {
     ;
     background-color: #F3C7C7 !important;
     color: #286ea0 !important;
-}
-
-
-/* Person hinzufügen Button */
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK_ProjektNewPartnerZuordnenPartnerKKAntragstellerNew .sysButtonAssign {
-    width: 475px;
 }
 
 .sysButtonAssign {
@@ -318,32 +305,4 @@ a:hover {
 
 div[id*="SearchList"] .sysButton {
     width: auto !important;
-}
-
-#ProjektNewPartnerKKSearchList .row:nth-child(even):hover>div[id*="SearchList"] .sysButton,
-#ProjektSearchResultListAdmin .row:nth-child(even):hover>div[id*="ResultList"] .sysButton,
-#ProjektSearchResultList .row:nth-child(even):hover>div[id*="ResultList"] .sysButton,
-#ProjektNewPartnerBJSearchList .row:nth-child(even):hover>div[id*="SearchList"] .sysButton,
-#ProjektNewKooperationspartnerSearchList .row:nth-child(even):hover>div[id*="SearchList"] .sysButton,
-#ProjektbeschreibungLinksList .row:nth-child(even):hover>div[id*="SearchList"] .sysButton {
-    color: #286ea0;
-    background-color: #FFF;
-}
-
-#ProjektNewPartnerKKSearchList .row:nth-child(odd):hover>div[id*="SearchList"] .sysButton,
-#ProjektSearchResultListAdmin .row:nth-child(odd):hover>div[id*="ResultList"] .sysButton,
-#ProjektSearchResultList .row:nth-child(odd):hover>div[id*="ResultList"] .sysButton,
-#ProjektNewPartnerBJSearchList .row:nth-child(odd):hover>div[id*="SearchList"] .sysButton,
-#ProjektNewKooperationspartnerSearchList .row:nth-child(odd):hover>div[id*="SearchList"] .sysButton,
-#ProjektbeschreibungLinksList.row:nth-child(odd):hover>div[id*="SearchList"] .sysButton {
-    color: #286ea0;
-    background-color: #FFF;
-}
-
-
-/* Aufräumen */
-
-#Root_ProjektSearchSubmit_SQLText,
-#Root_ProjektSearchFormfields {
-    display: none;
 }
