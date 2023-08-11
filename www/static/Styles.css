@@ -82,12 +82,6 @@ video {
     font-style: normal;
 }
 
-#CalculatorStep2ContentADR__enclose__ADRPointsDescr label,
-#CalculatorStep2ContentADREdit__overlay__enclose__EditADRPointsDescr__overlay label {
-    background-color: #fff !important;
-    padding: 0 !important;
-}
-
 .col-content {
     background-color: #000000;
 }
@@ -261,15 +255,6 @@ ul {
     max-width: 800px;
 }
 
-#Register {
-    filter: blur(0px);
-}
-
-#RegisterCompanyAddressData__overlay>#Register {
-    filter: blur(4px) !important;
-}
-
-
 /* ---------- Innerbox -------------------- */
 
 .adr-classes {
@@ -322,19 +307,6 @@ ul {
 
 
 /* ---------- Innerbox End -------------------- */
-
-#Calculator label {
-    margin-left: 4px;
-    margin-bottom: 15px;
-    font-weight: 200 !important;
-    font-size: 20px;
-    line-height: 24px;
-    position: relative;
-}
-
-#Calculator .row {
-    margin-bottom: inherit;
-}
 
 span.circle {
     background: #fff;
@@ -422,10 +394,6 @@ span.circle {
     line-height: 43px;
 }
 
-#CalculatorStep4ContentPriceDirectForm__enclose__CalculatorStep4ContentPriceDirect {
-    margin-bottom: 45px;
-}
-
 h1,
 h2 {
     color: #286ea0 !important;
@@ -473,38 +441,6 @@ h4 {
 
 
 /* ----------CHRIS Tab Arrows -------------------- */
-
-#Calculator nav ul li {
-    list-style: none;
-    width: 100%;
-    display: inline;
-    overflow: visible;
-    position: relative;
-}
-
-#Calculator nav ul li:nth-child(1) {
-    z-index: 100;
-}
-
-#Calculator nav ul li:nth-child(2) {
-    z-index: 99;
-}
-
-#Calculator nav ul li:nth-child(3) {
-    z-index: 98;
-}
-
-#Calculator nav ul li button {
-    margin-left: 4px !important;
-}
-
-#Calculator nav ul li:nth-child(3)>button span::after {
-    border-style: none;
-}
-
-#Calculator nav ul li:nth-child(1)>button span::before {
-    border-style: none;
-}
 
 @media only screen and (min-width: 960px) {
     #Calculator nav ul li:nth-child(2)>button span::before,
@@ -650,21 +586,6 @@ h4 {
 
 .btn-close {
     float: right !important;
-}
-
-
-/* ----------CHRIS Grey Container -------------------- */
-
-#Calculator_CalculatorTabContainer_TabStep2,
-#Calculator_CalculatorTabContainer_TabStep3,
-#Calculator_CalculatorTabContainer_TabStep1_FormList_CalculatorStep1Content {
-    margin-top: 60px !important;
-    background-color: #f6f6f6;
-    padding: 25px;
-    padding-top: 45px;
-    padding-bottom: 110px;
-    border-radius: 21px;
-    position: relative;
 }
 
 
@@ -832,32 +753,11 @@ button:focus {
     outline: none !important;
 }
 
-#Calculator_CalculatorTabContainer_TabStep2_FormList_CalculatorStep2Content_CalculatorStep2Content_CellGroup3 {
-    margin-bottom: 0 !important;
-}
-
-
 /* ----------CHRIS END -------------------- */
 
 
-/* #Calculator_CalculatorTabContainer_TabStep1_FormList_CalculatorStep1Content_CalculatorStep1Content_CellGroup0,
-#Calculator_CalculatorTabContainer_TabStep1_FormList_CalculatorStep1Content_CalculatorStep1Content_CellGroup2,
-#Calculator_CalculatorTabContainer_TabStep1_FormList_CalculatorStep1Content_CalculatorStep1Content_CellGroup3,
-#Calculator_CalculatorTabContainer_TabStep1_FormList_CalculatorStep1Content_CalculatorStep1Content_CellGroup4 {
-    margin-bottom: 0;
-}
- */
-
 
 /* ----------CHRIS Button nomalize -------------------- */
-
-#Calculator_CalculatorTabContainer_TabStep1_FormList_CalculatorStep1Content_CalculatorStep1Content_CellGroup4 div,
-#Calculator_CalculatorTabContainer_TabStep1_FormList_CalculatorStep1Content_CalculatorStep1Content_CellGroup4 label {
-    font-family: Industry-Book, sans-serif !important;
-    font-weight: bold;
-    font-size: 14px;
-    user-select: none;
-}
 
 button {
     -webkit-appearance: none !important;
@@ -881,39 +781,6 @@ button:focus {
 *:focus,
 *:hover {
     outline: none !important;
-}
-
-#Register_RowContainer4_Column2_RegisterUploadedDocument1 a,
-#Register_RowContainer4_Column2_RegisterUploadedDocument2 a,
-#Register_RowContainer4_Column2_RegisterUploadedDocument3 a,
-.sysPdfButton {
-    font-family: 'Industry', sans-serif !important;
-    background-color: #c3e6cb;
-    text-align: center;
-    padding: 10px;
-    color: #fff !important;
-    margin-bottom: 20px;
-    display: block;
-    width: 100%;
-    font-size: 25px;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: 900;
-}
-
-#Register_RowContainer4_Column2_RegisterUploadedDocument1 a:hover,
-#Register_RowContainer4_Column2_RegisterUploadedDocument2 a:hover,
-#Register_RowContainer4_Column2_RegisterUploadedDocument3 a:hover,
-.sysPdfButton:hover {
-    background-color: #286ea0;
-    transition: all 0.2s;
-}
-
-#TourIDDescr span {
-    display: block;
-    font-family: Industry-Book, sans-serif !important;
-    font-weight: bold;
-    font-size: 14px;
 }
 
 .sysCard svg {
@@ -967,14 +834,6 @@ h3,
     letter-spacing: 0;
 }
 
-#Register_RegisterCompanyAddress h3,
-#Register_RegisterAdminAddress h3,
-#Register_RegisterAirSafetyPersonAddress h3 {
-    font-size: 18px;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-
 address {
     font-weight: normal;
     font-size: 17px;
@@ -985,7 +844,6 @@ address {
     color: #fff;
 }
 
-#AomRegister,
 #sysEntries {
     width: 880px;
     margin-left: auto;
@@ -1002,25 +860,6 @@ address {
     user-select: none;
     /* Non-prefixed version, currently
     supported by Chrome, Edge, Opera and Firefox */
-}
-
-#AomRegister {
-    margin-top: 50px;
-}
-
-#AomRegister address {
-    font-weight: normal;
-    font-size: 17px;
-}
-
-#AomRegister h3 {
-    font-size: 20px !important;
-    font-weight: bold;
-}
-
-#AomRegister svg {
-    font-size: 55px !important;
-    color: #286ea0;
 }
 
 .sysCard h3 {
@@ -1322,29 +1161,10 @@ input[disabled].PriceForm::selection {
     padding: 8px !important;
 }
 
-.ProjektNewFormfieldsAntragabschlussEinzureichendeUnterlagenHeader {
-    margin-top: 35px !important;
-}
-
 .sysPlusButton:hover,
 .sysButtonRemove:hover {
     background-color: #fff !important;
     color: #d7466b !important;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanPersonalkostenListConnector_FinanzplanPersonalkostenList {
-    margin-bottom: 0px !important
-}
-
-#ProjektNewFormfieldsProjektbeschreibungLinkHinzufügenLink {
-    height: 61px;
-    width: 100% !important;
-    margin-top: 15px;
-}
-
-.GridProjektdauerSectionBeginn {
-    width: auto;
-    grid-area: dc1;
 }
 
 .sysIndicatorItemResult {
@@ -1363,26 +1183,6 @@ input[disabled].PriceForm::selection {
     left: 31px;
 }
 
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner_ProjektNewKooperationspartnerNeuButton {
-    margin-top: 25px;
-    width: 410px;
-    margin-bottom: 25px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ_ProjektNewPartnerZuordnenPartnerBJAntragstellerNew,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger_ProjektNewProjektleitungZuwendungsempfängerProjektleitungNeu,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK_ProjektNewPartnerZuordnenPartnerKKAntragstellerNew {
-    margin-top: 25px;
-    width: 310px;
-    margin-bottom: 25px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-}
-
 input[type='checkbox']:checked {
     /*  filter: grayscale(100%); */
     color: #f47e35 !important;
@@ -1392,38 +1192,10 @@ input[type='radio']:checked {
     filter: grayscale(100%);
 }
 
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektFoerdersaeule1_ProjektNewFoerdersaeule1Description {
-    font-family: Gentona-Heavy, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
-    font-size: 30px;
-    color: #d7466b;
-    margin-bottom: 25px;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ_FormfieldListPartnerBJAdressdaten {
-    margin-bottom: 25px;
-}
-
-#antrag-uebersicht #sysScreenHideLayer {
-    display: none;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektFoerdersaeule1_ProjektNewFoerdersaeule1Description {
-    font-size: 22px;
-}
-
 .FormFieldCheckbox {
     width: 20px;
     margin-bottom: 7px;
 }
-
-.GridProjektdauer {
-    grid-gap: 10px;
-}
-
-.GridProjektdauerVorzeitig {
-    grid-gap: 10px;
-}
-
 
 /* Overrides Bootstrap      */
 
@@ -1431,26 +1203,8 @@ input[type='radio']:checked {
     padding: 25px;
     background-color: #f5f5f5;
 }
-
-#Register {
-    margin-top: 60px;
-}
-
-#Register .row {
-    margin-bottom: inherit;
-}
-
 .row {
     margin-bottom: 25px;
-}
-
-div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorzeitigerProjektbeginn_ProjektNewFormfieldsSelectVorzeitigerProjektbeginnHeader {
-    margin-top: 30px;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten_ProjektNewFormfieldsProjektSparten_CellGroup0,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten_ProjektNewFormfieldsProjektSparten_CellGroup1 {
-    margin-bottom: 15px;
 }
 
 ::selection {
@@ -1463,10 +1217,6 @@ div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsS
     background: #286ea0;
     /* WebKit/Blink Browsers */
     color: #fff;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragsabschluss_ProjektNewFormfieldsAntragabschlussVorschau {
-    box-shadow: inset 0 0 0.5em #ddd;
 }
 
 .NavigationButtonsContainer {
@@ -1601,51 +1351,6 @@ div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsS
     ;
 }
 
-div#ProjektSearchResultListAdmin_HdrRow {
-    padding-left: 0px;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner_ProjektNewFormfieldsPartnerZuordnenKooperationspartnerSearch_ProjektNewFormfieldsPartnerZuordnenKooperationspartnerSearch_CellGroup1 {
-    margin-bottom: 50px;
-}
-
-@media (max-width: 767px) {
-    #ProjektNewPartnerKKSearchList_HdrRow div,
-    #ProjektSearchResultListAdmin_HdrRow div {
-        margin-bottom: 25px;
-    }
-}
-
-@media (max-width: 992px) {
-    #ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK_ProjektNewPartnerZuordnenPartnerKKSearchSubmit,
-    #ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ_ProjektNewPartnerZuordnenPartnerBJSearchSubmit,
-    #ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner_ProjektNewKooperationspartnerSearchSubmit {
-        width: 100%;
-        margin-bottom: 35px;
-    }
-}
-
-@media (min-width: 992px) {
-    #ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK_ProjektNewPartnerZuordnenPartnerKKSearchSubmit,
-    #ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ_ProjektNewPartnerZuordnenPartnerBJSearchSubmit {
-        position: absolute;
-        right: 0px;
-        top: 257px;
-    }
-}
-
-@media (min-width: 992px) {
-    #ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner_ProjektNewKooperationspartnerSearchSubmit {
-        position: absolute;
-        right: 0px;
-        top: 636px;
-    }
-}
-
-#ProjektSearchResultListAdmin {
-    margin-top: 50px;
-}
-
 .sysHeadline {
     color: #d7466b;
     text-transform: uppercase;
@@ -1657,20 +1362,7 @@ div#ProjektSearchResultListAdmin_HdrRow {
     line-height: 27px;
 }
 
-#ProjektNewSparte3 {
-    margin-bottom: 0px !important;
-}
-
 .sysSubHeadline {
-    margin-bottom: 0px;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten_ProjektNewFormfieldsProjektSparten_CellGroup0_ProjektNewSparte1Sonstige_enclosedby_ProjektNewSparte1Sonstige,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten_ProjektNewFormfieldsProjektSparten_CellGroup1_ProjektNewSparte2Sonstige_enclosedby_ProjektNewSparte2Sonstige {
-    margin-bottom: 15px;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten_ProjektNewFormfieldsProjektSparten_CellGroup2 {
     margin-bottom: 0px;
 }
 
@@ -1684,101 +1376,6 @@ div#ProjektSearchResultListAdmin_HdrRow {
     position: relative;
 }
 
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ_FormfieldListPartnerBJAdressdaten,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK_FormfieldListPartnerKKAdressdatenEinzelperson,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK_FormfieldListPartnerKKAdressdatenInstitution,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_FormfieldListProjektNewProjektdauer_FormfieldListProjektNewProjektdauer_CellGroup2,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_FormfieldListProjektNewProjektdauer_FormfieldListProjektNewProjektdauer_CellGroup4,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSchwerpunktThema_ProjektNewSchwerpunktThema,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektKurzbeschreibung_ProjektNewKurzbeschreibung,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektTitel_ProjektNewFormfieldsProjektTitel_CellGroup0,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsVorzeitigerMassnahmenbeginn_ProjektNewFormfieldsVorzeitigerMassnahmenbeginn_CellGroup0,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsVorzeitigerMassnahmenbeginnBeschreibung_ProjektNewVorzeitigerMassnahmenbeginnBeschreibung,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger_FormfieldListAdressdatenProjektleitung,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger_ProjektNewProjektleitungZuwendungsempfängerFormfieldsProjektleitung,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger_ProjektNewProjektleitungZuwendungsempfängerZuwendungsempfängerFormFields,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger_ProjektNewProjektleitungZuwendungsempfängerFormfieldsKurzbeschreibungProjektleitungNeu,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjektbeschreibung_ProjektbeschreibungFormfieldList,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK_ProjektNewFormfieldsAntragstellerKKConnector_ProjektNewFormfieldsAntragstellerKK_ProjektNewFormfieldsAntragstellerKK_CellGroup0,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ_ProjektNewFormfieldsAntragstellerBJConnector_ProjektNewFormfieldsAntragstellerBJ_ProjektNewFormfieldsAntragstellerBJ_CellGroup0,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner_ProjektNewFormfieldsPersonendatenKooperationspartnerEinzelperson,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner_ProjektNewFormfieldsPersonendatenKooperationspartnerInstitution,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungKunstKulturZeichnungsberechtigungPerson1,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungKunstKulturZeichnungsberechtigungPerson2,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungBildungJugendZeichnungsberechtigungPerson1,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungBildungJugendZeichnungsberechtigungPerson2,
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektantragIDs,
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektUpdateKurzbeschreibung_ProjektNewKurzbeschreibung,
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten,
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektUpdateSchwerpunktThema_ProjektUpdateSchwerpunktThema,
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektUpdateZielgruppe,
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektUpdateProjektdauer_FormfieldListProjektUpdateProjektdauer_CellGroup2,
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektUpdateProjektdauer_FormfieldListProjektUpdateProjektdauer_CellGroup4,
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsVorzeitigerMassnahmenbeginn,
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsVorzeitigerMassnahmenbeginnBeschreibung,
-#ProjektSearch_ProjektSearchFormfields,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_ProjektNewFinanzplanBruttoNetto_ProjektNewFinanzplanBruttoNetto_CellGroup0,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektFoerdersaeule,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungCheckboxesProjektpartner_FormfieldListKooperationsvereinbarungCheckboxesProjektpartner_CellGroup0,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungCheckboxesProjektpartnerEinverständnis_FormfieldListKooperationsvereinbarungCheckboxesProjektpartnerEinverständnis_CellGroup0,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner_ProjektNewKooperationspartnerHeaderTxt,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragsabschluss_ProjektNewFormfieldsAntragabschlussEinzureichendeUnterlagenDescription {
-    padding: 25px;
-    background-color: #f5f5f5;
-}
-
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektantragIDs div:last-child,
-#ProjektSearch_ProjektSearchFormfields div:last-child,
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten,
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsVorzeitigerMassnahmenbeginn_ProjektNewFormfieldsVorzeitigerMassnahmenbeginn_CellGroup0,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanSachkostenListConnector_FinanzplanSachkostenList,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanSachkostenSumContainer,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanEinnahmenListConnector_FinanzplanEinnahmenList,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanEigenmittelListConnector_FinanzplanEigenmittelList,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanDrittmittelBeantragtListConnector_FinanzplanDrittmittelBeantragtList,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanDrittmittelBewilligtListConnector_FinanzplanDrittmittelBewilligtList,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanDrittmittelBewilligtSumContainer,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanEinnahmenGesamtSumContainer {
-    margin-bottom: 0px !important;
-}
-
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektantragIDs {
-    margin-top: 25px;
-    margin-bottom: 25px;
-}
-
-#ProjektSearch_ProjektSearchFormfields,
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten {
-    margin-bottom: 25px;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK_ProjektNewFormfieldListPartnerKKAuswahlZuordnung,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungKunstKulturZeichnungsberechtigungPerson2,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungBildungJugendZeichnungsberechtigungPerson2,
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsVorzeitigerMassnahmenbeginn,
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten {
-    margin-bottom: 25px !important;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger_ProjektNewProjektleitungZuwendungsempfängerZuwendungsempfängerFormFields,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger_ProjektNewProjektleitungZuwendungsempfängerFormfieldsKurzbeschreibungProjektleitungNeu {
-    margin-top: 35px;
-}
-
-#ProjektNewVorzeitigerMassnahmenbeginnBeschreibung {
-    height: 122px;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_FormfieldListProjektNewProjektdauer_FormfieldListProjektNewProjektdauer_CellGroup4,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanBeantragteFoerdersummeSumContainer,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragsabschluss_ProjektNewFormfieldsAntragabschlussEinzureichendeUnterlagenDescription,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ_ProjektNewFormfieldsAntragstellerBJConnector_ProjektNewFormfieldsAntragstellerBJ_ProjektNewFormfieldsAntragstellerBJ_CellGroup0 {
-    margin-bottom: 35px;
-}
-
-
 /* Listen */
 
 @media (max-width: 767px) {
@@ -1787,126 +1384,12 @@ div#ProjektSearchResultListAdmin_HdrRow {
     }
 }
 
-#ProjektSearchResultList_HdrRow_Hdrprojektid,
-#ProjektSearchResultList_HdrRow_Hdrtitel,
-#ProjektSearchResultList_HdrRow_Hdrfoerdersaeule,
-#ProjektSearchResultList_HdrRow_Hdrstatus,
-#ProjektSearchResultList_HdrRow_Hdrpdf_download,
-#ProjektSearchResultListAdmin {
-    border-right: solid 1px #f5f5f5;
-}
-
-#ProjektNewPartnerKKSearchList .row:nth-child(odd),
-#ProjektSearchResultListAdmin .row:nth-child(odd),
-#ProjektSearchResultList .row:nth-child(odd),
-#ProjektNewPartnerBJSearchList .row:nth-child(odd),
-#ProjektNewKooperationspartnerSearchList .row:nth-child(odd),
-#ProjektbeschreibungLinksList .row:nth-child(odd) {
-    background: #f5f5f5;
-}
-
-#ProjektNewPartnerKKSearchList .row:nth-child(even),
-#ProjektSearchResultListAdmin .row:nth-child(even),
-#ProjektSearchResultList .row:nth-child(even),
-#ProjektNewPartnerBJSearchList .row:nth-child(even),
-#ProjektNewKooperationspartnerSearchList .row:nth-child(even),
-#ProjektbeschreibungLinksList .row:nth-child(even) {
-    background: #F0F0F0;
-}
-
-#ProjektNewPartnerKKSearchList .row:nth-child(even):hover,
-#ProjektSearchResultListAdmin .row:nth-child(even):hover,
-#ProjektSearchResultList .row:nth-child(even):hover,
-#ProjektNewPartnerBJSearchList .row:nth-child(even):hover,
-#ProjektNewKooperationspartnerSearchList .row:nth-child(even):hover,
-#ProjektbeschreibungLinksList row:nth-child(even):hover {
-    background: #F3C7C7;
-    transition: background-color 0.4s;
-    /* animiert */
-}
-
-#ProjektNewPartnerKKSearchList .row:nth-child(odd):hover,
-#ProjektSearchResultListAdmin .row:nth-child(odd):hover,
-#ProjektSearchResultList .row:nth-child(odd):hover,
-#ProjektNewPartnerBJSearchList .row:nth-child(odd):hover,
-#ProjektNewKooperationspartnerSearchList .row:nth-child(odd):hover,
-#ProjektbeschreibungLinksList .row:nth-child(odd):hover {
-    background: #F3C7C7;
-    transition: background-color 0.4s;
-    /* animiert */
-}
-
-#ProjektNewPartnerKKSearchList>div,
-#ProjektSearchResultListAdmin>div,
-#ProjektSearchResultList>div,
-#ProjektNewPartnerBJSearchList>div,
-#ProjektNewKooperationspartnerSearchList>div,
-#ProjektbeschreibungLinksList>div {
-    text-align: center;
-    vertical-align: middle;
-    line-height: 45px;
-    padding-left: 10px;
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-}
-
-#ProjektNewPartnerKKSearchList>div:first-child,
-#ProjektSearchResultListAdmin>div:first-child,
-#ProjektSearchResultList>div:first-child,
-#ProjektNewPartnerBJSearchList>div:first-child,
-#ProjektNewKooperationspartnerSearchList>div:first-child,
-#ProjektbeschreibungLinksList>div:first-child {
-    padding-top: 0px;
-    padding-bottom: 0px;
-}
-
-#ProjektNewPartnerKKSearchList .row,
-#ProjektSearchResultListAdmin .row,
-#ProjektSearchResultList .row,
-#ProjektNewPartnerBJSearchList .row,
-#ProjektNewKooperationspartnerSearchList .row,
-#ProjektbeschreibungLinksList .row {
-    margin-bottom: 0px !important;
-}
-
-@media (max-width: 767px) {
-    #ProjektSearchResultList {
-        display: none;
-    }
-}
-
-@media (max-width: 767px) {
-    #ProjektNewPartnerKKSearchList_HdrRow {
-        display: none;
-    }
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten {
-    margin-bottom: 35px;
-}
-
-
 /* Inputs Overrides
  * -------------------------- */
 
 select {
     height: 53px !important;
 }
-
-div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorzeitigerProjektbeginn_ProjektNewFormfieldsSelectVorzeitigerProjektbeginnFooter {
-    margin-bottom: 47px;
-    font-size: 13px;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektNavigationButtons {
-    text-align: right;
-}
-
-#ProjektNew {
-    width: 100%;
-}
-
 
 /* Placeholder Hacks
  * -------------------------- */
@@ -1937,50 +1420,6 @@ div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsS
 }
 
 
-/* --------------------------------------------- */
-
-
-/* Quick Tables Styles                          */
-
-#Root_ProjektSearchResultListConnector {
-    width: 100%
-}
-
-#ProjektSearchResultList_ListHeaderprojektid,
-#ProjektSearchResultList_ListHeadertitel,
-#ProjektSearchResultList_ListHeaderfoerdersaeule,
-#ProjektSearchResultList_ListHeaderpdf_download,
-#ProjektSearchResultList_ListHeaderstatus {
-    display: inline-table;
-    width: 15%;
-    background-color: #d7466b;
-    margin-bottom: 25px;
-    color: white;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: center;
-}
-
-#ProjektSearchResultList_ListColumnprojektid0,
-#ProjektSearchResultList_ListColumntitel0,
-#ProjektSearchResultList_ListColumnfoerdersaeule0,
-#ProjektSearchResultList_ListColumnpdf_download0,
-#ProjektSearchResultList_ListColumnstatus0,
-#ProjektSearchResultList_ListColumnbearbeiten0 {
-    display: inline-table;
-    width: 15%;
-    height: 50px;
-    text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: #eee;
-    margin-bottom: 25px;
-}
-
-
-/* --------------------------------------------- */
-
-
 /* Global Header Styles                          */
 
 .GlobalHeader {
@@ -1994,19 +1433,6 @@ div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsS
 
 h2 {
     margin: 0;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjektbeschreibung,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragsabschluss {
-    top: 40px !important;
-    position: relative !important;
 }
 
 input:-internal-autofill-selected {
@@ -2025,13 +1451,7 @@ input:-webkit-autofill:active {
     background-color: rgb(243, 199, 210) !important;
 }
 
-div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorueitigerProjektbeginn_FormListProjektNewFormfieldsSelectVorueitigerProjektbeginnFooter {
-    font-size: 13px;
-    margin-bottom: 25px;
-}
-
-[id*="DisplayMax"],
-[id*="KurzbeschreibungMax"] {
+[id*="DisplayMax"] {
     text-align: right;
     font-size: 13px;
     margin-bottom: 7px;
@@ -2076,61 +1496,7 @@ div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_Projek
 }
 
 
-/* Tab Sections ;) */
-
-div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektFoerdersaeule {
-    margin-bottom: 25px;
-}
-
-div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektKurzbeschreibung {
-    margin-bottom: 25px;
-}
-
-div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe,
-#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektUpdateZielgruppe,
-#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragsabschluss_ProjektNewAntragAbschliessenSubmit {
-    margin-bottom: 35px;
-}
-
-div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer {
-    margin-bottom: 25px;
-}
-
-div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorzeitigerProjektbeginn {
-    margin-bottom: 25px;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer_ProjektNewFormfieldsProjektdauer_CellGroup1 {
-    margin-bottom: 25px;
-}
-
-#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektFoerdersaeule_ProjektNewFoerdersaeule select {
-    margin-bottom: 15px;
-}
-
-#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektTitel {
-    margin-bottom: 15px;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe_ProjektNewFormfieldsProjektZielgruppe_CellGroup0 {
-    margin-bottom: 15px;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe_ProjektNewFormfieldsProjektZielgruppe_CellGroup1 {
-    margin-bottom: 15px;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe_ProjektNewFormfieldsProjektZielgruppe_CellGroup2 {
-    margin-bottom: 15px;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe_ProjektNewFormfieldsProjektZielgruppe_CellGroup3_ProjektNewZielgruppe19bis27_enclosedby {
-    margin-bottom: 15px;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe_ProjektNewFormfieldsProjektZielgruppeHeader {
-    margin-bottom: 25px;
-}
+/* Tab Sections */
 
 .FormListDefaultFooter {
     font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif;
@@ -2138,63 +1504,6 @@ div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsS
     margin-top: 5px;
     margin-bottom: 15px;
 }
-
-select#ProjektNewVorzeitigerProjektbeginn {
-    margin-bottom: 5px !important;
-}
-
-div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_FormfieldListProjektNewProjektdauer_FormfieldListProjektNewProjektdauer_CellGroup0_ProjektNewDauerProjektbeginnDescriptionTag_enclosedby {
-    margin-bottom: 20px;
-}
-
-#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektKurzbeschreibung_sysFormListTableProjektNewFormfieldsProjektKurzbeschreibungFooter {
-    font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif;
-    font-size: 13px;
-    margin-bottom: 45px;
-}
-
-#ProjektNew_ProjektNewKurzbeschreibung {
-    height: 200px;
-}
-
-#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektTitel_sysFormListTableProjektNewFormfieldsProjektTitelFooter {
-    font-size: 13px;
-}
-
-div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektKurzbeschreibung_FormListProjektNewFormfieldsProjektKurzbeschreibungFooter {
-    font-size: 13px;
-    margin-bottom: 25px;
-}
-
-div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektSchwerpunktThema {
-    margin-bottom: 25px;
-}
-
-div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe {
-    line-height: 65px;
-    margin-bottom: 25px;
-}
-
-div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer {
-    margin-bottom: 25px;
-}
-
-#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe .FormFieldBorder {
-    width: 100%;
-}
-
-div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer_sysFormListHiddenProjektNewFormfieldsProjektdauer_VerticalGridProjektNewDauerProjektbeginnDescription {
-    margin-bottom: 25px;
-}
-
-div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektKurzbeschreibung_FormListProjektNewFormfieldsProjektKurzbeschreibungAdditionalHeader {
-    margin-bottom: 13px;
-}
-
-div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektSchwerpunktThema_FormListProjektNewFormfieldsProjektSchwerpunktThemaFooter {
-    font-size: 13px;
-}
-
 
 /* --------------------------------------------- */
 
@@ -2241,77 +1550,6 @@ div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_Projek
     box-sizing: border-box;
 }
 
-textarea#ProjektNewKurzbeschreibung {
-    min-height: 300px;
-    min-width: 300px;
-    max-width: 1080px;
-    resize: both;
-}
-
-#ProjektNew_ProjektNewSparte3Sonstige,
-#ProjektNew_ProjektNewSparte2Sonstige,
-#ProjektNew_ProjektNewSparte1Sonstige {
-    width: 50%;
-}
-
-.ProjektNewFormfieldsProjektSparten select {
-    margin-bottom: 15px;
-}
-
-.ProjektNewFormfieldsProjektSparten {
-    margin-bottom: 15px;
-}
-
-div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSchwerpunktThema {
-    margin-bottom: 15px;
-}
-
-div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe {
-    margin-bottom: 15px;
-}
-
-.ProjektNewFormfieldsProjektZielgruppe input {
-    margin-top: 5px;
-    margin-bottom: 15px;
-}
-
-.GridProjektdauer input,
-select {
-    margin-right: 5px;
-}
-
-div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer_ProjektNewDauerProjektendeDescription {
-    margin-top: 15px;
-}
-
-div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer {
-    margin-bottom: 15px;
-}
-
-div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer_ProjektNewDauerProjektendeMonat {
-    margin-top: 15px;
-}
-
-div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer_ProjektNewDauerProjektendeTag {
-    margin-top: 15px;
-}
-
-#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorueitigerProjektbeginn_ProjektNewFormfieldsSelectVorueitigerProjektbeginnHeader {
-    margin-bottom: 5px;
-}
-
-#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorzeitigerMassnahmenbeginn_ProjektNewFormfieldsSelectVorzeitigerMassnahmenbeginn_CellGroup1 {
-    margin-bottom: 25px;
-}
-
-div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe_ProjektNewFormfieldsProjektZielgruppeHeader {
-    margin-bottom: 15px;
-}
-
-div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer_ProjektNewFormfieldsProjektdauerHeader {
-    margin-bottom: 15px;
-}
-
 .FormfieldDefaultDescription {
     font-family: sans-serif;
     font-size: 12px;
@@ -2339,32 +1577,9 @@ div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjekt
     letter-spacing: 0.9px !important;
 }
 
-#Register_RegisterCompanyRef svg,
-#Register_RegisterAdminRef svg,
-#Register_RegisterAirSafetyPersonRef svg,
-#Register_RegisterDocumentsRef svg {
-    font-size: 55px !important;
-    color: #fff;
-}
-
-#Register_RegisterCompanyAddress svg,
-#Register_RegisterAdminAddress svg,
-#Register_RegisterAirSafetyPersonAddress svg,
-#Register_RegisterAirSafetyPersonAddress svg {
-    font-size: 55px !important;
-    color: #286ea0;
-}
-
 .Header {
     margin-bottom: 5px;
 }
-
-
-/*.Header::after {
-    content: "*";
-    color: red;
-    margin-left: 7px;
-}*/
 
 .info-required,
 .chars-left {
@@ -2379,28 +1594,6 @@ div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjekt
     margin-top: 0px;
     font-size: 12px !important;
 }
-
-div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektKurzbeschreibung_FormListProjektNewFormfieldsProjektKurzbeschreibungAdditionalFooter {
-    margin-bottom: 25px;
-}
-
-#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer input {
-    width: 96%;
-}
-
-div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorueitigerProjektbeginn {
-    margin-bottom: 25px;
-}
-
-div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorueitigerProjektbeginn_ProjektNewFormfieldsSelectVorueitigerProjektbeginnFooter {
-    font-size: 13px;
-    margin-top: 5px;
-}
-
-div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorueitigerMassnahmenbeginnBeschreibung_ProjektNewDVorzeitigerMassnahmenbeginnBeschreibungDescription {
-    margin-bottom: 5px;
-}
-
 
 /* --------------------------------------------- */
 
@@ -2491,8 +1684,4 @@ div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectV
     font-size: 14px;
     line-height: 1em !important;
     margin: 12px 0 0 0;
-}
-
-#CalculatorEditShipment__overlay_FormList_CalculatorStep2ContentEditIndex__overlay {
-    margin-top: 55px;
 }
