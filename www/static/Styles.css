@@ -1,76 +1,1542 @@
+html,
+body,
+div,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    font-family: 'Industry-Book', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+
+#CalculatorStep2ContentADR__enclose__ADRPointsDescr label,
+#CalculatorStep2ContentADREdit__overlay__enclose__EditADRPointsDescr__overlay label {
+    background-color: #fff !important;
+    padding: 0 !important;
+}
+
+.col-content {
+    background-color: #000000;
+}
+
+.sysButtonSend {
+    background-color: #f47e35 !important;
+}
+
+.sysButtonDisabled {
+    cursor: not-allowed !important;
+    opacity: 0.5 !important;
+}
+
+.sysButtonDisabled:hover {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background-color: #F3C7C7 !important;
+    color: #286ea0 !important;
+}
+
+button div {
+    font-family: 'Industry', sans-serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
+i {
+    font-family: 'Font Awesome 5 Free' !important;
+    font-weight: 900 !important;
+}
+
+#ADRPoints,
+#EditADRPoints__overlay {
+    width: 90%
+}
+
+.h2 {
+    color: #286ea0 !important;
+    font-size: 40px;
+    font-weight: bold !important;
+}
+
+.triangle-bottom {
+    width: 250px !important;
+    overflow: visible !important;
+    margin-bottom: 200px;
+    line-height: 27px !important;
+    top: 155px;
+    left: 50%;
+    right: 50%;
+    margin-left: -125px;
+    margin-top: -125px;
+}
+
+.sysButton.triangle-bottom::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 0;
+    top: 85px;
+    border-style: solid;
+    border-width: 25px 125px 0 125px;
+    border-color: #286ea0 transparent transparent transparent;
+    display: block !important;
+    transition: all 0.4s;
+}
+
+.sysButton:hover.triangle-bottom::after {
+    border-color: #143750 transparent transparent transparent !important;
+}
+
+.cia-center {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    text-align: left;
+}
+
+@media (min-width: 768px) {
+    .cia-center {
+        justify-content: right;
+        text-align: right;
+    }
+}
+
+.comment-info-para {
+    padding-left: 70px;
+    font-size: 18px;
+    line-height: 29px;
+    padding-bottom: 25px;
+    margin-top: 25px;
+    position: relative !important;
+}
+
+.comment-info-para::before {
+    display: none;
+    font-family: 'Font Awesome 5 Free';
+    content: "\f075";
+    font-weight: 900;
+}
+
+.comment-info-para .fa-comment {
+    font-size: 50px;
+    color: #e2e3e5;
+    position: absolute !important;
+    left: 4px;
+    top: -7px;
+    transform: scaleX(-1);
+}
+
+h1,
+label,
+button,
+.sysScreenOverlay {
+    user-select: none !important;
+}
+
+h2 {
+    color: #286ea0 !important;
+    margin-bottom: 30px;
+}
+
+ul {
+    padding: 0px !important;
+}
+
+ul {
+    width: 100%;
+    display: inline-block;
+}
+
+
+/* ----------CHRIS TO:DO -------------------- */
+
+[id*="DisplayMax"],
+[id*="KurzbeschreibungMax"] {
+    text-align: right !important;
+    font-size: 14px !important;
+    margin-bottom: 7px !important;
+    color: #000 !important;
+}
+
+.sysInfoRequired {
+    font-size: 14px !important;
+    text-align: right;
+    display: block;
+    position: absolute;
+    right: 35px;
+    top: -32px;
+    color: #000;
+}
+
+.sysInfoRequired span {
+    font-size: 20px;
+    color: red;
+}
+
+.sysScreenOverlay {
+    position: absolute;
+    top: 26px;
+    background-color: #fff !important;
+    padding: 35px;
+    box-shadow: 0px 0px 15px 0px #969696;
+    border: 1px solid #e2e3e5;
+    z-index: 999;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    max-width: 800px;
+}
+
+#Register {
+    filter: blur(0px);
+}
+
+#RegisterCompanyAddressData__overlay>#Register {
+    filter: blur(4px) !important;
+}
+
+
+/* ---------- Innerbox -------------------- */
+
+.adr-classes {
+    display: inline-block;
+}
+
+.inner-box div {
+    margin-bottom: 0;
+}
+
+.inner-box {
+    -webkit-box-shadow: inset 1px 1px 15px 1px #969696;
+    box-shadow: inset 1px 1px 15px 1px #969696;
+    padding: 30px 30px 20px;
+    border-radius: 17px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.inner-box label {
+    font-size: 15px;
+    margin-bottom: 2px;
+    cursor: pointer;
+    /*     text-transform: uppercase; */
+    letter-spacing: 1px;
+    background-color: #eee;
+    color: #000;
+    padding: 6px 15px;
+    border-radius: 7px;
+    font-family: 'Industry', sans-serif;
+    font-weight: bold !important;
+    font-style: normal;
+    display: block;
+    width: 100%;
+    text-align: left;
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.inner-box input[type="checkbox"]:checked+label {
+    background-color: #f47e35;
+    color: #fff;
+}
+
+.inner-box input[type="checkbox"]:disabled+label {
+    background-color: #eee !important;
+    color: #aaa !important;
+}
+
+
+/* ---------- Innerbox End -------------------- */
+
+#Calculator label {
+    margin-left: 4px;
+    margin-bottom: 15px;
+    font-weight: 200 !important;
+    font-size: 20px;
+    line-height: 24px;
+    position: relative;
+}
+
+#Calculator .row {
+    margin-bottom: inherit;
+}
+
+span.circle {
+    background: #fff;
+    border-radius: 30px;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    color: #f47e35;
+    display: inline-block;
+    font-weight: bold;
+    line-height: 48px;
+    margin-right: 15px;
+    text-align: center;
+    font-size: 33px;
+    width: 50px;
+    height: 50px;
+}
+
+@media only screen and (min-width: 960px) {
+    span.circle {
+        background: #fff;
+        border-radius: 30px;
+        -moz-border-radius: 30px;
+        -webkit-border-radius: 30px;
+        color: #f47e35;
+        display: inline-block;
+        font-weight: bold;
+        line-height: 30px;
+        margin-right: 5px;
+        text-align: center;
+        font-size: 18px;
+        width: 30px;
+        height: 30px;
+    }
+}
+
+.sysTabInactiveText span.circle {
+    color: #286ea0;
+}
+
+.price-field {
+    position: relative;
+    padding: 50px;
+    background-color: #c1c8c0;
+    overflow: hidden;
+    display: block;
+    line-height: 20px;
+    word-break: break-word;
+    white-space: pre-line;
+}
+
+.price-field:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.6;
+    background-image: url('../images/aom-euro-pattern.svg');
+    mix-blend-mode: luminosity;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: repeat;
+}
+
+.price-field p {
+    z-index: 1000;
+    font-family: 'Industry', sans-serif;
+    font-weight: 900 !important;
+    font-size: 80px;
+    text-align: center;
+    color: #286ea0;
+    opacity: 1;
+    text-shadow: 0.08em 0.08em 0.14em #bbbbbb !important;
+    line-height: 43px;
+}
+
+.price-field p span {
+    text-transform: uppercase;
+    color: #f47e35;
+    display: block;
+    line-height: 43px;
+}
+
+#CalculatorStep4ContentPriceDirectForm__enclose__CalculatorStep4ContentPriceDirect {
+    margin-bottom: 45px;
+}
+
+h1,
+h2 {
+    color: #286ea0 !important;
+    font-size: 40px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0;
+    font-family: 'Industry', sans-serif;
+    font-style: normal !important;
+}
+
+h4 {
+    color: #286ea0 !important;
+    font-size: 20px !important;
+    font-weight: 900 !important;
+    line-height: 27px;
+    letter-spacing: 0;
+    font-family: 'Industry', sans-serif;
+    font-style: normal !important;
+}
+
+.btn-close {
+    cursor: pointer !important;
+}
+
+.direkt-flow {
+    font-size: 17px;
+    font-weight: 800 !important;
+    color: #286ea0;
+}
+
+.konsol-flow {
+    font-size: 17px;
+    letter-spacing: -0.1px;
+    font-weight: 800 !important;
+    color: #286ea0;
+}
+
+.color-o {
+    color: #f47e35;
+}
+
+.color-b {
+    color: #286ea0;
+}
+
+
+/* ----------CHRIS Tab Arrows -------------------- */
+
+#Calculator nav ul li {
+    list-style: none;
+    width: 100%;
+    display: inline;
+    overflow: visible;
+    position: relative;
+}
+
+#Calculator nav ul li:nth-child(1) {
+    z-index: 100;
+}
+
+#Calculator nav ul li:nth-child(2) {
+    z-index: 99;
+}
+
+#Calculator nav ul li:nth-child(3) {
+    z-index: 98;
+}
+
+#Calculator nav ul li button {
+    margin-left: 4px !important;
+}
+
+#Calculator nav ul li:nth-child(3)>button span::after {
+    border-style: none;
+}
+
+#Calculator nav ul li:nth-child(1)>button span::before {
+    border-style: none;
+}
+
+@media only screen and (min-width: 960px) {
+    #Calculator nav ul li:nth-child(2)>button span::before,
+    #Calculator nav ul li:nth-child(3)>button span::before {
+        content: '';
+        position: absolute;
+        left: -0px;
+        top: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 26px 0 26px 40px;
+        border-color: transparent transparent transparent #fff;
+        display: block;
+    }
+}
+
+.sysTabInactive,
+.sysTabActive {
+    width: 100%;
+}
+
+@media only screen and (min-width: 960px) {
+    .sysTabInactive,
+    .sysTabActive {
+        width: auto;
+    }
+}
+
+.sysTabActive span.sysTabActiveText {
+    position: relative;
+    padding: 20px 20px 20px 41px;
+    text-align: left;
+    font-size: 33px !important;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900 !important;
+    text-transform: uppercase;
+    color: #FFF !important;
+    background-color: #f47e35;
+    cursor: default;
+    display: block;
+}
+
+@media only screen and (min-width: 960px) {
+    .sysTabActive span.sysTabActiveText {
+        width: 315px;
+        display: flex;
+        height: 52px !important;
+        text-align: center !important;
+        font-size: 23px !important;
+    }
+}
+
+@media only screen and (min-width: 960px) {
+    .sysTabActive span.sysTabActiveText::after {
+        content: '';
+        position: absolute;
+        right: -40px;
+        top: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 26px 0 26px 40px;
+        border-color: transparent transparent transparent #f47e35;
+    }
+}
+
+.sysTabInactive span.sysTabInactiveText {
+    position: relative;
+    padding: 20px 20px 20px 41px;
+    text-align: left;
+    font-size: 33px !important;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    text-transform: uppercase;
+    background-color: #d6d8db;
+    color: #286ea0 !important;
+    display: block;
+    cursor: default;
+}
+
+@media only screen and (min-width: 960px) {
+    .sysTabInactive span.sysTabInactiveText {
+        width: 315px;
+        display: flex;
+        height: 52px !important;
+        text-align: center !important;
+        font-size: 23px !important;
+    }
+}
+
+.cia-center {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    text-align: left;
+}
+
+@media (min-width: 768px) {
+    .cia-center {
+        justify-content: right;
+        text-align: right;
+    }
+}
+
+@media only screen and (min-width: 960px) {
+    .sysTabInactive span.sysTabInactiveText::after {
+        content: '';
+        position: absolute;
+        right: -40px;
+        top: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 26px 0 26px 40px;
+        border-color: transparent transparent transparent #d6d8db;
+    }
+}
+
+
+/* .sysTabInactive:hover span.sysTabInactiveText {
+    background-color: #c0c2c5;
+    transition: all 0.2s;
+}
+ */
+
+
+/* .sysTabInactive:hover span.sysTabInactiveText::after {
+    border-color: transparent transparent transparent #c0c2c5;
+    transition: all 0.2s;
+} */
+
+@media (min-width: 992px) {
+    .modal-lg,
+    .modal-xl {
+        max-width: 800px;
+    }
+}
+
+.btn-close {
+    float: right !important;
+}
+
+
+/* ----------CHRIS Grey Container -------------------- */
+
+#Calculator_CalculatorTabContainer_TabStep2,
+#Calculator_CalculatorTabContainer_TabStep3,
+#Calculator_CalculatorTabContainer_TabStep1_FormList_CalculatorStep1Content {
+    margin-top: 60px !important;
+    background-color: #f6f6f6;
+    padding: 25px;
+    padding-top: 45px;
+    padding-bottom: 110px;
+    border-radius: 21px;
+    position: relative;
+}
+
+
+/* ----------CHRIS SELECT, INPUT & Textares: Shadow and Border -------------------- */
+
+input {
+    text-align: center;
+    color: #286ea0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+input {
+    font-weight: 900 !important;
+    font-family: Industry, sans-serif !important;
+    font-style: normal;
+    -webkit-box-shadow: 0 0 15px 0 #E1E1E1;
+    box-shadow: 0 0 15px 0 #E1E1E1;
+    border: 1px solid #e2e3e5;
+    background-color: #fff;
+    font-size: 20px !important;
+    letter-spacing: 1px;
+    -moz-border-radius: 5px !important;
+    -webkit-border-radius: 5px !important;
+    border-radius: 5px !important;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: 53px;
+    padding-left: 12px;
+    padding-right: 12px;
+    text-align: left;
+    box-shadow: none !important;
+    color: #286ea0 !important;
+}
+
+select {
+    font-weight: 900 !important;
+    font-family: Industry, sans-serif !important;
+    font-style: normal;
+    -webkit-box-shadow: 0 0 15px 0 #E1E1E1;
+    box-shadow: 0 0 15px 0 #E1E1E1;
+    border: 1px solid #e2e3e5;
+    background-color: #fff;
+    font-size: 20px !important;
+    letter-spacing: 1px;
+    -moz-border-radius: 5px !important;
+    -webkit-border-radius: 5px !important;
+    border-radius: 5px !important;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: 53px;
+    padding-left: 12px;
+    padding-right: 12px;
+    text-align: left;
+    box-shadow: none !important;
+    color: #286ea0 !important;
+}
+
+input[disabled] {
+    cursor: not-allowed;
+    pointer-events: all !important;
+    background-color: #f3c7c7;
+    font-weight: 900 !important;
+    font-family: 'Industry', sans-serif !important;
+    text-align: center !important;
+}
+
+textarea {
+    font-family: 'Industry', sans-serif !important;
+    -webkit-box-shadow: 0 0 15px 0 #E1E1E1;
+    font-weight: bold !important;
+    box-shadow: 0 0 15px 0 #E1E1E1;
+    border: 1px solid #e2e3e5;
+    background-color: #fff;
+    font-size: 20px !important;
+    font-weight: 900 !important;
+    letter-spacing: 1px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    height: 200px;
+    color: #286ea0 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+textarea:focus,
+input:not([type="checkbox"]):not([type="submit"]):focus,
+select:focus,
+select:checked {
+    /*color: #286ea0 !important;*/
+    text-align: left !important;
+    outline: none !important;
+    border: 3px solid #f47e35 !important;
+    box-shadow: none !important;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    opacity: 1;
+}
+
+option:not(:checked) {
+    background: #fff;
+}
+
+
+/*//TODO: fix it*/
+
+label {
+    margin-left: 4px;
+    margin-bottom: 15px;
+    font-weight: 200 !important;
+    font-size: 20px;
+    line-height: 24px;
+    position: relative;
+}
+
+@media (min-width: 767px) {
+    label {
+        margin-left: 0;
+        margin-bottom: 0;
+    }
+}
+
+input:focus::placeholder,
+textarea:focus::placeholder {
+    color: transparent !important;
+    opacity: 0 !important;
+}
+
+
+/* ----------CHRIS Button nomalize -------------------- */
+
+button {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    padding: 0;
+    border: none;
+    background: none;
+    text-shadow: none !important;
+}
+
+button {
+    outline: 0;
+}
+
+button:focus {
+    outline: none;
+}
+
+*,
+*:focus,
+*:hover {
+    outline: none !important;
+}
+
+#Calculator_CalculatorTabContainer_TabStep2_FormList_CalculatorStep2Content_CalculatorStep2Content_CellGroup3 {
+    margin-bottom: 0 !important;
+}
+
+
+/* ----------CHRIS END -------------------- */
+
+
+/* #Calculator_CalculatorTabContainer_TabStep1_FormList_CalculatorStep1Content_CalculatorStep1Content_CellGroup0,
+#Calculator_CalculatorTabContainer_TabStep1_FormList_CalculatorStep1Content_CalculatorStep1Content_CellGroup2,
+#Calculator_CalculatorTabContainer_TabStep1_FormList_CalculatorStep1Content_CalculatorStep1Content_CellGroup3,
+#Calculator_CalculatorTabContainer_TabStep1_FormList_CalculatorStep1Content_CalculatorStep1Content_CellGroup4 {
+    margin-bottom: 0;
+}
+ */
+
+
+/* ----------CHRIS Button nomalize -------------------- */
+
+#Calculator_CalculatorTabContainer_TabStep1_FormList_CalculatorStep1Content_CalculatorStep1Content_CellGroup4 div,
+#Calculator_CalculatorTabContainer_TabStep1_FormList_CalculatorStep1Content_CalculatorStep1Content_CellGroup4 label {
+    font-family: Industry-Book, sans-serif !important;
+    font-weight: bold;
+    font-size: 14px;
+    user-select: none;
+}
+
+button {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    padding: 0;
+    border: none;
+    background: none;
+    text-shadow: none !important;
+}
+
+button {
+    outline: 0;
+}
+
+button:focus {
+    outline: none;
+}
+
+*,
+*:focus,
+*:hover {
+    outline: none !important;
+}
+
+#Register_RowContainer4_Column2_RegisterUploadedDocument1 a,
+#Register_RowContainer4_Column2_RegisterUploadedDocument2 a,
+#Register_RowContainer4_Column2_RegisterUploadedDocument3 a,
+.sysPdfButton {
+    font-family: 'Industry', sans-serif !important;
+    background-color: #c3e6cb;
+    text-align: center;
+    padding: 10px;
+    color: #fff !important;
+    margin-bottom: 20px;
+    display: block;
+    width: 100%;
+    font-size: 25px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 900;
+}
+
+#Register_RowContainer4_Column2_RegisterUploadedDocument1 a:hover,
+#Register_RowContainer4_Column2_RegisterUploadedDocument2 a:hover,
+#Register_RowContainer4_Column2_RegisterUploadedDocument3 a:hover,
+.sysPdfButton:hover {
+    background-color: #286ea0;
+    transition: all 0.2s;
+}
+
+#TourIDDescr span {
+    display: block;
+    font-family: Industry-Book, sans-serif !important;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.sysCard svg {
+    font-size: 55px;
+    color: #286ea0;
+}
+
+.sysEntriesCards {
+    background-color: #286ea0;
+    padding: 15px;
+    margin-bottom: 10px;
+    user-select: none;
+}
+
+.sysEntriesCards button.assigned {
+    background-color: #c3e6cb;
+    border-radius: 6px;
+    width: 210px;
+}
+
+.sysEntriesCards button.notAssigned {
+    background-color: #f3c7c7;
+    border-radius: 6px;
+    width: 210px;
+}
+
+.sysEntriesCards {
+    transition: all 0.2s;
+    cursor: default;
+}
+
+.sysEntriesCards:hover {
+    background-color: #205880;
+    transform: scale(1.1);
+    transition: all 0.2s;
+}
+
+.sysEntriesCards h3 {
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+h3,
+.Header {
+    font-family: 'Industry', sans-serif;
+    color: #286ea0;
+    font-size: 27px;
+    font-weight: 900 !important;
+    letter-spacing: 0;
+}
+
+#Register_RegisterCompanyAddress h3,
+#Register_RegisterAdminAddress h3,
+#Register_RegisterAirSafetyPersonAddress h3 {
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+address {
+    font-weight: normal;
+    font-size: 17px;
+}
+
+#sysEntries svg {
+    font-size: 55px !important;
+    color: #fff;
+}
+
+#AomRegister,
+#sysEntries {
+    width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+    supported by Chrome, Edge, Opera and Firefox */
+}
+
+#AomRegister {
+    margin-top: 50px;
+}
+
+#AomRegister address {
+    font-weight: normal;
+    font-size: 17px;
+}
+
+#AomRegister h3 {
+    font-size: 20px !important;
+    font-weight: bold;
+}
+
+#AomRegister svg {
+    font-size: 55px !important;
+    color: #286ea0;
+}
+
+.sysCard h3 {
+    font-family: 'Industry', sans-serif !important;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 22px;
+    text-align: left;
+}
+
+.sysCard {
+    transition: all 0.2s;
+    -webkit-box-shadow: 0px 0px 15px 0px #E1E1E1;
+    box-shadow: 0px 0px 15px 0px #E1E1E1;
+    border: 1px solid #e2e3e5;
+    background-color: #fff;
+    font-size: 20px !important;
+    font-weight: bold;
+    color: black;
+    letter-spacing: 0.5px;
+    color: #000000;
+    -moz-border-radius: 5px !important;
+    -webkit-border-radius: 5px !important;
+    border-radius: 5px !important;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 234px;
+    padding: 25px;
+    user-select: none;
+}
+
+.sysCard:hover {
+    transform: scale(1.1);
+    transition: all 0.2s;
+}
+
+.sysCard.disabled h3 {
+    color: #bbb;
+}
+
+.sysOverlayClose {
+    padding: 5px;
+    float: right;
+    font-size: 18px;
+    position: relative;
+    cursor: pointer;
+}
+
+.sysScreenOverlay.Header {
+    font-size: 25px;
+    line-height: 27px;
+}
+
+.sysOverlayClose::before {
+    display: none;
+    font-family: 'Font Awesome 5 Free';
+    font-size: 18px;
+    content: "\f057";
+    font-weight: 900;
+    margin-right: 15px;
+    position: relative;
+    left: 10px;
+}
+
+.sysOverlayClose .svg-inline--fa {
+    margin-right: 0.5rem;
+}
+
+.sysOverlayClose:hover {
+    color: #286ea0;
+}
+
+
 /* --------------------------------------------- */
-/* Overrides                                     */
+
+.PriceForm {
+    position: relative;
+    font-size: 88px !important;
+    height: 227px !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    user-select: none;
+}
+
+.PriceForm::-webkit-input-placeholder {
+    /* Edge */
+    font-size: 88px !important;
+}
+
+.PriceForm:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    font-size: 88px !important;
+}
+
+.PriceForm::placeholder {
+    font-size: 88px !important;
+}
+
+.sysContextMenuItemIconEdit::after {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 15px;
+    content: "\f044";
+    display: none;
+}
+
+.sysContextMenuItemIconEdit svg {
+    position: absolute !important;
+    color: #000 !important;
+    top: -36px;
+    right: 171px;
+    cursor: pointer;
+}
+
+.sysContextMenuItemIconDelete::after {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    display: none;
+    font-size: 15px;
+    content: "\f2ed";
+}
+
+.sysContextMenuItemIconDelete svg {
+    position: absolute !important;
+    color: #000 !important;
+    top: -36px;
+    right: 174px;
+    cursor: pointer;
+}
+
+.sysContextMenuItemColDescription {
+    transition: all 0.4s;
+    /* Alle Eigenschaften werden animiert */
+    width: 100% !important;
+    height: auto !important;
+    background-color: #E8E8E8 !important;
+    position: static !important;
+    display: block !important;
+    padding: 15px;
+    border-bottom: 1px solid #fff;
+}
+
+.sysContextMenuItemColDescription:last-child {
+    border-bottom: none;
+}
+
+.sysContextMenuItemColDescription:hover {
+    background-color: #C0C0C0 !important;
+}
+
+.sysContextMenuTable {
+    display: table;
+    width: 300px;
+    height: auto !important;
+    border: 7px solid #fff !important;
+    background-color: #fff;
+    position: absolute;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+}
+
+.sysContextMenuHeaderRow {
+    position: static !important;
+}
+
+.sysContextMenuItemDescriptionText {
+    padding-left: 8px;
+    font-family: Gentona-Book, Sans-Serif;
+    font-size: 14px;
+    height: 21px;
+    color: #000 !important;
+    position: static !important;
+    z-index: 100;
+    display: block !important;
+    padding-left: 20px;
+}
+
+.sysContextMenuItemRow {
+    display: block !important;
+}
+
+.sysContextMenuItemRow {
+    cursor: pointer;
+    position: static !important;
+    height: auto !important;
+}
+
+input[disabled].PriceForm {
+    position: relative;
+    padding: 50px;
+    background-color: #c1c8c0 !important;
+    overflow: hidden;
+    display: block;
+    line-height: 20px;
+    word-break: break-word;
+    white-space: pre-line;
+    background-image: url('./images/aom-euro-pattern.svg') !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+    text-rendering: auto;
+    /*     background-attachment:fixed;
+ */
+}
+
+input[disabled].PriceForm::selection,
+input[disabled].PriceForm::selection {
+    background: transparent;
+    color: #286ea0;
+}
+
+.sysContextMenuHeaderColDescription {
+    float: none;
+    display: unset !important;
+    left: 0px;
+    width: 180px;
+    padding: 0px 0px 0px 0px;
+    position: static !important;
+    z-index: 100;
+    top: 15px;
+}
+
+.sysContextMenuItemIconDelete,
+.sysContextMenuItemIconEdit {
+    background: none !important;
+    border: none !important;
+}
+
+.sysContextMenuHeaderRow {
+    display: block !important;
+    height: auto !important;
+    position: static !important;
+}
+
+.sysContextMenuHeaderDescriptionText {
+    font-weight: 800;
+    text-transform: uppercase;
+    width: 100% !important;
+    height: auto !important;
+    z-index: -1;
+    font-size: 15px;
+    padding: 15px;
+    background-color: #286ea0;
+    color: #fff;
+    position: relative;
+}
+
+.sysContextMenuHeaderColDescription::after {
+    font-family: 'Font Awesome 5 Free';
+    display: none;
+    content: "\f00d";
+    font-weight: 900;
+    font-size: 15px;
+}
+
+.sysContextMenuHeaderColDescription svg {
+    position: absolute !important;
+    color: #fff;
+    top: 3px;
+    right: 5px;
+    cursor: pointer;
+}
+
+.sysContextMenuHeaderColClose {
+    float: none;
+    display: unset;
+    background: none !important;
+    width: 20px;
+    color: #fff;
+    height: 20px;
+    top: 5px;
+    left: 280px;
+    position: absolute;
+    z-index: 100;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: lowercase;
+}
+
+.row.sysListHeader {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+.row.sysListContent {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+.row.sysListFooter {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+.sysPlusButton,
+.sysButtonRemove {
+    width: auto !important;
+    padding: 8px !important;
+}
+
+.ProjektNewFormfieldsAntragabschlussEinzureichendeUnterlagenHeader {
+    margin-top: 35px !important;
+}
+
+.sysPlusButton:hover,
+.sysButtonRemove:hover {
+    background-color: #fff !important;
+    color: #d7466b !important;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanPersonalkostenListConnector_FinanzplanPersonalkostenList {
+    margin-bottom: 0px !important
+}
+
+#ProjektNewFormfieldsProjektbeschreibungLinkHinzufügenLink {
+    height: 61px;
+    width: 100% !important;
+    margin-top: 15px;
+}
+
+.GridProjektdauerSectionBeginn {
+    width: auto;
+    grid-area: dc1;
+}
+
+.sysIndicatorItemResult {
+    margin-left: 5px;
+}
 
 .ckboxes {
-	padding: 25px;
-	background-color: #f5f5f5;
-	margin-bottom: 0px !important;	
+    padding: 25px;
+    background-color: #f5f5f5;
+    margin-bottom: 0px !important;
 }
 
 .ckboxes label {
-	position: relative;
-	top: -37px;
-	left: 31px;
+    position: relative;
+    top: -37px;
+    left: 31px;
 }
 
-input[type='checkbox']:checked {-webkit-filter: grayscale(100%);}
-input[type='radio']:checked {-webkit-filter: grayscale(100%);}
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner_ProjektNewKooperationspartnerNeuButton {
+    margin-top: 25px;
+    width: 410px;
+    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ_ProjektNewPartnerZuordnenPartnerBJAntragstellerNew,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger_ProjektNewProjektleitungZuwendungsempfängerProjektleitungNeu,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK_ProjektNewPartnerZuordnenPartnerKKAntragstellerNew {
+    margin-top: 25px;
+    width: 310px;
+    margin-bottom: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+input[type='checkbox']:checked {
+    /*  filter: grayscale(100%); */
+    color: #f47e35 !important;
+}
+
+input[type='radio']:checked {
+    filter: grayscale(100%);
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektFoerdersaeule1_ProjektNewFoerdersaeule1Description {
+    font-family: Gentona-Heavy, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
+    font-size: 30px;
+    color: #d7466b;
+    margin-bottom: 25px;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ_FormfieldListPartnerBJAdressdaten {
+    margin-bottom: 25px;
+}
+
+#antrag-uebersicht #sysScreenHideLayer {
+    display: none;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektFoerdersaeule1_ProjektNewFoerdersaeule1Description {
+    font-size: 22px;
+}
 
 .FormFieldCheckbox {
-	width: 20px;
+    width: 20px;
+    margin-bottom: 7px;
 }
+
+.GridProjektdauer {
+    grid-gap: 10px;
+}
+
+.GridProjektdauerVorzeitig {
+    grid-gap: 10px;
+}
+
 
 /* Overrides Bootstrap      */
 
 .sysArea {
-	padding-top: 15px;
-    margin-bottom: 15px;
+    padding: 25px;
+    background-color: #f5f5f5;
+}
+
+#Register {
+    margin-top: 60px;
+}
+
+#Register .row {
+    margin-bottom: inherit;
 }
 
 .row {
-	margin-bottom: 25px;
+    margin-bottom: 25px;
+}
+
+div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorzeitigerProjektbeginn_ProjektNewFormfieldsSelectVorzeitigerProjektbeginnHeader {
+    margin-top: 30px;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten_ProjektNewFormfieldsProjektSparten_CellGroup0,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten_ProjektNewFormfieldsProjektSparten_CellGroup1 {
+    margin-bottom: 15px;
 }
 
 ::selection {
-    background: #000; /* WebKit/Blink Browsers */
-    color: #d7466b;
+    background: #286ea0;
+    /* WebKit/Blink Browsers */
+    color: #fff;
 }
 
 ::-moz-selection {
-    background: #000; /* Gecko Browsers */
-    color: #d7466b;
+    background: #286ea0;
+    /* WebKit/Blink Browsers */
+    color: #fff;
 }
 
-/* ---------------------------------------------- */
-/* Chrisinaction Styles                           */
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragsabschluss_ProjektNewFormfieldsAntragabschlussVorschau {
+    box-shadow: inset 0 0 0.5em #ddd;
+}
 
 .NavigationButtonsContainer {
-	margin-top: 50px;
+    margin-top: 50px;
 }
 
 .progress-bar {
-	background-color: #F3C7C7 !important;
+    background-color: #F3C7C7 !important;
 }
 
+.ProjektNewFormfieldsProjektHeader,
+.HeaderSchritt {
+    font-family: Gentona-Bold, Lucida Sans Unicode, Lucida Grande, Sans-Serif;
+    margin-bottom: 25px;
+    background-color: #F3C7C7;
+    color: #d7466b !important;
+    white-space: pre-wrap !important;
+    padding: 18px;
+    font-size: 25px;
+    border-radius: 49px;
+    font-weight: normal !important;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
 
 .sysList {
     margin-bottom: 35px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
-.sysList .sysListHeader >div
-{
-    background-color: #d7466b;
+.sysListHeader>div {
+    background-color: #f47e35;
     color: #fff;
     text-align: center;
     padding-top: 15px;
     padding-bottom: 15px;
     margin-bottom: 0px !important;
-    font-weight: bold;
     border-right: 1px solid white !important;
+    border-bottom: 1px solid white !important;
+    hyphens: auto;
 }
 
-.sysList .sysListHeader div:last-child
-{
+.sysListHeader div {
+    font-family: 'Industry', sans-serif !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 17px;
+}
+
+.sysListHeader {
+    margin-bottom: 0px !important;
+    user-select: none;
+}
+
+.sysListHeader div:last-child {
     border-right: none !important;
 }
 
@@ -78,213 +1544,443 @@ input[type='radio']:checked {-webkit-filter: grayscale(100%);}
     margin-bottom: 0px !important;
 }
 
-.sysList .sysListContent {
+.sysListContent {
     text-align: center;
+    font-size: 17px;
 }
 
-.sysList .sysListContent [class*="col"] {
+.sysListContent div {
+    hyphens: auto;
+    word-break: break-word;
+}
+
+.sysListContent [class*="col"] {
     padding-top: 14px;
     padding-bottom: 14px;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
 }
 
-.sysList .sysListContent [class*="col"]:last-child{
+.sysListFooter [class*="col"] {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    border-right: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.sysListFooter {
+    background: #d7466b;
+    text-align: center;
+    color: #fff;
+    user-select: none;
+}
+
+[ID*="FinanzplanPersonalkostenList_Row"] {
+    margin-bottom: 0px !important;
+}
+
+.sysListContent [class*="col"]:last-child {
     border-right: none !important;
 }
 
-.sysList .sysListContent:nth-child(odd)
-{
-	background: #f5f5f5;
+.sysListFooter [class*="col"]:last-child {
+    border-right: none !important;
 }
 
-.sysList .sysListContent:nth-child(even) 
-{
-    background: #F0F0F0;
+.sysListContent:nth-child(odd) {
+    background: #d0dfe9;
 }
 
-input[disabled]  {
-  cursor: not-allowed;
-  pointer-events: all !important;
-  background-color: #F0F0F0;
+.sysListContent:nth-child(even) {
+    background: #dbe6ef;
+}
+
+.sysButtonDisabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    ;
+}
+
+div#ProjektSearchResultListAdmin_HdrRow {
+    padding-left: 0px;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner_ProjektNewFormfieldsPartnerZuordnenKooperationspartnerSearch_ProjektNewFormfieldsPartnerZuordnenKooperationspartnerSearch_CellGroup1 {
+    margin-bottom: 50px;
+}
+
+@media (max-width: 767px) {
+    #ProjektNewPartnerKKSearchList_HdrRow div,
+    #ProjektSearchResultListAdmin_HdrRow div {
+        margin-bottom: 25px;
+    }
+}
+
+@media (max-width: 992px) {
+    #ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK_ProjektNewPartnerZuordnenPartnerKKSearchSubmit,
+    #ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ_ProjektNewPartnerZuordnenPartnerBJSearchSubmit,
+    #ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner_ProjektNewKooperationspartnerSearchSubmit {
+        width: 100%;
+        margin-bottom: 35px;
+    }
+}
+
+@media (min-width: 992px) {
+    #ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK_ProjektNewPartnerZuordnenPartnerKKSearchSubmit,
+    #ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ_ProjektNewPartnerZuordnenPartnerBJSearchSubmit {
+        position: absolute;
+        right: 0px;
+        top: 257px;
+    }
+}
+
+@media (min-width: 992px) {
+    #ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner_ProjektNewKooperationspartnerSearchSubmit {
+        position: absolute;
+        right: 0px;
+        top: 636px;
+    }
+}
+
+#ProjektSearchResultListAdmin {
+    margin-top: 50px;
 }
 
 .sysHeadline {
-	color: #d7466b;
-	text-transform: uppercase;
-	font-family: Gentona-Medium, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
+    color: #d7466b;
+    text-transform: uppercase;
+    font-family: Gentona-Medium, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
     font-size: 22px;
     font-weight: normal !important;
     margin-bottom: 5px;
-	letter-spacing: 0.9px;
-	line-height: 27px;
+    letter-spacing: 0.9px;
+    line-height: 27px;
+}
+
+#ProjektNewSparte3 {
+    margin-bottom: 0px !important;
 }
 
 .sysSubHeadline {
-	margin-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten_ProjektNewFormfieldsProjektSparten_CellGroup0_ProjektNewSparte1Sonstige_enclosedby_ProjektNewSparte1Sonstige,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten_ProjektNewFormfieldsProjektSparten_CellGroup1_ProjektNewSparte2Sonstige_enclosedby_ProjektNewSparte2Sonstige {
+    margin-bottom: 15px;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten_ProjektNewFormfieldsProjektSparten_CellGroup2 {
+    margin-bottom: 0px;
 }
 
 .GlobalUploadDescription {
-	display: none;
+    display: none;
 }
 
 .sysUploadArea {
-	margin-top: 35px;
-	margin-bottom: 35px;
+    margin-top: 35px;
+    margin-bottom: 35px;
     position: relative;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ_FormfieldListPartnerBJAdressdaten,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK_FormfieldListPartnerKKAdressdatenEinzelperson,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK_FormfieldListPartnerKKAdressdatenInstitution,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_FormfieldListProjektNewProjektdauer_FormfieldListProjektNewProjektdauer_CellGroup2,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_FormfieldListProjektNewProjektdauer_FormfieldListProjektNewProjektdauer_CellGroup4,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSchwerpunktThema_ProjektNewSchwerpunktThema,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektKurzbeschreibung_ProjektNewKurzbeschreibung,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektTitel_ProjektNewFormfieldsProjektTitel_CellGroup0,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsVorzeitigerMassnahmenbeginn_ProjektNewFormfieldsVorzeitigerMassnahmenbeginn_CellGroup0,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsVorzeitigerMassnahmenbeginnBeschreibung_ProjektNewVorzeitigerMassnahmenbeginnBeschreibung,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger_FormfieldListAdressdatenProjektleitung,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger_ProjektNewProjektleitungZuwendungsempfängerFormfieldsProjektleitung,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger_ProjektNewProjektleitungZuwendungsempfängerZuwendungsempfängerFormFields,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger_ProjektNewProjektleitungZuwendungsempfängerFormfieldsKurzbeschreibungProjektleitungNeu,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjektbeschreibung_ProjektbeschreibungFormfieldList,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK_ProjektNewFormfieldsAntragstellerKKConnector_ProjektNewFormfieldsAntragstellerKK_ProjektNewFormfieldsAntragstellerKK_CellGroup0,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ_ProjektNewFormfieldsAntragstellerBJConnector_ProjektNewFormfieldsAntragstellerBJ_ProjektNewFormfieldsAntragstellerBJ_CellGroup0,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner_ProjektNewFormfieldsPersonendatenKooperationspartnerEinzelperson,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner_ProjektNewFormfieldsPersonendatenKooperationspartnerInstitution,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungKunstKulturZeichnungsberechtigungPerson1,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungKunstKulturZeichnungsberechtigungPerson2,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungBildungJugendZeichnungsberechtigungPerson1,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungBildungJugendZeichnungsberechtigungPerson2,
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektantragIDs,
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektUpdateKurzbeschreibung_ProjektNewKurzbeschreibung,
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten,
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektUpdateSchwerpunktThema_ProjektUpdateSchwerpunktThema,
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektUpdateZielgruppe,
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektUpdateProjektdauer_FormfieldListProjektUpdateProjektdauer_CellGroup2,
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektUpdateProjektdauer_FormfieldListProjektUpdateProjektdauer_CellGroup4,
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsVorzeitigerMassnahmenbeginn,
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsVorzeitigerMassnahmenbeginnBeschreibung,
+#ProjektSearch_ProjektSearchFormfields,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_ProjektNewFinanzplanBruttoNetto_ProjektNewFinanzplanBruttoNetto_CellGroup0,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektFoerdersaeule,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungCheckboxesProjektpartner_FormfieldListKooperationsvereinbarungCheckboxesProjektpartner_CellGroup0,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungCheckboxesProjektpartnerEinverständnis_FormfieldListKooperationsvereinbarungCheckboxesProjektpartnerEinverständnis_CellGroup0,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner_ProjektNewKooperationspartnerHeaderTxt,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragsabschluss_ProjektNewFormfieldsAntragabschlussEinzureichendeUnterlagenDescription {
+    padding: 25px;
+    background-color: #f5f5f5;
+}
+
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektantragIDs div:last-child,
+#ProjektSearch_ProjektSearchFormfields div:last-child,
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten,
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsVorzeitigerMassnahmenbeginn_ProjektNewFormfieldsVorzeitigerMassnahmenbeginn_CellGroup0,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanSachkostenListConnector_FinanzplanSachkostenList,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanSachkostenSumContainer,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanEinnahmenListConnector_FinanzplanEinnahmenList,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanEigenmittelListConnector_FinanzplanEigenmittelList,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanDrittmittelBeantragtListConnector_FinanzplanDrittmittelBeantragtList,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanDrittmittelBewilligtListConnector_FinanzplanDrittmittelBewilligtList,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanDrittmittelBewilligtSumContainer,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanEinnahmenGesamtSumContainer {
+    margin-bottom: 0px !important;
+}
+
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektantragIDs {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#ProjektSearch_ProjektSearchFormfields,
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten {
+    margin-bottom: 25px;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK_ProjektNewFormfieldListPartnerKKAuswahlZuordnung,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungKunstKulturZeichnungsberechtigungPerson2,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung_FormfieldListKooperationsvereinbarungBildungJugendZeichnungsberechtigungPerson2,
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsVorzeitigerMassnahmenbeginn,
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten {
+    margin-bottom: 25px !important;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger_ProjektNewProjektleitungZuwendungsempfängerZuwendungsempfängerFormFields,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger_ProjektNewProjektleitungZuwendungsempfängerFormfieldsKurzbeschreibungProjektleitungNeu {
+    margin-top: 35px;
+}
+
+#ProjektNewVorzeitigerMassnahmenbeginnBeschreibung {
+    height: 122px;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_FormfieldListProjektNewProjektdauer_FormfieldListProjektNewProjektdauer_CellGroup4,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan_FinanzplanBeantragteFoerdersummeSumContainer,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragsabschluss_ProjektNewFormfieldsAntragabschlussEinzureichendeUnterlagenDescription,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ_ProjektNewFormfieldsAntragstellerBJConnector_ProjektNewFormfieldsAntragstellerBJ_ProjektNewFormfieldsAntragstellerBJ_CellGroup0 {
+    margin-bottom: 35px;
+}
+
+
+/* Listen */
+
+@media (max-width: 767px) {
+    div[id*="ListColumnprojektid"]::before {
+        content: "Projekt Nr.: ";
+    }
+}
+
+#ProjektSearchResultList_HdrRow_Hdrprojektid,
+#ProjektSearchResultList_HdrRow_Hdrtitel,
+#ProjektSearchResultList_HdrRow_Hdrfoerdersaeule,
+#ProjektSearchResultList_HdrRow_Hdrstatus,
+#ProjektSearchResultList_HdrRow_Hdrpdf_download,
+#ProjektSearchResultListAdmin {
+    border-right: solid 1px #f5f5f5;
+}
+
+#ProjektNewPartnerKKSearchList .row:nth-child(odd),
+#ProjektSearchResultListAdmin .row:nth-child(odd),
+#ProjektSearchResultList .row:nth-child(odd),
+#ProjektNewPartnerBJSearchList .row:nth-child(odd),
+#ProjektNewKooperationspartnerSearchList .row:nth-child(odd),
+#ProjektbeschreibungLinksList .row:nth-child(odd) {
+    background: #f5f5f5;
+}
+
+#ProjektNewPartnerKKSearchList .row:nth-child(even),
+#ProjektSearchResultListAdmin .row:nth-child(even),
+#ProjektSearchResultList .row:nth-child(even),
+#ProjektNewPartnerBJSearchList .row:nth-child(even),
+#ProjektNewKooperationspartnerSearchList .row:nth-child(even),
+#ProjektbeschreibungLinksList .row:nth-child(even) {
+    background: #F0F0F0;
+}
+
+#ProjektNewPartnerKKSearchList .row:nth-child(even):hover,
+#ProjektSearchResultListAdmin .row:nth-child(even):hover,
+#ProjektSearchResultList .row:nth-child(even):hover,
+#ProjektNewPartnerBJSearchList .row:nth-child(even):hover,
+#ProjektNewKooperationspartnerSearchList .row:nth-child(even):hover,
+#ProjektbeschreibungLinksList row:nth-child(even):hover {
+    background: #F3C7C7;
+    transition: background-color 0.4s;
+    /* animiert */
+}
+
+#ProjektNewPartnerKKSearchList .row:nth-child(odd):hover,
+#ProjektSearchResultListAdmin .row:nth-child(odd):hover,
+#ProjektSearchResultList .row:nth-child(odd):hover,
+#ProjektNewPartnerBJSearchList .row:nth-child(odd):hover,
+#ProjektNewKooperationspartnerSearchList .row:nth-child(odd):hover,
+#ProjektbeschreibungLinksList .row:nth-child(odd):hover {
+    background: #F3C7C7;
+    transition: background-color 0.4s;
+    /* animiert */
+}
+
+#ProjektNewPartnerKKSearchList>div,
+#ProjektSearchResultListAdmin>div,
+#ProjektSearchResultList>div,
+#ProjektNewPartnerBJSearchList>div,
+#ProjektNewKooperationspartnerSearchList>div,
+#ProjektbeschreibungLinksList>div {
+    text-align: center;
+    vertical-align: middle;
+    line-height: 45px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+#ProjektNewPartnerKKSearchList>div:first-child,
+#ProjektSearchResultListAdmin>div:first-child,
+#ProjektSearchResultList>div:first-child,
+#ProjektNewPartnerBJSearchList>div:first-child,
+#ProjektNewKooperationspartnerSearchList>div:first-child,
+#ProjektbeschreibungLinksList>div:first-child {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+#ProjektNewPartnerKKSearchList .row,
+#ProjektSearchResultListAdmin .row,
+#ProjektSearchResultList .row,
+#ProjektNewPartnerBJSearchList .row,
+#ProjektNewKooperationspartnerSearchList .row,
+#ProjektbeschreibungLinksList .row {
+    margin-bottom: 0px !important;
+}
+
+@media (max-width: 767px) {
+    #ProjektSearchResultList {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    #ProjektNewPartnerKKSearchList_HdrRow {
+        display: none;
+    }
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSparten {
+    margin-bottom: 35px;
 }
 
 
 /* Inputs Overrides
  * -------------------------- */
 
-input, select {
-    font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
-    letter-spacing: 0.5px !important;
-    color: #000000;
-    font-size: 15px !important;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    border: 1px solid #bbbbbb;
-    width: 100%;
-    height: 36px;
-    font-family: sans-serif;
-    padding: 15px;
-    background-color: #ffffff;
-}
-
-input {
-    font-family: Gentona-Medium, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
-    color: #d7466b !important;
-}
-
-textarea {
-    font-family: Gentona-Medium, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
-    color: #d7466b !important;
-    font-size: 15px !important;
-}
-
 select {
-    margin-bottom: 15px !important;
+    height: 53px !important;
 }
 
-.sysAdminHeadline {
-	letter-spacing: 2px !important;
-    text-transform: uppercase;
-    font-weight: normal !important;
-    font-size: 42px !important;
-	font-family: Gentona-Heavy !important;
-    color: #d7466b !important;
+div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorzeitigerProjektbeginn_ProjektNewFormfieldsSelectVorzeitigerProjektbeginnFooter {
+    margin-bottom: 47px;
+    font-size: 13px;
 }
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektNavigationButtons {
+    text-align: right;
+}
+
+#ProjektNew {
+    width: 100%;
+}
+
 
 /* Placeholder Hacks
  * -------------------------- */
 
-::placeholder {
+ ::placeholder {
     /* Chrome, Firefox, Opera, Safari 10.1+ */
-    font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
-    letter-spacing: 0.5px !important;
-    color: #797979;
-    font-size: 15px;
-    opacity: 1; /* Firefox */
+    color: #bbb !important;
+    font-weight: 900;
+    font-family: Industry, sans-serif !important;
+    /* Firefox */
+    text-shadow: none !important;
 }
 
 :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
-    letter-spacing: 0.5px !important;
-    color: #797979;
+    font-weight: 900;
+    font-family: Industry, sans-serif !important;
+    color: #bbb !important;
+    text-shadow: none !important;
 }
 
 ::-ms-input-placeholder {
     /* Microsoft Edge */
-    font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
-    letter-spacing: 0.5px !important;
-    color: #797979;
-}
-
-
-/* FONT PATH
- * -------------------------- */
-
-.sr-only {
-    border: 0;
-    clip: rect(0, 0, 0, 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px
-}
-
-.sr-only-focusable:active, .sr-only-focusable:focus {
-    clip: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
-    position: static;
-    width: auto
-}
-
-@font-face {
-    font-family: "Font Awesome 5 Brands";
-    font-style: normal;
-    font-weight: 400;
-    font-display: block;
-    src: url(webFonts/fa-brands-400.eot);
-    src: url(webFonts/fa-brands-400.eot?#iefix) format("embedded-opentype"), url(webFonts/fa-brands-400.woff2) format("woff2"), url(webFonts/fa-brands-400.woff) format("woff"), url(webFonts/fa-brands-400.ttf) format("truetype"), url(webFonts/fa-brands-400.svg#fontawesome) format("svg")
-}
-
-.fab {
-    font-family: "Font Awesome 5 Brands"
-}
-
-@font-face {
-    font-family: "Font Awesome 5 Free";
-    font-style: normal;
-    font-weight: 400;
-    font-display: block;
-    src: url(webFonts/fa-regular-400.eot);
-    src: url(webFonts/fa-regular-400.eot?#iefix) format("embedded-opentype"), url(webFonts/fa-regular-400.woff2) format("woff2"), url(webFonts/fa-regular-400.woff) format("woff"), url(webFonts/fa-regular-400.ttf) format("truetype"), url(webFonts/fa-regular-400.svg#fontawesome) format("svg")
-}
-
-.fab, .far {
-    font-weight: 400
-}
-
-@font-face {
-    font-family: "Font Awesome 5 Free";
-    font-style: normal;
     font-weight: 900;
-    font-display: block;
-    src: url(webFonts/fa-solid-900.eot);
-    src: url(webFonts/fa-solid-900.eot?#iefix) format("embedded-opentype"), url(webFonts/fa-solid-900.woff2) format("woff2"), url(webFonts/fa-solid-900.woff) format("woff"), url(webFonts/fa-solid-900.ttf) format("truetype"), url(webFonts/fa-solid-900.svg#fontawesome) format("svg")
-}
-
-.fa, .far, .fas {
-    font-family: "Font Awesome 5 Free"
-}
-
-.fa, .fas {
-    font-weight: 900
-}
-
-.fa {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    font-family: Industry, sans-serif !important;
+    color: #bbb !important;
+    text-shadow: none !important;
 }
 
 
 /* --------------------------------------------- */
+
+
+/* Quick Tables Styles                          */
+
+#Root_ProjektSearchResultListConnector {
+    width: 100%
+}
+
+#ProjektSearchResultList_ListHeaderprojektid,
+#ProjektSearchResultList_ListHeadertitel,
+#ProjektSearchResultList_ListHeaderfoerdersaeule,
+#ProjektSearchResultList_ListHeaderpdf_download,
+#ProjektSearchResultList_ListHeaderstatus {
+    display: inline-table;
+    width: 15%;
+    background-color: #d7466b;
+    margin-bottom: 25px;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+#ProjektSearchResultList_ListColumnprojektid0,
+#ProjektSearchResultList_ListColumntitel0,
+#ProjektSearchResultList_ListColumnfoerdersaeule0,
+#ProjektSearchResultList_ListColumnpdf_download0,
+#ProjektSearchResultList_ListColumnstatus0,
+#ProjektSearchResultList_ListColumnbearbeiten0 {
+    display: inline-table;
+    width: 15%;
+    height: 50px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #eee;
+    margin-bottom: 25px;
+}
+
+
+/* --------------------------------------------- */
+
+
 /* Global Header Styles                          */
 
 .GlobalHeader {
@@ -300,17 +1996,17 @@ h2 {
     margin: 0;
 }
 
-html, body {
-    font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif !important;
-    letter-spacing: 0.5px !important;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-textarea:focus, input:focus, select:focus {
-    outline: none !important;
-    border: 3px solid #d7466b;
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerKK,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerPartnerBJ,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewZuwendungsempfänger,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragstellerKooperationspartner,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjektbeschreibung,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewFinanzplan,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewKooperationsvereinbarung,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragsabschluss {
+    top: 40px !important;
+    position: relative !important;
 }
 
 input:-internal-autofill-selected {
@@ -319,7 +2015,9 @@ input:-internal-autofill-selected {
     background-image: none !important;
 }
 
+
 /* Change the white to any color ;) */
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -327,7 +2025,13 @@ input:-webkit-autofill:active {
     background-color: rgb(243, 199, 210) !important;
 }
 
-[id*="DisplayMax"] {
+div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorueitigerProjektbeginn_FormListProjektNewFormfieldsSelectVorueitigerProjektbeginnFooter {
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+[id*="DisplayMax"],
+[id*="KurzbeschreibungMax"] {
     text-align: right;
     font-size: 13px;
     margin-bottom: 7px;
@@ -348,24 +2052,84 @@ input:-webkit-autofill:active {
 
 .required::after {
     content: "*";
-    color: #d7466b;
-    margin-left: 5px;
-	top: -3px;
-	position: relative;
+    font-size: 23px;
+    color: red;
+    top: -7px;
+    right: -13px;
+    position: absolute;
+    font-family: Industry-Book, sans-serif;
+    font-weight: bold;
 }
 
 .spezial {
-	margin-top: 10px !important;
-	margin-bottom: 50px !important;
+    margin-top: 10px !important;
+    margin-bottom: 50px !important;
 }
 
 .sysAreaDescription::before {
-	font-family: 'Font Awesome 5 Free';
+    font-family: 'Font Awesome 5 Free';
     font-size: 15px;
     content: "\f05a";
     font-weight: 900;
-	color: #F3C7C7;
-	margin-right: 6px;
+    color: #F3C7C7;
+    margin-right: 6px;
+}
+
+
+/* Tab Sections ;) */
+
+div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektFoerdersaeule {
+    margin-bottom: 25px;
+}
+
+div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektKurzbeschreibung {
+    margin-bottom: 25px;
+}
+
+div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe,
+#ProjektUpdate_AdminProjektantragNeuTabContainer_TabProjektNewProjekt_FormfieldListProjektUpdateZielgruppe,
+#ProjektNew_ProjektNewTabContainer_TabProjektNewAntragsabschluss_ProjektNewAntragAbschliessenSubmit {
+    margin-bottom: 35px;
+}
+
+div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer {
+    margin-bottom: 25px;
+}
+
+div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorzeitigerProjektbeginn {
+    margin-bottom: 25px;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer_ProjektNewFormfieldsProjektdauer_CellGroup1 {
+    margin-bottom: 25px;
+}
+
+#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektFoerdersaeule_ProjektNewFoerdersaeule select {
+    margin-bottom: 15px;
+}
+
+#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektTitel {
+    margin-bottom: 15px;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe_ProjektNewFormfieldsProjektZielgruppe_CellGroup0 {
+    margin-bottom: 15px;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe_ProjektNewFormfieldsProjektZielgruppe_CellGroup1 {
+    margin-bottom: 15px;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe_ProjektNewFormfieldsProjektZielgruppe_CellGroup2 {
+    margin-bottom: 15px;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe_ProjektNewFormfieldsProjektZielgruppe_CellGroup3_ProjektNewZielgruppe19bis27_enclosedby {
+    margin-bottom: 15px;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe_ProjektNewFormfieldsProjektZielgruppeHeader {
+    margin-bottom: 25px;
 }
 
 .FormListDefaultFooter {
@@ -375,8 +2139,66 @@ input:-webkit-autofill:active {
     margin-bottom: 15px;
 }
 
+select#ProjektNewVorzeitigerProjektbeginn {
+    margin-bottom: 5px !important;
+}
+
+div#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_FormfieldListProjektNewProjektdauer_FormfieldListProjektNewProjektdauer_CellGroup0_ProjektNewDauerProjektbeginnDescriptionTag_enclosedby {
+    margin-bottom: 20px;
+}
+
+#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektKurzbeschreibung_sysFormListTableProjektNewFormfieldsProjektKurzbeschreibungFooter {
+    font-family: Gentona-Book, Lucida Sans Unicode, Lucida Grande, Sans-Serif;
+    font-size: 13px;
+    margin-bottom: 45px;
+}
+
+#ProjektNew_ProjektNewKurzbeschreibung {
+    height: 200px;
+}
+
+#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektTitel_sysFormListTableProjektNewFormfieldsProjektTitelFooter {
+    font-size: 13px;
+}
+
+div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektKurzbeschreibung_FormListProjektNewFormfieldsProjektKurzbeschreibungFooter {
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektSchwerpunktThema {
+    margin-bottom: 25px;
+}
+
+div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe {
+    line-height: 65px;
+    margin-bottom: 25px;
+}
+
+div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer {
+    margin-bottom: 25px;
+}
+
+#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe .FormFieldBorder {
+    width: 100%;
+}
+
+div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer_sysFormListHiddenProjektNewFormfieldsProjektdauer_VerticalGridProjektNewDauerProjektbeginnDescription {
+    margin-bottom: 25px;
+}
+
+div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektKurzbeschreibung_FormListProjektNewFormfieldsProjektKurzbeschreibungAdditionalHeader {
+    margin-bottom: 13px;
+}
+
+div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektSchwerpunktThema_FormListProjektNewFormfieldsProjektSchwerpunktThemaFooter {
+    font-size: 13px;
+}
+
 
 /* --------------------------------------------- */
+
+
 /* Form Field Styles                             */
 
 .FormFieldDisplayOnly {
@@ -391,7 +2213,7 @@ input:-webkit-autofill:active {
 
 .FormFieldBorderValidateOk {
     border: 3px;
-	border-color: #198754;
+    border-color: #198754;
     box-shadow: 0 0 0 0.25rem rgb(25 135 84 / 25%);
 }
 
@@ -409,6 +2231,7 @@ input:-webkit-autofill:active {
     font-size: 13px;
     padding: 4px;
     padding-left: 15px;
+    padding-right: 15px;
     background-color: #ffffff;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -416,22 +2239,77 @@ input:-webkit-autofill:active {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-
 }
 
+textarea#ProjektNewKurzbeschreibung {
+    min-height: 300px;
+    min-width: 300px;
+    max-width: 1080px;
+    resize: both;
+}
 
-.FormFieldBorderTextarea {
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    border: 1px solid #bbbbbb;
-    width: 100%;
-    font-family: sans-serif;
-    font-size: 15px;
-    padding: 15px;
+#ProjektNew_ProjektNewSparte3Sonstige,
+#ProjektNew_ProjektNewSparte2Sonstige,
+#ProjektNew_ProjektNewSparte1Sonstige {
+    width: 50%;
+}
+
+.ProjektNewFormfieldsProjektSparten select {
+    margin-bottom: 15px;
+}
+
+.ProjektNewFormfieldsProjektSparten {
+    margin-bottom: 15px;
+}
+
+div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektSchwerpunktThema {
+    margin-bottom: 15px;
+}
+
+div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe {
+    margin-bottom: 15px;
+}
+
+.ProjektNewFormfieldsProjektZielgruppe input {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.GridProjektdauer input,
+select {
+    margin-right: 5px;
+}
+
+div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer_ProjektNewDauerProjektendeDescription {
+    margin-top: 15px;
+}
+
+div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer {
+    margin-bottom: 15px;
+}
+
+div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer_ProjektNewDauerProjektendeMonat {
+    margin-top: 15px;
+}
+
+div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer_ProjektNewDauerProjektendeTag {
+    margin-top: 15px;
+}
+
+#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorueitigerProjektbeginn_ProjektNewFormfieldsSelectVorueitigerProjektbeginnHeader {
+    margin-bottom: 5px;
+}
+
+#ProjektNew_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorzeitigerMassnahmenbeginn_ProjektNewFormfieldsSelectVorzeitigerMassnahmenbeginn_CellGroup1 {
+    margin-bottom: 25px;
+}
+
+div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektZielgruppe_ProjektNewFormfieldsProjektZielgruppeHeader {
+    margin-bottom: 15px;
+}
+
+div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer_ProjektNewFormfieldsProjektdauerHeader {
+    margin-bottom: 15px;
 }
 
 .FormfieldDefaultDescription {
@@ -441,43 +2319,117 @@ input:-webkit-autofill:active {
     vertical-align: top;
 }
 
-.Header {
-	margin-bottom: 5px;
+.sysEntriesCards .sysLoading {
+    background-color: #f3c7c7;
+    border-radius: 6px;
+    width: auto;
+    padding: 5px 17px 5px 17px;
+    color: #721c24;
+    display: inline-block;
+    font-weight: bold;
+    user-select: none;
 }
 
-.Header::after {
-	content: "*";
+.sysEntriesCards h3 {
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 0.9px !important;
+}
+
+#Register_RegisterCompanyRef svg,
+#Register_RegisterAdminRef svg,
+#Register_RegisterAirSafetyPersonRef svg,
+#Register_RegisterDocumentsRef svg {
+    font-size: 55px !important;
+    color: #fff;
+}
+
+#Register_RegisterCompanyAddress svg,
+#Register_RegisterAdminAddress svg,
+#Register_RegisterAirSafetyPersonAddress svg,
+#Register_RegisterAirSafetyPersonAddress svg {
+    font-size: 55px !important;
+    color: #286ea0;
+}
+
+.Header {
+    margin-bottom: 5px;
+}
+
+
+/*.Header::after {
+    content: "*";
     color: red;
     margin-left: 7px;
+}*/
+
+.info-required,
+.chars-left {
+    text-align: right;
+    font-family: Industry-Book, sans-serif !important;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 20px;
 }
 
 .sysAreaDescription {
-	margin-top: 0px;
-	font-size: 12px !important;
+    margin-top: 0px;
+    font-size: 12px !important;
+}
+
+div#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektKurzbeschreibung_FormListProjektNewFormfieldsProjektKurzbeschreibungAdditionalFooter {
+    margin-bottom: 25px;
+}
+
+#ProjektNewRoot_ProjektNewTabContainer_TabContent_TabProjektNewProjekt_ProjektNewFormfieldsProjektdauer input {
+    width: 96%;
+}
+
+div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorueitigerProjektbeginn {
+    margin-bottom: 25px;
+}
+
+div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorueitigerProjektbeginn_ProjektNewFormfieldsSelectVorueitigerProjektbeginnFooter {
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+div#Root_ProjektNewTabContainer_TabProjektNewProjekt_ProjektNewFormfieldsSelectVorueitigerMassnahmenbeginnBeschreibung_ProjektNewDVorzeitigerMassnahmenbeginnBeschreibungDescription {
+    margin-bottom: 5px;
 }
 
 
 /* --------------------------------------------- */
+
+
 /* Error Styles                                  */
 
 .um-form .um-field-error {
-    background: #d7466b !important;
+    background: #f3c7c7 !important;
 }
 
 .um-faicon-caret-up:before {
     content: "\f0d8";
+    display: none !important;
 }
 
-[class^="um-faicon-"]:before, [class*=" um-faicon-"]:before {
+[class^="um-faicon-"]:before,
+[class*=" um-faicon-"]:before {
     font-family: 'Font Awesome 5 Free' !important;
     font-style: normal !important;
     font-weight: 900 !important;
     font-variant: normal !important;
     text-transform: none !important;
-    speak: none;
     line-height: 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.FormFieldBorder {
+    height: 53px;
 }
 
 .FormFieldBorderValidateOk {
@@ -485,27 +2437,28 @@ input:-webkit-autofill:active {
 }
 
 .um-form .um-field-error {
-    background: #d7466b !important;
+    background: #f3c7c7 !important;
 }
 
 .FormFieldBorderValidateFail {
-    border: 3px solid #d7466b;
+    border: 3px solid #f3c7c7;
 }
 
 .um-field-error {
     width: auto;
     max-width: 100%;
-    background: #d7466b;
+    background: #f3c7c7;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
-    color: #fff;
+    color: #721c24;
     box-sizing: border-box;
     position: relative;
     padding: 12px;
-    font-size: 14px;
-    line-height: 20px !important;
+    font-size: 20px;
+    line-height: 27px !important;
     margin-bottom: 30px;
+    user-select: none;
 }
 
 .um-field-error a {
@@ -519,7 +2472,7 @@ input:-webkit-autofill:active {
     left: 10px;
     position: absolute;
     z-index: 1;
-    color: #d7466b;
+    color: #f3c7c7;
     font-size: 28px;
     line-height: 1em !important;
 }
@@ -527,7 +2480,7 @@ input:-webkit-autofill:active {
 .um-error-block {
     width: auto;
     max-width: 100%;
-    background: #d7466b;
+    background: #f3c7c7;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
@@ -538,4 +2491,8 @@ input:-webkit-autofill:active {
     font-size: 14px;
     line-height: 1em !important;
     margin: 12px 0 0 0;
+}
+
+#CalculatorEditShipment__overlay_FormList_CalculatorStep2ContentEditIndex__overlay {
+    margin-top: 55px;
 }
