@@ -16,7 +16,7 @@
 //------------------------------------------------------------------------------
 
 function sysObjButtonCallback() {
-    this.EventListeners		= new Object();
+	this.EventListeners		= new Object();
 	this.ChildObjects		= new Array();
 }
 
