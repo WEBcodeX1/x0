@@ -20,13 +20,15 @@ The following logical Test Groups will be implemented:
 
 ## Test Types
 
-Two Test Types exist:
+The following test-types exist:
 
-1. Local Docker Test which starts up the necessary Docker Containers (x0-app and x0-db).
-2. Kubernetes Tests in already deployed Kubernetes Environment.
+1. Local Docker Test (x0-app, x0-db), pytest-3, chromium and chromedriver must be installed locally
+2. Kubernetes Tests in already deployed Kubernetes Environment
+
+In future releases it is planned to run local tests completely in containers.
 
 ## Run Tests
 
-Execute **./run-tests-local.sh** to start local testing (docker containers x0-app and x0-db).
+Execute **./run-tests-local.sh** to start local testing.
 
 Execute **./run-tests.sh** to start testing in kubernetes "test" environment (realtime kubernetes deployment).
