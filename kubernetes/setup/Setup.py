@@ -176,6 +176,13 @@ if __name__ == '__main__':
     load_balancers = get_loadbalancers(CH)
     log_message(log_prefix, 'LoadBalancers:{}'.format(load_balancers))
 
+    # use single env from command line, else list from json config
+    try:
+        environments = []
+        environments.append(sys.argv[2])
+    except Exception as e:
+        environments = CH.getRuntimeData()['x0_config']['env_list']
+
     for environment in environments:
 
         log_message(log_prefix, 'Processing Environment:{}'.format(environment))
