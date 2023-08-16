@@ -1,5 +1,8 @@
 # GitLab CI configuration file
 
+rules:
+  - if $CI_COMMIT_BRANCH == 'main' && $CI_COMMIT_TAG != null
+
 default:
   image: "registry.code.syseleven.de/webcodex/x0/x0-test:latest"
 
