@@ -108,6 +108,11 @@ class ConfigHandler(object):
                         "auth-tls-verify-depth": 'nginx.ingress.kubernetes.io/auth-tls-verify-depth: "{}"',
                         "auth-tls-pass-certificate-to-upstream": 'nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "{}"'
                     }
+                },
+                "install": {
+                    "https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.0/deploy/static/provider/cloud/deploy.yaml",
+                    "https://raw.githubusercontent.com/reactive-tech/kubegres/v1.16/kubegres.yaml",
+                    "https://github.com/cert-manager/cert-manager/releases/download/v1.12.0/cert-manager.yaml"
                 }
             },
             "x0": {
@@ -175,6 +180,13 @@ if __name__ == '__main__':
 
     load_balancers = get_loadbalancers(CH)
     log_message(log_prefix, 'LoadBalancers:{}'.format(load_balancers))
+
+    # install base "packages"
+    install_packages = CH.getConfig()['kubernetes']['install']
+
+    for package_url in install_packages:
+        cmd = 'kubectl wait --for condition=complete --timeout=360s -f {}'.format(package_url)
+        subprocess.run(cmd.split())
 
     # use single env from command line, else list from json config
     try:
