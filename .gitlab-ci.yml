@@ -4,24 +4,45 @@ default:
   image: "registry.code.syseleven.de/webcodex/x0/x0-test:latest"
 
 stages:
-  - deploy
+  - deploy-test-env
   - test
   - docs
+  - deploy
+
+deploy-test-env-job:
+  stage: deploy-test-env
+  script:
+    - echo "Deploying Kubernetes test-environment..."
+    - /var/lib/x0/kubernetes/setup/Setup.py /var/lib/x0 test
+    - echo "Kubernetes test-environment successfully deployed."
 
 integration-test-job:
   stage: test
+  services:
+    - name: spryker/chromedriver:latest
+      alias: chromium.gitlab-ci.local
   script:
     - echo "Running pytest3 integration tests..."
-    - sleep 1
+    - /var/lib/x0/sys/docker-run-pytest.sh
+    - echo "Running pytest3 integration tests finished..."
 
 doc-build-job:
   stage: docs
   script:
     - echo "Building Python Sphinx documentation..."
+    - /var/lib/x0/sys/docker-build-sphinx.sh
+    - echo "Python Sphinx documentation built successfully..."
+
+doc-deploy-job:
+  stage: docs
+  script:
+    - echo "Deploying Sphinx documentation..."
     - sleep 1
+    - echo "Python Sphinx documentation deployed successfully..."
 
 deploy-job:
   stage: deploy
   script:
-    - echo "Deploying application..."
-    - echo "Application successfully deployed."
+    - echo "After successful tests, deploying production environment..."
+    - sleep 1
+    - echo "Deploying production environment finished..."
