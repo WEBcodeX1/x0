@@ -7,7 +7,6 @@ import uuid
 import logging
 import subprocess
 
-
 dir_config = sys.argv[1]
 dir_x0_app_config = '{}/config'.format(dir_config)
 dir_x0_kubernetes_tpl = '../template'
@@ -36,14 +35,19 @@ def gen_kubernetes_templates(ConfRef, environment, tpl_group='app'):
 
             ConfRef._RunTimeData['templates_gen'][tpl_group][tpl_key] = replace_source
 
-def kubernetes_exec(configs):
+def kubernetes_exec(configs, wait=False, wait_for='complete', wait_timeout='360s'):
     #log_message('kubernetes_exec', 'configs:{}'.format(configs))
+    if wait is True:
+        wait_cmd = ' wait --for condition={} --timeout={}'.format(wait_for, wait_timeout)
+    else:
+        wait_cmd = ''
+
     for config_data in configs:
         filename_out = '/tmp/kube-tpl-process-{}.yaml'.format(uuid.uuid4())
         log_message('kubernetes_exec', 'Processing file:{}'.format(filename_out))
         with open(filename_out, 'w') as fh:
             fh.write(config_data)
-        cmd = 'kubectl apply -f {}'.format(filename_out)
+        cmd = 'kubectl{} apply -f {}'.format(wait_cmd, filename_out)
         subprocess.run(cmd.split())
 
 def get_loadbalancers(ConfRef):
@@ -172,7 +176,7 @@ if __name__ == '__main__':
     load_balancers = get_loadbalancers(CH)
     log_message(log_prefix, 'LoadBalancers:{}'.format(load_balancers))
 
-    for environment in CH.getRuntimeData()['x0_config']['env_list']:
+    for environment in environments:
 
         log_message(log_prefix, 'Processing Environment:{}'.format(environment))
 
@@ -205,7 +209,7 @@ if __name__ == '__main__':
             lb_tpl_data = CH.getRuntimeData()['templates_gen']['lb_group']['LoadBalancer']
             #log_message(log_prefix, 'Load Balancer ID:{} Template:{}'.format(loadbalancer_id, lb_tpl_data))
 
-            kubernetes_exec([lb_tpl_data])
+            kubernetes_exec([lb_tpl_data], wait=True)
 
         # process app templates
         app_templates = env_config['kubernetes']['app_templates']
