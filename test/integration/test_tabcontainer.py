@@ -9,7 +9,7 @@ import logging
 def config():
 
     try:
-        test_url_env = os.environ['TEST_DOMAIN']
+        test_url_env = os.environ['TEST_URL']
         test_url = 'https://{}'.format(test_url_env)
     except:
         test_url = 'http://127.0.0.1'
@@ -19,7 +19,18 @@ def config():
     config["options"] = webdriver.ChromeOptions()
     config["options"].add_argument('ignore-certificate-errors')
     config["options"].add_argument('headless')
-    config["driver"] = webdriver.Chrome(options=config["options"])
+
+    try:
+        driver_url_env = os.environ['REMOTE_WEBDRIVER_URL']
+        config["driver"] = webdriver.Remote(
+            command_executor='http://{}:4444'.format(driver_url_env),
+            options=config["options"]
+        )
+    except:
+        config["driver"] = webdriver.Chrome(
+            options=config["options"]
+        )
+
     config["driver"].get('{}/python/Index.py?appid=test_tabcontainer'.format(test_url))
     return config
 
