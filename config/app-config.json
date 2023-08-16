@@ -34,7 +34,10 @@
             "apps": [ "x0" ],
             "env": {
                 "test": {
-                    "dns": "x0-app.kicker-finder.de",
+                    "dns": {
+                        "hostname": "x0-app",
+                        "domain": "kicker-finder.de"
+                    },
                     "ip": {
                         "v4": {
                             "dns_register": true,
