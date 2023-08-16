@@ -1,8 +1,5 @@
 # GitLab CI configuration file
 
-rules:
-  - if $CI_COMMIT_BRANCH == 'main' && $CI_COMMIT_TAG != null
-
 default:
   image: "registry.code.syseleven.de/webcodex/x0/x0-test:latest"
 
@@ -18,6 +15,8 @@ deploy-test-env-job:
     - echo "Deploying Kubernetes test-environment..."
     - /var/lib/x0/kubernetes/setup/Setup.py /var/lib/x0 test
     - echo "Kubernetes test-environment successfully deployed."
+  rules:
+    - if $CI_COMMIT_TAG != null
 
 integration-test-job:
   stage: test
@@ -28,6 +27,8 @@ integration-test-job:
     - echo "Running pytest3 integration tests..."
     - /var/lib/x0/sys/docker-run-pytest.sh
     - echo "Running pytest3 integration tests finished..."
+  rules:
+    - if $CI_COMMIT_TAG != null
 
 doc-build-job:
   stage: docs
@@ -35,6 +36,8 @@ doc-build-job:
     - echo "Building Python Sphinx documentation..."
     - /var/lib/x0/sys/docker-build-sphinx.sh
     - echo "Python Sphinx documentation built successfully..."
+  rules:
+    - if $CI_COMMIT_TAG != null
 
 doc-deploy-job:
   stage: docs
@@ -42,6 +45,8 @@ doc-deploy-job:
     - echo "Deploying Sphinx documentation..."
     - sleep 1
     - echo "Python Sphinx documentation deployed successfully..."
+  rules:
+    - if $CI_COMMIT_TAG != null
 
 deploy-job:
   stage: deploy
@@ -49,3 +54,5 @@ deploy-job:
     - echo "After successful tests, deploying production environment..."
     - sleep 1
     - echo "Deploying production environment finished..."
+  rules:
+    - if $CI_COMMIT_TAG != null
