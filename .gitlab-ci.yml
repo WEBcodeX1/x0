@@ -16,7 +16,7 @@ deploy-test-env-job:
     - /var/lib/x0/kubernetes/setup/Setup.py /var/lib/x0 test
     - echo "Kubernetes test-environment successfully deployed."
   rules:
-    - if $CI_COMMIT_TAG != null
+    - if: $CI_COMMIT_TAG != null
 
 integration-test-job:
   stage: test
@@ -28,7 +28,7 @@ integration-test-job:
     - /var/lib/x0/sys/docker-run-pytest.sh
     - echo "Running pytest3 integration tests finished..."
   rules:
-    - if $CI_COMMIT_TAG != null
+    - if: $CI_COMMIT_TAG != null
 
 doc-build-job:
   stage: docs
@@ -37,7 +37,7 @@ doc-build-job:
     - /var/lib/x0/sys/docker-build-sphinx.sh
     - echo "Python Sphinx documentation built successfully..."
   rules:
-    - if $CI_COMMIT_TAG != null
+    - if: $CI_COMMIT_TAG != null
 
 doc-deploy-job:
   stage: docs
@@ -46,7 +46,7 @@ doc-deploy-job:
     - sleep 1
     - echo "Python Sphinx documentation deployed successfully..."
   rules:
-    - if $CI_COMMIT_TAG != null
+    - if: $CI_COMMIT_TAG != null
 
 deploy-job:
   stage: deploy
@@ -55,4 +55,4 @@ deploy-job:
     - sleep 1
     - echo "Deploying production environment finished..."
   rules:
-    - if $CI_COMMIT_TAG != null
+    - if: $CI_COMMIT_TAG != null
