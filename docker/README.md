@@ -32,7 +32,7 @@ Export the following environment-variables to control use of "local" Ubuntu-Mirr
 When building the Docker-Network "x0-connect" in x0-network.sh script with subnet 172.20.0.0/24
 will be created.
 
-x0-app gets IP-address 172.20.0.10, x0-db 172.20.0.20.
+x0-app get IP-address "172.20.0.10" assigned, x0-db "172.20.0.20".
 
 The x0-db is accessible (resolvable) with hostname "mypostgres". The ports 80, 443 and 5432 are
 accesible from localhost (testing, database administration, browser access).

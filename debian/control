@@ -41,6 +41,6 @@ Description: Transparent Database installer package.
 Package: x0-test
 Section: misc
 Architecture: all
-Depends: python3 (>= 3.4), chromium-browser, chromium-chromedriver, python3-selenium, python3-sphinx, python3-sphinx-rtd-theme, texlive-full, ${misc:Depends}
+Depends: python3 (>= 3.4), python3-selenium, python3-pytest, python3-sphinx, python3-sphinx-rtd-theme, python3-openstackclient, python3-cinderclient, python3-designateclient, python3-heatclient, python3-swiftclient, ${misc:Depends}
 Description: Integration-Tests execution and documentation generation.
  Integration-Tests execution and documentation generation.
