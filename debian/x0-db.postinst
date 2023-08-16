@@ -41,10 +41,10 @@ if [ "$1" = "configure" ]; then
 	service postgresql restart
 
 	# set postgres user password and allow to login
-	psql -l -U postgres -c "ALTER ROLE postgres WITH ENCRYPTED PASSWORD 'changeme' LOGIN"
+	psql -U postgres -c "ALTER ROLE postgres WITH ENCRYPTED PASSWORD 'changeme' LOGIN"
 
 	# check database x0 exists
-	psql -l -U postgres | grep -q ${SYSDB}
+	psql -U postgres | grep -q ${SYSDB}
 
 	# if not exists, create database
 	if [ $? -eq 1 ]; then
