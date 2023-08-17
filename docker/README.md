@@ -22,7 +22,7 @@ The following Docker Containers exist:
 
 ## Environment Variables
 
-Export the following environment-variables to control use of "local" Ubuntu-Mirror:
+Export the following environment-variables to control / use a "local" Ubuntu-Mirror:
 
 * UBUNTU_MIRROR_DNS=archive.ubuntu.local
 * UBUNTU_MIRROR_IP=10.10.100.250
