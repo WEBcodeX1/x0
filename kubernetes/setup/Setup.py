@@ -296,9 +296,20 @@ if __name__ == '__main__':
                 except Exception as e:
                     pass
 
+                kube_cert_id = '{}-{}-{}-tls-cert'.format(
+                    CH.getConfig()['x0']['tpl_vars']['app']['x0_APP_ID'],
+                    vhost_key,
+                    environment
+                )
+
+                kube_ca_id = 'ca-{}'.format(kube_cert_id)
+
                 try:
-                    if tls_config['verify-client-certs'] == 'require':
-                        tls_annotations.append(tls_annotation_tpl['auth-tls-verify-client'].format('on'))                    
+                    if tls_config['verify-client-certs'] is True:
+                        tls_annotations.append(tls_annotation_tpl['auth-tls-verify-client'].format('on'))
+                        tls_annotations.append(tls_annotation_tpl['auth-tls-secret'].format('default/'.format(kube_ca_id)))
+                        tls_annotations.append(tls_annotation_tpl['auth-tls-verify-depth'].format('1'))
+                        tls_annotations.append(tls_annotation_tpl['auth-tls-pass-certificate-to-upstream'].format('true'))
                 except Exception as e:
                     pass
 
@@ -314,14 +325,6 @@ if __name__ == '__main__':
 
                         kube_secret_cmd_tpl = ['kubectl', 'create', 'secret', 'generic']
                         kube_secret_file_param = '--from-file'
-
-                        kube_cert_id = '{}-{}-{}-tls-cert'.format(
-                            CH.getConfig()['x0']['tpl_vars']['app']['x0_APP_ID'],
-                            vhost_key,
-                            environment
-                        )
-
-                        kube_ca_id = 'ca-{}'.format(kube_cert_id)
 
                         kube_secret_cmd_ca = [] + kube_secret_cmd_tpl
                         kube_secret_cmd_ca.extend(
