@@ -185,7 +185,7 @@ if __name__ == '__main__':
     install_packages = CH.getConfig()['kubernetes']['install']
 
     for package_url in install_packages:
-        cmd = 'kubectl wait --for condition=complete --timeout=360s -f {}'.format(package_url)
+        cmd = 'kubectl wait --for condition=complete --timeout=360s apply -f {}'.format(package_url)
         subprocess.run(cmd.split())
 
     # use single env from command line, else list from json config
