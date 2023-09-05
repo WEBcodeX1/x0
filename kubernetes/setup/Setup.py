@@ -69,6 +69,29 @@ def certbot_gen(configs):
     cmd_pack_certs = 'tar -cjvf /tmp/certbot-certs.tar.bz2 /etc/letsencrypt/'
     cmd_copy_certs = 'kubectl --namespace x0-app cp {}:/tmp/certbot-certs.tar.bz2 ./{}'
 
+def gen_service_account_namespace(namespace):
+
+    cmd = 'kubectl --namespace {} create serviceaccount ci-builder'.format(namespace)
+    subprocess.run(cmd.split())
+
+    cmd = 'kubectl create clusterrolebinding ci-builder-role-{} --clusterrole=cluster-admin --serviceaccount={}:ci-builder'.format(namespace, namespace)
+    subprocess.run(cmd.split())
+
+    cmd = 'kubectl --namespace {} create secret generic sys11-gitlab-read --from-file=.dockerconfigjson=/home/s11-deploy/s11-deploy/docker.json --type=kubernetes.io/dockerconfigjson'.format(namespace)
+    subprocess.run(cmd.split())
+
+    cmd = [
+        'kubectl',
+        '--namespace',
+        namespace,
+        'patch',
+        'serviceaccount',
+        'ci-builder',
+        '-p',
+        '{"imagePullSecrets": [ {"name": "sys11-gitlab-read"} ]}'
+    ]
+    subprocess.run(cmd)
+
 
 class ConfigHandler(object):
     """Configuration Handler class.
@@ -217,6 +240,9 @@ if __name__ == '__main__':
         # generate namespace
         cmd = 'kubectl create namespace {}'.format(kube_namespace)
         subprocess.run(cmd.split())
+
+        # generate serviceaccount / roles / authentication
+        gen_service_account_namespace(kube_namespace)
 
         # generate loadbalancers
         for loadbalancer_id in load_balancers:
