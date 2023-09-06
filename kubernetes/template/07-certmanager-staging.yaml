@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: ${x0_APP_ID}-${x0_VHOST_ID}-${x0_APP_ENV}-tls-cert
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: ${cm_CONTACT_MAIL}
+    privateKeySecretRef:
+      name: ${x0_APP_ID}-${x0_VHOST_ID}-${x0_APP_ENV}-tls-cert
+    solvers:
+    - http01:
+        ingress:
+          class:  class-${x0_LOADBALANCER_REF}
