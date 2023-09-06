@@ -35,18 +35,18 @@ def gen_kubernetes_templates(ConfRef, environment, tpl_group='app'):
 
             ConfRef._RunTimeData['templates_gen'][tpl_group][tpl_key] = replace_source
 
-def kubernetes_exec(configs, wait=False, wait_for='complete', wait_timeout='360s'):
+def kubernetes_exec(templates, wait=False, wait_for='complete', wait_timeout='360s'):
     #log_message('kubernetes_exec', 'configs:{}'.format(configs))
     if wait is True:
         wait_cmd = ' wait --for condition={} --timeout={}'.format(wait_for, wait_timeout)
     else:
         wait_cmd = ''
 
-    for config_data in configs:
+    for template in templates:
         filename_out = '/tmp/kube-tpl-process-{}.yaml'.format(uuid.uuid4())
         log_message('kubernetes_exec', 'Processing file:{}'.format(filename_out))
         with open(filename_out, 'w') as fh:
-            fh.write(config_data)
+            fh.write(template)
         cmd = 'kubectl{} apply -f {}'.format(wait_cmd, filename_out)
         subprocess.run(cmd.split())
 
@@ -62,12 +62,6 @@ def get_loadbalancers(ConfRef):
             except Exception as e:
                 pass
     return load_balancers
-
-def certbot_gen(configs):
-    # kubernetes cert-manager "workaround"
-    cmd_certgen = 'certbot certonly --apache -d {} -m {} --agree-tos'
-    cmd_pack_certs = 'tar -cjvf /tmp/certbot-certs.tar.bz2 /etc/letsencrypt/'
-    cmd_copy_certs = 'kubectl --namespace x0-app cp {}:/tmp/certbot-certs.tar.bz2 ./{}'
 
 def gen_service_account_namespace(namespace):
 
@@ -121,11 +115,16 @@ class ConfigHandler(object):
                     "kubegres": {
                         "SecretSuperuser": "05-kubegres-secret.yaml",
                         "SetupDB": "06-kubegres-setup-db.yaml",
+                    },
+                    "certmanager": {
+                        "Staging": "07-certmanager-staging.yaml",
+                        "Production": "08-certmanager-production.yaml"
                     }
                 },
                 "ingress": {
                     "annotations": {
-                        "cert-manager": 'cert-manager.io/issuer: "{}"',
+                        "cert-manager-issuer": 'cert-manager.io/cluster-issuer: "{}"',
+                        "cert-manager-ingress-class": 'kubernetes.io/ingress.class: "{}"',
                         "auth-tls-verify-client": 'nginx.ingress.kubernetes.io/auth-tls-verify-client: "{}"',
                         "auth-tls-secret": 'nginx.ingress.kubernetes.io/auth-tls-secret: "{}"',
                         "auth-tls-verify-depth": 'nginx.ingress.kubernetes.io/auth-tls-verify-depth: "{}"',
@@ -157,6 +156,13 @@ class ConfigHandler(object):
                         "x0_DB_SU_PASSWORD": json_config['database']['su_password'],
                         "x0_DB_REPL_PASSWORD": json_config['database']['repl_password'],
                         "x0_DB_SIZE": json_config['database']['size']
+                    },
+                    "certmanager": {
+                        "x0_APP_ID": json_config['project']['id'],
+                        "x0_VHOST_ID": None,
+                        "x0_APP_ENV": None,
+                        "cm_CONTACT_MAIL": None,
+                        "x0_LOADBALANCER_REF": None
                     }
                 }
             }
@@ -177,6 +183,10 @@ class ConfigHandler(object):
                 "kubegres": {
                     "SecretSuperuser": None,
                     "SetupDB": None
+                },
+                "certmanager": {
+                    "Staging": None,
+                    "Production": None
                 }
             },
             "x0_config": json_config
@@ -318,7 +328,19 @@ if __name__ == '__main__':
 
                 try:
                     if tls_config['certbot']['generate'] is True:
-                        tls_annotations.append(tls_annotation_tpl['cert-manager'].format('letsencrypt-prod'))
+
+                        CH._Configuration['x0']['tpl_vars']['certmanager']['x0_APP_ENV'] = environment
+                        CH._Configuration['x0']['tpl_vars']['certmanager']['x0_VHOST_ID'] = vhost_key
+                        CH._Configuration['x0']['tpl_vars']['certmanager']['cm_CONTACT_MAIL'] = tls_config['certbot']['admin_mail']
+                        CH._Configuration['x0']['tpl_vars']['certmanager']['x0_LOADBALANCER_REF'] = lb_ref_id
+
+                        tls_annotations.append(tls_annotation_tpl['cert-manager-issuer'].format('letsencrypt-staging'))
+                        tls_annotations.append(tls_annotation_tpl['cert-manager-ingress-class'].format('letsencrypt-staging'))
+
+                        gen_kubernetes_templates(CH, environment, 'certmanager')
+
+                        kubernetes_exec(CH.getRuntimeData()['templates_gen']['certmanager']['Staging'])
+
                 except Exception as e:
                     pass
 
