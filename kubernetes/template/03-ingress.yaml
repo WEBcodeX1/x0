@@ -6,10 +6,6 @@ metadata:
   ${x0_INGRESS_ANNOTATIONS}
 spec:
   ingressClassName: class-${x0_LOADBALANCER_REF}
-  tls:
-  - hosts:
-    - ${x0_APP_VHOST_DNS}
-    secretName: ${x0_APP_ID}-${x0_VHOST_ID}-${x0_APP_ENV}-tls-cert
   rules:
   - host: ${x0_APP_VHOST_DNS}
     http:

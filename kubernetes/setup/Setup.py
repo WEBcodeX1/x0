@@ -131,13 +131,14 @@ class ConfigHandler(object):
                     },
                     "certmanager": {
                         "Staging": "07-certmanager-staging.yaml",
-                        "Production": "08-certmanager-production.yaml"
+                        "Production": "08-certmanager-production.yaml",
+                        "PatchIngress": "09-certmanager-ingress-patch.yaml"
                     }
                 },
                 "ingress": {
                     "annotations": {
                         "cert-manager-issuer": 'cert-manager.io/cluster-issuer: "{}"',
-                        "cert-manager-ingress-class": 'kubernetes.io/ingress.class: "{}"',
+                        "cert-manager-ingress-class": 'kubernetes.io/ingress.class: "class-{}"',
                         "auth-tls-verify-client": 'nginx.ingress.kubernetes.io/auth-tls-verify-client: "{}"',
                         "auth-tls-secret": 'nginx.ingress.kubernetes.io/auth-tls-secret: "{}"',
                         "auth-tls-verify-depth": 'nginx.ingress.kubernetes.io/auth-tls-verify-depth: "{}"',
@@ -199,7 +200,8 @@ class ConfigHandler(object):
                 },
                 "certmanager": {
                     "Staging": None,
-                    "Production": None
+                    "Production": None,
+                    "PatchIngress": None
                 }
             },
             "x0_config": json_config
@@ -347,12 +349,10 @@ if __name__ == '__main__':
                         CH._Configuration['x0']['tpl_vars']['certmanager']['cm_CONTACT_MAIL'] = tls_config['certbot']['admin_mail']
                         CH._Configuration['x0']['tpl_vars']['certmanager']['x0_LOADBALANCER_REF'] = lb_ref_id
 
-                        tls_annotations.append(tls_annotation_tpl['cert-manager-issuer'].format('letsencrypt-staging'))
-                        tls_annotations.append(tls_annotation_tpl['cert-manager-ingress-class'].format('letsencrypt-staging'))
+                        #tls_annotations.append(tls_annotation_tpl['cert-manager-issuer'].format('letsencrypt-staging'))
+                        tls_annotations.append(tls_annotation_tpl['cert-manager-ingress-class'].format(lb_ref_id))
 
                         gen_kubernetes_templates(CH, environment, 'certmanager')
-
-                        kubernetes_exec(CH.getRuntimeData()['templates_gen']['certmanager']['Staging'])
 
                 except Exception as e:
                     pass
@@ -444,7 +444,11 @@ if __name__ == '__main__':
                     tpl_ingress
                 ]
 
+                # apply service / ingress
                 kubernetes_exec(configs_app)
+
+                # apply certmanager
+                kubernetes_exec(CH.getRuntimeData()['templates_gen']['certmanager']['Staging'])
 
                 if dns_name is not None and venv['ip']['v4']['dns_register'] is True:
 
@@ -500,3 +504,40 @@ if __name__ == '__main__':
                             record = json.loads(rs_create_result.stdout)
 
                             log_message('DNS', 'Record create:{}'.format(record))
+
+                # process certmanager ingress patch template (staging)
+                tpl_ingress_patch = CH.getRuntimeData()['templates_gen']['certmanager']['PatchIngress']
+
+                cm_issuer_annotation = tls_annotation_tpl['cert-manager-issuer'].format('letsencrypt-staging')
+
+                dns_replace_var = '${x0_APP_VHOST_DNS}'
+                annotation_replace_var = '${cm_ANNOTATION_ISSUER}'
+
+                dns_name = '{}.{}'.format(
+                    venv['dns']['hostname'],
+                    venv['dns']['domain']
+                )
+
+                tpl_ingress_patch = tpl_ingress_patch.replace(annotation_replace_var, cm_issuer_annotation)
+                tpl_ingress_patch = tpl_ingress_patch.replace(dns_replace_var, dns_name)
+
+                cm_tpl_vars = CH.getConfig()['x0']['tpl_vars']['certmanager']
+
+                ingress_id = '{}-{}-{}-tls-ingress'.format(
+                    cm_tpl_vars['x0_APP_ID'],
+                    cm_tpl_vars['x0_VHOST_ID'],
+                    cm_tpl_vars['x0_APP_ENV']
+                )
+
+                patch_file = '/tmp/kube-tpl-process-{}.yaml'.format(uuid.uuid4())
+
+                with open(patch_file, 'w') as fh:
+                    fh.write(tpl_ingress_patch)
+
+                cmd = 'kubectl --namespace {} patch ingress {} --patch-file {}'.format(
+                    namespace,
+                    ingress_id,
+                    patch_file
+                )
+
+                subprocess.run(cmd.split())
