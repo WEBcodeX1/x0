@@ -138,7 +138,7 @@ class ConfigHandler(object):
                 "ingress": {
                     "annotations": {
                         "cert-manager-issuer": 'cert-manager.io/cluster-issuer: "{}"',
-                        "cert-manager-ingress-class": 'kubernetes.io/ingress.class: "class-{}"',
+                        "ingress-class": 'kubernetes.io/ingress.class: "class-{}"',
                         "auth-tls-verify-client": 'nginx.ingress.kubernetes.io/auth-tls-verify-client: "{}"',
                         "auth-tls-secret": 'nginx.ingress.kubernetes.io/auth-tls-secret: "{}"',
                         "auth-tls-verify-depth": 'nginx.ingress.kubernetes.io/auth-tls-verify-depth: "{}"',
@@ -350,7 +350,7 @@ if __name__ == '__main__':
                         CH._Configuration['x0']['tpl_vars']['certmanager']['x0_LOADBALANCER_REF'] = lb_ref_id
 
                         #tls_annotations.append(tls_annotation_tpl['cert-manager-issuer'].format('letsencrypt-staging'))
-                        tls_annotations.append(tls_annotation_tpl['cert-manager-ingress-class'].format(lb_ref_id))
+                        tls_annotations.append(tls_annotation_tpl['ingress-class'].format(lb_ref_id))
 
                         gen_kubernetes_templates(CH, environment, 'certmanager')
 
