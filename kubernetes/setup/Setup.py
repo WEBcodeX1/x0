@@ -4,6 +4,7 @@ import os
 import sys
 import json
 import uuid
+import time
 import logging
 import subprocess
 
@@ -36,19 +37,31 @@ def gen_kubernetes_templates(ConfRef, environment, tpl_group='app'):
             ConfRef._RunTimeData['templates_gen'][tpl_group][tpl_key] = replace_source
 
 def kubernetes_exec(templates, wait=False, wait_for='complete', wait_timeout='360s'):
-    #log_message('kubernetes_exec', 'configs:{}'.format(configs))
+    #log_message('kubernetes_exec', 'templates:{}'.format(templates))
     if wait is True:
         wait_cmd = ' wait --for condition={} --timeout={}'.format(wait_for, wait_timeout)
     else:
         wait_cmd = ''
 
     for template in templates:
-        filename_out = '/tmp/kube-tpl-process-{}.yaml'.format(uuid.uuid4())
-        log_message('kubernetes_exec', 'Processing file:{}'.format(filename_out))
-        with open(filename_out, 'w') as fh:
-            fh.write(template)
-        cmd = 'kubectl{} apply -f {}'.format(wait_cmd, filename_out)
-        subprocess.run(cmd.split())
+        error = True
+        while error is True:
+            try:
+                filename_out = '/tmp/kube-tpl-process-{}.yaml'.format(uuid.uuid4())
+                log_message('kubernetes_exec', 'Processing file:{}'.format(filename_out))
+                with open(filename_out, 'w') as fh:
+                    fh.write(template)
+                cmd = 'kubectl{} apply -f {}'.format(wait_cmd, filename_out)
+                res = subprocess.run(cmd.split(), capture_output=True)
+                log_message('kubernetes_exec_result', res)
+                if len(res.stderr) > 0:
+                    error = True
+                    time.sleep(1)
+                else:
+                    error = False
+            except Exception as e:
+                error = True
+                time.sleep(1)
 
 def get_loadbalancers(ConfRef):
     load_balancers = {}
@@ -264,7 +277,7 @@ if __name__ == '__main__':
             lb_tpl_data = CH.getRuntimeData()['templates_gen']['lb_group']['LoadBalancer']
             #log_message(log_prefix, 'Load Balancer ID:{} Template:{}'.format(loadbalancer_id, lb_tpl_data))
 
-            kubernetes_exec([lb_tpl_data], wait=True)
+            kubernetes_exec([lb_tpl_data])
 
         # process app templates
         app_templates = env_config['kubernetes']['app_templates']
@@ -365,7 +378,7 @@ if __name__ == '__main__':
                     if isinstance(tls_config['certs'], dict):
 
                         def mk_file_name(filename):
-                            return '{}/ssl/{}/{}'.format(dir_repo, vhost_key, filename)
+                            return '{}/ssl/{}/{}'.format(dir_config, vhost_key, filename)
 
                         tls_ca_cert = mk_file_name(tls_config['certs']['ca-cert'])
                         tls_cert = mk_file_name(tls_config['certs']['cert'])
@@ -439,10 +452,20 @@ if __name__ == '__main__':
 
                     # get ingress loadbalancer ip
                     cmd = 'kubectl --namespace {} get ingress -o json'.format(kube_namespace)
-                    ingress_result = subprocess.run(cmd.split(), capture_output=True)
-                    kube_ingress = json.loads(ingress_result.stdout)
+ 
+                    loadbalancer_ip = None
+                    while loadbalancer_ip is None:
 
-                    loadbalancer_ip = kube_ingress['items'][0]['status']['loadBalancer']['ingress'][0]['ip']
+                        ingress_result = subprocess.run(cmd.split(), capture_output=True)
+                        kube_ingress = json.loads(ingress_result.stdout)
+
+                        try:
+                            log_message('DNS', 'Try getting lb ingress official IPv4')
+                            loadbalancer_ip = kube_ingress['items'][0]['status']['loadBalancer']['ingress'][0]['ip']
+                        except Exception as e:
+                            log_message('DNS', 'Failed getting lb ingress official IPv4')
+                            loadbalancer_ip = None
+                            time.sleep(10)
 
                     log_message('DNS', 'Zone:{} LoadBalancer IP:{}'.format(zone_id, loadbalancer_ip))
 
@@ -458,9 +481,15 @@ if __name__ == '__main__':
                             cmd = 'openstack recordset list {} -f json'.format(zone['id'])
                             records_result = subprocess.run(cmd.split(), capture_output=True)
                             records = json.loads(records_result.stdout)
-
                             log_message('DNS', 'Records:{}'.format(records))
 
+                            # if zone record exists, delete
+                            for record in records:
+                                if record['type'] == 'A' and record['name'] == '{}.{}.'.format(venv['dns']['hostname'], zone_id):
+                                    cmd = 'openstack recordset delete {} {}'.format(zone['id'], record['id'])
+                                    subprocess.run(cmd.split())
+
+                            # add zone record
                             cmd = 'openstack recordset create --type A --record {} {} {} -f json'.format(
                                 loadbalancer_ip,
                                 zone['id'],
