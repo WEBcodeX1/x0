@@ -45,10 +45,9 @@
                         }
                     },
                     "tls": {
-                        "certs": {
-                            "ca-cert": "ca.x0-app.CA.crt.pem",
-                            "cert": "x0-app.Server.crt.pem",
-                            "key": "x0-app.Server.key.unencrypted.pem"
+                        "certbot": {
+                            "generate": true,
+                            "admin_mail": "verwaltung@click-it.online"
                         }
                     }
                 }
