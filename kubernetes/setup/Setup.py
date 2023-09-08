@@ -120,7 +120,9 @@ class ConfigHandler(object):
                     },
                     "service": {
                         "Service": "02-service.yaml",
-                        "Ingress": "03-ingress.yaml"
+                        "Ingress": "03-ingress.yaml",
+                        "IngressTLS": "10-ingress-tls.yaml",
+
                     },
                     "lb_group": {
                         "LoadBalancer": "04-ingress-controller-nginx.yaml"
@@ -323,10 +325,15 @@ if __name__ == '__main__':
                 # generate service / ingress templates
                 gen_kubernetes_templates(CH, environment, 'service')
 
+                tls_config = vhost_app_config[vhost_key]['env'][environment]['tls']
+                tls_annotation_tpl = CH.getConfig()['kubernetes']['ingress']['annotations']
+
                 tpl_data = CH.getRuntimeData()['templates_gen']['service']
 
+                certbot = tls_config['certbot']['generate']
+
                 tpl_service = tpl_data['Service']
-                tpl_ingress = tpl_data['Ingress']
+                tpl_ingress = tpl_data['Ingress'] if certbot is True else tpl_data['IngressTLS']
 
                 # replace loadbalancer ref
                 lb_ref_id = vhost_app_config[vhost_key]['loadbalancer']['ref']
@@ -338,11 +345,8 @@ if __name__ == '__main__':
                 tls_annotations = []
                 tls_annotation_string = 'annotations:\n'
 
-                tls_config = vhost_app_config[vhost_key]['env'][environment]['tls']
-                tls_annotation_tpl = CH.getConfig()['kubernetes']['ingress']['annotations']
-
                 try:
-                    if tls_config['certbot']['generate'] is True:
+                    if certbot is True:
 
                         CH._Configuration['x0']['tpl_vars']['certmanager']['x0_APP_ENV'] = environment
                         CH._Configuration['x0']['tpl_vars']['certmanager']['x0_VHOST_ID'] = vhost_key
@@ -436,8 +440,8 @@ if __name__ == '__main__':
                 except Exception as e:
                     dns_name = None
 
-                log_message(log_prefix, 'Tpl Service Env:{} Template:{}'.format(environment, tpl_service))
-                log_message(log_prefix, 'Tpl Ingress Env:{} Template:{}'.format(environment, tpl_ingress))
+                #log_message(log_prefix, 'Tpl Service Env:{} Template:{}'.format(environment, tpl_service))
+                #log_message(log_prefix, 'Tpl Ingress Env:{} Template:{}'.format(environment, tpl_ingress))
 
                 configs_app = [
                     tpl_service,
@@ -505,39 +509,41 @@ if __name__ == '__main__':
 
                             log_message('DNS', 'Record create:{}'.format(record))
 
-                # process certmanager ingress patch template (staging)
-                tpl_ingress_patch = CH.getRuntimeData()['templates_gen']['certmanager']['PatchIngress']
+                if certbot is True:
 
-                cm_issuer_annotation = tls_annotation_tpl['cert-manager-issuer'].format('letsencrypt-staging')
+                    # process certmanager ingress patch template (staging)
+                    tpl_ingress_patch = CH.getRuntimeData()['templates_gen']['certmanager']['PatchIngress']
 
-                dns_replace_var = '${x0_APP_VHOST_DNS}'
-                annotation_replace_var = '${cm_ANNOTATION_ISSUER}'
+                    cm_issuer_annotation = tls_annotation_tpl['cert-manager-issuer'].format('letsencrypt-staging')
 
-                dns_name = '{}.{}'.format(
-                    venv['dns']['hostname'],
-                    venv['dns']['domain']
-                )
+                    dns_replace_var = '${x0_APP_VHOST_DNS}'
+                    annotation_replace_var = '${cm_ANNOTATION_ISSUER}'
 
-                tpl_ingress_patch = tpl_ingress_patch.replace(annotation_replace_var, cm_issuer_annotation)
-                tpl_ingress_patch = tpl_ingress_patch.replace(dns_replace_var, dns_name)
+                    dns_name = '{}.{}'.format(
+                        venv['dns']['hostname'],
+                        venv['dns']['domain']
+                    )
 
-                cm_tpl_vars = CH.getConfig()['x0']['tpl_vars']['certmanager']
+                    tpl_ingress_patch = tpl_ingress_patch.replace(annotation_replace_var, cm_issuer_annotation)
+                    tpl_ingress_patch = tpl_ingress_patch.replace(dns_replace_var, dns_name)
 
-                ingress_id = '{}-{}-{}-tls-ingress'.format(
-                    cm_tpl_vars['x0_APP_ID'],
-                    cm_tpl_vars['x0_VHOST_ID'],
-                    cm_tpl_vars['x0_APP_ENV']
-                )
+                    cm_tpl_vars = CH.getConfig()['x0']['tpl_vars']['certmanager']
 
-                patch_file = '/tmp/kube-tpl-process-{}.yaml'.format(uuid.uuid4())
+                    ingress_id = '{}-{}-{}-tls-ingress'.format(
+                        cm_tpl_vars['x0_APP_ID'],
+                        cm_tpl_vars['x0_VHOST_ID'],
+                        cm_tpl_vars['x0_APP_ENV']
+                    )
 
-                with open(patch_file, 'w') as fh:
-                    fh.write(tpl_ingress_patch)
+                    patch_file = '/tmp/kube-tpl-process-{}.yaml'.format(uuid.uuid4())
 
-                cmd = 'kubectl --namespace {} patch ingress {} --patch-file {}'.format(
-                    namespace,
-                    ingress_id,
-                    patch_file
-                )
+                    with open(patch_file, 'w') as fh:
+                        fh.write(tpl_ingress_patch)
 
-                subprocess.run(cmd.split())
+                    cmd = 'kubectl --namespace {} patch ingress {} --patch-file {}'.format(
+                        namespace,
+                        ingress_id,
+                        patch_file
+                    )
+
+                    subprocess.run(cmd.split())
