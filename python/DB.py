@@ -10,7 +10,7 @@ import dbpool.pool
 DBName = 'x0'
 DBUser = 'x0'
 DBHost = 'mypostgres'
-DBPass = 'changeme'
+DBPass = os.environ['PSQL_x0_PWD']
 
 config = {
     'db': {

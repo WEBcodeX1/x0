@@ -13,3 +13,13 @@ if [[ -n "${UBUNTU_MIRROR_DNS}" ]] && [[ -n "${UBUNTU_MIRROR_IP}" ]]; then
 else
 	cp ${BASE_COPY_DIR}/apt-sources.list ./tmp/apt-sources.list
 fi
+
+x0_pwd=$(python3 ./scripts/get-pg-pass.py x0)
+su_pwd=$(python3 ./scripts/get-pg-pass.py su)
+
+echo '#!/bin/sh' > ./tmp/environment-db.sh
+echo "export PSQL_x0_PWD='${x0_pwd}'" >> ./tmp/environment-db.sh
+echo "export PSQL_ROOT_PWD='${su_pwd}'" >> ./tmp/environment-db.sh
+
+echo '#!/bin/sh' > ./tmp/environment-app.sh
+echo "export PSQL_x0_PWD='${x0_pwd}'" >> ./tmp/environment-app.sh
