@@ -18,7 +18,7 @@ SET row_security = off;
 
 SET default_tablespace = '';
 
-CREATE USER x0 WITH ENCRYPTED PASSWORD 'changeme';
+CREATE USER x0 WITH ENCRYPTED PASSWORD '${SYS_x0_PWD}';
 ALTER ROLE x0 LOGIN;
 
 CREATE SCHEMA webui;

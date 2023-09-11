@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. /environment.sh
+
 LOG_ACCESS_FILE="/var/log/apache2/x0.access.log"
 LOG_ERROR_FILE="/var/log/apache2/x0.error.log"
 

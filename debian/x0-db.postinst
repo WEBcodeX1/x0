@@ -40,8 +40,8 @@ if [ "$1" = "configure" ]; then
 	# restart postgres
 	service postgresql restart
 
-	# set postgres user password and allow to login
-	psql -U postgres -c "ALTER ROLE postgres WITH ENCRYPTED PASSWORD 'changeme' LOGIN"
+	# allow db super-user to login
+	psql -U postgres -c "ALTER ROLE postgres LOGIN"
 
 	# check database x0 exists
 	psql -U postgres | grep -q ${SYSDB}

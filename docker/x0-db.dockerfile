@@ -6,6 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ARG DB_DEB_FILE=x0-db_0.98rc_all.deb
 
 COPY ./x0/docker/tmp/apt-sources.list /etc/apt/sources.list
+COPY ./x0/docker/tmp/environment-db.sh ./environment.sh
 
 COPY ./x0/docker/scripts/start-postgresql.sh /root/start-postgresql.sh
 COPY ./$DB_DEB_FILE ./
