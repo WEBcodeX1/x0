@@ -27,18 +27,16 @@ apache2_config = '{}/apache2.conf'.format(dir_apache2_base)
 dir_vhost_base = '/var/www/vhosts'
 dir_python = '/var/www/python'
 
-
-global_replace_vars = {
-    "SERVER_FQDN": None,
-    "WWW_PATH": None
-}
+global_replace_vars = {}
 
 
 def log_message(log_prefix, msg):
     logging.info('{}:{}'.format(log_prefix, msg))
 
 def replace_vhost_template(conf_data):
+    log_message('Replace-vars', 'Global replace vars:{}'.format(global_replace_vars))
     for replace_var, replace_value in global_replace_vars.items():
+        log_message('Replace-vars', 'var:{} value:{}'.format(replace_var, replace_value))
         replace_str = '${}'.format(replace_var)
         conf_data = conf_data.replace(replace_str, replace_value)
     return conf_data
@@ -95,7 +93,11 @@ if __name__ == '__main__':
             env_config = None
 
         if env_config is not None:
-            host_name = env_config['dns']
+
+            host_name = '{}.{}'.format(
+                env_config['dns']['hostname'],
+                env_config['dns']['domain']
+            )
 
             log_message(log_prefix, 'HostName:{}'.format(host_name))
 
@@ -128,15 +130,13 @@ if __name__ == '__main__':
             global_replace_vars['SERVER_FQDN'] = host_name
             global_replace_vars['WWW_PATH'] = vhost_www_path
 
-            for var in global_replace_vars:
+            vhost_tpl_file = '{}/{}.conf'.format(dir_x0_app_config_apache_vhost, vhost_id)
 
-                vhost_tpl_file = '{}/{}.conf'.format(dir_x0_app_config_apache_vhost, vhost_id)
+            log_message(log_prefix, 'Open TplFile:{}'.format(vhost_tpl_file))
 
-                log_message(log_prefix, 'Open TplFile:{}'.format(vhost_tpl_file))
-
-                with open(vhost_tpl_file, 'r') as fh:
-                    conf_data = fh.read()
-                    conf_data = replace_vhost_template(conf_data)
+            with open(vhost_tpl_file, 'r') as fh:
+                conf_data = fh.read()
+                conf_data = replace_vhost_template(conf_data)
 
             # replace $VHOST_NAME_ENV
             replace_str = '${}'.format('VHOST_NAME_ENV')
@@ -196,7 +196,12 @@ if __name__ == '__main__':
     first_vhost = vhost_ids[0]
 
     # set apache2 server name
-    host_name = vhost_config[first_vhost]['env'][first_env]['dns']
+    vf_config = vhost_config[first_vhost]['env'][first_env]
+
+    host_name = '{}.{}'.format(
+        vf_config['dns']['hostname'],
+        vf_config['dns']['domain']
+    )
 
     cmd = [
         'sed',
