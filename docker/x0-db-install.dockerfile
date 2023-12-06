@@ -19,4 +19,4 @@ RUN TZ="Europe/Berlin" apt-get -qq install -y tzdata locales
 
 RUN apt-get -qq install -y ./$APP_DEB_FILE
 
-CMD . /environment.sh
+CMD /var/lib/x0/app-setup/bin/kubernetes-setup-db.sh

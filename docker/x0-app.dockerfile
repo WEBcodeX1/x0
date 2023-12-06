@@ -22,7 +22,10 @@ RUN TZ="Europe/Berlin" apt-get -qq install -y tzdata locales
 RUN apt-get -qq install -y ./$APP_DEB_FILE
 RUN apt-get -qq install -y ./$APP_PSYCOP_DEB_FILE
 
-CMD . /environment.sh
+RUN /var/lib/x0/app-setup/bin/fs-permissions.sh
+
+RUN chown www-data:www-data /var/www
+
 CMD /var/lib/x0/sys/docker-start-apache.sh
 
 EXPOSE 80
