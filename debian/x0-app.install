@@ -4,6 +4,7 @@ app-setup/* var/lib/x0/app-setup
 python/DB.py var/lib/x0/python
 python/DBMapping.py var/lib/x0/python
 python/POSTData.py var/www/python
+python/StdoutLogger.py var/www/python
 python/DynPulldown.py var/www/vhosts/x0/python
 python/getText.py var/www/vhosts/x0/python
 python/SQLMapper.py var/www/vhosts/x0/python
@@ -12,6 +13,7 @@ database/* var/lib/x0/database
 doc/* var/lib/x0/doc
 test/* var/lib/x0/test
 conf/* var/lib/x0/conf
+config/* var/lib/x0/config
 example/* var/lib/x0/example
 bin/* var/lib/x0/bin
 sys/* var/lib/x0/sys

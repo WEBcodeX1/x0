@@ -5,7 +5,7 @@ Maintainer: Claus Prüfer (CTO) <c.pruefer@click-it.online>
 Standards-Version: 4.5.1
 Build-Depends: debhelper (>= 11)
 Homepage: http://click-it.online/
-Vcs-Git: git://git01.webcodex.de/clickit/x0
+Vcs-Git: git://code.syseleven.de/webcodex/x0
 
 Package: x0-app
 Section: javascript
@@ -18,7 +18,7 @@ Description: Easy, serverless and extendable OOP JavaScript browser-framework.
 Package: x0-db
 Section: database
 Architecture: all
-Depends: postgresql (>=14), ${misc:Depends}
+Depends: python3 (>= 3.4), postgresql (>=14), ${misc:Depends}
 Description: Easy, serverless and extendable OOP JavaScript browser-framework.
  An easy, serverless and extendable OOP JavaScript browser framework.
  Database component.
@@ -33,9 +33,16 @@ Description: Working (patched) psycopg2 for Debian (missing python module).
 Package: x0-db-install
 Section: database
 Architecture: all
-Depends: postgresql-client (>=14), ${misc:Depends}
-Description: Transparent Database installer package.
- User to transparently install database in distributed (docker / kubernetes)
+Depends: python3 (>= 3.4), postgresql-client (>=14), ${misc:Depends}
+Description: Database installer package for x0 base database.
+ Database installer package for x0 base database.
+
+Package: x0-db-install-tpl
+Section: database
+Architecture: all
+Depends: python3 (>= 3.4), postgresql-client (>=14), ${misc:Depends}
+Description: Transparent Database installer package template.
+ Used to transparently install database in distributed (docker / kubernetes)
  scalable environments.
 
 Package: x0-test

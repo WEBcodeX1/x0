@@ -1,2 +1,5 @@
 app-setup/* var/lib/x0/app-setup
-database/* var/lib/x0/database
+database/*.sql var/lib/x0/database
+test/* var/lib/x0/test
+example/* var/lib/x0/example
+config/app-config.json /var/lib/x0/app-setup/config

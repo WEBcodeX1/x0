@@ -13,6 +13,10 @@ if [ "$1" = "configure" ]; then
 	DB_CONFFILE_AUTH="pg_hba.conf"
 	DB_CONFFILE_CONF="postgresql.conf"
 
+	CMD_GET_PG_PASS=""
+
+	DB_SU_PWD=$(${BASEDIR}/sys/get-pg-pass.py su)
+
 	ETC_POSTGRES_CONFDIR="/etc/postgresql/14/main"
 
 	SYSDB="x0"
@@ -41,7 +45,7 @@ if [ "$1" = "configure" ]; then
 	service postgresql restart
 
 	# allow db super-user to login
-	psql -U postgres -c "ALTER ROLE postgres LOGIN"
+	psql -U postgres -c "ALTER ROLE postgres WITH ENCRYPTED PASSWORD '${DB_SU_PWD}' LOGIN"
 
 	# check database x0 exists
 	psql -U postgres | grep -q ${SYSDB}

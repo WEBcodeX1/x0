@@ -42,9 +42,6 @@ if [ "$1" = "configure" ]; then
 	sed -i 's/^# en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/g' /etc/locale.gen
 	locale-gen
 
-	# add apache2 ServerName directive
-	echo "ServerName x0-test.local" >> ${APACHE_GLOBAL_CONF}
-
 	# remove default vhost config
 	rm ${APACHE_DEFAULT_VHOST_CONF}
 
@@ -65,7 +62,10 @@ if [ "$1" = "configure" ]; then
 	# enable apache2 ssl mod
 	a2enmod ssl
 
-	# copy apache config
+	# copy apache main config file
+	cp ${BASEDIR}/config/apache2/apache2.conf /etc/apache2/apache2.conf
+
+	# copy apache virtualhost config
 	cp ${BASEDIR}/conf/${VHOST_CONFIG_FILE} ${WEBSERVER_CONF_DIR}/sites-available/
 	cp ${BASEDIR}/conf/wsgi.conf ${WEBSERVER_CONF_DIR}/mods-available/
 

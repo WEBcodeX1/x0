@@ -2,4 +2,6 @@ app-setup/* var/lib/x0/app-setup
 database/* var/lib/x0/database
 test/* var/lib/x0/test
 conf/* var/lib/x0/conf
+config/* var/lib/x0/config
 example/* var/lib/x0/example
+sys/* var/lib/x0/sys
