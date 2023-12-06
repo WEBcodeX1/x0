@@ -4,7 +4,7 @@ metadata:
   name: mypostgres
   namespace: ${x0_NAMESPACE}
 spec:
-   replicas: 3
+   replicas: ${x0_DB_REPLICAS}
    image: postgres:14
    database:
       size: ${x0_DB_SIZE}
