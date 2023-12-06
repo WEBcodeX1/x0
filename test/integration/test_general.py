@@ -1,43 +1,63 @@
+﻿import os
+import json
+import time
 import pytest
+import logging
+
+import globalconf
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-@pytest.fixture
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger()
 
+wd_options = webdriver.ChromeOptions()
+wd_options.add_argument('ignore-certificate-errors')
+wd_options.add_argument('headless')
+
+
+@pytest.fixture
 def config():
 
     try:
-        test_url_env = os.environ['TEST_URL']
-        test_url = 'https://{}'.format(test_url_env)
-    except:
-        test_url = 'http://127.0.0.1'
+        run_namespace = os.environ['RUN_NAMESPACE']
+    except Exception as e:
+        run_namespace = None
+
+    vhost_test_urls = globalconf.setup()
+
+    logger.info('test urls:{}'.format(vhost_test_urls))
+
+    selenium_server_url = 'http://selenium-server-0:4444'
+
+    logger.info('selenium server url:{}'.format(selenium_server_url))
+
+    wd = webdriver.Remote(
+        command_executor=selenium_server_url,
+        options=wd_options
+    )
 
     config = {}
     config["timeout"] = 10
-    config["options"] = webdriver.ChromeOptions()
-    config["options"].add_argument('ignore-certificate-errors')
-    config["options"].add_argument('headless')
+    config["driver"] = wd
 
-    try:
-        driver_url_env = os.environ['REMOTE_WEBDRIVER_URL']
-        config["driver"] = webdriver.Remote(
-            command_executor='http://{}:4444'.format(driver_url_env),
-            options=config["options"]
-        )
-    except:
-        config["driver"] = webdriver.Chrome(
-            options=config["options"]
-        )
+    get_url = '{}/python/Index.py?appid=test_base'.format(vhost_test_urls['x0-app'])
 
-    config["driver"].get('{}/python/Index.py?appid=test_base'.format(test_url));
+    logger.info('test (get) url:{}'.format(get_url))
+
+    config["driver"].get(get_url)
+
     config["ready_selector"] = "#Test1" # selector to look for to declare DOM ready
+
     return config
 
 
 class TestGeneral:
+
     def test_suspicious_id_null(self, config):
         """Find suspicious ID names containing the string null"""
         d, w = config["driver"], config["timeout"]
@@ -46,8 +66,7 @@ class TestGeneral:
 
         elems = d.find_elements(By.XPATH, "//*[contains(@id,'null')]")
         assert len(elems) == 0, 'Problematic string "null" found in one or more IDs'
-
-        d.close()
+        d.quit()
 
     def test_suspicious_id_undefined(self, config):
         """Find suspicious ID names containing the string undefined"""
@@ -57,8 +76,7 @@ class TestGeneral:
 
         elems = d.find_elements(By.XPATH, "//*[contains(@id,'undefined')]")
         assert len(elems) == 0, 'Problematic string "undefined" found in one or more IDs'
-
-        d.close()
+        d.quit()
 
 #TODO: locate / eliminate undefined values
 #    def test_suspicious_parameter_values(self, config):
@@ -69,5 +87,3 @@ class TestGeneral:
 
 #        elems = d.find_elements(By.XPATH, "//*[@*='null' or @*='undefined']")
 #        assert len(elems) == 0, 'Found ' + str(len(elems)) + ' occurrences of string "undefined" in one or more parameter values on page'
-
-#        d.close()

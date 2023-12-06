@@ -22,13 +22,18 @@ The following logical Test Groups will be implemented:
 
 The following test-types exist:
 
-1. Local Docker Test (x0-app, x0-db), pytest-3, chromium and chromedriver must be installed locally
-2. Kubernetes Tests in already deployed Kubernetes Environment
-
-In future releases it is planned to run local tests completely in containers.
+1. Local Test (x0-app, x0-db doker container), pytest-3, chromium and chromedriver must be installed locally (deprecated)
+2. Local Docker Test, starts "x0-app", "x0-db", "selenium-server-0" and "x0-test" docker container(s), test is run inside "x0-test" container
+3. Run inside Kubernetes app namespace, docker container from 2) will be started with Pod HostAliases set
 
 ## Run Tests
 
-Execute **./run-tests-local.sh** to start local testing.
+Execute **./run-test-container.sh** to start 2) local test containers.
 
-Execute **./run-tests.sh** to start testing in kubernetes "test" environment (realtime kubernetes deployment).
+## Kubernetes Tests
+
+Test runners are under development currently.
+
+## Environment Variables
+
+Set "TEST_HTTPS_ONLY" Environment Variable to 1 (--env TEST_HTTPS_ONLY=1) to run all test Vhost-URLs with https:// prefix.

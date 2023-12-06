@@ -15,6 +15,7 @@
 			"Formfields": [
 				"FormField1Label",
 				"FormField1",
+				"FormField2",
 				"FormFieldPulldown1",
 				"FormFieldDynPulldown1"
 			]
@@ -33,6 +34,19 @@
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
+			"ValidateRef": "DefaultString",
+			"ValidateNullable": true,
+			"Style": "FormFieldBorder",
+			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"StyleValidateOk": "FormFieldBorderValidateOk",
+			"StyleValidateFail": "FormFieldBorderValidateFail"
+		}
+	},
+	"FormField2": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"Value": "Value1",
 			"ValidateRef": "DefaultString",
 			"ValidateNullable": true,
 			"Style": "FormFieldBorder",

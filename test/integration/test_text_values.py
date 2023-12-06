@@ -1,44 +1,61 @@
+﻿import os
+import json
+import time
 import pytest
+import logging
+
+import globalconf
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger()
+
+wd_options = webdriver.ChromeOptions()
+wd_options.add_argument('ignore-certificate-errors')
+wd_options.add_argument('headless')
+
 
 @pytest.fixture
-
-
 def config():
 
     try:
-        test_url_env = os.environ['TEST_URL']
-        test_url = 'https://{}'.format(test_url_env)
-    except:
-        test_url = 'http://127.0.0.1'
+        run_namespace = os.environ['RUN_NAMESPACE']
+    except Exception as e:
+        run_namespace = None
+
+    vhost_test_urls = globalconf.setup()
+
+    logger.info('test urls:{}'.format(vhost_test_urls))
+
+    selenium_server_url = 'http://selenium-server-0:4444'
+
+    logger.info('selenium server url:{}'.format(selenium_server_url))
+
+    wd = webdriver.Remote(
+        command_executor=selenium_server_url,
+        options=wd_options
+    )
 
     config = {}
     config["timeout"] = 10
-    config["options"] = webdriver.ChromeOptions()
-    config["options"].add_argument('ignore-certificate-errors')
-    config["options"].add_argument('headless')
+    config["driver"] = wd
 
-    try:
-        driver_url_env = os.environ['REMOTE_WEBDRIVER_URL']
-        config["driver"] = webdriver.Remote(
-            command_executor='http://{}:4444'.format(driver_url_env),
-            options=config["options"]
-        )
-    except:
-        config["driver"] = webdriver.Chrome(
-            options=config["options"]
-        )
+    get_url = '{}/python/Index.py?appid=test_text_values'.format(vhost_test_urls['x0-app'])
 
-    config["driver"].get('{}/python/Index.py?appid=test_text_values'.format(test_url))
+    logger.info('test (get) url:{}'.format(get_url))
+
+    config["driver"].get(get_url)
+
     return config
 
 
 class TestTextValues:
+
     def test_text_values(self, config):
         """Check if the standard text values are present in the DB"""
         d, w = config["driver"], config["timeout"]
@@ -61,5 +78,3 @@ class TestTextValues:
         assert el5.text == "Button right >>", "Test element has wrong text!"
         assert el6.text == "Upload Button Descr", "Test element has wrong text!"
         assert el7.text == "Upload Button", "Test element has wrong text!"
-
-        d.close()

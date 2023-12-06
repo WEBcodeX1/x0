@@ -1,40 +1,60 @@
+﻿import os
+import json
+import time
 import pytest
+import logging
+
+import globalconf
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger()
+
+wd_options = webdriver.ChromeOptions()
+wd_options.add_argument('ignore-certificate-errors')
+wd_options.add_argument('headless')
+
 
 @pytest.fixture
 def config():
 
     try:
-        test_url_env = os.environ['TEST_URL']
-        test_url = 'https://{}'.format(test_url_env)
-    except:
-        test_url = 'http://127.0.0.1'
+        run_namespace = os.environ['RUN_NAMESPACE']
+    except Exception as e:
+        run_namespace = None
+
+    vhost_test_urls = globalconf.setup()
+
+    logger.info('test urls:{}'.format(vhost_test_urls))
+
+    selenium_server_url = 'http://selenium-server-0:4444'
+
+    logger.info('selenium server url:{}'.format(selenium_server_url))
+
+    wd = webdriver.Remote(
+        command_executor=selenium_server_url,
+        options=wd_options
+    )
 
     config = {}
-    config["timeout"] = 30
-    config["options"] = webdriver.ChromeOptions()
-    config["options"].add_argument('ignore-certificate-errors')
-    config["options"].add_argument('headless')
+    config["timeout"] = 10
+    config["driver"] = wd
 
-    try:
-        driver_url_env = os.environ['REMOTE_WEBDRIVER_URL']
-        config["driver"] = webdriver.Remote(
-            command_executor='http://{}:4444'.format(driver_url_env),
-            options=config["options"]
-        )
-    except:
-        config["driver"] = webdriver.Chrome(
-            options=config["options"]
-        )
+    get_url = '{}/python/Index.py?appid=test_tabcontainer'.format(vhost_test_urls['x0-app'])
 
-    config["driver"].get('{}/python/Index.py?appid=test_tabcontainer'.format(test_url))
+    logger.info('test (get) url:{}'.format(get_url))
+
+    config["driver"].get(get_url)
+
     return config
 
+
 class TestTabContainer:
+
     def test_tabcontainer(self, config):
         """Check if TabContainer is working as expected"""
         d = config["driver"]
@@ -85,4 +105,4 @@ class TestTabContainer:
         assert tab2_container.is_displayed() == False, "Wrong container (#2) is still displayed."
         assert tab3_container.is_displayed() == False, "Wrong container (#3) is still displayed."
 
-        d.close()
+        d.quit()

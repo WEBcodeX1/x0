@@ -1,37 +1,57 @@
+﻿import os
+import json
+import time
 import pytest
+import logging
+
+import globalconf
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger()
+
+wd_options = webdriver.ChromeOptions()
+wd_options.add_argument('ignore-certificate-errors')
+wd_options.add_argument('headless')
+wd_options.add_argument('window-size=1920,2400')
+
+
 @pytest.fixture
 def config():
 
     try:
-        test_url_env = os.environ['TEST_URL']
-        test_url = 'https://{}'.format(test_url_env)
-    except:
-        test_url = 'http://127.0.0.1'
+        run_namespace = os.environ['RUN_NAMESPACE']
+    except Exception as e:
+        run_namespace = None
+
+    vhost_test_urls = globalconf.setup()
+
+    logger.info('test urls:{}'.format(vhost_test_urls))
+
+    selenium_server_url = 'http://selenium-server-0:4444'
+
+    logger.info('selenium server url:{}'.format(selenium_server_url))
+
+    wd = webdriver.Remote(
+        command_executor=selenium_server_url,
+        options=wd_options
+    )
 
     config = {}
-    config["timeout"] = 20
-    config["options"] = webdriver.ChromeOptions()
-    config["options"].add_argument('ignore-certificate-errors')
-    config["options"].add_argument('headless')
+    config["timeout"] = 10
+    config["driver"] = wd
 
-    try:
-        driver_url_env = os.environ['REMOTE_WEBDRIVER_URL']
-        config["driver"] = webdriver.Remote(
-            command_executor='http://{}:4444'.format(driver_url_env),
-            options=config["options"]
-        )
-    except:
-        config["driver"] = webdriver.Chrome(
-            options=config["options"]
-        )
+    get_url = '{}/python/Index.py?appid=test_formfield_validation'.format(vhost_test_urls['x0-app'])
 
-    config["driver"].get('{}/python/Index.py?appid=test_formfield_validation'.format(test_url))
+    logger.info('test (get) url:{}'.format(get_url))
+
+    config["driver"].get(get_url)
+
     return config
 
 def is_valid_in_formfield(d, w, input, keys, submit, css_class):
@@ -59,7 +79,9 @@ def is_valid_in_formfield(d, w, input, keys, submit, css_class):
     else:
         return False
 
+
 class TestFormFieldValidation:
+
     def test_default_string(self, config):
         """Check validation type DefaultString"""
         assert is_valid_in_formfield(
@@ -69,6 +91,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
     def test_default_atoz(self, config):
         """Check validation type DefaultAtoZ"""
@@ -79,6 +102,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
     def test_default_atoz_negative(self, config):
         """Check validation type DefaultAtoZ failing"""
@@ -89,6 +113,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateFail"
         )
+        config["driver"].quit()
 
     def test_default_integer(self, config):
         """Check validation type DefaultInteger"""
@@ -99,6 +124,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
     def test_default_integer_negative(self, config):
         """Check validation type DefaultInteger failing"""
@@ -109,6 +135,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateFail"
         )
+        config["driver"].quit()
 
     def test_default_integer_nullable(self, config):
         """Check validation type DefaultInteger nullable"""
@@ -119,6 +146,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateFail"
         )
+        config["driver"].quit()
 
     def test_default_atozplusnumbers(self, config):
         """Check validation type AtoZPlusNumbers"""
@@ -129,6 +157,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
     def test_default_atozplusnumbers_negative(self, config):
         """Check validation type AtoZPlusNumbers failing"""
@@ -139,6 +168,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateFail"
         )
+        config["driver"].quit()
 
     def test_default_atozupper(self, config):
         """Check validation type DefaultAtoZUpper"""
@@ -149,6 +179,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
     def test_default_atozupper_negative(self, config):
         """Check validation type DefaultAtoZUpper failing"""
@@ -159,6 +190,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateFail"
         )
+        config["driver"].quit()
 
     def test_default_dateinternational(self, config):
         """Check validation type DefaultDateInternational"""
@@ -169,6 +201,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
 #    def test_default_dateinternational_negative(self, config):
 #        """Check validation type DefaultDateInternational failing"""
@@ -189,6 +222,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
 #    def test_default_date_negative(self, config):
 #        """Check validation type DefaultDate failing"""
@@ -219,6 +253,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
     def test_zipcode_negative(self, config):
         """Check validation type ZipCode failing"""
@@ -229,6 +264,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateFail"
         )
+        config["driver"].quit()
 
     def test_username(self, config):
         """Check validation type UserName"""
@@ -239,6 +275,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
     def test_username_negative(self, config):
         """Check validation type UserName failing"""
@@ -249,6 +286,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateFail"
         )
+        config["driver"].quit()
 
 #TODO: missing "-" and "ß" in ValidateRegex, must be
 #    def test_realname(self, config):
@@ -281,6 +319,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
     def test_usergroup(self, config):
         """Check validation type UserGroup"""
@@ -291,6 +330,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
 #TODO: missing "_" in corresponding ValidateRegex must be added
 #    def test_mailaddress(self, config):
@@ -312,6 +352,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateFail"
         )
+        config["driver"].quit()
 
 #TODO: regex in ValidateRegex wrong, "? (optional) wrong format"
     def test_phonenrinternational(self, config):
@@ -330,6 +371,7 @@ class TestFormFieldValidation:
 #            "Test1_FormFieldSubmitButton",
 #            "FormFieldBorderValidateOk"
 #        )
+        config["driver"].quit()
 
 #TODO: regex in ValidateRegex wrong, leading brackets must be optional
     def test_phonenr(self, config):
@@ -348,6 +390,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
     def test_phonenrarea(self, config):
         """Check validation type PhoneNrArea"""
@@ -358,6 +401,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
     def test_phonenrsingle(self, config):
         """Check validation type PhoneNrSingle"""
@@ -368,6 +412,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
     def test_quantity(self, config):
         """Check validation type Quantity"""
@@ -378,6 +423,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
     def test_quantity_negative(self, config):
         """Check validation type Quantity failing"""
@@ -388,6 +434,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateFail"
         )
+        config["driver"].quit()
 
 #TODO: incorrect ValidateRegex, correct!
     def test_country(self, config):
@@ -406,6 +453,7 @@ class TestFormFieldValidation:
 #            "Test1_FormFieldSubmitButton",
 #            "FormFieldBorderValidateOk"
 #        )
+        config["driver"].quit()
 
 #TODO: missing "-" and " " in corresponding ValidateRegex must be added
 #    def test_city(self, config):
@@ -428,6 +476,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
     def test_eurowithcents(self, config):
         """Check validation type EuroWithCents"""
@@ -438,6 +487,7 @@ class TestFormFieldValidation:
             "Test1_FormFieldSubmitButton",
             "FormFieldBorderValidateOk"
         )
+        config["driver"].quit()
 
 #TODO: incorrect ValidateRegex, correct!
 #    def test_spx_barcode(self, config):
