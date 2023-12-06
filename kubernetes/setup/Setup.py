@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+﻿#!/usr/bin/python3
 
 import os
 import sys
@@ -64,6 +64,7 @@ def kubernetes_exec(templates, wait=False, wait_for='complete', wait_timeout='36
                 time.sleep(1)
 
 def get_loadbalancers(ConfRef):
+
     load_balancers = {}
     runtime_data = ConfRef.getRuntimeData()
     for env_key, env in runtime_data['x0_config']['environments'].items():
@@ -76,7 +77,7 @@ def get_loadbalancers(ConfRef):
                 pass
     return load_balancers
 
-def gen_service_account_namespace(namespace):
+def gen_service_account_namespace(namespace, project_id):
 
     cmd = 'kubectl --namespace {} create serviceaccount ci-builder'.format(namespace)
     subprocess.run(cmd.split())
@@ -84,8 +85,10 @@ def gen_service_account_namespace(namespace):
     cmd = 'kubectl create clusterrolebinding ci-builder-role-{} --clusterrole=cluster-admin --serviceaccount={}:ci-builder'.format(namespace, namespace)
     subprocess.run(cmd.split())
 
-    cmd = 'kubectl --namespace {} create secret generic sys11-gitlab-read --from-file=.dockerconfigjson=/home/s11-deploy/s11-deploy/docker.json --type=kubernetes.io/dockerconfigjson'.format(namespace)
+    cmd = 'kubectl --namespace {} create secret generic sys11-gitlab-read-{} --from-file=.dockerconfigjson=/home/s11-deploy/s11-deploy/docker-{}.json --type=kubernetes.io/dockerconfigjson'.format(namespace, namespace, project_id)
     subprocess.run(cmd.split())
+
+    log_message('service-act', cmd)
 
     cmd = [
         'kubectl',
@@ -95,9 +98,74 @@ def gen_service_account_namespace(namespace):
         'serviceaccount',
         'ci-builder',
         '-p',
-        '{"imagePullSecrets": [ {"name": "sys11-gitlab-read"} ]}'
+        '{"imagePullSecrets": [ {"name": "sys11-gitlab-read-'+namespace+'"} ]}'
     ]
     subprocess.run(cmd)
+
+def gen_cert(CH, cert_type='staging'):
+
+    # process certmanager ingress patch template
+    tpl_ingress_patch = CH.getRuntimeData()['templates_gen']['certmanager']['PatchIngress']
+
+    cm_tpl_vars = CH.getConfig()['x0']['tpl_vars']['certmanager']
+
+    cm_issuer = '{}-{}-{}-issuer-{}'.format(
+        cm_tpl_vars['x0_APP_ID'],
+        cm_tpl_vars['x0_VHOST_ID'],
+        cm_tpl_vars['x0_APP_ENV'],
+        cert_type
+    )
+
+    cm_issuer_annotation = ingress_annotation_tpl['cert-manager-issuer'].format(cm_issuer)
+
+    dns_replace_var = '${x0_APP_VHOST_DNS}'
+    annotation_replace_var = '${cm_ANNOTATION_ISSUER}'
+
+    dns_name = '{}.{}'.format(
+        venv['dns']['hostname'],
+        venv['dns']['domain']
+    )
+
+    tpl_ingress_patch = tpl_ingress_patch.replace(annotation_replace_var, cm_issuer_annotation)
+    tpl_ingress_patch = tpl_ingress_patch.replace(dns_replace_var, dns_name)
+
+    cm_tpl_vars = CH.getConfig()['x0']['tpl_vars']['certmanager']
+
+    ingress_id = '{}-{}-{}-tls-ingress'.format(
+        cm_tpl_vars['x0_APP_ID'],
+        cm_tpl_vars['x0_VHOST_ID'],
+        cm_tpl_vars['x0_APP_ENV']
+    )
+
+    patch_file = '/tmp/kube-tpl-process-{}.yaml'.format(uuid.uuid4())
+
+    with open(patch_file, 'w') as fh:
+        fh.write(tpl_ingress_patch)
+
+    cmd = 'kubectl --namespace {} patch ingress {} --patch-file {}'.format(
+        kube_namespace,
+        ingress_id,
+        patch_file
+    )
+
+    subprocess.run(cmd.split())
+
+def app_template_dyn_replace(CH, env_config, tpl_key):
+
+    json_config = CH.getRuntimeData()["x0_config"]
+
+    # kubegres database.size and replica count will be taken from corresponding env if set, else global
+    if tpl_key == 'kubegres':
+
+        try:
+            CH._Configuration['x0']['tpl_vars'][tpl_key]['x0_DB_SIZE'] = env_config['database']['size']
+        except KeyError as e:
+            CH._Configuration['x0']['tpl_vars'][tpl_key]['x0_DB_SIZE'] = json_config['database']['size']
+
+        try:
+            CH._Configuration['x0']['tpl_vars'][tpl_key]['x0_DB_REPLICAS'] = env_config['database']['replicas']
+        except KeyError as e:
+            CH._Configuration['x0']['tpl_vars'][tpl_key]['x0_DB_REPLICAS'] = json_config['database']['replicas']
 
 
 class ConfigHandler(object):
@@ -121,8 +189,7 @@ class ConfigHandler(object):
                     "service": {
                         "Service": "02-service.yaml",
                         "Ingress": "03-ingress.yaml",
-                        "IngressTLS": "10-ingress-tls.yaml",
-
+                        "IngressTLS": "10-ingress-tls.yaml"
                     },
                     "lb_group": {
                         "LoadBalancer": "04-ingress-controller-nginx.yaml"
@@ -135,16 +202,29 @@ class ConfigHandler(object):
                         "Staging": "07-certmanager-staging.yaml",
                         "Production": "08-certmanager-production.yaml",
                         "PatchIngress": "09-certmanager-ingress-patch.yaml"
+                    },
+                    "db_install": {
+                        "Install": "11-db-install.yaml"
+                    },
+                    "selenium_server": {
+                        "ServerPod": "12-selenium-server.yaml",
+                        "Service": "12-selenium-server-service.yaml"
+                    },
+                    "grafana": {
+                        "Install": "13-grafana.yaml"
+                    },
+                    "test_run": {
+                        "Run": "14-test-run.yaml"
                     }
                 },
                 "ingress": {
                     "annotations": {
                         "cert-manager-issuer": 'cert-manager.io/cluster-issuer: "{}"',
-                        "ingress-class": 'kubernetes.io/ingress.class: "class-{}"',
                         "auth-tls-verify-client": 'nginx.ingress.kubernetes.io/auth-tls-verify-client: "{}"',
                         "auth-tls-secret": 'nginx.ingress.kubernetes.io/auth-tls-secret: "{}"',
                         "auth-tls-verify-depth": 'nginx.ingress.kubernetes.io/auth-tls-verify-depth: "{}"',
-                        "auth-tls-pass-certificate-to-upstream": 'nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "{}"'
+                        "auth-tls-pass-certificate-to-upstream": 'nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "{}"',
+                        "whitelist-source-range": 'nginx.ingress.kubernetes.io/whitelist-source-range: "{}"'
                     }
                 },
                 "install": {
@@ -171,7 +251,8 @@ class ConfigHandler(object):
                     "kubegres": {
                         "x0_DB_SU_PASSWORD": json_config['database']['su_password'],
                         "x0_DB_REPL_PASSWORD": json_config['database']['repl_password'],
-                        "x0_DB_SIZE": json_config['database']['size']
+                        "x0_DB_SIZE": '100Mi',
+                        "x0_DB_REPLICAS": 2
                     },
                     "certmanager": {
                         "x0_APP_ID": json_config['project']['id'],
@@ -179,6 +260,29 @@ class ConfigHandler(object):
                         "x0_APP_ENV": None,
                         "cm_CONTACT_MAIL": None,
                         "x0_LOADBALANCER_REF": None
+                    },
+                    "db_install": {
+                        "x0_APP_ID": json_config['project']['id'],
+                        "x0_APP_ENV": None,
+                        "x0_NAMESPACE": None,
+                        "x0_GITLAB_REPO": json_config['project']['git-repo'],
+                        "x0_DB_NAME": json_config['database']['name']
+                    },
+                    "test_run": {
+                        "x0_APP_ID": json_config['project']['id'],
+                        "x0_APP_ENV": None,
+                        "x0_NAMESPACE": None,
+                        "x0_GITLAB_REPO": json_config['project']['git-repo']
+                    },
+                    "selenium_server": {
+                        "x0_APP_ID": json_config['project']['id'],
+                        "x0_NAMESPACE": None,
+                        "x0_SELENIUM_SERVER_INDEX": None,
+                        "x0_SELENIUM_DOCKER_IMAGE": 'selenium/standalone-chrome'
+                    },
+                    "grafana": {
+                        "x0_APP_ID": json_config['project']['id'],
+                        "x0_NAMESPACE": None
                     }
                 }
             }
@@ -200,10 +304,27 @@ class ConfigHandler(object):
                     "SecretSuperuser": None,
                     "SetupDB": None
                 },
+                "kubegres": {
+                    "SecretSuperuser": None,
+                    "SetupDB": None
+                },
                 "certmanager": {
                     "Staging": None,
                     "Production": None,
                     "PatchIngress": None
+                },
+                "db_install": {
+                    "Install": None
+                },
+                "selenium_server": {
+                    "ServerPod": None,
+                    "Service": None
+                },
+                "grafana": {
+                    "Install": None
+                },
+                "test_run": {
+                    "Run": None
                 }
             },
             "x0_config": json_config
@@ -254,6 +375,8 @@ if __name__ == '__main__':
         kubernetes_conf = env_config['kubernetes']['deployment']
         kube_namespace = env_config['kubernetes']['namespace']
 
+        project_id = CH.getConfig()['x0']['tpl_vars']['app']['x0_APP_ID']
+
         CH._Configuration['x0']['tpl_vars']['app']['x0_APP_ENV'] = environment
         CH._Configuration['x0']['tpl_vars']['app']['x0_NAMESPACE'] = kube_namespace
         CH._Configuration['x0']['tpl_vars']['app']['x0_KUBERNETES_REPLICAS'] = kubernetes_conf['replicas']
@@ -261,15 +384,22 @@ if __name__ == '__main__':
         CH._Configuration['x0']['tpl_vars']['app']['x0_KUBERNETES_MEMORY'] = kubernetes_conf['memory']
         CH._Configuration['x0']['tpl_vars']['app']['x0_KUBERNETES_IMAGE'] = kubernetes_conf['image']
 
-        # copy replace properties for dynamic replacement
-        CH._Configuration['x0']['tpl_vars']['kubegres']['x0_NAMESPACE'] = CH._Configuration['x0']['tpl_vars']['app']['x0_NAMESPACE']
+        CH._Configuration['x0']['tpl_vars']['kubegres']['x0_NAMESPACE'] = kube_namespace
+
+        CH._Configuration['x0']['tpl_vars']['db_install']['x0_APP_ENV'] = environment
+        CH._Configuration['x0']['tpl_vars']['db_install']['x0_NAMESPACE'] = kube_namespace
+
+        CH._Configuration['x0']['tpl_vars']['test_run']['x0_APP_ENV'] = environment
+        CH._Configuration['x0']['tpl_vars']['test_run']['x0_NAMESPACE'] = kube_namespace
+
+        CH._Configuration['x0']['tpl_vars']['selenium_server']['x0_NAMESPACE'] = kube_namespace
 
         # generate namespace
         cmd = 'kubectl create namespace {}'.format(kube_namespace)
         subprocess.run(cmd.split())
 
         # generate serviceaccount / roles / authentication
-        gen_service_account_namespace(kube_namespace)
+        gen_service_account_namespace(kube_namespace, project_id)
 
         # generate loadbalancers
         for loadbalancer_id in load_balancers:
@@ -288,6 +418,7 @@ if __name__ == '__main__':
 
         for app_tpl in app_templates:
 
+            app_template_dyn_replace(CH, env_config, app_tpl)
             gen_kubernetes_templates(CH, environment, app_tpl)
 
             tpl_dict = CH._Configuration['kubernetes']['templates'][app_tpl]
@@ -326,11 +457,14 @@ if __name__ == '__main__':
                 gen_kubernetes_templates(CH, environment, 'service')
 
                 tls_config = vhost_app_config[vhost_key]['env'][environment]['tls']
-                tls_annotation_tpl = CH.getConfig()['kubernetes']['ingress']['annotations']
+                ingress_annotation_tpl = CH.getConfig()['kubernetes']['ingress']['annotations']
 
                 tpl_data = CH.getRuntimeData()['templates_gen']['service']
 
-                certbot = tls_config['certbot']['generate']
+                try:
+                    certbot = tls_config['certbot']['generate']
+                except:
+                    certbot = False
 
                 tpl_service = tpl_data['Service']
                 tpl_ingress = tpl_data['Ingress'] if certbot is True else tpl_data['IngressTLS']
@@ -342,8 +476,8 @@ if __name__ == '__main__':
                 tpl_ingress = tpl_ingress.replace('${x0_LOADBALANCER_REF}', lb_ref_id)
 
                 # replace tls related
-                tls_annotations = []
-                tls_annotation_string = 'annotations:\n'
+                ingress_annotations = []
+                annotation_string = 'annotations:\n'
 
                 try:
                     if certbot is True:
@@ -352,9 +486,6 @@ if __name__ == '__main__':
                         CH._Configuration['x0']['tpl_vars']['certmanager']['x0_VHOST_ID'] = vhost_key
                         CH._Configuration['x0']['tpl_vars']['certmanager']['cm_CONTACT_MAIL'] = tls_config['certbot']['admin_mail']
                         CH._Configuration['x0']['tpl_vars']['certmanager']['x0_LOADBALANCER_REF'] = lb_ref_id
-
-                        #tls_annotations.append(tls_annotation_tpl['cert-manager-issuer'].format('letsencrypt-staging'))
-                        tls_annotations.append(tls_annotation_tpl['ingress-class'].format(lb_ref_id))
 
                         gen_kubernetes_templates(CH, environment, 'certmanager')
 
@@ -371,10 +502,16 @@ if __name__ == '__main__':
 
                 try:
                     if tls_config['verify-client-certs'] is True:
-                        tls_annotations.append(tls_annotation_tpl['auth-tls-verify-client'].format('on'))
-                        tls_annotations.append(tls_annotation_tpl['auth-tls-secret'].format('default/'.format(kube_ca_id)))
-                        tls_annotations.append(tls_annotation_tpl['auth-tls-verify-depth'].format('1'))
-                        tls_annotations.append(tls_annotation_tpl['auth-tls-pass-certificate-to-upstream'].format('true'))
+                        ingress_annotations.append(ingress_annotation_tpl['auth-tls-verify-client'].format('on'))
+                        ingress_annotations.append(ingress_annotation_tpl['auth-tls-secret'].format('{}/{}'.format(kube_namespace, kube_ca_id)))
+                        ingress_annotations.append(ingress_annotation_tpl['auth-tls-verify-depth'].format('1'))
+                        ingress_annotations.append(ingress_annotation_tpl['auth-tls-pass-certificate-to-upstream'].format('true'))
+                except Exception as e:
+                    pass
+
+                try:
+                    lb_config = vhost_app_config[vhost_key]['env'][environment]['loadbalancer']
+                    ingress_annotations.append(ingress_annotation_tpl['whitelist-source-range'].format(lb_config['whitelist-source']))
                 except Exception as e:
                     pass
 
@@ -388,19 +525,26 @@ if __name__ == '__main__':
                         tls_cert = mk_file_name(tls_config['certs']['cert'])
                         tls_key = mk_file_name(tls_config['certs']['key'])
 
-                        kube_secret_cmd_tpl = ['kubectl', 'create', 'secret', 'generic']
+                        kube_secret_cmd_tpl = [
+                            'kubectl',
+                            '--namespace',
+                            kube_namespace,
+                            'create',
+                            'secret'
+                        ]
+
                         kube_secret_file_param = '--from-file'
 
                         kube_secret_cmd_ca = [] + kube_secret_cmd_tpl
                         kube_secret_cmd_ca.extend(
-                            (kube_ca_id, kube_secret_file_param, tls_ca_cert)
+                            ('generic', kube_ca_id, kube_secret_file_param, tls_ca_cert)
                         )
 
                         log_message(log_prefix, 'Kubectl secret ca-cert cmd:{}'.format(kube_secret_cmd_ca))
 
                         kube_secret_cmd = [] + kube_secret_cmd_tpl
                         kube_secret_cmd.extend(
-                            (kube_cert_id, kube_secret_file_param, tls_cert, kube_secret_file_param, tls_key)
+                            ('tls', kube_cert_id, '--cert', tls_cert, '--key', tls_key)
                         )
 
                         log_message(log_prefix, 'Kubectl secret cert cmd:{}'.format(kube_secret_cmd))
@@ -413,11 +557,11 @@ if __name__ == '__main__':
 
                 # replace ingress annotations
                 try:
-                    for annotation in tls_annotations:
-                        tls_annotation_string = tls_annotation_string + '    ' + annotation + '\n'
+                    for annotation in ingress_annotations:
+                        annotation_string = annotation_string + '    ' + annotation + '\n'
                     annotations_replace_var = '${x0_INGRESS_ANNOTATIONS}'
-                    tls_annotation_string = tls_annotation_string.rstrip()
-                    tpl_ingress = tpl_ingress.replace(annotations_replace_var, tls_annotation_string)
+                    annotation_string = annotation_string.rstrip()
+                    tpl_ingress = tpl_ingress.replace(annotations_replace_var, annotation_string)
                 except Exception as e:
                     pass
 
@@ -443,24 +587,39 @@ if __name__ == '__main__':
                 #log_message(log_prefix, 'Tpl Service Env:{} Template:{}'.format(environment, tpl_service))
                 #log_message(log_prefix, 'Tpl Ingress Env:{} Template:{}'.format(environment, tpl_ingress))
 
-                configs_app = [
+                templates = [
                     tpl_service,
                     tpl_ingress
                 ]
 
                 # apply service / ingress
-                kubernetes_exec(configs_app)
+                kubernetes_exec(templates)
 
-                # apply certmanager
-                kubernetes_exec(CH.getRuntimeData()['templates_gen']['certmanager']['Staging'])
+                if certbot is True:
+
+                    # apply certmanager staging
+                    certmanager_tpl = CH.getRuntimeData()['templates_gen']['certmanager']['Staging']
+                    log_message('certmanager', 'Staging template:{}'.format(certmanager_tpl))
+                    kubernetes_exec([certmanager_tpl])
+
+                    # apply certmanager production
+                    certmanager_tpl = CH.getRuntimeData()['templates_gen']['certmanager']['Production']
+                    log_message('certmanager', 'Production template:{}'.format(certmanager_tpl))
+                    kubernetes_exec([certmanager_tpl])
+
+                ingress_id = '{}-{}-{}-tls-ingress'.format(
+                    CH.getConfig()['x0']['tpl_vars']['app']['x0_APP_ID'],
+                    vhost_key,
+                    environment
+                )
 
                 if dns_name is not None and venv['ip']['v4']['dns_register'] is True:
 
                     zone_id = venv['dns']['domain']
 
                     # get ingress loadbalancer ip
-                    cmd = 'kubectl --namespace {} get ingress -o json'.format(kube_namespace)
- 
+                    cmd = 'kubectl --namespace {} get ingress {} -o json'.format(kube_namespace, ingress_id)
+
                     loadbalancer_ip = None
                     while loadbalancer_ip is None:
 
@@ -469,7 +628,7 @@ if __name__ == '__main__':
 
                         try:
                             log_message('DNS', 'Try getting lb ingress official IPv4')
-                            loadbalancer_ip = kube_ingress['items'][0]['status']['loadBalancer']['ingress'][0]['ip']
+                            loadbalancer_ip = kube_ingress['status']['loadBalancer']['ingress'][0]['ip']
                         except Exception as e:
                             log_message('DNS', 'Failed getting lb ingress official IPv4')
                             loadbalancer_ip = None
@@ -509,41 +668,43 @@ if __name__ == '__main__':
 
                             log_message('DNS', 'Record create:{}'.format(record))
 
+                # trigger letsencrypt certs for staging and production
                 if certbot is True:
+                    gen_cert(CH)
+                    gen_cert(CH, 'production')
 
-                    # process certmanager ingress patch template (staging)
-                    tpl_ingress_patch = CH.getRuntimeData()['templates_gen']['certmanager']['PatchIngress']
+                # process db-installer pod
+                gen_kubernetes_templates(CH, environment, 'db_install')
 
-                    cm_issuer_annotation = tls_annotation_tpl['cert-manager-issuer'].format('letsencrypt-staging')
+                tpl_db_install = CH.getRuntimeData()['templates_gen']['db_install']['Install']
 
-                    dns_replace_var = '${x0_APP_VHOST_DNS}'
-                    annotation_replace_var = '${cm_ANNOTATION_ISSUER}'
+                kubernetes_exec([tpl_db_install])
 
-                    dns_name = '{}.{}'.format(
-                        venv['dns']['hostname'],
-                        venv['dns']['domain']
-                    )
+                # setup selenium server pods
+                try:
+                    test_config = CH.getRuntimeData()['x0_config']['test']
+                    test_envs = test_config['testenvs']
 
-                    tpl_ingress_patch = tpl_ingress_patch.replace(annotation_replace_var, cm_issuer_annotation)
-                    tpl_ingress_patch = tpl_ingress_patch.replace(dns_replace_var, dns_name)
+                    if environment in test_envs:
+                        tpl_pods = []
+                        for i in range(0, test_config['selenium']['run_servers']):
+                            CH._Configuration['x0']['tpl_vars']['selenium_server']['x0_SELENIUM_SERVER_INDEX'] = i
+                            gen_kubernetes_templates(CH, environment, 'selenium_server')
+                            tpl_pods.append(CH.getRuntimeData()['templates_gen']['selenium_server']['ServerPod'])
+                            tpl_pods.append(CH.getRuntimeData()['templates_gen']['selenium_server']['Service'])
+                        kubernetes_exec(tpl_pods)
+                except Exception as e:
+                    #TODO: add logging
+                    pass
 
-                    cm_tpl_vars = CH.getConfig()['x0']['tpl_vars']['certmanager']
+                # run test pod
+                try:
+                    if environment in test_envs:
+                        gen_kubernetes_templates(CH, environment, 'test_run')
 
-                    ingress_id = '{}-{}-{}-tls-ingress'.format(
-                        cm_tpl_vars['x0_APP_ID'],
-                        cm_tpl_vars['x0_VHOST_ID'],
-                        cm_tpl_vars['x0_APP_ENV']
-                    )
+                        tpl_test_run = CH.getRuntimeData()['templates_gen']['test_run']['Run']
 
-                    patch_file = '/tmp/kube-tpl-process-{}.yaml'.format(uuid.uuid4())
-
-                    with open(patch_file, 'w') as fh:
-                        fh.write(tpl_ingress_patch)
-
-                    cmd = 'kubectl --namespace {} patch ingress {} --patch-file {}'.format(
-                        namespace,
-                        ingress_id,
-                        patch_file
-                    )
-
-                    subprocess.run(cmd.split())
+                        kubernetes_exec([tpl_test_run])
+                except Exception as e:
+                    #TODO: add logging
+                    pass
