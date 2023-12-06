@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: selenium-server-${x0_SELENIUM_SERVER_INDEX}
+  namespace: ${x0_NAMESPACE}
+spec:
+  selector:
+    app: selenium-server-${x0_SELENIUM_SERVER_INDEX}
+  ports:
+    - protocol: TCP
+      port: 4444
+      targetPort: 4444
