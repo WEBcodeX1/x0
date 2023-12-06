@@ -321,6 +321,10 @@ subjects:
 apiVersion: v1
 data:
   allow-snippet-annotations: "true"
+  use-forwarded-headers: "true"
+  compute-full-forwarded-for: "true"
+  use-proxy-protocol: "true"
+  ssl-protocols: "TLSv1.3"
 kind: ConfigMap
 metadata:
   labels:
@@ -343,6 +347,8 @@ metadata:
     app.kubernetes.io/version: 1.8.0
   name: ${x0_INGRESS_CONTROLLER_ID}-controller
   namespace: ${x0_INGRESS_CONTROLLER_ID}
+  annotations:
+    loadbalancer.openstack.org/proxy-protocol: "true"
 spec:
   externalTrafficPolicy: Local
   ipFamilies:
