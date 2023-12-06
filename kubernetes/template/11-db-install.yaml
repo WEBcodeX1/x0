@@ -4,10 +4,10 @@ metadata:
   name: ${x0_APP_ID}-${x0_APP_ENV}-db-install
   namespace: ${x0_NAMESPACE}
 spec:
+  serviceAccountName: ci-builder
+  automountServiceAccountToken: false
   containers:
-  - name: x0-db-install
-    image: registry.code.syseleven.de/x0-db-install
-    command:
-      - /var/lib/x0/app-setup/bin/kubernetes-setup-db.sh
-    imagePullPolicy: IfNotPresent
+  - name: db-install
+    image: registry.code.syseleven.de/webcodex/${x0_GITLAB_REPO}/${x0_DB_NAME}-db-install:latest
+    imagePullPolicy: Always
   restartPolicy: Never
