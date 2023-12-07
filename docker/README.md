@@ -24,7 +24,7 @@ apt-get install ./docker-buildx-plugin_0.11.2-1~ubuntu.22.04~jammy_amd64.deb
 ## 2. Requirements / Build Application
 
 * Build / update Debian Package for all Docker Images
-* Build Docker Images ("x0-app" and "x0-db")
+* Build Docker Images (`x0-app` and `x0-db`)
 
 The following shell commands do the job:
 
@@ -47,10 +47,11 @@ x0-start-containers.sh
 
 The following Docker Containers exist:
 
-* x0-app (Web-Application)
-* x0-db (Separated postgresql-14 Database)
-* x0-db-install (Kubernetes Database Installer Image)
-* x0-test (Kubernetes Integration-Test Container)
+* `x0-app` (Web-Application)
+* `x0-db` (Separated postgresql-14 Database)
+* `x0-db-install` (Kubernetes Database Installer Image)
+* `x0-db-install-tpl` (Kubernetes Database Installer Image / Template)
+* `x0-test` (Kubernetes Integration-Test Container)
 
 ## 4. Environment Variables
 
