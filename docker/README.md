@@ -66,12 +66,16 @@ When building the Docker-Network "x0-connect" in `x0-network.sh` script with sub
 * "172.20.0.10" to x0-app
 * "172.20.0.20" to x0-db
 
-The x0-db is accessible (resolvable) with hostname "mypostgres" docker internally.
+The x0-db is accessible by DNS hostname "mypostgres" docker internally.
 
 The ports 80, 443 and 5432 are accesible from localhost (testing, database administration, browser access).
 
 ## 6. Subdirs
 
-* "apt-config" folder contains the /etc/apt/source.list config which will be used for local mirror or remote mirror depending on environment variables in sub-section "Environment Variables" set or unset.
-* "script" folder contains internal (startup) scripts for Container-Building, you should leave it unmodified.
-* "tmp" folder used for building
+* `/apt-config` folder contains the /etc/apt/source.list config which will be used for local mirror or remote mirror depending on environment variables in sub-section "Environment Variables" set or unset.
+* `/script` folder contains internal (startup) scripts for Container-Building, you should leave it unmodified.
+* `/tmp` folder is used for building.
+
+## 7. Integration / Build your own Application
+
+Documentation for _Building Your Own Application_ (Docker / Kubernetes) is documented under `/doc` subdir (Sphinx).
