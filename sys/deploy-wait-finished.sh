@@ -2,5 +2,5 @@
 
 until [ -f /tmp/deploy-finished ]
 do
-	sleep 2
+	sleep 1
 done
