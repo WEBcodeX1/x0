@@ -3,7 +3,7 @@
 Install debian build tools (as root). Only do this, if you are interested in package building / modifying. The packages will be referenced / used in Docker Container build.
 
 ```
-apt-get -y install debuild gnugp
+apt-get -y install debuild gnupg
 ```
 
 ## 2. Setup pgp key / Maintainer
