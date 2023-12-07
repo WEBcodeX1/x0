@@ -63,8 +63,8 @@ Export the following environment-variables to control / use a "local" Ubuntu-Mir
 
 When building the Docker-Network "x0-connect" in `x0-network.sh` script with subnet `172.20.0.0/24` will be created.
 
-* "172.20.0.10" to x0-app
-* "172.20.0.20" to x0-db
+* `172.20.0.10` to `x0-app`
+* `172.20.0.20` to `x0-db`
 
 The x0-db is accessible by DNS hostname "mypostgres" docker internally.
 
