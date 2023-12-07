@@ -47,6 +47,7 @@ sysObjLink.prototype.init = function()
 	this.DOMStyle = Attributes.Style;
 
 	this.ScreenID = Attributes.ScreenID;
+	this.ScreenStyle = Attributes.ScreenStyle;
 	this.TextID	= Attributes.TextID;
 	this.FireEvents	= Attributes.FireEvents;
 	this.ScreenOverlayID= Attributes.ScreenOverlayID;
@@ -73,9 +74,13 @@ sysObjLink.prototype.init = function()
 
 sysObjLink.prototype.EventListener = function(Event)
 {
-	console.debug('Link EventListener ScreenID:%s ScreenOverlayID:%s', this.ScreenID, this.ScreenOverlayID);
+	//console.debug('Link EventListener ScreenID:%s ScreenOverlayID:%s', this.ScreenID, this.ScreenOverlayID);
 
 	var SwitchScreen = true;
+
+	if (this.ScreenStyle !== undefined) {
+		sysFactory.getScreenByID(this.ScreenID).updateStyle(this.ScreenStyle);
+	}
 
 	if (SwitchScreen === true && this.ScreenID !== undefined) {
 		sysFactory.switchScreen(this.ScreenID);
