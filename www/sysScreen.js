@@ -49,6 +49,17 @@ sysScreen.prototype.setStyle = function(Style)
 
 
 //------------------------------------------------------------------------------
+//- METHOD "updateStyle"
+//------------------------------------------------------------------------------
+
+sysScreen.prototype.updateStyle = function(Style)
+{
+	this.HierarchyRootObject.DOMStyle = Style;
+	this.HierarchyRootObject.setDOMElementStyle();
+}
+
+
+//------------------------------------------------------------------------------
 //- METHOD "setup"
 //------------------------------------------------------------------------------
 
