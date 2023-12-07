@@ -71,6 +71,7 @@ sysFormfieldItem.prototype.FormItemInit = function()
 
 	this.OverrideValidate = (Attributes.OverrideValidate === undefined) ? false : true;
 
+	/*
 	if (Attributes.Value !== undefined) {
 		this.FormElement.DOMAttributes['value'] = Attributes.Value;
 	}
@@ -78,6 +79,7 @@ sysFormfieldItem.prototype.FormItemInit = function()
 	if (Attributes.GlobalVar !== undefined) {
 		this.FormElement.DOMAttributes['value'] = sysFactory.getGlobalVar(Attributes.GlobalVar);
 	}
+	*/
 
 	if (Attributes.Placeholder !== undefined) {
 		this.FormElement.DOMAttributes['placeholder'] = Attributes.Placeholder;
@@ -390,6 +392,7 @@ sysFormfieldItem.prototype.clearStyle = function()
 	this.DOMFormElementRemoveStyle(this.StyleClassValidateFail);
 }
 
+
 //------------------------------------------------------------------------------
 //- METHOD "resetStyle"
 //------------------------------------------------------------------------------
@@ -406,10 +409,15 @@ sysFormfieldItem.prototype.resetStyle = function()
 
 sysFormfieldItem.prototype.reset = function()
 {
+	console.debug('FormfieldItem reset method call');
+
 	const Attributes = this.JSONConfig.Attributes;
 	this.setValue(
 		(Attributes.Value !== undefined ? Attributes.Value : '')
 	);
+	if (Attributes.GlobalVar !== undefined) {
+		this.setValue(sysFactory.getGlobalVar(Attributes.GlobalVar));
+	}
 	this.resetStyle();
 }
 
@@ -444,7 +452,6 @@ function sysFormfieldItemText()
 }
 
 sysFormfieldItemText.prototype = new sysFormfieldItem();
-
 
 sysFormfieldItemText.prototype.init = function()
 {
@@ -588,6 +595,7 @@ sysFormfieldItemPulldown.prototype.generateOptions = function()
 		const Text = (OptionAttributes.Display) ? OptionAttributes.Display : sysFactory.getText(TextID);
 
 		const Selected = (OptionAttributes.Default === true) ? 'selected' : '';
+
 		OptionHTML += '<option value="' + Value + '"' + Selected + '>' + Text + '</option>';
 	}
 
