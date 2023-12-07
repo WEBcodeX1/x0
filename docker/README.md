@@ -65,7 +65,7 @@ The x0-db is accessible (resolvable) with hostname "mypostgres" docker internall
 
 The ports 80, 443 and 5432 are accesible from localhost (testing, database administration, browser access).
 
-## Subdirs
+## 6. Subdirs
 
 * "apt-config" folder contains the /etc/apt/source.list config which will be used for local mirror or remote mirror depending on environment variables in sub-section "Environment Variables" set or unset.
 * "script" folder contains internal (startup) scripts for Container-Building, you should leave it unmodified.
