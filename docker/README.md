@@ -14,7 +14,7 @@ apt-get install docker.io
 ```
 
 ```bash
-# download ubuntu debian install package
+# download docker buildx plugin ubuntu debian install package
 wget https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/docker-buildx-plugin_0.11.2-1~ubuntu.22.04~jammy_amd64.deb
 
 # install package
