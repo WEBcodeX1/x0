@@ -148,7 +148,8 @@ if __name__ == '__main__':
             with open(vhost_conf_file, 'w') as fh:
                 fh.write(conf_data)
 
-            # link (activate) first environment
+            # link (activate) environment
+            log_message(log_prefix, 'Enabling apache2 with vhost_env_id:{}'.format(vhost_id_env))
             cmd = 'a2ensite {}'.format(vhost_id_env)
             subprocess.run(cmd.split())
 
@@ -190,6 +191,11 @@ if __name__ == '__main__':
                 dst = '{}'.format(vhost_www_path)
 
                 shutil.copytree(src, dst, dirs_exist_ok=True)
+        else:
+            # link (activate) "global" environment
+            log_message(log_prefix, 'Enabling apache2 with vhost_id:{}'.format(vhost_id))
+            cmd = 'a2ensite {}'.format(vhost_id)
+            subprocess.run(cmd.split())
 
     # get first environment id
     first_env = app_config['env_list'][0]
