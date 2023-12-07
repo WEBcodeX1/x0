@@ -6,8 +6,6 @@ To build a Docker-Container listed in the next section, run the corresponding sh
 
 To speed up Container-Building it is possible to use a local Ubuntu Mirror by setting the environment variables described in sub-section "Environment Variables".
 
-This automatically adds host(s) (hostname, IP-address) to Docker-Container(s) when building via command-line parameter.
-
 Required packages for building under Ubuntu Linux (Jammy Jellyfish) are the docker base and currently the buildx extension.
 
 ```bash
