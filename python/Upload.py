@@ -17,9 +17,8 @@ def application(environ, start_response):
 
         upload_path = '/var/www/upload'
 
-        #try:
-        for i in range(0, 1):
-            tmp_result = {}
+        try:
+            Result = {}
             RawData = POSTData.Environment.getPOSTData(environ)
 
             splitted = RawData.split(bytes('\r\n', 'utf-8'))
@@ -34,8 +33,8 @@ def application(environ, start_response):
             processing_index_end = []
             processing_content_disposition = []
 
-            #tmp_result['seperator'] = separator_line
-            #tmp_result['separator_data'] = separator_data
+            #Result['seperator'] = separator_line
+            #Result['separator_data'] = separator_data
 
             line_nr = 0
             for line in splitted:
@@ -98,23 +97,23 @@ def application(environ, start_response):
 
                 if meta_data['type'] == 'variable' and meta_data['name'] == 'SessionID':
                     session_id = splitted[meta_data['position'][0]].decode('utf-8')
-                    tmp_result['session_id'] = str(session_id)
+                    Result['session_id'] = str(session_id)
 
                 if meta_data['type'] == 'variable' and meta_data['name'] == 'UserID':
                     for_user_id = splitted[meta_data['position'][0]]
-                    tmp_result['for_user_id'] = str(for_user_id)
+                    Result['for_user_id'] = str(for_user_id)
 
                 separator_data.append(meta_data)
                 processing_metadata.append(meta_data)
                 processing_index_end.append(index_end)
                 processing_content_disposition.append(content_disposition)
 
-            #tmp_result['separator_line_nrs'] = str(separator_line_nrs)
-            #tmp_result['processing_seperators'] = str(processing_seperators)
-            #tmp_result['processing_index_end'] = str(processing_index_end)
-            #tmp_result['processing_content_disposition'] = str(processing_content_disposition)
-            #tmp_result['processing_metadata'] = str(processing_metadata)
-            #tmp_result['processed'] = 'ok'
+            #Result['separator_line_nrs'] = str(separator_line_nrs)
+            #Result['processing_seperators'] = str(processing_seperators)
+            #Result['processing_index_end'] = str(processing_index_end)
+            #Result['processing_content_disposition'] = str(processing_content_disposition)
+            #Result['processing_metadata'] = str(processing_metadata)
+            #Result['processed'] = 'ok'
 
             user_id = 0
 
@@ -127,9 +126,9 @@ def application(environ, start_response):
 
             if user_id == 0:
                 start_response('401 Unauthorized', [('Content-Type', 'application/json; charset=UTF-8')])
-                tmp_result['auth_code'] = '401';
-                tmp_result['auth_status'] = 'unauthorized';
-                yield bytes(json.dumps(tmp_result), 'utf-8')
+                Result['auth_code'] = '401';
+                Result['auth_status'] = 'unauthorized';
+                yield bytes(json.dumps(Result), 'utf-8')
                 return
 
             if user_type == 20:
@@ -137,7 +136,7 @@ def application(environ, start_response):
 
             for element in separator_data:
                 if element['type'] == 'file' and element['content_type'] == b'Content-Type: application/pdf':
-                    tmp_result['file_format_pdf'] = True
+                    Result['file_format_pdf'] = True
                     user_dir = upload_path + '/' + str(user_id)
                     try:
                         os.mkdir(user_dir)
@@ -152,10 +151,10 @@ def application(environ, start_response):
                                 write_bytes = splitted[i] + b'\r\n'
                             fh.write(write_bytes)
 
-        #except Exception as e:
-        #    tmp_result['error'] = True
-        #    tmp_result['exception_id'] = type(e).__name__
-        #    tmp_result['exception'] = "{0}".format(e)
+        except Exception as e:
+            Result['error'] = True
+            Result['exception_id'] = type(e).__name__
+            Result['exception'] = "{0}".format(e)
 
         start_response('200 OK', [('Content-Type', 'application/json; charset=UTF-8')])
-        yield bytes(json.dumps(tmp_result), 'utf-8')
+        yield bytes(json.dumps(Result), 'utf-8')

@@ -7,6 +7,8 @@ import dbpool.pool
 
 import POSTData
 
+from StdoutLogger import logger
+
 dbpool.pool.Connection.init(DB.config)
 
 
@@ -42,13 +44,26 @@ def application(environ, start_response):
                             "Value":    tmpRecord[1],
                         }
                         Result.append(tmpDict)
-                except Exception:
+                except Exception as e:
                     pass
+                logger.debug(Result)
                 yield bytes(json.dumps(Result), 'utf-8')
 
         except Exception as e:
+
+            errorID = 100
+            errorDescription = 'DynPulldown failed getting from Database.'
+
             errorResult = {}
             errorResult['error'] = True
+            errorResult['error_id'] = errorID
             errorResult['exception_id'] = type(e).__name__
             errorResult['exception'] = "{0}".format(e)
-            yield bytes(json.dumps(errorResult), 'utf-8')
+
+            logger.error(errorResult)
+
+            errorReturn = {}
+            errorReturn['error'] = True
+            errorReturn['error_id'] = errorID
+
+            yield bytes(json.dumps(errorReturn), 'utf-8')

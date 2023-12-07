@@ -7,6 +7,8 @@ import POSTData
 
 import dbpool.pool
 
+from StdoutLogger import logger
+
 dbpool.pool.Connection.init(DB.config)
 
 
@@ -18,9 +20,11 @@ def application(environ, start_response):
             index += 1
             yield index
 
+    start_response('200 OK', [('Content-Type', 'application/json; charset=UTF-8')])
+
     if environ['REQUEST_METHOD'].upper() == 'POST':
 
-        tmp_result = {}
+        Result = {}
 
         service_json = json.loads(POSTData.Environment.getPOSTData(environ))
 
@@ -33,8 +37,8 @@ def application(environ, start_response):
 
             sql_params = {}
 
-            #tmp_result['params'] = sql_params
-            #tmp_result['config'] = config
+            #Result['params'] = sql_params
+            #Result['config'] = config
 
             for param in config['params']:
                 try:
@@ -59,18 +63,27 @@ def application(environ, start_response):
                             if rec[key] is None:
                                 rec[key] = ''
                             tmp_record[key] = str(rec[key])
-                        tmp_result[row_index.__next__()] = tmp_record
+                        Result[row_index.__next__()] = tmp_record
                 except Exception as e:
                     if "{0}".format(e) != 'no results to fetch':
                         raise
-
-                start_response('200 OK', [('Content-Type', 'application/json; charset=UTF-8')])
-                yield bytes(json.dumps(tmp_result), 'utf-8')
+            logger.debug(Result)
+            yield bytes(json.dumps(Result), 'utf-8')
 
         except Exception as e:
-            start_response('200 OK', [('Content-Type', 'application/json; charset=UTF-8')])
-            tmp_result['error'] = True
-            tmp_result['exception_id'] = type(e).__name__
-            tmp_result['exception'] = "{0}".format(e)
+            errorID = 103
+            errorDescription = 'SQL Mapper processing / getting data from Database failed.'
 
-            yield bytes(json.dumps(tmp_result), 'utf-8')
+            errorResult = {}
+            errorResult['error'] = True
+            errorResult['error_id'] = errorID
+            errorResult['exception_id'] = type(e).__name__
+            errorResult['exception'] = "{0}".format(e)
+
+            logger.error(errorResult)
+
+            errorReturn = {}
+            errorReturn['error'] = True
+            errorReturn['error_id'] = errorID
+
+            yield bytes(json.dumps(errorReturn), 'utf-8')

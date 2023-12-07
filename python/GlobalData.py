@@ -4,6 +4,8 @@ import json
 import DB
 import dbpool.pool
 
+from StdoutLogger import logger
+
 dbpool.pool.Connection.init(DB.config)
 
 
@@ -13,10 +15,9 @@ def application(environ, start_response):
 
     if environ['REQUEST_METHOD'].upper() == 'POST':
 
-        tmpResult = { 0: { "SysName": "ObjectLoaderRequestID", "SysID": "GlobalData" } }
+        Result = { 0: { "SysName": "ObjectLoaderRequestID", "SysID": "GlobalData" } }
 
         try:
-        #for i in range(1):
             sql = """ SELECT
                     CAST(1 AS bigint) AS id,
                     'Testvar1' AS Var,
@@ -30,10 +31,26 @@ def application(environ, start_response):
                         "Var": tmpRecord[1],
                         "Value": tmpRecord[2]
                     }
-                    tmpResult[tmpRecord[0]] = tmpDict
+                    Result[tmpRecord[0]] = tmpDict
+
+            logger.debug(Result)
+            yield bytes(json.dumps(Result), 'utf-8')
 
         except Exception as e:
-            tmpResult['error'] = True
-            tmpResult['exception'] = type(e).__name__
 
-        yield bytes(json.dumps(tmpResult), 'utf-8')
+            errorID = 102
+            errorDescription = 'GlobalData failed getting from Database.'
+
+            errorResult = {}
+            errorResult['error'] = True
+            errorResult['error_id'] = errorID
+            errorResult['exception_id'] = type(e).__name__
+            errorResult['exception'] = "{0}".format(e)
+
+            logger.error(errorResult)
+
+            errorReturn = {}
+            errorReturn['error'] = True
+            errorReturn['error_id'] = errorID
+
+            yield bytes(json.dumps(errorReturn), 'utf-8')

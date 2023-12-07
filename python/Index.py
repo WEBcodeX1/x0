@@ -5,6 +5,8 @@ import re
 import DB
 import dbpool.pool
 
+from StdoutLogger import logger
+
 dbpool.pool.Connection.init(DB.config)
 
 HTMLTop = """<!DOCTYPE html>
@@ -107,7 +109,7 @@ app_id = %(AppID)s AND config_group = %(ConfigGroup)s""";
 
 def application(environ, start_response):
 
-    start_response('200 OK', [('Content-Type', 'application/json; charset=UTF-8')])
+    start_response('200 OK', [('Content-Type', 'text/html; charset=UTF-8')])
 
     if environ['REQUEST_METHOD'].upper() == 'GET':
 
@@ -218,5 +220,6 @@ def application(environ, start_response):
 
         Result = "{}{}{}".format(HTMLTopR, HTMLDynScriptR, HTMLBottom);
 
-        start_response('200 OK', [('Content-Type', 'text/html; charset=UTF-8')])
+        logger.debug(Result)
+
         yield bytes(Result, 'utf-8')
