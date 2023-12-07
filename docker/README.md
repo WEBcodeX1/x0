@@ -9,11 +9,16 @@ To speed up Container-Building it is possible to use a local Ubuntu Mirror by se
 Required packages for building under Ubuntu Linux (Jammy Jellyfish) are the docker base and currently the buildx extension.
 
 ```bash
+# install docker package
 apt-get install docker.io
 ```
 
 ```bash
+# download ubuntu debian install package
 wget https://download.docker.com/linux/ubuntu/dists/jammy/pool/stable/amd64/docker-buildx-plugin_0.11.2-1~ubuntu.22.04~jammy_amd64.deb
+
+# install package
+apt-get install docker-buildx-plugin_0.11.2-1~ubuntu.22.04~jammy_amd64.deb
 ```
 
 ## 2. Requirements / Build Application
