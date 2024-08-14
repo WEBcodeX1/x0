@@ -13,10 +13,17 @@ It runs on current Ubbuntu Linux 22.04.3 LTS (Jammy Jellyfish), Docker Container
 Currently the following OpenSource products are required to run the system:
 
 - Apache2.0+
-- Apache WSGI (Python)
+- Apache WSGI (Python) FalconAS Application Server
 - PostgreSQL 13+
 - Python3+
 - Python Psycopg2 PostgreSQL Client-Library
+
+### 3.1. Planned
+
+> We currently are working on a Python Application Server (FalconAS) to get rid of Apache and WSGI module.<br>
+> https://github.com/WEBcodeX1/http-1.2 (still beta)
+
+In combination with NEON scalable PostgreSQL https://github.com/neondatabase/neon, x0, FalconAS and Kubernetes *go lightspeed!*
 
 ## 4. Deployment
 
