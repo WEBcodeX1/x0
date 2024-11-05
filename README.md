@@ -6,7 +6,7 @@ The x0 (cross-objects) JavaScript Framework is a modern tool for building powerf
 
 ## 2. Where does it run
 
-It runs on current Ubbuntu Linux 22.04.3 LTS (Jammy Jellyfish), Docker Container and / or Kubernetes (Certified on SysEleven Berlin Cloud Plattform).
+It runs on current Ubuntu Linux 22.04.3 LTS (Jammy Jellyfish), Docker Container and / or Kubernetes (Certified on SysEleven Berlin Cloud Plattform).
 
 ## 3. Prerequisites
 
