@@ -21,7 +21,7 @@ Currently the following OpenSource products are required to run the system:
 ### 3.1. Planned
 
 > We currently are working on a Python Application Server (FalconAS) to get rid of Apache and WSGI module.<br>
-> https://github.com/WEBcodeX1/http-1.2 (still beta)
+> https://github.com/WEBcodeX1/http-1.2 (still beta).
 
 ## 4. Deployment
 
