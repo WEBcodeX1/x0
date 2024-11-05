@@ -16,7 +16,7 @@ Currently the following OpenSource products are required to run the system:
 - Apache WSGI (Python) **or** FalconAS Application Server
 - PostgreSQL 13+
 - Python3+
-- Python Psycopg2 PostgreSQL Client-Library
+- Psycopg2 (Python) PostgreSQL Client-Library
 
 ### 3.1. Planned
 
