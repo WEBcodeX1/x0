@@ -13,7 +13,7 @@ It runs on current Ubbuntu Linux 22.04.3 LTS (Jammy Jellyfish), Docker Container
 Currently the following OpenSource products are required to run the system:
 
 - Apache2.0+
-- Apache WSGI (Python) FalconAS Application Server
+- Apache WSGI (Python) **or** FalconAS Application Server
 - PostgreSQL 13+
 - Python3+
 - Python Psycopg2 PostgreSQL Client-Library
