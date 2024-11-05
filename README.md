@@ -23,8 +23,6 @@ Currently the following OpenSource products are required to run the system:
 > We currently are working on a Python Application Server (FalconAS) to get rid of Apache and WSGI module.<br>
 > https://github.com/WEBcodeX1/http-1.2 (still beta)
 
-In combination with NEON scalable PostgreSQL https://github.com/neondatabase/neon, x0, FalconAS and Kubernetes *go lightspeed!*
-
 ## 4. Deployment
 
 The system is deployable on the following plattforms:
