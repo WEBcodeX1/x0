@@ -6,7 +6,10 @@
 
 ## 2. Where does it run
 
-It runs on current Ubuntu Linux 22.04.3 LTS (Jammy Jellyfish), Docker Container and / or Kubernetes (Certified on SysEleven Berlin Cloud Plattform).
+It runs stabel on current Ubuntu Linux 22.04.3 LTS (Jammy Jellyfish), inside local Docker containers or on Native Kubernetes Cluster.
+
+>[!NOTE]
+> Detailed Documentation for setting up on Minukube (Windows 11, Linux) see [/doc/minikube](/doc/minikube).
 
 ## 3. Prerequisites
 
@@ -20,7 +23,8 @@ Currently the following OpenSource products are required to run the system:
 
 ### 3.1. Planned
 
-> We currently are working on a Python Application Server (FalconAS) to get rid of Apache and WSGI module.<br>
+>[!NOTE]
+> We currently are working on a Python Application Server (FalconAS) to replace Apache and WSGI module.<br>
 > https://github.com/WEBcodeX1/http-1.2 (still beta).
 
 ## 4. Deployment
@@ -29,4 +33,4 @@ The system is deployable on the following plattforms:
 
 - Standalone
 - Docker
-- Kubernetes (certified on SysEleven CloudPlattform)
+- Native Kubernetes Cluster
