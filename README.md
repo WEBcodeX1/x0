@@ -2,7 +2,7 @@
 
 ## 1. Kind / Purpose
 
-The x0 (cross-objects) JavaScript Framework is a modern tool for building powerful Web-Browser Realtime-SPA (Single Page Applications) easily.
+**x0 Cross-Object JavaScript Framework** /krɒs ɒb.dʒɪkt/  is a modern tool for building powerful Web-Browser Realtime-SPA (Single Page Applications) easily.
 
 ## 2. Where does it run
 
