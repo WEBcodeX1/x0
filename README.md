@@ -1,6 +1,6 @@
 # x0 JavaScript Framework
 
-## 1. Kind / Purpose
+## 1. Abstract / Purpose
 
 **x0 Cross-Object JavaScript Framework** /krɒs ɒb.dʒɪkt/  is a modern tool for building powerful Web-Browser Realtime-SPA (Single Page Applications) easily.
 
@@ -21,7 +21,7 @@ Currently the following OpenSource products are required to run the system:
 - Python3+
 - Psycopg2 (Python) PostgreSQL Client-Library
 
-### 3.1. Planned
+### 3.1. Future Plans
 
 >[!NOTE]
 > We currently are working on a Python Application Server (FalconAS) to replace Apache and WSGI module.<br>
