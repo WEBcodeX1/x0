@@ -9,7 +9,7 @@
 It runs stabel on current Ubuntu Linux 22.04.3 LTS (Jammy Jellyfish), inside local Docker containers or on Native Kubernetes Cluster.
 
 >[!NOTE]
-> Detailed Documentation for setting up on Minukube (Windows 11, Linux) see [/doc/minikube](/doc/minikube).
+> Detailed Documentation for setting up on Minukube (Windows 11, Linux) see [/doc/minikube.rst](/doc/minikube.rst).
 
 ## 3. Prerequisites
 
