@@ -2,7 +2,7 @@
 
 ## 1. Abstract / Purpose
 
-**x0 Cross-Object JavaScript Framework** /krɒs ɒb.dʒɪkt/  is a modern tool for building powerful Web-Browser Realtime-SPA (Single Page Applications) easily.
+**x0 (cross-object) JavaScript Framework** /krɒs ɒb.dʒɪkt/  is a modern tool for building powerful Web-Browser Realtime-SPA (Single Page Applications) easily.
 
 ## 2. Where does it run
 
