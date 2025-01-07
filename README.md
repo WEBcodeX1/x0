@@ -69,7 +69,7 @@ environments in no time.
 
 ## 9. Technically
 
-Detailled installation instruction(s) can be found in ./INSTALL.md and subdirs **README.md**.
+Detailled installation instruction(s) can be found in [./INSTALL.md](./INSTALL.md) and subdirs **README.md**.
 
 ### 9.1. OS Compatibility
 
