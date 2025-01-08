@@ -106,8 +106,10 @@ The system is deployable on the following plattforms:
 - Docker
 - Google Kubernetes Engine (GKE)
 
-## 11. Future Plans
+## 11. Future Plans / Milestones
 
 >[!NOTE]
 > We currently are working on a Python Application Server (FalconAS) to replace Apache and WSGI module.<br>
 > https://github.com/WEBcodeX1/http-1.2 (still beta).
+
+Milestones are github managed; can be found at "Issues / Milestones".
