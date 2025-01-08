@@ -10,14 +10,23 @@ building powerful Web-Browser Realtime-SPA (Single Page Applications) efficientl
 SPA-applications are modern browser-aplications which run *nearly* backend independent,
 though getting more and more close to *real* desktop-apps.
 
-## 3. Responsiveness
+## 3. Cross Objects
+
+What does the cross stand for you might ask. **Communication**.
+
+Due to the x0-systems clean OOP model, each object is able to e"x"change its data
+container between client(s).
+
+See examples section for more information.
+
+## 4. Responsiveness
 
 Due to x0 relying on *Bootstrap CSS* cross browser standards for all end-devices are
 guaranteed.
 
 Build / maintain only "ONE" single app (even android). IT-budgeg saved!
 
-## 4. True Object Orientation / Clean Code
+## 5. True Object Orientation / Clean Code
 
 JavaScript (ECMA6 / ECMA7) still lacks overloading DOM object internal functions,
 which makes building clean efficient abstraction models nearly impossible.
@@ -31,13 +40,13 @@ If implemented in the correct way, even extremely efficient.
 >[!NOTE]
 > Bind your own object methods to an existing *DOM element*; use object inheritance.
 
-## 5. Zero Code Duplication / Freedom
+## 6. Zero Code Duplication / Freedom
 
 The x0 OSI layer abstraction is very simple and relies on **0** (backend) dependencies.
 
 Currently other compared SPA frameworks tend to code duplication by a factor > 2.
 
-## 6. Object Chaining / Data Abstraction
+## 7. Object Chaining / Data Abstraction
 
 A smart base-class design / model helps making object design with x0 framework a big
 enjoyment.
@@ -53,7 +62,7 @@ See examples section to better understand object modeling and how to implement.
 >[!NOTE]
 > x0 provides *object instancing* in **runtime** with 0 backend-communication.
 
-## 7. Kubernetes Ready
+## 8. Kubernetes Ready
 
 *x0 applications* run on Google Kubernetes Engine (GKE).
 
@@ -63,15 +72,15 @@ environments in no time.
 >[!NOTE]
 > Also minikube on Windows is *partially* supported.
 
-## 8. Open Source
+## 9. Open Source
 
 *x0 system* is licensed under AGPL-3.0 license.
 
-## 9. Technically
+## 10. Technically
 
 Detailled installation instruction(s) can be found in [./INSTALL.md](./INSTALL.md) and subdirs **README.md**.
 
-### 9.1. OS Compatibility
+### 10.1. OS Compatibility
 
 *x0 system* runs stabel on current Ubuntu Linux 22.04.x LTS (Jammy Jellyfish), inside
 local Docker containers or on native Google Kubernetes Engine (GKE).
@@ -79,7 +88,7 @@ local Docker containers or on native Google Kubernetes Engine (GKE).
 >[!NOTE]
 > Detailed Documentation for setting up on Minukube (Windows 11) see [/doc/minikube.rst](/doc/minikube.rst).
 
-### 9.2. Prerequisites
+### 10.2. Prerequisites
 
 Currently the following OpenSource products are required to run the system:
 
@@ -89,7 +98,7 @@ Currently the following OpenSource products are required to run the system:
 - Python3+
 - Psycopg2 (Python) PostgreSQL Client-Library
 
-### 9.3. Deployment
+### 10.3. Deployment
 
 The system is deployable on the following plattforms:
 
@@ -97,7 +106,7 @@ The system is deployable on the following plattforms:
 - Docker
 - Google Kubernetes Engine (GKE)
 
-## 10. Future Plans
+## 11. Future Plans
 
 >[!NOTE]
 > We currently are working on a Python Application Server (FalconAS) to replace Apache and WSGI module.<br>
