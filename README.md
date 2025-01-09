@@ -100,7 +100,7 @@ Currently the following OpenSource products are required to run the system:
 
 ### 10.3. Deployment
 
-The system is deployable on the following plattforms:
+*x0 system* is deployable on the following plattforms:
 
 - Linux Standalone
 - Docker
