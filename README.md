@@ -52,7 +52,7 @@ A smart base-class design / model helps making object design with x0 framework a
 enjoyment.
 
 Combining (chaining) objects for later reuse (even recursive chainable) is a x0 basic
-feature with a clean abstraction model.
+feature using a clean abstraction model.
 
 Feeding objects with data and getting data from objects (graph based JSON) also saves
 a lot of effort due to a smart / recursive objects metadata model.
