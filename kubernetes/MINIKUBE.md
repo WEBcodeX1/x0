@@ -26,7 +26,7 @@ enhanced private *Docker Registry* integration (e.g. Gitlab).
 > *x0 Kube Installer* is able to manage RBAC / deployment tokens in a GKE
 > production environment. Documentation to setup a Ubuntu Linux Virtual Machine
 > (non-graphical multi-user environment) to handle authentication tokens in a
-> secure manner can be found here: 
+> secure manner can be found here: #TODO: add link
 
 2. The minikube setup is not able to manage "external" DNS automatically.
 
