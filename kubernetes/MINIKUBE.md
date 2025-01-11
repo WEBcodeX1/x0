@@ -187,7 +187,7 @@ Generate the cluster now and install *x0-system* inside.
 
 Only important for a non-internet environment.
 
-minikube connected to the internet will download all Docker images
+Minikube connected to the internet will download all Docker images
 automatically.
 
 Download required mages from https://docker.webcodex.de/x0/ manually (an own
