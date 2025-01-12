@@ -86,7 +86,7 @@ Detailled installation instruction(s) can be found in [./INSTALL.md](./INSTALL.m
 local Docker containers or on native Google Kubernetes Engine (GKE).
 
 >[!NOTE]
-> Detailed Documentation for setting up on Minukube (Windows 11) see [/doc/minikube.rst](/doc/minikube.rst).
+> Detailed Documentation for setting up on Minukube (Windows 11) see [/doc/minikube.rst](./kubernetes/MINIKUBE.md).
 
 ### 10.2. Prerequisites
 
