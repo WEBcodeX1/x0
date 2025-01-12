@@ -13,7 +13,7 @@ Windows 11 23H2 (x64) using the *x0 Kube Installer* (./setup/Setup.py).
 
 *x0 minikube* runs Kubernetes version: *v1.31.0* and Docker version: *27.2.0*.
 
-minikubes primary purpose is to test an aplication / kubernetes metadata before
+Minikubes primary purpose is to test an aplication / kubernetes metadata before
 deploying it to a production cluster. The following section describes the
 differences / limited *x0 Kube Installer* features.
 
