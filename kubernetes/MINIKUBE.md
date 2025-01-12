@@ -54,7 +54,12 @@ To be closest to a production setup, all dependend kubernetes docker images
 - Postgres v14
 - Ingress-NGINX v1.8.0
 - Selenium Browser Test Framework v131.0
+
+*x0 minikube* depends on the following Windows installations.
+
 - Kubernetes Kubectl Tool
+- Git for Windows git (optional)
+- Windows wget (optional)
 
 ## Kubegres
 
