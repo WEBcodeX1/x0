@@ -3,7 +3,7 @@
 The following installation instructions cover the installation of the base
 *x0 system* on a kubernetes minikube including CI / tests.
 
-See App Packaging (../PACKAGING.md) subsection how to build your application for
+See App Packaging (**../PACKAGING.md**) subsection how to build your application for
 running in a minikube environment.
 
 ## Preface
