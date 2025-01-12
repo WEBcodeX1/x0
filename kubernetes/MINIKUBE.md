@@ -7,6 +7,15 @@ See App Packaging (**../PACKAGING.md**) subsection how to build your application
 running in a minikube environment. This is nearly transparent to the x0-base
 installation process.
 
+In short, run the following inside Windows Powershell (with Administrator privileges):
+system up and running.
+```powershell
+cd ./setup/
+python Setup.py ..\..\
+```
+
+The next chapters describe the installation process in detail.
+
 ## Preface
 
 The minikube installation (version v1.34.0) currently is tested on Microsoft
