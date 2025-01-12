@@ -68,7 +68,7 @@ To be closest to a production setup, all dependend kubernetes docker images
 *x0 minikube* depends on the following Windows installations.
 
 - Kubernetes Kubectl Tool
-- Git for Windows git (optional)
+- Git for Windows (optional)
 - Windows wget (optional)
 
 ## Kubegres
