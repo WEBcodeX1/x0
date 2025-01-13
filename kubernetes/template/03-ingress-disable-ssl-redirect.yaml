@@ -1,0 +1,7 @@
+apiVersion: networking.k8s.io/v1
+kind: ConfigMap
+metadata:
+  name: ${x0_APP_ID}-${x0_VHOST_ID}-${x0_APP_ENV}-notls-ingress
+  namespace: ${x0_NAMESPACE}
+data:
+  ssl-redirect: false

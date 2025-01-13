@@ -5,7 +5,7 @@ metadata:
   namespace: ${x0_NAMESPACE}
 spec:
   selector:
-    app: selenium-server-${x0_SELENIUM_SERVER_INDEX}
+    app: selenium-server
   ports:
     - protocol: TCP
       port: 4444
