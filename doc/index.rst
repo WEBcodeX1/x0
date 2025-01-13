@@ -4,11 +4,12 @@ clickIT x0 Framework Documentation v1.0rc2
 ===========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Contents:
 
    intro
    installation
+   kubernetes
    base-layout
    config-files
    system-workflows
