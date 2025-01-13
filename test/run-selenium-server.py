@@ -12,7 +12,7 @@ with open("../config/app-config.json") as fh:
 
     sys_config = json.load(fh)
 
-    container_name = 'selenium-server'
+    container_name = '{}-selenium-server'.format(sys_config['project']['id'])
 
     cmd = 'docker stop {}'.format(container_name)
     subprocess.run(cmd.split())

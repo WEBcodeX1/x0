@@ -30,11 +30,16 @@ def config():
     except Exception as e:
         run_namespace = None
 
+    try:
+        domain_suffix = '.'+run_namespace
+    except Exception as e:
+        domain_suffix = ''
+
     vhost_test_urls = globalconf.setup()
 
     logger.info('test urls:{}'.format(vhost_test_urls))
 
-    selenium_server_url = 'http://selenium-server-0:4444'
+    selenium_server_url = 'http://selenium-server-0{}:4444'.format(domain_suffix)
 
     logger.info('selenium server url:{}'.format(selenium_server_url))
 
