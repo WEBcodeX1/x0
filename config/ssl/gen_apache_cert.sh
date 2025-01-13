@@ -1,6 +1,6 @@
 #!/bin/sh
 
-OUT_PATH="../../ssl"
+OUT_PATH="../../ssl/x0-app"
 
 CERT_CA_FILE="${OUT_PATH}/ca.x0-app.CA.crt.pem"
 CERT_CA_KEY_FILE="${OUT_PATH}/x0-app.Server.key"
@@ -11,7 +11,7 @@ CERT_CSR_FILE="${OUT_PATH}/x0-csr.pem"
 CERT_CA_PASSPHRASE="change4prod-ca"
 CERT_PASSPHRASE="change4prod"
 
-DEMO_FQDN="x0-app.kicker-finder.de"
+DEMO_FQDN="x0-test.localnet"
 
 # generate apache ssl cert
 openssl genrsa -des3 -out ${CERT_CA_KEY_FILE} -passout pass:${CERT_CA_PASSPHRASE} 4096
