@@ -6,7 +6,7 @@ metadata:
 spec:
   containers:
   - name: x0-db-install
-    image: clauspruefer/x0-db-install
+    image: x0/x0-db-install
     command:
       - sleep
       - "3600"
