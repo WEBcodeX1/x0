@@ -30,9 +30,17 @@ def config():
         run_namespace = None
 
     try:
-        domain_suffix = '.'+run_namespace
+        run_kube_env = os.environ['KUBERNETES_SERVICE_HOST']
+    except Exception as e:
+        run_kube_env = None
+
+    try:
+        domain_suffix = '.' + run_namespace
     except Exception as e:
         domain_suffix = ''
+
+    if run_kube_env is not None:
+        domain_suffix += '.svc.cluster.local'
 
     vhost_test_urls = globalconf.setup()
 
