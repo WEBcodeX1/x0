@@ -8,7 +8,9 @@
         "type": "x0",
         "subtype": "minikube",
         "os:": "mswindows",
-        "os_version": 11
+        "os_version": 11,
+	"offline_install": false,
+	"minikube_driver": "hyperv"
     },
     "database": {
         "name": "x0",
