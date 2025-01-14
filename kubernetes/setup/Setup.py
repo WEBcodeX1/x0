@@ -3,6 +3,7 @@
 import os
 import sys
 import json
+import time
 import uuid
 import time
 import logging
@@ -36,18 +37,25 @@ def gen_kubernetes_templates(ConfRef, environment, tpl_group='app'):
 
             ConfRef._RunTimeData['templates_gen'][tpl_group][tpl_key] = replace_source
 
-def kubernetes_exec(templates, wait=False, wait_for='complete', wait_timeout='360s'):
+def kubernetes_exec(templates, os_type, wait=False, wait_for='complete', wait_timeout='360s'):
+
     #log_message('kubernetes_exec', 'templates:{}'.format(templates))
+
     if wait is True:
         wait_cmd = ' wait --for condition={} --timeout={}'.format(wait_for, wait_timeout)
     else:
         wait_cmd = ''
 
+    if os_type == 'linux':
+        path_prefix = '/tmp'
+    if os_type == 'mswindows':
+        path_prefix = 'C:\Windows\Temp'
+
     for template in templates:
         error = True
         while error is True:
             try:
-                filename_out = '/tmp/kube-tpl-process-{}.yaml'.format(uuid.uuid4())
+                filename_out = '{}/kube-tpl-process-{}.yaml'.format(path_prefix, uuid.uuid4())
                 log_message('kubernetes_exec', 'Processing file:{}'.format(filename_out))
                 with open(filename_out, 'w') as fh:
                     fh.write(template)
@@ -77,7 +85,7 @@ def get_loadbalancers(ConfRef):
                 pass
     return load_balancers
 
-def gen_service_account_namespace(namespace, project_id):
+def gen_service_account_namespace(namespace, project_id, install_subtype='production'):
 
     cmd = 'kubectl --namespace {} create serviceaccount ci-builder'.format(namespace)
     subprocess.run(cmd.split())
@@ -85,22 +93,24 @@ def gen_service_account_namespace(namespace, project_id):
     cmd = 'kubectl create clusterrolebinding ci-builder-role-{} --clusterrole=cluster-admin --serviceaccount={}:ci-builder'.format(namespace, namespace)
     subprocess.run(cmd.split())
 
-    cmd = 'kubectl --namespace {} create secret generic sys11-gitlab-read-{} --from-file=.dockerconfigjson=/home/s11-deploy/s11-deploy/docker-{}.json --type=kubernetes.io/dockerconfigjson'.format(namespace, namespace, project_id)
-    subprocess.run(cmd.split())
+    if install_subtype == 'production':
+        cmd = 'kubectl --namespace {} create secret generic docker-reg-read-{} --from-file=.dockerconfigjson=/home/kube-deploy/kube-deploy/docker-{}.json --type=kubernetes.io/dockerconfigjson'.format(namespace, namespace, project_id)
+        subprocess.run(cmd.split())
 
     log_message('service-act', cmd)
 
-    cmd = [
-        'kubectl',
-        '--namespace',
-        namespace,
-        'patch',
-        'serviceaccount',
-        'ci-builder',
-        '-p',
-        '{"imagePullSecrets": [ {"name": "sys11-gitlab-read-'+namespace+'"} ]}'
-    ]
-    subprocess.run(cmd)
+    if install_subtype == 'production':
+        cmd = [
+            'kubectl',
+            '--namespace',
+            namespace,
+            'patch',
+            'serviceaccount',
+            'ci-builder',
+            '-p',
+            '{"imagePullSecrets": [ {"name": "docker-reg-read-'+namespace+'"} ]}'
+        ]
+        subprocess.run(cmd)
 
 def gen_cert(CH, cert_type='staging'):
 
@@ -189,7 +199,8 @@ class ConfigHandler(object):
                     "service": {
                         "Service": "02-service.yaml",
                         "Ingress": "03-ingress.yaml",
-                        "IngressTLS": "10-ingress-tls.yaml"
+                        "IngressTLS": "03-ingress-tls.yaml",
+                        "IngressMinikube": "03-ingress-minikube.yaml",
                     },
                     "lb_group": {
                         "LoadBalancer": "04-ingress-controller-nginx.yaml"
@@ -227,11 +238,14 @@ class ConfigHandler(object):
                         "whitelist-source-range": 'nginx.ingress.kubernetes.io/whitelist-source-range: "{}"'
                     }
                 },
-                "install": {
+                "install": [
                     "https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.0/deploy/static/provider/cloud/deploy.yaml",
-                    "https://raw.githubusercontent.com/reactive-tech/kubegres/v1.16/kubegres.yaml",
+                    "https://raw.githubusercontent.com/reactive-tech/kubegres/v1.19/kubegres.yaml",
                     "https://github.com/cert-manager/cert-manager/releases/download/v1.12.0/cert-manager.yaml"
-                }
+                ],
+                "install_minikube": [
+                    "kubegres-v1.19.yaml"
+                ]
             },
             "x0": {
                 "tpl_vars": {
@@ -285,7 +299,8 @@ class ConfigHandler(object):
                         "x0_NAMESPACE": None
                     }
                 }
-            }
+            },
+            "app_config": json_config
         }
 
         self._RunTimeData = {
@@ -299,10 +314,6 @@ class ConfigHandler(object):
                 },
                 "lb_group": {
                     "LoadBalancer": None
-                },
-                "kubegres": {
-                    "SecretSuperuser": None,
-                    "SetupDB": None
                 },
                 "kubegres": {
                     "SecretSuperuser": None,
@@ -349,15 +360,45 @@ if __name__ == '__main__':
 
     CH = ConfigHandler()
 
+    try:
+        os_type = CH._Configuration['app_config']['installer']['os']
+    except Exception as e:
+        os_type = 'linux'
+
+    try:
+        install_type = CH._Configuration['app_config']['installer']['type']
+    except Exception as e:
+        install_type = 'x0'
+
+    try:
+        install_subtype = CH._Configuration['app_config']['installer']['subtype']
+    except Exception as e:
+        install_subtype = 'production'
+
+    print("OS type:{}".format(os_type))
+    print("Install type:{}".format(install_type))
+    print("Install sub type:{}".format(install_subtype))
+
     load_balancers = get_loadbalancers(CH)
     log_message(log_prefix, 'LoadBalancers:{}'.format(load_balancers))
 
-    # install base "packages"
-    install_packages = CH.getConfig()['kubernetes']['install']
+    # install production "packages"
+    if install_subtype == 'production':
 
-    for package_url in install_packages:
-        cmd = 'kubectl apply -f {}'.format(package_url)
-        subprocess.run(cmd.split())
+        install_packages = CH.getConfig()['kubernetes']['install']
+
+        for package_url in install_packages:
+            cmd = 'kubectl apply -f {}'.format(package_url)
+            subprocess.run(cmd.split())
+
+    # install minikube "packages"
+    if install_subtype == 'minikube':
+
+        install_packages = CH.getConfig()['kubernetes']['install_minikube']
+
+        for package_yaml_file in install_packages:
+            cmd = 'kubectl apply -f ./install-minikube/{}'.format(package_yaml_file)
+            subprocess.run(cmd.split())
 
     # use single env from command line, else list from json config
     try:
@@ -411,7 +452,7 @@ if __name__ == '__main__':
             lb_tpl_data = CH.getRuntimeData()['templates_gen']['lb_group']['LoadBalancer']
             #log_message(log_prefix, 'Load Balancer ID:{} Template:{}'.format(loadbalancer_id, lb_tpl_data))
 
-            kubernetes_exec([lb_tpl_data])
+            kubernetes_exec([lb_tpl_data], os_type)
 
         # process app templates
         app_templates = env_config['kubernetes']['app_templates']
@@ -427,14 +468,14 @@ if __name__ == '__main__':
             for tpl_key, tpl_file in tpl_dict.items():
                 templates_replaced.append(CH.getRuntimeData()['templates_gen'][app_tpl][tpl_key])
 
-            kubernetes_exec(templates_replaced)
+            kubernetes_exec(templates_replaced, os_type)
 
         # generate deployment template
         gen_kubernetes_templates(CH, environment)
 
         tpl_data = CH.getRuntimeData()['templates_gen']['app']
 
-        kubernetes_exec([tpl_data['Deployment']])
+        kubernetes_exec([tpl_data['Deployment']], os_type)
 
         vhost_app_config = CH.getRuntimeData()['x0_config']['vhosts']
 
@@ -456,7 +497,11 @@ if __name__ == '__main__':
                 # generate service / ingress templates
                 gen_kubernetes_templates(CH, environment, 'service')
 
-                tls_config = vhost_app_config[vhost_key]['env'][environment]['tls']
+                try:
+                    tls_config = vhost_app_config[vhost_key]['env'][environment]['tls']
+                except Exception as e:
+                    tls_config = False
+
                 ingress_annotation_tpl = CH.getConfig()['kubernetes']['ingress']['annotations']
 
                 tpl_data = CH.getRuntimeData()['templates_gen']['service']
@@ -467,13 +512,25 @@ if __name__ == '__main__':
                     certbot = False
 
                 tpl_service = tpl_data['Service']
-                tpl_ingress = tpl_data['Ingress'] if certbot is True else tpl_data['IngressTLS']
+                
+                if install_subtype == 'minikube':
+                    tpl_ingress = tpl_data['IngressMinikube']
+                else:                
+                    if tls_config is False or certbot is True:
+                        tpl_ingress = tpl_data['Ingress']
+                    else:
+                        tpl_ingress = tpl_data['IngressTLS']
 
-                # replace loadbalancer ref
-                lb_ref_id = vhost_app_config[vhost_key]['loadbalancer']['ref']
-                lb_ref_id = '{}-{}'.format(lb_ref_id, environment)
+                #tpl_ingress = tpl_data['Ingress'] if certbot is True else tpl_data['IngressTLS']
 
-                tpl_ingress = tpl_ingress.replace('${x0_LOADBALANCER_REF}', lb_ref_id)
+                try:
+                    # replace loadbalancer ref
+                    lb_ref_id = vhost_app_config[vhost_key]['loadbalancer']['ref']
+                    lb_ref_id = '{}-{}'.format(lb_ref_id, environment)
+
+                    tpl_ingress = tpl_ingress.replace('${x0_LOADBALANCER_REF}', lb_ref_id)
+                except Exception as e:
+                    pass
 
                 # replace tls related
                 ingress_annotations = []
@@ -503,7 +560,7 @@ if __name__ == '__main__':
                 try:
                     if tls_config['verify-client-certs'] is True:
                         ingress_annotations.append(ingress_annotation_tpl['auth-tls-verify-client'].format('on'))
-                        ingress_annotations.append(ingress_annotation_tpl['auth-tls-secret'].format('{}/{}'.format(kube_namespace, kube_ca_id)))
+                        ingress_annotations.append(ingress_annotation_tpl['auth-tls-secret'].format('default/'.format(kube_ca_id)))
                         ingress_annotations.append(ingress_annotation_tpl['auth-tls-verify-depth'].format('1'))
                         ingress_annotations.append(ingress_annotation_tpl['auth-tls-pass-certificate-to-upstream'].format('true'))
                 except Exception as e:
@@ -530,21 +587,22 @@ if __name__ == '__main__':
                             '--namespace',
                             kube_namespace,
                             'create',
-                            'secret'
+                            'secret',
+                            'generic'
                         ]
 
                         kube_secret_file_param = '--from-file'
 
                         kube_secret_cmd_ca = [] + kube_secret_cmd_tpl
                         kube_secret_cmd_ca.extend(
-                            ('generic', kube_ca_id, kube_secret_file_param, tls_ca_cert)
+                            (kube_ca_id, kube_secret_file_param, tls_ca_cert)
                         )
 
                         log_message(log_prefix, 'Kubectl secret ca-cert cmd:{}'.format(kube_secret_cmd_ca))
 
                         kube_secret_cmd = [] + kube_secret_cmd_tpl
                         kube_secret_cmd.extend(
-                            ('tls', kube_cert_id, '--cert', tls_cert, '--key', tls_key)
+                            (kube_cert_id, kube_secret_file_param, tls_cert, kube_secret_file_param, tls_key)
                         )
 
                         log_message(log_prefix, 'Kubectl secret cert cmd:{}'.format(kube_secret_cmd))
@@ -593,19 +651,19 @@ if __name__ == '__main__':
                 ]
 
                 # apply service / ingress
-                kubernetes_exec(templates)
+                kubernetes_exec(templates, os_type)
 
                 if certbot is True:
 
                     # apply certmanager staging
                     certmanager_tpl = CH.getRuntimeData()['templates_gen']['certmanager']['Staging']
                     log_message('certmanager', 'Staging template:{}'.format(certmanager_tpl))
-                    kubernetes_exec([certmanager_tpl])
+                    kubernetes_exec([certmanager_tpl], os_type)
 
                     # apply certmanager production
                     certmanager_tpl = CH.getRuntimeData()['templates_gen']['certmanager']['Production']
                     log_message('certmanager', 'Production template:{}'.format(certmanager_tpl))
-                    kubernetes_exec([certmanager_tpl])
+                    kubernetes_exec([certmanager_tpl], os_type)
 
                 ingress_id = '{}-{}-{}-tls-ingress'.format(
                     CH.getConfig()['x0']['tpl_vars']['app']['x0_APP_ID'],
@@ -678,7 +736,10 @@ if __name__ == '__main__':
 
                 tpl_db_install = CH.getRuntimeData()['templates_gen']['db_install']['Install']
 
-                kubernetes_exec([tpl_db_install])
+                # wait until kubegres is ready
+                time.sleep(20)
+
+                kubernetes_exec([tpl_db_install], os_type)
 
                 # setup selenium server pods
                 try:
@@ -692,10 +753,13 @@ if __name__ == '__main__':
                             gen_kubernetes_templates(CH, environment, 'selenium_server')
                             tpl_pods.append(CH.getRuntimeData()['templates_gen']['selenium_server']['ServerPod'])
                             tpl_pods.append(CH.getRuntimeData()['templates_gen']['selenium_server']['Service'])
-                        kubernetes_exec(tpl_pods)
+                        kubernetes_exec(tpl_pods, os_type)
                 except Exception as e:
                     #TODO: add logging
                     pass
+
+                # wait until selenium pod(s) is / are ready
+                time.sleep(20)
 
                 # run test pod
                 try:
@@ -704,7 +768,7 @@ if __name__ == '__main__':
 
                         tpl_test_run = CH.getRuntimeData()['templates_gen']['test_run']['Run']
 
-                        kubernetes_exec([tpl_test_run])
+                        kubernetes_exec([tpl_test_run], os_type)
                 except Exception as e:
                     #TODO: add logging
                     pass

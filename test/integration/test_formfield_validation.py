@@ -29,11 +29,24 @@ def config():
     except Exception as e:
         run_namespace = None
 
+    try:
+        run_kube_env = os.environ['KUBERNETES_SERVICE_HOST']
+    except Exception as e:
+        run_kube_env = None
+
+    try:
+        domain_suffix = '.' + run_namespace
+    except Exception as e:
+        domain_suffix = ''
+
+    if run_kube_env is not None:
+        domain_suffix += '.svc.cluster.local'
+
     vhost_test_urls = globalconf.setup()
 
     logger.info('test urls:{}'.format(vhost_test_urls))
 
-    selenium_server_url = 'http://selenium-server-0:4444'
+    selenium_server_url = 'http://selenium-server-0{}:4444'.format(domain_suffix)
 
     logger.info('selenium server url:{}'.format(selenium_server_url))
 
