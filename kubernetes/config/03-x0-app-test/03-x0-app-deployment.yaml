@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: x0
-        image: clauspruefer/x0-app
+        image: x0-app
         resources:
           requests:
             cpu: 500m
