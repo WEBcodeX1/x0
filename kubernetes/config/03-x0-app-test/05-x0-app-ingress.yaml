@@ -5,15 +5,15 @@ metadata:
   namespace: x0-test
   annotations:
     kubernetes.io/ingress.class: nginx
-#    cert-manager.io/issuer: "letsencrypt-staging"
+    cert-manager.io/issuer: "letsencrypt-staging"
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - x0-app-test.kicker-finder.de
+    - host.non-existent-domain.com
     secretName: x0-app-tls
   rules:
-  - host: x0-app-test.kicker-finder.de
+  - host: host.non-existent-domain.com
     http:
       paths:
         - pathType: Prefix
