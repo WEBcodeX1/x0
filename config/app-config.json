@@ -1,24 +1,37 @@
 {
     "project": {
         "name": "x0-base",
-        "id": "x0-base"
+        "id": "x0",
+        "git-repo": "x0"
     },
     "installer": {
-        "type": "x0"
+        "type": "x0",
+        "subtype": "minikube",
+        "os:": "mswindows",
+        "os_version": 11
     },
     "database": {
         "name": "x0",
         "su_password": "changeme",
         "repl_password": "changeme",
-        "size": "1Gi"
+        "x0_password": "changeme",
+        "size": "50Mi"
+    },
+    "test": {
+        "selenium": {
+            "run_servers": 1,
+            "run_images": [
+                "chrome:latest"
+            ]
+        },
+        "testenvs": [ "test" ]
     },
     "env_list": [ "test" ],
-    "environment": "test",
     "environments": {
         "test": {
             "kubernetes": {
                 "deployment": {
-                    "image": "registry.code.syseleven.de/webcodex/x0/x0-app",
+                    "image": "x0-app",
                     "replicas": 1,
                     "cpu": "200m",
                     "memory": "512Mi",
@@ -36,25 +49,15 @@
                 "test": {
                     "dns": {
                         "hostname": "x0-app",
-                        "domain": "kicker-finder.de"
+                        "domain": "x0.localnet"
                     },
                     "ip": {
                         "v4": {
                             "dns_register": true,
-                            "dns_register_type": "openstack"
-                        }
-                    },
-                    "tls": {
-                        "certbot": {
-                            "generate": true,
-                            "admin_mail": "verwaltung@click-it.online"
+                            "dns_register_type": "x0-net-management"
                         }
                     }
                 }
-            },
-            "loadbalancer": {
-                "ref": "ingress-x0-app",
-                "paths": [ "/" ]
             }
         }
     }
