@@ -97,8 +97,13 @@ Currently the following OpenSource products are required to run the system:
 - PostgreSQL 13+
 - Python3+
 - Psycopg2 (Python) PostgreSQL Client-Library
+- Selenium Browser Test-Framework / Python Libraries
 
-### 10.3. Deployment
+### 10.3. Prerequisites Kubernetes
+
+- Kubegres (https://github.com/reactive-tech/kubegres)
+
+### 10.4. Deployment
 
 *x0 system* is deployable on the following plattforms:
 
