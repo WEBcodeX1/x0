@@ -9,9 +9,17 @@ installation process.
 
 In short, run the following inside Windows Powershell (with Administrator privileges):
 system up and running.
+
 ```powershell
-cd ./setup/
-python Setup.py ..\..\
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+```
+
+Answer "Y"(es) to reboot. Afterwards Hyper-V is operational.
+
+```powershell
+git clone https://github.com/WEBcodeX1/x0.git
+cd .\x0\kubernetes\setup\
+python Setup.py
 ```
 
 The next chapters describe the installation process in detail.
