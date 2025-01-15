@@ -17,7 +17,8 @@
         "su_password": "changeme",
         "repl_password": "changeme",
         "x0_password": "changeme",
-        "size": "50Mi"
+        "size": "50Mi",
+        "replicas": 1
     },
     "test": {
         "selenium": {
