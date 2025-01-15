@@ -314,8 +314,8 @@ The installer uses `../../config/app-config.json` as configuration source.
 
 ```powershell
 # start setup / installation
-cd ./setup/
-python3.exe Setup.py ..\..\
+cd .\setup\
+python3.exe Setup.py
 ```
 
 ## 8. Post Installation
