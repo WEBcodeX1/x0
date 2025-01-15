@@ -1,4 +1,4 @@
-# x0 Installation
+# x0 Base System Installation
 
 *x0 base system* runs on the following platforms.
 
@@ -17,11 +17,22 @@
 
 ## 1. Application Development
 
-*x0 application developers* 
+*x0 application developers* should continue with cloning the
+*x0 app skeleton repository*.
+
+```bash
+# clone x0-app skeleton repository
+git clone https://github.com/WEBcodeX1/x0-skeleton.git
+```
+
+>[!NOTE]
+> The *x0 app skeleton repository* contains minimal setup to build (docker)
+> and run your application in no time.
 
 ## 2. System Developers
 
-- Multi Layered Application Packagin Concept
+The *x0 system* uses a multi-layered packaging concept.
+
 
 The fastest way to 
 Run on docker.
