@@ -16,6 +16,13 @@ Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
 
 Answer "Y"(es) to reboot. Afterwards Hyper-V is operational.
 
+>[!NOTE]
+> Install Git for Windows 64bit before you continue, it contains curl binary
+> which is used by Setup.py
+
+>[!NOTE]
+> Also install the remaining dependencies (see 3. Dependencies).
+
 ```powershell
 git clone https://github.com/WEBcodeX1/x0.git
 cd .\x0\kubernetes\setup\
@@ -75,9 +82,12 @@ To be closest to a production setup, all dependend kubernetes docker images
 
 *x0 minikube* depends on the following Windows installations.
 
-- Python for Windows (mandatory)
-- Kubernetes Kubectl Tool (mandatory)
-- Git for Windows (mandatory)
+- Python for Windows (mandatory)<br>
+  https://www.python.org/downloads/windows/
+- Kubernetes Kubectl Tool (mandatory)<br>
+  https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
+- Git for Windows 64bit (mandatory)<br>
+  https://git-scm.com/downloads/win
 - Windows curl (included in Git for Windows)
 
 ## 4. Kubegres
