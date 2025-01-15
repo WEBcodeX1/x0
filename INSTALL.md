@@ -31,9 +31,45 @@ git clone https://github.com/WEBcodeX1/x0-skeleton.git
 
 ## 2. System Developers
 
-The *x0 system* uses a multi-layered packaging concept.
+The *x0 system* uses a multi-layered packaging concept (debian pakaging in
+combination with docker images).
 
+Detailed information see [./PACKAGING.md](./PACKAGING.md).
 
-The fastest way to 
-Run on docker.
+## 3. System Prerequisites
 
+## 4. Build / Run
+
+The fastest way to build and run the *x0 base system* is using docker.
+
+Detailed information see [./docker/README.md](./docker/README.md).
+
+These images must be built before the containers can be started.
+
+- x0-app
+- x0-db
+- x0-test
+
+1. Build Debian Packages
+
+```bash
+# build debian packages
+cd ./debian && debuild
+```
+
+2. Build Docker Images
+
+```bash
+# build docker images
+cd ./docker
+./build-x0-app.sh
+./build-x0-db.sh
+./build-x0-test.sh
+```
+
+3. Run Cotnainers
+
+```bash
+# start network and containers
+cd ./docker && x0-start-containers.sh
+```
