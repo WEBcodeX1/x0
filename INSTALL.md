@@ -12,12 +12,12 @@
 > If you want to develop an *x0 app*: see chapter 1. Application Development.
 
 >[!NOTE]
-> Nevertheless it can`t hurt to study the developer documetnation before
+> Nevertheless it can`t hurt to study the developer documentation before
 > starting *x0 app development*.
 
 ## 1. Application Development
 
-x0 application developers* 
+*x0 application developers* 
 
 ## 2. System Developers
 
