@@ -77,8 +77,8 @@ To be closest to a production setup, all dependend kubernetes docker images
 
 - Python for Windows (mandatory)
 - Kubernetes Kubectl Tool (mandatory)
+- Windows curl (mandatory)
 - Git for Windows (optional)
-- Windows wget (optional)
 
 ## 4. Kubegres
 
