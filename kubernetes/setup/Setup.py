@@ -9,7 +9,12 @@ import time
 import logging
 import subprocess
 
-dir_config = sys.argv[1]
+
+try:
+    dir_config = sys.argv[1]
+except Exception as e:
+    dir_config = '../../'
+
 dir_x0_app_config = '{}/config'.format(dir_config)
 dir_x0_kubernetes_tpl = '../template'
 
@@ -18,6 +23,50 @@ app_config_file = '{}/app-config.json'.format(dir_x0_app_config)
 
 def log_message(log_prefix, msg):
     logging.info('{}:{}'.format(log_prefix, msg))
+
+def prepare_minikube_hyperv(os_type, subtype, driver, offline_install):
+
+    if os_type == 'mswindows' and subtype == 'minikube' and driver == 'hyperv' and offline_install is False:
+
+        curl_binary = '"C:\\Program Files\\Git\\mingw64\\bin\\curl"'
+        tmp_path = 'C:\\Windows\\Temp'
+
+        docker_image_base_url = 'https://docker.webcodex.de/x0'
+
+        docker_image_files = {
+            'x0_app': 'docker.x0-app.tar',
+            'x0_db_install': 'docker.x0-db-install.tar',
+            'x0_test': 'docker.x0-test.tar'
+        }
+
+        for image_id, image_file in docker_image_files.items():
+            cmd_wget = '{} -o {}\\{} -C - {}/{}'.format(
+                curl_binary,
+                tmp_path,
+                image_file,
+                docker_image_base_url,
+                image_file
+            )
+            logging.info('Wget cmd:{}'.format(cmd_wget))
+            res = subprocess.run(cmd_wget, shell=True)
+
+        cmd_minikube_create_cluster = 'minikube start --driver=hyperv'
+        res = subprocess.run(cmd_minikube_create_cluster, shell=True)
+
+        res = subprocess.run('minikube addons enable registry', shell=True)
+        res = subprocess.run('minikube addons enable ingress', shell=True)
+        res = subprocess.run('minikube addons enable ingress-dns', shell=True)
+
+        res = subprocess.run('minikube image pull reactivetechio/kubegres:1.19', shell=True)
+        res = subprocess.run('minikube image pull postgres:14', shell=True)
+        res = subprocess.run('minikube image pull selenium/standalone-chrome:131.0', shell=True)
+
+        for image_id, image_file in docker_image_files.items():
+            cmd_image_load = 'minikube image load {}/{}'.format(
+                tmp_path,
+                image_file
+            )
+            res = subprocess.run(cmd_image_load, shell=True)
 
 def gen_kubernetes_templates(ConfRef, environment, tpl_group='app'):
 
@@ -49,7 +98,7 @@ def kubernetes_exec(templates, os_type, wait=False, wait_for='complete', wait_ti
     if os_type == 'linux':
         path_prefix = '/tmp'
     if os_type == 'mswindows':
-        path_prefix = 'C:\Windows\Temp'
+        path_prefix = 'C:\\Windows\\Temp'
 
     for template in templates:
         error = True
@@ -292,7 +341,7 @@ class ConfigHandler(object):
                         "x0_APP_ID": json_config['project']['id'],
                         "x0_NAMESPACE": None,
                         "x0_SELENIUM_SERVER_INDEX": None,
-                        "x0_SELENIUM_DOCKER_IMAGE": 'selenium/standalone-chrome'
+                        "x0_SELENIUM_DOCKER_IMAGE": 'selenium/standalone-chrome:131.0'
                     },
                     "grafana": {
                         "x0_APP_ID": json_config['project']['id'],
@@ -375,9 +424,22 @@ if __name__ == '__main__':
     except Exception as e:
         install_subtype = 'production'
 
+    try:
+        install_offline = CH._Configuration['app_config']['installer']['offline_install']
+    except Exception as e:
+        install_offline = False
+
+    try:
+        minikube_driver = CH._Configuration['app_config']['installer']['minikube_driver']
+    except Exception as e:
+        minikube_driver = 'hyperv'
+
     print("OS type:{}".format(os_type))
     print("Install type:{}".format(install_type))
     print("Install sub type:{}".format(install_subtype))
+
+    # prepare win 
+    prepare_minikube_hyperv(os_type, install_subtype, minikube_driver, install_offline)
 
     load_balancers = get_loadbalancers(CH)
     log_message(log_prefix, 'LoadBalancers:{}'.format(load_balancers))
