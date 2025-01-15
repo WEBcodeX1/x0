@@ -1,29 +1,30 @@
 # Kubernetes Minikube Installation Instructions
 
 The following installation instructions cover the installation of the base
-*x0 system* on a kubernetes minikube including CI / tests.
+*x0 system* on a kubernetes minikube including CI / tests. See *x0 app packaging*
+[../PACKAGING.md](../PACKAGING.md) subsection how to build your application
+for running in a minikube environment (this is nearly transparent to the
+*x0-base installation* process.
 
-See *x0 App Packaging* (**../PACKAGING.md**) subsection how to build your application
-for running in a minikube environment. This is nearly transparent to the x0-base
-installation process.
-
-In short, run the following inside Windows Powershell (with Administrator privileges):
-system up and running.
+In short, run the following inside Windows Powershell (with Administrator
+privileges): system up and running.
 
 ```powershell
+# enable windows hyper-v feature
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
 ```
 
 Answer "Y"(es) to reboot. Afterwards Hyper-V is operational.
 
 >[!NOTE]
-> Install Git for Windows 64bit before you continue, it contains curl binary
+> Install Git for Windows 64bit before you continue, it contains `curl` binary
 > which is used by Setup.py
 
 >[!NOTE]
 > Also install the remaining dependencies (see 3. Dependencies).
 
 ```powershell
+# clone repository and start setup
 git clone https://github.com/WEBcodeX1/x0.git
 cd .\x0\kubernetes\setup\
 python Setup.py
@@ -34,29 +35,29 @@ The next chapters describe the installation process in detail.
 ## 1. Preface
 
 The minikube installation (version v1.34.0) currently is tested on Microsoft
-Windows 11 23H2 (x64) using the *x0 Kube Installer* (./setup/Setup.py).
+Windows 11 23H2 (x64) using the *x0 kube installer*<br>(`./setup/Setup.py`).
 
 *x0 minikube* runs Kubernetes version: *v1.31.0* and Docker version: *27.2.0*.
 
 Minikubes primary purpose is to test an aplication / kubernetes metadata before
 deploying it to a production cluster. The following section describes the
-differences / limited *x0 Kube Installer* features.
+differences / limited *x0 kube installer* features.
 
 ## 2. Production Cluster Difference
 
 1. *x0 minikube* setup lacks enhanced Role Base Access Control functionality /
-enhanced private *Docker Registry* integration (e.g. Gitlab).
+enhanced private *Docker Registry* integration (e.g. GitLab).
 
 >[!NOTE]
-> *x0 Kube Installer* is able to manage RBAC / deployment tokens in a GKE
+> *x0 kube installer* is able to manage RBAC / deployment tokens in a GKE
 > production environment. Documentation to setup a Ubuntu Linux Virtual Machine
 > (non-graphical multi-user environment) to handle authentication tokens in a
-> secure manner can be found here: #TODO: add link
+> secure manner can be found here: [./vm/management/README.md](./vm/management/README.md).
 
 2. The minikube setup is not able to manage "external" DNS automatically.
 
 >[!NOTE]
-> The *x0 Kube Installer* is able to interact with OpenStack DNS management
+> The *x0 kube installer* is able to interact with OpenStack DNS management
 > and handles external IP setup and DNS mapping automatically. This does only
 > work in kubernetes clusters which rely on *OpenStack Designate*.
 
@@ -175,6 +176,7 @@ be the case with `--driver=hyperv`.
 The following powershell command will install and enable Windows Hyper-V.
 
 ```powershell
+# enable windows hyper-v feature
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
 ```
 
@@ -191,8 +193,7 @@ C:\Program Files (x86)\VMware\VMware Workstation
 
 ### 6.6. Kubectl
 
-Also `kubectl` cluster administration utility is required by *x0 Kube Installer*
-(Setup.py).
+Also `kubectl` cluster administration utility is required by *x0 kube installer*.
 
 https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
 
