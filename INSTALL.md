@@ -38,13 +38,21 @@ Detailed information see [./PACKAGING.md](./PACKAGING.md).
 
 ## 3. System Prerequisites
 
-## 4. Build / Run
+The following documentation only covers a local docker setup. To build and
+run the following 
+
+- Debian Build System
+- Debian Package Signing (gpg)
+- Docker Engine
+- Docker Buildx
+
+Detailed information see [./debian/README.md](./debian/README.md) and
+[./docker/README.md](./docker/README.md).
+
+## 4. Build / Run (Docker)
 
 The fastest way to build and run the *x0 base system* is using docker.
-
-Detailed information see [./docker/README.md](./docker/README.md).
-
-These images must be built before the containers can be started.
+The following docker images must be built before the containers can be started.
 
 - x0-app
 - x0-db
@@ -73,3 +81,11 @@ cd ./docker
 # start network and containers
 cd ./docker && x0-start-containers.sh
 ```
+
+# 5. Kubernetes / Minikube
+
+Since a Kubernetes setup can be far more complex as imagined, the *x0 system*
+offers a simple automated minikube cluster deployment to test *x0 base* or
+*x0 apps* locally without .
+
+Detailed information see [./kubernetes/MINIKUBE.md](./kubernetes/MINIKUBE.md).
