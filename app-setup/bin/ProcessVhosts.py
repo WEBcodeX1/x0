@@ -7,6 +7,7 @@ import shutil
 import logging
 import subprocess
 
+default_fqdn = 'x0-app.localnet'
 
 dir_x0_base = '/var/lib/x0'
 dir_x0_app_setup = '{}/app-setup'.format(dir_x0_base)
@@ -212,7 +213,7 @@ if __name__ == '__main__':
     cmd = [
         'sed',
         '-i',
-        '/ServerName x0-test.local/c\ServerName {}'.format(host_name),
+        '/ServerName {}/c\ServerName {}'.format(default_fqdn, host_name),
         apache2_config
     ]
 
