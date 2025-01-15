@@ -24,7 +24,7 @@ python Setup.py
 
 The next chapters describe the installation process in detail.
 
-## Preface
+## 1. Preface
 
 The minikube installation (version v1.34.0) currently is tested on Microsoft
 Windows 11 23H2 (x64) using the *x0 Kube Installer* (./setup/Setup.py).
@@ -35,7 +35,7 @@ Minikubes primary purpose is to test an aplication / kubernetes metadata before
 deploying it to a production cluster. The following section describes the
 differences / limited *x0 Kube Installer* features.
 
-## Production Cluster Difference
+## 2. Production Cluster Difference
 
 1. *x0 minikube* setup lacks enhanced Role Base Access Control functionality /
 enhanced private *Docker Registry* integration (e.g. Gitlab).
@@ -61,7 +61,7 @@ enhanced private *Docker Registry* integration (e.g. Gitlab).
 > is usable. *x0 kube installer feature* "Load Balancer Groups" does **not**
 > work correctly (multiple lb_groups / instances) with minikube setup.
 
-## Dependencies
+## 3. Dependencies
 
 To be closest to a production setup, all dependend kubernetes docker images
 (including CI tests) will be integrated into minikube environment.
@@ -80,7 +80,7 @@ To be closest to a production setup, all dependend kubernetes docker images
 - Git for Windows (optional)
 - Windows wget (optional)
 
-## Kubegres
+## 4. Kubegres
 
 Kubegres is a simple, easy to configure kubernetes postgresql binary
 replication implementation. It replicates to x configurable replica pods.
@@ -95,7 +95,7 @@ Server component.
 
 http://www.kubegres.io
 
-## Selenium
+## 5. Selenium
 
 Selenium *currently* is used by *x0* for Browser Unit- and Integration-Tests.
 
@@ -104,11 +104,11 @@ standalone-chrome container(s) in combination with Remote WebDriver are used.
 
 http://www.selenium.dev
 
-## Installation Preparation
+## 6. Installation Preparation
 
 The following sections cover the installation process in detail.
 
-### Backends
+### 6.1. Backends
 
 The minikube system can be run on multiple backends / virtualization products,
 called **driver**.
@@ -123,7 +123,7 @@ Tested installations / drivers (MS Windows).
 > Dispite all recommendations using docker as preferred driver, **we** do not do
 > this for MS Windows (tm) systems. Hyper-V is your friend here.
 
-### Internet-less Setup
+### 6.2. Internet-less Setup
 
 In some (iso-certified) environments internet-access is limited, even turned off
 completely. We recommend using the VMWare driver (--driver=vmware) in this case.
@@ -138,7 +138,7 @@ completely. We recommend using the VMWare driver (--driver=vmware) in this case.
 > In some environments / more complex network setups (multiple NIC / routed)
 > VMWare NAT NIC settings have to be adapted manually (DNS, Port Forwarding ...).
 
-### Global Recommendations
+### 6.3. Global Recommendations
 
 Be sure to run the minikube setup / installation as Administrator User.
 
@@ -146,7 +146,7 @@ Be sure to run the minikube setup / installation as Administrator User.
 > Always manage the cluster from an unprivileged account (Powershell) using
 > Administrator rights.
 
-### Hyper-V
+### 6.4. Hyper-V
 
 However, the Virtualbox and VMWare drivers did misbehave on multiple machines
 directly connected to the internet. Only MS Hyper-V did work out of the box here.
@@ -168,7 +168,7 @@ The following powershell command will install and enable Windows Hyper-V.
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
 ```
 
-### VMWare
+### 6.5. VMWare
 
 First, we recommend to disable Windows feature *Virtual Based Security*.
 Without VMs do not use VT-x / VT-d CPU hardware capabilities.
@@ -179,14 +179,14 @@ Also add the following VMWare path to the systems environment variable `Path`.
 C:\Program Files (x86)\VMware\VMware Workstation
 ```
 
-### Kubectl
+### 6.6. Kubectl
 
 Also `kubectl` cluster administration utility is required by *x0 Kube Installer*
 (Setup.py).
 
 https://kubernetes.io/docs/tasks/tools/install-kubectl-windows/
 
-### Python
+### 6.7. Python
 
 Install Python for Windows 3.13 globally (all users).
 
@@ -202,7 +202,7 @@ Important checkboxes **must** be set.
 - "py launcher"
 - "for all users (requires admin privileges)"
 
-## Installation
+## 7. Installation
 
 Generate the cluster now and install *x0-system* inside.
 
@@ -216,7 +216,7 @@ automatically.
 Download required mages from https://docker.webcodex.de/x0/ manually (an own
 Docker sub-registry is in preparation).
 
-### Import Docker Base Images
+### 7.1. Import Docker Base Images
 
 ```powershell
 # import docker images (system / addons)
@@ -226,7 +226,7 @@ minikube image load docker.minikube-ingress-dns.v0.0.3.tar
 minikube image load docker.ingress-nginx.controller.v1.11.2.tar
 ```
 
-### Generate minikube Cluster
+### 7.2. Generate minikube Cluster
 
 1. Option 1 (MS Hyper-V)
 
@@ -260,7 +260,7 @@ minikube.exe ip
 This should output the current configured external IP address.
 Remember the address for later DNS usage.
 
-### Install Addons
+### 7.3. Install Addons
 
 ```powershell
 # enable addons "registry", "ingress" and "ingress-dns"
@@ -272,7 +272,7 @@ minikube addons enable ingress-dns
 minikube addons list
 ```
 
-### Import 3d Party Docker Images
+### 7.4. Import 3d Party Docker Images
 
 ```powershell
 # import docker images (selenium test framework)
@@ -283,7 +283,7 @@ minikube image load docker.reactivetechio.kubegres.1.19.tar
 minikube image load docker.postgres.14.tar
 ```
 
-### Import x0 Docker Images
+### 7.5. Import x0 Docker Images
 
 >[!WARNING]
 > This step is **mandatory** / images **must** be downloaded and installed manually.
@@ -295,7 +295,7 @@ minikube image load docker.x0-db-install.tar
 minikube image load docker.x0-test.tar
 ```
 
-### Run Setup / x0-Installer
+### 7.6. Run Setup / x0-Installer
 
 Now its time to run the installer.
 
@@ -307,11 +307,11 @@ cd ./setup/
 python3.exe Setup.py ..\..\
 ```
 
-## Post Installation
+## 8. Post Installation
 
 After installation, the following kubernetes objects should have been generated.
 
-### Namespaces
+### 8.1. Namespaces
 
 Check, if the namespace "x0-app" exists.
 
@@ -320,7 +320,7 @@ Check, if the namespace "x0-app" exists.
 kubectl get namespaces
 ```
 
-### Pods
+### 8.2. Pods
 
 Check running pods.
 
@@ -329,7 +329,7 @@ Check running pods.
 kubectl get pods -n x0-app 
 ```
 
-### DNS
+### 8.3. DNS
 
 Add an DNS or "%windir%\system32\drivers\etc\hosts" entry for minikube external IP address
 (x0-app.x0.localnet).
