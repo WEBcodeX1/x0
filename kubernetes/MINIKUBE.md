@@ -373,7 +373,7 @@ Also an internal IPv4 address must be assigned.
 Get all services from namespace "x0-app".
 
 ```powershell
-# get pods
+# get service
 kubectl.exe get service -o wide -n x0-app
 ```
 
