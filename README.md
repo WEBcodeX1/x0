@@ -57,7 +57,8 @@ feature using a clean abstraction model.
 Feeding objects with data and getting data from objects (graph based JSON) also saves
 a lot of effort due to a smart / recursive objects metadata model.
 
-See examples section to better understand object modeling and how to implement.
+See Sphinx documentation examples section ([./doc](./doc)) for a better understanding
+of object modeling and how to implement in detail.
 
 >[!NOTE]
 > x0 provides *object instancing* in **runtime** with 0 backend-communication.
