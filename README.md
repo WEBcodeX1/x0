@@ -70,6 +70,8 @@ of object modeling and how to implement in detail.
 The JSON based kubernetes installer makes it easy to deploy multiple application
 environments in no time.
 
+See [./kubernetes/MINIKUBE.md](./kubernetes/MINIKUBE.md).
+
 >[!NOTE]
 > Also minikube on Windows is *partially* supported.
 
