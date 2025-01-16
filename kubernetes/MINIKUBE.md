@@ -386,6 +386,24 @@ Check if the following services exist.
 | selenium-server-0      | ClusterIP          | 10.103.x.x         | 4444/TCP           |
 | x0-x0-app-test-svc     | ClusterIP          | 10.104.x.x         | 80/TCP             |
 
+### 8.4. Endpoints
+
+Get all endpoints from namespace "x0-app".
+
+```powershell
+# get endpoints
+kubectl.exe get endpoints -o wide -n x0-app
+```
+
+Check if the following endpoints exist and the IP-mapping to pods is correct.
+
+| NAME                | ENDPOINTS          |
+| ------------------- | ------------------ |
+| <img width="700px"> | <img width="320">  |
+| mypostgres          | 10.244.x.x:5432    |
+| selenium-server-0   | 10.244.x.x:4444    |
+| x0-x0-app-test-svc  | 10.244.x.x:80      |
+
 ### 8.3. DNS
 
 Add an DNS or "%windir%\system32\drivers\etc\hosts" entry for minikube external IP address
