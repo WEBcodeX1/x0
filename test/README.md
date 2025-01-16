@@ -2,41 +2,38 @@
 
 ## 1. Unit Testing
 
+Currently no unit tests exist, integration tests are sufficient to guarantee proper
+system functionality.
+
 ## 2. Integration Tests
 
-Integration Tests ensure functionality of all framework features especially on Base System changes.
+Integration tests ensure functionality of all framework features especially on
+*x0 base system* changes.
 
-The following logical Test Groups are implemented:
+The following logical test groups are implemented:
 
 * Base Objects Default Parameters
 * Base Objects Dynamic Parameters
 * Base Objects Interactions
 
-## 3. Test Types
+## 3. Docker Test Run
 
-The following test-types exist:
+Local docker test run depends on running selenium server(s).
 
-1. Local Docker Test, starts `x0-app`, `x0-db` `selenium-server-0` and `x0-test` docker container(s), pytest-3 is run inside `x0-test` container
-2. Run inside Kubernetes app namespace(s), docker container from 1) will be started in Test-Pod with `HostAliases` set
+1. Execute `python3 run-selenium-server.py` to start selenium container
+2. Execute `../docker/x0-start-containers.sh` to start `x0-app` and `x0-db` containers
+3. Execute `run-test-container.sh` to finally start test run
 
-## 4. Run Tests
+## 4. Kubernetes Test Run
 
-Execute **`./run-test-container.sh`** to start 1) local test containers.
+Kubernetes test run is implemented in minikube environment.
+See [../kubernetes/MINIKUBE.md](../kubernetes/MINIKUBE.md).
 
-## 5. Kubernetes Tests
+## 5. Environment Variables
 
-Test runners are under development currently.
+Set `TEST_HTTPS_ONLY` Environment Variable to 1 `--env TEST_HTTPS_ONLY=1` to
+run all test vhost-URLs with https:// prefix.
 
-## 6. Environment Variables
+## 6. Test-Implementation
 
-Set "`TEST_HTTPS_ONLY`" Environment Variable to 1 (`--env TEST_HTTPS_ONLY=1`) to run all test Vhost-URLs with https:// prefix.
-
-Environment Variale "`RUN_NAMESPACE`" is internally used by Kubbernetes-Installer to automatically refer (pass to Pod) the correct Kubernetes-Namespace.
-
-## 8. Test-Processing
-
-Detailed Test-Processing / Workflows (including `app-config.json` / Vhosts), see Developer-Documentation in `/doc`.
-
-## 7. Test-Implementation
-
-To implement own tests, see Developer-Documentation in `/doc`.
+Test implementation specifications are documented in *x0 developer documentation*  `/doc`.
