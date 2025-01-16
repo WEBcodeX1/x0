@@ -404,11 +404,48 @@ Check if the following endpoints exist and the IP-mapping to pods is correct.
 | selenium-server-0   | 10.244.x.x:4444    |
 | x0-x0-app-test-svc  | 10.244.x.x:80      |
 
-### 8.3. DNS
+### 8.5. Ingress
 
-Add an DNS or "%windir%\system32\drivers\etc\hosts" entry for minikube external IP address
-(x0-app.x0.localnet).
+Get ingress from namespace "x0-app".
 
-Open the following URL in local browser, this should display a simle "Hello World!" text.
+```powershell
+# get ingress
+kubectl.exe get ingress -o wide -n x0-app
+```
 
-http://x0-app.x0.localnet/python/Index.py
+Check if the following ingress exists.
+
+| NAME                            | CLASS              | HOSTS              | ADDRESS            |
+| ------------------------------- | ------------------ | ------------------ | ------------------ |
+| <img width="420px">             | <img width="200">  | <img width="200">  | <img width="200">  |
+| x0-x0-app-test-minikube-ingress | nginx              | x0-app.x0.localnet | 172.17.84.42       |
+
+### 8.6. DNS
+
+>[!WARNING]
+> Note kubernetes is using **4 IP scopes**
+
+1. Hypervisor Host IP (NAT)
+2. Ingress: Docker Network (172.17.x.x)
+3. Kube Proxy Subnets (10.103.x.x, 10.104.x.x) 
+4. Internal PODs (10.244.x.x)
+
+Get the Hypervisor Host IP.
+
+```powershell
+# get external ip address
+minikube ip
+```
+
+Now add a host entry to the hosts file or add an A record to your local DNS server.
+
+`192.168.200.128  x0-app.x0.localnet`
+
+Open the following URL in local browser, this should display a simple "Hello World!" text.
+
+`http://x0-app.x0.localnet/python/Index.py`
+
+Also check the following test(s) and example(s).
+
+`http://x0-app.x0.localnet/python/Index.py?appid=test_base`<br>
+`http://x0-app.x0.localnet/python/Index.py?appid=example1`
