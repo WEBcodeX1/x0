@@ -45,6 +45,11 @@ The following Docker Containers exist:
 * `x0-db-install-tpl` (Kubernetes Database Installer Image / Template)
 * `x0-test` (x0-app Test Image)
 
+>[!NOTE]
+> Note the `x0-db` image for running local docker contains full postgres database
+> system. On kubernetes (kubegres) only a database installer container (`x0-db-install`)
+> is needed.
+
 ## 4. Environment Variables
 
 Export the following environment-variables to control / use a "local" Ubuntu-Mirror:
