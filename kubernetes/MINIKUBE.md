@@ -18,7 +18,7 @@ Answer "Y"(es) to reboot. Afterwards Hyper-V is operational.
 
 >[!NOTE]
 > Install Git for Windows 64bit before you continue, it contains `curl` binary
-> which is used by Setup.py
+> which is used / referenced by Setup.py
 
 >[!NOTE]
 > Also install the remaining dependencies (see 3. Dependencies).
