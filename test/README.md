@@ -2,20 +2,15 @@
 
 ## 1. Unit Testing
 
-There will be **no** focus on Unit Testing. Integration Tests roughly rationalise Unit Testing completely for all use-cases. Furthermore no suitable JavaScript Unit Testing Framework is currently available on the market.
-
-For these reasons mentioned we ommit Unit Testing completely to boost development speed.
-
 ## 2. Integration Tests
 
-Integration Tests should ensure functionality of all framework features especially on Base System changes.
+Integration Tests ensure functionality of all framework features especially on Base System changes.
 
-The following logical Test Groups will be implemented:
+The following logical Test Groups are implemented:
 
-* Base Objects Default Parameters (Browser DOM Existence)
-* Base Objects Dynamic Parameters (Object Variants)
-* Base Objects Clickable Interactions
-* Object to Object Interactions
+* Base Objects Default Parameters
+* Base Objects Dynamic Parameters
+* Base Objects Interactions
 
 ## 3. Test Types
 
