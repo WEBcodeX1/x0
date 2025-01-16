@@ -328,12 +328,24 @@ After installation, the following kubernetes objects should have been generated.
 
 ### 8.1. Namespaces
 
-Check, if the namespace "x0-app" exists.
+Get all existing namespaces.
 
 ```powershell
 # get namespaces
-kubectl get namespaces
+kubectl.exe get namespace -o wide
 ```
+
+Check, if the following namespaces, especially "x0-app" exists.
+
+| NAME                | STATUS             |
+| ------------------- | ------------------ |
+| <img width="700px"> | <img width="320">  |
+| ingress-nginx       | Active             |
+| kube-node-lease     | Active             |
+| kube-public         | Active             |
+| kube-system         | Active             |
+| kubegres-system     | Active             |
+| kx0-app             | Active             |
 
 ### 8.2. Pods
 
