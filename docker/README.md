@@ -20,7 +20,7 @@ apt-get install docker.io docker-buildx
 > 24.04 is unsupported and does not work currently.
 
 * Build / update debian package(s) for all Docker images
-* Build Docker images (`x0-app` and `x0-db`)
+* Build Docker images (`x0-app`, `x0-db` and `x0-test`)
 
 The following shell commands do the job:
 
@@ -32,6 +32,7 @@ cd $repo/debian && debuild
 cd $repo/docker
 ./build-x0-app.sh
 ./build-x0-db.sh
+./build-x0-test.sh
 
 # start local app
 x0-start-containers.sh
