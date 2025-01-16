@@ -349,12 +349,24 @@ Check, if the following namespaces, especially "x0-app" exists.
 
 ### 8.2. Pods
 
-Check running pods.
+Get all existing pods from namespace "x0-app".
 
 ```powershell
 # get pods
 kubectl get pods -n x0-app 
 ```
+
+Check if the following pods exist, especially "READY" and "STATUS".
+Also an internal IPv4 address must be assigned.
+
+| NAME                  | READY              | STATUS             | IP                 |
+| --------------------- | ------------------ | ------------------ | ------------------ |
+| <img width="420px">   | <img width="200">  | <img width="200">  | <img width="200">  |
+| mypostgres-1-0        | 1/1                | Running            | 10.244.x.x         |
+| selenium-server-0     | 1/1                | Running            | 10.244.x.x         |
+| x0-test-db-install    | 0/1                | Completed          | 10.244.x.x         |
+| x0-test-deployment-.. | 1/1                | Running            | 10.244.x.x         |
+| x0-test-test-run      | 0/1                | Completed          | 10.244.x.x         |
 
 ### 8.3. DNS
 
