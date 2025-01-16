@@ -15,8 +15,12 @@ apt-get install docker.io docker-buildx
 
 ## 2. Requirements / Build Application
 
-* Build / update Debian Package for all Docker Images
-* Build Docker Images (`x0-app` and `x0-db`)
+>[!WARNING]
+> All dockerfiles have been updated to use ubuntu:22.04 images.
+> 24.04 is unsupported and does not work currently.
+
+* Build / update debian package(s) for all Docker images
+* Build Docker images (`x0-app` and `x0-db`)
 
 The following shell commands do the job:
 
