@@ -1,10 +1,11 @@
 # Kubernetes Minikube Installation Instructions
 
-The following installation instructions cover the installation of the base
-*x0 system* on a kubernetes minikube including CI / tests. See *x0 app packaging*
-[../PACKAGING.md](../PACKAGING.md) subsection how to build your application
-for running in a minikube environment (this is nearly transparent to the
-*x0-base installation* process.
+The following installation instructions cover the installation of the
+base *x0 system* on a kubernetes minikube cluster including CI / tests.
+
+See *x0 app packaging* [../PACKAGING.md](../PACKAGING.md) subsection how
+to build your application for running in a minikube environment (this is
+nearly transparent to the *x0-base installation* process.
 
 In short, run the following inside Windows Powershell (with Administrator
 privileges): system up and running.
