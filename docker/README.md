@@ -81,4 +81,4 @@ The ports 80, 443 and 5432 are accesible from localhost (testing, database admin
 
 ## 7. Integration / Build your own Application
 
-Documentation for _Building Your Own Application_ (Docker / Kubernetes) is documented under `/doc` subdir (Sphinx).
+Documentation (Sphinx) for building your own *x0 app* can be found here: [/doc](/doc).
