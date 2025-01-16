@@ -16,7 +16,7 @@ apt-get install docker.io docker-buildx
 ## 2. Requirements / Build Application
 
 >[!WARNING]
-> All dockerfiles have been updated to use ubuntu:22.04 images.
+> All dockerfiles have been updated to use ubuntu:22.04 images (before ubuntu:latest).
 > 24.04 is unsupported and does not work currently.
 
 * Build / update debian package(s) for all Docker images
