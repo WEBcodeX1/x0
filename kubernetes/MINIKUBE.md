@@ -30,6 +30,9 @@ cd .\x0\kubernetes\setup\
 python Setup.py
 ```
 
+>[!NOTE]
+> Add `x0-app.x0.localnet` to host DNS, access `http://x0-app.x0.localnet/python/Index.py&appid=test_base`
+
 The next chapters describe the installation process in detail.
 
 ## 1. Preface
