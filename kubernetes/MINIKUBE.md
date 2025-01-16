@@ -353,7 +353,7 @@ Get all existing pods from namespace "x0-app".
 
 ```powershell
 # get pods
-kubectl get pods -n x0-app 
+kubectl.exe get pods -n x0-app 
 ```
 
 Check if the following pods exist, especially "READY" and "STATUS".
@@ -367,6 +367,24 @@ Also an internal IPv4 address must be assigned.
 | x0-test-db-install     | 0/1                | Completed          | 10.244.x.x         |
 | x0-test-deployment-... | 1/1                | Running            | 10.244.x.x         |
 | x0-test-test-run       | 0/1                | Completed          | 10.244.x.x         |
+
+### 8.3. Service
+
+Get all services from namespace "x0-app".
+
+```powershell
+# get pods
+kubectl.exe get service -o wide -n x0-app
+```
+
+Check if the following services exist.
+
+| NAME                   | TYPE               | CLUSTER-IP         | PORT(S)            |
+| ---------------------- | ------------------ | ------------------ | ------------------ |
+| <img width="420px">    | <img width="200">  | <img width="200">  | <img width="200">  |
+| mypostgres             | ClusterIP          | None               | 5432/TCP           |
+| selenium-server-0      | ClusterIP          | 10.103.x.x         | 4444/TCP           |
+| x0-x0-app-test-svc     | ClusterIP          | 10.104.x.x         | 80/TCP             |
 
 ### 8.3. DNS
 
