@@ -40,10 +40,10 @@ x0-start-containers.sh
 The following Docker Containers exist:
 
 * `x0-app` (Web-Application)
-* `x0-db` (Postgresql-14 Database)
+* `x0-db` (Postgresql-14 Database used for running local docker)
 * `x0-db-install` (Kubernetes Database Installer Image)
 * `x0-db-install-tpl` (Kubernetes Database Installer Image / Template)
-* `x0-test` (Integration-Test Container)
+* `x0-test` (x0-app Test Image)
 
 ## 4. Environment Variables
 
