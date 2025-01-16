@@ -449,3 +449,19 @@ Also check the following test(s) and example(s).
 
 `http://x0-app.x0.localnet/python/Index.py?appid=test_base`<br>
 `http://x0-app.x0.localnet/python/Index.py?appid=example1`
+
+### 8.7. Tests
+
+To be 100% sure everything is working correctly, check the test-pods output.
+
+```powershell
+# get test pods logs
+kubectl.exe logs x0-test-test-run -o wide -n x0-app
+```
+
+The last lines should look like this.
+
+```powershell
+------------------ generated xml file: /tmp/pytest-junit.xml -------------------
+======================== 40 passed in 81.53s (0:01:21) =========================
+```
