@@ -1,7 +1,7 @@
-.. clickIT x0 (Cross-Objects) JavaScript Framework Documentation.
+.. x0 (Cross-Objects) JavaScript Framework Documentation.
 
-clickIT x0 Framework Documentation v1.0rc2
-===========================================
+x0 Framework Documentation v1.0rc2
+==================================
 
 .. toctree::
    :maxdepth: 4
@@ -9,16 +9,16 @@ clickIT x0 Framework Documentation v1.0rc2
 
    intro
    installation
-   kubernetes
    base-layout
-   config-files
+   configuration
+   kubernetes
    system-workflows
    base-objects
    control-logic
    pulldown-onchange
    enhanced-formating
    object-communication
-   source-data
+   data-sources
    backend-integration
    oop-model
    enhanced-objects
