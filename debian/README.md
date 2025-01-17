@@ -1,6 +1,8 @@
+# Build Debian Packages
+
 ## 1. Prerequisites
 
-Install debian build tools and gnupg (as root). Only do this, if you are interested in package building / modifying. The packages will be referenced / used in Docker Container build.
+Install debian build tools and gnupg (as root).
 
 ```
 apt-get -y install debuild gnupg
