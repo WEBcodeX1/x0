@@ -85,7 +85,7 @@ Detailled installation instruction(s) can be found in [./INSTALL.md](./INSTALL.m
 
 ### 10.1. OS Compatibility
 
-*x0 system* runs stabel on current Ubuntu Linux 22.04.x LTS (Jammy Jellyfish), inside
+*x0 system* runs stable on current Ubuntu Linux 22.04.x LTS (Jammy Jellyfish), inside
 local Docker containers or on native Google Kubernetes Engine (GKE).
 
 >[!NOTE]
