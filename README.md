@@ -7,7 +7,7 @@ building powerful Web-Browser Realtime-SPA (Single Page Applications) efficientl
 
 ## 2. Single Page Application
 
-SPA-applications are modern browser-aplications which run *nearly* backend independent,
+SPA-applications are modern browser-applications which run *nearly* backend independent,
 though getting more and more close to *real* desktop-apps.
 
 ## 3. Cross Objects
