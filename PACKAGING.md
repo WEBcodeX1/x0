@@ -1,6 +1,6 @@
 # Packaging
 
-Documentation following.
+Detailed documentation following.
 
 # 1. Skeleton Repository
 
