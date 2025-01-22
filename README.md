@@ -32,7 +32,7 @@ JavaScript (ECMA6 / ECMA7) still lacks overloading DOM object internal functions
 which makes building clean efficient abstraction models nearly impossible.
 
 Especially if you are a high level, experienced OOP programmer, immediate sadness,
-anger and an enourmos frustration level are highly possible symptoms.
+anger and an enormous frustration level are highly possible symptoms.
 
 x0 does the trick! **The Missing Layer** will be simulated, now modeling is fun again.
 If implemented in the correct way, even extremely efficient.
