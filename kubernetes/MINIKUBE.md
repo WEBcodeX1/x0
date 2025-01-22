@@ -7,8 +7,8 @@ See *x0 app packaging* [../PACKAGING.md](../PACKAGING.md) subsection how
 to build your application for running in a minikube environment (this is
 nearly transparent to the *x0-base installation* process.
 
-In short, run the following inside Windows Powershell (with Administrator
-privileges): system up and running.
+In short, run the following inside Windows 11 (Professional) Powershell
+(with Administrator privileges): system up and running.
 
 ```powershell
 # enable windows hyper-v feature
