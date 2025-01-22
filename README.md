@@ -81,7 +81,7 @@ See [./kubernetes/MINIKUBE.md](./kubernetes/MINIKUBE.md).
 
 ## 10. Technically
 
-Detailled installation instruction(s) can be found in [./INSTALL.md](./INSTALL.md) and subdirs **README.md**.
+Detailed installation instruction(s) can be found in [./INSTALL.md](./INSTALL.md) and subdirs **README.md**.
 
 ### 10.1. OS Compatibility
 
