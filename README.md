@@ -24,7 +24,7 @@ See examples section for more information.
 Due to x0 relying on *Bootstrap CSS* cross browser standards for all end-devices are
 guaranteed.
 
-Build / maintain only "ONE" single app (even android). IT-budgeg saved!
+Build / maintain only "ONE" single app (even android). IT-budget saved!
 
 ## 5. True Object Orientation / Clean Code
 
