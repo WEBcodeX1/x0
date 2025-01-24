@@ -22,9 +22,11 @@ See examples section for more information.
 ## 4. Responsiveness
 
 Due to x0 relying on *Bootstrap CSS* cross browser standards for all end-devices are
-guaranteed.
+guaranteed (CSS Grid system).
 
 Build / maintain only "ONE" single app (even android). IT-budget saved!
+
+Also x0 does not rely on bootstrap / external JavaScript includes.
 
 ## 5. True Object Orientation / Clean Code
 
