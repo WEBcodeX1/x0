@@ -83,7 +83,8 @@ See [./kubernetes/MINIKUBE.md](./kubernetes/MINIKUBE.md).
 
 ## 10. Technically
 
-Detailed installation instruction(s) can be found in [./INSTALL.md](./INSTALL.md) and subdirs **README.md**.
+Detailed installation instruction(s) can be found in [./INSTALL.md](./INSTALL.md)
+and subdirs **README.md**.
 
 ### 10.1. OS Compatibility
 
@@ -116,7 +117,12 @@ Currently the following OpenSource products are required to run the system:
 - Docker
 - Google Kubernetes Engine (GKE)
 
-## 11. Future Plans / Milestones
+## 11. Security
+
+For a better perspective on security, x0-system is PKCS 11 / PKCS 15 compatible
+(also on GKE). Provisioning is managed by its own PKI (Private Key Management) system.
+
+## 12. Future Plans / Milestones
 
 >[!NOTE]
 > We currently are working on a Python Application Server (FalconAS) to replace Apache and WSGI module.<br>
