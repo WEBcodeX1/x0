@@ -120,7 +120,8 @@ Currently the following OpenSource products are required to run the system:
 ## 11. Security
 
 For a better perspective on security, x0-system is PKCS 11 / PKCS 15 compatible
-(also on GKE). Provisioning is managed by its own PKI (Private Key Management) system.
+(also on GKE). Provisioning is managed by its own PKI (Private Key Management) system
+(non-free).
 
 ## 12. Future Plans / Milestones
 
