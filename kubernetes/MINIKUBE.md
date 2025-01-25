@@ -449,8 +449,9 @@ Open the following URL in local browser, this should display a simple "Hello Wor
 
 Also check the following test(s) and example(s).
 
-`http://x0-app.x0.localnet/python/Index.py?appid=test_base`<br>
-`http://x0-app.x0.localnet/python/Index.py?appid=example1`
+`http://x0-app.x0.localnet/python/Index.py?appid=example1`<br>
+`http://x0-app.x0.localnet/python/Index.py?appid=example4`<br>
+`http://x0-app.x0.localnet/python/Index.py?appid=test_base`
 
 ### 8.7. Tests
 
