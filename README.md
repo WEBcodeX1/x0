@@ -125,7 +125,8 @@ For a better perspective on security, x0-system is PKCS 11 / PKCS 15 compatible
 ## 12. Future Plans / Milestones
 
 >[!NOTE]
-> We currently are working on a Python Application Server (FalconAS) to replace Apache and WSGI module.<br>
-> https://github.com/WEBcodeX1/http-1.2 (still beta).
+> We currently are working on a Python Application Server (FalconAS) to replace Apache
+> and WSGI module.<br>
+> https://github.com/WEBcodeX1/http-1.2.
 
 Milestones are github managed; can be found at "Issues / Milestones".
