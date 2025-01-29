@@ -1,5 +1,7 @@
 # x0 JavaScript Framework
 
+![x0-logo](./image/x0-logo-github.png)
+
 ## 1. Abstract / Purpose
 
 **x0 (cross-object) JavaScript Framework** /krɒs ɒb.dʒɪkt/  is a modern tool for
