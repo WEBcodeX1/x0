@@ -4,28 +4,25 @@
 		"Type": "TabContainer",
 		"Attributes":
 		{
-			"StyleActive": "sysTabActive",
-			"StyleInactive": "sysTabInactive",
-			"Tabs":
-			{
-				"Tab1":
+			"Tabs": [
 				{
+					"ID": "Tab1",
 					"Attributes":
-					{
-						"Default": true,
-						"TextID": "TXT.BASIC-TABCONTAINER.TAB1",
-						"Style": "col-md-4"
-					}
+						{
+							"Default": true,
+							"TextID": "TXT.BASIC-TABCONTAINER.TAB1",
+							"Style": "col-md-4"
+						}
 				},
-				"Tab2":
 				{
+					"ID": "Tab2",
 					"Attributes":
-					{
-						"TextID": "TXT.BASIC-TABCONTAINER.TAB2",
-						"Style": "col-md-8"
-					}
+						{
+							"TextID": "TXT.BASIC-TABCONTAINER.TAB2",
+							"Style": "col-md-8"
+						}
 				}
-			}
+			]
 		}
 	},
 
@@ -33,7 +30,7 @@
 	{
 		"Type": "Link",
 		"Attributes": {
-			"Style": "sysLink",
+			"Style": "btn btn-secondary d-none",
 			"TextID": "TXT.MENU.BASIC-TABCONTAINER.SCREEN1",
 			"ScreenID": "Screen1"
 		}
@@ -43,7 +40,7 @@
 	{
 		"Type": "SQLText",
 		"Attributes": {
-			"Style": "sysBase",
+			"Style": "md-4",
 			"TextID": "TXT.BASIC-TABCONTAINER.TEXT1"
 		}
 	},
@@ -52,9 +49,8 @@
 	{
 		"Type": "SQLText",
 		"Attributes": {
-			"Style": "sysBase",
+			"Style": "md-4",
 			"TextID": "TXT.BASIC-TABCONTAINER.TEXT2"
 		}
 	}
-
 }
