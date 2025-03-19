@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -24,6 +24,8 @@ function sysFileUpload()
 	this.FileName				= null;
 	this.Status					= null;
 	this.RuntimeSetDataFunc		= this.UploadFinished;
+
+	this.overrideDOMObjectID	= true;
 }
 
 sysFileUpload.prototype = new sysBaseObject();
@@ -38,21 +40,28 @@ sysFileUpload.prototype.init = function()
 	const Attributes = this.JSONConfig.Attributes;
 
 	this.DOMStyle = Attributes.Style;
-	this.DOMType = 'form';
 
 	//console.log('::init Attributes:%o', Attributes);
 
 	var SQLTextObj = new sysObjSQLText();
 	SQLTextObj.ObjectID = 'SQLText';
 	SQLTextObj.TextID = Attributes.TextID;
-	SQLTextObj.JSONConfig = { "Attributes": { "Style": Attributes.StyleDescription } };
+
+	SQLTextObj.JSONConfig = {
+		"Attributes": {
+			"Style": Attributes.StyleDescription,
+			"IconStyle": "fa-solid fa-upload"
+		}
+	};
+
 	SQLTextObj.init();
 	this.addObject(SQLTextObj);
 
 	var FileSelectButtonHTML = '<input ';
 	FileSelectButtonHTML += 'type="file" ';
 	FileSelectButtonHTML += 'id="' + this.ObjectID + '_select" ';
-	FileSelectButtonHTML += 'name="' + this.ObjectID + '_file">';
+	FileSelectButtonHTML += 'name="' + this.ObjectID + '_file" ';
+	FileSelectButtonHTML += 'class="form-control">';
 
 	var FileSelectButton = new sysBaseObject();
 	FileSelectButton.ObjectID = this.ObjectID + 'FileButton';
@@ -77,13 +86,16 @@ sysFileUpload.prototype.init = function()
 
 	var UploadButton = new sysObjButtonInternal();
 	UploadButton.ObjectID = this.ObjectID + 'UploadButton';
+
 	UploadButton.JSONConfig = {
 		"Attributes": {
-			"Style": Attributes.StyleUploadButton,
-			"TextID": "SYSTEM.UPLOAD.BUTTON",
+			"FormButton": "True",
+			"Style": 'w-100 ' + Attributes.StyleUploadButton,
+			"Value": "SYSTEM.UPLOAD.BUTTON",
 			"Action": "upload"
 		}
 	};
+
 	UploadButton.ScreenObject = this.ScreenObject;
 	UploadButton.init();
 
@@ -104,7 +116,8 @@ sysFileUpload.prototype.init = function()
 
 sysFileUpload.prototype.startUpload = function()
 {
-	if (this.getObjectData().length > 0) {
+	const FileName = this.getObjectData();
+	if (FileName.length > 0) {
 		this.FormObject = new FormData(this.getDOMelement());
 		this.FormObject.append("SessionID", sysFactory.SysSessionValue);
 
@@ -125,8 +138,8 @@ sysFileUpload.prototype.startUpload = function()
 
 sysFileUpload.prototype.updateProgress = function(progress)
 {
-	console.debug('::updateProgress progress:%o', progress);
 	try {
+		console.debug('::updateProgress progress:%o', progress);
 		this.ProgressPercent = Math.round(progress.loaded * 100 / progress.total);
 	}
 	catch(err) {

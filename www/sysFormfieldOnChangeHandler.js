@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -47,10 +47,9 @@ sysFormFieldOnChangeHandler.prototype.checkLengthMismatch = function(Length, Che
 
 sysFormFieldOnChangeHandler.prototype.processOnChangeItem = function()
 {
-
 	const JSONConfig = this.JSONConfig.Attributes.OnChange;
 
-	//console.debug('::processOnChangeItem this:%o JSONConfig:%o', this, JSONConfig);
+	console.debug('::processOnChangeItem this:%o JSONConfig:%o', this, JSONConfig);
 
 	if (JSONConfig !== undefined) {
 		const OnChangeConfig = Array.isArray(JSONConfig) ? JSONConfig : [ JSONConfig ];
@@ -81,7 +80,7 @@ sysFormFieldOnChangeHandler.prototype.processOnChangeItem = function()
 				}
 			}
 
-			if (OnChangeElement.OnChecked === true) {
+			if (OnChangeElement.OnChecked == true) {
 				//console.debug('::processOnChangeItem OnChangeElement:%o', OnChangeElement);
 				try {
 					const ObjectID = (this.InstancePrefix === undefined) ? OnChangeElement.ObjectID : this.InstancePrefix + OnChangeElement.ObjectID;
@@ -89,12 +88,14 @@ sysFormFieldOnChangeHandler.prototype.processOnChangeItem = function()
 					const Value = this.RuntimeGetDataFunc();
 					console.debug('::processOnChangeItem OnValue ObjectID:%s', ObjectID);
 					//console.debug('::processOnChangeItem OnValue Object Runtime Data:%s OnChangeValue:%s', FormValue, OnChangeElement.OnValue);
-					if (Value === true) {
+					if (Value == true) {
 						DstObj.setActivated();
-						DstObj.setDOMVisibleStateRecursive('visible');
+						DstObj.VisibleState = 'visible';
+						DstObj.setDOMVisibleState();
 					}
 					else {
-						DstObj.setDOMVisibleStateRecursive('hidden');
+						DstObj.VisibleState = 'hidden';
+						DstObj.setDOMVisibleState();
 						DstObj.setDeactivated();
 					}
 				}
@@ -113,10 +114,12 @@ sysFormFieldOnChangeHandler.prototype.processOnChangeItem = function()
 					//console.debug('::processOnChangeItem OnValue Object Runtime Data:%s OnChangeValue:%s', FormValue, OnChangeElement.OnValue);
 					if (FormValue == OnChangeElement.OnValue) {
 						DstObj.setActivated();
-						DstObj.setDOMVisibleStateRecursive('visible');
+						DstObj.VisibleState = 'visible';
+						DstObj.setDOMVisibleState();
 					}
 					else {
-						DstObj.setDOMVisibleStateRecursive('hidden');
+						DstObj.VisibleState = 'hidden';
+						DstObj.setDOMVisibleState();
 						DstObj.setDeactivated();
 					}
 				}
@@ -136,71 +139,39 @@ sysFormFieldOnChangeHandler.prototype.processOnChangeItem = function()
 					if (ActiveOnValues[i] == FormValue) {
 						//console.debug('::processOnChangeItem enable()');
 						DstObj.setActivated();
-						DstObj.setDOMVisibleStateRecursive('visible');
+						DstObj.VisibleState = 'visible';
+						DstObj.setDOMVisibleState();
 					}
 				}
 				var DeactivateOnValues = OnChangeElement.DeactivateOnValues;
 				for (i in DeactivateOnValues) {
 					if (DeactivateOnValues[i] == FormValue) {
 						//console.debug('::processOnChangeItem disable()');
-						DstObj.setDOMVisibleStateRecursive('hidden');
+						DstObj.VisibleState = 'hidden';
+						DstObj.setDOMVisibleState();
 						DstObj.setDeactivated();
 					}
 				}
 			}
 
-			if (OnChangeElement.ObjectsEnableOnValues !== undefined) {
-				this.processObjectsEnableOnValues(OnChangeElement);
-			}
+			if (OnChangeElement.EnableOnValues !== undefined) {
 
-			if (OnChangeElement.EnableDependOnValues !== undefined) {
-
-				const EnableDependOnValues = OnChangeElement.EnableDependOnValues;
-
-				for (DependID in EnableDependOnValues) {
-					const DependItem = EnableDependOnValues[DependID];
-					if (DependItem.DependOn !== undefined) {
-						const DependOnActivate = DependItem.DependOnActivate;
-						for (DisableID in DependOnActivate) {
-							const DisableArray = DependOnActivate[DisableID];
-							for (Index in DisableArray) {
-								console.debug('::DisableObject ObjectID:%s', DisableArray[Index]);
-								const DisableObject = sysFactory.getObjectByID(DisableArray[Index]);
-								DstObj.setDOMVisibleStateRecursive('hidden');
-								DstObj.setDeactivated();
-							}
-						}
-					}
-					else {
-						for (Index in DependItem) {
-							const DisableObject = sysFactory.getObjectByID(DependItem[Index]);
-							DstObj.setDOMVisibleStateRecursive('hidden');
-							DstObj.setDeactivated();
-						}
+				const ObjectID = (this.InstancePrefix === undefined) ? OnChangeElement.ObjectID : this.InstancePrefix + OnChangeElement.ObjectID;
+				var DstObj = sysFactory.getObjectByID(ObjectID);
+				const FormValue = this.RuntimeGetDataFunc();
+				//console.debug('::processOnChangeItem EnableOnValues ObjectID:%s DstObj:%o FormValue:', ObjectID, DstObj, FormValue);
+				var EnableValues = OnChangeElement.EnableOnValues;
+				for (i in EnableValues) {
+					if (EnableValues[i] == FormValue) {
+						//console.debug('::processOnChangeItem enable()');
+						DstObj.enableDOMElement();
 					}
 				}
-
-				for (DependValue in EnableDependOnValues) {
-					const DependItem = EnableDependOnValues[DependValue];
-					if (this.getRuntimeData() == DependValue) {
-						if (DependItem.DependOn !== undefined) {
-							const DependendObject = sysFactory.getObjectByID(DependItem.DependOn);
-							const DependendObjectValue = DependendObject.getRuntimeData();
-							const ActivateArray = DependItem.DependOnActivate[DependendObjectValue];
-							for (Index in ActivateArray) {
-								const EnableObject = sysFactory.getObjectByID(ActivateArray[Index]);
-								DstObj.setActivated();
-								DstObj.setDOMVisibleStateRecursive('visible');
-							}
-							
-						}
-						else {
-							for (Index in DependItem) {
-								const EnableObject = sysFactory.getObjectByID(DependItem[Index]);
-								DstObj.setActivated();
-								DstObj.setDOMVisibleStateRecursive('visible');
-							}
-						}
+				var DisableValues = OnChangeElement.DisableOnValues;
+				for (i in DisableValues) {
+					if (DisableValues[i] == FormValue) {
+						//console.debug('::processOnChangeItem disable()');
+						DstObj.disableDOMElement();
 					}
 				}
 			}
@@ -263,118 +234,6 @@ sysFormFieldOnChangeHandler.prototype.processOnChangeItem = function()
 
 	//- trigger iframe resize
 	sysFactory.resizeIframe();
-
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "processObjectsEnableOnValuesActivate"
-//------------------------------------------------------------------------------
-//- activate related formlist objects
-//------------------------------------------------------------------------------
-
-sysFormFieldOnChangeHandler.prototype.processObjectsEnableOnValuesActivate = function(OnChangeElement, SelectedFormValue)
-{
-	for (Key in OnChangeElement.ObjectsEnableOnValues) {
-		var ListElements = OnChangeElement.ObjectsEnableOnValues[Key];
-		if (SelectedFormValue == Key) {
-			for (i in ListElements) {
-				try {
-					var ListElement = ListElements[i];
-					var ListObj = sysFactory.getObjectByID(ListElement);
-					//console.debug('::processObjectsEnableOnValues Activate ListElement:%s', ListElement);
-
-					ListObj.setActivated();
-					ListObj.setDOMVisibleStateRecursive('visible');
-
-					// recurse on single list element
-					var PulldownFormItems = ListObj.getFormFieldItemsByType('pulldown');
-					for (i in PulldownFormItems) {
-						var FormItem = PulldownFormItems[i];
-						//console.log('::processObjectsEnableOnValues Activate FormItem:%o', FormItem);
-						//FormItem.setupOnChangeConfig();
-						try {
-							const RefOnChangeElement = FormItem.OnChangeElements[0];
-						}
-						catch(err) {
-							console.debug('::processObjectsEnableOnValues Activate RefOnChangeElement=undefined');
-						}
-						//console.log('::processObjectsEnableOnValues Activate RefOnChangeElement:%o', RefOnChangeElement);
-						if (RefOnChangeElement !== undefined &&
-							RefOnChangeElement.PulldownRef !== undefined &&
-							RefOnChangeElement.PulldownRef.PulldownID == this.ObjectID &&
-							RefOnChangeElement.PulldownRef.PulldownValue == SelectedFormValue) {
-							//console.log('::processObjectsEnableOnValues Activate RecurseOnItem:%o', FormItem);
-							FormItem.processObjectsEnableOnValuesActivate(RefOnChangeElement, FormItem.getRuntimeData());
-						}
-					}
-				}
-				catch(err) {
-					console.debug('::processObjectsEnableOnValues Activate Error:%s', err);
-				}
-			}
-		}
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "processObjectsEnableOnValuesDeactivate"
-//------------------------------------------------------------------------------
-//- deactivate related formlist objects
-//------------------------------------------------------------------------------
-
-sysFormFieldOnChangeHandler.prototype.processObjectsEnableOnValuesDeactivate = function(OnChangeElement)
-{
-	//console.log('::processObjectsEnableOnValues Deactivate OnChangeElement:%o SelectedFormValue:%s', OnChangeElement, SelectedFormValue);
-	sysFactory.currentTabObject.resetPulldownFormListStatus();
-	for (Key in OnChangeElement.ObjectsEnableOnValues) {
-
-		var ListElements = OnChangeElement.ObjectsEnableOnValues[Key];
-
-		for (i in ListElements) {
-			try {
-				const ListElement = ListElements[i];
-
-				const ListObj = sysFactory.getObjectByID(ListElement);
-				//console.debug('::processObjectsEnableOnValuesDeactivate ObjectsEnableOnValues ListElementID:%s', ListElement);
-
-				ListObj.setDOMVisibleStateRecursive('hidden');
-				ListObj.setDeactivated();
-
-				// recurse on single list element
-				var PulldownFormItems = ListObj.getFormFieldItemsByType('pulldown');
-				//console.debug('::processObjectsEnableOnValuesDeactivate ListObj:%o PulldownFormItems:%o', ListObj, PulldownFormItems);
-
-				for (i in PulldownFormItems) {
-					const FormItem = PulldownFormItems[i];
-					//console.debug('::processObjectsEnableOnValuesDeactivate FormItem:%o', FormItem);
-					FormItem.processObjectsEnableOnValuesDeactivate(FormItem.JSONConfig.Attributes.OnChange);
-				}
-			}
-			catch(err) {
-				console.debug('::processObjectsEnableOnValues Deactivate Error:%s', err);
-			}
-		}
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "processObjectsEnableOnValues"
-//------------------------------------------------------------------------------
-
-sysFormFieldOnChangeHandler.prototype.processObjectsEnableOnValues = function(OnChangeElement)
-{
-    try {
-        var FormValue = this.getRuntimeData();
-        this.processObjectsEnableOnValuesDeactivate(OnChangeElement);
-        this.processObjectsEnableOnValuesActivate(OnChangeElement, FormValue);
-    }
-    catch (err) {
-        console.debug('::processObjectsEnableOnValues error:%s', err);
-    }
-
 }
 
 
@@ -446,8 +305,6 @@ MatchHandlerItem.prototype.process = function()
 		this.MatchResult = TableColValue == this.Value ? true : false;
 	}
 }
-
-
 
 
 //------------------------------------------------------------------------------

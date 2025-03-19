@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -50,10 +50,17 @@ sysErrorContainer.prototype.reset = function()
 //- METHOD "displayError"
 //------------------------------------------------------------------------------
 
-sysErrorContainer.prototype.displayError = function(ErrorMsg)
+sysErrorContainer.prototype.displayError = function(ErrorMsg, ErrorDetailMsg)
 {
-	this.DOMStyle = 'um-field-error';
-	this.DOMValue = '<span class="um-field-arrow"><i class="um-faicon-caret-up"></i></span>' + ErrorMsg;
+	var ErrorDisplayMsg = ErrorMsg;
+
+	if (ErrorDetailMsg !== undefined) {
+		ErrorMsg = ErrorMsg.replace(/\.$/, '');
+		ErrorDisplayMsg = ErrorMsg + ' (' + ErrorDetailMsg + ').';
+	}
+
+	this.DOMStyle = 'alert alert-danger';
+	this.DOMValue = '<i class="fa-solid fa-triangle-exclamation fa-lg"></i> ' + ErrorDisplayMsg;
 	this.setDOMElementStyle();
 	this.setDOMElementValue();
 }

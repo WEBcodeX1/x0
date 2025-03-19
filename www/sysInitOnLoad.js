@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -145,11 +145,11 @@ function InitOk(XHR) {
 	//- Style Defaults
 	//----------------------------------------------------------------------------
 
-	sysFactory.DefaultStyleScreen			= 'sysScreenRoot col-lg-10 col-md-12 ms-auto me-auto';
-	sysFactory.DefaultStyleMenu				= 'col-lg-2 col-md-12';
-	sysFactory.DefaultStyleScreenOverlay	= 'sysScreenOverlay model-dialog modal-lg';
-	sysFactory.DefaultStyleListNavLeft		= 'col-6 pl-0';
-	sysFactory.DefaultStyleListNavRight		= 'col-6 text-right pr-0';
+	sysFactory.DefaultStyleScreen			= 'col-md-8 ms-auto me-auto';
+	sysFactory.DefaultStyleMenu				= 'menu-absolute-pos';
+	sysFactory.DefaultStyleScreenOverlay	= 'p-3 shadow-lg border bg-gradient bg-opacity-75 overlay-default';
+	sysFactory.DefaultStyleListNavLeft		= 'col-6 p-4 pl-0';
+	sysFactory.DefaultStyleListNavRight		= 'col-6 p-4 float-end text-end pr-0';
 
 
 	//----------------------------------------------------------------------------
@@ -164,13 +164,6 @@ function InitOk(XHR) {
 	//----------------------------------------------------------------------------
 
 	sysFactory.UserFunctions = new Object();
-
-
-	//----------------------------------------------------------------------------
-	//- Validation Object
-	//----------------------------------------------------------------------------
-
-	sysFactory.ObjValidate = new sysFormFieldValidate();
 
 
 	//----------------------------------------------------------------------------

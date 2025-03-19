@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -11,7 +11,7 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
 
 /*
- * Actually message handling is implemented by using "Long Polling".
+ * Currently message handling is implemented by using "long polling".
  * This should be replaced by WebSockets in future releases.
 */
 
@@ -85,11 +85,6 @@ sysAsyncNotifyMsgHandler.prototype.callbackXMLRPCAsync = function()
 //------------------------------------------------------------------------------
 //- METHOD "processMsg"
 //------------------------------------------------------------------------------
-
-/*
- * msgserver now is able to handle json messages with substructures not only strings
- * in json which makes parsing obsolete
-*/
 
 sysAsyncNotifyMsgHandler.prototype.processMsg = function(Message)
 {
@@ -200,13 +195,7 @@ sysAsyncNotifyMsgHandler.prototype.processMsg = function(Message)
 		}
 	}
 
-	/*
-	//- check for encrypted messages
-	const RegexEncryptedMsg = /^b'(.+)'$/g;
-	const RegexEncryptedMsgResult = RegexEncryptedMsg.exec(Message);
-	*/
-
-	/* try catch block for old style non object oriented messages */
+	/* try catch block for old style non-json messages */
 	try {
 		var EncMsgHandler = sysEncryptionMsgHandler(Message);
 	}
@@ -228,8 +217,7 @@ function sysEncryptionMsgHandler(Message)
 			"message": Message.data,
 			"source": Message.session_src
 		}
-		//CallURL = sysFactory.AddEncryptedMsgURL;
-		CallURL = '/python/addEncryptedMessage.py';
+		CallURL = sysFactory.AddEncryptedMsgURL;
 	}
 
 	if (Message.type == 20) {
@@ -237,8 +225,7 @@ function sysEncryptionMsgHandler(Message)
 			"ContactID": Message.session_src,
 			"ContactRequestHash": Message.contactrequest_hash
 		}
-		//CallURL = sysFactory.AddContactRequestMsgURL;
-		CallURL = '/python/addContactRequestMessage.py';
+		CallURL = sysFactory.AddContactRequestMsgURL;
 	}
 
 	if (Message.type == 30) {
@@ -247,7 +234,7 @@ function sysEncryptionMsgHandler(Message)
 			"ContactRequestHash": Message.contactrequest_hash,
 			"ContactPublicKey": Message.public_key
 		}
-		CallURL = '/python/approoveContact.py';
+		CallURL = sysFactory.ApprooveContactRequestMsgURL;;
 	}
 
 	var RPC = new sysCallXMLRPC(CallURL);

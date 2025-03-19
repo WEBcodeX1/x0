@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -26,9 +26,9 @@ function sysContextMenu()
 	this.pageY				= 0;
 
 	this.ScreenObject		= null;
-	this.SourceObject		= null;
+	this.ParentObject		= null;
 
-	this.ChildObjects		= new Array();		//- Child Objects recursive
+	this.ChildObjects		= new Array();		//- Child Objects
 }
 
 //- inherit sysBaseDOMElement
@@ -117,7 +117,6 @@ sysContextMenu.prototype.init = function()
 
 	this.renderObject();
 	this.processEventListener();
-
 }
 
 
@@ -138,7 +137,7 @@ sysContextMenu.prototype.addItems = function()
 		ContextMenuItem.ID							= ItemKey;
 
 		ContextMenuItem.TextID						= ProcessItem.TextID;
-		ContextMenuItem.Icon						= ProcessItem.Icon;
+		ContextMenuItem.IconStyle					= ProcessItem.IconStyle;
 
 		ContextMenuItem.DstScreenID					= ProcessItem.DstScreenID;
 		ContextMenuItem.DstObjectID					= ProcessItem.DstObjectID;
@@ -166,7 +165,7 @@ sysContextMenu.prototype.addItems = function()
 		ContextMenuItem.ResetAll					= ProcessItem.ResetAll;
 
 		ContextMenuItem.ScreenObject				= this.ScreenObject;
-		ContextMenuItem.SourceObject				= this.SourceObject;
+		ContextMenuItem.ParentObject				= this.ParentObject;
 
 		ContextMenuItem.ContextMenuObject			= this;
 
@@ -181,7 +180,7 @@ sysContextMenu.prototype.addItems = function()
 
 sysContextMenu.prototype.processItems = function()
 {
-	var topPosGenerator = this.topPositionGenerator();
+	//var topPosGenerator = this.topPositionGenerator();
 
 	for (ItemKey in this.Items) {
 
@@ -192,9 +191,8 @@ sysContextMenu.prototype.processItems = function()
 		//console.log(ItemObj);
 
 		var ItemRowObj = new sysBaseObject();
-		ItemRowObj.ObjectID = 'ContextMenuRow' + ItemObj.ID;
-		ItemRowObj.DOMStyle = 'sysContextMenuItemRow';
-		ItemRowObj.DOMStyleTop = topPosGenerator.next().value;
+		ItemRowObj.ObjectID = 'CMenuRow' + ItemObj.ID;
+		ItemRowObj.DOMStyle = 'row p-2 border-top';
 		ItemRowObj.EventListeners = new Object();
 
 		//- add click event listener
@@ -202,23 +200,32 @@ sysContextMenu.prototype.processItems = function()
 		EventListenerObj['Type'] = 'click';
 		EventListenerObj['Element'] = ItemObj.EventListenerClick.bind(ItemObj);
 
-		ItemRowObj.EventListeners["ContextMenuItemClick"] = EventListenerObj;
+		ItemRowObj.EventListeners["CMenuItemClick"] = EventListenerObj;
 
 		var ItemColDescrObj = new sysBaseObject();
-		ItemColDescrObj.ObjectID = 'ContextMenuTableItemDescription';
-		ItemColDescrObj.DOMStyle = 'sysContextMenuItemColDescription';
+		ItemColDescrObj.ObjectID = 'CMenuItemDescr';
+		ItemColDescrObj.DOMStyle = 'col-12';
 
 		var ItemColDescrTextObj = new sysObjSQLText();
-		ItemColDescrTextObj.ObjectID = 'ContextMenuTableItemDescriptionText';
-		ItemColDescrTextObj.DOMStyle = 'sysContextMenuItemDescriptionText';
+		ItemColDescrTextObj.ObjectID = 'CMenuTableItemDescrText';
 		ItemColDescrTextObj.TextID = ItemObj.TextID;
+
+		ItemColDescrTextObj.JSONConfig = {
+			"Attributes": {
+				"IconStyle": ItemObj.IconStyle
+			}
+		};
+
+		ItemColDescrTextObj.TextID = ItemObj.TextID;
+
+
 		ItemColDescrTextObj.init();
 
 		ItemColDescrObj.addObject(ItemColDescrTextObj);
 
 		var ItemColIconObj = new sysBaseObject();
-		ItemColIconObj.ObjectID = 'ContextMenuItemIcon';
-		ItemColIconObj.DOMStyle = 'sysContextMenuItemIcon' + ItemObj.Icon;
+		ItemColIconObj.ObjectID = 'CMenuItemIcon';
+		ItemColIconObj.DOMStyle = 'col-4';
 
 		ItemRowObj.addObject(ItemColDescrObj);
 		ItemRowObj.addObject(ItemColIconObj);
@@ -230,52 +237,35 @@ sysContextMenu.prototype.processItems = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "topPositionGenerator"
-//------------------------------------------------------------------------------
-
-sysContextMenu.prototype.topPositionGenerator = function*()
-{
-	topPosition = -12;
-
-	while(true) {
-		topPosition += 24;
-		yield topPosition.toString() + 'px';
-	}
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "setupHeader"
 //------------------------------------------------------------------------------
 
 sysContextMenu.prototype.setupHeader = function()
 {
 	this.TableObj = new sysBaseObject();
-	this.TableObj.ObjectID = 'ContextMenuTable' + this.ID;
-	this.TableObj.DOMStyle = 'sysContextMenuTable';
+	this.TableObj.ObjectID = 'CMenu' + this.ID;
+	this.TableObj.DOMStyle = 'sysContextMenuTable p-2 bg-success bg-opacity-75 border border-4';
 	this.TableObj.DOMStyleTop = this.pageY.toString() + 'px';
 	this.TableObj.DOMStyleLeft = this.pageX.toString() + 'px';
 
 	this.HeaderRowObj = new sysBaseObject();
-	this.HeaderRowObj.ObjectID = 'ContextMenuTableHeaderRow';
-	this.HeaderRowObj.DOMStyle = 'sysContextMenuHeaderRow';
+	this.HeaderRowObj.ObjectID = 'CMenuHeaderRow';
+	this.HeaderRowObj.DOMStyle = 'row p-1';
 
 	this.HeaderColDescrObj = new sysBaseObject();
-	this.HeaderColDescrObj.ObjectID = 'ContextMenuTableHeaderDescription';
-	this.HeaderColDescrObj.DOMStyle = 'sysContextMenuHeaderColDescription';
+	this.HeaderColDescrObj.ObjectID = 'CMenuHeaderDescr';
+	this.HeaderColDescrObj.DOMStyle = 'col-10';
 
 	this.HeaderColDescrTextObj = new sysObjSQLText();
-	this.HeaderColDescrTextObj.ObjectID = 'ContextMenuTableHeaderDescription';
-	this.HeaderColDescrTextObj.DOMStyle = 'sysContextMenuHeaderDescriptionText';
+	this.HeaderColDescrTextObj.ObjectID = 'CMenuHeaderDescrTxt';
 	this.HeaderColDescrTextObj.TextID = 'TXT.SYS.CONTEXTMENU.DISPLAY';
 	this.HeaderColDescrTextObj.init();
 
 	this.HeaderColDescrObj.addObject(this.HeaderColDescrTextObj);
 
 	this.HeaderColCloseObj = new sysBaseObject();
-	this.HeaderColCloseObj.ObjectID = 'ContextMenuTableHeaderClose';
-	this.HeaderColCloseObj.DOMStyle = 'sysContextMenuHeaderColClose';
-	this.HeaderColCloseObj.DOMValue = 'X';
+	this.HeaderColCloseObj.ObjectID = 'CMenuHeaderClose';
+	this.HeaderColCloseObj.DOMStyle = 'col-6 btn-close';
 	this.HeaderColCloseObj.EventListeners = Object();
 
 	//- add close event listener
@@ -302,7 +292,7 @@ function sysContextMenuItem()
 
 	this.ID						= null;
 	this.TextID					= null;
-	this.Icon					= null;
+	this.IconStyle				= null;
 
 	this.DstScreenID			= null;
 
@@ -313,7 +303,7 @@ function sysContextMenuItem()
 	this.UpdateSrcObject		= false;
 
 	this.ScreenObject			= null;
-	this.SourceObject			= null;
+	this.ParentObject			= null;
 
 	this.ContextMenuObject		= null;
 
@@ -335,27 +325,31 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 
 	if (this.InternalFunction != null) {
 
-		//console.log('RowData:%o RowDataIndex:%s Function:%s', this.ContextMenuObject.RowData, this.ContextMenuObject.RowDataIndex, this.InternalFunction);
+		console.log('RowData:%o Function:%s', this.ContextMenuObject.RowData, this.InternalFunction);
 		const RowData = this.ContextMenuObject.RowData;
 
-		if (this.InternalFunction == 'remove' && this.InternalRemoveItemBy == 'RowIndex') {
-            this.SourceObject.removeData(this.ContextMenuObject.RowDataIndex);
+		if (this.InternalFunction == 'remove') {
+			this.ParentObject.remove();
 			this.ContextMenuObject.close();
 		}
 
-		if (this.InternalFunction == 'reset') {
-			this.SourceObject.reset();
+		else if (this.InternalFunction == 'remove-selected') {
+			this.ParentObject.ParentObject.removeSelectedRows();
 			this.ContextMenuObject.close();
 		}
 
-		if (this.InternalFunction == 'copy') {
-            var ScreenObj = sysFactory.getScreenByID(this.DstScreenID);
-			var ListObj = this.ScreenObject.HierarchyRootObject.getObjectByID(this.DstObjectID);
-            //console.log('::ContextMenu copy ListObject:%o RowData:%o', ListObj, RowData);
-			ListObj.appendData(RowData);
+		else if (this.InternalFunction == 'reset') {
+			this.ParentObject.reset();
+			this.ContextMenuObject.close();
 		}
 
-		if (this.InternalFunction == 'setrowcolumn') {
+		else if (this.InternalFunction == 'copy') {
+			const DestObject = sysFactory.getObjectByID(this.DstObjectID);
+			//console.log('::ContextMenu copy ListObject:%o RowData:%o', ListObj, RowData);
+			DestObject.appendData(RowData);
+		}
+
+		else if (this.InternalFunction == 'setrowcolumn') {
 			try {
 				//console.log('setrowcolumn RowData:%o', RowData);
 				const DstObject = sysFactory.getObjectByID(this.DstObjectID);
@@ -367,7 +361,7 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 			}
 		}
 
-		if (this.InternalFunction == 'openOverlay') {
+		else if (this.InternalFunction == 'openOverlay') {
 
 			sysFactory.OverlayObj.setupOverlay(
 				this.ScreenOverlayID,
@@ -378,40 +372,6 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 			);
 
 			this.ContextMenuObject.close();
-		}
-	}
-
-	if (this.ColumnDependend !== undefined) {
-		const RowData = this.ContextMenuObject.RowData;
-		console.debug('::ContextMenu ColumnDependend RowData:%o', RowData);
-
-		var Col1Value;
-		var Col1Compare;
-		var Col2Value;
-		var Col2Compare;
-
-		for (Index in this.ColumnDependend) {
-			const ColConfig = this.ColumnDependend[Index];
-			if (ColConfig.Column1 !== undefined) {
-				Col1Value = RowData[ColConfig.Column1];
-				Col1Compare = ColConfig.Column1Value;
-			}
-			if (ColConfig.Column2 !== undefined) {
-				Col2Value = RowData[ColConfig.Column2];
-				Col2Compare = ColConfig.Column2Value;
-			}
-			if (ColConfig.Column1 !== undefined && ColConfig.Column2 !== undefined) {
-				if (Col1Value == Col1Compare && Col2Value == Col2Compare) {
-					this.DstScreenID = ColConfig.DstScreenID;
-					break;
-				}
-			}
-			else if (ColConfig.Column1 !== undefined) {
-				if (Col1Value == Col1Compare) {
-					this.DstScreenID = ColConfig.DstScreenID;
-					break;
-				}
-			}					
 		}
 	}
 
@@ -446,7 +406,7 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 
 			console.debug('contextMenu RowObject:%o', this.ContextMenuObject.RowObject);
 			
-			const setValue = this.ContextMenuObject.RowObject.SetupData[this.RowColumn];
+			const setValue = this.ContextMenuObject.RowObject.RowData[this.RowColumn];
 
 			console.debug('contextMenu setValue:%s', setValue);
 

@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -15,17 +15,20 @@
 //- CONSTRUCTOR "sysBaseObject"
 //------------------------------------------------------------------------------
 
-function sysBaseObject() {
+function sysBaseObject()
+{
+	this.DOMType				= 'div';				//- Default DOMType 'div'
+	this.ObjectID				= null;					//- Object ID
+	this.ObjectType				= null;					//- Object Type
+	this.ParentObject			= null;					//- Parent Object
 
-	this.DOMType			= 'div';				//- Default DOMType 'div'
-	this.ObjectID			= null;					//- Object ID
-	this.ObjectType			= null;					//- Object Type
-	this.ParentObject		= null;					//- Parent Object
+	this.DOMObjectID			= null;					//- DOM Object ID - set recursive
+	this.DOMParentID			= null;					//- Parent DOM Object ID - set recursive
 
-	this.DOMObjectID		= null;					//- DOM Object ID - set recursive
-	this.DOMParentID		= null;					//- Parent DOM Object ID - set recursive
+	this.ChildObjects			= new Array();			//- Child Objects
 
-	this.ChildObjects		= new Array();			//- Child Objects
+	this.GetDataResult			= null;					//- Reset GetDataResult
+	this.GetDataChildObjects	= new Array();			//- GetDataResult Child Objects Array
 }
 
 //- inherit sysBaseDOMElement
@@ -62,6 +65,10 @@ sysBaseObject.prototype.renderObject = function(Prefix)
 		}
 	}
 
+	if (this.overrideDOMObjectID === true) {
+		this.DOMObjectID = this.ObjectID;
+	}
+
 	this.createDOMElement(this.DOMObjectID);
 	this.appendDOMParentElement();
 
@@ -69,8 +76,10 @@ sysBaseObject.prototype.renderObject = function(Prefix)
 	this.setDOMElementValue();
 	this.setDOMElementStyle();
 	this.setDOMElementStyleAttributes();
+	this.setDOMVisibleState();
+	this.processEventListener();
 
-    //console.debug(':renderObject ObjectID:%s ChildObjects:%o:', this.ObjectID, this.ChildObjects);
+	//console.debug(':renderObject ObjectID:%s ChildObjects:%o:', this.ObjectID, this.ChildObjects);
 	for (i in this.ChildObjects) {
 		var ChildItem = this.ChildObjects[i];
 		ChildItem.renderObject(this.DOMObjectID);
@@ -109,7 +118,6 @@ sysBaseObject.prototype.processEventListener = function()
 
 sysBaseObject.prototype.connectServiceConnectorObjects = function()
 {
-
 	if (this.ObjectType == 'ServiceConnector') {
 		this.connect();
 	}
@@ -118,7 +126,6 @@ sysBaseObject.prototype.connectServiceConnectorObjects = function()
 		var ChildItem = this.ChildObjects[i];
 		ChildItem.connectServiceConnectorObjects();
 	}
-
 }
 
 
@@ -128,8 +135,8 @@ sysBaseObject.prototype.connectServiceConnectorObjects = function()
 
 sysBaseObject.prototype.getObjectByID = function(ObjectID) {
 	var Objects = this.getObjects();
+	//console.debug('::sysBaseObject getObjectByID:%s Objects:%o', ObjectID, Objects);
 	for (ObjKey in Objects) {
-		//console.log('getObjectByID Elements ObjektID:%s', ObjKey);
 		if (ObjKey == ObjectID) {
 			return Objects[ObjKey];
 		}
@@ -220,38 +227,6 @@ sysBaseObject.prototype.getObjectCount = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "deactivateDeactivated"
-//------------------------------------------------------------------------------
-
-sysBaseObject.prototype.deactivateDeactivated = function()
-{
-	//console.debug('deactivate deactivated:%s', this.Deactivated);
-	if (this.Deactivated === true) {
-		this.setDOMVisibleState("hidden");
-	}
-
-	for (i in this.ChildObjects) {
-		const ChildItem = this.ChildObjects[i];
-		ChildItem.deactivateDeactivated();
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "setDOMVisibleStateRecursive"
-//------------------------------------------------------------------------------
-
-sysBaseObject.prototype.setDOMVisibleStateRecursive = function(state)
-{
-	this.setDOMVisibleState(state);
-	for (i in this.ChildObjects) {
-		const ChildItem = this.ChildObjects[i];
-		ChildItem.setDOMVisibleStateRecursive(state);
-	}
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "setActivated"
 //------------------------------------------------------------------------------
 
@@ -282,36 +257,6 @@ sysBaseObject.prototype.setDeactivated = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "setTabActivated"
-//------------------------------------------------------------------------------
-
-sysBaseObject.prototype.setTabActivated = function()
-{
-	this.TabDeactivated = false;
-
-	for (i in this.ChildObjects) {
-		const ChildItem = this.ChildObjects[i];
-		ChildItem.setTabActivated();
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "setTabDeactivated"
-//------------------------------------------------------------------------------
-
-sysBaseObject.prototype.setTabDeactivated = function()
-{
-	this.TabDeactivated = true;
-
-	for (i in this.ChildObjects) {
-		const ChildItem = this.ChildObjects[i];
-		ChildItem.setTabDeactivated();
-	}
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "remove"
 //------------------------------------------------------------------------------
 
@@ -337,8 +282,15 @@ sysBaseObject.prototype.remove = function()
 
 sysBaseObject.prototype.getObjectData = function()
 {
-	//console.debug('BaseObject getObjectData() this:%o', this);
+	console.debug('::BaseObject getObjectData() this:%o', this);
 	return this.RuntimeGetDataFunc();
+	/*
+	this.GetDataResult = this.RuntimeGetDataFunc();
+
+	for (ChildItem of this.ChildObjects) {
+		this.GetDataResultChildren.push(ChildItem.getObjectData());
+	}
+	*/
 }
 
 
@@ -350,12 +302,21 @@ sysBaseObject.prototype.setObjectData = function(Data)
 {
 	//console.debug('BaseObject setObjectData() this:%o Data:%o', this, Data);
 	try {
-		this.ParentObject.RuntimeSetDataFunc(Data);
+		this.ParentObject.RuntimeSetDataFunc(Data); //- mv to OBJECT!
 	}
 	catch(err) {
 		this.RuntimeSetDataFunc(Data);
 	}
-	
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "appendObjectData"
+//------------------------------------------------------------------------------
+
+sysBaseObject.prototype.appendObjectData = function(Data)
+{
+	this.RuntimeAppendDataFunc(Data);
 }
 
 

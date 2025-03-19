@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -41,7 +41,7 @@ sysScreenOverlay.prototype.setupOverlay = function(ScreenID, Attributes)
 	const SkeletonData = this.FactoryRef.DataSkeleton.XMLRPCResultData[ScreenID];
 
 	const DefaultStyle = sysFactory.DefaultStyleScreenOverlay;
-	const OverlayStyle = (DefaultStyle !== undefined) ? DefaultStyle : 'sysScreenOverlay col-lg-10 col-md-12';
+	const OverlayStyle = (DefaultStyle !== undefined) ? DefaultStyle : 'col-lg-10 col-md-12';
 
 	this.OverlayScreen.setStyle(OverlayStyle);
 

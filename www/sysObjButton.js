@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -18,6 +18,7 @@
 function sysObjButton()
 {
 	this.DOMType			= 'button'
+	this.DOMAttributes		= new Object();
 
 	this.EventListeners		= new Object();
 	this.ChildObjects		= new Array();
@@ -46,8 +47,26 @@ sysObjButton.prototype.processSourceObjects = sysSourceObjectHandler.prototype.p
 sysObjButton.prototype.init = function()
 {
 	const Attributes = this.JSONConfig.Attributes;
+	var SQLTextDisabled = false;
 
-	this.DOMStyle = Attributes.Style;
+	if (Attributes.DOMType !== undefined) {
+		this.DOMType = Attributes.DOMType;
+	}
+
+	if (Attributes.DOMValue !== undefined) {
+		this.DOMValue = Attributes.DOMValue;
+		SQLTextDisabled = true;
+	}
+
+	if (Attributes.Style !== undefined) {
+		this.DOMStyle = Attributes.Style;
+	}
+
+	if (Attributes.FormButton !== undefined) {
+		this.DOMType = 'input';
+		this.DOMAttributes['type'] = 'button';
+		SQLTextDisabled = true;
+	}
 
 	if (Attributes.Disabled === true) {
 		this.disable();
@@ -57,14 +76,36 @@ sysObjButton.prototype.init = function()
 
 	//console.debug('Button ConfigAttributes TextID:%s', Attributes.TextID);
 
-	var SQLTextObj = new sysObjSQLText();
-	SQLTextObj.ObjectID = 'SQLText';
-	SQLTextObj.TextID = Attributes.TextID;
-	SQLTextObj.init();
+	if (Attributes.Value !== undefined) {
+		this.DOMAttributes['value'] = sysFactory.getText(Attributes.Value);
+		SQLTextDisabled = true;
+	}
+
+	if (SQLTextDisabled == false) {
+
+		var SQLTextObj = new sysObjSQLText();
+
+		SQLTextObj.ObjectID = 'SQLText';
+		SQLTextObj.TextID = Attributes.TextID;
+
+		if (Attributes.IconStyle !== undefined) {
+			SQLTextObj.JSONConfig = {
+				"Attributes": { "IconStyle": Attributes.IconStyle }
+			};
+		}
+
+		if (Attributes.IconStylePost !== undefined) {
+			SQLTextObj.JSONConfig = {
+				"Attributes": { "IconStylePost": Attributes.IconStylePost }
+			};
+		}
+
+		SQLTextObj.init();
+		this.addObject(SQLTextObj);
+
+	}
 
 	//console.debug('Button SQLText Object:%o', SQLTextObj);
-
-	this.addObject(SQLTextObj);
 }
 
 
@@ -90,7 +131,7 @@ sysObjButton.prototype.enable = function()
 sysObjButton.prototype.disable = function()
 {
 	console.debug('Button disabling.');
-	this.DOMStyle = 'sysButtonDisabled';
+	this.DOMStyle = Attributes.Style + ' disabled';
 	this.setDOMElementStyle();
 	this.Disabled = true;
 }
@@ -120,50 +161,28 @@ sysObjButton.prototype.EventListenerClick = function(Event)
 
 	const Attributes = this.JSONConfig.Attributes;
 
-	if (this.Disabled !== true) {
+	if (this.Disabled != true) {
 
 		console.debug('::EventListenerClick Button not disabled.');
 
 		this.CallURL = Attributes.OnClick;
 
-		//console.log('sysObjButton.EventListenerClick() JSONConfig:%o', this.JSONConfig);
-		//console.log('sysObjButton.EventListenerClick() ScreenObject:%o', this.ScreenObject.ScreenID);
-		//console.log('sysObjButton.EventListenerClick() ScreenObjects:%o', sysFactory.getObjectsByType(this.ScreenObject.ScreenID, 'FormfieldList'));
+		//console.debug('sysObjButton.EventListenerClick() JSONConfig:%o', this.JSONConfig);
+		//console.debug('sysObjButton.EventListenerClick() ScreenObject:%o', this.ScreenObject.ScreenID);
+		//console.debug('sysObjButton.EventListenerClick() ScreenObjects:%o', sysFactory.getObjectsByType(this.ScreenObject.ScreenID, 'FormfieldList'));
 
 		this.PostRequestData.reset();
 
-		this.ValidateResult = true;
+		this.ValidateResult = false;
 
 		this.validateForm();
-		this.checkObjectValues();
 
-		if (this.ValidateResult === true) {
-			this.scrollTop();
+		console.debug('::EventListenerClick Validate result:%s', this.ValidateResult);
+
+		if (this.ValidateResult == false) {
 			this.processSourceObjects();
 			this.processActions();
 			this.callService();
-		}
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "scrollTop"
-//------------------------------------------------------------------------------
-
-sysObjButton.prototype.scrollTop = function()
-{
-	if (sysFactory.ParentWindowURL !== undefined) {
-		try {
-			const Attributes = this.JSONConfig.Attributes;
-
-			if (Attributes.ScrollTop !== undefined && Attributes.ScrollTop == true) {
-				//console.debug('::scrollTop ScrollTop:true');
-				window.parent.postMessage({'task': 'scroll_top'}, sysFactory.ParentWindowURL);
-			}
-		}
-		catch(err) {
-			console.debug('::scrollTop err:%s', err);
 		}
 	}
 }
@@ -215,11 +234,6 @@ sysObjButton.prototype.validateForm = function()
 	var ValidateFormlistObjects = new Array();
 
 	if (Attributes.Validate !== undefined) {
-		const ScreenTabs = this.ScreenObject.HierarchyRootObject.getObjectsByType('Tab');
-		for (TabKey in ScreenTabs) {
-			const TabElement = ScreenTabs[TabKey];
-			TabElement.setValidateStatus(true);
-		}
 
 		if (Attributes.Validate.FormlistsAll !== undefined) {
 			const Formfieldlists = this.ScreenObject.HierarchyRootObject.getObjectsByType('FormfieldList');
@@ -243,14 +257,11 @@ sysObjButton.prototype.validateForm = function()
 		for (Index in ValidateFormlistObjects) {
 			const FormlistObj = ValidateFormlistObjects[Index];
 			const Result = FormlistObj.validate();
-			if (Result === true) {
+			if (Result == false) {
 				this.PostRequestData.merge(FormlistObj.RuntimeGetDataFunc());
 			}
 			else {
 				const ParentObject = FormlistObj.ParentObject;
-				if (ParentObject !== undefined && ParentObject.ObjectType == 'Tab') {
-					ParentObject.setValidateStatus(Result);
-				}
 				this.ValidateResult = false;
 			}
 		}
@@ -296,26 +307,13 @@ sysObjButton.prototype.validateForm = function()
 		// - Post Validate Steps
 		// ----------------------------------------------------------------
 
-		for (TabKey in ScreenTabs) {
-			const TabElement = ScreenTabs[TabKey];
-			TabElement.TabContainer.switchFirstTabContainingErrors();
-		}
-
-		//- add service data to request data
 		var IdObj = Object();
 		IdObj['BackendServiceID'] = Attributes.ServiceID;
 		this.PostRequestData['ServiceData'] = IdObj;
 
 		console.debug('::validate Result:%s PostRequestData:%o', this.ValidateResult, this.PostRequestData);
 
-		if (this.ValidateResult === true) {
-
-			if (Attributes.Validate.OnValidateOk !== undefined) {
-				if (Attributes.OnValidateOk.click !== undefined) {
-					const ClickObject = sysFactory.getObjectByID(Attributes.OnValidateOk.click);
-					ClickObject.EventListenerClick('ClickedBySystem');
-				}
-			}
+		if (this.ValidateResult == true) {
 
 			if (Attributes.Validate.POSTRequestDataTransform !== undefined) {
 				this.PostRequestData.transform(Attributes.POSTRequestDataTransform);
@@ -347,197 +345,60 @@ sysObjButton.prototype.processActions = function()
 {
 	const Attributes = this.JSONConfig.Attributes;
 
-	console.debug('::processActions Attributes:%o', Attributes);
+	var Action;
+	try {
+		Action = Attributes.Action.toLowerCase();
+	}
+	catch(err) {
+		Action = null;
+	}
 
-	if (Attributes.Action !== undefined) {
+	console.debug('::processActions Attributes:%o Action:%s', Attributes, Action);
 
-		if (Attributes.Action == 'Disable') {
-			const DstObject = sysFactory.getObjectByID(ActionAttributes.DstObjectID);
-			DstObject.disable();
+	if (Action != null) {
+
+		if (Action == 'append') {
+			const SrcObject = sysFactory.getObjectByID(Attributes.SrcDataObject);
+			const DstObject = sysFactory.getObjectByID(Attributes.DstDataObject);
+			console.debug('::processActions append SrcObject:%o DstObject:%o', SrcObject, DstObject);
+			const SrcData = SrcObject.getObjectData();
+			console.debug('::processActions append SrcData:%o', SrcData);
+			DstObject.appendObjectData(SrcData);
 		}
 
-		if (Attributes.Action == 'Enable') {
-			const DstObject = sysFactory.getObjectByID(ActionAttributes.DstObjectID);
-			DstObject.enable();
+		if (Action == 'enable') {
+			const DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
+			DstObject.VisibleState = 'visible';
+			DstObject.setDOMVisibleState();
 		}
 
-		console.debug('::EventListenerClick Config Attributes Action:%s', Attributes.Action);
-
-		//- copy object data
-		if (Attributes.Action == 'copy') {
-			this.copyData();
+		if (Action == 'disable') {
+			const DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
+			DstObject.VisibleState = 'hidden';
+			DstObject.setDOMVisibleState();
 		}
 
-		//- copy object data
-		if (Attributes.Action == 'updaterow') {
-			this.updateTableRow();
+		if (Action == 'activate') {
+			const DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
+			DstObject.setActivated();
 		}
 
-		//- reset list
-		if (Attributes.Action == 'reset') {
-			const DstObject = sysFactory.getObjectByID(Attributes.ActionAttributes.ObjectID);
+		if (Action == 'deactivate') {
+			const DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
+			DstObject.setDeactivated();
+		}
+
+		console.debug('::EventListenerClick Config Attributes Action:%s', Action);
+
+		if (Action == 'reset') {
+			const DstObject = sysFactory.getObjectByID(Attributes.ObjectID);
 			DstObject.reset();
 		}
 
-		//- deselect list
-		if (Attributes.Action == 'deselect') {
-			var ObjType = Attributes.ActionAttributes.ObjectType;
-			if (ObjType !== undefined && ObjType == 'List') {
-				this.deselectList();
-			}
-		}
-
-		//- switch tab
-		if (Attributes.Action == 'tabswitch') {
-			var TabContainerObj = sysFactory.getObjectByID(Attributes.ActionAttributes.TabContainer);
-			//console.debug('TabContainerObj:%o', TabContainerObj);
-			TabContainerObj.switchTab(Attributes.ActionAttributes.Tab);
-		}
-
-		//- screen overlay trigger
-		if (Attributes.Action == 'screenoverlay') {
-			sysFactory.switchScreenToOverlay(Attributes.Screen, Attributes.Override);
-		}
-
-		if (Attributes.Action == 'parentcopyrow') {
-			var DstListObj = sysFactory.getObjectByID(Attributes.DstObjectID);
-			//console.debug('::EventListenerClick copy DstObjectID:%o ListObject:%o RowData:%o', Attributes.DstObjectID, DstListObj, this.ParentRow);
-			DstListObj.appendData(this.ParentRow.SetupData);
-		}
-
-		if (Attributes.Action == 'parentremoverow') {
-			this.ParentRow.SourceObject.removeData(this.ParentRow.Index);
-		}
-
-		if (Attributes.Action == 'SetPOSTREquestData') {
-
-			const Column = Attributes.SrcColumn;
-			var Item = new Object();
-			const DstValue = this.ParentRow.SetupData[Column];
-			Item[Column] = DstValue;
-
-			console.debug('SetPOSTREquestData ColumnItem:%o', Item);
-
-			var DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
-
-			if (Attributes.DstObjectIDSetValue !== undefined) {
-				sysFactory.getObjectByID(Attributes.DstObjectIDSetValue).setObjectData(DstValue);
-			}
-
-			if (Attributes.ResetObjectID !== undefined) {
-				const ResetObject = sysFactory.getObjectByID(Attributes.ResetObjectID);
-				//console.debug('ResetObject:%o ObjectID:%s', ResetObject, ResetObject.ObjectID);
-				ResetObject.reset();
-			}
-
-			try {
-				DstObject.PostRequestData.merge(Item);
-			}
-			catch(err) {
-				console.log('::EventListenerClick PostRequestData err:%s', err);
-			}
-
-			try {
-				DstObject.FocusObjectID = Attributes.SetFocusObjectID;
-			}
-			catch(err) {
-				console.log('::EventListenerClick FocusObjectID err:%s', err);
-			}
-		}
-
-		if (Attributes.Action == 'SetPOSTREquestData2') {
-
-			const PColumn = Attributes.SrcColumn;
-			var Item = new Object();
-			const PColumnValue = this.ParentRow.SetupData[PColumn];
-			Item[PColumn] = PColumnValue;
-
-			console.debug('SetPOSTREquestData ColumnItem:%o', Item);
-
-			this.PostRequestData.merge(Item);
-		}
-
-		if (Attributes.Action == 'setrowcolumn') {
-			try {
-				const Column = Attributes.RowColumn;
-				var Item = new Object();
-				Item[Column] = this.ParentRow.SetupData[Column];
-				const DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
-				try {
-					DstObject.PostRequestData.merge(Item);
-				}
-				catch(err) {
-					console.log('PostRequestData err:%s', err);
-				}
-				DstObject.setValue(this.ParentRow.SetupData[Column]);
-				//console.debug('::EventListenerClick setrowcolumn ConnectorObject:%o', DstObject);
-			}
-			catch(err) {
-				console.log('setrowcolumn err:%s', err);
-			}
-		}
-
-		if (Attributes.Action == 'addrow') {
-			const DstObj = sysFactory.getObjectByID(Attributes.DstObjectID);
-			DstObj.addDynamicRow();
-		}
-
-		if (Attributes.Action == 'switchscreen') {
+		if (Action == 'switchscreen') {
 			const ScreenObject = sysFactory.getScreenByID(Attributes.DstScreenID);
 			//console.debug(this.ParentRow.SetupData);
 			this.DstScreenID = Attributes.DstScreenID;
-		}
-
-		if (Attributes.Action == 'columndependend') {
-			const RowData = this.ParentRow.SetupData;
-			//console.debug('columndependend Attributes:%o RowData:%o', Attributes, RowData);
-			for (Index in Attributes.ColumnDependend) {
-				const ColConfig = Attributes.ColumnDependend[Index];
-				if (ColConfig.Column1 !== undefined) {
-					Col1Value = RowData[ColConfig.Column1];
-					Col1Compare = ColConfig.Column1Value;
-				}
-				if (ColConfig.Column2 !== undefined) {
-					Col2Value = RowData[ColConfig.Column2];
-					Col2Compare = ColConfig.Column2Value;
-				}
-				if (ColConfig.Column1 !== undefined && ColConfig.Column2 !== undefined) {
-					if (Col1Value == Col1Compare && Col2Value == Col2Compare) {
-						this.DstScreenID = ColConfig.DstScreenID;
-						break;
-					}
-				}
-				else if (ColConfig.Column1 !== undefined) {
-					if (Col1Value == Col1Compare) {
-						this.DstScreenID = ColConfig.DstScreenID;
-						break;
-					}
-				}
-			}
-		}
-
-		if (Attributes.Action == 'activate' || Attributes.Action == 'deactivate') {
-			for (Index in Attributes.Objects) {
-				const ObjectID = Attributes.Objects[Index];
-				const DstObj = sysFactory.getObjectByID(ObjectID);
-				if (Attributes.Action == 'activate') {
-					console.debug('::activate ObjectID:%s Object:%o', ObjectID, DstObj);
-					try {
-						DstObj.setValidate(true);
-					}
-					catch(err) {
-					}
-					DstObj.activate();
-				}
-				if (Attributes.Action == 'deactivate') {
-					try {
-						DstObj.setValidate(false);
-					}
-					catch(err) {
-					}
-					DstObj.deactivate();
-				}
-			}
 		}
 
 		const UserFuncAttributes = Attributes.UserFunctionAttributes;
@@ -546,24 +407,23 @@ sysObjButton.prototype.processActions = function()
 			sysFactory.UserFunctions[UserFuncAttributes.FunctionID](sysFactory);
 		}
 
-		if (this.DstScreenID !== undefined && Attributes.Action !== undefined) {
-			if (Attributes.ResetAll === true) {
+		if (this.DstScreenID !== undefined && Action !== undefined) {
+			if (Attributes.ResetAll == true) {
 				//console.debug('ButtonInternalDBG ResetAll:%s', Attributes.ResetAll);
 				const ScreenObj = sysFactory.getScreenByID(this.DstScreenID);
 				ScreenObj.HierarchyRootObject.processReset();
 			}
-
 			//this.setDstScreenProperties();
 			sysFactory.switchScreen(this.DstScreenID);
 		}
 
-		if (Attributes.Action.FireEvents !== undefined) {
-			sysFactory.Reactor.fireEvents(Attributes.Action.FireEvents);
+		if (Attributes.FireEvents !== undefined) {
+			sysFactory.Reactor.fireEvents(Attributes.FireEvents);
 		}
 
 	}
 
-	if (Attributes.CloseOverlay !== undefined && Attributes.CloseOverlay === true) {
+	if (Attributes.CloseOverlay !== undefined && Attributes.CloseOverlay == true) {
 		try {
 			sysFactory.OverlayObj.EventListenerClick();
 		}
@@ -605,7 +465,7 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 
 			var ResultConfig = ConfigAttributes.OnResult;
 
-			if (Array.isArray(ResultConfig) === false) {
+			if (Array.isArray(ResultConfig) == false) {
 				ResultConfig = [ ResultConfig ];
 			}
 
@@ -623,14 +483,16 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 					console.log('::ButtonAfterRPC setResultValues DstObject:%o PostRequestData:%o', DstObject, DstObject.PostRequestData);
 				}
 
-				const Action = Result.Action;
+				const Action = ResultConfig.Action.toLowerCase();
+
 				if (Action !== undefined) {
-					if (Result.DstObjectType == 'List' && Result.Action == 'append') {
+
+					if (Action == 'append') {
 						const DstObject = sysFactory.getObjectByID(Result.DstObjectID);
 						console.log('::ButtonAfterRPC Action DstObject:%o', DstObject);
-						DstObject.appendData(this.XMLRPCResultData);
+						DstObject.getObjectData(this.XMLRPCResultData);
 					}
-					if (Result.DstObjectType == 'FormField' && Result.Action == 'set') {
+					if (Result.DstObjectType == 'FormField' && Action == 'set') {
 						const FormListObject = sysFactory.getObjectByID(Result.FormListID);
 						const FormFieldItem = FormListObject.getFormFieldItemByID(Result.FormFieldID);
 						const UpdateValue = this.XMLRPCResultData[Result.ResultKey];
@@ -643,7 +505,7 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 							UpdateFormFieldItem.setValue(UpdateValue);
 						}
 					}
-					if (Result.Action == 'UpdateDynValue') {
+					if (Action == 'updatedynvalue') {
 						const OnResultConfig = Result;
 						const DstObject = sysFactory.getObjectByID(OnResultConfig.DstObjectID);
 
@@ -657,32 +519,30 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 
 						DstObject.updateDynValue(ResultObject);
 					}
-					if (Result.Action == 'Enable') {
+					if (Action == 'enable') {
 						const DstObject = sysFactory.getObjectByID(Result.DstObjectID);
-						DstObject.enable();
+						DstObject.VisibleState = 'visible';
+						DstObject.setDOMVisibleState();
 					}
-					if (Result.Action == 'Disable') {
+					if (Action == 'disable') {
 						const DstObject = sysFactory.getObjectByID(Result.DstObjectID);
-						DstObject.disable();
+						DstObject.VisibleState = 'hidden';
+						DstObject.setDOMVisibleState();
 					}
-					if (Result.Action == 'Activate') {
+					if (Action == 'activate') {
 						const DstObject = sysFactory.getObjectByID(Result.DstObjectID);
-						DstObject.setDOMVisibleState('visible');
+						DstObject.setActivated();
 					}
-					if (Result.Action == 'Deactivate') {
+					if (Action == 'deactivate') {
 						const DstObject = sysFactory.getObjectByID(Result.DstObjectID);
-						DstObject.setDOMVisibleState('hidden');
+						DstObject.setDeactivated();
 					}
-					if (Result.Action == 'Reset') {
+					if (Action == 'reset') {
 						const DstObject = sysFactory.getObjectByID(Result.DstObjectID);
 						DstObject.reset();
 					}
-					if (Result.Action == 'Focus') {
-						const DstObject = sysFactory.getObjectByID(Result.DstObjectID);
-						DstObject.ParentObject.focus();
-					}
 
-					if (Result.Action == 'TabSwitch') {
+					if (Action == 'tabswitch') {
 						const TabContainerObj = sysFactory.getObjectByID(Result.TabContainer);
 						console.debug('TabContainerObj:%o', TabContainerObj);
 						TabContainerObj.switchTab(Result.Tab);
@@ -725,69 +585,17 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 	}
 
 	//- set notify status
-    try {
-        var IndicatorID = this.JSONConfig.Attributes.Notify.ID;
-        if (IndicatorID !== undefined) {
-            var Message = 'SYS__' + IndicatorID + '__' + NotifyStatus;
-            MsgHandler.processMsg(Message);
-        }
-    }
-    catch (err) {
-        console.log('err:%s', err);
-    }
-
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "callbackXMLRPCAsync"
-//------------------------------------------------------------------------------
-
-sysObjButton.prototype.checkObjectValues = function()
-{
-	const Attributes = this.JSONConfig.Attributes;
-	const CheckAttributes = Attributes.Check;
-
-	if (CheckAttributes !== undefined) {
-
-		const CheckGlobalData = CheckAttributes.GlobalData;
-
-		var NegativeCount = 0;
-
-		for (Index in CheckGlobalData) {
-
-			const CheckItem = CheckGlobalData[Index];
-			const CheckOperator = CheckItem.Operator;
-			const CheckValues = CheckItem.CheckValues;
-			const ScreenObj = sysFactory.getScreenByID(CheckItem.ScreenID);
-
-			if (ScreenObj === undefined) {
-				this.ValidateResult = false;
-				return;
-			}
-
-			for (CheckKey in CheckValues) {
-				const CheckValue = CheckValues[CheckKey];
-				const GlobalVarValue = ScreenObj.getGlobalVar(CheckKey);
-				if (CheckValue != GlobalVarValue) {
-					NegativeCount++;
+		try {
+				var IndicatorID = this.JSONConfig.Attributes.Notify.ID;
+				if (IndicatorID !== undefined) {
+						var Message = 'SYS__' + IndicatorID + '__' + NotifyStatus;
+						MsgHandler.processMsg(Message);
 				}
-			}
 		}
-		console.log('Button CheckObjectValues NegativeCount:%s', NegativeCount);
-		if (NegativeCount > 0) {
-			this.ValidateResult = false;
-			if (CheckAttributes.ErrorContainer !== undefined && CheckAttributes.ErrorTxtID !== undefined) {
-				try {
-					sysFactory.getObjectByID(CheckAttributes.ErrorContainer).displayError(
-						sysFactory.getText(CheckAttributes.ErrorTxtID)
-					);
-				}
-				catch(err) {
-				}
-			}
+		catch (err) {
+				console.log('err:%s', err);
 		}
-	}
+
 }
 
 
@@ -796,7 +604,7 @@ sysObjButton.prototype.checkObjectValues = function()
 //------------------------------------------------------------------------------
 
 /*
- * a) should be included by prototype 
+ * a) should be included by prototype
  * b) destination session should be modified to destination user
  * c) configuration values should be read from global config
 */
