@@ -8,17 +8,14 @@
         "type": "x0",
         "subtype": "minikube",
         "os:": "mswindows",
-        "os_version": 11,
-	"offline_install": false,
-	"minikube_driver": "hyperv"
+        "os_version": 11
     },
     "database": {
         "name": "x0",
         "su_password": "changeme",
         "repl_password": "changeme",
         "x0_password": "changeme",
-        "size": "50Mi",
-        "replicas": 1
+        "size": "50Mi"
     },
     "test": {
         "selenium": {
