@@ -8,8 +8,6 @@ modules.order
 __pycache__
 *.pyc
 *.tar
-*.tar.gz
-*.tar.bz2
 *.kate-swp
 *.swp
 *.DS_Store
