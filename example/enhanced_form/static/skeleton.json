@@ -1,0 +1,59 @@
+{
+	"Screen1":
+	[
+		{
+			"HostingNewHostsSelectedUser":
+			{
+				"RefID": "Screen1"
+			}
+		},
+		{
+			"HostingNewHostsSelectedDomain":
+			{
+				"RefID": "Screen1"
+			}
+		},
+		{
+			"HostingNewHost":
+			{
+				"RefID": "Screen1"
+			}
+		},
+		{
+			"HostDNSRecordErrorContainer":
+			{
+				"RefID": "Screen1"
+			}
+		},
+		{
+			"HostingNewHostAddHostButton":
+			{
+				"RefID": "Screen1"
+			}
+		},
+		{
+			"HostingNewHostsListErrorContainer":
+			{
+				"RefID": "Screen1"
+			}
+		},
+		{
+			"HostingNewHostsListContainer":
+			{
+				"RefID": "Screen1"
+			}
+		},
+		{
+			"HostingNewHostsList":
+			{
+				"RefID": "HostingNewHostsListContainer"
+			}
+		},
+		{
+			"HostingNewHostsSubmit":
+			{
+				"RefID": "Screen1"
+			}
+		}
+	]
+}
