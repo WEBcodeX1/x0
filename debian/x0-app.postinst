@@ -7,6 +7,7 @@ if [ "$1" = "configure" ]; then
 	# system vars
 	WEBSERVER_DIR="/var/www"
 	GLOBAL_PYTHONDIR="/${WEBSERVER_DIR}/python"
+	VHOST_PYTHONDIR="/${WEBSERVER_DIR}/vhosts/x0/python"
 
 	APP_DIR="/${WEBSERVER_DIR}/vhosts/x0"
 	APP_PYTHONDIR="/${APP_DIR}/python"
@@ -27,7 +28,7 @@ if [ "$1" = "configure" ]; then
 	CERT_CA_PASSPHRASE="change4prod-ca"
 	CERT_PASSPHRASE="change4prod"
 
-	DEMO_FQDN="x0-test.local"
+	DEMO_FQDN="x0-app.x0.localnet"
 
 	WEBSERVER_CONF_DIR="/etc/apache2"
 	VHOST_CONFIG_FILE="vhost-x0.conf"
@@ -81,6 +82,9 @@ if [ "$1" = "configure" ]; then
 	cp ${BASEDIR}/python/DB.py ${GLOBAL_PYTHONDIR}/
 	cp ${BASEDIR}/python/DBMapping.py ${GLOBAL_PYTHONDIR}/
 
+	# copy favicon.ico
+	cp ${BASEDIR}/image/favicon-32x32.png ${VHOST_PYTHONDIR}/favicon.ico
+
 	# process tests (copy to vhost subdir)
 	ls ${TEST_CONFIG_DIR} | while read dirname; do
 		echo "Processing tests-config (static):${dirname}"
@@ -101,6 +105,7 @@ if [ "$1" = "configure" ]; then
 		mkdir -p ${DST_EXAMPLE_DIR}
 		cp ${CONF_STATIC_DIR}/* ${DST_EXAMPLE_DIR}/
 		cp ${APP_DIR}/static/*.css ${DST_EXAMPLE_DIR}/
+		cp -r ${APP_DIR}/static/fontawesome ${DST_EXAMPLE_DIR}/
 	done
 
 	# restart apache
