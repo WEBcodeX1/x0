@@ -8,6 +8,9 @@ spec:
   automountServiceAccountToken: false
   containers:
   - name: test-run
-    image: registry.code.syseleven.de/webcodex/${x0_GITLAB_REPO}/${x0_APP_ID}-test:latest
-    imagePullPolicy: Always
+    image: docker.io/library/${x0_APP_ID}-test:latest
+    imagePullPolicy: IfNotPresent
+    env:
+    - name: RUN_NAMESPACE
+      value: ${x0_NAMESPACE}
   restartPolicy: Never

@@ -3,15 +3,16 @@ kind: Pod
 metadata:
   name: selenium-server-${x0_SELENIUM_SERVER_INDEX}
   namespace: ${x0_NAMESPACE}
+  labels:
+    app: selenium-server
 spec:
   serviceAccountName: ci-builder
   automountServiceAccountToken: false
   hostname: selenium-server-${x0_SELENIUM_SERVER_INDEX}
   containers:
-  - name: selenium-server
-    image: ${x0_SELENIUM_DOCKER_IMAGE}
-    imagePullPolicy: Always
-    env:
-    - name: RUN_NAMESPACE
-      value: ${x0_NAMESPACE}
+  - name: selenium-server-container
+    image: docker.io/${x0_SELENIUM_DOCKER_IMAGE}
+    imagePullPolicy: IfNotPresent
+    ports:
+    - containerPort: 4444
   restartPolicy: Never
