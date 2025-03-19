@@ -1,24 +1,23 @@
-.. x0 (Cross-Objects) JavaScript Framework Documentation.
+.. clickIT x0 (Cross-Objects) JavaScript Framework Documentation.
 
-x0 Framework Documentation v1.0rc2
-==================================
+clickIT x0 Framework Documentation v1.0rc2
+===========================================
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
    :caption: Contents:
 
    intro
    installation
    base-layout
-   configuration
-   kubernetes
+   config-files
    system-workflows
    base-objects
    control-logic
    pulldown-onchange
    enhanced-formating
    object-communication
-   data-sources
+   source-data
    backend-integration
    oop-model
    enhanced-objects
