@@ -2,6 +2,12 @@
 	"Screen1":
 	[
 		{
+			"Header1":
+			{
+				"RefID": "Screen1"
+			}
+		},
+		{
 			"HelloWorldText":
 			{
 				"RefID": "Screen1"
