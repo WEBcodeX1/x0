@@ -34,7 +34,7 @@ GRANT ALL ON SCHEMA system TO x0;
 CREATE TABLE webui.text (
     id character varying NOT NULL,
     "group" character varying DEFAULT 'global'::character varying NOT NULL,
-    value_de character varying NOT NULL,
+    value_de character varying,
     value_en character varying,
     orderby integer DEFAULT 1 NOT NULL
 );
@@ -64,19 +64,19 @@ GRANT SELECT ON system.config TO x0;
 CREATE UNIQUE INDEX sys_config_app_value ON system.config (app_id, config_group, "value");
 
 COPY webui.text (id, "group", value_de, value_en, orderby) FROM stdin;
-TXT.FORMFIELD.GLOBAL.YES	formfield	ja	\N	1
-TXT.FORMFIELD.GLOBAL.NO	formfield	nein	\N	1
-TXT.SYS.ERROR	sysinternal	Fehler	\N	1
-TXT.SYS.EDITNOTALLOWED	sysinternal	Bearbeitung nicht erlaubt.	\N	1
-TXT.CONTEXTMENU.EDIT	contextmenu	bearbeiten	\N	1
-TXT.SYS.CONTEXTMENU.DISPLAY	sysinternal	Context Menü	\N	1
-TXT.SYS.INDICATOR.SYSTEMMSG	sysinternal	Systemnachricht	\N	1
-TXT.SYS.INDICATOR.ACTIONPENDING	sysinternal	Vorgang in Bearbeitung	\N	1
-TXT.CONTEXTMENU.DELETE	contextmenu	löschen	\N	1
-TXT.CONTEXTMENU.DETAIL	contextmenu	Detail	\N	1
-TXT.SYS.OBJECT.DEFAULT.TEXT	default	Default	\N	1
-TXT.CONTEXTMENU.RESET	contextmenu	Alle Zeilen löschen	\N	1
-TXT.CONTEXTMENU.REMOVE	contextmenu	Entfernen	\N	1
-TXT.CONTEXTMENU.APPLY	contextmenu	Zeile übernehmen	\N	1
-TXT.SYS.INDICATOR.INCOMINGPHONECALL	indicatorheader	Eingehender Anruf	\N	1
+TXT.FORMFIELD.GLOBAL.YES	formfield	Ja	Yes	1
+TXT.FORMFIELD.GLOBAL.NO	formfield	Nein	No	1
+TXT.SYS.ERROR	sysinternal	Fehler	Global error	1
+TXT.SYS.EDITNOTALLOWED	sysinternal	Bearbeitung nicht erlaubt.	Edit not allowed	1
+TXT.CONTEXTMENU.EDIT	contextmenu	Bearbeiten	Edit	1
+TXT.SYS.CONTEXTMENU.DISPLAY	sysinternal	Context Menü	Context Menu	1
+TXT.SYS.INDICATOR.SYSTEMMSG	sysinternal	Systemnachricht	System message	1
+TXT.SYS.INDICATOR.ACTIONPENDING	sysinternal	Vorgang in Bearbeitung	Process in progress	1
+TXT.CONTEXTMENU.DELETE	contextmenu	Löschen	Delete	1
+TXT.CONTEXTMENU.DETAIL	contextmenu	Detail	Detail	1
+TXT.SYS.OBJECT.DEFAULT.TEXT	default	Default	Default	1
+TXT.CONTEXTMENU.RESET	contextmenu	Alle Zeilen löschen	Delete all rows	1
+TXT.CONTEXTMENU.REMOVE	contextmenu	Entfernen	Remove	1
+TXT.CONTEXTMENU.APPLY	contextmenu	Zeile übernehmen	Accept line	1
+TXT.SYS.INDICATOR.INCOMINGPHONECALL	indicatorheader	Eingehender Anruf	Incoming Call	1
 \.
