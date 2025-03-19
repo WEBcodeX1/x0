@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -116,6 +116,7 @@ sysBaseDOMElement.prototype.setDOMElementValue = function()
 	//console.debug('::setDOMElementValue this:%o', this);
 	if (this.DOMValue != null && this.DOMValue !== undefined) {
 		var divElement = document.getElementById(this.DOMObjectID);
+		console.debug('::setDOMElementValue divElement:%s', divElement);
 		if (divElement != null && divElement !== undefined) {
 			divElement.innerHTML = this.DOMValue;
 		}
@@ -133,6 +134,7 @@ sysBaseDOMElement.prototype.setDOMElementStyle = function()
 		if (this.DOMStyle !== undefined && this.DOMStyle != null) {
 			// set main object style class (this.DOMStyle)
 			const Element = document.getElementById(this.DOMObjectID);
+			//console.debug('::setDOMElementStyle Element:%o', Element);
 			Element.setAttribute('class', this.DOMStyle);
 		}
 	}
@@ -199,11 +201,10 @@ sysBaseDOMElement.prototype.setDOMAttributes = function()
 sysBaseDOMElement.prototype.addDOMElementStyle = function(StyleClass)
 {
 	try {
-		//const Element = document.getElementById(this.DOMObjectID);
 		const Element = this.getElement();
-		//console.debug('addDOMElementStyle ObjectID:%s DOMObjectID:%s', this.ObjectID, this.DOMObjectID);
 		if (Element !== undefined && Element != null) {
-			Element.classList.add(StyleClass);
+			const StyleClasses = StyleClass.split(' ');
+			Element.classList.add(...StyleClasses);
 		}
 	}
 	catch(err) {
@@ -218,37 +219,22 @@ sysBaseDOMElement.prototype.addDOMElementStyle = function(StyleClass)
 
 sysBaseDOMElement.prototype.removeDOMElementStyle = function(StyleClass)
 {
-
 	try {
 		//const Element = document.getElementById(this.DOMObjectID);
 		const Element = this.getElement();
 
-		if (Element !== undefined && Element != null && Element.classList.contains(StyleClass)) {
-			Element.classList.remove(StyleClass);
+		if (Element !== undefined && Element != null) {
+			const StyleClasses = StyleClass.split(' ');
+			for (const StyleClass of StyleClasses) {
+				if (Element.classList.contains(StyleClass)) {
+					Element.classList.remove(StyleClass);
+				}
+			}
 		}
 	}
 
 	catch(err) {
 		console.debug('removeDOMElementStyle err:%s ObjectID:%s DOMObjectID:%s', err, this.ObjectID, this.DOMObjectID);
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "addDOMElementStyleSysObject"
-//------------------------------------------------------------------------------
-
-sysBaseDOMElement.prototype.addDOMElementStyleSysObject = function(StyleClass)
-{
-	try {
-		const SysObject = sysFactory.getObjectByID(this.ObjectID);
-		const Element = document.getElementById(SysObject.DOMObjectID);
-		if (Element !== undefined && Element != null) {
-			Element.classList.add(StyleClass);
-		}
-	}
-	catch(err) {
-		console.debug('addDOMElementStyleSysObject err:%s ObjectID:%s', err, this.ObjectID);
 	}
 }
 
@@ -303,17 +289,17 @@ sysBaseDOMElement.prototype.checkDOMElementExists = function(ElementID)
 //- METHOD "setDOMVisibleState"
 //------------------------------------------------------------------------------
 
-sysBaseDOMElement.prototype.setDOMVisibleState = function(VisibleState)
+sysBaseDOMElement.prototype.setDOMVisibleState = function()
 {
-	if (VisibleState == 'visible' || VisibleState == 'hidden') {
+	if (this.VisibleState == 'visible' || this.VisibleState == 'hidden') {
 		const Element = this.getElement();
 		//console.debug('::setDOMVisibleState ObjectID:%s DOMObjectID:%s Element:%o', this.ObjectID, this.DOMObjectID, Element);
 		try {
-			if (VisibleState == 'visible') {
+			if (this.VisibleState == 'visible') {
 				Element.style.removeProperty('display');
 				//Element.style.display = 'block';
 			}
-			if (VisibleState == 'hidden') {
+			if (this.VisibleState == 'hidden') {
 				Element.style.display = 'none';
 			}
 		}
@@ -334,16 +320,16 @@ sysBaseDOMElement.prototype.switchDOMVisibleState = function()
 	//console.log('VisibleState:' + VisibleState);
 	try {
 		if (VisibleState == "hidden") {
-			this.setDOMVisibleState("visible");
+			this.VisibleState = "visible";
 		}
 		if (VisibleState == '' || VisibleState == 'visible') {
-			this.setDOMVisibleState("hidden");
+			this.VisibleState = "hidden";
 		}
+		this.setDOMVisibleState();
 	}
 	catch(err) {
 		console.debug('::switchDOMVisibleState err:%s', err);
 	}
-	
 }
 
 
@@ -371,7 +357,7 @@ sysBaseDOMElement.prototype.enableDOMElement = function()
 //- METHOD "disableDOMElement"
 //------------------------------------------------------------------------------
 
-sysBaseDOMElement.disableDOMElement = function()
+sysBaseDOMElement.prototype.disableDOMElement = function()
 {
 	document.getElementById(this.DOMObjectID).disabled = true;
 }
@@ -385,10 +371,6 @@ sysBaseDOMElement.prototype.getDOMValue = function()
 {
 	try {
 		const Element = this.getDOMelement();
-
-		if (this.DIVType == 'FormFieldContainer') {
-			return Element.value;
-		}
 		//console.debug('::getDOMValue Element:%o Element innerHTML:%s', Element, Element.innerHTML);
 		return (Element == null) ? '': Element.innerHTML;
 	}
@@ -431,6 +413,6 @@ sysBaseDOMElement.prototype.getDOMelement = function()
 
 sysBaseDOMElement.prototype.getElement = function()
 {
-	const ElementID = (this.DIVType == 'FormFieldContainer') ? this.ObjectID: this.DOMObjectID;
+	const ElementID = this.DOMObjectID;
 	return document.getElementById(ElementID);
 }

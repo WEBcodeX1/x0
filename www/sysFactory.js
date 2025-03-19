@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -31,11 +31,14 @@ function sysFactory()
 		"ErrorContainer": sysErrorContainer,
 		"Link": sysObjLink,
 		"LinkExternal": sysObjLinkExternal,
-		"RowContainer": sysObjRowContainer,
-		"FormulaField": sysObjFormula,
-		"MenuEnclose": sysObjMenuEnclose,
+		"ObjectContainer": sysObjObjectContainer,
 		"FormfieldText": sysFormfieldItemText
 	};
+
+	this.SetupClassesRT = {
+		"FormSectionHeader": sysFormSectionHeader
+	}
+
 }
 
 
@@ -97,11 +100,10 @@ sysFactory.prototype.init = function()
 	var MenuScreen = new sysScreen();
 
 	const DefaultStyle = sysFactory.DefaultStyleMenu;
-	const MenuStyle = (DefaultStyle !== undefined) ? DefaultStyle : 'col-lg-2 col-md-12';
 
 	MenuScreen.ScreenID = 'sysMenu';
 	MenuScreen.SkeletonData = this.DataMenu.XMLRPCResultData;
-	MenuScreen.setStyle(MenuStyle);
+	MenuScreen.setStyle(DefaultStyle);
 	MenuScreen.setup();
 
 	//--------------------------------------------------------
@@ -210,6 +212,7 @@ sysFactory.prototype.getLastScreenObject = function() {
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.getObjectByID = function(ObjectID) {
+	console.debug('::getObjectByID this.Screens:%o', this.Screens);
 	for (ScreenID in this.Screens) {
 		const ScreenObj = this.Screens[ScreenID];
 		const ResultObj = ScreenObj.HierarchyRootObject.getObjectByID(ObjectID);
@@ -289,20 +292,14 @@ sysFactory.prototype.switchScreen = function(ScreenID)
 			//- switch all screens to background
 			this.switchScreensToBackground();
 
-			//- set global ActualScreenID
+			//- set global CurrentScreenID
 			this.CurrentScreenID = ScreenID;
-
-			//- => rename, name is misleading. shoud be "UpdateRefDeactivated"
-			//this.updateFormData(ScreenObj);
 
 			//- switch selected screen to foreground
 			this.switchScreenToForeground(ScreenObj);
 
 			//- trigger global screen data load
 			this.triggerScreenDataLoad(ScreenID);
-
-			//- deactivate deactivated objects
-			ScreenObj.HierarchyRootObject.deactivateDeactivated();
 		}
 		catch(err) {
 			console.debug('::switchScreen err:%s', err);
@@ -375,7 +372,8 @@ sysFactory.prototype.updateFormItemRefValues = function(ScreenObj) {
 sysFactory.prototype.switchScreensToBackground = function() {
 	for (ScreenKey in this.Screens) {
 		ScreenObj = this.Screens[ScreenKey];
-		ScreenObj.HierarchyRootObject.setDOMVisibleState('hidden');
+		ScreenObj.HierarchyRootObject.VisibleState = 'hidden';
+		ScreenObj.HierarchyRootObject.setDOMVisibleState();
 	}	
 }
 
@@ -385,7 +383,8 @@ sysFactory.prototype.switchScreensToBackground = function() {
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.switchScreenToForeground = function(ScreenObj) {
-	ScreenObj.HierarchyRootObject.setDOMVisibleState('visible');
+		ScreenObj.HierarchyRootObject.VisibleState = 'visible';
+	ScreenObj.HierarchyRootObject.setDOMVisibleState();
 }
 
 
@@ -497,4 +496,32 @@ sysFactory.prototype.getText = function(TextID) {
 		console.debug('Text not found for given TextID:' + TextID);
 	}
 	return RetValue;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "setupObjectRefsRecursive"
+//------------------------------------------------------------------------------
+
+sysFactory.prototype.setupObjectRefsRecursive = function(ObjDefs, RefObj) {
+	for (const ObjItem of ObjDefs) {
+
+		CurrentObject = ObjItem['SysObject'];
+		CurrentObject.ObjectID = ObjItem['id']
+		CurrentObject.JSONConfig = { "Attributes": ObjItem['JSONAttributes'] };
+
+		try {
+			CurrentObject.init();
+		}
+		catch(err) {
+		}
+
+		RefObj.addObject(ObjItem['SysObject']);
+
+		if (ObjItem['ObjectDefs'] !== undefined) {
+			sysFactory.setupObjectRefsRecursive(ObjItem['ObjectDefs'], ObjItem['SysObject']);
+		}
+
+	}
+
 }

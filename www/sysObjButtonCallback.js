@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -16,6 +16,9 @@
 //------------------------------------------------------------------------------
 
 function sysObjButtonCallback() {
+	this.DOMType			= 'button'
+	this.DOMAttributes		= new Object();
+
 	this.EventListeners		= new Object();
 	this.ChildObjects		= new Array();
 }
@@ -32,9 +35,10 @@ sysObjButtonCallback.prototype.addEventListenerClick = sysObjButton.prototype.ad
 //- METHOD "setCallback"
 //------------------------------------------------------------------------------
 
-sysObjButtonCallback.prototype.setCallback = function(CallbackObject, CallbackFunction) {
-	this.CallbackObject = CallbackObject;
-	this.CallbackFunction = CallbackFunction;
+sysObjButtonCallback.prototype.setCallback = function(CBObject, CBFunction, CBArgs) {
+	this.CallbackObject = CBObject;
+	this.CallbackFunction = CBFunction;
+	this.CallbackArguments = CBArgs;
 }
 
 
@@ -43,5 +47,5 @@ sysObjButtonCallback.prototype.setCallback = function(CallbackObject, CallbackFu
 //------------------------------------------------------------------------------
 
 sysObjButtonCallback.prototype.EventListenerClick = function(Event) {
-	this.CallbackObject.processCallback(this.CallbackFunction);
+	this.CallbackObject.processCallback(this.CallbackFunction, this.CallbackArguments);
 }

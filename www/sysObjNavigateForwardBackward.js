@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -31,10 +31,6 @@ sysObjNavigateForwardBackward.prototype.init = function() {
 	var Attributes = this.JSONConfig.Attributes;
 
 	this.DOMStyle = Attributes.Style;
-
-	if (Attributes.AdditionalStyles !== undefined && Attributes.AdditionalStyles != null) {
-		this.DOMStyles = Attributes.AdditionalStyles;
-	}
 
 	//console.log('::init Attributes:%o', Attributes);
 

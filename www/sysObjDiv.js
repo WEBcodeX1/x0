@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -16,7 +16,8 @@
 //------------------------------------------------------------------------------
 
 function sysObjDiv() {
-	this.ChildObjects	= new Array();		//- Child Objects recursive
+	this.EventListeners		= new Object(); 		//- Event Listeners
+	this.ChildObjects		= new Array();			//- Child Objects
 }
 
 //- inherit sysBaseObject

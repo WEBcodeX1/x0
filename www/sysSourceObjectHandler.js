@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -27,48 +27,40 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
 
 	//console.debug('::processSourceObjects Object:%s this.JSONConfig:%o', this.ObjectID, this.JSONConfig);
 
-	if (this.JSONConfig.Attributes === undefined) {
-		return;
-	}
+	const Attributes = this.JSONConfig.Attributes;
 
-	var Objects = this.JSONConfig.Attributes.SrcDataObjects;
-	//console.debug('::processSourceObjects Objects:%o', Objects);
+	if (Attributes === undefined) { return; }
+
+	const SrcObjects = Attributes.SrcDataObjects;
+	console.debug('::processSourceObjects SrcObjects:%o', SrcObjects);
 
 	var ObjectResultData = new Object();
-	// array processing
-	if (Array.isArray(Objects) === true) {
+	var ObjectResultDataESB = new Object();
 
-		for (Index in Objects) {
-			var ObjectID = Objects[Index];
+	if (Array.isArray(SrcObjects) == true) {
+
+		for (Index in SrcObjects) {
+			const ObjectID = SrcObjects[Index];
+			console.debug('::processSourceObjects ObjectID:%s', ObjectID);
 			const ObjectRef = sysFactory.getObjectByID(ObjectID);
-			console.debug('SourceObjectHandler Object:%o', ObjectRef);
+			console.debug('::processSourceObjects Object:%o', ObjectRef);
 
-			ObjectID = ObjectID.replace('__overlay', '');
+			//ObjectID = ObjectID.replace('__overlay', '');
 
-			//- Formfields (ParentObject handling) should be generic and put somewhere else
-			var ObjectRuntimeData;
-			try {
-				ObjectRuntimeData = ObjectRef.ParentObject.getObjectData();
+			const ObjectRuntimeData = ObjectRef.getObjectData();
+			if (Attributes.MicroESBServiceID !== undefined) {
+				ObjectResultDataESB[ObjectRef.JSONConfig.Attributes.HierarchyObjectID] = ObjectRuntimeData;
 			}
-			catch(err) {
-				ObjectRuntimeData = ObjectRef.getObjectData();
-			}
-
-			ObjectResultData[ObjectID] = ObjectRuntimeData;
-
-			//- backward compatibility ("plain" data handling)
-			if (typeof(ObjectRuntimeData) == 'object') {
-				for (Key in ObjectRuntimeData) {
-					ObjectResultData[Key] = ObjectRuntimeData[Key];
-				}
+			else {
+				ObjectResultData[ObjectID] = ObjectRuntimeData;
 			}
 		}
 	}
 
 	else {
-		for (SrcObjectID in Objects) {
+		for (SrcObjectID in SrcObjects) {
 
-			const SourceObject = Objects[SrcObjectID];
+			const SourceObject = SrcObjects[SrcObjectID];
 			const ScreenID = SourceObject.ScreenID;
 			const ScreenObj = (ScreenID != null && ScreenID !== undefined) ? sysFactory.getScreenByID(ScreenID): this.ScreenObject;
 			const SrcObjectType = SourceObject.Type;
@@ -95,35 +87,6 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
 						}
 
 						continue;
-
-					/*
-					case "FormfieldList":
-
-						const ProcessObject = ScreenObj.HierarchyRootObject.getObjectByID(SrcObjectID);
-						const FormfieldListResultData = ProcessObject.getFormFieldItemData();
-
-						for (Key in FormfieldListResultData) {
-							ObjectResultData[Key] = FormfieldListResultData[Key];
-						}
-
-						continue;
-
-					case "Formfield":
-
-						const FormfieldItem = sysFactory.getFormFieldObjectByID(SrcObjectID);
-						const FormfieldResultData = FormfieldItem.getObjectData();
-						ObjectResultData[SrcObjectID] = FormfieldResultData;
-						//console.debug('::processSourceObjects Type:Formfield SrcObjectID:%s ResultData:%o', SrcObjectID, FormfieldResultData);
-
-						continue;
-
-					case "List":
-
-						var ListObject = ScreenObj.HierarchyRootObject.getObjectByID(SrcObjectID);
-						ObjectResultData[SrcObjectID] = ListObject.getObjectData();
-
-						continue;
-					*/
 
 					case "FileUpload":
 
@@ -154,9 +117,7 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
 				console.log('::processSourceObjects SrcObjectID:%s err:%s', SrcObjectID, err);
 			}
 		}
-
 	}
 	//console.debug('::processSourceObjects ObjectResultData:%o', ObjectResultData);
 	this.PostRequestData.merge(ObjectResultData);
-
 }

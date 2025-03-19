@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -16,29 +16,32 @@
 
 function sysTab()
 {
-	this.ObjectID										= null;							//- ObjectID
-	this.TabID											= null;							//- TabID
+	this.ObjectID				= null;							//- ObjectID
+	this.TabID					= null;							//- TabID
 
-	this.DOMType										= 'li'							//- Set DOM Element Type
+	this.DOMType				= 'li'							//- Set DOM Element Type
+	this.DOMStyle				= 'nav-item'					//- Set DOM Element Type
 
-	this.Default										= false;						//- false | true
+	this.ContentObj				= new sysBaseObject();			//- Tab Content Container
 
-	this.TextID											= null;							//- TextID
+	this.Default				= false;						//- false | true
 
-	this.Active											= false;						//- false | true
+	this.TextID					= null;							//- TextID
 
-	this.TabContainer									= null;							//- TabContainer Object
+	this.Active					= false;						//- false | true
 
-	this.ValidateStatus									= null;							//- Child Form Validate Status
+	this.TabContainer			= null;							//- TabContainer Object
 
-	this.StyleActive									= null;							//- Active Style
-	this.StyleInactive									= null;							//- Inactive Style
+	this.ValidateStatus			= null;							//- Child Form Validate Status
 
-	this.EventListeners									= new Object();					//- Event Listeners
+	this.StyleActive			= null;							//- Active Style
+	this.StyleInactive			= null;							//- Inactive Style
 
-	this.ChildObjects									= new Array();					//- Child Objects
+	this.EventListeners			= new Object();					//- Event Listeners
 
-	this.PostRequestData								= new sysRequestDataHandler();	//- Base Recursive Root Object
+	this.ChildObjects			= new Array();					//- Child Objects
+
+	this.PostRequestData		= new sysRequestDataHandler();	//- POST Request Data
 }
 
 
@@ -52,9 +55,7 @@ sysTab.prototype = new sysBaseObject();
 sysTab.prototype.EventListenerClick = function(Event)
 {
 	//console.debug('::EventListenerClick sysTab TabID:' + this.TabID);
-	if (this.TabContainer.ContainerAttributes.Clickable !== false) {
-		this.TabContainer.switchTab(this.TabID);
-	}
+	this.TabContainer.switchTab(this.TabID);
 }
 
 
@@ -66,65 +67,6 @@ sysTab.prototype.fireEvents = function()
 {
 	if (this.FireEvents !== undefined) {
 		sysFactory.Reactor.fireEvents(this.FireEvents);
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "switchStyle"
-//------------------------------------------------------------------------------
-
-sysTab.prototype.switchStyle = function()
-{
-
-	const SwitchObject1 = sysFactory.getObjectByID(this.SwitchStyleObject1ID);
-	const SwitchObject2 = sysFactory.getObjectByID(this.SwitchStyleObject2ID);
-
-	//- remove style
-	this.removeDOMElementStyle(this.StyleRemove);
-	SwitchObject1.removeDOMElementStyle(this.StyleRemove);
-	SwitchObject2.removeDOMElementStyle(this.StyleRemove + 'Text');
-
-	//- set style
-	this.DOMStyle = this.Style;
-	this.setDOMElementStyle();
-
-	SwitchObject1.DOMStyle = this.Style;
-	SwitchObject1.setDOMElementStyle();
-
-	SwitchObject2.DOMStyle = this.Style + 'Text';
-	SwitchObject2.setDOMElementStyle();
-
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "processService"
-//------------------------------------------------------------------------------
-
-sysTab.prototype.processService = function()
-{
-	if (this.ServiceURL !== undefined) {
-		//const ScreenObject = sysFactory.getScreenByID(sysFactory.CurrentScreenID);
-		this.PostRequestData.addServiceProperty('BackendServiceID', this.ServiceID);
-		RPC = new sysCallXMLRPC(this.ServiceURL);
-		RPC.Request(this);
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "callbackXMLRPCAsync"
-//------------------------------------------------------------------------------
-
-sysTab.prototype.callbackXMLRPCAsync = function()
-{
-	const DBColumnObjects = this.getObjectsByAttribute('DBColumn');
-	//console.debug('::callbackXMLRPCAsync DBColumnObjects:%o', DBColumnObjects);
-
-	for (i in DBColumnObjects) {
-		const DstObject = DBColumnObjects[i];
-		DstObject.updateDBValue(this.XMLRPCResultData[0]);
 	}
 }
 
@@ -145,12 +87,13 @@ sysTab.prototype.setValidateStatus = function(Status)
 
 function sysTabContainer()
 {
-	this.Tabs			= new Object();		//- Tab Objects
-	this.TabsOrdered	= new Array();		//- ordered Tab Objects
-	this.ChildObjects	= new Array();		//- Child Objects recursive
+	this.ChildObjects				= new Array();				//- Child Objects
 
-	this.StyleActive	= null;				//- Style Ref Active
-	this.StyleInactive	= null;				//- Style Ref Inactive
+	this.Tabs						= new Object();				//- Tab Objects
+	this.ChildObjects				= new Array();				//- Child Objects recursive
+
+	this.ContentContainer			= new sysBaseObject();		//- Tab Content Container
+	this.TabsContainer				= new sysBaseObject();		//- Tabs Container
 }
 
 sysTabContainer.prototype = new sysBaseObject();
@@ -162,6 +105,16 @@ sysTabContainer.prototype = new sysBaseObject();
 
 sysTabContainer.prototype.init = function()
 {
+	//- set tabs container object ids and css style
+	this.TabsContainer.ObjectID = this.ObjectID + 'TabsContainer';
+	this.TabsContainer.DOMType = 'ul';
+	this.TabsContainer.DOMStyle = 'nav nav-tabs';
+	this.addObject(this.TabsContainer);
+
+	//- set content container object ids
+	this.ContentContainer.ObjectID = this.ObjectID + 'ContentContainer';
+	this.ContentContainer.ObjectShortID = this.ObjectID + 'Ctnt';
+	this.addObject(this.ContentContainer);
 
 	//- set config object attributes
 	this.ContainerAttributes = this.JSONConfig.Attributes;
@@ -171,38 +124,8 @@ sysTabContainer.prototype.init = function()
 
 	//console.debug('::init TabContainer ObjectUD:%s', this.ObjectID);
 
-	//- setup container divs
-	NavDiv = new sysObjDiv();
-	NavDiv.ObjectID = 'Nav';
-	NavDiv.JSONConfig = {
-		"Attributes": {
-			"DOMType": "nav",
-			"Style": "nav"
-		}
-	};
-	NavDiv.init();
-
-	this.NavListDiv = new sysObjDiv();
-	this.NavListDiv.ObjectID = 'Ul';
-	this.NavListDiv.JSONConfig = {
-		"Attributes": {
-			"DOMType": "ul",
-			"Style": "ul"
-		}
-	};
-	this.NavListDiv.init();
-
-	//- connect objects
-	NavDiv.addObject(this.NavListDiv);
-	this.addObject(NavDiv);
-
-	//- set base attributes
-	this.StyleActive = this.ContainerAttributes.StyleActive;
-	this.StyleInactive = this.ContainerAttributes.StyleInactive;
-
 	//- add tabs from configurtaion
 	this.addTabs();
-
 }
 
 
@@ -214,45 +137,37 @@ sysTabContainer.prototype.addTabs = function()
 {
 	var Tabs = this.ContainerAttributes.Tabs;
 
-	for (TabKey in Tabs) {
+	for (const TabItem of Tabs) {
 
-		TabConfigElement = Tabs[TabKey];
+		TabID = TabItem.ID;
+
+		console.debug('TabID:%s', TabID);
 
 		var TabElement = new sysTab();
-		var TabAttributes = TabConfigElement.Attributes;
+		const TabAttributes = TabItem.Attributes;
 
-		TabElement.TabID				= TabKey;
-		TabElement.ObjectID				= TabKey+'Container';
+		TabElement.TabID				= TabID;
+		TabElement.ObjectID				= TabID;
 		TabElement.Default				= TabAttributes.Default;
 		TabElement.TextID				= TabAttributes.TextID;
-		TabElement.ServiceURL			= TabAttributes.ServiceURL;
-		TabElement.ServiceID			= TabAttributes.ServiceID;
 		TabElement.FireEvents			= TabAttributes.FireEvents;
-		TabElement.StyleActive			= this.ContainerAttributes.StyleActive;
-		TabElement.StyleInactive		= this.ContainerAttributes.StyleInactive;
-		TabElement.Index				= TabConfigElement.Index;
+		TabElement.Index				= TabItem.Index;
 
 		TabElement.TabContainer			= this;
 
+		TabElement.ContentObj.ObjectID	= TabID + 'Content';
+
 		if (TabAttributes.Default == true) {
-			TabElement.Active	= true;
-			TabElement.Style	= this.ContainerAttributes.StyleActive;
-            this.setGlobalCurrentTab(TabKey, TabElement);
+			TabElement.Active = true;
+            this.setGlobalCurrentTab(TabID, TabElement);
 		}
 		if (TabAttributes.Default == false || TabAttributes.Default === undefined) {
-			TabElement.Active	= false;
-			TabElement.Style	= this.ContainerAttributes.StyleInactive;
+			TabElement.Active = false;
 		}
 
-		this.Tabs[TabKey] = TabElement;
-
-		if (TabElement.Index !== undefined) {
-			this.TabsOrdered[TabElement.Index-1] = TabElement;
-		}
+		this.Tabs[TabID] = TabElement;
 
 		this.appendTabObject(TabElement);
-
-        this.NavListDiv.addObject(TabElement);
 	}
 }
 
@@ -273,44 +188,24 @@ sysTabContainer.prototype.getTabByTabID = function(TabID)
 
 sysTabContainer.prototype.appendTabObject = function(TabElement)
 {
-	TabContentObj = new sysObjDiv();
-	TabContentObj.ObjectID = TabElement.TabID;
-	TabContentObj.ObjectType = 'TabContent';
+	TabElement.SQLTextObj = new sysObjSQLText();
+	TabElement.SQLTextObj.ObjectID = TabElement.TabID + 'Text';
+	TabElement.SQLTextObj.TextID = TabElement.TextID;
+	TabElement.SQLTextObj.DOMStyle = 'nav-link';
+	TabElement.SQLTextObj.DOMType = 'a';
+	TabElement.SQLTextObj.init();
 
-	/*
-		// MISSING: get style(s) from JSON config, issue #121
-	*/
-	TabContentObj.init();
+	TabElement.addObject(TabElement.SQLTextObj);
 
-	ButtonObj = new sysObjDiv();
-	ButtonObj.ObjectID = TabElement.TabID + 'li';
-	ButtonObj.DOMType = 'button';
-	ButtonObj.DOMStyle = TabElement.Style;
-	ButtonObj.init();
-
-	var SQLTextObj = new sysObjSQLText();
-	SQLTextObj.ObjectID = TabElement.ObjectID + 'text';
-	SQLTextObj.TextID = TabElement.TextID;
-	SQLTextObj.DOMStyle = TabElement.Style + 'Text';
-	SQLTextObj.DOMType = 'span';
-	SQLTextObj.init();
-
-	TabElement.TabContentObj = TabContentObj;
-
-	this.addObject(TabContentObj);
+	this.TabsContainer.addObject(TabElement);
+	this.ContentContainer.addObject(TabElement.ContentObj);
 
 	var EventListenerObj = new Object();
 
 	EventListenerObj['Type'] = 'mousedown';
 	EventListenerObj['Element'] = TabElement.EventListenerClick.bind(TabElement);
 
-	TabElement.EventListeners["clickTab"] = EventListenerObj;
-
-	ButtonObj.addObject(SQLTextObj);
-	TabElement.addObject(ButtonObj);
-
-	TabElement.SwitchStyleObject1ID = ButtonObj.ObjectID;
-	TabElement.SwitchStyleObject2ID = SQLTextObj.ObjectID;
+	TabElement.EventListeners["TabClick"] = EventListenerObj;
 }
 
 
@@ -332,22 +227,12 @@ sysTabContainer.prototype.setGlobalCurrentTab = function(TabID, TabElement)
 
 sysTabContainer.prototype.switchTab = function(TabID)
 {
-	//console.debug('::switchTab TabID:%s', TabID);
+	console.debug('::switchTab TabID:%s', TabID);
 
-	var Tabs = this.Tabs;
+	for (const ProcessTabID in this.Tabs) {
 
-	for (TabKey in Tabs) {
-		var TabElement = Tabs[TabKey];
-
-		if (TabElement.Active == true) {
-
-			//console.debug('::switchTab TabKey:%s Active==True', TabKey);
-
-			TabElement.Active = false;
-			TabElement.StyleRemove = TabElement.StyleActive;
-			TabElement.Style = TabElement.StyleInactive;
-
-		}
+		TabElement = this.Tabs[ProcessTabID];
+		console.debug('TabElement:%o TabID:%s', TabElement, ProcessTabID);
 
 		if (TabElement.TabID == TabID) {
 
@@ -357,32 +242,28 @@ sysTabContainer.prototype.switchTab = function(TabID)
 			this.setGlobalCurrentTab(TabID, TabElement);
 
 			TabElement.Active = true;
-			TabElement.StyleRemove = TabElement.StyleInactive;
-			TabElement.Style = TabElement.StyleActive;
+			TabElement.SQLTextObj.DOMStyle = 'nav-link active';
+			TabElement.SQLTextObj.setDOMElementStyle();
 
-			TabElement.TabContentObj.setTabActivated();
-			TabElement.TabContentObj.setDOMVisibleState('visible');
-			TabElement.TabContentObj.Deactivated = false;
+			TabElement.ContentObj.setActivated();
+			TabElement.ContentObj.VisibleState = 'visible';
+			TabElement.ContentObj.setDOMVisibleState();
 
 			//- fire events
 			TabElement.fireEvents();
-
-			//- trigger service data load
-			TabElement.processService();
-
-			//- deactivate all objects in state "Deactivated"
-			TabElement.TabContentObj.deactivateDeactivated();
 
 			//- trigger iframe resize
 			sysFactory.resizeIframe();
 		}
 		else {
-			TabElement.TabContentObj.Deactivated = true;
-			TabElement.TabContentObj.setTabDeactivated();
-			TabElement.TabContentObj.setDOMVisibleState('hidden');
-		}
+			TabElement.Active = false;
+			TabElement.SQLTextObj.DOMStyle = 'nav-link';
+			TabElement.SQLTextObj.setDOMElementStyle();
 
-		TabElement.switchStyle();
+			TabElement.ContentObj.setDeactivated();
+			TabElement.ContentObj.VisibleState = 'hidden';
+			TabElement.ContentObj.setDOMVisibleState();
+		}
 	}
 
 }
@@ -394,16 +275,12 @@ sysTabContainer.prototype.switchTab = function(TabID)
 
 sysTabContainer.prototype.loadAll = function()
 {
-	const TabsOrdered = this.TabsOrdered;
-	for (Index in TabsOrdered) {
-		const TabElement = TabsOrdered[Index];
-		//console.debug('::loadAll Index:%s TabElement:%o', Index, TabElement);
-
-		//- fire events
+	for (const TabID in this.Tabs) {
+		TabElement = this.Tabs[TabID];
 		TabElement.fireEvents();
-
-		//- trigger service data load
+		/*
 		TabElement.processService();
+		*/
 	}
 }
 
@@ -427,7 +304,9 @@ sysTabContainer.prototype.getActiveTabID = function()
 
 sysTabContainer.prototype.switchActiveTab = function()
 {
-	this.switchTab(this.getActiveTabID());
+	const ActiveTabID = this.getActiveTabID();
+	console.debug('ActiveTabID:%s', ActiveTabID);
+	this.switchTab(ActiveTabID);
 }
 
 
@@ -450,7 +329,9 @@ sysTabContainer.prototype.getDefaultTabID = function()
 
 sysTabContainer.prototype.switchDefaultTab = function()
 {
-	this.switchTab(this.getDefaultTabID());
+	const DefaultTabID = this.getDefaultTabID();
+	console.debug('DefaultTabID:%s', DefaultTabID);
+	this.switchTab(DefaultTabID);
 }
 
 

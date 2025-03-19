@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -65,7 +65,7 @@ sysReactor.prototype.registerEvent = function(Attributes, ProcessObject, Type) {
 
 sysReactor.prototype.dispatchEvent = function(EventID) {
 
-	//console.debug('Reactor Dispatch Event. EventID:%s Events Object::%o', EventID, this.Events);
+	console.debug('Reactor Dispatch Event. EventID:%s Events Object::%o', EventID, this.Events);
 
 	for (EventKey in this.Events) {
 
@@ -89,7 +89,7 @@ sysReactor.prototype.dispatchEvent = function(EventID) {
 
 				case "ServiceConnector":
 
-					//console.debug('Reactor Dispatch Event. ServiceConnector Object:%o', ProcessObj.ServiceConnector);
+					console.debug('Reactor Dispatch Event. ServiceConnector Object:%o', ProcessObj.ServiceConnector);
 
 					ProcessObj.processSourceObjects();
 					ProcessObj.DataURL = Attributes.OnEvent.ServiceCall;
@@ -99,7 +99,7 @@ sysReactor.prototype.dispatchEvent = function(EventID) {
 						'BackendServiceID',
 						Attributes.OnEvent.ServiceID
 					);
-					ProcessObj.getData();
+					ProcessObj.getServiceData();
 	
 					continue;
 

@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -18,11 +18,9 @@
 function sysFormfieldList()
 {
 	this.FormfieldItems			= new Object();						//- Form Field Items
-	this.ChildObjects			= new Array();						//- Child Objects
+	this.FormfieldItemsHidden	= new Object();						//- Form Field Items Hidden
 
-	this.CellGroups				= new Array();						//- CellGroups (Enclosed by given Div Style)
-	this.CellGroupColumns		= null;								//- CellGroups Column Count
-	this.CellGroupIndex			= 0;								//- CellGroups Index
+	this.ChildObjects			= new Array();						//- Child Objects
 
 	this.PostRequestData		= new sysRequestDataHandler();		//- Request Data Handler
 
@@ -30,6 +28,8 @@ function sysFormfieldList()
 	this.RuntimeSetDataFunc		= this.setData;						//- Set Runtime Data
 
 	this.DOMType				= 'form';							//- Enclosed Form Element
+
+	this.ValidateGroupObj		= new sysFormFieldValidateGroup();	//- Validate Group Object
 }
 
 sysFormfieldList.prototype = new sysBaseObject();
@@ -52,60 +52,29 @@ sysFormfieldList.prototype.init = function()
 
 	this.DOMStyle = this.JSONConfig.Style;
 
-	this.ObjectShortID = 'FormList_' + this.ObjectID;
+	const Sections = this.JSONConfig.Attributes.Sections;
 
-	const Formfields = this.JSONConfig.Attributes.Formfields;
+	for (const SectionItem of Sections) {
 
-	if (this.JSONConfig.Attributes.CellGroupColumns !== undefined) {
-		this.CellGroupColumns = this.JSONConfig.Attributes.CellGroupColumns;
-	}
+		const Formfields = SectionItem.Formfields;
 
-	if (this.JSONConfig.Attributes.FormfieldEnclosedByDivStyle !== undefined) {
-		this.FormfieldEnclosedByDivStyle = this.JSONConfig.Attributes.FormfieldEnclosedByDivStyle;
-	}
-
-	if (this.CellGroupColumns !== undefined) {
-		this.Segments = this.SegmentGenerator(this.CellGroupColumns);
-		this.CellGroupGen = this.CellGroupGenerator();
-	}
-	this.CellEnclosedByGen = this.CellEnclosedByGenerator();
-
-	console.debug('CellGroupColumns:%o DivEnclose:%o Segments:%o', this.CellGroupColumns, this.FormfieldEnclosedByDivStyle, this.Segments);
-
-	for (FormIndex in Formfields) {
-
-		const FormID = Formfields[FormIndex];
-
-		//console.debug('::init this.ObjectID:%s FormIndex:%s FormObjectID:%s', this.ObjectID, FormIndex, FormID);
-
-		try {
+		for (const FormID of Formfields) {
 			const FormJSONConfig = sysFactory.DataObject.XMLRPCResultData[FormID];
-			const Attributes = FormJSONConfig.Attributes;
-
-			//console.debug('::init FormJSON:%o FormAttributes:%o', FormJSONConfig, Attributes);
-
-			var FormObj = new sysFormfieldSelector(Attributes.Type);
-
-			if (FormObj !== undefined) {
-				FormObj.JSONConfig			= FormJSONConfig;
-
-				FormObj.ObjectID			= 'enclose__' + FormID;
-				FormObj.FormObjectID		= FormID;
-				FormObj.overrideDOMObjectID	= true;
-				FormObj.DOMObjectID			= this.ObjectID + '__enclose__' + FormID;
-				FormObj.ObjectType			= Attributes.Type;
-				FormObj.ScreenObject 		= this.ScreenObject;
-				FormObj.ParentObject		= this;
-				FormObj.Index				= FormIndex;
-
-				FormObj.init();
-
-				this.FormfieldItems[FormID] = FormObj;
-			}
+			this.FormfieldItems[FormID] = this.setupFormItem(
+				FormID, FormJSONConfig.Attributes, FormJSONConfig
+			);
 		}
-		catch(err) {
-			console.debug('Formfield:%s err:%s', FormID, err);
+	}
+
+	try {
+		for (const FormID of Attributes.HiddenFields) {
+			const FormJSONConfig = sysFactory.DataObject.XMLRPCResultData[FormID];
+			const FormItem = this.setupFormItem(FormID, FormJSONConfig.Attributes, FormJSONConfig);
+			this.FormfieldItemsHidden[FormID] = FormItem;
+			this.addObject(FormItem);
 		}
+	}
+	catch(err) {
 	}
 
 	this.render();
@@ -114,60 +83,28 @@ sysFormfieldList.prototype.init = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "CellEnclosedByGenerator"
+//- METHOD "setupFormItem"
 //------------------------------------------------------------------------------
-
-sysFormfieldList.prototype.CellEnclosedByGenerator = function*()
+sysFormfieldList.prototype.setupFormItem = function(FormID, Attributes, FormJSONConfig)
 {
-	while(true) {
-		for (Index in this.FormfieldEnclosedByDivStyle) {
-			yield this.FormfieldEnclosedByDivStyle[Index];
-		}
+	try {
+		var FormObj = new sysFormfieldSelector(Attributes.Type);
+
+		FormObj.JSONConfig			= FormJSONConfig;
+
+		FormObj.ObjectID			= 'enclose__' + FormID;
+		FormObj.FormObjectID		= FormID;
+		FormObj.overrideDOMObjectID	= true;
+		FormObj.DOMObjectID			= this.ObjectID + '__enclose__' + FormID;
+		FormObj.ObjectType			= Attributes.Type;
+		FormObj.ScreenObject 		= this.ScreenObject;
+		FormObj.ParentObject		= this;
+		//FormObj.Index				= FormIndex;
+
+		FormObj.init();
+		return FormObj;
 	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "CellGroupGenerator"
-//------------------------------------------------------------------------------
-
-sysFormfieldList.prototype.CellGroupGenerator = function*()
-{
-	var ElementIndex = -1;
-	var CheckCellGroupColumns = 0;
-	var CurrentObject;
-
-	var CellGroupCheck;
-
-	while(true) {
-		ElementIndex += 1;
-		if (ElementIndex == 0 || CheckCellGroupColumns == CellGroupCheck-1) {
-			CurrentObject = new sysObjDiv();
-			CurrentObject.ObjectID = this.ObjectID + '_CellGroup' + this.CellGroupIndex;
-			CurrentObject.DOMStyle = this.JSONConfig.Attributes.CellGroupStyle;
-			CurrentObject.init();
-			this.CellGroups.push(CurrentObject);
-			CheckCellGroupColumns = -1;
-			this.CellGroupIndex += 1;
-			CellGroupCheck = this.Segments.next().value;
-		}
-		CheckCellGroupColumns += 1;
-		yield CurrentObject;
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "SegmentGenerator"
-//------------------------------------------------------------------------------
-
-sysFormfieldList.prototype.SegmentGenerator = function*(Config)
-{
-	const SegmentAfter = (Array.isArray(Config)) ? Config : [ Config ]
-	while(true) {
-		for (Index in SegmentAfter) {
-			yield SegmentAfter[Index];
-		}
+	catch(err) {
 	}
 }
 
@@ -178,57 +115,55 @@ sysFormfieldList.prototype.SegmentGenerator = function*(Config)
 
 sysFormfieldList.prototype.render = function()
 {
-
 	const Attributes = this.JSONConfig.Attributes;
-	const OrderedItems = this.getFormfieldItemsOrdered();
 
-	console.debug('::render Attributes:%o OrderedItems:%o', Attributes, OrderedItems);
+	console.debug('::render Attributes:%o', Attributes);
 
-	for (Index in OrderedItems) {
-		var FormItem = OrderedItems[Index];
-		//FormItem.generateHTML();
+	const Sections = this.JSONConfig.Attributes.Sections;
 
-		if (this.FormfieldEnclosedByDivStyle !== undefined) {
-			console.debug('Enclose Object');
-			var EncloseObj = new sysBaseObject();
-			EncloseObj.ObjectID = FormItem.ObjectID + '_enclosedby';
-			EncloseObj.DOMStyle = this.CellEnclosedByGen.next().value;
+	for (const SectionItem of Sections) {
+
+		var SectionHeaderObj = new sysFactory.SetupClassesRT[SectionItem.Object](
+			this,
+			SectionItem.ObjectAttributes
+		);
+		SectionHeaderObj.ObjectID = 'SH_' + SectionItem.ID;
+		SectionHeaderObj.init();
+
+		//var SectionHeaderObj = new sysFormSectionHeader(this, SectionItem.ObjectAttributes);
+
+		const Formfields = SectionItem.Formfields;
+
+		var FormObjects = new Array();
+		for (const FormID of Formfields) {
+			FormObjects.push(this.FormfieldItems[FormID]);
 		}
 
-		if (this.CellGroupColumns == null) {
-			if (this.FormfieldEnclosedByDivStyle !== undefined) {
-				EncloseObj.addObject(FormItem);
-				this.addObject(EncloseObj);
-			}
-			else {
- 				this.addObject(FormItem);
-			}
-		}
-		else {
-			var RefObject = this.CellGroupGen.next().value;
-			//console.log('::render RefIndex:%o', RefObject);
-			if (this.FormfieldEnclosedByDivStyle !== undefined) {
-				EncloseObj.addObject(FormItem);
-				RefObject.addObject(EncloseObj);
-			}
-			else {
-				RefObject.addObject(FormItem);
-			}
-		}
-	}
+		var GridGenerator = new sysGridGenerator(FormObjects);
 
-	for (Index in this.CellGroups) {
-		CellGroupObject = this.CellGroups[Index];
-		this.addObject(CellGroupObject);
+		GridGenerator.init(
+			SectionItem.RowStyle,
+			SectionItem.ColStyle,
+			SectionItem.RowAfterElements,
+			SectionItem.ColAfterElements
+		);
+
+		const RowItems = GridGenerator.generate();
+		console.debug('::genGrid RowItems:%o', RowItems);
+
+		for (const RowItem of RowItems) {
+			SectionHeaderObj.ContainerObj.addObject(RowItem);
+		}
+		this.addObject(SectionHeaderObj);
 	}
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "getData"
+//- METHOD "getServiceData"
 //------------------------------------------------------------------------------
 
-sysFormfieldList.prototype.getData = function()
+sysFormfieldList.prototype.getServiceData = function()
 {
 	RPC = new sysCallXMLRPC(this.DataURL);
 	RPC.Request(this);
@@ -262,7 +197,7 @@ sysFormfieldList.prototype.setData = function(DataObj)
 	//console.debug('NewData:%o', NewData);
 
 	if (DataObj !== undefined) {
-		for (var FormID in this.FormfieldItems) {
+		for (const FormID in this.FormfieldItems) {
 			FormItem = this.FormfieldItems[FormID];
 			//console.debug('FormItem:%o', FormItem);
 			if (FormItem !== undefined) {
@@ -284,7 +219,8 @@ sysFormfieldList.prototype.validate = function()
 
 	console.debug('::validate Attributes:%o', Attributes);
 
-	const ErrorContainerID = (Attributes.ErrorContainerOverlay === true) ? Attributes.ErrorContainer + '__overlay' : Attributes.ErrorContainer;
+	const Ovrlay = Attributes.ErrorContainerOverlay;
+	const ErrorContainerID = (Ovrlay === true) ? Attributes.ErrorContainer + '__overlay' : Attributes.ErrorContainer;
 	const ErrorObj = sysFactory.getObjectByID(ErrorContainerID);
 
 	var ValidateStatus = true;
@@ -294,18 +230,32 @@ sysFormfieldList.prototype.validate = function()
 	if (ErrorObj !== undefined) {
 		ErrorObj.reset();
 
-		var ErrorDisplayTextID;
 		var ErrorDisplayText;
+		var ErrorDetailDisplayText;
 
 		for (Key in this.FormfieldItems) {
-			console.debug('Formfield Key:%s', Key);
 			const FormItem = this.FormfieldItems[Key];
-			const FormValidateTextID = FormItem.JSONConfig.Attributes.ValidateTextID;
-			if (FormItem.validate() === false) {
-				console.debug('FormValidateTextID:%s', FormValidateTextID);
-				ErrorDisplayTextID = (FormValidateTextID !== undefined) ? FormValidateTextID : 'TXT.SYS.ERROR.FORMVALIDATE.DEFAULT';
-				ErrorDisplayText = sysFactory.getText(ErrorDisplayTextID); 
+			console.debug('::validate FormfieldID:%s', Key);
+			const FormAttributes = FormItem.JSONConfig.Attributes;
+			const TxtID = FormAttributes.ValidateErrorTextID;
+			const ErrorDisplayTextID = (TxtID !== undefined) ? TxtID : 'TXT.SYS.ERROR.FORMVALIDATE.DEFAULT';
+			console.debug('::validate FormValidateErrorTextID:%s', ErrorDisplayTextID);
+			const RetValue = FormItem.validate();
+			console.debug('::validate RetValue:%s', RetValue);
+
+			var ValidateError;
+			if (typeof RetValue == 'object' && RetValue['Error'] == true) {
+				ErrorDetailDisplayText = RetValue['Message'];
+				ValidateError = RetValue['Error'];
+			}
+			else {
+				ValidateError = RetValue;
+			}
+
+			if (ValidateError == true) {
+				ErrorDisplayText = sysFactory.getText(ErrorDisplayTextID);
 				ValidateStatus = false;
+				//break; #TODO: make this configurable (break on first val-error occurence or display all)
 			}
 		}
 
@@ -313,21 +263,27 @@ sysFormfieldList.prototype.validate = function()
 		// - group validate
 		// ----------------------------------------------------------------
 
-		if (Attributes.GroupValidate !== undefined) {
-			console.debug('GroupValidate:%o', Attributes.GroupValidate);
-			for (GroupKey in Attributes.GroupValidate) {
-				const GroupConf = Attributes.GroupValidate[GroupKey];
-				const GroupFunction = GroupConf.FunctionRef;
-				var Objects = new Array();
-				for (ObjectKey in GroupConf.ObjectIDs) {
-					Objects.push(sysFactory.getObjectByID(GroupConf.ObjectIDs[ObjectKey]));
+		if (Attributes.GroupValidate !== undefined && ValidateError == false) {
+
+			for (GroupItem of Attributes.GroupValidate) {
+
+				const GTxtID = GroupItem.ValidateErrorTextID;
+				const GroupErrorDisplayTextID = (GTxtID !== undefined) ? GTxtID : 'TXT.SYS.ERROR.FORMVALIDATE.DEFAULT';
+				ErrorDisplayText = sysFactory.getText(GroupErrorDisplayTextID);
+
+				console.debug('GroupValidate:%o', GroupItem);
+
+				const GroupFunction = GroupItem.FunctionRef;
+				var FormObjects = new Array();
+				for (FormID of GroupItem.ObjectIDs) {
+					FormObjects.push(sysFactory.getObjectByID(FormID));
 				}
-				const Result = sysFactory.ObjValidate.validateGroup(
+				const Result = this.ValidateGroupObj.validate(
 					GroupFunction,
-					Objects
+					FormObjects
 				);
-				if (Result['Error'] !== undefined && Result['Error'] === false) {
-					ErrorDisplayText = Result['Message'];
+				if (Result['Error'] !== undefined && Result['Error'] == true) {
+					ErrorDetailDisplayText = Result['Message'];
 					ValidateStatus = false;
 				}
 			}
@@ -336,10 +292,10 @@ sysFormfieldList.prototype.validate = function()
 		// ----------------------------------------------------------------
 		// - check validate status
 		// ----------------------------------------------------------------
-
-		if (ValidateStatus === false) {
+		console.debug('::validate ValidateStatus:%s', ValidateStatus);
+		if (ValidateStatus == false) {
 			console.debug('ErrorObj:%o', ErrorObj);
-			ErrorObj.displayError(ErrorDisplayText);
+			ErrorObj.displayError(ErrorDisplayText, ErrorDetailDisplayText);
 		}
 	}
 
@@ -353,33 +309,29 @@ sysFormfieldList.prototype.validate = function()
 
 sysFormfieldList.prototype.getFormfieldItemData = function()
 {
+	console.debug('::getFormfieldItemData');
 	var ResultData = new Object();
 
 	for (ItemKey in this.FormfieldItems) {
 		const FormItem = this.FormfieldItems[ItemKey];
 		//console.debug('FormfieldID:%s Item:%o', ItemKey, FormItem);
-		const Result = FormItem.RuntimeGetDataFunc();
-		if (Result !== undefined && Result !== null) {
+		const Result = FormItem.getObjectData();
+		if (Result !== undefined && Result != null) {
 			ResultData[ItemKey] = Result;
 		}
 	}
 
-	//- TODO: think of placing somewhere else
-	const InstancePrefix = this.JSONConfig.InstancePrefix;
-	const OverlayPostfix = '__overlay';
-
-	console.debug('InstancePrefix:%s', InstancePrefix);
-
-	var NewData = new Object();
-
-	for (DataKey in ResultData) {
-		var NewKey = DataKey;
-		NewKey = (InstancePrefix !== undefined) ? NewKey.replace(InstancePrefix, '') : NewKey;
-		NewKey = NewKey.replace('__overlay', '');
-		NewData[NewKey] = ResultData[DataKey];
+	for (ItemKey in this.FormfieldItemsHidden) {
+		const FormItem = this.FormfieldItemsHidden[ItemKey];
+		//console.debug('FormfieldID:%s Item:%o', ItemKey, FormItem);
+		const Result = FormItem.getObjectData();
+		if (Result !== undefined && Result != null) {
+			ResultData[ItemKey] = Result;
+		}
 	}
 
-	return NewData;
+	console.debug('::getFormfieldItemData ResultData:%o', ResultData);
+	return ResultData;
 }
 
 
@@ -439,22 +391,6 @@ sysFormfieldList.prototype.getFormfieldItemsByType = function(Type)
 
 
 //------------------------------------------------------------------------------
-//- METHOD "getFormfieldItemsOrdered"
-//------------------------------------------------------------------------------
-
-sysFormfieldList.prototype.getFormfieldItemsOrdered = function()
-{
-	var ReturnItems = new Array();
-	for (ItemKey in this.FormfieldItems) {
-		const FormItem = this.FormfieldItems[ItemKey];
-		//console.debug('::getFormfieldItemsOrdered FormItem:%o', FormItem);
-		ReturnItems.push(this.getFormfieldItemByIndex(FormItem.Index));
-	}
-	return ReturnItems;
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "getFormfieldItemByIndex"
 //------------------------------------------------------------------------------
 
@@ -501,74 +437,4 @@ sysFormfieldList.prototype.initOnChangeItems = function()
 		//console.debug('ItemKey:%s', ItemKey);
 		this.FormfieldItems[ItemKey].processOnChangeItem();
 	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "updateInstanceObjectNames"
-//------------------------------------------------------------------------------
-
-sysFormfieldList.prototype.updateInstanceObjectNames = function()
-{
-	//console.debug('::Instance FormfieldListID:%s Instanceprefix:%s', this.ObjectID, this.JSONConfig.InstancePrefix);
-	const FormfieldConfig = this.JSONConfig.Attributes.Formfields;
-
-	var NewFormfieldConfig = new Array();
-
-	for (ItemIndex in FormfieldConfig) {
-
-		ItemKey = FormfieldConfig[ItemIndex];
-		NewKey = this.JSONConfig.InstancePrefix + ItemKey;
-
-		NewFormfieldConfig.push(NewKey);
-
-		var GlobalObjectData = sysFactory.DataObject.XMLRPCResultData;
-
-		if (GlobalObjectData[NewKey] === undefined) {
-			const SrcFormJSON = sysFactory.DataObject.XMLRPCResultData[ItemKey];
-			GlobalObjectData[NewKey] = SrcFormJSON;
-		}
-
-		//console.debug('NewObject:%o', GlobalObjectData[NewKey]);
-
-		if (this.JSONConfig.SetAttributes !== undefined && this.JSONConfig.SetAttributes[ItemKey] !== undefined) {
-			const SetObject = GlobalObjectData[NewKey];
-			SetObject.Attributes = sysMergeObjects(SetObject.Attributes, this.JSONConfig.SetAttributes[ItemKey]);
-			//console.debug('::Instance SetObject Merge:%o SetObject:%o', this.JSONConfig.SetAttributes[ItemKey], SetObject);
-		}
-	}
-	//console.debug('NewFormfieldConfig:%o', NewFormfieldConfig);
-	this.JSONConfig.Attributes.Formfields = NewFormfieldConfig;
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "rewriteOverlayFormitemNames"
-//------------------------------------------------------------------------------
-
-//-> Due to Screen with identical Formfield DOM IDs already exists in DOM:
-//-> We have to prefix all FormfieldList Formitem IDs with "overlay__",
-//-> so they are referencable again.
-
-sysFormfieldList.prototype.rewriteOverlayFormitemNames = function()
-{
-	const FormlistFormfields = this.JSONConfig.Attributes.Formfields;
-	const FormOverlayPrefix = '__overlay';
-
-	var NewFormfields = new Array();
-
-	for (Index in FormlistFormfields) {
-
-		FormID = FormlistFormfields[Index];
-		FormOverlayID = (FormID.includes(FormOverlayPrefix)) ? FormID : FormID + FormOverlayPrefix;
-
-		NewFormfields.push(FormOverlayID);
-
-		var GlobalObjectConfig = sysFactory.DataObject.XMLRPCResultData;
-		GlobalObjectConfig[FormOverlayID] = GlobalObjectConfig[FormID];
-
-	}
-
-	this.JSONConfig.Attributes.Formfields = NewFormfields;
-	console.debug('Overlay Formfields:%o', this.JSONConfig.Attributes.Formfields);
 }
