@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mypostgres-secret
+  namespace: x0-test
+type: Opaque
+stringData:
+  superUserPassword: x-eSam_t34
+  replicationUserPassword: y-tPagLL-22

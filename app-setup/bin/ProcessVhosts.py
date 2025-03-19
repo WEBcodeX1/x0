@@ -7,12 +7,12 @@ import shutil
 import logging
 import subprocess
 
-default_fqdn = 'x0-app.localnet'
 
 dir_x0_base = '/var/lib/x0'
 dir_x0_app_setup = '{}/app-setup'.format(dir_x0_base)
 dir_x0_app_install = '{}/app-install'.format(dir_x0_base)
 dir_x0_app_config = '{}/app-config'.format(dir_x0_base)
+dir_x0_app_static_tpl = '{}/static-tpl'.format(dir_x0_base)
 dir_x0_app_config_apache = '{}/apache'.format(dir_x0_app_config)
 dir_x0_app_config_apache_vhost = '{}/vhost'.format(dir_x0_app_config_apache)
 dir_x0_app_bin = '{}/bin'.format(dir_x0_app_setup)
@@ -42,6 +42,28 @@ def replace_vhost_template(conf_data):
         conf_data = conf_data.replace(replace_str, replace_value)
     return conf_data
 
+def process_static_dir(vhost_www_path, x0_app_id):
+
+    # process static
+    app_static_dir = '{}/static/{}'.format(vhost_www_path, x0_app_id)
+
+    cmd = 'mkdir -p {}'.format(app_static_dir)
+    p = subprocess.Popen(cmd.split())
+    p.communicate()
+
+    # process static tpl data
+    shutil.copytree(dir_x0_app_static_tpl, app_static_dir, dirs_exist_ok=True)
+
+    # process app data
+    src = '{}/www/static/{}'.format(dir_x0_app_install, x0_app_id)
+    shutil.copytree(src, app_static_dir, dirs_exist_ok=True)
+
+    # if global css styles put in each app subdir
+    try:
+        src = '{}/www/css'.format(dir_x0_app_install)
+        shutil.copytree(src, app_static_dir, dirs_exist_ok=True)
+    except Exception as e:
+        pass
 
 if __name__ == '__main__':
 
@@ -105,7 +127,7 @@ if __name__ == '__main__':
             try:
                 vhost_x0_apps = vhost_config[vhost_id]['apps']
             except Exception as e:
-                vhost_x0_apps = []
+                vhost_x0_apps = ['']
 
             # x0 installer related actions
             if installer_type is not None and installer_type == 'x0':
@@ -159,39 +181,50 @@ if __name__ == '__main__':
 
                 # process global python
                 src = '{}/python'.format(dir_x0_app_install)
-
                 shutil.copytree(src, dir_python, dirs_exist_ok=True)
 
                 for x0_app_id in vhost_x0_apps:
 
+                    process_static_dir(vhost_www_path, x0_app_id)
+
                     # process static
-                    app_static_dir = '{}/static/{}'.format(vhost_www_path, x0_app_id)
+                    #app_static_dir = '{}/static/{}'.format(vhost_www_path, x0_app_id)
 
-                    cmd = 'mkdir -p {}'.format(app_static_dir)
-                    p = subprocess.Popen(cmd.split())
-                    p.communicate()
+                    #cmd = 'mkdir -p {}'.format(app_static_dir)
+                    #p = subprocess.Popen(cmd.split())
+                    #p.communicate()
 
-                    src = '{}/www/static/{}'.format(dir_x0_app_install, x0_app_id)
-                    shutil.copytree(src, app_static_dir, dirs_exist_ok=True)
+                    # process static tpl data
+
+                    # process app data
+                    #src = '{}/www/static/{}'.format(dir_x0_app_install, x0_app_id)
+                    #shutil.copytree(src, app_static_dir, dirs_exist_ok=True)
 
                     # if global css styles put in each app subdir
-                    try:
-                        src = '{}/www/css'.format(dir_x0_app_install)
-                        shutil.copytree(src, app_static_dir, dirs_exist_ok=True)
-                    except Exception as e:
-                        pass
+                    #try:
+                    #    src = '{}/www/css'.format(dir_x0_app_install)
+                    #    shutil.copytree(src, app_static_dir, dirs_exist_ok=True)
+                    #except Exception as e:
+                    #    pass
 
                 # process www python
                 src = '{}/www/python'.format(dir_x0_app_install)
                 dst = '{}/python'.format(vhost_www_path)
 
-                shutil.copytree(src, dst, dirs_exist_ok=True)
+                try:
+                    shutil.copytree(src, dst, dirs_exist_ok=True)
+                except Exception as e:
+                    pass
 
                 # process x0 .js templates and userFunctions.js
                 src = '{}/www/x0'.format(dir_x0_app_install)
                 dst = '{}'.format(vhost_www_path)
 
-                shutil.copytree(src, dst, dirs_exist_ok=True)
+                try:
+                    shutil.copytree(src, dst, dirs_exist_ok=True)
+                except Exception as e:
+                    pass
+
         else:
             # link (activate) "global" environment
             log_message(log_prefix, 'Enabling apache2 with vhost_id:{}'.format(vhost_id))
@@ -213,7 +246,7 @@ if __name__ == '__main__':
     cmd = [
         'sed',
         '-i',
-        '/ServerName {}/c\ServerName {}'.format(default_fqdn, host_name),
+        '/ServerName x0-app.localnet/c\ServerName {}'.format(host_name),
         apache2_config
     ]
 

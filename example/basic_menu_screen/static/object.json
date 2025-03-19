@@ -3,7 +3,7 @@
 	{
 		"Type": "Link",
 		"Attributes": {
-			"Style": "sysLink",
+			"Style": "btn btn-secondary",
 			"TextID": "TXT.MENU.BASICEXAMPLE.SCREEN1",
 			"ScreenID": "Screen1"
 		}
@@ -12,7 +12,7 @@
 	{
 		"Type": "Link",
 		"Attributes": {
-			"Style": "sysLink",
+			"Style": "btn btn-secondary",
 			"TextID": "TXT.MENU.BASICEXAMPLE.SCREEN2",
 			"ScreenID": "Screen2"
 		}
@@ -21,7 +21,7 @@
 	{
 		"Type": "SQLText",
 		"Attributes": {
-			"Style": "sysBase",
+			"Style": "p-3 fw-bold",
 			"TextID": "TXT.BASICEXAMPLE.TEXT1"
 		}
 	},
@@ -29,7 +29,7 @@
 	{
 		"Type": "SQLText",
 		"Attributes": {
-			"Style": "sysBase",
+			"Style": "p-3 fw-bold",
 			"TextID": "TXT.BASICEXAMPLE.TEXT2"
 		}
 	}

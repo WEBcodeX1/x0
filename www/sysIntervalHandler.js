@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -133,49 +133,6 @@ sysIntervalHandler.prototype.processInterval = function(Config, ParentFormObject
 						ParentFormObject.reset();
 						ParentFormObject.focus();
 					}
-				}
-			}
-		}
-
-		if (IntervalConfig.Type == 'MatchTableColumn') {
-
-			const FormValue = ParentFormObject.getRuntimeData();
-			const Length = FormValue.length;
-
-			//console.debug('MatchTableColumn FormValue:%s Length:%s', FormValue, Length);
-
-			if (ParentFormObject.checkLengthMismatch(Length, IntervalConfig.DataLength, IntervalConfig) == true) {
-
-				const DstObject = sysFactory.getObjectByID(IntervalConfig.DstObjectID);
-				const DstObjectColumn = IntervalConfig.DstObjectColumn;
-				IntervalConfig['FormfieldValue'] = FormValue;
-
-				DstObject.checkColumnValueSetStyle(IntervalConfig);
-
-				const ActivateObjProps = IntervalConfig.ActivateObjProperties;
-
-				if (ActivateObjProps !== undefined) {
-					const CheckObjectData = DstObject.getObjectData();
-					//console.debug('::MatchTableColumn CheckObjectData:%o', CheckObjectData);
-					const CheckRowCount = CheckObjectData.length;
-					var MatchRowsCount = 0;
-					for (Index in CheckObjectData) {
-						const Row = CheckObjectData[Index];
-						if (Row[ActivateObjProps.ColumnID] == ActivateObjProps.ColumnValue) {
-							MatchRowsCount++;
-						}
-					}
-					//console.debug('Table Rows:%s MatchRows:%s', CheckRowCount, MatchRowsCount);
-
-					const ActivateObject = sysFactory.getObjectByID(ActivateObjProps.ObjectID);
-
-					if (CheckRowCount == MatchRowsCount) {
-						ActivateObject.enable();
-					}
-				}
-				if (IntervalConfig.ResetOnSuccess === true) {
-					ParentFormObject.reset();
-					ParentFormObject.focus();
 				}
 			}
 		}

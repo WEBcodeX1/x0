@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ${x0_APP_ID}-${x0_VHOST_ID}-${x0_APP_ENV}-notls-ingress
+  name: ${x0_APP_ID}-${x0_VHOST_ID}-${x0_APP_ENV}-tls-ingress
   namespace: ${x0_NAMESPACE}
   ${x0_INGRESS_ANNOTATIONS}
 spec:

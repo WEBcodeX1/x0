@@ -40,7 +40,7 @@ with open("../config/app-config.json") as fh:
         'x0-connect',
         '--ip',
         '172.20.0.40',
-        '--shm-size=128mb'
+        '--shm-size=512m'
     ]
 
     for host_id, test_url in vhost_test_urls.items():

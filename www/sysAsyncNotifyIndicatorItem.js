@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -23,7 +23,7 @@ function sysObjAsyncNotifyIndicatorItem(NotifyConfig, ParentRef)
 	this.ParentObj		= ParentRef;										// Async Indicator Object Ref
 
 	this.ObjectID		= 'IndicatorItem' + this.ParentObj.zIndex;			// ObjectID
-	this.DOMStyle		= 'sysIndicatorItem IndicatorLoading';				// Base Indicator Item Style
+	this.DOMStyle		= 'm-2 card card-body alert alert-success';			// Base Indicator Item Style
 
 	this.NotifyConfig	= NotifyConfig;										// Notify Config
 	this.ID				= NotifyConfig.ID;									// Unique Name
@@ -55,10 +55,10 @@ sysObjAsyncNotifyIndicatorItem.prototype.init = function()
 	var BtnClose = new sysBaseObject();
 	BtnClose.ObjectID = 'btnclose';
 	BtnClose.DOMType = 'button';
-	BtnClose.DOMStyle = 'btn-close';
+	BtnClose.DOMStyle = 'btn btn-close';
 	BtnClose.DOMAttributes = new Object();	
 	BtnClose.DOMAttributes['type'] = 'button';
-	BtnClose.DOMAttributes['title'] = 'Notifikation schließen';
+	BtnClose.DOMAttributes['title'] = sysFactory.getText('TXT.SYS.LOADING-INDICATOR-TITLE-CLOSE');
 
 	BtnEnclose.addObject(BtnClose);
 	this.addObject(BtnEnclose);
@@ -69,7 +69,7 @@ sysObjAsyncNotifyIndicatorItem.prototype.init = function()
 
 	var IconEnclose = new sysBaseObject();
 	IconEnclose.ObjectID = 'iconenclose';
-	IconEnclose.DOMStyle = 'col-1';
+	IconEnclose.DOMStyle = 'col-2';
 
 	this.IconObj = new sysBaseObject();
 	this.IconObj.ObjectID = 'icon';
@@ -77,12 +77,12 @@ sysObjAsyncNotifyIndicatorItem.prototype.init = function()
 
 	var ResultEnclose = new sysBaseObject();
 	ResultEnclose.ObjectID = 'resultenclose';
-	ResultEnclose.DOMStyle = 'col-11';
+	ResultEnclose.DOMStyle = 'col-10';
 
 	this.ResultObj = new sysBaseObject();
 	this.ResultObj.ObjectID = 'result';
-	this.ResultObj.DOMStyle = 'sysIndicatorItemResult';
-	this.ResultObj.DOMValue = 'Die Daten werden zum Server gesendet und verarbeitet.';
+	this.ResultObj.DOMStyle = '';
+	this.ResultObj.DOMValue = sysFactory.getText('TXT.SYS.LOADING-INDICATOR-SEND-SERVER');
 
 	IconEnclose.addObject(this.IconObj);
 	RowContainer.addObject(IconEnclose);
@@ -140,15 +140,15 @@ sysObjAsyncNotifyIndicatorItem.prototype.processResult = function(status)
 
 	if (status == 'SUCCESS') {
 		this.setProcessStatus(0);
-		UpdateDisplayText = 'Die durchgeführte Aktion "' + this.ID + '" war erfolgreich.';
+		UpdateDisplayText = sysFactory.getText('TXT.SYS.LOADING-INDICATOR-SUCCESS') + ' "' + this.ID + '"';
 	}
 	else if (status == 'ERROR') {
 		this.setProcessStatus(1);
-		UpdateDisplayText = 'Bei der Aktion "' + this.ID + '" ist ein Fehler aufgetreten.';
+		UpdateDisplayText = sysFactory.getText('TXT.SYS.LOADING-INDICATOR-ERROR') + ' "' + this.ID + '"';
 	}
 	else {
 		this.setProcessStatus(2);
-		UpdateDisplayText = 'Es ist ein Systemfehler aufgetreten.';
+		UpdateDisplayText = sysFactory.getText('TXT.SYS.LOADING-INDICATOR-SYSTEMERROR');
 	}
 
 	this.setDisplayText(UpdateDisplayText);

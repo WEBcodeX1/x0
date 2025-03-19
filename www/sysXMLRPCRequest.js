@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -109,7 +109,7 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
 					else {
 						RequestObject.XMLRPCResultData = ResultData;
 					}
-					//console.debug('RequestObject:%o', RequestObject);
+					console.debug('RequestObject:%o', RequestObject);
 					
 					try {
 						RequestObject.callbackXMLRPCAsync();

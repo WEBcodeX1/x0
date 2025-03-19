@@ -57,7 +57,7 @@ def application(environ, start_response):
                     start_add = 3
                 else:
                     section_type = 'file'
-                    start_add = 4                
+                    start_add = 4
 
                 start = line_nr + start_add
                 index_end = separator_line_nrs.index(line_nr)+1

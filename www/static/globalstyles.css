@@ -1,0 +1,49 @@
+body {
+    font-family: Georgia, serif;
+    background-color: #2b5575;
+}
+
+a:link {
+color: #2b5550;
+}
+a:visited {
+color: #2b55a5;
+}
+a:hover {
+color: hotpink;
+}
+a:active {
+color: blue;
+}
+
+.required::before {
+    content: "*";
+    color: red;
+}
+
+.overlay-default {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 50%;
+}
+
+.menu-absolute-pos {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.th-height-default {
+    height:30px;
+}
+
+.tr-height-default {
+    height:40px;
+}
+
+.sysContextMenuTable {
+    position: absolute;
+    width: 200px;
+}

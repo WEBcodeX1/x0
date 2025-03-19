@@ -1,10 +1,20 @@
 {
+	"Header1":
+	{
+		"Type": "Div",
+		"Attributes": {
+			"DOMType": "h1",
+			"Value": "Welcome to x0 JavaScript Framework.",
+			"Style": "border rounded p-3 fw-bold"
+		}
+	},
 	"HelloWorldText":
 	{
 		"Type": "SQLText",
 		"Attributes": {
-			"Style": "sysBase",
-			"TextID": "TXT.BASICEXAMPLE.TEXT1"
+			"TextID": "TXT.BASICEXAMPLE.TEXT1",
+			"Style": "border rounded p-3",
+			"IconStyle": "fa fa-camera-retro"
 		}
 	}
 }

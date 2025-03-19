@@ -2,380 +2,309 @@
 	"Link1": {
 		"Type": "Link",
 		"Attributes": {
-			"Style": "sysLink",
+			"Style": "btn btn-primary",
 			"TextID": "TXT.MENU.INTEGRATIONTEST.SCREEN-TEST1",
 			"ScreenID": "Test1"
 		}
 	},
+
 	"FormFieldValidationList": {
 		"Type": "FormfieldList",
 		"Attributes": {
-			"Style": "sysFormfieldBorder",
-			"Formfields": [
-				"FormFieldDefaultString",
-				"FormFieldDefaultAtoZ",
-				"FormFieldDefaultInteger",
-				"FormFieldDefaultAtoZPlusNumbers",
-				"FormFieldDefaultAtoZUpper",
-				"FormFieldDefaultDateInternational",
-				"FormFieldDefaultDate",
-				"FormFieldDefaultDatepicker",
-				"FormFieldZipCode",
-				"FormFieldUserName",
-				"FormFieldRealName",
-				"FormFieldSurename",
-				"FormFieldUserPass",
-				"FormFieldUserGroup",
-				"FormFieldMailAddress",
-				"FormFieldPhoneNrInternational",
-				"FormFieldPhoneNr",
-				"FormFieldPhoneNrArea",
-				"FormFieldPhoneNrSingle",
-				"FormFieldQuantity",
-				"FormFieldCountry",
-				"FormFieldCity",
-				"FormFieldStreetNr",
-				"FormFieldEuroWithCents",
-				"FormFieldSPXBarcode",
-				"FormFieldSubmitButton"
+			"Sections": [
+				{
+					"ID": "Formvalidation",
+					"Object": "FormSectionHeader",
+					"ObjectAttributes": {
+						"Style": "card card-line bg-body-tertiary border border-dark border-2 mb-3",
+						"SubStyle": "card-body mt-n6",
+						"HeaderIcon": "fa-solid fa-microscope",
+						"HeaderTextID": "TXT.TEST.FORMVALIDATION.FORM-SECTION-HEADER",
+						"SubHeaderTextID": "TXT.TEST.FORMVALIDATION.FORM-SECTION-SUBHEADER"
+					},
+					"Formfields": [
+						"FormFieldDefaultString",
+						"FormFieldDefaultAtoZ",
+						"FormFieldDefaultInteger",
+						"FormFieldDefaultAtoZPlusNumbers",
+						"FormFieldDefaultAtoZUpper",
+						"FormFieldDefaultDateInternational",
+						"FormFieldDefaultDateGerman",
+						"FormFieldDefaultDatepicker",
+						"FormFieldZipCodeGerman",
+						"FormFieldUserName",
+						"FormFieldUserPass",
+						"FormFieldUserGroup",
+						"FormFieldMailAddress",
+						"FormFieldPhoneNrInternational",
+						"FormFieldPhoneNrGerman",
+						"FormFieldPhoneNrAreaGerman",
+						"FormFieldQuantity",
+						"FormFieldCountry",
+						"FormFieldStreetNr",
+						"FormFieldEuroWithCents",
+						"FormFieldBarcode",
+						"FormFieldDummy"
+					],
+					"RowStyle": "row",
+					"RowAfterElements": 2,
+					"ColStyle": "col-md-6"
+				}
 			],
 			"ErrorContainer": "FormFieldValidationListError"
 		}
 	},
+
 	"FormFieldValidationListError": {
 		"Type": "ErrorContainer",
 		"Attributes": {
 		}
 	},
+
 	"FormFieldDefaultString": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
 			"ValidateRef": "DefaultString",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"ValidateNullable": false,
+			"Style": "form-control",
 			"Placeholder": "DefaultString"
 		}
 	},
+
 	"FormFieldDefaultAtoZ": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
 			"ValidateRef": "DefaultAtoZ",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"ValidateNullable": false,
+			"Style": "form-control",
 			"Placeholder": "AtoZ"
 		}
 	},
+
 	"FormFieldDefaultInteger": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
 			"ValidateRef": "DefaultInteger",
 			"ValidateNullable": false,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"Style": "form-control",
 			"Placeholder": "DefaultInteger"
 		}
 	},
+
 	"FormFieldDefaultAtoZPlusNumbers": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
 			"ValidateRef": "DefaultAtoZPlusNumbers",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"ValidateNullable": false,
+			"Style": "form-control",
 			"Placeholder": "AtoZPlusNumbers"
 		}
 	},
+
 	"FormFieldDefaultAtoZUpper": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
 			"ValidateRef": "DefaultAtoZUpper",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"ValidateNullable": false,
+			"Style": "form-control",
 			"Placeholder": "AtoZUpper"
 		}
 	},
+
 	"FormFieldDefaultDateInternational": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
-			"ValidateRef": "DefaultDateInternational",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
-			"Placeholder": "DefaultDateInternational"
+			"ValidateRef": "DateInternational",
+			"ValidateNullable": false,
+			"Style": "form-control",
+			"Placeholder": "DateInternational"
 		}
 	},
-	"FormFieldDefaultDate": {
+
+	"FormFieldDefaultDateGerman": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
-			"ValidateRef": "DefaultDate",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
-			"Placeholder": "DefaultDate"
+			"ValidateRef": "DateGerman",
+			"ValidateNullable": false,
+			"Style": "form-control",
+			"Placeholder": "DateGerman"
 		}
 	},
+
 	"FormFieldDefaultDatepicker": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "date",
-			"ValidateRef": "DefaultDatepicker",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
-			"Placeholder": "DefaultDatepicker"
+			"ValidateRef": "DateInternational",
+			"ValidateNullable": false,
+			"Style": "form-control",
+			"Placeholder": "DateInternational"
 		}
 	},
-	"FormFieldZipCode": {
+
+	"FormFieldZipCodeGerman": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
-			"ValidateRef": "ZipCode",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
-			"Placeholder": "ZipCode"
+			"ValidateRef": "ZipCodeGerman",
+			"ValidateNullable": false,
+			"Style": "form-control",
+			"Placeholder": "ZipCodeGerman"
 		}
 	},
+
 	"FormFieldUserName": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
 			"ValidateRef": "UserName",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"ValidateNullable": false,
+			"Style": "form-control",
 			"Placeholder": "UserName"
 		}
 	},
-	"FormFieldRealName": {
-		"Type": "FormField",
-		"Attributes": {
-			"Type": "text",
-			"ValidateRef": "RealName",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
-			"Placeholder": "RealName"
-		}
-	},
-	"FormFieldSurename": {
-		"Type": "FormField",
-		"Attributes": {
-			"Type": "text",
-			"ValidateRef": "Surename",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
-			"Placeholder": "Surename"
-		}
-	},
+
 	"FormFieldUserPass": {
 		"Type": "FormField",
 		"Attributes": {
-			"Type": "text",
+			"Type": "password",
 			"ValidateRef": "UserPass",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"ValidateNullable": false,
+			"Style": "form-control",
 			"Placeholder": "UserPass"
 		}
 	},
+
 	"FormFieldUserGroup": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
 			"ValidateRef": "UserGroup",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"ValidateNullable": false,
+			"Style": "form-control",
 			"Placeholder": "UserGroup"
 		}
 	},
+
 	"FormFieldMailAddress": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
 			"ValidateRef": "MailAddress",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"ValidateNullable": false,
+			"Style": "form-control",
 			"Placeholder": "MailAddress"
 		}
 	},
+
 	"FormFieldPhoneNrInternational": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
 			"ValidateRef": "PhoneNrInternational",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"ValidateNullable": false,
+			"Style": "form-control",
 			"Placeholder": "PhoneNrInternational"
 		}
 	},
-	"FormFieldPhoneNr": {
+
+	"FormFieldPhoneNrGerman": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
-			"ValidateRef": "PhoneNr",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
-			"Placeholder": "PhoneNr"
+			"ValidateRef": "PhoneNrGerman",
+			"ValidateNullable": false,
+			"Style": "form-control",
+			"Placeholder": "PhoneNrGerman"
 		}
 	},
-	"FormFieldPhoneNrArea": {
+
+	"FormFieldPhoneNrAreaGerman": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
-			"ValidateRef": "PhoneNrArea",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
-			"Placeholder": "PhoneNrArea"
+			"ValidateRef": "PhoneNrAreaGerman",
+			"ValidateNullable": false,
+			"Style": "form-control",
+			"Placeholder": "PhoneNrAreaGerman"
 		}
 	},
-	"FormFieldPhoneNrSingle": {
-		"Type": "FormField",
-		"Attributes": {
-			"Type": "text",
-			"ValidateRef": "PhoneNrSingle",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
-			"Placeholder": "PhoneNrSingle"
-		}
-	},
+
 	"FormFieldQuantity": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
 			"ValidateRef": "Quantity",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"ValidateNullable": false,
+			"Style": "form-control",
 			"Placeholder": "Quantity"
 		}
 	},
+
 	"FormFieldCountry": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
 			"ValidateRef": "Country",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"ValidateNullable": false,
+			"Style": "form-control",
 			"Placeholder": "Country"
 		}
 	},
-	"FormFieldCity": {
-		"Type": "FormField",
-		"Attributes": {
-			"Type": "text",
-			"ValidateRef": "City",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
-			"Placeholder": "City"
-		}
-	},
+
 	"FormFieldStreetNr": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
 			"ValidateRef": "StreetNr",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"ValidateNullable": false,
+			"Style": "form-control",
 			"Placeholder": "StreetNr"
 		}
 	},
+
 	"FormFieldEuroWithCents": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
 			"ValidateRef": "EuroWithCents",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
+			"ValidateNullable": false,
+			"Style": "form-control",
 			"Placeholder": "EuroWithCents"
 		}
 	},
-	"FormFieldSPXBarcode": {
+
+	"FormFieldBarcode": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "text",
-			"ValidateRef": "SPXBarcode",
-			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail",
-			"Placeholder": "SPXBarcode"
+			"ValidateRef": "BarcodeZebra",
+			"ValidateNullable": false,
+			"Style": "form-control",
+			"Placeholder": "Zebra-Barcode"
 		}
 	},
+
+	"FormFieldDummy": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "text",
+			"Style": "form-control",
+			"Placeholder": "Dummy"
+		}
+	},
+
 	"FormFieldSubmitButton": {
 		"Type": "Button",
 		"Attributes": {
-			"Style": "sysButton",
+			"Style": "btn btn-primary",
 			"TextID": "TXT.BUTTON",
 			"OnClick": "python/dummy.py",
 			"SrcObjects": [

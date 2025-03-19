@@ -19,8 +19,7 @@ spec:
       automountServiceAccountToken: false
       containers:
       - name: ${x0_APP_ID}-${x0_APP_ENV}-app
-        image: docker.io/library/${x0_KUBERNETES_IMAGE}
-        imagePullPolicy: IfNotPresent
+        image: ${x0_KUBERNETES_IMAGE}
         resources:
           requests:
             cpu: ${x0_KUBERNETES_CPU}

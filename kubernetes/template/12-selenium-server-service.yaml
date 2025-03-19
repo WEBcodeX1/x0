@@ -5,7 +5,7 @@ metadata:
   namespace: ${x0_NAMESPACE}
 spec:
   selector:
-    app: selenium-server
+    app.kubernetes.io/name: selenium-server-${x0_SELENIUM_SERVER_INDEX}
   ports:
     - protocol: TCP
       port: 4444

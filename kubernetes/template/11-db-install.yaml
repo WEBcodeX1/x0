@@ -8,6 +8,6 @@ spec:
   automountServiceAccountToken: false
   containers:
   - name: db-install
-    image: docker.io/library/${x0_DB_NAME}-db-install:latest
-    imagePullPolicy: IfNotPresent
+    image: registry.code.syseleven.de/webcodex/${x0_GITLAB_REPO}/${x0_DB_NAME}-db-install:latest
+    imagePullPolicy: Always
   restartPolicy: Never

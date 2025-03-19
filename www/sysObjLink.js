@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -17,8 +17,8 @@
 
 function sysObjLink()
 {
-	this.EventListeners				= new Object(); 		//- event listeners
-	this.ChildObjects				= Array();				//- child objects recursive
+	this.EventListeners				= new Object(); 		//- Event Listeners
+	this.ChildObjects				= Array();				//- Child Objects
 
 	this.ScreenID					= null;
 	this.TextID						= null;

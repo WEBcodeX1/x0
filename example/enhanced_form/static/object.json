@@ -1,0 +1,463 @@
+{
+	"HostingNewHostsSelectedUser": {
+		"Type": "FormfieldList",
+		"Attributes": {
+			"HiddenFields": [
+				"UserID"
+			],
+			"Sections": [
+				{
+					"ID": "User",
+					"Object": "FormSectionHeader",
+					"ObjectAttributes": {
+						"Style": "card card-line bg-body-tertiary border border-dark border-2 mb-3",
+						"SubStyle": "card-body mt-n6",
+						"HeaderIcon": "fa-solid fa-user",
+						"HeaderTextID": "TXT.HostingNewFormUserSection.Header",
+						"SubHeaderTextID": "TXT.HostingNewFormUserSection.SubHeader"
+					},
+					"Formfields": [
+						"UserNameDescr",
+						"UserName",
+						"UserSurenameDescr",
+						"UserSurename"
+					],
+					"RowStyle": "row",
+					"RowAfterElements": 4,
+					"ColStyle": "col-md-6",
+					"ColAfterElements": 2
+				}
+			]
+		}
+	},
+
+	"UserNameDescr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"TextID": "TXT.HostingNewForm.UserNameDescr"
+		}
+	},
+
+	"UserName": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "text",
+			"Disabled": true,
+			"Value": "Henry",
+			"Style": "form-control mb-1 p-1 w-100"
+		}
+	},
+
+	"UserSurenameDescr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"TextID": "TXT.HostingNewForm.UserSurenameDescr"
+		}
+	},
+
+	"UserSurename": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "text",
+			"Disabled": true,
+			"Value": "Miller",
+			"Style": "form-control mb-1 p-1 w-100"
+		}
+	},
+
+	"UserID": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "hidden",
+			"Value": "webcodex"
+		}
+	},
+
+	"HostingNewHostsSelectedDomain": {
+		"Type": "FormfieldList",
+		"Attributes": {
+			"Sections": [
+				{
+					"ID": "Domain",
+					"Object": "FormSectionHeader",
+					"ObjectAttributes": {
+						"Style": "card card-line bg-body-tertiary border border-dark border-2 mb-3",
+						"SubStyle": "card-body mt-n8",
+						"HeaderIcon": "fa-solid fa-building",
+						"HeaderTextID": "TXT.HostingNewFormDomainSection.Header",
+						"SubHeaderTextID": "TXT.HostingNewFormDomainSection.SubHeader"
+					},
+					"Formfields": [
+						"DomainPulldownDescr",
+						"DomainPulldown"
+					],
+					"RowStyle": "row mb-4",
+					"RowAfterElements": 2,
+					"ColStyle": "col-md-12"
+				}
+			]
+		}
+	},
+
+	"DomainPulldownDescr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"Style": "required",
+			"TextID": "TXT.HostingNewForm.DomainPDDescr"
+		}
+	},
+
+	"DomainPulldown": {
+		"Type": "FormField",
+		"Attributes": {
+			"Type": "pulldown",
+			"Style": "form-select w-100",
+			"Options": [
+				{
+					"TextID": "TXT.ID.DOMAIN1",
+					"Value": "domain1.com",
+					"Default": true
+				},
+				{
+					"TextID": "TXT.ID.DOMAIN2",
+					"Value": "domain2.com"
+				},
+				{
+					"TextID": "TXT.ID.DOMAIN3",
+					"Value": "domain3.com"
+				}
+			]
+		}
+	},
+
+	"HostingNewHost": {
+		"Type": "FormfieldList",
+		"Attributes": {
+			"Sections": [
+				{
+					"ID": "RecordMainProperties",
+					"Object": "FormSectionHeader",
+					"ObjectAttributes": {
+						"Style": "card card-line bg-body-tertiary border border-dark border-2 mb-3",
+						"SubStyle": "card-body mt-n8",
+						"HeaderIcon": "fa-solid fa-globe",
+						"HeaderTextID": "TXT.HostingNewFormHostSectionMainProps.Header",
+						"SubHeaderTextID": "TXT.HostingNewFormHostSectionMainProps.SubHeader"
+					},
+					"Formfields": [
+						"RecordNameDescr",
+						"RecordName",
+						"RecordTypeDescr",
+						"RecordType",
+						"RecordValueDescr",
+						"RecordValue"
+					],
+					"RowStyle": "row",
+					"RowAfterElements": [ 4, 2 ],
+					"ColStyle": [
+						"col-md-6",
+						"col-md-6",
+						"col-md-12"
+					],
+					"ColAfterElements": 2
+				},
+				{
+					"ID": "RecordAdditionalProperties",
+					"Object": "FormSectionHeader",
+					"ObjectAttributes": {
+						"Style": "card card-line bg-body-tertiary border border-dark border-2 mb-3",
+						"SubStyle": "card-body mt-n8",
+						"HeaderIcon": "fa-regular fa-clock",
+						"HeaderTextID": "TXT.HostingNewFormHostSectionAdditionalProps.Header",
+						"SubHeaderTextID": "TXT.HostingNewFormHostSectionAdditionalProps.SubHeader"
+					},
+					"Formfields": [
+						"RecordTTLDescr",
+						"RecordTTL",
+						"RecordPriorityDescr",
+						"RecordPriority"
+					],
+					"RowStyle": "row",
+					"RowAfterElements": 4,
+					"ColStyle": "col-md-6",
+					"ColAfterElements": 2
+				}
+			],
+			"GroupValidate": [
+				{
+					"ValidateErrorTextID": "TXT.VALIDATE.RECORD-RDATA",
+					"FunctionRef": "DNSRecordValuePlusType",
+					"ObjectIDs": [
+						"RecordType",
+						"RecordValue"
+					]
+				}
+			],
+			"ErrorContainer": "HostDNSRecordErrorContainer"
+		}
+	},
+
+	"HostDNSRecordErrorContainer": {
+		"Type": "ErrorContainer",
+		"Attributes": {
+		}
+	},
+
+	"RecordNameDescr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"Style": "required",
+			"TextID": "TXT.HostingNewForm.RecordNameDescr"
+		}
+	},
+
+	"RecordName": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "text",
+			"Style": "form-control mb-1 p-1 w-100",
+			"ValidateRef": "DNSRecordName",
+			"ValidateErrorTextID": "TXT.VALIDATE.RECORD-NAME",
+			"Placeholder": "www"
+		}
+	},
+
+	"RecordTypeDescr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"Style": "required",
+			"TextID": "TXT.HostingNewForm.RecordTypeDescr"
+		}
+	},
+
+	"RecordType": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "pulldown",
+			"Style": "form-select w-100",
+			"Options": [
+				{
+					"TextID": "TXT.PULLDOWN.RECORD-TYPE.A",
+					"Value": "A",
+					"Default": true
+				},
+				{
+					"TextID": "TXT.PULLDOWN.RECORD-TYPE.AAAA",
+					"Value": "AAAA"
+				},
+				{
+					"TextID": "TXT.PULLDOWN.RECORD-TYPE.CNAME",
+					"Value": "CNAME"
+				},
+				{
+					"TextID": "TXT.PULLDOWN.RECORD-TYPE.MX",
+					"Value": "MX"
+				},
+				{
+					"TextID": "TXT.PULLDOWN.RECORD-TYPE.TXT",
+					"Value": "TXT"
+				},
+				{
+					"TextID": "TXT.PULLDOWN.RECORD-TYPE.SRV",
+					"Value": "SRV"
+				}
+			],
+			"OnChange": {
+				"ObjectID": "RecordPriority",
+				"EnableOnValues": [
+					"MX"
+				],
+				"DisableOnValues": [
+					"A",
+					"AAAA",
+					"CNAME",
+					"TXT",
+					"SRV"
+				]
+			}
+
+		}
+	},
+
+	"RecordValueDescr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"Style": "required",
+			"TextID": "TXT.HostingNewForm.RecordValueDescr"
+		}
+	},
+
+	"RecordValue": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "textarea",
+			"Style": "form-control mb-1 p-1 w-100",
+			"Rows": 2,
+			"Placeholder": "1.1.1.1",
+			"ValidateNullable": false,
+			"ValidateErrorTextID": "TXT.VALIDATE.RECORD-VALUE"
+		}
+	},
+
+	"RecordTTLDescr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"TextID": "TXT.HostingNewForm.RecordTTLDescr"
+		}
+	},
+
+	"RecordTTL": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "text",
+			"Style": "form-control mb-1 p-1 w-100",
+			"Min": 1,
+			"Max": 86400,
+			"Number": true,
+			"ValidateNullable": true,
+			"ValidateRef": "MinMax",
+			"ValidateErrorTextID": "TXT.VALIDATE.RECORD-TTL",
+			"Placeholder": "0"
+		}
+	},
+
+	"RecordPriorityDescr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"TextID": "TXT.HostingNewForm.RecordPriorityDescr"
+		}
+	},
+
+	"RecordPriority": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "text",
+			"Style": "form-control mb-1 p-1 w-100",
+			"Min": 1,
+			"Max": 99,
+			"Number": true,
+			"Disabled": true,
+			"ValidateNullable": true,
+			"ValidateRef": "MinMax",
+			"ValidateErrorTextID": "TXT.VALIDATE.RECORD-PRIORITY",
+			"Placeholder": "0"
+		}
+	},
+
+	"HostingNewHostAddHostButton": {
+		"Type": "ButtonInternal",
+		"Attributes": {
+			"Style": "btn btn-secondary w-100 mb-3",
+			"IconStyle": "fa-solid fa-circle-arrow-down",
+			"TextID": "TXT.HOSTINGNEWHOSTS.BUTTON.ADDHOST",
+			"Action": "append",
+			"SrcDataObject": "HostingNewHost",
+			"DstDataObject": "HostingNewHostsList",
+			"Validate": {
+				"Formlists":[
+					"HostingNewHost"
+				]
+			}
+		}
+	},
+
+	"HostingNewHostsListContainer": {
+		"Type": "Div",
+		"Attributes": {}
+	},
+
+	"HostingNewHostsList": {
+		"Type": "List",
+		"Attributes": {
+			"Style": "border border-dark border-3 rounded-top rounded-bottom",
+			"HeaderRowStyle": "row m-1 mt-0 mb-0 fw-bold border-bottom",
+			"RowCount": 5,
+			"RowsSelectable": true,
+			"Navigation": true,
+			"DoubleCheckColumn": "RecordName",
+			"Columns": [
+				{
+					"ID": "RecordName",
+					"HeaderTextID": "TXT.HOSTINGNEWHOSTS.LIST.COL.RECNAME",
+					"HeaderStyle": "col-md-3 border-end"
+				},
+				{
+					"ID": "RecordType",
+					"HeaderTextID": "TXT.HOSTINGNEWHOSTS.LIST.COL.RECTYPE",
+					"HeaderStyle": "col-md-2 border-end"
+				},
+				{
+					"ID": "RecordValue",
+					"HeaderTextID": "TXT.HOSTINGNEWHOSTS.LIST.COL.RECVALUE",
+					"HeaderStyle": "col-md-4 border-end"
+				},
+				{
+					"ID": "RecordTTL",
+					"HeaderTextID": "TXT.HOSTINGNEWHOSTS.LIST.COL.RECTTL",
+					"HeaderStyle": "col-md-2 border-end"
+				},
+				{
+					"ID": "RecordPriority",
+					"HeaderTextID": "TXT.HOSTINGNEWHOSTS.LIST.COL.RECPRIO",
+					"HeaderStyle": "col-md-1"
+				}
+			],
+			"RowStyle": "row m-1 mt-0 mb-0 border-bottom",
+			"RowAfterElements": 5,
+			"ColStyle": [
+				"col-md-3 border-end",
+				"col-md-2 border-end",
+				"col-md-4 border-end",
+				"col-md-2 border-end",
+				"col-md-1"
+			],
+			"ContextMenuItems": {
+				"RemoveSingle": {
+					"TextID": "TXT.CONTEXTMENU.REMOVE-ITEM-SINGLE",
+					"IconStyle": "fa-regular fa-trash-can",
+					"InternalFunction": "remove"
+				},
+				"RemoveSelected": {
+					"TextID": "TXT.CONTEXTMENU.REMOVE-ITEM-SELECTED",
+					"IconStyle": "fa-regular fa-trash-can",
+					"InternalFunction": "remove-selected"
+				}
+			},
+			"ErrorContainer": "HostingNewHostsListErrorContainer"
+		}
+	},
+
+	"HostingNewHostsListErrorContainer": {
+		"Type": "ErrorContainer",
+		"Attributes": {
+		}
+	},
+
+	"HostingNewHostsSubmit": {
+		"Type": "Button",
+		"Attributes": {
+			"TextID": "TXT.HOSTINGNEWHOSTS.BUTTON.SUBMIT",
+			"Style": "btn btn-primary w-100 mt-3",
+			"IconStyle": "fa-solid fa-square-check",
+			"OnClick": "/python/not-working.py",
+			"SrcDataObjects": [
+				"HostingNewHostsSelectedUser",
+				"HostingNewHostsSelectedDomain",
+				"HostingNewHostsList"
+			],
+			"Notify": {
+				"ID": "NewDomainHostsRequest",
+				"DisplayHeaderID": "TXT.HOSTINGNEWHOSTS.SUBMITDATA"
+			}
+		}
+	}
+
+}

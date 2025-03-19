@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2023                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -26,7 +26,7 @@ function sysScreen(IsOverlay)
 
 	this.GlobalVars				= new Object();					//- GLobal Variables
 
-	this.IsOverlay				= IsOverlay;
+	this.IsOverlay				= IsOverlay;					//- Overlay Indicator
 
 	this.setStyle();
 }
@@ -110,7 +110,6 @@ sysScreen.prototype.setupObject = function(ObjectID, HierarchyObject, HierarchyL
 		//console.debug('::setupObject ParamObjectID:%s ProcessObjectKey:%s JSONConfig:%o', ObjectID, Key, JSONConfig);
 
 		try {
-
 			if (JSONConfig !== undefined && JSONConfig.RefID !== undefined) {
 				var JSONConfigRef = sysFactory.DataObject.XMLRPCResultData[JSONConfig.RefID];
 				JSONConfig = sysMergeObjects(JSONConfig, JSONConfigRef);
@@ -124,14 +123,14 @@ sysScreen.prototype.setupObject = function(ObjectID, HierarchyObject, HierarchyL
 
 			AddHierarchyObject.JSONConfig	= JSONConfig;
 
-			AddHierarchyObject.ObjectID		= (this.IsOverlay !== true) ? Key : Key + '__overlay';;
+			AddHierarchyObject.ObjectID		= (this.IsOverlay != true) ? Key : Key + '__overlay';;
 			AddHierarchyObject.ObjectType	= JSONConfig.Type;
 			AddHierarchyObject.Level		= HierarchyLevel;
 			AddHierarchyObject.ScreenObject = this;
 
 			AddHierarchyObject.ParentID		= SkeletonItem.ElementID === undefined ? SkeletonItem.RefID : SkeletonItem.ElementID;
 
-			//console.debug('::setupObject ObjectID:%s ParentID:%s', Key, AddHierarchyObject.ParentID);
+			console.debug('::setupObject ObjectID:%s ParentID:%s', Key, AddHierarchyObject.ParentID);
 
 			if (JSONConfig.InstancePrefix !== undefined && JSONConfig.RefID !== undefined) {
 				AddHierarchyObject.updateInstanceObjectNames();
@@ -157,7 +156,6 @@ sysScreen.prototype.setupObject = function(ObjectID, HierarchyObject, HierarchyL
 			HierarchyLevel +=1;
 			this.setupObject(Key, AddHierarchyObject, HierarchyLevel);
 			HierarchyLevel -=1;
-		
 		}
 		catch(err) {
 			console.debug('::setupObject ObjectID:%s err:%s', Key, err);

@@ -20,7 +20,7 @@ wd_options.add_argument('ignore-certificate-errors')
 wd_options.add_argument('headless')
 
 
-@pytest.fixture
+@pytest.fixture(scope='module')
 def config():
 
     try:
@@ -79,7 +79,6 @@ class TestGeneral:
 
         elems = d.find_elements(By.XPATH, "//*[contains(@id,'null')]")
         assert len(elems) == 0, 'Problematic string "null" found in one or more IDs'
-        d.quit()
 
     def test_suspicious_id_undefined(self, config):
         """Find suspicious ID names containing the string undefined"""
@@ -88,15 +87,7 @@ class TestGeneral:
         elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, config["ready_selector"])))
 
         elems = d.find_elements(By.XPATH, "//*[contains(@id,'undefined')]")
+
         assert len(elems) == 0, 'Problematic string "undefined" found in one or more IDs'
+
         d.quit()
-
-#TODO: locate / eliminate undefined values
-#    def test_suspicious_parameter_values(self, config):
-#        """Find suspicious element parameter values (containing null or undefined)"""
-#        d, w = config["driver"], config["timeout"]
-#        wait = WebDriverWait(d, w)
-#        elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, config["ready_selector"])))
-
-#        elems = d.find_elements(By.XPATH, "//*[@*='null' or @*='undefined']")
-#        assert len(elems) == 0, 'Found ' + str(len(elems)) + ' occurrences of string "undefined" in one or more parameter values on page'

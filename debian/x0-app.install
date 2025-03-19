@@ -1,5 +1,7 @@
 www/*.js var/www/vhosts/x0
 www/static/* var/www/vhosts/x0/static
+www/static/* var/lib/x0/static-tpl
+www/image/* var/lib/x0/image
 app-setup/* var/lib/x0/app-setup
 python/DB.py var/lib/x0/python
 python/DBMapping.py var/lib/x0/python

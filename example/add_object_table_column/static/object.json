@@ -3,7 +3,7 @@
 	{
 		"Type": "Link",
 		"Attributes": {
-			"Style": "sysLink",
+			"Style": "btn btn-primary d-none",
 			"TextID": "TXT.MENU.EXAMPLETABLECOLOBJECTS.SCREEN1",
 			"ScreenID": "Screen1"
 		}
@@ -27,9 +27,10 @@
 		"Type": "List",
 		"Attributes":
 		{
-			"Style": "sysList",
-			"HeaderRowStyle": "row sysListHeader",
-			"RowCount": 10,
+			"Style": "border rounded-top rounded-bottom",
+			"HeaderRowStyle": "row m-1 fw-bold fs-2 border-bottom",
+			"RowCount": 8,
+			"RowsSelectable": false,
 			"Navigation": true,
 			"SrcDataObjects":
 			{
@@ -41,48 +42,43 @@
 					}
 				}
 			},
-			"Columns":
-			{
-				"id":
+			"Columns": [
 				{
-					"visible": false
-				},
-				"col1":
-				{
+					"ID": "col1",
 					"HeaderTextID": "TXT.TABLE.EXAMPLETABLECOLOBJECTS.HEADER.COL1",
-					"sortable": true,
-					"HeaderStyle": "col-md-8",
+					"HeaderStyle": "col-md-4 border-end",
+					"HeaderIconStyle": "fa-solid fa-circle-radiation",
 					"Attributes": {
 						"ObjectType": "ButtonInternal",
-						"Style": "sysButton",
-						"TextID": "TXT.BUTTON.EXAMPLETABLECOLOBJECTS",
-						"ScrollTop": true
+						"Style": "btn btn-secondary",
+						"IconStyle": "fa-solid fa-martini-glass-empty",
+						"TextID": "TXT.BUTTON.EXAMPLETABLECOLOBJECTS"
 					}
 				},
-				"col2":
 				{
+					"ID": "col2",
 					"HeaderTextID": "TXT.TABLE.EXAMPLETABLECOLOBJECTS.HEADER.COL2",
-					"sortable": false,
-					"HeaderStyle": "col-md-4",
+					"HeaderStyle": "col-md-8",
+					"HeaderIconStyle": "fa-solid fa-file-export",
 					"Attributes": {
 						"ObjectType": "FileUpload",
 						"TextID": "TXT.EXAMPLETABLECOLOBJECTS.UPLOAD",
-						"Style": "sysUploadArea",
-						"StyleDescription": "GlobalUploadDescription",
-						"StyleSelectButton": "GlobalUploadSelectButton",
-						"StyleProgressContainer": "GlobalUploadProgressContainer",
-						"StyleUploadButton": "sysButton sysButtonUpload",
-						"ProgressBarStyle": "GlobalUploadProgressBar",
-						"ProgressBarPercentageStyle": "GlobalUploadProgressPercentage",
+						"Style": "md-3",
+						"StyleDescription": "fst-italic",
+						"StyleSelectButton": "",
+						"StyleProgressContainer": "progress",
+						"StyleUploadButton": "btn btn-primary",
+						"ProgressBarStyle": "progress-bar progress-bar-striped progress-bar-animated",
+						"ProgressBarPercentageStyle": "",
 						"UploadScript": "/python/Upload.py"
 					}
 				}
-			},
-			"CellGroupRowStyle": "row sysListContent",
+			],
+			"RowStyle": "row m-1 border-bottom",
 			"RowAfterElements": 2,
-			"ElementsEnclosedByDivStyle": [
-				"col-md-8",
-				"col-md-4"
+			"ColStyle": [
+				"col-md-4 border-end",
+				"col-md-8"
 			]
 		}
 	}

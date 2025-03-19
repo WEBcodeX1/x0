@@ -3,7 +3,7 @@
 	{
 		"Type": "Link",
 		"Attributes": {
-			"Style": "sysLink",
+			"Style": "btn btn-primary",
 			"TextID": "TXT.MENU.LISTDETAILVIEW.SCREEN1",
 			"ScreenID": "Screen1"
 		}
@@ -13,7 +13,7 @@
 	{
 		"Type": "Link",
 		"Attributes": {
-			"Style": "sysLink",
+			"Style": "btn btn-primary d-none",
 			"TextID": "TXT.MENU.LISTDETAILVIEW.SCREEN2",
 			"ScreenID": "Screen2"
 		}
@@ -36,10 +36,33 @@
 	{
 		"Type": "FormfieldList",
 		"Attributes": {
-			"Formfields": [
-				"Formfield1",
-				"Formfield2",
-				"Formfield3"
+			"Sections": [
+				{
+					"ID": "Test",
+					"Object": "FormSectionHeader",
+					"ObjectAttributes": {
+						"Style": "card card-line bg-body-tertiary border border-dark border-2 mb-3",
+						"SubStyle": "card-body mt-n6",
+						"HeaderIcon": "fa-solid fa-microscope",
+						"HeaderTextID": "TXT.EXAMPLE.SWITCH-SCREEN.FORM-SECTION-HEADER",
+						"SubHeaderTextID": "TXT.EXAMPLE.SWITCH-SCREEN.FORM-SECTION-SUBHEADER"
+					},
+					"Formfields": [
+						"Formfield1",
+						"Formfield2",
+						"Formfield3"
+					],
+					"RowStyle": [
+						"row mb-6",
+						"row mb-8"
+					],
+					"RowAfterElements": [ 2, 1 ],
+					"ColStyle": [
+						"col-md-6 mb-4",
+						"col-md-6 mb-4",
+						"col-md-12 mb-6"
+					]
+				}
 			],
 			"SrcDataObjects":
 			{
@@ -60,10 +83,7 @@
 			"DBColumn": "id",
 			"ValidateRef": "DefaultString",
 			"ValidateNullable": false,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail"
+			"Style": "form-control form-control-lg"
 		}
 	},
 
@@ -76,10 +96,7 @@
 			"DBColumn": "col1",
 			"ValidateRef": "DefaultString",
 			"ValidateNullable": false,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail"
+			"Style": "form-control  form-control-lg"
 		}
 	},
 
@@ -92,10 +109,7 @@
 			"DBColumn": "col2",
 			"ValidateRef": "DefaultString",
 			"ValidateNullable": false,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail"
+			"Style": "form-control  form-control-lg"
 		}
 	},
 
@@ -117,8 +131,8 @@
 		"Type": "List",
 		"Attributes":
 		{
-			"Style": "sysList",
-			"HeaderRowStyle": "row sysListHeader",
+			"Style": "border rounded-top rounded-bottom",
+			"HeaderRowStyle": "row fw-bold fs-2 m-2 border-bottom",
 			"RowCount": 10,
 			"Navigation": true,
 			"SrcDataObjects":
@@ -131,39 +145,39 @@
 					}
 				}
 			},
-			"Columns":
-			{
-				"id":
+			"Columns": [
 				{
-					"visible": false
+					"ID": "id",
+					"VisibleState": "hidden"
 				},
-				"col1":
 				{
+					"ID": "col1",
 					"HeaderTextID": "TXT.TABLE.LISTDETAILVIEW.HEADER.COL1",
 					"sortable": true,
-					"HeaderStyle": "col-md-8"
+					"HeaderStyle": "col-md-8 p-3 border-end"
 				},
-				"col2":
 				{
+					"ID": "col2",
 					"HeaderTextID": "TXT.TABLE.LISTDETAILVIEW.HEADER.COL2",
 					"sortable": false,
-					"HeaderStyle": "col-md-4"
+					"HeaderStyle": "col-md-4 p-3"
 				}
-			},
+			],
 			"ContextMenuItems": {
 				"Edit": {
 					"TextID": "TXT.CONTEXTMENU.LISTDETAILVIEW.EDIT",
-					"Icon": "Edit",
+					"IconStyle": "fa-solid fa-pen-to-square",
 					"DstScreenID": "Screen2",
 					"RowColumn": "id",
 					"FireEvents": [ "GetFormfieldData" ]
 				}
 			},
-			"CellGroupRowStyle": "row sysListContent",
-			"RowAfterElements": 2,
-			"ElementsEnclosedByDivStyle": [
-				"col-md-8",
-				"col-md-4"
+			"RowStyle": "row m-2 border-bottom border-right",
+			"RowAfterElements": 3,
+			"ColStyle": [
+				"dummy",
+				"col-md-8 p-3 border-end",
+				"col-md-4 p-3"
 			]
 		}
 	}

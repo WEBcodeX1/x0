@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: x0-db-install
+  namespace: x0-test
+spec:
+  containers:
+  - name: x0-db-install
+    image: x0/x0-db-install
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+  restartPolicy: Always
