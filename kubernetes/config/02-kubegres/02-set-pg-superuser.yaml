@@ -5,5 +5,5 @@ metadata:
   namespace: x0-test
 type: Opaque
 stringData:
-  superUserPassword: changeme
-  replicationUserPassword: changeme
+  superUserPassword: x-eSam_t34
+  replicationUserPassword: y-tPagLL-22

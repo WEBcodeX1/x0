@@ -1,3 +1,0 @@
-# Management Virtual Machine
-
-Coming soon ...
