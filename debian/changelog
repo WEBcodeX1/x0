@@ -26,6 +26,7 @@ x0 (0.99) bullseye; urgency=medium
   * Add sysRTFormSectionHeader.js (used in sysObjFormfieldList) and
     sysRTPagination.js (used in sysObjList)
   * Correct copyright-year in all .js files
+  * Correct favicon.ico handling
 
  -- Claus Prüfer <pruefer@webcodex.de>  Thu, 20 Mar 2025 10:02:00 +0200
 
