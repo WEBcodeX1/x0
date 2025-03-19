@@ -1,6 +1,39 @@
+x0 (0.99) bullseye; urgency=medium
+
+  [ Claus Prüfer ]
+  * x0 base 100% generic
+  * sysObjList (and pagination) refactored (keep any objects state 100% now)
+  * Multilanguage (realtime switching) working in nearly all locations except
+    Error-Container
+  * Integration-tests corrected for new code-base
+  * Integration-tests now also runnable local (non-docker)
+  * sysObjList "sections" processing added (see "enhanced_form" example)
+  * Complete CSS styles rework (bootsrap 5 "template" conform now)
+  * Example "enhanced_form" added
+  * Integrate current psycopg2 Python3 module
+  * Remove overlay processing of Formfield Objects in sysObjFormfieldList (temporarily)
+  * Remove "calculated" Formfield Objects (temporarily)
+  * Add global Grid-Calculation (generator) for sysObjList and sysObjFormfieldList
+  * Correct code-duplication / object inheritance inside sysObjFormfieldItem
+  * Remove multiple wild unnecessary code from sysFormfieldOnChangeHandler
+  * Formfield validation clean now (including group validation), correct
+    various reg-ex, add many validatie functions
+  * Remove (still not complete) logic from sysObjButton and
+    sysObjButtonInternal
+  * Add fontawesome icons for multiple Object types
+  * Corrected sysObjTabContainer base code
+  * Invented system real time functions (sysRT*)
+  * Add sysRTFormSectionHeader.js (used in sysObjFormfieldList) and
+    sysRTPagination.js (used in sysObjList)
+  * Correct copyright-year in all .js files
+
+ -- Claus Prüfer <pruefer@webcodex.de>  Thu, 20 Mar 2025 10:02:00 +0200
+
 x0 (0.98rc) bullseye; urgency=medium
 
-  [ Claus Prüfer (CTO) ]
+  [ Claus Prüfer ]
   * Initial commit
 
- -- Claus Prüfer (CTO) <c.pruefer@click-it.online>  Tue, 20 Jun 2023 21:31:22 +0200
+ -- Claus Prüfer <pruefer@webcodex.de>  Tue, 20 Jun 2023 21:31:22 +0200
+
+
