@@ -20,7 +20,7 @@ wd_options.add_argument('ignore-certificate-errors')
 wd_options.add_argument('headless')
 
 
-@pytest.fixture
+@pytest.fixture(scope='module')
 def config():
 
     try:
@@ -76,7 +76,6 @@ class TestBaseObjectsExistence:
     def test_first_internal_server_error(self, config):
         """First request after init containers 'x0-app' and 'x0-db' raises Internal Server Error"""
         d = config["driver"]
-        d.quit()
 
     def test_button(self, config):
         """Check if button element exists on site, have proper class attribute"""
@@ -91,7 +90,6 @@ class TestBaseObjectsExistence:
         el = d.find_element(By.CSS_SELECTOR, "#Test1_Button1")
         val = el.get_attribute("class")
         assert val == config["json"]["object"]["Button1"]["Attributes"]["Style"], "Button has improper class attribute, differs from JSON config."
-        d.quit()
 
     def test_formfield(self, config):
         """Check if formfield element (includes field and pulldown) exists on site, have proper class attribute"""
@@ -100,12 +98,12 @@ class TestBaseObjectsExistence:
 
         # field (aka input)
         elem = wait.until(EC.presence_of_element_located(
-            (By.CSS_SELECTOR, "#Test1_FormList_FormFieldList1 #FormField1")
+            (By.CSS_SELECTOR, "#Test1_FormFieldList1 #FormField1")
         ))
 
         # pulldown (aka select)
         elem = wait.until(EC.presence_of_element_located(
-            (By.CSS_SELECTOR, "#Test1_FormList_FormFieldList1 #FormFieldList1__enclose__FormFieldPulldown1 #FormFieldPulldown1")
+            (By.CSS_SELECTOR, "#Test1_FormFieldList1 #enclose__FormFieldPulldown1 #FormFieldPulldown1")
         ))
 
         el = d.find_element(By.CSS_SELECTOR, "#FormField1")
@@ -115,7 +113,6 @@ class TestBaseObjectsExistence:
         el = d.find_element(By.CSS_SELECTOR, "#FormFieldPulldown1")
         val = el.get_attribute("class")
         assert val == config["json"]["object"]["FormFieldPulldown1"]["Attributes"]["Style"], "FormFieldPulldown has improper class attribute, differs from JSON config."
-        d.quit()
 
     def test_sqltext(self, config):
         """Check if SQLText element exists on site, have proper class attribute"""
@@ -128,7 +125,6 @@ class TestBaseObjectsExistence:
         el = d.find_element(By.CSS_SELECTOR, "#Test1_SQLText1")
         val = el.get_attribute("class")
         assert val == config["json"]["object"]["SQLText1"]["Attributes"]["Style"], "SQLText has improper class attribute, differs from JSON config."
-        d.quit()
 
     def test_list(self, config):
         """Check if list element exists on site, have proper class attribute"""
@@ -141,7 +137,6 @@ class TestBaseObjectsExistence:
         el = d.find_element(By.CSS_SELECTOR, "#Test1_ServiceConnector1_List1")
         val = el.get_attribute("class")
         assert val == config["json"]["object"]["List1"]["Attributes"]["Style"], "List has improper class attribute, differs from JSON config."
-        d.quit()
 
 
 class TestBaseObjectsVariants:
@@ -153,7 +148,6 @@ class TestBaseObjectsVariants:
         elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#FormFieldPulldown1")))
         options = d.find_elements(By.CSS_SELECTOR, "#FormFieldPulldown1 > *")
         assert len(options) > 2, "Pulldown offers no choice."
-        d.quit()
 
     def test_dynpulldown(self, config):
         """Check if dynpulldown element exists on site"""
@@ -162,7 +156,6 @@ class TestBaseObjectsVariants:
         elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#FormFieldDynPulldown1")))
         options = d.find_elements(By.CSS_SELECTOR, "#FormFieldDynPulldown1 > *")
         assert len(options) > 2, "Dynamic pulldown offers no choice."
-        d.quit()
 
     def test_list(self, config):
         """Check if list element exists on site"""
@@ -175,14 +168,7 @@ class TestBaseObjectsVariants:
         )
         # list element has rows?
         rows = d.find_elements(By.CSS_SELECTOR, "#Test1_ServiceConnector1_List1 > *")
+
         assert len(rows) > 2, "Table has no rows."
+
         d.quit()
-
-        #TODO: somehow the list nav buttons do not work. due to finishing CI/CD "temporary commented out"
-
-        # buttons working?
-        #buttons = d.find_elements(By.CSS_SELECTOR, "#Test1_ServiceConnector1_List1 .sysButton")
-        #buttons[1].click()
-        #rows_before = d.find_elements(By.CSS_SELECTOR, "#Test1_ServiceConnector1_List1 > *")
-        #rows_after = d.find_elements(By.CSS_SELECTOR, "#Test1_ServiceConnector1_List1 > *")
-        #assert rows_before != rows_after, 'Lists "next" button not working.'

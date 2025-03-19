@@ -20,7 +20,7 @@ wd_options.add_argument('ignore-certificate-errors')
 wd_options.add_argument('headless')
 
 
-@pytest.fixture
+@pytest.fixture(scope='module')
 def config():
 
     try:
@@ -87,7 +87,9 @@ class TestTextValues:
         assert el1.text == "Link 1", "Test element has wrong text!"
         assert el2.text == "SQL Text Test", "Test element has wrong text!"
         assert el3.text == "Button 1", "Test element has wrong text!"
-        assert el4.text == "Button left <<", "Test element has wrong text!"
-        assert el5.text == "Button right >>", "Test element has wrong text!"
-        assert el6.text == "Upload Button Descr", "Test element has wrong text!"
+        assert el4.text == "Nav links", "Test element has wrong text!"
+        assert el5.text == "Nav rechts", "Test element has wrong text!"
+        assert el6.text == "Upload Button", "Test element has wrong text!"
         assert el7.text == "Upload Button", "Test element has wrong text!"
+
+        d.quit()

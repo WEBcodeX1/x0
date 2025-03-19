@@ -2,71 +2,68 @@
 	"TabContainer1": {
 		"Type": "TabContainer",
 		"Attributes": {
-			"StyleActive": "sysTabActive",
-			"StyleInactive": "sysTabInactive",
-			"Tabs": {
-				"Tab1": {
+			"Tabs": [
+				{
+					"ID": "Tab1",
 					"Attributes": {
-						"TextID": "TXT.BASIC-TABCONTAINER.TAB1",
-						"Style": "col-md-4"
+						"TextID": "TXT.BASIC-TABCONTAINER-TEST.TAB1",
+						"Style": "col-md-3"
 					}
 				},
-				"Tab2": {
+				{
+					"ID": "Tab2",
 					"Attributes": {
 						"Default": true,
-						"TextID": "TXT.BASIC-TABCONTAINER.TAB2",
-						"Style": "col-md-4"
+						"TextID": "TXT.BASIC-TABCONTAINER-TEST.TAB2",
+						"Style": "col-md-3"
 					}
 				},
-				"Tab3": {
+				{	"ID": "Tab3",
 					"Attributes": {
-						"TextID": "TXT.BASIC-TABCONTAINER.TAB3",
-						"Style": "col-md-4"
+						"TextID": "TXT.BASIC-TABCONTAINER-TEST.TAB3",
+						"Style": "col-md-3"
 					}
 				},
-				"Tab4": {
+				{
+					"ID": "Tab4",
 					"Attributes": {
-						"TextID": "TXT.BASIC-TABCONTAINER.TAB4",
-						"Style": "col-md-4"
+						"TextID": "TXT.BASIC-TABCONTAINER-TEST.TAB4",
+						"Style": "col-md-3"
 					}
 				}
-			}
+			]
 		}
 	},
 	"Link1": {
 		"Type": "Link",
 		"Attributes": {
-			"Style": "sysLink",
-			"TextID": "TXT.MENU.BASIC-TABCONTAINER.SCREEN1",
+			"Style": "button d-none",
+			"TextID": "TXT.MENU.BASIC-TABCONTAINER-TEST.SCREEN1",
 			"ScreenID": "Screen1"
 		}
 	},
 	"SQLText1": {
 		"Type": "SQLText",
 		"Attributes": {
-			"Style": "sysBase",
-			"TextID": "TXT.BASIC-TABCONTAINER.TEXT1"
+			"TextID": "TXT.BASIC-TABCONTAINER-TEST.TEXT1"
 		}
 	},
 	"SQLText2": {
 		"Type": "SQLText",
 		"Attributes": {
-			"Style": "sysBase",
-			"TextID": "TXT.BASIC-TABCONTAINER.TEXT2"
+			"TextID": "TXT.BASIC-TABCONTAINER-TEST.TEXT2"
 		}
 	},
 	"SQLText3": {
 		"Type": "SQLText",
 		"Attributes": {
-			"Style": "sysBase",
-			"TextID": "TXT.BASIC-TABCONTAINER.TEXT3"
+			"TextID": "TXT.BASIC-TABCONTAINER-TEST.TEXT3"
 		}
 	},
 	"SQLText4": {
 		"Type": "SQLText",
 		"Attributes": {
-			"Style": "sysBase",
-			"TextID": "TXT.BASIC-TABCONTAINER.TEXT4"
+			"TextID": "TXT.BASIC-TABCONTAINER-TEST.TEXT4"
 		}
 	}
 }

@@ -3,7 +3,7 @@
 	{
 		"Type": "Link",
 		"Attributes": {
-			"Style": "sysLink",
+			"Style": "button d-none",
 			"TextID": "TXT.MENU.INTEGRATIONTEST.SCREEN-TEST1",
 			"ScreenID": "Test1"
 		}
@@ -11,13 +11,29 @@
 	"FormFieldList1": {
 		"Type": "FormfieldList",
 		"Attributes": {
-			"Style": "FormfieldList",
-			"Formfields": [
-				"FormField1Label",
-				"FormField1",
-				"FormField2",
-				"FormFieldPulldown1",
-				"FormFieldDynPulldown1"
+			"Sections": [
+				{
+					"ID": "Formlist1",
+					"Object": "FormSectionHeader",
+					"ObjectAttributes": {
+						"Style": "card card-line bg-body-tertiary border border-dark border-2 mb-3",
+						"SubStyle": "card-body mt-n6",
+						"HeaderIcon": "fa-solid fa-user",
+						"HeaderTextID": "TXT.HostingNewFormUserSection.Header",
+						"SubHeaderTextID": "TXT.HostingNewFormUserSection.SubHeader"
+					},
+					"Formfields": [
+						"FormField1Label",
+						"FormField1",
+						"FormField2",
+						"FormFieldPulldown1",
+						"FormFieldDynPulldown1"
+					],
+					"RowStyle": "row",
+					"RowAfterElements": 1,
+					"ColStyle": "col-md-12",
+					"ColAfterElements": 1
+				}
 			]
 		}
 	},
@@ -26,7 +42,7 @@
 		"Attributes": {
 			"Type": "label",
 			"DisplayText": "Form Field 1",
-			"Style": "required sysHeadline",
+			"Style": "form-label",
 			"LabelFor": "FormField1"
 		}
 	},
@@ -36,10 +52,7 @@
 			"Type": "text",
 			"ValidateRef": "DefaultString",
 			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail"
+			"Style": "form-control"
 		}
 	},
 	"FormField2": {
@@ -49,18 +62,14 @@
 			"Value": "Value1",
 			"ValidateRef": "DefaultString",
 			"ValidateNullable": true,
-			"Style": "FormFieldBorder",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
-			"StyleValidateOk": "FormFieldBorderValidateOk",
-			"StyleValidateFail": "FormFieldBorderValidateFail"
+			"Style": "form-control"
 		}
 	},
 	"FormFieldPulldown1": {
 		"Type": "FormField",
 		"Attributes": {
 			"Type": "pulldown",
-			"Style": "FormFieldBorderPulldown",
-			"StyleOnFocus": "StyleOnFocus",
+			"Style": "form-select",
 			"AddNoneItem": true,
 			"Options": [
 				{
@@ -81,8 +90,7 @@
 			"Type": "dynpulldown",
 			"AddNoneItem": true,
 			"Default": null,
-			"Style": "FormFieldBorderPulldown",
-			"StyleOnFocus": "FormFieldBorderOnFocus",
+			"Style": "form-select",
 			"ServiceURL": "DynPulldown.py",
 			"ServiceID": "test_dynpulldown1"
 		}
@@ -101,8 +109,8 @@
 		"Type": "List",
 		"Attributes":
 		{
-			"Style": "sysList",
-			"HeaderRowStyle": "row sysListHeader",
+			"Style": "border m-1 rounded-top rounded-bottom",
+			"HeaderRowStyle": "row m-1 border-bottom fw-bold fs-2",
 			"RowCount": 5,
 			"SrcDataObjects":
 			{
@@ -114,23 +122,22 @@
 					}
 				}
 			},
-			"Columns":
-			{
-				"id":
+			"Columns": [
 				{
-					"visible": false
+					"ID": "id",
+					"VisibleState": "hidden"
 				},
-				"col1":
 				{
+					"ID": "col1",
 					"HeaderTextID": "TXT.TABLE.HEADER.COL1",
-					"HeaderStyle": "col-md-8"
+					"HeaderStyle": "col-md-8 border-end"
 				},
-				"col2":
 				{
+					"ID": "col2",
 					"HeaderTextID": "TXT.TABLE.HEADER.COL2",
 					"HeaderStyle": "col-md-4"
 				}
-			},
+			],
 			"ContextMenuItems": {
 			    "Edit": {
 					"TextID": "TXT.CONTEXTMENU.EDIT",
@@ -140,10 +147,11 @@
 					"FireEvents": [ "GetFormfieldData" ]
 				}
 			},
-			"CellGroupRowStyle": "row sysListContent",
-			"RowAfterElements": 2,
-			"ElementsEnclosedByDivStyle": [
-				"col-md-8",
+			"RowStyle": "row m-1 border-bottom tr-height-default",
+			"RowAfterElements": 3,
+			"ColStyle": [
+				"dummy",
+				"col-md-8 border-end",
 				"col-md-4"
 			]
 		}
@@ -158,7 +166,7 @@
 	"Button1": {
 		"Type": "Button",
 		"Attributes": {
-			"Style": "sysButton",
+			"Style": "btn btn-primary",
 			"TextID": "TXT.BUTTON1",
 			"OnClick": "python/BackendScript.py",
 			"FormValidate": false,
@@ -168,7 +176,7 @@
 	"ButtonInternal1": {
 		"Type": "ButtonInternal",
 		"Attributes": {
-			"Style": "sysButton",
+			"Style": "btn btn-primary",
 			"TextID": "TXT.BUTTON.CONTACT_SEARCH.SUBMIT",
 			"FireEvents": ["ContactSearch"]
 		}
@@ -177,13 +185,13 @@
 		"Type": "FileUpload",
 		"Attributes": {
 			"TextID": "TXT.UPLOAD.BUTTON1",
-			"Style": "sysUploadArea",
-			"StyleDescription": "GlobalUploadDescription",
-			"StyleSelectButton": "GlobalUploadSelectButton",
-			"StyleProgressContainer": "GlobalUploadProgressContainer",
-			"StyleUploadButton": "sysButton sysButtonUpload",
-			"ProgressBarStyle": "GlobalUploadProgressBar",
-			"ProgressBarPercentageStyle": "GlobalUploadProgressPercentage",
+			"Style": "md-3",
+			"StyleDescription": "fst-italic",
+			"StyleSelectButton": "",
+			"StyleProgressContainer": "progress",
+			"StyleUploadButton": "btn btn-primary",
+			"ProgressBarStyle": "progress-bar progress-bar-striped progress-bar-animated",
+			"ProgressBarPercentageStyle": "",
 			"UploadScript": "/python/IntegrationTestUpload.py",
 			"Validate": {
 				"ObjectProperty": "Status",

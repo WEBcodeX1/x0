@@ -6,12 +6,12 @@
 			}
 		},
 		{
-			"FormFieldValidationListError": {
+			"FormFieldValidationList": {
 				"RefID": "Test1"
 			}
 		},
 		{
-			"FormFieldValidationList": {
+			"FormFieldValidationListError": {
 				"RefID": "Test1"
 			}
 		}

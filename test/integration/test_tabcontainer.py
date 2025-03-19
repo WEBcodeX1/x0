@@ -19,7 +19,7 @@ wd_options.add_argument('ignore-certificate-errors')
 wd_options.add_argument('headless')
 
 
-@pytest.fixture
+@pytest.fixture(scope='module')
 def config():
 
     try:
@@ -70,24 +70,28 @@ class TestTabContainer:
 
     def test_tabcontainer(self, config):
         """Check if TabContainer is working as expected"""
+
         d = config["driver"]
         wait = WebDriverWait(d, config["timeout"])
 
-        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#Screen1_TabContainer1_Nav_Ul_Tab2Container")))
+        TabContainerID = 'Screen1_TabContainer1_TabContainer1TabsContainer'
 
-        tab1_button = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Nav_Ul_Tab1Container_Tab1li")
-        tab2_button = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Nav_Ul_Tab2Container_Tab2li")
-        tab3_button = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Nav_Ul_Tab3Container_Tab3li")
-        tab4_button = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Nav_Ul_Tab4Container_Tab4li")
+        wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#{}".format(TabContainerID))))
 
-        tab1_container = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Tab1")
-        tab2_container = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Tab2")
-        tab3_container = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Tab3")
-        tab4_container = d.find_element(By.CSS_SELECTOR, "#Screen1_TabContainer1_Tab4")
+        tab1_button = d.find_element(By.CSS_SELECTOR, "#{}_Tab1".format(TabContainerID))
+        tab2_button = d.find_element(By.CSS_SELECTOR, "#{}_Tab2".format(TabContainerID))
+        tab3_button = d.find_element(By.CSS_SELECTOR, "#{}_Tab3".format(TabContainerID))
+        tab4_button = d.find_element(By.CSS_SELECTOR, "#{}_Tab4".format(TabContainerID))
+
+        TabContainerContentID = 'Screen1_TabContainer1_TabContainer1Ctnt'
+
+        tab1_container = d.find_element(By.CSS_SELECTOR, "#{}_Tab1Content".format(TabContainerContentID))
+        tab2_container = d.find_element(By.CSS_SELECTOR, "#{}_Tab2Content".format(TabContainerContentID))
+        tab3_container = d.find_element(By.CSS_SELECTOR, "#{}_Tab3Content".format(TabContainerContentID))
+        tab4_container = d.find_element(By.CSS_SELECTOR, "#{}_Tab4Content".format(TabContainerContentID))
 
         # Following our test-setup, tab2 is selected by default
         logging.info("Checking for default tab (#2) to be selected..")
-        assert "sysTabActive" in tab2_button.get_attribute("class"), "Default tab (#2) isn't selected."
         assert tab2_container.is_displayed(), "Default tab content (#2) isn't displayed."
 
         logging.info("Clicking tab1 button..")
