@@ -45,7 +45,7 @@ cd ./docker
 ./build-x0-test.sh
 ```
 
-3. Run Cotnainers
+3. Run Containers
 
 ```bash
 # start network and containers
