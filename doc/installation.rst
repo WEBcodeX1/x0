@@ -2,137 +2,67 @@
 
 .. _installation:
 
-2. Base-System Installation
-===========================
+2. Installation
+===============
 
-This documentation describes installing the x0-Framework on a standard Ubuntu 22.04 LTE Linux System.
+2.1. Building Applications
+--------------------------
 
-The following OpenSource software components are used:
+If you intend to develop *x0-applications* only, you should continue with
+*x0-skeleton* (git template repository) at https://github.com/WEBcodeX1/x0-skeleton.
+
+Detailed documentation, how to build / configure an *x0-application*
+is documented under "3. Building x0 Applications" subsections.
+
+If you intend to create own *x0 system objects* used in your *x0 application*,
+you should continue reading.
+
+2.2. Environments
+-----------------
+
+Ubuntu
+Debian / Devuan ()
+
+!Linux host can be Debian / Devuan or Ubuntu.
+
+Docker base images rely on Ubuntu x.x.x  
+
+2.3. Dependencies
+-----------------
 
 * Apache2 / Python3 WSGI (https://httpd.apache.org)
 * PostgreSQL Relational Database 14 (http://www.postgresql.org)
 * Psycopg2 high-speed threaded PostgreSQL DB interface (https://pypi.org/project/psycopg2)
 * Python DB-Pool for Apache2 (https://github.com/clauspruefer/python-db-pool)
-* Bootstrap CSS (https://getbootstrap.com)
+* Bootstrap 5.3 CSS (https://getbootstrap.com)
 * Sphinx Documentation Generator and RTD Theme (https://www.sphinx-doc.org)
 * Selenium Test Framework (https://www.selenium.dev)
 * Chromedriver for Chromium Browser (https://chromedriver.chromium.org)
 * Docker (https://www.docker.com)
 
-.. note::
-
-	The Kubernetes install runs 100% without Single-Point-Of-Failure.
-
-For Kubernetes, additionally the following components are used:
+GKE (Google Kubernetes Engine) deployment also depends on additional ...
 
 * Kubegres (https://www.kubegres.io)
 * ingress-nginx (https://kubernetes.github.io/ingress-nginx)
 * cert-manager (https://cert-manager.io)
 
-The Apache2 webserver will be replaced by the internal clickIT Python-AS-Middleware soon.
+High strutured OOP based WebServices backend abstraction layer (optional)
 
-The git repository is located at: https://git01.click-it.online.
+* Python microesb (https://github.com/clauspruefer/python-micro-esb)
 
-We recommend using HSM-based Smartcards for security reasons (https://www.smartcard-hsm.com).
+2.4. Get System Ready
+---------------------
 
-.. warning::
+Using docker.io as development ... reduces the dependencies you need to install
+on the underlaying linux host.
 
-	Architectures different than Ubuntu Linux are untested and need slightly modifications in the debian
-	package management metadata (especially package relations). Feel free to contribute.
+- setup docker / user permissions
+- debuild + gpg signing keys
 
-.. note::
+Working docker images can be downloaded from: (current version)
 
-	The installation subsection (2) only covers the Base-System installation, running local Docker-Containers and
-	deploying the Base-System to Kubernetes (for x0-System Developers).
+.
 
-	Building and running own x0-Applications does not require a Base-System-Installation, we recommend to read
-	through the installation process to understand basic x0-System aspects.
-
-	Application building, configuration and deployment can be found here: :ref:`appconfiguration`.
-
-2.1 Docker
-----------
-
-The x0-System is shipped with 3 build files for docker container (**docker.io** package required).
-
-1. **"x0-app"** (Base Application containing Web-Server www-data)
-2. **"x0-db"** (PostgreSQL 14 Database)
-3. **"x0-db-install"** (App Database Installer used for Kubernetes DB installs without CI integration)
-
-.. note::
-
-	Also it is preferable to use a local ubuntu package mirror if you are a x0-Developer and change things a lot.
-
-The most easy way to get a x0-Test-System up and running is to build all containers and start them afterwards.
-
-.. code-block:: bash
-	:linenos:
-
-	# build container(s)
-	cd ${PROJECT_DIR}docker
-
-	./x0-build-app.sh &
-	./x0-build-db.sh &
-	./x0-build-db-install.sh &
-
-Start the containers.
-
-.. code-block:: bash
-	:linenos:
-
-	# start container(s)
-	cd ${PROJECT_DIR}docker
-
-	./x0-start-containers.sh
-
-Open the following URLs to check if the system is working correctly.
-
-.. note::
-
-	http://127.0.0.1/python/Index.py (Base "Hello World")
-
-.. note::
-
-	http://127.0.0.1/python/Index.py?appid=example1 (Examples, replace example number)
-
-2.2 Kubernetes
---------------
-
-The following installer script needs kubectl and openstack client(s) to be setupand a correctly configured
-and accessible kubernetes cluster.
-
-.. warning::
-
-	You need a cofigured Openstack::Designate DNS Zone up and running. The kubernetes installer script
-	will try to add the LoadBalancer Floating-IP from the app-config.js automatically.
-
-.. code-block:: bash
-	:linenos:
-
-	# install x0-test-app
-	cd ${PROJECT_DIR}/kubernetes
-	./install.sh
-
-Documentation see: #TODO: add (rendered) documentation
-
-2.3 Standalone
---------------
-
-Download a prebuilt package from our website or build the standalone installation Debian Package with
-Debian Package Build Tools.
-
-#TODO: add link(s) for source and package after CI integration.
-
-2.3.1 Building
-**************
-
-For building with `dpkg-buildpackage` or `debuild` you need to install following packages:
-
-* git
-* gpg
-* debhelper
-
-After package installation generate a GPG Signing Key used for every Package generation.
 
 .. code-block:: bash
 	:linenos:
@@ -144,26 +74,75 @@ After package installation generate a GPG Signing Key used for every Package gen
 
 	The gpg ID (name and comment in brackets) must match exactly the git user you are building with!
 
-Build Package (as non root user).
+2.5. Docker Images
+------------------
+
+The following docker images are used to run the *x0-base-system* including
+system database.
+
+- **"x0-app"** (*x0 application* containing web- and application-server)
+- **"x0-db"** (PostgreSQL 14 database including *x0 system database*)
+
+Kubernetes deployment also uses the following images.
+
+- **"x0-db-install"** ()
+- **"x0-db-install-tpl"** ()
+
+2.6. Local Ubuntu Mirror
+------------------------
+
+.. note::
+
+	Also it is preferable to use a local ubuntu package mirror if you are a x0-Developer and change things a lot.
+
+2.7. IP Addresses / DNS
+-----------------------
+
+copy from x0-skeleteon!
+
+2.8. Check Working System
+-------------------------
+
+Build debian packages, docker images and start *x0-system* containers.
 
 .. code-block:: bash
 	:linenos:
 
 	# build package
-	cd ${PROJECT_DIR}
+	cd ./debian/
 	debuild
 
-2.3.2 Installation
-******************
+	# build container(s)
+	cd ../docker/
 
-Install the package with the following command. Replace $DEB_FILE_NAME with real .deb file name.
+	./x0-build-app.sh &
+	./x0-build-db.sh &
+	./x0-build-test.sh &
 
-.. code-block:: bash
-	:linenos:
+	# start container(s)
+	./x0-start-containers.sh
 
-	# install package (suppress output)
-	apt-get -qq install -y ./$DEB_FILE_NAME
+Open http://x0-app.x0.localnet/python/Index.py in a local browser to check if
+the system is working correctly.
 
-.. note::
+2.9. Examples
+-------------
 
-	The apt package installation will automatically install all required package dependencies.
+http://x0-app.x0.localnet/python/Index.py?appid=example1 (Examples, replace example number)
+
+
+2.10. Tests / CI
+----------------
+
+
+2.9. Kubernetes
+---------------
+
+*x0* also runs on GKE (Google Kubernetes Engine) including Minikube.
+
+A *x0-kubernetes-deployment* includes an automated loadbalanced (ingress-nginx),
+99.9% redundant setup. Also *x0-system-database* is setup failsave.
+
+Detailed documentation see: ./kubernetes/README.md and ./kubernetes/MINIKUBE.md 
+
++ ADD app-config JSON schema!

@@ -3,16 +3,21 @@
 6. Base Objects
 ===============
 
-The system Meta-Data Configuration consists of Objects-Declaration / Configuration in JSON.
+Currently the following *x0-sys-objects* are usable inside `object.json`.
 
 * Div
 * SQLText
 * FormfieldList
-* Formfield
+* FormfieldText
 * List
 * TabContainer
-* RowContainer
+* ObjectContainer
+* Button
+* ButtonInternal
+* Link
 * LinkExternal
+* FileUpload
+* ErrorContainer
 
 6.1 Div
 -------
@@ -35,7 +40,7 @@ JSON Structure Example
 	{
 		"Type": "DIV",
 		"Attributes": {
-			"Style": "Style1 Style2 Style3"
+			"Style": "CSSClassName1 CSSClassName2 CSSClassName3"
 		}
 	}
 

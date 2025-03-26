@@ -20,11 +20,11 @@ x0 Framework Documentation v1.0rc2
    dev-architecture
    dev-oop-model
    dev-classes
-   dev-porting
    dev-tests
    dev-examples
-   dev-workflows
    dev-build-objects
+   dev-porting
+   dev-workflows
 
 Indices and tables
 ==================
