@@ -1,10 +1,10 @@
-.. x0 (Cross-Objects) JavaScript Framework Documentation.
+.. x0 JavaScript Framework Documentation.
 
 x0 Framework Documentation v1.0rc2
 ==================================
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: Contents:
 
    intro
@@ -13,8 +13,8 @@ x0 Framework Documentation v1.0rc2
    appdev-grid
    appdev-objects
    appdev-backend
-   appdev-forms
    appdev-event-system
+   appdev-forms
    appdev-overlay
    appdev-deployment
    dev-architecture

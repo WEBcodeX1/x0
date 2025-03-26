@@ -5,66 +5,72 @@
 3. Application Development
 ==========================
 
-3.1. Fast Start
----------------
+3.1. Go Formula 1
+-----------------
 
-To get a demo *x0-application* fast, checkout *x0-skeleton* (git template
-repository) at https://github.com/WEBcodeX1/x0-skeleton.
+To get a demo *x0-application* up and running in light-speed, checkout
+*x0-skeleton* (git template repository) at https://github.com/WEBcodeX1/x0-skeleton.
 
-Read further for detailed application setup / configuration.
+But dont be lazy, read further to get a more detailed insight how a *x0-application*
+has to be configured correctly.
 
 3.2. Database Configuration
 ---------------------------
 
 Basic *x0-application* configuration data will be stored inside the following
-system tables `system.config` and `webui.text`.
+system tables **system.config** and **webui.text**.
 
-The following data **must** exist for an *x0-application* to work properly.
+The following described meta-data **must** exist for an *x0-application* to work
+properly.
 
-The sql scripts (filename suffix .sql)  must reside in `/database` folder
+The sql scripts (filename suffix **.sql**)  must reside in **/database** folder
 of *x0-system* **or** *x0-skeleton*.
 
-System database will be updated from .sql scripts inside `/database` folder` on
-docker image re-build (see subsection  ... docker ... ).
+System database will be updated from **.sql** scripts inside **/database** folder
+on docker image re-build (see subsection  ... docker ... ).
 
 3.2.1. System Configuration
 ***************************
 
 System configuration data is stored in database table `system.config`.
 
-+----------------------+-----------------+-------------------------------------+
-| **Table Column**     | **Default**     | **Decsription**                     |
-+======================+=================+=====================================+
-| app_id               | 'default'       | x0 Application ID                   |
-+----------------------+-----------------+-------------------------------------+
-| config_group         |                 | Configuration Parameter ID          |
-+----------------------+-----------------+-------------------------------------+
-| "value"              |                 | Configuration Parameter Value       |
-+----------------------+-----------------+-------------------------------------+
+.. table:: System Database Table "system.config"
+    :widths: 20 30 50
 
-Configuration Parameter (*x0-config-parameter*)
-              
-+----------------------+-----------------+-------------------------------------+
-| **Parameter**        | **Type**        | **Decsription**                     |
-+======================+=================+=====================================+
-| index_title          | String          | x0 Browser Page Title               |
-+----------------------+-----------------+-------------------------------------+
-| debug_level          | Integer         | System Debug Level                  |
-+----------------------+-----------------+-------------------------------------+
-| display_language     | 'en' | 'de'     | System Display Language             |
-+----------------------+-----------------+-------------------------------------+
-| default_screen       | String          | Screen ID Reference                 |
-+----------------------+-----------------+-------------------------------------+
-| parent_window_url    | String (URL)    | Wordpress Plugin Parent URL         |
-+----------------------+-----------------+-------------------------------------+
-| subdir               | String (Path)   | "static" Backend Path               |
-+----------------------+-----------------+-------------------------------------+
-| config_file_menu     | String (File)   | Override Menu Config Data Filename  |
-+----------------------+-----------------+-------------------------------------+
-| config_file_object   | String (File)   | Override Menu Config Data Filename  |
-+----------------------+-----------------+-------------------------------------+
-| config_file_skeleton | String (File)   | Override Menu Config Data Filename  |
-+----------------------+-----------------+-------------------------------------+
+    +----------------------+-----------------+-------------------------------------+
+    | **Table Column**     | **Default**     | **Description**                     |
+    +======================+=================+=====================================+
+    | app_id               | default (String)| x0 Application ID                   |
+    +----------------------+-----------------+-------------------------------------+
+    | config_group         |                 | Configuration Parameter ID          |
+    +----------------------+-----------------+-------------------------------------+
+    | "value"              |                 | Configuration Parameter Value       |
+    +----------------------+-----------------+-------------------------------------+
+
+.. table:: Configuration Parameter "x0-config-parameter"
+    :widths: 20 30 50
+
+    +----------------------+-----------------+-------------------------------------+
+    | **Parameter**        | **Type**        | **Description**                     |
+    +======================+=================+=====================================+
+    | index_title          | String          | x0 Browser Page Title               |
+    +----------------------+-----------------+-------------------------------------+
+    | debug_level          | Integer         | System Debug Level                  |
+    +----------------------+-----------------+-------------------------------------+
+    | display_language     | 'en' | 'de'     | System Display Language             |
+    +----------------------+-----------------+-------------------------------------+
+    | default_screen       | String          | Screen ID Reference                 |
+    +----------------------+-----------------+-------------------------------------+
+    | parent_window_url    | String (URL)    | Wordpress Plugin Parent URL         |
+    +----------------------+-----------------+-------------------------------------+
+    | subdir               | String (Path)   | "static" Backend Path               |
+    +----------------------+-----------------+-------------------------------------+
+    | config_file_menu     | String (File)   | Override Menu Config Data Filename  |
+    +----------------------+-----------------+-------------------------------------+
+    | config_file_object   | String (File)   | Override Menu Config Data Filename  |
+    +----------------------+-----------------+-------------------------------------+
+    | config_file_skeleton | String (File)   | Override Menu Config Data Filename  |
+    +----------------------+-----------------+-------------------------------------+
 
 The following example sql inserts demonstrate a default *x0-application-config*
 viewable by URL http://x0-app.x0.localnet/python/Index.py.
@@ -129,13 +135,18 @@ to work correctly.
 ------------------
 
 On default sytem initialization (page load) the browser area is devided into
-3 areas.
+**3 visible** areas.
 
 1. "Menu" Area
 2. "Screen" Content Area
 3. "Notifiy Indicator" Area
 
-=> Visio Menu / Content Screen + correct DIV LayerID
+.. image:: images/x0-browser-content-areas.png
+  :alt: image - browser content areas
+
+.. note::
+
+    Note the invisible screen areas. They represent
 
 3.3.1. Menu Area
 ****************
@@ -206,33 +217,33 @@ All current usable x0-system-objects JSON definitions can be found here:
 
 .. code-block:: javascript
 
-	{
-		"Screen1":
-		[
-			{
-				"FormfieldList1":
-				{
-					"RefID": "Screen1"
-				}
-			},
-			{
-				"FormfieldList2":
-				{
-					"RefID": "Screen1"
-				}
-			}
-		],
+    {
+        "Screen1":
+        [
+            {
+                "FormfieldList1":
+                {
+                    "RefID": "Screen1"
+                }
+            },
+            {
+                "FormfieldList2":
+                {
+                    "RefID": "Screen1"
+                }
+            }
+        ],
 
-		"Screen2":
-		[
-			{
-				"FormfieldList3":
-				{
-					"RefID": "Screen2"
-				}
-			}
-		]
-	}
+        "Screen2":
+        [
+            {
+                "FormfieldList3":
+                {
+                    "RefID": "Screen2"
+                }
+            }
+        ]
+    }
 
 3.4.3. menu.json
 ****************
@@ -240,35 +251,38 @@ All current usable x0-system-objects JSON definitions can be found here:
 3.4.4. MultiRef / ElementID
 ***************************
 
-Some *x0-objects* define elements inside object.json (e.g. tabcontainer ).
+Some *x0-objects* define elements inside object.json
+
+* TabContainer
+* ObjectContainer
 
 If so, they are also referencable inside skeleton.json.
 
 .. code-block:: javascript
 
-	{
-		"Screen1":
-		[
-			{
-				"TabContainer1":
-				{
-					"RefID": "Screen1"
-				}
-			},
-			{
-				"Formfield1":
-				{
-					"RefID": "TabContainer1",
-					"ElementID": "Tab1"
-				}
-			},
-			{
-				"Formfield2":
-				{
-					"RefID": "TabContainer1",
-					"ElementID": "Tab2"
-				}
-			}
+    {
+        "Screen1":
+        [
+            {
+                "TabContainer1":
+                {
+                    "RefID": "Screen1"
+                }
+            },
+            {
+                "Formfield1":
+                {
+                    "RefID": "TabContainer1",
+                    "ElementID": "Tab1"
+                }
+            },
+            {
+                "Formfield2":
+                {
+                    "RefID": "TabContainer1",
+                    "ElementID": "Tab2"
+                }
+            }
 
-		]
-	}
+        ]
+    }

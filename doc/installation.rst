@@ -5,27 +5,30 @@
 2. Installation
 ===============
 
-2.1. Building Applications
---------------------------
+As first step, check if it is necessary for you to install the *x0-base-system*.
 
-If you intend to develop *x0-applications* only, you should continue with
-*x0-skeleton* (git template repository) at https://github.com/WEBcodeX1/x0-skeleton.
+If you intend to develop *x0-applications* only, you first should start setting
+up *x0-skeleton* (git template repository) at https://github.com/WEBcodeX1/x0-skeleton.
 
-Detailed documentation, how to build / configure an *x0-application*
-is documented under "3. Building x0 Applications" subsections.
+After finish setting up your x0-app repository, you should continue reading the
+documentation section :ref:`appdevelopment` to get details about building
+/ configuring an *x0-application*.
 
 If you intend to create own *x0 system objects* used in your *x0 application*,
-you should continue reading.
+you should continue reading this chapter.
 
-2.2. Environments
+2.1. Environments
 -----------------
 
-Ubuntu
-Debian / Devuan ()
+The following native linux distributions .
 
-!Linux host can be Debian / Devuan or Ubuntu.
+* Ubuntu 22.04.4
+* Debian 12
+* Devuan 5 (daedalus)
 
-Docker base images rely on Ubuntu x.x.x  
+Docker images created by x0-system rely on Ubuntu 22.04.
+
+
 
 2.3. Dependencies
 -----------------
@@ -135,14 +138,14 @@ http://x0-app.x0.localnet/python/Index.py?appid=example1 (Examples, replace exam
 ----------------
 
 
-2.9. Kubernetes
----------------
+2.11. Kubernetes
+----------------
 
 *x0* also runs on GKE (Google Kubernetes Engine) including Minikube.
 
 A *x0-kubernetes-deployment* includes an automated loadbalanced (ingress-nginx),
 99.9% redundant setup. Also *x0-system-database* is setup failsave.
 
-Detailed documentation see: ./kubernetes/README.md and ./kubernetes/MINIKUBE.md 
+Detailed documentation see: https:// ./kubernetes/README.md .
 
-+ ADD app-config JSON schema!
++ ADD app-config JSON schema documentation!

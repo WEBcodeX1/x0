@@ -1,95 +1,13 @@
 .. control-logic
 
-7. Control Logic
-================
+7. Event Sytem / Actions
+========================
 
-The following Object-Types can be used to communicate among each other and with the backend.
++!Reactor!, Objects OnEvent Property.
 
-* ServiceConnector
 * Button
 * ButtonInternal
-* ErrorContainer
 
-7.1 ServiceConnector
---------------------
-
-With help of a Service Connector Object you load backend data into already loaded
-System Obejcts (after initial app-rendering took place).
-
-You can trigger data load on System Event occurence, see: #TODO: link to Raising Events.
-
-
-Object Properties
-*****************
-
-+---------------------+----------------------+-------------------------------------------------+
-| **Property**        | **Value(s)**         | **Description**                                 |
-+=====================+======================+=================================================+
-| OnEvent             | JS Object            | Event Properties                                |
-+---------------------+----------------------+-------------------------------------------------+
-
-Event Properties
-****************
-
-+---------------------+----------------------+-------------------------------------------------+
-| **Property**        | **Value(s)**         | **Description**                                 |
-+=====================+======================+=================================================+
-| Events              | Array of Strings     | Listen to given Events                          |
-+---------------------+----------------------+-------------------------------------------------+
-| ServiceCall         | Backend Script       | Call Backend Script on raised Event(s)          |
-+---------------------+----------------------+-------------------------------------------------+
-
-Example (object.json)
-*********************
-
-.. code-block:: javascript
-
-	"ContactSearchListConnector":
-    {
-		"Type": "ServiceConnector",
-		"Attributes":
-		{
-			"OnEvent":
-			{
-				"Events": [ "TestEvent" ],
-				"ServiceCall": "python/getData.py"
-			}
-		}
-	}
-
-Connecting Object (skeleton.json)
-*********************************
-
-The following Example maps a Service Connector Object to a Parent Tab Container Object and a FormfieldList
-Object Type to the Service Connector Object.
-
-When the Event "TestEvent" defined in the Example above will be raised, data from python/getData.py Backend
-Script will be loaded into the FormfieldList Object.
-
-.. code-block:: javascript
-
-	"Screen1":
-	[
-		{
-			"TabContainer1":
-			{
-				"RefID": "Tab1"
-			}
-		},
-		{
-			"ServiceConnector1":
-			{
-				"RefID": "TabContainer1",
-				"ElementID": "Tab1"
-			}
-		},
-		{
-			"Formfields1":
-			{
-				"RefID": "ServiceConnector1"
-			}
-		}
-	]
 
 7.2 Button
 ----------

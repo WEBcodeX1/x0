@@ -30,14 +30,14 @@ Also extending CSS styles by your own stylesheets is a procedure of minutes.
 1.3. Fontawesome
 ----------------
 
-Fontawesome free is integrated into *x0 base* system to provide an easy way to
-use **high quality icons**.
+Fontawesome 6 free is integrated into *x0 base* system to provide an easy way
+to use **high quality icons**.
 
 1.4. CSS Grid System
 ---------------------
 
 To guarantee future-proof responsiveness, *x0-system* provides smart libraries
-for building real cool device-independend stuff using bootstraps grid styles.
+for building real cool device-independend stuff relying on bootstraps grid styles.
 
 Boostrap grid details see https://getbootstrap.com/docs/5.3/layout/grid/.
 
@@ -152,14 +152,14 @@ The **killer feature** provided by the *x0-system* is the possibility of
 combining (chaining) existing objects into new ones.
 
 Very simplified (invalid JavaScript syntax), defining a new object
-"SelfDefinedObject" is done like:
+**SelfDefinedObject** is done like:
 
 .. code-block:: javascript
 
     this.addObject(new SQLTextObj(TextID='TXT.DISPLAY'));
-    this.addObject(new Formfield(Type='Text'));
+    this.addObject(new Formfield(Type='Pulldown', Options=['Option1', 'Option2']));
 
-Now, exactly in the same way defining the "SelfDefinedObject" object, it can
+Now, exactly in the same way defining the *SelfDefinedObject* object, it can
 be reused to define ... new objects.
 
 .. code-block:: javascript
@@ -168,6 +168,6 @@ be reused to define ... new objects.
 
 .. note::
 
-    Detailed information, how to build *x0-system-objects*,
+    Detailed information, how to integrate *x0-system-objects*,
     see developer documentation subsection xyz
     ... #add ref to developer subsection!
