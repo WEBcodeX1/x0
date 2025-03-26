@@ -6,7 +6,9 @@
 *x0* (cross-object) JavaScript Framework is a modern tool for building
 powerful Web-Browser **Realtime-SPA (Single Page Applications)** efficiently.
 
-See :ref:`x0special` what makes x0 system so **special**.
+.. note::
+
+    See :ref:`targetgroup` which target group the *x0-system* is intended for.
 
 1.1. Cross Objects
 ------------------
@@ -17,7 +19,8 @@ able to exchange (update) their metadata directly via JSON metadata.
 1.2. Bootstrap / CSS Themes
 ---------------------------
 
-*x0-system* includes current Bootstrap 5.3 basic CSS stylesheets (**zer0** JS logic).
+*x0-system* includes current Bootstrap 5.3 basic CSS stylesheets without a
+single line of JavaScript code (**zer0 JS**).
 
 Imagine *x0* as being the system which empowers Bootstrap with smart enhanced,
 true OOP based JavaScript logic.
@@ -58,7 +61,7 @@ Docker images are provided to start playing with *x0-system* in no time.
 - https://docker.webcodex.de/x0/docker.x0-app.tar
 - https://docker.webcodex.de/x0/docker.x0-db.tar
 
-See installation subsection #add link howto handle.
+See installation subsection (#add link) howto use.
 
 1.8. Kubernetes
 ---------------
@@ -80,57 +83,91 @@ Some following components including the WYSIWYG-Editor will be **non-free**.
 
 Current milestones see GitHub https://github.com/WEBcodeX1/x0/milestones.
 
-.. _x0special:
+.. _targetgroup:
 
-1.11. What Makes x0 Special
----------------------------
+1.11. x0 Target Group
+---------------------
 
-The following 3 subsections describe what makes *x0-system* so special.
+The following 3 subsections describe the *x0-systems* **technical advantages**
+and which **target group** the system is intended for.
 
-1.11.1. Div 2 Object
-********************
+1.11.1. Div 2 Object Mapping
+****************************
 
-Assume this example covers one of the simplest *x0 system objects* (SQLText).
-It is configurable to get a Text by ID from the backend and display it in the
-current selected language (english or german).
+Assume the following example covers one of the simplest *x0 system objects*:
+"SQLText". It is configurable to get a Text by ID from the backend and display
+it in the current selected language (english or german).
 
-::Visio DIV 2 Object Instance
-
-<div id="Screen1_HelloWorldText" class="">Hello World</div> Instance::SQLObject
+.. image:: images/x0-oop-obj2div-mapping.png
+  :alt: image - oop object2div mapping
 
 The x0 system **always** associates **one single** *JS Object Instance* to a
 single (rendered) DOM DIV (1:1). There will be no DOM DIVs without a connected
 *JS Object Instance*.
 
-If a rendered *x0-screen* contains 187 DIVs, 187 corresponding
+E.g., if a rendered *x0-screen* contains 187 DIVs, 187 corresponding
 *JS Object Instances* have been setup by *x0-system*.
 
 Also each object holds its information about its *Parent Object* and the base
 rendering routines (inherited *x0-base-classes*).
 
+.. note::
+
+    More complex objects consist of multiple (far more) DIVs.
+    Check out the developer section about howto design *x0-system-objects*
+    ... #add ref to developer subsection!
+
 1.11.2. True DOM OOP
 ********************
 
+The *x0-systems* **DIV2ObjectMapping** method opens up true OOP based DOM DIV
+modeling / manipulation to the programmer.
 
+.. note::
 
-The objects JS code uses the SQLTextID property inside its `switchLanguage`
-method (member) to switch the text to the given language in realtime.
+    Which in fact makes it possible to create real powerful, enhanced,
+    **combined** *x0-system-objects* (details see next section).
 
-sysFactory.getObjectByID("sqltext1").switchLanguage('de');
+Now continuing with the SQLText example from the previous section.
+
+So the *x0-system* has created a SQLText object instance with the TextID
+"Text1" defined inside `object.json`, its `update()` method is callable
+from outside to update display text (DIV) to current selected system language
+in **realtime**.
+
+.. code-block:: javascript
+
+    sysFactory.getObjectByID("Text1").update();
+
+Also the programmer has the following additional abilities:
+
+- Redirecting Events
+- Callbacks from other Objects
+- Web-Service Data Source Binding
 
 1.11.3. Object Combination
 **************************
 
-The *x0* **killer feature** is the easy combination (chaining) of existing
-objects to new ones.
+The **killer feature** provided by the *x0-system* is the possibility of
+combining (chaining) existing objects into new ones.
 
-Very simplified (), defining a new object "SelfDefinedObject" like:
+Very simplified (invalid JavaScript syntax), defining a new object
+"SelfDefinedObject" is done like:
 
-this.addObject(new SQLTextObj(TextID));
-this.addObject(new Formfield(Type=Text, Value));
+.. code-block:: javascript
 
-generates a new object which is referencable like:
+    this.addObject(new SQLTextObj(TextID='TXT.DISPLAY'));
+    this.addObject(new Formfield(Type='Text'));
 
-this.addObject(new SelfDefinedObject(Config));
+Now, exactly in the same way defining the "SelfDefinedObject" object, it can
+be reused to define ... new objects.
 
-Detailed information, how to build *x0-system-objects*, see developer documentation subsection xyz
+.. code-block:: javascript
+
+    this.addObject(new SelfDefinedObject(Config));
+
+.. note::
+
+    Detailed information, how to build *x0-system-objects*,
+    see developer documentation subsection xyz
+    ... #add ref to developer subsection!
