@@ -14,7 +14,7 @@ powerful Web-Browser **Realtime-SPA (Single Page Applications)** efficiently.
 ------------------
 
 The *x* in *x0* stands for **cross** meaning **communication**. *x0-objects* are
-able to exchange (update) their metadata directly via JSON metadata.
+able to exchange (update) their metadata **directly** via JSON metadata.
 
 1.2. Bootstrap / CSS Themes
 ---------------------------
@@ -25,7 +25,7 @@ single line of JavaScript code (**zer0 Bootstrap JS**).
 Imagine *x0* as being the system which empowers Bootstrap with smart enhanced,
 true OOP based JavaScript logic.
 
-Also extending CSS styles by your own stylesheets is a procedure of minutes.
+Also **extending CSS styles** by your own stylesheets is a procedure of minutes.
 
 1.3. Fontawesome
 ----------------
@@ -44,8 +44,8 @@ Boostrap grid details see https://getbootstrap.com/docs/5.3/layout/grid/.
 1.5. Browser Compability
 ------------------------
 
-*x0-system* is built in a generic way (ECMA 8) so it runs on all current browsers
-(Firefox, Chrome, Opera, Safari) natively.
+*x0-system* is built in a generic way (ECMA 6, 7) so it runs on all current
+browsers (Firefox, Chrome, Opera, Safari) natively.
 
 1.6. Multi Language
 -------------------
@@ -150,8 +150,8 @@ Additionally the programmer will be provided with the following abilities:
 1.11.3. Object Combination
 **************************
 
-The **killer feature** provided by the *x0-system* is the possibility of
-combining (chaining) existing objects into new ones.
+The **most remarkable feature** provided by the *x0-system* is the possibility
+of combining (chaining) existing objects into new ones.
 
 Very simplified (invalid JavaScript syntax), defining a new object
 **SelfDefinedObject** is done like:
@@ -162,7 +162,7 @@ Very simplified (invalid JavaScript syntax), defining a new object
     this.addObject(new Formfield(Type='Pulldown', Options=['Option1', 'Option2']));
 
 Now, exactly in the same way defining the *SelfDefinedObject* object, it can
-be reused to define ... new objects.
+be reused to define other new objects.
 
 .. code-block:: javascript
 
@@ -170,6 +170,5 @@ be reused to define ... new objects.
 
 .. note::
 
-    Detailed information, how to integrate *x0-system-objects*,
-    see developer documentation subsection xyz
-    ... #add ref to developer subsection!
+    Detailed information, how to integrate *x0-system-objects*, see
+    developer documentation subsection xyz ... #add ref to developer subsection!
