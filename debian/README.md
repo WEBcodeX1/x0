@@ -4,7 +4,7 @@
 
 Install debian build tools and gnupg (as root).
 
-```
+```bash
 apt-get -y install debuild gnupg
 ```
 
@@ -12,13 +12,13 @@ apt-get -y install debuild gnupg
 
 As your user setup gpg key for signing the Debian Packages.
 
-```
+```bash
 gpg --full-generate-key
 ```
 
 :memo: The maintainer User-ID in `control` file must match your GPG User Name and E-Mail Address. It is advisable that your GIT metadata will also match this data.
 
-```
+```bash
 Maintainer: Claus Prüfer (CTO) <c.pruefer@click-it.online>
 ```
 
@@ -26,7 +26,7 @@ Maintainer: Claus Prüfer (CTO) <c.pruefer@click-it.online>
 
 Run the following command to build, lint and sign the Debian Packages.
 
-```
+```bash
 debuild
 ```
 
