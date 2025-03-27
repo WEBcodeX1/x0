@@ -5,7 +5,8 @@
 2. Installation
 ===============
 
-As first step, check if it is necessary for you to install the *x0-base-system*.
+As first step, check if it is really necessary for you to install the
+*x0-base-system*.
 
 If you intend to develop *x0-applications* only, you first should start setting
 up *x0-skeleton* (git template repository) at https://github.com/WEBcodeX1/x0-skeleton.
