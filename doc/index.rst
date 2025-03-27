@@ -16,6 +16,7 @@ x0 Framework Documentation v1.0rc2
    appdev-event-system
    appdev-forms
    appdev-overlay
+   appdev-messaging
    appdev-deployment
    dev-architecture
    dev-oop-model
