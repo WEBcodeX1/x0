@@ -60,6 +60,7 @@ Docker images are provided to start playing with *x0-system* in no time.
 
 - https://docker.webcodex.de/x0/docker.x0-app.tar
 - https://docker.webcodex.de/x0/docker.x0-db.tar
+- https://docker.webcodex.de/x0/docker.x0-test.tar
 
 See installation subsection (#add link) howto use.
 
