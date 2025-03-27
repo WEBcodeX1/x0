@@ -95,7 +95,7 @@ and which **target group** the system is intended for.
 ****************************
 
 Assume the following example covers one of the simplest *x0 system objects*:
-"SQLText". It is configurable to get a Text by ID from the backend and display
+**SQLText**. It is configurable to get a Text by ID from the backend and display
 it in the current selected language (english or german).
 
 .. image:: images/x0-oop-obj2div-mapping.png
@@ -105,8 +105,9 @@ The x0 system **always** associates **one single** *JS Object Instance* to a
 single (rendered) DOM DIV (1:1). There will be no DOM DIVs without a connected
 *JS Object Instance*.
 
-E.g., if a rendered *x0-screen* contains 187 DIVs, 187 corresponding
-*JS Object Instances* have been setup by *x0-system*.
+If a rendered *x0-screen* contains e.g. 187 DIVs, 187 corresponding
+*JS Object Instances* have been setup by *x0-system* on *x0-app-start* (browser
+page load).
 
 Also each object holds its information about its *Parent Object* and the base
 rendering routines (inherited *x0-base-classes*).
@@ -137,9 +138,9 @@ in **realtime**.
 
 .. code-block:: javascript
 
-    sysFactory.getObjectByID("Text1").update();
+    sysFactory.getObjectByID("TXT.Text1").update();
 
-Also the programmer has the following additional abilities:
+Additionally the programmer will be provided with the following abilities:
 
 - Redirecting Events
 - Callbacks from other Objects
