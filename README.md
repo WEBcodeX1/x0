@@ -7,6 +7,8 @@
 **x0 (cross-object) JavaScript Framework** /krɒs ɒb.dʒɪkt/  is a modern tool for
 building powerful Web-Browser Realtime-SPA (Single Page Applications) efficiently.
 
+Installation instruction(s) see: [./INSTALL.md](./INSTALL.md)
+
 ## 2. Single Page Application
 
 SPA-applications are modern browser-applications which run *nearly* backend independent,
