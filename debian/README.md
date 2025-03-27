@@ -30,4 +30,4 @@ Run the following command to build, lint and sign the Debian Packages.
 debuild
 ```
 
-If your data has been setup correctly the Packages will be built in `../../`.
+If your data has been setup correctly packages will be built in `../../`.
