@@ -20,7 +20,7 @@ able to exchange (update) their metadata directly via JSON metadata.
 ---------------------------
 
 *x0-system* includes current Bootstrap 5.3 basic CSS stylesheets without a
-single line of JavaScript code (**zer0 JS**).
+single line of JavaScript code (**zer0 Bootstrap JS**).
 
 Imagine *x0* as being the system which empowers Bootstrap with smart enhanced,
 true OOP based JavaScript logic.
