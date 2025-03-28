@@ -1,7 +1,7 @@
 .. x0 JavaScript Framework Documentation.
 
-x0 Framework Documentation v1.0rc2
-==================================
+x0 Framework Documentation v0.99
+================================
 
 .. toctree::
    :maxdepth: 2
