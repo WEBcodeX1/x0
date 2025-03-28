@@ -51,4 +51,9 @@ Example (object.json)
 		}
 	}
 
-Authentication
+6.2 Global Data
+---------------
+
+6.3 Authentication
+------------------
+
