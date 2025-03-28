@@ -96,7 +96,7 @@ on docker image re-build (see subsection  ... docker ... ).
 System configuration data is stored in database table `system.config`.
 
 .. table:: System Database Table "system.config"
-    :widths: 20 30 50
+    :widths: 20 30 100
 
     +----------------------+-----------------+-------------------------------------+
     | **Table Column**     | **Default**     | **Description**                     |
