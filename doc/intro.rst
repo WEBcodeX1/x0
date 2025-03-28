@@ -40,9 +40,9 @@ way to use **high quality icons**.
 
 To guarantee future-proof **responsiveness**, *x0-system* provides smart
 libraries for building real cool **device-independend** stuff relying on
-bootstraps grid CSS.
+Bootstraps Grid feature.
 
-Boostrap grid details see https://getbootstrap.com/docs/5.3/layout/grid/.
+Boostrap Grid details see https://getbootstrap.com/docs/5.3/layout/grid/.
 
 1.5. Browser Compability
 ------------------------
@@ -164,8 +164,8 @@ Very simplified (invalid JavaScript syntax), defining a new object
     this.addObject(new SQLTextObj(TextID='TXT.DISPLAY'));
     this.addObject(new Formfield(Type='Pulldown', Options=['Option1', 'Option2']));
 
-Now, exactly in the same way defining the *SelfDefinedObject* object, it can
-be reused to define other new objects.
+Now, exactly in the same way defining the *SelfDefinedObject*, it can be
+repeatedly reused to define other new objects.
 
 .. code-block:: javascript
 
