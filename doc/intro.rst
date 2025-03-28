@@ -65,7 +65,7 @@ Docker images are provided to start playing with *x0-system* in no time.
 - https://docker.webcodex.de/x0/docker.x0-db.tar
 - https://docker.webcodex.de/x0/docker.x0-test.tar
 
-See installation subsection :ref:`docker-setup` howto proceed.
+See :ref:`installation` howto proceed.
 
 1.8. Kubernetes
 ---------------
