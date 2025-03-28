@@ -5,16 +5,77 @@
 3. Application Development
 ==========================
 
-3.1. Go Formula 1
------------------
+The following sections describe the most important system parts.
 
-To get a demo *x0-application* up and running in light-speed, checkout
-*x0-skeleton* (git template repository) at https://github.com/WEBcodeX1/x0-skeleton.
+* Browser Content Areas / Screen Definition
+* System Database Configuration Data
+* Web-Application Server Configuration (app-config.json)
+* Application Metadata / Objects and Objects Reference Configuration
 
-But dont be lazy, read further to get a more detailed insight how a *x0-application*
-has to be configured correctly.
+3.1. Browser Content Areas
+--------------------------
 
-3.2. Database Configuration
+The *x0-systems* browser main display area is devided into **3 visible** areas.
+
+1. "Menu" Area
+2. "Screen" Content Area
+3. "Notifiy Indicator" Area
+
+.. image:: images/x0-browser-content-areas.png
+  :alt: image - browser content areas
+
+.. note::
+
+    Note the invisible screen areas. They represent
+
+3.1.1. Menu Area
+****************
+
+The **x0-menu-area** is primarily intended to contain menu related objects
+/ internal links.
+
+The DOM DIV layer id = "sysMenu". Referenced objects inside menu.json will be
+appended to "sysMenu" DIV in system init / page load.
+
+A link object can be referenced to a given Screen ID. On click the system
+ativates loads the screen data into the Screen Area.
+
+The menu DIV layers class attribute (CSS styles) will be defined in ...
+
+3.1.2. Screen Area
+******************
+
+The Screen Area is the Main Content Display Area ...
+
+The "default_screen" *x0-config-parameter* see 3.2.1. System Configuration
+controls which screen will be displayed (activated) on system init (page load).
+
+Each screens DIV layers class attribute (CSS styles) can be defined ...
+
+3.1.3. NotifyIndicator Area
+***************************
+
+The Notify Indicator Area displays Web-Service Status Information when
+Data is exchanged with the backend or on external web-service calls.
+
+The DIV layer id is
+
+3.3.4. Object State Preservation
+********************************
+
+On switching Screens or e.g. on objects pagination the *x0-system* guarantees
+any object state is preserved to 100%.
+
+E.g. if you switch from screen with id "Screen1" to "Screen2", do some
+work, switch back to "Screen1", any object look including (form) data is
+exactly like it had been before switching.
+
+This is real cool, Never loose any user input data on "going back" actions!
+
+
+
+
+3.1. Database Configuration
 ---------------------------
 
 Basic *x0-application* configuration data will be stored inside the following
@@ -29,7 +90,7 @@ of *x0-system* **or** *x0-skeleton*.
 System database will be updated from **.sql** scripts inside **/database** folder
 on docker image re-build (see subsection  ... docker ... ).
 
-3.2.1. System Configuration
+3.1.1. System Configuration
 ***************************
 
 System configuration data is stored in database table `system.config`.
@@ -87,7 +148,7 @@ viewable by URL http://x0-app.x0.localnet/python/Index.py.
     INSERT INTO system.config (config_group, "value") VALUES ('config_file_object', 'object.json');
     INSERT INTO system.config (config_group, "value") VALUES ('config_file_skeleton', 'skeleton.json');
 
-3.2.2. Display Text
+3.1.2. Display Text
 *******************
 
 Multilanguage display text is stored inside `webui.text` database table.
@@ -108,7 +169,7 @@ be referenced in *x0-object-metadata* JSON configuration files later on.
     VALUES
     ('TXT.TEXTID.2', 'group1', 'English Text #2', 'German Text #2');
 
-3.2.3. Application ID
+3.1.3. Application ID
 *********************
 
 It is possible to append HTTP get parameter "appid" with e.g. "example2"
@@ -117,7 +178,7 @@ to the base URL (Index.py) script.
 http://x0-app.x0.localnet/python/Index.py?appid=example2
 
 The following sql statements show how configuration data must be stored for this
-to work correctly.
+to work properly.
 
 .. code-block:: sql
 
@@ -131,62 +192,10 @@ to work correctly.
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'config_file_object', 'object.json');
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'config_file_skeleton', 'skeleton.json');
 
-3.3. Browser Areas
-------------------
+3.2. app-config.json
+--------------------
 
-On default sytem initialization (page load) the browser area is devided into
-**3 visible** areas.
 
-1. "Menu" Area
-2. "Screen" Content Area
-3. "Notifiy Indicator" Area
-
-.. image:: images/x0-browser-content-areas.png
-  :alt: image - browser content areas
-
-.. note::
-
-    Note the invisible screen areas. They represent
-
-3.3.1. Menu Area
-****************
-
-Menu Area Objects Data will be rendered inside root DOM DIV layer with id "sysMenu".
-
-The Menu Area holds Link objects with a configurable screen reference. On click
-the system ativates loads the screen data into the Screen Area.
-
-The menu DIV layers class attribute (CSS styles) can be defined in ...
-
-3.3.2. Screen Area
-******************
-
-The Screen Area is the Main Content Display Area ...
-
-The "default_screen" *x0-config-parameter* see 3.2.1. System Configuration
-controls which screen will be displayed (activated) on system init (page load).
-
-Each screens DIV layers class attribute (CSS styles) can be defined ...
-
-3.3.3. NotifyIndicator Area
-***************************
-
-The Notify Indicator Area displays Web-Service Status Information when
-Data is exchanged with the backend or on external web-service calls.
-
-The DIV layer id is 
-
-3.3.4. Object State Preservation
-********************************
-
-On switching Screens or e.g. on objects pagination the *x0-system* guarantees
-any object state is preserved to 100%.
-
-E.g. if you switch from screen with id "Screen1" to "Screen2", do some
-work, switch back to "Screen1", any object look including (form) data is
-exactly like it had been before switching.
-
-This is real cool, Never loose any user input data on "going back" actions!
 
 3.4. System Metadata
 --------------------
@@ -209,8 +218,8 @@ The object.json config file contains all x0-systems object declarations.
 Each object must have its unique ID and will be referenced with its ID inside
 menu.js and skeleton.js where *screen* and *object relations* will be defined.
 
-All current usable x0-system-objects JSON definitions can be found here:
-
+All current usable *x0-system-objects* JSON definitions can be found here:
+:ref:`system-objects`.
 
 3.4.2. skeleton.json
 ********************
