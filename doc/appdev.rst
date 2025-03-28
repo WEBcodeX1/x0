@@ -19,7 +19,7 @@ The *x0-systems* browser main display area is devided into **3 visible** areas.
 
 1. "Menu" Area
 2. "Screen" Content Area
-3. "Notifiy Indicator" Area
+3. "Notification" Area
 
 .. image:: images/x0-browser-content-areas.png
   :alt: image - browser content areas
