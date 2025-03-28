@@ -235,7 +235,7 @@ The following docker command line tips can be useful for debugging.
 
 .. code-block:: bash
 
-	# run a shell inside running docker container
+	# show (apache) log files
 	docker logs x0-app
 
 .. code-block:: bash
