@@ -26,7 +26,7 @@ The *x0-systems* browser main display area is devided into **3 visible** areas.
 
 .. note::
 
-    Note the invisible screen areas. They represent
+    Note the invisible screen layers. Description following.
 
 3.1.1. Menu Area
 ****************
@@ -34,13 +34,23 @@ The *x0-systems* browser main display area is devided into **3 visible** areas.
 The **x0-menu-area** is primarily intended to contain menu related objects
 / internal links.
 
-The DOM DIV layer id = "sysMenu". Referenced objects inside menu.json will be
-appended to "sysMenu" DIV on system init / page load.
+The DOM DIV layer id = "sysMenu". Referenced objects inside **menu.json** will
+be appended to "sysMenu" DIV on system init rendering / page load.
 
 A link object can be referenced to a given Screen ID. On click the system
-ativates loads the screen data into the Screen Area.
+ativates / makes the screen layer visible inside the **x0-screen-area**.
 
-The menu DIV layers class attribute (CSS styles) will be defined in ...
+The default "sysMenu" DIV layers CSS style / class attributes are be defined in
+
+.. note::
+
+    The **x0-menu-area** is not only limited to link-objects type, any object
+    can be referenced in **menu.json**, e.g. as link container (positioning) objects.
+
+The following diagram shows what exactly happens on *x0-screen-switching*.
+
+.. image:: images/x0-screen-switch.png
+  :alt: image - screen switch
 
 3.1.2. Screen Area
 ******************
@@ -103,7 +113,7 @@ System configuration data is stored in database table `system.config`.
     +----------------------+-----------------+-------------------------------------+
     | **Table Column**     | **Default**     | **Description**                     |
     +======================+=================+=====================================+
-    | app_id               | default (String)| x0 Application ID                   |
+    | app_id               | 'default' (str) | x0 Application ID                   |
     +----------------------+-----------------+-------------------------------------+
     | config_group         |                 | Configuration Parameter ID          |
     +----------------------+-----------------+-------------------------------------+
@@ -194,8 +204,10 @@ to work properly.
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'config_file_object', 'object.json');
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'config_file_skeleton', 'skeleton.json');
 
-3.3. app-config.json
---------------------
+3.3. App Server Configuration
+-----------------------------
+
+app-config.json
 
 
 
