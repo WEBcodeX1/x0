@@ -4,7 +4,7 @@ x0 Framework Documentation v0.99
 ================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    intro
