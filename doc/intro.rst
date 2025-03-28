@@ -13,45 +13,48 @@ powerful Web-Browser **Realtime-SPA (Single Page Applications)** efficiently.
 1.1. Cross Objects
 ------------------
 
-The *x* in *x0* stands for **cross** meaning **communication**. *x0-objects* are
-able to exchange (update) their metadata **directly** via JSON metadata.
+The *x* in *x0* stands for **cross** meaning **communication**.
+*x0-objects* are able to exchange (update) their metadata **directly** via
+JSON metadata.
 
 1.2. Bootstrap / CSS Themes
 ---------------------------
 
-*x0-system* includes current Bootstrap 5.3 basic CSS stylesheets without a
-single line of JavaScript code (**zer0 Bootstrap JS**).
+*x0-system* includes current Bootstrap 5.3 basic CSS stylesheets
+without a single line of JavaScript code (**zer0 Bootstrap JS**).
 
-Imagine *x0* as being the system which empowers Bootstrap with smart enhanced,
-true OOP based JavaScript logic.
+Imagine *x0* as the system which empowers Bootstrap with **smart**
+enhanced, **true** OOP based JavaScript logic.
 
-Also **extending CSS styles** by your own stylesheets is a procedure of minutes.
+Also **extending CSS styles** by your own stylesheets is a procedure of
+minutes.
 
 1.3. Fontawesome
 ----------------
 
-Fontawesome 6 free is integrated into *x0 base* system to provide an easy way
-to use **high quality icons**.
+Fontawesome 6 free is integrated into *x0 base* system to provide an easy
+way to use **high quality icons**.
 
 1.4. CSS Grid System
 ---------------------
 
-To guarantee future-proof responsiveness, *x0-system* provides smart libraries
-for building real cool device-independend stuff relying on bootstraps grid styles.
+To guarantee future-proof **responsiveness**, *x0-system* provides smart
+libraries for building real cool **device-independend** stuff relying on
+bootstraps grid CSS.
 
 Boostrap grid details see https://getbootstrap.com/docs/5.3/layout/grid/.
 
 1.5. Browser Compability
 ------------------------
 
-*x0-system* is built in a generic way (ECMA 6, 7) so it runs on all current
-browsers (Firefox, Chrome, Opera, Safari) natively.
+*x0-system* is built in a **generic** way (ECMA 6, 7) so it runs on all current
+browsers (Firefox, Chrome, Opera, Safari) **natively**.
 
 1.6. Multi Language
 -------------------
 
 *x0-system* runs **multi-language** (english and german currently); the display
-language even can be switched in realtime (without page reload).
+language even can be switched in **realtime** (without page reload).
 
 1.7. Docker Images
 ------------------
@@ -62,13 +65,13 @@ Docker images are provided to start playing with *x0-system* in no time.
 - https://docker.webcodex.de/x0/docker.x0-db.tar
 - https://docker.webcodex.de/x0/docker.x0-test.tar
 
-See installation subsection (#add link) howto use.
+See installation subsection :ref:`docker-setup` howto proceed.
 
 1.8. Kubernetes
 ---------------
 
-Also running x0 applications on (load-balanced) Google Kubernetes Engine has
-been natively implemented into x0 system.
+Also running *x0-applications* on (load-balanced) Google Kubernetes Engine has
+been natively implemented into *x0-system*.
 
 See https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md.
 
