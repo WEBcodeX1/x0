@@ -60,7 +60,7 @@ Data is exchanged with the backend or on external web-service calls.
 
 The DIV layer id is
 
-3.3.4. Object State Preservation
+3.1.4. Object State Preservation
 ********************************
 
 On switching Screens or e.g. on objects pagination the *x0-system* guarantees
@@ -72,10 +72,12 @@ exactly like it had been before switching.
 
 This is real cool, Never loose any user input data on "going back" actions!
 
+3.1.5. Area Positioning / CSS
+*****************************
 
 
 
-3.1. Database Configuration
+3.2. Database Configuration
 ---------------------------
 
 Basic *x0-application* configuration data will be stored inside the following
@@ -90,7 +92,7 @@ of *x0-system* **or** *x0-skeleton*.
 System database will be updated from **.sql** scripts inside **/database** folder
 on docker image re-build (see subsection  ... docker ... ).
 
-3.1.1. System Configuration
+3.2.1. System Configuration
 ***************************
 
 System configuration data is stored in database table `system.config`.
@@ -148,7 +150,7 @@ viewable by URL http://x0-app.x0.localnet/python/Index.py.
     INSERT INTO system.config (config_group, "value") VALUES ('config_file_object', 'object.json');
     INSERT INTO system.config (config_group, "value") VALUES ('config_file_skeleton', 'skeleton.json');
 
-3.1.2. Display Text
+3.2.2. Display Text
 *******************
 
 Multilanguage display text is stored inside `webui.text` database table.
@@ -169,7 +171,7 @@ be referenced in *x0-object-metadata* JSON configuration files later on.
     VALUES
     ('TXT.TEXTID.2', 'group1', 'English Text #2', 'German Text #2');
 
-3.1.3. Application ID
+3.2.3. Application ID
 *********************
 
 It is possible to append HTTP get parameter "appid" with e.g. "example2"
@@ -192,7 +194,7 @@ to work properly.
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'config_file_object', 'object.json');
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'config_file_skeleton', 'skeleton.json');
 
-3.2. app-config.json
+3.3. app-config.json
 --------------------
 
 
