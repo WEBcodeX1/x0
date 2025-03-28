@@ -76,7 +76,7 @@ of object modeling and how to implement in detail.
 The JSON based kubernetes installer makes it easy to deploy multiple application
 environments in no time.
 
-See [./kubernetes/MINIKUBE.md](./kubernetes/MINIKUBE.md).
+See [./kubernetes/README.md](./kubernetes/README.md).
 
 >[!NOTE]
 > Also minikube on Windows is *partially* supported.
@@ -96,7 +96,7 @@ and subdirs **README.md**.
 local Docker containers or on native Google Kubernetes Engine (GKE).
 
 >[!NOTE]
-> Detailed Documentation for setting up on Minikube (Windows 11) see [./kubernetes/MINIKUBE.md](./kubernetes/MINIKUBE.md).
+> Detailed Documentation for setting up on Minikube (Windows 11) see [./kubernetes/README.md](./kubernetes/README.md).
 
 ### 10.2. Prerequisites
 
