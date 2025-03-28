@@ -37,35 +37,40 @@ The **x0-menu-area** is primarily intended to contain menu related objects
 The DOM DIV layer id = "sysMenu". Referenced objects inside **menu.json** will
 be appended to "sysMenu" DIV on system init rendering / page load.
 
-A link object can be referenced to a given Screen ID. On click the system
-ativates / makes the screen layer visible inside the **x0-screen-area**.
+A **x0-screen** (textual id) can be referenced by a link type object. On click
+the system ativates / makes the screen layer visible inside the **x0-screen-area**.
 
-The default "sysMenu" DIV layers CSS style / class attributes are be defined in
+DOM Layer Positioning can be achieved via CSS styles, detailed info about
+content area positioning, see :ref:`content-area-positioning`.
 
 .. note::
 
     The **x0-menu-area** is not only limited to link-objects type, any object
-    can be referenced in **menu.json**, e.g. as link container (positioning) objects.
+    can be referenced in **menu.json**, e.g. as link **container** used for positioning.
+
+3.1.2. Screen Area
+******************
+
+The **x0-screen-area** acts as the main content display area.
+
+The "default_screen" which will be activated on system init / page load can be
+set as *x0-config-parameter* (details see :ref:`systemconfig`).
+
+Screen definition and object relations will be defined inside **skeleton.json**
+(details see :ref:`skeleton-json`).
+
+DOM Layer Positioning can be achieved via CSS styles, detailed info about
+content area positioning, see :ref:`content-area-positioning`.
 
 The following diagram shows what exactly happens on *x0-screen-switching*.
 
 .. image:: images/x0-screen-switch.png
   :alt: image - screen switch
 
-3.1.2. Screen Area
-******************
-
-The Screen Area is the Main Content Display Area ...
-
-The "default_screen" *x0-config-parameter* see 3.2.1. System Configuration
-controls which screen will be displayed (activated) on system init (page load).
-
-Each screens DIV layers class attribute (CSS styles) can be defined ...
-
 3.1.3. Notification Area
 ************************
 
-The Notification Area displays Web-Service Status Information when
+The **x0-notification-area** displays web-service status information when
 Data is exchanged with the backend or on external web-service calls.
 
 The DIV layer id is
@@ -81,6 +86,8 @@ work, switch back to "Screen1", any object look including (form) data is
 exactly like it had been before switching.
 
 This is real cool, Never loose any user input data on "going back" actions!
+
+.. _content-area-positioning:
 
 3.1.5. Area Positioning / CSS
 *****************************
@@ -101,6 +108,8 @@ of *x0-system* **or** *x0-skeleton*.
 
 System database will be updated from **.sql** scripts inside **/database** folder
 on docker image re-build (see subsection  ... docker ... ).
+
+.. _systemconfig:
 
 3.2.1. System Configuration
 ***************************
@@ -224,6 +233,8 @@ definition and object relation is setup correctly.
 
 See `/examples` subdir.
 
+.. _object-json:
+
 3.4.1. object.json
 ******************
 
@@ -234,6 +245,8 @@ menu.js and skeleton.js where *screen* and *object relations* will be defined.
 
 All current usable *x0-system-objects* JSON definitions can be found here:
 :ref:`system-objects`.
+
+.. _skeleton-json:
 
 3.4.2. skeleton.json
 ********************
@@ -267,6 +280,8 @@ All current usable *x0-system-objects* JSON definitions can be found here:
             }
         ]
     }
+
+.. _menu-json:
 
 3.4.3. menu.json
 ****************
