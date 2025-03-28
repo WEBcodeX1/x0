@@ -23,7 +23,7 @@ If you intend to **create** own *x0 system objects* used in your
 2.1. Environments
 -----------------
 
-The following native linux distributions are supported to build *x0-system*.
+The following native linux distributions are supported to build the *x0-system*.
 
 * Ubuntu 22.04.4
 * Debian 12
@@ -145,8 +145,7 @@ As **root** user, add your current user to the docker unix group.
 .. code-block:: bash
 
 	# add user to docker group
-	sudo su -
-	usermod -aG docker your-user
+	sudo usermod -aG docker your-user
 
 Eventually a restart of your current shell, desktop session or even
 computer is required for changes to take effect.
