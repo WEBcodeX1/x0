@@ -1,4 +1,4 @@
-.. control-logic
+.. appdev-event-system
 
 7. Event Sytem / Actions
 ========================
