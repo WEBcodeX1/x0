@@ -52,10 +52,10 @@ controls which screen will be displayed (activated) on system init (page load).
 
 Each screens DIV layers class attribute (CSS styles) can be defined ...
 
-3.1.3. NotifyIndicator Area
-***************************
+3.1.3. Notification Area
+************************
 
-The Notify Indicator Area displays Web-Service Status Information when
+The Notification Area displays Web-Service Status Information when
 Data is exchanged with the backend or on external web-service calls.
 
 The DIV layer id is
