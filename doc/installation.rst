@@ -260,7 +260,7 @@ your specified mirror. This requires a working mirror setup of course.
 
 .. code-block:: bash
 
-	# tell docker buildx to use a local ubuntu mirror
+	# use a local ubuntu mirror
 	export UBUNTU_MIRROR_DNS=your-hostname.localnet
 	export UBUNTU_MIRROR_IP=192.168.0.253
 
