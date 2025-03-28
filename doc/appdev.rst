@@ -2,8 +2,8 @@
 
 .. _appdevelopment:
 
-3. Application Development
-==========================
+3. Basic Configuration
+======================
 
 The following sections describe the most important system parts.
 
@@ -34,11 +34,12 @@ The *x0-systems* browser main display area is devided into **3 visible** areas.
 The **x0-menu-area** is primarily intended to contain menu related objects
 / internal links.
 
-The DOM DIV layer id = "sysMenu". Referenced objects inside **menu.json** will
-be appended to "sysMenu" DIV on system init rendering / page load.
+The DOM DIV layer id = "sysMenu". Referenced objects inside **menu.json**
+will be appended to "sysMenu" DIV on system init rendering / page load.
 
-A **x0-screen** (textual id) can be referenced by a link type object. On click
-the system ativates / makes the screen layer visible inside the **x0-screen-area**.
+A **x0-screen** (textual id) can be referenced by a link type object. When
+clicked, the system ativates / makes the screen layer visible inside the
+**x0-screen-area**.
 
 DOM Layer Positioning can be achieved via CSS styles, detailed info about
 content area positioning, see :ref:`content-area-positioning`.
@@ -59,7 +60,7 @@ set as *x0-config-parameter* (details see :ref:`systemconfig`).
 Screen definition and object relations will be defined inside **skeleton.json**
 (details see :ref:`skeleton-json`).
 
-DOM Layer Positioning can be achieved via CSS styles, detailed info about
+Also DOM Layer Positioning can be achieved via CSS styles, detailed info about
 content area positioning, see :ref:`content-area-positioning`.
 
 The following diagram shows what exactly happens on *x0-screen-switching*.
@@ -71,28 +72,53 @@ The following diagram shows what exactly happens on *x0-screen-switching*.
 ************************
 
 The **x0-notification-area** displays web-service status information when
-Data is exchanged with the backend or on external web-service calls.
+data is exchanged with the backend or on external web-service calls.
 
-The DIV layer id is
+Also DOM Layer Positioning can be achieved via CSS styles, detailed info about
+content area positioning, see :ref:`content-area-positioning`.
 
 3.1.4. Object State Preservation
 ********************************
 
-On switching Screens or e.g. on objects pagination the *x0-system* guarantees
-any object state is preserved to 100%.
+The *x0-system* guarantees 100% content state preservation on any systems
+interaction (button, screen or tab switch, page navigation).
 
-E.g. if you switch from screen with id "Screen1" to "Screen2", do some
-work, switch back to "Screen1", any object look including (form) data is
-exactly like it had been before switching.
+Even combined / chanined realtime objects always preserve their state
+thanks to the *x0-systems-design*.
 
-This is real cool, Never loose any user input data on "going back" actions!
+Imagine, if you switch from screen with id "screen1" to "screen2" e.g., do some
+work, switch back to "screen1", any object look including its data is exactly
+in the state it had been before switching.
+
+.. note::
+
+    This is real cool, never loose any user input data on "going back" actions
+    again!
 
 .. _content-area-positioning:
 
 3.1.5. Area Positioning / CSS
 *****************************
 
+Styling including positioning **x0-menu-area** and **x0-screen-area** and
+**x0-notification-area** using Boostrap Grid CSS is conceivable simple.
 
+You should be familiar with CSS Grid basics and Boostrap Grid feature,
+see https://getbootstrap.com/docs/5.3/layout/grid/.
+
+Currently the **x0-menu-area** gets positioned by using ``position: absolute``
+and **x0-screen-area** by ``<div id="id" class="col-md8 ms-auto me-auto">``.
+
+A better approach is to use ``<body class="row">`` and ``col-md-x`` CSS classes
+on **x0-menu-area** and **x0-screen-area**.
+
+Positioning **x0-notification-area** using ``position: absolute`` could be a
+really good idea.
+
+.. note::
+
+    CSS styles in 2025 are tremendously flexible. Bootstrap in addition reduces
+    this complexity and makes using *x0-system* effortlessly.
 
 3.2. Database Configuration
 ---------------------------
@@ -223,7 +249,7 @@ app-config.json
 3.4. System Metadata
 --------------------
 
-With help of the x0-system-metadata JSON configuration files any object
+With help of the **x0-system-metadata** JSON configuration files any object
 structure and object relations will be defined.
 
 We will give a simple ...
@@ -235,21 +261,38 @@ See `/examples` subdir.
 
 .. _object-json:
 
-3.4.1. object.json
-******************
+3.4.1. Object
+*************
 
-The object.json config file contains all x0-systems object declarations.
+Object declaration takes place in ***object.json*** config file.
 
 Each object must have its unique ID and will be referenced with its ID inside
-menu.js and skeleton.js where *screen* and *object relations* will be defined.
+**menu.js** and **skeleton.js**.
 
 All current usable *x0-system-objects* JSON definitions can be found here:
 :ref:`system-objects`.
 
 .. _skeleton-json:
 
-3.4.2. skeleton.json
-********************
+3.4.2. Skeleton
+***************
+
+.. code-block:: javascript
+
+    {
+        "Screen1":
+        [
+            {}
+        ],
+        "Screen2":
+        [
+            {}
+        ],
+        "Screen3":
+        [
+            {}
+        ]
+    }
 
 .. code-block:: javascript
 
@@ -257,13 +300,22 @@ All current usable *x0-system-objects* JSON definitions can be found here:
         "Screen1":
         [
             {
-                "FormfieldList1":
+                "Object1":
                 {
                     "RefID": "Screen1"
                 }
-            },
+            }
+        ]
+    }
+
+
+.. code-block:: javascript
+
+    {
+        "Screen1":
+        [
             {
-                "FormfieldList2":
+                "Object1":
                 {
                     "RefID": "Screen1"
                 }
@@ -273,7 +325,7 @@ All current usable *x0-system-objects* JSON definitions can be found here:
         "Screen2":
         [
             {
-                "FormfieldList3":
+                "Object2":
                 {
                     "RefID": "Screen2"
                 }
@@ -283,18 +335,19 @@ All current usable *x0-system-objects* JSON definitions can be found here:
 
 .. _menu-json:
 
-3.4.3. menu.json
-****************
+3.4.3. Menu
+***********
 
 3.4.4. MultiRef / ElementID
 ***************************
 
-Some *x0-objects* define elements inside object.json
+Some *x0-objects* define elements inside **object.json**.
 
 * TabContainer
 * ObjectContainer
 
-If so, they are also referencable inside skeleton.json.
+These elements are also referencable inside **skeleton.json** by *x0-systems*
+ElementID property.
 
 .. code-block:: javascript
 
