@@ -303,9 +303,9 @@ Examples inside this folder will be built on docker image build. After
 *x0-system* start (docker containers up and running), the examples can be opened
 by entering the following URL(s).
 
-http://x0-app.x0.localnet/python/Index.py?appid=example1
-http://x0-app.x0.localnet/python/Index.py?appid=example2
-http://x0-app.x0.localnet/python/Index.py?appid=example3
+* http://x0-app.x0.localnet/python/Index.py?appid=example1
+* http://x0-app.x0.localnet/python/Index.py?appid=example2
+* http://x0-app.x0.localnet/python/Index.py?appid=example3
 
 Depending on release version example count varies, just take a closer look
 inside the examples folder. Examples are also referenced in application development
