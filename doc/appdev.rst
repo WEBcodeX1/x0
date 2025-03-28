@@ -35,7 +35,7 @@ The **x0-menu-area** is primarily intended to contain menu related objects
 / internal links.
 
 The DOM DIV layer id = "sysMenu". Referenced objects inside menu.json will be
-appended to "sysMenu" DIV in system init / page load.
+appended to "sysMenu" DIV on system init / page load.
 
 A link object can be referenced to a given Screen ID. On click the system
 ativates loads the screen data into the Screen Area.
