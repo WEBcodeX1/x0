@@ -189,8 +189,6 @@ Start developing / creating / experimenting.
 
 Changelog is located at **./debian/changelog**.
 
-.. _docker-setup:
-
 2.4. IP-Addresses / DNS
 -----------------------
 
@@ -328,7 +326,7 @@ Tests are runnable
 * Inside GKE (Google Kubernetes Engine)
 
 Detailed test setup documentation see:
-https://github.com/WEBcodeX1/x0/blob/main/test/README.md
+https://github.com/WEBcodeX1/x0/blob/main/test/README.md.
 
 To run tests locally, *x0-app* and *x0-db* and *x0-selenium-server* container
 must be up and running.
