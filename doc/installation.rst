@@ -324,9 +324,9 @@ network based test execution even inside GKE kubernetes pods.
 
 Tests are runnable
 
-* From linux host to x0-app container
-* Inside x0-test docker container to x0-app container
-* Inside GKE (google kubernetes engine)
+* From linux host to *x0-app-container*
+* Inside x0-test docker container to *x0-app-container*
+* Inside GKE (Google Kubernetes Engine)
 
 Detailed test setup documentation see:
 
