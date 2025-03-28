@@ -1,21 +1,29 @@
-.. base-objects
+.. appdev-objects
 
-6. Base Objects
-===============
+.. _system-objects:
 
-The system Meta-Data Configuration consists of Objects-Declaration / Configuration in JSON.
+5. System Objects
+=================
 
-* Div
+Currently the following *x0-system-objects* are usable inside `object.json`.
+
+* :ref:`div`
 * SQLText
 * FormfieldList
 * Formfield
 * List
 * TabContainer
-* RowContainer
+* ObjectContainer
+* Button
+* ButtonInternal
+* Link
 * LinkExternal
+* FileUpload
+* ErrorContainer
 
-6.1 Div
--------
+.. _div:
+5.1. Div
+--------
 
 Object Properties
 *****************
@@ -35,12 +43,12 @@ JSON Structure Example
 	{
 		"Type": "DIV",
 		"Attributes": {
-			"Style": "Style1 Style2 Style3"
+			"Style": "css1 css2 css3"
 		}
 	}
 
-6.2 SQLText
------------
+5.2. SQLText
+------------
 
 Object Properties
 *****************
@@ -69,8 +77,8 @@ JSON Structure Example
 	}
 
 
-6.3 FormfieldList
------------------
+5.3. FormfieldList
+------------------
 
 Object Properties
 *****************
@@ -112,8 +120,8 @@ JSON Structure Example
 	}
 
 
-6.4 Formfield
--------------
+5.4. Formfield
+--------------
 
 Following Sub-Types exist:
 
@@ -274,8 +282,8 @@ Object Properties
 +---------------------+-----------+----------------+-------------------------------------------------+--------------+--------------+
 
 
-6.5 List
---------
+6.5. List
+---------
 
 Description Text.
 
@@ -427,8 +435,8 @@ JSON Structure Example
 		}
 
 
-6.6 TabContainer
-----------------
+6.6. TabContainer
+-----------------
 
 The TabContainer Object renders multiple Tabs. The Tab Look is defined in the Tabs Object-Properties.
 Object-Mapping takes place in "skeleton.json" (Example below).
@@ -511,13 +519,9 @@ JSON Structure Example
 		}
 	}
 
-Skeleton Mapping Example
-************************
 
-Also see :ref:`ref-elidmap`.
-
-6.7 RowContainer
-----------------
+6.7. RowContainer
+-----------------
 
 The RowContainer Object Type is primarily used to group and style multiple Objects together.
 
@@ -580,8 +584,8 @@ skeleton.json
 		}
 	}
 
-6.8 LinkExternal
-----------------
+6.8. LinkExternal
+-----------------
 
 JSON Structure Example Static
 *****************************
