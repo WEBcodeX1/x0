@@ -26,6 +26,7 @@ x0 Framework Documentation v0.99
    dev-build-objects
    dev-porting
    dev-workflows
+   glossary
 
 Indices and tables
 ==================
