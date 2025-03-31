@@ -18,6 +18,7 @@ x0 Framework Documentation v0.99
    appdev-overlay
    appdev-messaging
    appdev-deployment
+   appdev-object-chaining
    dev-architecture
    dev-oop-model
    dev-classes
