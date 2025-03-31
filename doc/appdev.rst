@@ -26,7 +26,7 @@ The *x0-systems* browser main display area is devided into **3 visible** areas.
 
 .. note::
 
-    Note the invisible screen layers. Description following.
+    Note the invisible screen layers. Details following.
 
 3.1.1. Menu Area
 ****************
@@ -60,7 +60,7 @@ set as *x0-config-parameter* (details see :ref:`systemconfig`).
 Screen definition and object relations will be defined inside **skeleton.json**
 (details see :ref:`skeleton-json`).
 
-Also DOM Layer Positioning can be achieved via CSS styles, detailed info about
+Also DOM Layer positioning can be achieved via CSS styles, detailed info about
 content area positioning, see :ref:`content-area-positioning`.
 
 The following diagram shows what exactly happens on *x0-screen-switching*.
@@ -133,14 +133,14 @@ The sql scripts (filename suffix **.sql**)  must reside in **/database** folder
 of *x0-system* **or** *x0-skeleton*.
 
 System database will be updated from **.sql** scripts inside **/database** folder
-on docker image re-build (see subsection  ... docker ... ).
+on docker image re-build (see subsection  ... appdev-deployment::docker ... ).
 
 .. _systemconfig:
 
 3.2.1. System Configuration
 ***************************
 
-System configuration data is stored in database table `system.config`.
+*x0-systems-configuration* data is stored in database table `system.config`.
 
 .. table:: System Database Table "system.config"
     :widths: 20 30 100
@@ -198,10 +198,10 @@ viewable by URL http://x0-app.x0.localnet/python/Index.py.
 3.2.2. Display Text
 *******************
 
-Multilanguage display text is stored inside `webui.text` database table.
+Multilanguage display text is stored inside ``webui.text`` database table.
 
-The following example inserts 4 multilanguage texts with IDs 'TXT.TEXTID.1'
-and 'TXT.TEXTID.2' (english and german) into the system text table which can
+The following example inserts 4 multilanguage texts with IDs ``TXT.TEXTID.1``
+and ``TXT.TEXTID.2`` (english and german) into the system text table which can
 be referenced in *x0-object-metadata* JSON configuration files later on.
 
 .. code-block:: sql
@@ -219,7 +219,7 @@ be referenced in *x0-object-metadata* JSON configuration files later on.
 3.2.3. Application ID
 *********************
 
-It is possible to append HTTP get parameter "appid" with e.g. "example2"
+It is possible to append HTTP get parameter ``appid`` with e.g. ``example2``
 to the base URL (Index.py) script.
 
 http://x0-app.x0.localnet/python/Index.py?appid=example2
@@ -239,43 +239,202 @@ to work properly.
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'config_file_object', 'object.json');
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'config_file_skeleton', 'skeleton.json');
 
-3.3. App Server Configuration
------------------------------
+3.3. App Configuration
+----------------------
 
-app-config.json
+Inside ``/config/app-config.json`` configuration file the following elements
+can be defined.
 
+* Database Authentication
+* Virtual Hosts
+* x0-Applications
 
+.. info::
+
+    Setup multiple Virtual Hosts and x0-Applications requires valid
+    *x0-systems-configuration* (db) and *x0-deb-packaging-setup* (deb)
+    for all configured Virtual Hosts.
+
+.. warning::
+
+    Also Environments are not supported by *x0-standalone* or *x0-docker*
+    deployments.
+
+3.3.1. Database Authentication
+******************************
+
+The following database users will be created on docker *x0-db* image build.
+
+.. table:: Database Authentication Properties
+    :widths: 30 20 50
+
+    +-------------------------------+-----------------+-------------------------------------+
+    | **Database User**             | **DB User**     | **Description**                     |
+    +===============================+=================+=====================================+
+    | su_password                   | postgres        | Database Superuser Auth             |
+    +-------------------------------+-----------------+-------------------------------------+
+    | x0_password                   | x0              | Global Web-Backend User Auth        |
+    +-------------------------------+-----------------+-------------------------------------+
+    | repl_password                 |                 | Kubegres Replication User Auth      |
+    +-------------------------------+-----------------+-------------------------------------+
+
+3.3.2. Virtual Hosts
+********************
+
+For each Virtual Host configured in JSON "vhosts" property a Apache Virtual
+Host will be generated on docker (re-)build.
+
+Self signed SSL certificates will be generated for the *x0-base* VirtualHost
+(Hello World output).
+
+.. note::
+
+    If you need a more complex webserver setup, e.g. aliasing / redirects or similar,
+    it is intended to manually edit the generated config inside docker containers after
+    building.
+
+.. warning::
+
+    Automated SSL setup per VHost has been dropped in *x0-standalone* and *x0-docker*
+    deployments. Only *x0-kubernetes* deployment supports a fully automated workflow.
+
+3.3.3. x0-Applications
+**********************
+
+Defining multiple *x0-applications* is only supported by *x0-kubernetes* deployment.
+Details: :ref:`appdeployment-kubernetes`.
+
+3.3.4. Default Config
+*********************
+
+Following, the *x0-systems* current default configuration containing one
+*x0-vhost* and one *x0-app* .
+
+.. code-block:: javascript
+
+    {
+        "installer": {
+            "type": "x0"
+        },
+        "database": {
+            "name": "x0",
+            "su_password": "changeme",
+            "x0_password": "changeme"
+        },
+        "env_list": [ "default" ],
+        "vhosts": {
+            "x0-app": {
+                "apps": [ "x0" ],
+                "env": {
+                    "default": {
+                        "dns": {
+                            "hostname": "x0-app",
+                            "domain": "x0.localnet"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+3.3.4. JSON Schema
+******************
+
+1. JSON Header
+
+For non Kubernetes deployments the JSON header syntax is as following.
+
+.. code-block:: javascript
+
+    {
+        "installer": {
+            "type": "x0"
+        },
+        "env_list": [ "default" ],
+
+2. "vhosts" Property
+
+.. code-block:: javascript
+
+    "vhosts": {
+        Object::$VhostConfig
+    }
+
+3. $VhostConfig "apps" Property
+
+.. code-block:: javascript
+
+    "apps": []
+
+4. $VhostConfig "env" Property
+
+.. code-block:: javascript
+
+    "env": {
+        "default": {
+        }
+    }
+
+5. Env "dns" Property
+
+.. code-block:: javascript
+    "dns": {
+        "hostname": String::$hostname,
+        "domain": String::$domain
+    }
 
 3.4. System Metadata
 --------------------
 
-With help of the **x0-system-metadata** JSON configuration files any object
-structure and object relations will be defined.
+With help of the **x0-system-metadata** JSON configuration files any objects
+structure and objects relation will be defined.
 
-We will give a simple ...
-
-The example section also can help to get a better understanding how object
-definition and object relation is setup correctly.
-
-See `/examples` subdir.
+The example section `/examples` also can help to get a better understanding how
+object definition and object relation is setup correctly.
 
 .. _object-json:
 
 3.4.1. Object
 *************
 
-Object declaration takes place in ***object.json*** config file.
+*x0-object* declaration takes place in ***object.json*** config file.
 
-Each object must have its unique ID and will be referenced with its ID inside
-**menu.js** and **skeleton.js**.
+Each object must have its unique ID and is referencable by its ID inside
+**menu.js** and **skeleton.js** config files.
 
-All current usable *x0-system-objects* JSON definitions can be found here:
-:ref:`system-objects`.
+All current usable *x0-system-objects* JSON definitions ($ObjectType) are
+described in detail here: :ref:`system-objects`.
+
+.. code-block:: javascript
+
+    {
+        "$ObjectID": {
+            "Type": String::$ObjectType
+            "Attributes": {
+                Object::$ObjectMetadata
+            }
+        }
+    }
 
 .. _skeleton-json:
 
+.. note::
+
+    The JSON root type is *Object* type, **not** *Array*. Object definition does
+    not rely on order. Relations rely on order whic are defined in ``skeleton.json``
+    and ``menu.json``.
+
 3.4.2. Skeleton
 ***************
+
+*x0-screen** and *x0-object* relation declaration takes place in **skeleton.json**
+config file.
+
+* Screen Data
+* Screen / Objects Relation
+
+The following metadata enables 3 Screens "Screen1", "Screen2" and "Screen3"
+without any objects relation.
 
 .. code-block:: javascript
 
@@ -294,6 +453,9 @@ All current usable *x0-system-objects* JSON definitions can be found here:
         ]
     }
 
+The following metadata defines 1 Screen "Screen1" and references 1 object to
+"Screen1".
+
 .. code-block:: javascript
 
     {
@@ -308,6 +470,8 @@ All current usable *x0-system-objects* JSON definitions can be found here:
         ]
     }
 
+The following metadata defines 1 Screen "Screen1" and references 1 object to
+"Screen1". Also "Object2" is **connected** / referenced to "Object1".
 
 .. code-block:: javascript
 
@@ -318,16 +482,10 @@ All current usable *x0-system-objects* JSON definitions can be found here:
                 "Object1":
                 {
                     "RefID": "Screen1"
-                }
-            }
-        ],
-
-        "Screen2":
-        [
-            {
+                },
                 "Object2":
                 {
-                    "RefID": "Screen2"
+                    "RefID": "Object1"
                 }
             }
         ]
@@ -338,8 +496,30 @@ All current usable *x0-system-objects* JSON definitions can be found here:
 3.4.3. Menu
 ***********
 
-3.4.4. MultiRef / ElementID
-***************************
+Declaration inside **menu.json** config file only references object data to
+the **x0-menu-area**. The syntax is the same like **skeleton.json** except that
+the root ``RefID`` property must be set to "sysMenu".
+
+The following metadata defines two objects "Object1" and "Object2". "Object1" is 
+connected to menu root. Also "Object2" is **connected** / referenced to "Object1".
+
+.. code-block:: javascript
+
+    {
+        {
+            "Object1":
+            {
+                "RefID": "sysMenu"
+            },
+            "Object2":
+            {
+                "RefID": "Object1"
+            }
+        }
+    }
+
+3.5. Metadata ElementID
+-----------------------
 
 Some *x0-objects* define elements inside **object.json**.
 
@@ -347,7 +527,51 @@ Some *x0-objects* define elements inside **object.json**.
 * ObjectContainer
 
 These elements are also referencable inside **skeleton.json** by *x0-systems*
-ElementID property.
+``ElementID`` property.
+
+3.5.1. Example
+**************
+
+The following example shows how to reference *x0-tabs* defined in **object.json**
+inside **skeleton.json**.
+
+Example #3 (http://x0-app.x0.localnet/python/Index.py?appid=example3) provides
+a running example.
+
+**object.json**
+
+.. code-block:: javascript
+    {
+        "TabContainer1":
+            {
+                "Type": "TabContainer",
+                "Attributes":
+                {
+                    "Tabs": [
+                        {
+                            "ID": "Tab1",
+                            "Attributes":
+                                {
+                                    "Default": true,
+                                    "TextID": "TXT.BASIC-TABCONTAINER.TAB1",
+                                    "Style": "col-md-4"
+                                }
+                        },
+                        {
+                            "ID": "Tab2",
+                            "Attributes":
+                                {
+                                    "TextID": "TXT.BASIC-TABCONTAINER.TAB2",
+                                    "Style": "col-md-8"
+                                }
+                        }
+                    ]
+                }
+            }
+        }
+    }
+
+**skeleton.json**
 
 .. code-block:: javascript
 
@@ -361,14 +585,14 @@ ElementID property.
                 }
             },
             {
-                "Formfield1":
+                "Text1":
                 {
                     "RefID": "TabContainer1",
                     "ElementID": "Tab1"
                 }
             },
             {
-                "Formfield2":
+                "Text2":
                 {
                     "RefID": "TabContainer1",
                     "ElementID": "Tab2"
