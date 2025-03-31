@@ -1,29 +1,31 @@
 .. appdev-grid
 
-4. Grid System
-==============
+4. Global Grid System
+=====================
 
-Some *x0-object-types* offer extended Formating Properties. Actually the following Object-Types are supported:
+Some *x0-object-types* offer global grid formating properties. Currently the
+following object types are supported:
 
 * List
 * FormfieldList
 
+The *x0-global-grid-system* uses the CSS Grid System / Bootstrap Grid Styles
+to replace oldfashioned HTML table rowspan with a simple mechanism without loosing
+functionality.
 
-This Technique replaces Table Row/Colspan with a simple mechanism without loosing functionality.
+.. note::
 
-
-The following Examples (Bootstrap Table Styles) will show you how to use correctly.
-
+    The *x0-global-grid-system* does not provide colspan formating, this can
+	be done otherwise by using ObjectContainer or designing own objects
+	(see ...).
 
 Example 1
 *********
 
 .. code-block:: javascript
 
-	"RowStyle": [
-		"row"
-	],
-	"RowAfterElements": [ x, x ]
+	"RowStyle": "row",
+	"RowAfterElements": [ 2, 4 ]
 	"ColStyle": [
 		"col-md-5",
 		"col-md-7",
@@ -32,7 +34,7 @@ Example 1
 		"col-md3",
 		"col-md5"
 	]
-	"ColAfterElements": [ x, x ]
+	"ColAfterElements": 1
 
 .. code-block:: javascript
 
