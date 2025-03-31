@@ -306,10 +306,9 @@ by entering the following URL(s).
 * http://x0-app.x0.localnet/python/Index.py?appid=example3
 
 Depending on release version example count varies, just take a closer look
-inside the examples folder. Examples are also referenced in application development
-documentation.
-
-Howto add your own examples, see developer documentation:
+inside the examples folder. Detailed infos about example structure for adding own
+examples, see application development documentation at:
+#TODO: add link to dev subsection.
 
 2.9. Tests / CI
 ----------------
