@@ -249,7 +249,7 @@ can be defined.
 * Virtual Hosts
 * x0-Applications
 
-.. info::
+.. note::
 
     Setup multiple Virtual Hosts and x0-Applications requires valid
     *x0-systems-configuration* (db) and *x0-deb-packaging-setup* (deb)
@@ -289,6 +289,11 @@ Self signed SSL certificates will be generated for the *x0-base* VirtualHost
 
 .. note::
 
+    A working multi VirtualHosts setup needs correct metadata defined inside
+    deb package ``$x0-app-id.install``. Details: :ref:`appdeployment-standalone`.
+
+.. note::
+
     If you need a more complex webserver setup, e.g. aliasing / redirects or similar,
     it is intended to manually edit the generated config inside docker containers after
     building.
@@ -307,8 +312,7 @@ Details: :ref:`appdeployment-kubernetes`.
 3.3.4. Default Config
 *********************
 
-Following, the *x0-systems* current default configuration containing one
-*x0-vhost* and one *x0-app* .
+Following, the *x0-systems* current default configuration.
 
 .. code-block:: javascript
 
@@ -342,7 +346,7 @@ Following, the *x0-systems* current default configuration containing one
 
 1. JSON Header
 
-For non Kubernetes deployments the JSON header syntax is as following.
+For non Kubernetes deployments the JSON header syntax always is as following.
 
 .. code-block:: javascript
 
@@ -378,6 +382,7 @@ For non Kubernetes deployments the JSON header syntax is as following.
 5. Env "dns" Property
 
 .. code-block:: javascript
+
     "dns": {
         "hostname": String::$hostname,
         "domain": String::$domain
@@ -541,6 +546,7 @@ a running example.
 **object.json**
 
 .. code-block:: javascript
+
     {
         "TabContainer1":
             {
