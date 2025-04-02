@@ -9,8 +9,10 @@ Deployment / Layered
 * Docker
 * GKE (Google Kubernetes Engine)
 
-11.1. Standalone
-----------------
+.. _appdeployment-standalone:
+
+11.1. Standalone / Debian Packaging
+-----------------------------------
 
 Standalone provides packages for
 
@@ -21,7 +23,7 @@ Standalone provides packages for
 
 - Building *x0-base* on Linux Ubuntu 22.04 only
 - Built images / containers **run** on Windows 11 Docker Desktop
-- Building on Windows 11 Docker Desktop is not possible
+- Building on Windows 11 Docker Desktop not possible
 - x0-skeleton* also builds on Debian 12 / Devuan
 
 .. _appdeployment-kubernetes:
@@ -29,13 +31,14 @@ Standalone provides packages for
 11.3. Kubernetes
 ----------------
 
-Note Kubernetes Deployment is intended for setting up the cluster
-/ namespace hierarchy only. 
+Note *x0-kubernetes-installer* / Kubernetes Deployment is intended for setting
+up a cluster / namespace hierarchy only. 
 
 You should convert the x0 generated cluster metadata immediately to
 Terraform or similar after initial deployment has been successfull.
 
-Especially when using multiple *x0-kubernetes-envs*
+Especially when using multiple *x0-kubernetes-envs* intended for large-scale
+deployments (many cluster-setup).
 
 11.3.x. App Configuration
 -------------------------
@@ -48,8 +51,8 @@ Especially when using multiple *x0-kubernetes-envs*
 ******************************
 
 The Environment intention is to setup multiple deployment environments per
-Virtual Host, e.g. "test" and "production" each containing different
-DNS definiton.
+Virtual Host, e.g. "development", "test" and "production" each containing different
+DNS parameter.
 
 11.3.2. VHosts / Applications
 ****************************
