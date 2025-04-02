@@ -1,10 +1,10 @@
 .. appdev-backend
 
-6. Backend / Services
+7. Backend / Services
 =====================
 
 
-6.1 ServiceConnector
+7.1 ServiceConnector
 --------------------
 
 With help of a Service Connector Object you load backend data into already loaded
@@ -51,9 +51,9 @@ Example (object.json)
 		}
 	}
 
-6.2 Global Data
+7.2 Global Data
 ---------------
 
-6.3 Authentication
+7.3 Authentication
 ------------------
 
