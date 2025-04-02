@@ -1,7 +1,7 @@
 .. appdev-event-system
 
-7. Events / Actions
-===================
+7. Event-System / Actions
+=========================
 
 +!Reactor!, Objects OnEvent Property.
 
