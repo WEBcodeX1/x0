@@ -24,7 +24,7 @@ x0 Framework Documentation v0.99
    dev-classes
    dev-tests
    dev-examples
-   dev-build-objects
+   dev-object-building
    dev-porting
    dev-workflows
    glossary
