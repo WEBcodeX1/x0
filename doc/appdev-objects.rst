@@ -31,13 +31,13 @@ It simply generates a DOM layer with variable CSS class attribute(s).
 ************************
 
 .. table:: Object Type Div Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
 	+=====================+======================+=================================================+
-    | DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
-    +---------------------+----------------------+-------------------------------------------------+
+	| DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
+	+---------------------+----------------------+-------------------------------------------------+
 	| Style               | CSS-String           | CSS Style Classes, space separated              |
 	+---------------------+----------------------+-------------------------------------------------+
 
@@ -71,7 +71,7 @@ defined in *x0-db* on systems initialization.
 ************************
 
 .. table:: Object Type SQLText Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -114,7 +114,7 @@ Details + Examples see
 ************************
 
 .. table:: Object Type Button Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -154,7 +154,7 @@ Details + Examples see
 **************
 
 .. table:: Button Actions
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Action**          | **Type**             | **Description**                                 |
@@ -176,7 +176,7 @@ Details + Examples see
 ***********************
 
 .. table:: Button OnResult Actions
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Action**          | **Type**             | **Description**                                 |
@@ -207,7 +207,7 @@ Details + Examples see
 ************************
 
 .. table:: Object Type ButtonInternal Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -250,7 +250,7 @@ The ``"Type": "Link"`` *x0-system-object* .
 ************************
 
 .. table:: Object Type Link Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -283,7 +283,7 @@ The ``"Type": "LinkExternal"`` *x0-system-object* .
 ************************
 
 .. table:: Object Type LinkExternal Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -323,7 +323,7 @@ The ``"Type": "List"`` *x0-system-object* .
 ************************
 
 .. table:: Object Type List Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -347,7 +347,7 @@ The ``"Type": "List"`` *x0-system-object* .
 ************************
 
 .. table:: Object Type List Column Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -363,7 +363,7 @@ The ``"Type": "List"`` *x0-system-object* .
 ********************
 
 .. table:: Object Type List Real Time Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -405,7 +405,7 @@ JSON Structure Example
 ************************
 
 .. table:: Object Type TabContainer Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -417,7 +417,7 @@ JSON Structure Example
 *********************
 
 .. table:: Object Type TabAttributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -445,7 +445,7 @@ JSON Example
 ************************
 
 .. table:: Object Type FileUpload Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+----------------------------+----------------------+------------------------------------------+
 	| **Property**               | **Type**             | **Description**                          |
@@ -567,7 +567,7 @@ type text element.
 ************************
 
 .. table:: Object Type FormfieldLabel Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -606,7 +606,7 @@ type text element.
 ************************
 
 .. table:: Object Type FormfieldLabel Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -631,7 +631,7 @@ The ``"Type": "FormfieldTextarea"`` *x0-system-object* .
 ************************
 
 .. table:: Object Type FormfieldTextarea Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -669,7 +669,7 @@ The ``"Type": "FormfieldPulldown"`` *x0-system-object* .
 ************************
 
 .. table:: Object Type FormfieldTextarea Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -689,7 +689,7 @@ The ``"Type": "FormfieldDynPulldown"`` *x0-system-object* .
 ************************
 
 .. table:: Object Type FormfieldDynPulldown Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -709,7 +709,7 @@ The ``"Type": "FormfieldCheckbox"`` *x0-system-object* .
 ************************
 
 .. table:: Object Type FormfieldCheckbox Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -729,7 +729,7 @@ The ``"Type": "FormfieldHidden"`` *x0-system-object* .
 ************************
 
 .. table:: Object Type FormfieldHidden Attributes
-    :widths: 30 20 50
+	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |

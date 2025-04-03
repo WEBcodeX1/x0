@@ -48,14 +48,14 @@ deployments (many cluster-setup).
 * x0-Applications
 
 11.3.1. Kubernetes Environments
-******************************
+*******************************
 
 The Environment intention is to setup multiple deployment environments per
 Virtual Host, e.g. "development", "test" and "production" each containing different
 DNS parameter.
 
 11.3.2. VHosts / Applications
-****************************
+*****************************
 
 Multiple VirtualHosts containing multiple *x0-applications* are definable.
 1 VHost must contain 1 DNS setup with properties "hostname" and "domain" defined.

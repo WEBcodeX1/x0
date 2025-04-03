@@ -249,7 +249,7 @@ can be defined.
 * Virtual Hosts
 * x0-Applications
 
-.. info::
+.. note::
 
     Setup multiple Virtual Hosts and x0-Applications requires valid
     *x0-systems-configuration* (db) and *x0-deb-packaging-setup* (deb)

@@ -17,13 +17,13 @@ functionality.
 
 .. note::
 
-    The *x0-global-grid-system* does not provide rowspan formating, this can
-    be done otherwise by using existing ``ObjectContainer`` *x0-system-object*
+	The *x0-global-grid-system* does not provide rowspan formating, this can
+	be done otherwise by using existing ``ObjectContainer`` *x0-system-object*
 	or designing an own object (see ... or ...).
 
 .. warning::
 
-    You should first take a closer look at Boostrap Grid before you continue
+	You should first take a closer look at Boostrap Grid before you continue
 	reading.
 
 4.1. Global JSON Metadata 
@@ -33,19 +33,19 @@ If an *x0-object* supports *x0-global-grid-system* formating the following
 properties can be set inside the objects "Attribute" representation.
 
 .. table:: Global Grid Object Properties
-    :widths: 30 20 50
+	:widths: 30 20 50
 
 	+-------------------+----------------------+-------------------------------------------------------+
 	| **Property**      | **Type**             | **Description**                                       |
 	+===================+======================+=======================================================+
-    | RowStyle          | String / Array       | CSS Style Classes used for next Row-Element (Div)     |
-    +-------------------+----------------------+-------------------------------------------------------+
+	| RowStyle          | String / Array       | CSS Style Classes used for next Row-Element (Div)     |
+	+-------------------+----------------------+-------------------------------------------------------+
 	| RowAfterElements  | Integer / Array      | Generate Row-Element at next RowAfterElements reached |
 	+-------------------+----------------------+-------------------------------------------------------+
-	| ColStyle          | String / Array       | CSS Style Classes used for next Col-Element (Div)     |                                               |
+	| ColStyle          | String / Array       | CSS Style Classes used for next Col-Element (Div)     |
 	+-------------------+----------------------+-------------------------------------------------------+
 	| ColAfterElements  | Integer / Array      | Generate Col-Element at next ColAfterElements reached |
-    |                   |                      | Optional, Default 1                                   |
+	|                   |                      | Optional, Default 1                                   |
 	+-------------------+----------------------+-------------------------------------------------------+
 
 4.1.1. Input Data
