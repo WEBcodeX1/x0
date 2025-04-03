@@ -51,9 +51,12 @@ Example (object.json)
 		}
 	}
 
-7.2 Global Data
+7.2 SrcDataObjects
+------------------
+
+7.3 Global Data
 ---------------
 
-7.3 Authentication
+7.4 Authentication
 ------------------
 
