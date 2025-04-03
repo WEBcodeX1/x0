@@ -142,7 +142,7 @@ in **realtime**.
 
 .. code-block:: javascript
 
-    sysFactory.getObjectByID("TXT.Text1").update();
+    sysFactory.getObjectByID("Text1").update();
 
 Additionally the programmer will be provided with the following abilities:
 
