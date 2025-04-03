@@ -1,6 +1,6 @@
 .. appdev-event-system
 
-7. Event-System / Actions
+8. Event-System / Actions
 =========================
 
 +!Reactor!, Objects OnEvent Property.
@@ -12,48 +12,8 @@
 7.2 Button
 ----------
 
-Object Properties
-*****************
 
-Button Object Type calls Backend Script with optional Data (Source Objects) and reacts to Status Code / Data.
 
-This Data can be "sent" to other Object-Types on Success.
-
-+---------------------+-----------+----------------+------------------------------------------+--------------+--------------+
-| **Property**        | **Type**  | **Value(s)**   | **Description**                          | **Optional** | **Default**  |
-+=====================+===========+================+==========================================+==============+==============+
-| Style               | Strings   | CSS Classes    | Likewise HTML DIV CSS Styles             |              |              |
-+---------------------+-----------+----------------+------------------------------------------+--------------+--------------+
-| Deactivated         | Bool      | true | false   |                                          |              |              |
-+---------------------+-----------+----------------+------------------------------------------+--------------+--------------+
-| TextID              | String    |                | Backend Text ID                          |              |              |
-+---------------------+-----------+----------------+------------------------------------------+--------------+--------------+
-| OnClick             | String    |                | Backend Script to call on Button press   |              |              |
-+---------------------+-----------+----------------+------------------------------------------+--------------+--------------+
-| FormValidate        | Bool      | true | false   | Actually must be set true to validate    |              |              |
-+---------------------+-----------+----------------+------------------------------------------+--------------+--------------+
-| ValidateObjects     | JS Array  | ObjectIDs      | All Objects to validate                  |              |              |
-+---------------------+-----------+----------------+------------------------------------------+--------------+--------------+
-| FireEvents          | JS Array  | Events         | Events to raise                          |              |              |
-+---------------------+-----------+----------------+------------------------------------------+--------------+--------------+
-| SrcDataObjects      | JS Objects|                | Object Data sent to Backend              |              |              |
-+---------------------+-----------+----------------+------------------------------------------+--------------+--------------+
-| OnResult            | JS Objects|                | List of Objcts defining Result Handling  |              |              |
-|                     |           |                | see:                                     |              |              |
-+---------------------+-----------+----------------+------------------------------------------+--------------+--------------+
-
-.. warning::
-
-	FormValidate Property makes no sense anymore. Should be sufficent if ValidateObjects JS Array is given containing all
-	Objects to validate.
-
-.. warning::
-
-	SrcDataObjects will be refactored to plain JS Array, actually a List of Objects is used which is too complex to handle.
-
-.. warning::
-
-	OnResult should be a JS Array of Objects due to order processing.
 
 
 JSON Structure Example
