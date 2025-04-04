@@ -31,7 +31,7 @@ It simply generates a DOM layer with variable CSS class attribute(s).
 ************************
 
 .. table:: Object Type Div Attributes
-	:widths: 30 20 80
+	:widths: 30 20 100
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -143,7 +143,7 @@ Details + Examples see
 	+---------------------+----------------------+-------------------------------------------------+
 	| DstScreenID         | ScreenID-String      | Destination ScreenID Reference                  |
 	+---------------------+----------------------+-------------------------------------------------+
-	| FireEvents          | Array                | Array of EventIDs                               |
+	| FireEvents          | Array of EventIDs    | Array of EventIDs                               |
 	+---------------------+----------------------+-------------------------------------------------+
 	| CloseOverlay        | Boolean              | Close Overlay On Click                          |
 	+---------------------+----------------------+-------------------------------------------------+
@@ -374,9 +374,11 @@ The ``"Type": "List"`` *x0-system-object* .
 5.7.4. ContextMenu Attributes
 *****************************
 
-
 5.7.5. Grid Attributes
 **********************
+
+5.7.5. Backend JSON Schema
+**************************
 
 
 JSON Structure Example
@@ -560,13 +562,13 @@ JSON Structure Example
 6.2. FormfieldText
 ------------------
 
-The ``"Type": "FormfieldLabel"`` *x0-system-object* renders a HTML form input
+The ``"Type": "FormfieldText"`` *x0-system-object* renders a HTML form input
 type text element.
 
 5.3.1. Object Attributes
 ************************
 
-.. table:: Object Type FormfieldLabel Attributes
+.. table:: Object Type FormfieldText Attributes
 	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
@@ -575,6 +577,10 @@ type text element.
 	| Type                | Constant String      | Fixed String 'text'                             |
 	+---------------------+----------------------+-------------------------------------------------+
 	| Style               | CSS-String           | CSS Style Classes, space separated              |
+	+---------------------+----------------------+-------------------------------------------------+
+	| StyleValidateOk     | CSS-String           | CSS Style Classes Override, space separated     |
+	+---------------------+----------------------+-------------------------------------------------+
+	| StyleValidateFail   | CSS-String           | CSS Style Classes Override, space separated     |
 	+---------------------+----------------------+-------------------------------------------------+
 	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
 	+---------------------+----------------------+-------------------------------------------------+
@@ -615,9 +621,11 @@ type text element.
 	+---------------------+----------------------+-------------------------------------------------+
 	| Style               | CSS-String           | CSS Style Classes, space separated              |
 	+---------------------+----------------------+-------------------------------------------------+
-	| LabelFor            | String               | Container Div Type, <DOMType></DOMType>         |
+	| LabelFor            | String               | HTML attrribute "labelfor"                      |
 	+---------------------+----------------------+-------------------------------------------------+
-	| TextID              | String               | Container Div Type, <DOMType></DOMType>         |
+	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+	+---------------------+----------------------+-------------------------------------------------+
+	| DisplayText         | String               | Hardcoded / Non-multilanguage String            |
 	+---------------------+----------------------+-------------------------------------------------+
 
 
@@ -668,7 +676,7 @@ The ``"Type": "FormfieldPulldown"`` *x0-system-object* .
 5.3.1. Object Attributes
 ************************
 
-.. table:: Object Type FormfieldTextarea Attributes
+.. table:: Object Type FormfieldPulldown Attributes
 	:widths: 30 20 80
 
 	+---------------------+----------------------+-------------------------------------------------+
@@ -677,6 +685,24 @@ The ``"Type": "FormfieldPulldown"`` *x0-system-object* .
 	| Type                | Constant String      | Fixed String 'pulldown'                         |
 	+---------------------+----------------------+-------------------------------------------------+
 	| Style               | CSS-String           | CSS Style Classes, space separated              |
+	+---------------------+----------------------+-------------------------------------------------+
+	| Options             | Array of Elements    | Array of Option Elements                        |
+	+---------------------+----------------------+-------------------------------------------------+
+
+5.3.2. Options Element
+**********************
+
+.. table:: FormfieldPulldown Options Element
+	:widths: 30 20 80
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+	+---------------------+----------------------+-------------------------------------------------+
+	| Value               | String               | Hardcoded Value                                 |
+	+---------------------+----------------------+-------------------------------------------------+
+	| Default             | Boolean              | Default Display Element                         |
 	+---------------------+----------------------+-------------------------------------------------+
 
 6.3. FormfieldDynPulldown
@@ -697,6 +723,10 @@ The ``"Type": "FormfieldDynPulldown"`` *x0-system-object* .
 	| Type                | Constant String      | Fixed String 'dynpulldown'                      |
 	+---------------------+----------------------+-------------------------------------------------+
 	| Style               | CSS-String           | CSS Style Classes, space separated              |
+	+---------------------+----------------------+-------------------------------------------------+
+	| ServiceURL          | URL-String           | Backend Service URL                             |
+	+---------------------+----------------------+-------------------------------------------------+
+	| UpdateOnEvents      | Array of EventIDs    | Array of EventIDs                               |
 	+---------------------+----------------------+-------------------------------------------------+
 
 6.3. FormfieldCheckbox
