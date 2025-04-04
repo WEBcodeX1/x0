@@ -134,4 +134,4 @@ For a better perspective on security, x0-system is PKCS 11 / PKCS 15 compatible
 > and WSGI module.<br>
 > https://github.com/WEBcodeX1/http-1.2.
 
-Milestones are github managed; can be found at "Issues / Milestones".
+Milestones are github managed, see https://github.com/WEBcodeX1/x0/milestones.
