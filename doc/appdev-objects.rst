@@ -371,8 +371,6 @@ The ``"Type": "List"`` *x0-system-object* .
 	| DoubleCheckColumn   | String               | Check Column Value exists on Row append         |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.7.4. ContextMenu Attributes
-*****************************
 
 5.7.5. Grid Attributes
 **********************
@@ -400,8 +398,8 @@ JSON Structure Example
 	+---------+---------+---------+
 	    |         |         |
 	 ObjRef1   ObjRef4    ObjRef6
-	 ObjRef2   ObjRef5    ObjRef7
-	 ObjRef3              ObjRef8
+	 ObjRef2              ObjRef7
+	              
 
 5.8.1. Object Attributes
 ************************
@@ -748,6 +746,8 @@ The ``"Type": "FormfieldCheckbox"`` *x0-system-object* .
 	+---------------------+----------------------+-------------------------------------------------+
 	| Style               | CSS-String           | CSS Style Classes, space separated              |
 	+---------------------+----------------------+-------------------------------------------------+
+	| Value               | Enum Integer         | 1 == checked || 0 == unchecked                  |
+	+---------------------+----------------------+-------------------------------------------------+
 
 6.3. FormfieldHidden
 --------------------
@@ -767,4 +767,6 @@ The ``"Type": "FormfieldHidden"`` *x0-system-object* .
 	| Type                | Constant String      | Fixed String 'hidden'                           |
 	+---------------------+----------------------+-------------------------------------------------+
 	| Style               | CSS-String           | CSS Style Classes, space separated              |
+	+---------------------+----------------------+-------------------------------------------------+
+	| Value               | String               | Hardcoded Value                                 |
 	+---------------------+----------------------+-------------------------------------------------+
