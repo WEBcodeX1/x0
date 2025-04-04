@@ -2,8 +2,8 @@
 
 .. _appdevglobal:
 
-4. Global Grid System
-=====================
+4. Grid System
+==============
 
 Some *x0-object-types* offer global grid formating properties. Currently the
 following object types are supported.
@@ -216,4 +216,45 @@ self designed *x0-objects*.
 5. Context Menu
 ===============
 
-DstScreenID
+A context menu
+
+Array of ContextMenuItems
+
+.. table:: Context Menu Item Global Attributes
+	:widths: 30 20 100
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| Method              | Enum-String          | Implemented Context Menu Methods                |
+	+---------------------+----------------------+-------------------------------------------------+
+	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+	+---------------------+----------------------+-------------------------------------------------+
+	| IconStyle           | CSS-String           | CSS Style Classes, space separated              |
+	+---------------------+----------------------+-------------------------------------------------+
+
+.. table:: Context Menu Methods
+	:widths: 30 20 100
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Method**          | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| Edit                | Table-Row            |       |
+	+---------------------+----------------------+-------------------------------------------------+
+	| RemoveSingle        | Table-Row            | TextID referenced in "webui.text" DB Table      |
+	+---------------------+----------------------+-------------------------------------------------+
+	| RemoveSelected      | Table-Row            | CSS Style Classes, space separated              |
+	+---------------------+----------------------+-------------------------------------------------+
+
+.. table:: Context Menu Item "Edit"
+	:widths: 30 20 100
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Method**          | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| DstScreenID         | ScreenID-String      | Destination ScreenID Reference                  |
+	+---------------------+----------------------+-------------------------------------------------+
+	| RowColumn           | RowID-String         | Table Row Colun Reference                       |
+	+---------------------+----------------------+-------------------------------------------------+
+	| FireEvents          |  Array               | Array of EventIDs                               |
+	+---------------------+----------------------+-------------------------------------------------+
