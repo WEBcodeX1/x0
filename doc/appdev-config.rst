@@ -607,3 +607,17 @@ a running example.
 
         ]
     }
+
+3.6. Object Templates
+---------------------
+
+To integrate user based 
+
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'template_file', 'TemplateObject1.js');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'template_file', 'TemplateObject2.js');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'template_file', 'TemplateObject3.js');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'setup_class', '["TemplateClass"] = TemplateClass');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'setup_class', '["TemplateClassOther"] = TemplateClassOther');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'setup_class', '["TemplateClassInfo"] = TemplateClassInfo');
+
+Howto 
