@@ -20,12 +20,11 @@ x0 Framework Documentation v0.99
    appdev-deployment
    dev-architecture
    dev-oop-model
-   dev-classes
    dev-tests
    dev-examples
    dev-object-modeling
    dev-porting
-   dev-workflows
+   modules
    glossary
 
 Indices and tables
