@@ -3,7 +3,7 @@
 11. Deployment
 ==============
 
-Imagine the *x0-deployment-system* as 
+Imagine the *x0-deployment-system* is devided into 3 Sub-Layer.
 
 * Linux Standalone (Layer 1)
 * Docker (Layer 2)
@@ -17,12 +17,16 @@ Layer 2 generates Docker Images used by Layer 3 (GKE Google Kubernetes Engine).
 11.1. Standalone / Debian Packaging
 -----------------------------------
 
-Standalone provides packages for
+Standalone provides packages for Ubuntu 22.04.
+
+
 
 .. _appdeployment-docker:
 
 11.2. Docker
 ------------
+
+Docker 
 
 - Building *x0-base* on Linux Ubuntu 22.04 only
 - Built images / containers **run** on Windows 11 Docker Desktop
@@ -31,11 +35,15 @@ Standalone provides packages for
 
 .. _appdeployment-kubernetes:
 
-11.3. Kubernetes
-----------------
+11.3. Kubernetes / DevOps
+-------------------------
 
-Note *x0-kubernetes-installer* / Kubernetes Deployment is intended for setting
+*x0-kubernetes-installer* / Kubernetes Deployment is intended for setting
 up a cluster / namespace hierarchy only. 
+
+.. warning::
+
+	It is **not** intended for managing / updating a kubernetes cluster.
 
 You should convert the x0 generated cluster metadata immediately to
 Terraform or similar after initial deployment has been successfull.
