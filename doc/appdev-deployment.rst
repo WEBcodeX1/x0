@@ -3,11 +3,14 @@
 11. Deployment
 ==============
 
-Deployment / Layered
+Imagine the *x0-deployment-system* as 
 
-* Standalone Ubuntu 22.04
-* Docker
-* GKE (Google Kubernetes Engine)
+* Linux Standalone (Layer 1)
+* Docker (Layer 2)
+* Kubernetes Engine (Layer 3)
+
+Layer 1 provides Debian Packages for Layer 2 (Docker),
+Layer 2 generates Docker Images used by Layer 3 (GKE Google Kubernetes Engine).
 
 .. _appdeployment-standalone:
 
