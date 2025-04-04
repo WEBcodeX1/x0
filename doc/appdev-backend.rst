@@ -3,42 +3,64 @@
 7. Backend / Services
 =====================
 
+To interact with backend systems the *x0-system* offers various methods to choose from.
+
+* Service Connector
+* Source Data Objects
+* Global Data Storage
+
+The next chapters describe all methods in detail and which method is best suited to a
+specific application.
 
 7.1 ServiceConnector
 --------------------
 
-With help of a Service Connector Object you load backend data into already loaded
-System Obejcts (after initial app-rendering took place).
+A ServiceConnector object defines **where** to get the backend data from and **when**.
 
-You can trigger data load on System Event occurence, see: #TODO: link to Raising Events.
+* Backend Service URL
+* Occuring Events which trigger Data Load
 
+Now after a ServiceConnector has been configured in ``object.json``, it must be
+*activated* by pointing the DestinationObjects ``RefID`` to the ServiceConnector
+ObjectID in ``skeleton.json``.
+
+.. image:: images/x0-service-connector.png
+  :alt: image - service connector
 
 Object Properties
 *****************
 
-+---------------------+----------------------+-------------------------------------------------+
-| **Property**        | **Value(s)**         | **Description**                                 |
-+=====================+======================+=================================================+
-| OnEvent             | JS Object            | Event Properties                                |
-+---------------------+----------------------+-------------------------------------------------+
+.. table:: Object Type Div Attributes
+	:widths: 30 20 100
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Value(s)**         | **Description**                                 |
+	+=====================+======================+=================================================+
+	| OnEvent             | JS Object            | Event Properties                                |
+	+---------------------+----------------------+-------------------------------------------------+
 
 Event Properties
 ****************
 
-+---------------------+----------------------+-------------------------------------------------+
-| **Property**        | **Value(s)**         | **Description**                                 |
-+=====================+======================+=================================================+
-| Events              | Array of Strings     | Listen to given Events                          |
-+---------------------+----------------------+-------------------------------------------------+
-| ServiceCall         | Backend Script       | Call Backend Script on raised Event(s)          |
-+---------------------+----------------------+-------------------------------------------------+
+.. table:: Object Type Div Attributes
+	:widths: 30 20 100
 
-Example (object.json)
-*********************
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Value(s)**         | **Description**                                 |
+	+=====================+======================+=================================================+
+	| Events              | Array of EventIDs    | Listen to given Events                          |
+	+---------------------+----------------------+-------------------------------------------------+
+	| ServiceCall         | Backend Script       | Call Backend Script on raised Event(s)          |
+	+---------------------+----------------------+-------------------------------------------------+
+
+object.json
+***********
+
+Define ServiceConnector metadata in ``object.json``.
 
 .. code-block:: javascript
 
-	"ContactSearchListConnector":
+	"TestConnector1":
     {
 		"Type": "ServiceConnector",
 		"Attributes":
@@ -51,12 +73,147 @@ Example (object.json)
 		}
 	}
 
-7.2 SrcDataObjects
-------------------
+skeleton.json
+*************
+
+*Connect* as ParentObject in ``skeleton.json``.
+
+.. code-block:: javascript
+
+	"Screen1":
+    [
+		{
+			"TestConnector1":
+			{
+				"RefID": "Screen1"
+			}
+		},
+		{
+			"TestObject1":
+			{
+				"RefID": "TestConnector1"
+			}
+		}
+	]
+
+7.2 Source Data Objects
+-----------------------
+
+*x0-source-data-objects* feature is a very smart way to control **which** data will be
+sent to the backend.
+
+Defining an Array of global ObjectIDs in ``SrcDataObjects`` property will
+append the current Objects Realtime-Data to the POST service request.
+
+*x0-source-data-objects* feature works with any connected ServiceConnector object
+and Button.
+
+Global Objects Array
+********************
+
+.. code-block:: javascript
+
+	"SrcDataObjects":
+    [
+		"ObjectID1",
+		"ObjectID2",
+		"ObjectID3"
+	]
+
+Hardcoded Values
+****************
+
+.. code-block:: javascript
+
+	"SrcDataObjects":
+    {
+		"Dummy":
+		{
+			"Type": "HardcodedValues",
+			"Values": {
+				"LimitRows": 20
+			}
+		}
+	}
+
+Global Object
+*************
+
+.. code-block:: javascript
+
+	"SrcDataObjects":
+    {
+		"$ObjectID":
+		{
+			"Type": "GlobalObject"
+		}
+	}
+
+Chaining Object Types
+*********************
+
 
 7.3 Global Data
 ---------------
 
-7.4 Authentication
-------------------
+It is possible to store global data (var / value) ...
 
+* Global Data
+* Screen Global Data
+
+Load Global Data
+****************
+
+*x0-global-data* will be loaded by *x0-preload-script* at *x0-init* (see ...).
+
+.. code-block:: sql
+
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'preload_script', '"InitSystem.py"');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'preload_var', '["GlobalVar1"] = "ret_var1"');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'preload_var', '["GlobalVar2"] = "ret_var2"');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'preload_var', '["GlobalVar3"] = "ret_var3"');
+
+Pass Screen Global Data
+***********************
+
+To pass values from *x0-screen-global-data* to backend using *x0-source-data-objects* ...
+
+.. code-block:: javascript
+
+	"SrcDataObjects":
+    {
+		"$ObjectID":
+		{
+			"Type": "ScreenGlobalVar",
+			"ScreenID": "Screen1"
+		}
+	}
+
+7.4 AAA / Authentication 
+------------------------
+
+Currently *x0-system* only supports certificate based (Apache2 / ingress-nginx) 
+authentication.
+
+Especially when using decentralized / multiple application servers it is strongly
+adviced to integrate an external SSO solution.
+
+For authentication to work correctly *x0-preload-script* must be setup
+with the correct *x0-preload-vars* ``UserID`` and ``UserSession``.
+
+.. code-block:: sql
+
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'preload_script', '"InitSystem.py"');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'preload_var', '["UserID"] = "ret_user_id"');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'preload_var', '["UserSession"] = "ret_user_session"');
+
+Internally *x0-system* authentication data will be stored in the following global variables.
+
+.. code-block:: javascript
+
+	sysFactory.sysUserID
+	sysFactory.sysSessionValue
+
+.. warning::
+
+    Also *x0-messaging* component relies on setting ``UserSession`` in the correct way.
