@@ -370,9 +370,3 @@ correct docker image load.
 	# start docker containers
 	cd ./docker
 	./x0-start-containers.sh
-
-.. note::
-
-	We did not manage to get network setup (probably bridged) work correctly
-	to access the container(s) by its assigned ip-address(es) from the
-	Windows host.
