@@ -3,7 +3,7 @@
 7. Backend / Services
 =====================
 
-To interact with backend systems the *x0-system* offers various methods to choose from.
+To exchange data with backend systems the *x0-system* offers various methods to choose from.
 
 * Service Connector
 * Source Data Objects
@@ -23,6 +23,9 @@ A ServiceConnector object defines **where** to get the backend data from and **w
 Now after a ServiceConnector has been configured in ``object.json``, it must be
 *activated* by pointing the DestinationObjects ``RefID`` to the ServiceConnector
 ObjectID in ``skeleton.json``.
+
+After it has been *connected*, any systems fired event will cause the connected service
+to re-trigger data load.
 
 .. image:: images/x0-service-connector.png
   :alt: image - service connector
@@ -102,11 +105,15 @@ skeleton.json
 *x0-source-data-objects* feature is a very smart way to control **which** data will be
 sent to the backend.
 
-Defining an Array of global ObjectIDs in ``SrcDataObjects`` property will
-append the current Objects Realtime-Data to the POST service request.
+Just reference multiple *x0-system-objects* and its realtime data will be sent to
+the backend service.
 
-*x0-source-data-objects* feature works with any connected ServiceConnector object
-and Button.
+The following sub-chapters describe how to use SrcDataObjects JSON format in detail.
+
+.. note::
+
+    *x0-source-data-objects* are not only usable in combination with
+	service connector, also buttons support the feature.
 
 Global Objects Array
 ********************
@@ -151,6 +158,23 @@ Global Object
 
 Chaining Object Types
 *********************
+
+.. code-block:: javascript
+
+	"SrcDataObjects":
+    {
+		"$ObjectID":
+		{
+			"Type": "GlobalObject"
+		},
+		"Dummy":
+		{
+			"Type": "HardcodedValues",
+			"Values": {
+				"LimitRows": 10
+			}
+		}
+	}
 
 
 7.3 Global Data
