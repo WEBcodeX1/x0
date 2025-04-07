@@ -31,31 +31,32 @@ The *x0-systems* browser main display area is devided into **3 visible** areas.
 3.1.1. Menu Area
 ****************
 
-The **x0-menu-area** is primarily intended to contain menu related objects
+The **x0-menu-area** is primarily intended to contain menu related *x0-objects*
 / internal links.
 
-The DOM DIV layer id = "sysMenu". Referenced objects inside **menu.json**
-will be appended to "sysMenu" DIV on system init rendering / page load.
+The DOM DIV layer id = `sysMenu`. Referenced *x0-objects* inside **menu.json**
+will be appended to `sysMenu`` DIV on system init rendering / page load.
 
-A **x0-screen** (textual id) can be referenced by a link type object. When
-clicked, the system ativates / makes the screen layer visible inside the
+A **x0-screen** (textual id) can be referenced by a link *x0-object-type*. When
+clicked, the system ativates / makes the screen layer visible within the
 **x0-screen-area**.
 
-DOM Layer Positioning can be achieved via CSS styles, detailed info about
+DOM Layer positioning can be achieved via CSS styles, detailed info about
 content area positioning, see :ref:`content-area-positioning`.
 
 .. note::
 
-    The **x0-menu-area** is not only limited to link-objects type, any object
-    can be referenced in **menu.json**, e.g. as link **container** used for positioning.
+    The **x0-menu-area** is not only limited to *x0-object-type* link only, any
+    *x0-object* can be referenced in **menu.json**, e.g. as **object container**
+    used for positioning.
 
 3.1.2. Screen Area
 ******************
 
 The **x0-screen-area** acts as the main content display area.
 
-The "default_screen" which will be activated on system init / page load can be
-set as *x0-config-parameter* (details see :ref:`systemconfig`).
+The **default_screen** which will be activated on system init / page load can
+be set by *x0-config-parameter* (details see :ref:`systemconfig`).
 
 Screen definition and object relations will be defined inside **skeleton.json**
 (details see :ref:`skeleton-json`).
@@ -63,7 +64,7 @@ Screen definition and object relations will be defined inside **skeleton.json**
 Also DOM Layer positioning can be achieved via CSS styles, detailed info about
 content area positioning, see :ref:`content-area-positioning`.
 
-The following diagram shows what exactly happens on *x0-screen-switching*.
+The following diagram shows what exactly happens on *x0-screen-switch*.
 
 .. image:: images/x0-screen-switch.png
   :alt: image - screen switch
@@ -427,13 +428,13 @@ described in detail here: :ref:`system-objects`.
         }
     }
 
-.. _skeleton-json:
-
 .. note::
 
     The JSON root type is *Object* type, **not** *Array*. Object definition does
     not rely on order. Relations rely on order whic are defined in ``skeleton.json``
     and ``menu.json``.
+
+.. _skeleton-json:
 
 3.4.2. Skeleton
 ***************

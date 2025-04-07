@@ -1,12 +1,12 @@
 .. appdev-global
 
-.. _appdevglobal:
+.. _appdevglobalgrid:
 
 4. Grid System
 ==============
 
 Some *x0-object-types* offer global grid formating properties. Currently the
-following object types are supported.
+following *x0-object-types* are supported.
 
 * List
 * FormfieldList
@@ -18,13 +18,12 @@ functionality.
 .. note::
 
 	The *x0-global-grid-system* does not provide rowspan formating, this can
-	be done otherwise by using existing ``ObjectContainer`` *x0-system-object*
-	or designing an own object (see ... or ...).
+	be done otherwise by directly referencing or designing own *x0-system-objects*
+	(see example#9 or :ref:`devobjectmodeling`).
 
 .. warning::
 
-	You should first take a closer look at Boostrap Grid before you continue
-	reading.
+	You should be familiar with Boostrap Grid system before continue reading.
 
 4.1. Global JSON Metadata 
 *************************
@@ -213,12 +212,16 @@ case an Array of Elements exists as input data.
 Checkout the developer documenation how to implement grid formating into your
 self designed *x0-objects*.
 
+.. _appdevglobalcontextmenu:
+
 5. Context Menu
 ===============
 
-A context menu
+A context menu (right mouse click) can be bound to any *x0-object-type*.
 
-Array of ContextMenuItems
+.. note::
+
+    Currently only ``List`` *x0-object-type* are supported, this will change in future releases.
 
 .. table:: Context Menu Item Global Attributes
 	:widths: 30 20 100
@@ -239,11 +242,11 @@ Array of ContextMenuItems
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Method**          | **Type**             | **Description**                                 |
 	+=====================+======================+=================================================+
-	| Edit                | Table-Row            |       |
+	| Edit                | Table-Row            | Switch Screen into Edit-Mode                    |
 	+---------------------+----------------------+-------------------------------------------------+
-	| RemoveSingle        | Table-Row            | TextID referenced in "webui.text" DB Table      |
+	| RemoveSingle        | Table-Row            | Remove Single Table Row                         |
 	+---------------------+----------------------+-------------------------------------------------+
-	| RemoveSelected      | Table-Row            | CSS Style Classes, space separated              |
+	| RemoveSelected      | Array of Table-Rows  | Remove Selected Table Rows                      |
 	+---------------------+----------------------+-------------------------------------------------+
 
 .. table:: Context Menu Item "Edit"

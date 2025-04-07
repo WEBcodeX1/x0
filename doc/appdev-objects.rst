@@ -64,8 +64,7 @@ It simply generates a DOM layer with variable CSS class attribute(s).
 6.2. SQLText
 ------------
 
-The ``SQLText`` *x0-object-type* renders a (multilanguage) text
-defined in *x0-db* on systems initialization.
+The ``SQLText`` *x0-object-type* renders a (multilanguage) text defined in *x0-db*.
 
 6.2.1. Object Attributes
 ************************
@@ -154,45 +153,45 @@ Details see :ref:`appdevcontrolbutton`.
 **************
 
 .. table:: Button Actions
-	:widths: 30 20 80
+	:widths: 30 70
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Action**          | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| enable              | Dst-Object           | Set DOM Visible State "visible"                 |
-	+---------------------+----------------------+-------------------------------------------------+
-	| disable             | Dst-Object           | Set DOM Visible State "hidden"                  |
-	+---------------------+----------------------+-------------------------------------------------+
-	| activate            | Dst-Object           | Set Internal State "active" (validate)          |
-	+---------------------+----------------------+-------------------------------------------------+
-	| deactivate          | Dst-Object           | Set Internal State "inactive" (no validate)     |
-	+---------------------+----------------------+-------------------------------------------------+
-	| reset               | Dst-Object           | Call Objects reset() Method                     |
-	+---------------------+----------------------+-------------------------------------------------+
-	| switchscreen        | Dst-Screen           | Switch Screen to Value in DstScreenID           |
-	+---------------------+----------------------+-------------------------------------------------+
+	+---------------------+------------------------------------------------------------------------+
+	| **Action**          | **Description**                                                        |
+	+=====================+========================================================================+
+	| enable              | Set DOM Visible State "visible"                                        |
+	+---------------------+------------------------------------------------------------------------+
+	| disable             | Set DOM Visible State "hidden"                                         |
+	+---------------------+------------------------------------------------------------------------+
+	| activate            | Set Internal State "active" (validate)                                 |
+	+---------------------+------------------------------------------------------------------------+
+	| deactivate          | Set Internal State "inactive" (no validate)                            |
+	+---------------------+------------------------------------------------------------------------+
+	| reset               | Call Objects reset() Method                                            |
+	+---------------------+------------------------------------------------------------------------+
+	| switchscreen        | Switch Screen to Value in DstScreenID                                  |
+	+---------------------+------------------------------------------------------------------------+
 
 6.3.3. OnResult Actions
 ***********************
 
 .. table:: Button OnResult Actions
-	:widths: 30 20 80
+	:widths: 30 70
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Action**          | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| enable              | Dst-Object           | Set DOM Visible State "visible"                 |
-	+---------------------+----------------------+-------------------------------------------------+
-	| disable             | Dst-Object           | Set DOM Visible State "hidden"                  |
-	+---------------------+----------------------+-------------------------------------------------+
-	| activate            | Dst-Object           | Set Internal State "active" (validate)          |
-	+---------------------+----------------------+-------------------------------------------------+
-	| deactivate          | Dst-Object           | Set Internal State "inactive" (no validate)     |
-	+---------------------+----------------------+-------------------------------------------------+
-	| reset               | Dst-Object           | Call Objects reset() Method                     |
-	+---------------------+----------------------+-------------------------------------------------+
-	| tabswitch           | Dst-Object           | Switch to TabContainers Tab                     |
-	+---------------------+----------------------+-------------------------------------------------+
+	+---------------------+------------------------------------------------------------------------+
+	| **Action**          | **Description**                                                        |
+	+=====================+========================================================================+
+	| enable              | Set DOM Visible State "visible"                                        |
+	+---------------------+------------------------------------------------------------------------+
+	| disable             | Set DOM Visible State "hidden"                                         |
+	+---------------------+------------------------------------------------------------------------+
+	| activate            | Set Internal State "active" (validate)                                 |
+	+---------------------+------------------------------------------------------------------------+
+	| deactivate          | Set Internal State "inactive" (no validate)                            |
+	+---------------------+------------------------------------------------------------------------+
+	| reset               | Call Objects reset() Method                                            |
+	+---------------------+------------------------------------------------------------------------+
+	| tabswitch           | Switch to TabContainers Tab                                            |
+	+---------------------+------------------------------------------------------------------------+
 
 .. _objecttype-buttoninternal:
 
@@ -552,7 +551,7 @@ None.
 The ``FormfieldList`` *x0-object-type* acts as a *x0-form* management and *x0-object* container.
 
 It provides enhanced *x0-form-validation* and is referencable from multiple *x0-control-flow*
-modifying *x0-object-type*s.
+modifying *x0-object-type*.
 
 More info at :ref:`appdevforms`.
 
@@ -662,7 +661,7 @@ The ``FormfieldText`` *x0-object-type* renders a HTML form input type ``text`` e
 	| DBColumn            | String               | Database Column Reference                       |
 	+---------------------+----------------------+-------------------------------------------------+
 
-.. _objecttype-formfieldtext:
+.. _objecttype-formfieldlabel:
 
 7.3. FormfieldLabel
 -------------------
@@ -689,8 +688,10 @@ The ``FormfieldLabel`` *x0-object-type* renders a HTML form input type ``label``
 	| DisplayText         | String               | Hardcoded / Non-multilanguage String            |
 	+---------------------+----------------------+-------------------------------------------------+
 
+.. _objecttype-formfieldtextarea:
+
 7.34. FormfieldTextarea
-----------------------
+-----------------------
 
 The ``FormfieldTextarea`` *x0-object-type* renders a HTML form ``textarea`` element.
 
@@ -723,6 +724,8 @@ The ``FormfieldTextarea`` *x0-object-type* renders a HTML form ``textarea`` elem
 	+---------------------+----------------------+-------------------------------------------------+
 	| Max                 | Integer              | Maximum Number Value                            |
 	+---------------------+----------------------+-------------------------------------------------+
+
+.. _objecttype-formfieldpulldown:
 
 7.5. FormfieldPulldown
 ----------------------
@@ -762,6 +765,8 @@ including options.
 	| Default             | Boolean              | Default Display Element                         |
 	+---------------------+----------------------+-------------------------------------------------+
 
+.. _objecttype-formfielddynpulldown:
+
 7.6. FormfieldDynPulldown
 -------------------------
 
@@ -790,6 +795,8 @@ The ``FormfieldDynPulldown`` *x0-object-type*  renders a dynamic (backend data) 
 	| UpdateOnEvents      | Array of EventIDs    | Array of EventIDs                               |
 	+---------------------+----------------------+-------------------------------------------------+
 
+.. _objecttype-formfieldcheckbox:
+
 7.7. FormfieldCheckbox
 ----------------------
 
@@ -810,6 +817,8 @@ The ``FormfieldCheckbox`` *x0-object-type* renders a HTML form ``checkbox`` elem
 	+---------------------+----------------------+-------------------------------------------------+
 	| Value               | Enum Integer         | 1 == checked || 0 == unchecked                  |
 	+---------------------+----------------------+-------------------------------------------------+
+
+.. _objecttype-formfieldhidden:
 
 7.8. FormfieldHidden
 --------------------

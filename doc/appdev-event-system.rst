@@ -1,54 +1,69 @@
 .. appdev-event-system
 
-8. Event-System
+.. _appdeveventsystem:
+
+9. Event-System
 ===============
 
-Any object getting backend data via ServiceConnector is able to receive *x0-events*
+Any *x0-system-object* getting backend data via *x0-service-connector* method
+is able to receive *x0-system-events*.
 
-An object can register to multiple *x0-events*.
+Any *x0-system-object* is able to register to multiple *x0-events*. On *x0-init*
+(initial page load) the ``InitSystem`` *x0-system-event* gets fired.
 
-On *x0-init* (initial page load) the ``"InitSystem"`` event is fired.
+.. note::
+
+    Some *x0-object-types*, e.g. List will be removed from DOM completely and get
+    re-rendered on ``RuntimeSetDataFunc()`` invocation.
 
 .. image:: images/x0-event-system.png
   :alt: image - event system
 
-If re-trigger data load. Some object types will be re-rendered on , e.g. List
-which will be removed from DOM and newly rendered.
-
-The following object types support raising events.
+The following *x0-object-types* support raising events.
 
 * Button
 * ButtonInternal
 * Link
 
-9. Control Flow Items
-=====================
+.. _appdevcontrolflow:
 
-The next sub-chapters describe ... which properties ...
+10. Control Flow Items
+======================
 
-7.1. Button
------------
+The next sub-chapters describe the logical control-flow and in which order
+they are processed.
 
-* Backend Service Excecution
+.. _appdevcontrolbutton:
+
+10.1. Button
+------------
+
+* Backend Service Execution
 * Fire Events *after* successful Form Validation
-* Fire Events *after* successful Service Excecution
+* Fire Events *after* successful Service Execution
 
-7.2. ButtonInternal
--------------------
+.. _appdevcontrolbuttoninternal:
 
-* No Backend Service Excecution
+10.2. ButtonInternal
+--------------------
+
+* No Backend Service Execution
 * Form Validation
 * Fire Events *after* on successful Form Validation
 
-7.3. Link
----------
+.. _appdevcontrollink:
+
+10.3. Link
+----------
 
 * Set Screen CSS Style
 * Switch Screen
 * Open Screen Overlay
 * Fire Events
 
-7.4. LinkExternal
------------------
+.. _appdevcontrollinkext:
+
+10.4. LinkExternal
+------------------
 
 * Open External Link Only

@@ -4,7 +4,7 @@ x0 Framework Documentation v0.99
 ================================
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: Contents:
 
    intro
@@ -20,11 +20,12 @@ x0 Framework Documentation v0.99
    appdev-deployment
    dev-architecture
    dev-oop-model
+   dev-backend
    dev-tests
    dev-examples
    dev-object-modeling
    dev-porting
-   modules
+   plugins
    glossary
 
 Indices and tables

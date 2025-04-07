@@ -1,6 +1,6 @@
 .. appdev-deployment
 
-11. Deployment
+14. Deployment
 ==============
 
 The *x0-deployment* main goal is to get multiple production ready GKE
@@ -10,10 +10,7 @@ Why Kubernetes? Its the only current system worldwide to guarantee
 native fail-safe operations including application load-balancing and
 auto-scaling.
 
-.. image:: images/x0-deployment.png
-  :alt: image - kubernetes deployment
-
-The proposed deployment workflow.
+Following, our proposed deployment workflow.
 
 * Run & Test Application in Docker Environment (x0-supported)
 * Deploy on Kubernetes Minikube (x0-supported)
@@ -23,22 +20,23 @@ The proposed deployment workflow.
 
 .. _appdeployment-standalone:
 
-11.1. Standalone
+14.1. Standalone
 ----------------
 
-Standalone provides packages for Ubuntu 22.04.
+Standalone installation provides packages for Ubuntu 22.04.
 
 If you really like to run packages natively, install *x0-app* and *x0-db*
-debian packages. It is strongly advised to use the docker environment ...
+.deb packages. It is strongly advised to use the docker environment to
+avoid unneccessary effort.
 
 .. code-block:: bash
 
-	dpkg -i 
-	dpkg -i 
+	dpkg -i x0-db_0.9_all.deb
+	dpkg -i x-app_0.99_all.deb
 
 .. _appdeployment-docker:
 
-11.2. Docker
+14.2. Docker
 ------------
 
 The *x0-docker-environment* is primarily intended to test your application
@@ -65,24 +63,29 @@ Steps for running tests.
 
 Docker on Windows
 
-* Final built images / containers aso **run** on Windows 11 (Docker Desktop)
-* Building on Windows 11 Docker Desktop is not possible
+* Final built images / containers also **run** on Windows 11 (Docker Desktop)
+* Building on Windows 11 (Docker Desktop) is not possible
 
 .. _appdeployment-kubernetes:
 
-11.3. Kubernetes
+14.3. Kubernetes
 ----------------
 
 The kubernetes installer (Setup.py )
 
+* Multi-Pod PostgreSQL Database (Kubegres)
+* Multi-Pod x0-application
+* Ingress-nginX Application Load-Balancing
+
+.. image:: images/x0-deployment.png
+  :alt: image - kubernetes deployment
 
 * Environments
 * Virtual Hosts
 * x0-Applications
 
-
-5.1.1. Base Properties
-**********************
+14.3.1. Base Properties
+***********************
 
 .. table:: Kubernetes Installer Base Properties
 	:widths: 30 20 50
@@ -103,8 +106,8 @@ The kubernetes installer (Setup.py )
 	| vhosts              | Object               |                                                 |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.1.1. Project Properties
-*************************
+14.3.2. Project Properties
+**************************
 
 .. table:: Kubernetes Installer Base Properties
 	:widths: 30 20 50
@@ -119,8 +122,8 @@ The kubernetes installer (Setup.py )
 	| git-repo            | String               |                                                 |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.1.1. Installer Properties
-***************************
+14.3.3. Installer Properties
+****************************
 
 .. table:: Kubernetes Installer Installer Properties
 	:widths: 30 20 50
@@ -131,8 +134,8 @@ The kubernetes installer (Setup.py )
 	| type                | Enum String          | "x0" | "debian-package"                         |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.1.1. Database Properties
-**************************
+14.3.4. Database Properties
+***************************
 
 .. table:: Kubernetes Installer Database Properties
 	:widths: 30 20 50
@@ -149,8 +152,8 @@ The kubernetes installer (Setup.py )
 	| repl_password       | String               |                                                 |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.1.1. Environment Element
-**************************
+14.3.5. Environment Element
+***************************
 
 .. table:: Kubernetes Installer Environment Element Properties
 	:widths: 30 20 50
@@ -179,8 +182,8 @@ The kubernetes installer (Setup.py )
 	| $env.database.replicas                  | Integer              |                                                 |
 	+-----------------------------------------+----------------------+-------------------------------------------------+
 
-5.1.1. Virtual Hosts Element
-****************************
+14.3.6. VirtualHost Element
+***************************
 
 .. table:: Kubernetes Installer VirtualHost Element Properties
 	:widths: 30 20 50

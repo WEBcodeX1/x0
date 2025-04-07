@@ -1,6 +1,8 @@
 .. glossary
 
-8. Glossary
-===========
+.. _glossary:
+
+23. Glossary
+============
 
 - Generated?
