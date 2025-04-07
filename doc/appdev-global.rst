@@ -17,9 +17,9 @@ functionality.
 
 .. note::
 
-	The *x0-global-grid-system* does not provide rowspan formating, this can
-	be done otherwise by directly referencing or designing own *x0-system-objects*
-	(see example#9 or :ref:`devobjectmodeling`).
+	The *x0-global-grid-system* does not provide rowspan formating, this can be
+	done otherwise by **directly referencing** or **designing own** *x0-system-objects*,
+	see example#9 or :ref:`devobjectmodeling`.
 
 .. warning::
 
@@ -44,6 +44,7 @@ properties can be set inside the objects "Attribute" representation.
 	| ColStyle          | String / Array       | CSS Style Classes used for next Col-Element (Div)     |
 	+-------------------+----------------------+-------------------------------------------------------+
 	| ColAfterElements  | Integer / Array      | Generate Col-Element at next ColAfterElements reached |
+	+-------------------+----------------------+-------------------------------------------------------+
 	|                   |                      | Optional, Default 1                                   |
 	+-------------------+----------------------+-------------------------------------------------------+
 
