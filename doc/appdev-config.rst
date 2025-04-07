@@ -536,7 +536,6 @@ connected to menu root. Also "Object2" is **connected** / referenced to "Object1
 Some *x0-objects* define elements inside **object.json**.
 
 * TabContainer
-* ObjectContainer
 
 These elements are also referencable inside **skeleton.json** by *x0-systems*
 ``ElementID`` property.
