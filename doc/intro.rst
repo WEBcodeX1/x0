@@ -120,7 +120,7 @@ rendering routines (inherited *x0-base-classes*).
 
     More complex objects consist of multiple (far more) DIVs.
     Check out the developer section about howto design *x0-system-objects*
-    ... #add ref to developer subsection!
+    at :ref:`devobjectmodeling`.
 
 1.11.2. True DOM OOP
 ********************
