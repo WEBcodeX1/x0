@@ -13,11 +13,11 @@ setting up your own repository from *x0-skeleton* (git template repository) at
 https://github.com/WEBcodeX1/x0-skeleton.
 
 After finish setting up your *x0-app-repository*, you should continue
-**reading** the documentation section :ref:`appdevelopment` to get details about
+**reading** the documentation section :ref:`appdevconfig` to get details about
 **building** / **configuring** an *x0-application*.
 
-If you intend to **create** own *x0 system objects* used in your
-*x0 application*, the *x0-system* **installation is mandatory**  and you should
+If you intend to **create** own *x0-system-objects* used in your
+*x0-application*, the *x0-system* **installation is mandatory**  and you should
 **continue reading** this chapter.
 
 2.1. Environments
@@ -25,9 +25,9 @@ If you intend to **create** own *x0 system objects* used in your
 
 The following native linux distributions are supported to build the *x0-system*.
 
-* Ubuntu 22.04.4
+* Ubuntu 22.04
 * Debian 12
-* Devuan 5 (daedalus)
+* Devuan 5
 
 Docker images created by *x0-system* rely on Ubuntu 22.04.
 
