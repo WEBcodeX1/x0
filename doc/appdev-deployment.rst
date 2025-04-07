@@ -31,7 +31,7 @@ avoid unneccessary effort.
 
 .. code-block:: bash
 
-	dpkg -i x0-db_0.9_all.deb
+	dpkg -i x0-db_0.99_all.deb
 	dpkg -i x-app_0.99_all.deb
 
 .. _appdeployment-docker:
