@@ -346,47 +346,53 @@ Following, the *x0-systems* current default configuration.
 
 1. JSON Header
 
-For non Kubernetes deployments the JSON header syntax always is as following.
+.. table:: JSON Header
+	:widths: 30 20 50
 
-.. code-block:: javascript
-
-    {
-        "installer": {
-            "type": "x0"
-        },
-        "env_list": [ "default" ],
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| installer.type      | Enum String          | Installer Type                                  |
+	+---------------------+----------------------+-------------------------------------------------+
+	| env_list            | Array of EnvString   | Environment List                                |
+	+---------------------+----------------------+-------------------------------------------------+
 
 2. "vhosts" Property
 
-.. code-block:: javascript
+.. table:: "vhosts" Property
+	:widths: 30 20 50
 
-    "vhosts": {
-        Object::$VhostConfig
-    }
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| vhosts              | Object               | Virtual Host Elements                           |
+	+---------------------+----------------------+-------------------------------------------------+
 
 3. $VhostConfig "apps" Property
 
-.. code-block:: javascript
+.. table:: $VhostConfig "apps" Property
+	:widths: 30 20 50
 
-    "apps": []
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| apps                | Array of AppString   | Application List                                |
+	+---------------------+----------------------+-------------------------------------------------+
+	| env                 | Object               | Environment Elements                            |
+	+---------------------+----------------------+-------------------------------------------------+
 
-4. $VhostConfig "env" Property
+4. Env Properties
 
-.. code-block:: javascript
+.. table:: Env Properties
+	:widths: 30 20 50
 
-    "env": {
-        "default": {
-        }
-    }
-
-5. Env "dns" Property
-
-.. code-block:: javascript
-
-    "dns": {
-        "hostname": String::$hostname,
-        "domain": String::$domain
-    }
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| dns.hostname        | String               | DNS Hostname                                    |
+	+---------------------+----------------------+-------------------------------------------------+
+	| dns.domain          | String               | DNS Domain                                      |
+	+---------------------+----------------------+-------------------------------------------------+
 
 3.4. System Metadata
 --------------------
@@ -624,6 +630,6 @@ To integrate user based *x0-object-templates* (programmed user based *x0-system-
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'setup_class', '["TemplateClassOther"] = TemplateClassOther');
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'setup_class', '["TemplateClassInfo"] = TemplateClassInfo');
 
-Template .js files must be placed 
+Template .js files must be placed in *x0-application* ``/static`` subdir to be loaded correctly.
 
-Howto model *x0-system-objects*, see developer documentation ...
+Howto model *x0-system-objects* in detail, see developer documentation ...
