@@ -223,6 +223,9 @@ A context menu (right mouse click) can be bound to any *x0-object-type*.
 
     Currently only ``List`` *x0-object-type* are supported, this will change in future releases.
 
+5.1. Global Attributes
+**********************
+
 .. table:: Context Menu Item Global Attributes
 	:widths: 30 20 100
 
@@ -235,6 +238,9 @@ A context menu (right mouse click) can be bound to any *x0-object-type*.
 	+---------------------+----------------------+-------------------------------------------------+
 	| IconStyle           | CSS-String           | CSS Style Classes, space separated              |
 	+---------------------+----------------------+-------------------------------------------------+
+
+5.2. Implemented Methods
+************************
 
 .. table:: Context Menu Methods
 	:widths: 30 20 100
@@ -249,7 +255,10 @@ A context menu (right mouse click) can be bound to any *x0-object-type*.
 	| RemoveSelected      | Array of Table-Rows  | Remove Selected Table Rows                      |
 	+---------------------+----------------------+-------------------------------------------------+
 
-.. table:: Context Menu Item "Edit"
+5.3. Edit Attributes
+********************
+
+.. table:: Context Menu Item "Edit" Attributes
 	:widths: 30 20 100
 
 	+---------------------+----------------------+-------------------------------------------------+
