@@ -2,7 +2,7 @@
 
 .. _system-objects:
 
-5. System Objects
+6. System Objects
 =================
 
 Currently the following *x0-system-objects* are usable inside `object.json`.
@@ -20,14 +20,14 @@ Currently the following *x0-system-objects* are usable inside `object.json`.
 
 .. _objecttype-div:
 
-5.1. Div
+6.1. Div
 --------
 
-The ``"Type": "Div"`` *x0-system-object* is the most simple one.
+The ``Div`` *x0-object-type* is the most simple one.
 
 It simply generates a DOM layer with variable CSS class attribute(s).
 
-5.1.1. Object Attributes
+6.1.1. Object Attributes
 ************************
 
 .. table:: Object Type Div Attributes
@@ -41,7 +41,7 @@ It simply generates a DOM layer with variable CSS class attribute(s).
 	| Style               | CSS-String           | CSS Style Classes, space separated              |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.1.2. JSON Example
+6.1.2. JSON Example
 *******************
 
 .. code-block:: javascript
@@ -54,20 +54,20 @@ It simply generates a DOM layer with variable CSS class attribute(s).
 		}
 	}
 
-5.1.3. Runnable Example
+6.1.3. Runnable Example
 ***********************
 
-Ref 2 Row/Colspan Example
+* http://x0-app.x0.localnet/python/Index.py?appid=example9
 
 .. _objecttype-sqltext:
 
-5.2. SQLText
+6.2. SQLText
 ------------
 
-The ``"Type": "SQLText"`` *x0-system-object* renders a (multilanguage) text
+The ``SQLText`` *x0-object-type* renders a (multilanguage) text
 defined in *x0-db* on systems initialization.
 
-5.2.1. Object Attributes
+6.2.1. Object Attributes
 ************************
 
 .. table:: Object Type SQLText Attributes
@@ -87,7 +87,7 @@ defined in *x0-db* on systems initialization.
 	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.2.2. JSON Example
+6.2.2. JSON Example
 *******************
 
 .. code-block:: javascript
@@ -103,14 +103,14 @@ defined in *x0-db* on systems initialization.
 
 .. _objecttype-button:
 
-5.3. Button
+6.3. Button
 -----------
 
-The ``"Type": "Button"`` *x0-system-object* generates a control-flow .
+The ``Button`` *x0-object-type* generates a control-flow modifying object.
 
-Details + Examples see 
+Details see :ref:`appdevcontrolbutton`.
 
-5.3.1. Object Attributes
+6.3.1. Object Attributes
 ************************
 
 .. table:: Object Type Button Attributes
@@ -137,7 +137,7 @@ Details + Examples see
 	+---------------------+----------------------+-------------------------------------------------+
 	| OnClick             | URL-String           | Backend Service URL                             |
 	+---------------------+----------------------+-------------------------------------------------+
-	| Action              | Action-String        | Single Action before Service Exec, see 5.3.2.   |
+	| Action              | Action-String        | Single Action before Service Exec, see 6.3.2.   |
 	+---------------------+----------------------+-------------------------------------------------+
 	| DstObjectID         | ObjectID-String      | Destination ObjectID Reference                  |
 	+---------------------+----------------------+-------------------------------------------------+
@@ -147,10 +147,10 @@ Details + Examples see
 	+---------------------+----------------------+-------------------------------------------------+
 	| CloseOverlay        | Boolean              | Close Overlay On Click                          |
 	+---------------------+----------------------+-------------------------------------------------+
-	| OnResult            | Array of Actions     | Actions after Service Execution, see 5.3.3.     |
+	| OnResult            | Array of Actions     | Actions after Service Execution, see 6.3.3.     |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.3.2. Actions
+6.3.2. Actions
 **************
 
 .. table:: Button Actions
@@ -172,7 +172,7 @@ Details + Examples see
 	| switchscreen        | Dst-Screen           | Switch Screen to Value in DstScreenID           |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.3.3. OnResult Actions
+6.3.3. OnResult Actions
 ***********************
 
 .. table:: Button OnResult Actions
@@ -196,14 +196,15 @@ Details + Examples see
 
 .. _objecttype-buttoninternal:
 
-5.4. ButtonInternal
+6.4. ButtonInternal
 -------------------
 
-The ``"Type": "ButtonInternal"`` *x0-system-object* inherits  .
+The ``ButtonInternal`` *x0-object-type* inherits ``Button`` *x0-object-type* and as the name
+implies its use is non-backend-service centric.
 
-Details + Examples see 
+Details see :ref:`appdevcontrolbuttoninternal`.
 
-5.4.1. Object Attributes
+6.4.1. Object Attributes
 ************************
 
 .. table:: Object Type ButtonInternal Attributes
@@ -228,7 +229,7 @@ Details + Examples see
 	+---------------------+----------------------+-------------------------------------------------+
 	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
 	+---------------------+----------------------+-------------------------------------------------+
-	| Action              | Action-String        | Single Action before Service Exec, see 5.3.2.   |
+	| Action              | Action-String        | Single Action before Service Exec, see 6.3.2.   |
 	+---------------------+----------------------+-------------------------------------------------+
 	| DstObjectID         | ObjectID-String      | Destination ObjectID Reference                  |
 	+---------------------+----------------------+-------------------------------------------------+
@@ -241,12 +242,13 @@ Details + Examples see
 
 .. _objecttype-link:
 
-5.5. Link
+6.6. Link
 ---------
 
-The ``"Type": "Link"`` *x0-system-object* .
+The ``Link`` *x0-object-type* compared to ``Button`` *x0-object-type* is non-form oriented and
+controls internal control-flow.
 
-5.5.1. Object Attributes
+6.6.1. Object Attributes
 ************************
 
 .. table:: Object Type Link Attributes
@@ -274,12 +276,12 @@ The ``"Type": "Link"`` *x0-system-object* .
 
 .. _objecttype-linkexternal:
 
-5.6. LinkExternal
+6.6. LinkExternal
 -----------------
 
-The ``"Type": "LinkExternal"`` *x0-system-object* .
+The ``LinkExternal`` *x0-object-type* controls howto open external URLs.
 
-5.6.1. Object Attributes
+6.6.1. Object Attributes
 ************************
 
 .. table:: Object Type LinkExternal Attributes
@@ -295,12 +297,12 @@ The ``"Type": "LinkExternal"`` *x0-system-object* .
 	| OpenInTab           | Boolean              | Open Link in new Browser Tab                    |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.6.2. JSON Example
+6.6.2. JSON Example
 *******************
 
 .. code-block:: javascript
 
-	"Link1":
+	"$ObjectID":
 	{
 		"Type": "LinkExternal",
 		"Attributes":
@@ -313,13 +315,15 @@ The ``"Type": "LinkExternal"`` *x0-system-object* .
 
 .. _objecttype-list:
 
-5.7. List
+6.7. List
 ---------
 
-The ``"Type": "List"`` *x0-system-object* .
+The ``List`` *x0-object-type* renders a HTML-like table object.
+It uses Bootstrap Grid CSS, **not** ``<table><tr><td>`` html syntax.
 
+Also it provides *x0-realtime-container* and *x0-context-menu* functionality.
 
-5.7.1. Object Attributes
+6.7.1. Object Attributes
 ************************
 
 .. table:: Object Type List Attributes
@@ -340,10 +344,10 @@ The ``"Type": "List"`` *x0-system-object* .
 	+---------------------+----------------------+-------------------------------------------------+
 	| ErrorContainer      | ObjectID-String      | Error Container Object Reference                |
 	+---------------------+----------------------+-------------------------------------------------+
-	| ContextMenuItems    | Array of Items       | Context Menu Entries, see 5.7.4.                |
+	| ContextMenuItems    | Array of Items       | Context Menu Entries, see 6.7.4.                |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.7.2. Column Attributes
+6.7.2. Column Attributes
 ************************
 
 .. table:: Object Type List Column Attributes
@@ -359,7 +363,7 @@ The ``"Type": "List"`` *x0-system-object* .
 	| HeaderStyle         | CSS-String           | CSS Style Classes, space separated              |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.7.3. RT Attributes
+6.7.3. RT Attributes
 ********************
 
 .. table:: Object Type List Real Time Attributes
@@ -368,40 +372,66 @@ The ``"Type": "List"`` *x0-system-object* .
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
 	+=====================+======================+=================================================+
-	| DoubleCheckColumn   | String               | Check Column Value exists on Row append         |
+	| DoubleCheckColumn   | String               | Check Column Value already exists on Row append |
 	+---------------------+----------------------+-------------------------------------------------+
 
-
-5.7.5. Grid Attributes
+6.7.4. Grid Attributes
 **********************
 
-5.7.5. Backend JSON Schema
+Also Global Grid Attributes can be applied, see :ref:`appdevglobalgrid`.
+
+6.7.5. Context Menu
+*******************
+
+Also Global Conetxt Menu Attributes can be applied, see :ref:`appdevglobalcontextmenu`.
+
+6.7.6. Backend JSON Schema
 **************************
 
-
-JSON Structure Example
-**********************
+Backend services must return the following JSON to provide table cell data on
+service execution.
 
 .. code-block:: javascript
 
+	[
+		{ "id": "1", "col1": "row1-1", "col2": "row1-2" },
+		{ "id": "2", "col1": "row2-1", "col2": "row2-2" },
+		{ "id": "3", "col1": "row3-1", "col2": "row3-2" },
+		{ "id": "4", "col1": "row4-1", "col2": "row4-2" }
+	]
+
+6.7.7. Runtime Features
+***********************
+
+The following runtime-features are supported.
+
+* RuntimeGetDataFunc()
+* RuntimeAppendDataFunc()
+
+6.7.8. Runnable Example
+***********************
+
+* http://x0-app.x0.localnet/python/Index.py?appid=example1
+* http://x0-app.x0.localnet/python/Index.py?appid=example4
 
 .. _objecttype-tabcontainer:
 
-5.8. TabContainer
+6.8. TabContainer
 -----------------
 
+The ``TabContainer`` *x0-object-type* provides a realtime switchable object container.
+It also preserves object-state recursive like any other *x0-object-type*.
 
-.. code-block:: javascript
+.. code-block:: bash
 
 	+---------+---------+---------+
 	| Tab1    | Tab2    | Tab3    |
 	+---------+---------+---------+
 	    |         |         |
-	 ObjRef1   ObjRef4    ObjRef6
-	 ObjRef2              ObjRef7
+	 ObjRef1   ObjRef3    ObjRef4
+	 ObjRef2              ObjRef5
 	              
-
-5.8.1. Object Attributes
+6.8.1. Object Attributes
 ************************
 
 .. table:: Object Type TabContainer Attributes
@@ -413,7 +443,7 @@ JSON Structure Example
 	| Tabs                | Array of Elements    | Array of Tab Elements (Config)                  |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.8.1. Tab Attributes
+6.8.1. Tab Attributes
 *********************
 
 .. table:: Object Type TabAttributes
@@ -431,17 +461,20 @@ JSON Structure Example
 	| Style               | CSS-String           | CSS Style Classes, space separated              |
 	+---------------------+----------------------+-------------------------------------------------+
 
-JSON Example
-************
+6.8.2. Runnable Example
+***********************
 
-.. code-block:: javascript
+* http://x0-app.x0.localnet/python/Index.py?appid=example3
+* http://x0-app.x0.localnet/python/Index.py?appid=example8
 
 .. _objecttype-fileupload:
 
-5.9. FileUpload
+6.9. FileUpload
 ---------------
 
-5.9.1. Object Attributes
+The ``FileUpload`` *x0-object-type* provides a file picking dialog and a upload progress display.
+
+6.9.1. Object Attributes
 ************************
 
 .. table:: Object Type FileUpload Attributes
@@ -469,17 +502,37 @@ JSON Example
 	| ScreenDataLoad             | ScreenID-String      | On Successful Upload trigger Data reload |
 	+----------------------------+----------------------+------------------------------------------+
 
+6.9.2. Runnable Example
+***********************
+
+* http://x0-app.x0.localnet/python/Index.py?appid=example1
+
 .. _objecttype-errorcontainer:
 
-5.10. ErrorContainer
+6.10. ErrorContainer
 --------------------
 
-5.10.1. Object Attributes
+The ``ErrorContainer`` *x0-object-type* is intended to displays info / error messages.
+
+6.10.1. Object Attributes
 *************************
 
+None.
 
+6.10.2. JSON Example
+********************
 
-6. Formfield Objects
+.. code-block:: javascript
+
+	"$ObjectID":
+	{
+		"Type": "ErrorContainer",
+		"Attributes":
+		{
+		}
+	}
+
+7. Formfield Objects
 ====================
 
 * :ref:`objecttype-formfieldlist`
@@ -491,12 +544,20 @@ JSON Example
 * :ref:`objecttype-formfieldcheckbox`
 * :ref:`objecttype-formfieldhidden`
 
-6.1. FormfieldList
+.. _objecttype-formfieldlist:
+
+7.1. FormfieldList
 ------------------
 
+The ``FormfieldList`` *x0-object-type* acts as a *x0-form* management and *x0-object* container.
 
-Object Properties
-*****************
+It provides enhanced *x0-form-validation* and is referencable from multiple *x0-control-flow*
+modifying *x0-object-type*s.
+
+More info at :ref:`appdevforms`.
+
+7.1.1. Object Attributes
+************************
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -506,8 +567,8 @@ Object Properties
 	| Sections            | Array of Elements    | Array of Section Objects                        |
 	+---------------------+----------------------+-------------------------------------------------+
 
-Section Properties
-******************
+7.1.2. Section Attributes
+*************************
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -521,8 +582,8 @@ Section Properties
 	| Formfields          | Array                | Array of Formfield IDs                          |
 	+---------------------+----------------------+-------------------------------------------------+
 
-Section Object Attributes
-*************************
+7.1.3. Section Object Attributes
+********************************
 
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
@@ -538,32 +599,24 @@ Section Object Attributes
 	| SubHeaderTextID     | TextID-String        | TextID referenced in "webui.text" DB Table      |
 	+---------------------+----------------------+-------------------------------------------------+
 
-JSON Structure Example
+7.1.4. Grid Attributes
 **********************
 
-.. code-block:: javascript
+Also Global Grid Attributes can be applied, see :ref:`appdevglobalgrid`.
 
-	"FormfieldList1":
-	{
-		"Type": "FormFieldList",
-		"Attributes": {
-			"Style": "DefaultFormList",
-			"FormFields": [
-				"FormfieldID1",
-				"FormfieldID2",
-				"FormfieldID3"
-			]
-		}
-	}
+7.1.5. Runnable Example
+***********************
 
+* http://x0-app.x0.localnet/python/Index.py?appid=example5
 
-6.2. FormfieldText
+.. _objecttype-formfieldtext:
+
+7.2. FormfieldText
 ------------------
 
-The ``"Type": "FormfieldText"`` *x0-system-object* renders a HTML form input
-type text element.
+The ``FormfieldText`` *x0-object-type* renders a HTML form input type ``text`` element.
 
-5.3.1. Object Attributes
+7.2.1. Object Attributes
 ************************
 
 .. table:: Object Type FormfieldText Attributes
@@ -582,8 +635,6 @@ type text element.
 	+---------------------+----------------------+-------------------------------------------------+
 	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
 	+---------------------+----------------------+-------------------------------------------------+
-	| DBColumn            | String               | Database Column Reference                       |
-	+---------------------+----------------------+-------------------------------------------------+
 	| Placeholder         | String               | Placeholder                                     |
 	+---------------------+----------------------+-------------------------------------------------+
 	| MaxLength           | Integer              | Maximum Length Character Count                  |
@@ -599,14 +650,26 @@ type text element.
 	| Max                 | Integer              | Maximum Number Value                            |
 	+---------------------+----------------------+-------------------------------------------------+
 
-6.3. FormfieldLabel
+7.2.2. FormfieldList Related
+****************************
+
+.. table:: Object Type FormfieldText FormfieldList Related Attributes
+	:widths: 30 20 80
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| DBColumn            | String               | Database Column Reference                       |
+	+---------------------+----------------------+-------------------------------------------------+
+
+.. _objecttype-formfieldtext:
+
+7.3. FormfieldLabel
 -------------------
 
-The ``"Type": "FormfieldLabel"`` *x0-system-object* renders a HTML form input
-type text element.
+The ``FormfieldLabel`` *x0-object-type* renders a HTML form input type ``label`` element.
 
-
-5.3.1. Object Attributes
+7.3.1. Object Attributes
 ************************
 
 .. table:: Object Type FormfieldLabel Attributes
@@ -626,14 +689,12 @@ type text element.
 	| DisplayText         | String               | Hardcoded / Non-multilanguage String            |
 	+---------------------+----------------------+-------------------------------------------------+
 
-
-6.3. FormfieldTextarea
+7.34. FormfieldTextarea
 ----------------------
 
-The ``"Type": "FormfieldTextarea"`` *x0-system-object* .
+The ``FormfieldTextarea`` *x0-object-type* renders a HTML form ``textarea`` element.
 
-
-5.3.1. Object Attributes
+7.4.1. Object Attributes
 ************************
 
 .. table:: Object Type FormfieldTextarea Attributes
@@ -647,8 +708,6 @@ The ``"Type": "FormfieldTextarea"`` *x0-system-object* .
 	| Style               | CSS-String           | CSS Style Classes, space separated              |
 	+---------------------+----------------------+-------------------------------------------------+
 	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
-	+---------------------+----------------------+-------------------------------------------------+
-	| DBColumn            | String               | Database Column Reference                       |
 	+---------------------+----------------------+-------------------------------------------------+
 	| Placeholder         | String               | Placeholder                                     |
 	+---------------------+----------------------+-------------------------------------------------+
@@ -665,13 +724,13 @@ The ``"Type": "FormfieldTextarea"`` *x0-system-object* .
 	| Max                 | Integer              | Maximum Number Value                            |
 	+---------------------+----------------------+-------------------------------------------------+
 
-6.3. FormfieldPulldown
+7.5. FormfieldPulldown
 ----------------------
 
-The ``"Type": "FormfieldPulldown"`` *x0-system-object* .
+The ``FormfieldPulldown`` *x0-object-type* renders a fixed HTML form ``select`` element
+including options.
 
-
-5.3.1. Object Attributes
+7.5.1. Object Attributes
 ************************
 
 .. table:: Object Type FormfieldPulldown Attributes
@@ -687,7 +746,7 @@ The ``"Type": "FormfieldPulldown"`` *x0-system-object* .
 	| Options             | Array of Elements    | Array of Option Elements                        |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.3.2. Options Element
+7.5.2. Options Element
 **********************
 
 .. table:: FormfieldPulldown Options Element
@@ -703,13 +762,17 @@ The ``"Type": "FormfieldPulldown"`` *x0-system-object* .
 	| Default             | Boolean              | Default Display Element                         |
 	+---------------------+----------------------+-------------------------------------------------+
 
-6.3. FormfieldDynPulldown
+7.6. FormfieldDynPulldown
 -------------------------
 
-The ``"Type": "FormfieldDynPulldown"`` *x0-system-object* .
+The ``FormfieldDynPulldown`` *x0-object-type*  renders a dynamic (backend data) HTML form
+``select`` element including ``options``.
 
+.. note::
 
-5.3.1. Object Attributes
+    It is the only *x0-object* getting backend data not by *x0-service-connector* mechanism.
+
+7.6.1. Object Attributes
 ************************
 
 .. table:: Object Type FormfieldDynPulldown Attributes
@@ -727,13 +790,12 @@ The ``"Type": "FormfieldDynPulldown"`` *x0-system-object* .
 	| UpdateOnEvents      | Array of EventIDs    | Array of EventIDs                               |
 	+---------------------+----------------------+-------------------------------------------------+
 
-6.3. FormfieldCheckbox
+7.7. FormfieldCheckbox
 ----------------------
 
-The ``"Type": "FormfieldCheckbox"`` *x0-system-object* .
+The ``FormfieldCheckbox`` *x0-object-type* renders a HTML form ``checkbox`` element.
 
-
-5.3.1. Object Attributes
+7.7.1. Object Attributes
 ************************
 
 .. table:: Object Type FormfieldCheckbox Attributes
@@ -749,13 +811,13 @@ The ``"Type": "FormfieldCheckbox"`` *x0-system-object* .
 	| Value               | Enum Integer         | 1 == checked || 0 == unchecked                  |
 	+---------------------+----------------------+-------------------------------------------------+
 
-6.3. FormfieldHidden
+7.8. FormfieldHidden
 --------------------
 
-The ``"Type": "FormfieldHidden"`` *x0-system-object* .
+The ``FormfieldHidden`` *x0-object-type* renders a non-visible HTML form ``hidden`` element
+very seldomly used to pass non-visible form data to backend services.
 
-
-5.3.1. Object Attributes
+7.8.1. Object Attributes
 ************************
 
 .. table:: Object Type FormfieldHidden Attributes
