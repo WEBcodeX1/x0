@@ -619,8 +619,7 @@ a running example.
 ---------------------
 
 To integrate user based *x0-object-templates* (programmed user based *x0-system-objects*)
-
-``template_file`` and ``setup_class``
+``template_file`` and ``setup_class`` config parameters have to be specified.
 
 .. code-block:: sql
 
@@ -633,4 +632,4 @@ To integrate user based *x0-object-templates* (programmed user based *x0-system-
 
 Template .js files must be placed in *x0-application* ``/static`` subdir to be loaded correctly.
 
-Howto model *x0-system-objects* in detail, see developer documentation ...
+Howto model *x0-system-objects* in detail, see :ref:`devobjectmodeling`.
