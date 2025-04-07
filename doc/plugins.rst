@@ -1,6 +1,8 @@
 .. modules
 
-8. Plugins
-==========
+.. _devplugins:
+
+22. Plugins
+===========
 
 - Wordpress
