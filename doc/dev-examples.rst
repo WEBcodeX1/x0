@@ -1,5 +1,7 @@
 .. dev-examples
 
-8. Examples
-===========
+.. _devexamples:
+
+19. Examples Development
+========================
 

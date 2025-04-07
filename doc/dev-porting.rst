@@ -1,5 +1,7 @@
 .. dev-porting
 
-8. Porting x0-Applications
+.. _devporting:
+
+21. x0-Application Porting
 ==========================
 

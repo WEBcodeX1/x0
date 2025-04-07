@@ -1,7 +1,9 @@
 .. dev-architecture
 
-8. Architecture
-===============
+.. _devarchitecture:
+
+15. Architecture
+================
 
 - Workflows
   - Init
