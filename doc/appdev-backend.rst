@@ -1,6 +1,6 @@
 .. appdev-backend
 
-7. Backend / Services
+8. Backend / Services
 =====================
 
 To exchange data with backend systems the *x0-system* offers various methods to choose from.
@@ -12,7 +12,7 @@ To exchange data with backend systems the *x0-system* offers various methods to 
 The next chapters describe all methods in detail and which method is best suited to a
 specific application.
 
-7.1 ServiceConnector
+8.1 ServiceConnector
 --------------------
 
 A ServiceConnector object defines **where** to get the backend data from and **when**.
@@ -30,8 +30,8 @@ to re-trigger data load.
 .. image:: images/x0-service-connector.png
   :alt: image - service connector
 
-Object Properties
-*****************
+8.1.1. Object Properties
+************************
 
 .. table:: Object Type Div Attributes
 	:widths: 30 20 100
@@ -42,8 +42,8 @@ Object Properties
 	| OnEvent             | JS Object            | Event Properties                                |
 	+---------------------+----------------------+-------------------------------------------------+
 
-Event Properties
-****************
+8.1.2. Event Properties
+***********************
 
 .. table:: Object Type Div Attributes
 	:widths: 30 20 100
@@ -56,8 +56,8 @@ Event Properties
 	| ServiceCall         | Backend Script       | Call Backend Script on raised Event(s)          |
 	+---------------------+----------------------+-------------------------------------------------+
 
-object.json
-***********
+8.1.3. object.json
+******************
 
 Define ServiceConnector metadata in ``object.json``.
 
@@ -76,8 +76,8 @@ Define ServiceConnector metadata in ``object.json``.
 		}
 	}
 
-skeleton.json
-*************
+8.1.4. skeleton.json
+********************
 
 *Connect* as ParentObject in ``skeleton.json``.
 
@@ -99,8 +99,8 @@ skeleton.json
 		}
 	]
 
-7.2 Source Data Objects
------------------------
+8.2. Source Data Objects
+------------------------
 
 *x0-source-data-objects* feature is a very smart way to control **which** data will be
 sent to the backend.
@@ -115,8 +115,8 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
     *x0-source-data-objects* are not only usable in combination with
 	service connector, also buttons support the feature.
 
-Global Objects Array
-********************
+8.2.1. Global Objects Array
+***************************
 
 .. code-block:: javascript
 
@@ -127,8 +127,8 @@ Global Objects Array
 		"ObjectID3"
 	]
 
-Hardcoded Values
-****************
+8.2.2. Hardcoded Values
+***********************
 
 .. code-block:: javascript
 
@@ -143,8 +143,8 @@ Hardcoded Values
 		}
 	}
 
-Global Object
-*************
+8.2.3. Global Object
+********************
 
 .. code-block:: javascript
 
@@ -156,8 +156,8 @@ Global Object
 		}
 	}
 
-Chaining Object Types
-*********************
+8.2.4. Chaining Object Types
+****************************
 
 .. code-block:: javascript
 
@@ -177,18 +177,18 @@ Chaining Object Types
 	}
 
 
-7.3 Global Data
----------------
+8.3. Global Data
+----------------
 
 It is possible to store global data (var / value) ...
 
 * Global Data
 * Screen Global Data
 
-Load Global Data
-****************
+8.3.1. Load Global Data
+***********************
 
-*x0-global-data* will be loaded by *x0-preload-script* at *x0-init* (see ...).
+*x0-global-data* will be loaded by *x0-preload-script* at *x0-init*.
 
 .. code-block:: sql
 
@@ -197,8 +197,8 @@ Load Global Data
 	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'preload_var', '["GlobalVar2"] = "ret_var2"');
 	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'preload_var', '["GlobalVar3"] = "ret_var3"');
 
-Pass Screen Global Data
-***********************
+8.3.2. Pass Screen Global Data
+******************************
 
 To pass values from *x0-screen-global-data* to backend using *x0-source-data-objects* ...
 
@@ -213,8 +213,8 @@ To pass values from *x0-screen-global-data* to backend using *x0-source-data-obj
 		}
 	}
 
-7.4 AAA / Authentication 
-------------------------
+8.4. AAA / Authentication 
+-------------------------
 
 Currently *x0-system* only supports certificate based (Apache2 / ingress-nginx) 
 authentication.
@@ -240,4 +240,4 @@ Internally *x0-system* authentication data will be stored in the following globa
 
 .. warning::
 
-    Also *x0-messaging* component relies on setting ``UserSession`` in the correct way.
+    Also *x0-messaging* component relies on setting ``UserSession`` the correct way.
