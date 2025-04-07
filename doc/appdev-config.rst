@@ -431,8 +431,8 @@ described in detail here: :ref:`system-objects`.
 .. note::
 
     The JSON root type is *Object* type, **not** *Array*. Object definition does
-    not rely on order. Relations rely on order whic are defined in ``skeleton.json``
-    and ``menu.json``.
+    not rely on order. Relations do rely strict on order and are defined in
+    ``skeleton.json`` and ``menu.json``.
 
 .. _skeleton-json:
 
