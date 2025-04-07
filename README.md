@@ -7,6 +7,8 @@
 **x0 (cross-object) JavaScript Framework** /krɒs ɒb.dʒɪkt/  is a modern tool for
 building powerful Web-Browser Realtime-SPA (Single Page Applications) efficiently.
 
+Installation instruction(s) see: [./INSTALL.md](./INSTALL.md)
+
 ## 2. Single Page Application
 
 SPA-applications are modern browser-applications which run *nearly* backend independent,
@@ -26,7 +28,7 @@ See examples section for more information.
 Due to x0 relying on *Bootstrap CSS* cross browser standards for all end-devices are
 guaranteed (CSS Grid system).
 
-Build / maintain only "ONE" single app (even android). IT-budget saved!
+Build / maintain only **ONE** single app (even android). IT-budget saved!
 
 Also x0 does not rely on bootstrap / external JavaScript includes.
 
@@ -74,7 +76,7 @@ of object modeling and how to implement in detail.
 The JSON based kubernetes installer makes it easy to deploy multiple application
 environments in no time.
 
-See [./kubernetes/MINIKUBE.md](./kubernetes/MINIKUBE.md).
+See [./kubernetes/README.md](./kubernetes/README.md).
 
 >[!NOTE]
 > Also minikube on Windows is *partially* supported.
@@ -94,7 +96,7 @@ and subdirs **README.md**.
 local Docker containers or on native Google Kubernetes Engine (GKE).
 
 >[!NOTE]
-> Detailed Documentation for setting up on Minikube (Windows 11) see [./kubernetes/MINIKUBE.md](./kubernetes/MINIKUBE.md).
+> Detailed Documentation for setting up on Minikube (Windows 11) see [./kubernetes/README.md](./kubernetes/README.md).
 
 ### 10.2. Prerequisites
 
@@ -132,4 +134,4 @@ For a better perspective on security, x0-system is PKCS 11 / PKCS 15 compatible
 > and WSGI module.<br>
 > https://github.com/WEBcodeX1/http-1.2.
 
-Milestones are github managed; can be found at "Issues / Milestones".
+Milestones are github managed, see https://github.com/WEBcodeX1/x0/milestones.

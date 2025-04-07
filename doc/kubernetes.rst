@@ -1,5 +1,0 @@
-.. kubernetes
-
-Kubernetes
-==========
-
