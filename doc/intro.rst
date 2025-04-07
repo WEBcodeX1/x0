@@ -15,7 +15,7 @@ powerful Web-Browser **Realtime-SPA (Single Page Applications)** efficiently.
 
 The *x* in *x0* stands for **cross** meaning **communication**.
 *x0-objects* are able to exchange (update) their metadata **directly** via
-JSON metadata.
+JSON metadata internally or sent over network.
 
 1.2. Bootstrap / CSS Themes
 ---------------------------
@@ -164,7 +164,7 @@ Very simplified (invalid JavaScript syntax), defining a new object
     this.addObject(new SQLTextObj(TextID='TXT.DISPLAY'));
     this.addObject(new Formfield(Type='Pulldown', Options=['Option1', 'Option2']));
 
-Now, exactly in the same way defining the *SelfDefinedObject*, it can be
+Now, exactly in the same way defining the **SelfDefinedObject**, it can be
 repeatedly reused to define other new objects.
 
 .. code-block:: javascript
@@ -173,5 +173,5 @@ repeatedly reused to define other new objects.
 
 .. note::
 
-    Detailed information, how to integrate *x0-system-objects*, see
-    developer documentation subsection xyz ... #add ref to developer subsection!
+    Detailed information, how to design / integrate *x0-system-objects*, see
+    developer documentation subsection :ref:`devobjectmodeling`.
