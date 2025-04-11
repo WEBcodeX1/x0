@@ -39,8 +39,10 @@ they are processed.
 ------------
 
 * Backend Service Execution
-* Fire Events *after* successful Form Validation
-* Fire Events *after* successful Service Execution
+* Execute Action **after** successful Form Validation 
+* Fire Events **after** successful Form Validation
+* Execute Action **after** successful Service Execution
+* Fire Events **after** successful Service Execution
 
 .. _appdevcontrolbuttoninternal:
 
@@ -49,7 +51,8 @@ they are processed.
 
 * No Backend Service Execution
 * Form Validation
-* Fire Events *after* on successful Form Validation
+* Execute Action **after** successful Form Validation 
+* Fire Events **after** successful Form Validation
 
 .. _appdevcontrollink:
 
@@ -66,4 +69,5 @@ they are processed.
 10.4. LinkExternal
 ------------------
 
-* Open External Link Only
+* Open External Link Only in current Browser Window
+* Open External Link Only in new Browser Tab
