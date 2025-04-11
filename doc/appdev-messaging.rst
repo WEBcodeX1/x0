@@ -1,6 +1,6 @@
 .. appdev-messaging
 
-13. Messaging
+14. Messaging
 =============
 
 Messaging is used to transfer JSON Object-Data between Network Clients including
@@ -21,30 +21,48 @@ Start the messaging server with the following commands.
     ./x0-start-msg-server.sh
 
 Internally *x0-system* uses long polling mechanism which still runs stable
-and on HTTP/1.1.
+and performant on HTTP/1.1. Polling timeout is set to 10 seconds.
 
 .. warning::
 
-    Running the micro-msg-server is not intended for production use.
+    Running the *micro-msg-server* is **not** intended for production use.
     Some system similar to rabbit-mq should be considered when processing heavy
-    loads.
+    messaging loads.
 
-13.1. Example
+.. warning::
+
+    Also the messaging server code differs (patched) from the original and
+    will only work with example code.
+
+14.1. Example
 -------------
 
-Example requires CORS to be disabled in Browser because port 8080 is
-misinterpreted by first OPTIONS client request.
-
-For Firefox, do this by setting the following config option. Afterwards
-example is runnable.
-
-.. code-block:: bash
-
-    content.cors.disable = true
+The following example exchanges form metadata from users session a)
+over the network to user session b).
 
 * http://x0-app.x0.localnet/python/Index.py?appid=example10
 
-13.2. Messaging Format
-----------------------
+To test message exchange, open the given URL in multiple (two) browser tabs
+and reload until two different user ids in the ``User ID`` form (user ids are
+random generated) will be displayed.
+
+Now select the correct destination ``User Dst SessionID``. Clicking the 
+``Send Data`` button will exchange the data and display the form data entered
+in the source users browser as soon as possible.
+
+.. warning::
+
+    The example code does not emphasise on security. It is no good idea to
+    exchange user-sessions between network clients. Normally this is the backends
+    job after a successful user authentication (user-id / session-id mapping).
+
+.. warning::
+
+    Also to simplify things message deletion takes place directly after returning
+    on msg-server side. This workflow is not acceptable in real-world scenarios,
+    the deletion has to be re-triggered after receipt on client-side.
+
+14.2. Internal Messaging Format
+-------------------------------
 
 Coming soon.
