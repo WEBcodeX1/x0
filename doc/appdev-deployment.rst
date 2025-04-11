@@ -1,6 +1,6 @@
 .. appdev-deployment
 
-14. Deployment
+15. Deployment
 ==============
 
 The *x0-deployment* main goal is to get multiple production ready GKE
@@ -20,7 +20,7 @@ Following, our proposed deployment workflow.
 
 .. _appdeployment-standalone:
 
-14.1. Standalone
+15.1. Standalone
 ----------------
 
 Standalone installation provides packages for Ubuntu 22.04.
@@ -36,7 +36,7 @@ avoid unneccessary effort.
 
 .. _appdeployment-docker:
 
-14.2. Docker
+15.2. Docker
 ------------
 
 The *x0-docker-environment* is primarily intended to test your application
@@ -68,7 +68,7 @@ Docker on Windows
 
 .. _appdeployment-kubernetes:
 
-14.3. Kubernetes
+15.3. Kubernetes
 ----------------
 
 The kubernetes installer (Setup.py )
@@ -84,7 +84,7 @@ The kubernetes installer (Setup.py )
 * Virtual Hosts
 * x0-Applications
 
-14.3.1. Base Properties
+15.3.1. Base Properties
 ***********************
 
 .. table:: Kubernetes Installer Base Properties
@@ -93,20 +93,20 @@ The kubernetes installer (Setup.py )
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
 	+=====================+======================+=================================================+
-	| project             | Object               |                                                 |
+	| project             | Object               | Project Properties (name, id, git-repo)         |
 	+---------------------+----------------------+-------------------------------------------------+
-	| installer           | Object               |                                                 |
+	| installer           | Object               | Installer Properties (type)                     |
 	+---------------------+----------------------+-------------------------------------------------+
-	| database            | Object               |                                                 |
+	| database            | Object               | Database Authentication Properties              |
 	+---------------------+----------------------+-------------------------------------------------+
-	| env_list            | Array of EnvStrings  |                                                 |
+	| env_list            | Array of EnvStrings  | Environments List                               |
 	+---------------------+----------------------+-------------------------------------------------+
-	| environments        | Object               |                                                 |
+	| environments        | Object               | Environments Objects Declaration                |
 	+---------------------+----------------------+-------------------------------------------------+
-	| vhosts              | Object               |                                                 |
+	| vhosts              | Object               | VHosts Object Declaration                       |
 	+---------------------+----------------------+-------------------------------------------------+
 
-14.3.2. Project Properties
+15.3.2. Project Properties
 **************************
 
 .. table:: Kubernetes Installer Base Properties
@@ -115,14 +115,14 @@ The kubernetes installer (Setup.py )
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
 	+=====================+======================+=================================================+
-	| name                | String               |                                                 |
+	| name                | String               | Project Name                                    |
 	+---------------------+----------------------+-------------------------------------------------+
-	| id                  | String               |                                                 |
+	| id                  | String               | Project ID (in case )                           |
 	+---------------------+----------------------+-------------------------------------------------+
-	| git-repo            | String               |                                                 |
+	| git-repo            | String               | Git Repository (Docker Registry Ref)            |
 	+---------------------+----------------------+-------------------------------------------------+
 
-14.3.3. Installer Properties
+15.3.3. Installer Properties
 ****************************
 
 .. table:: Kubernetes Installer Installer Properties
@@ -131,10 +131,10 @@ The kubernetes installer (Setup.py )
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
 	+=====================+======================+=================================================+
-	| type                | Enum String          | "x0" | "debian-package"                         |
+	| type (installer)    | Enum InstallerString | "x0" or "debian-package" or "default"           |
 	+---------------------+----------------------+-------------------------------------------------+
 
-14.3.4. Database Properties
+15.3.4. Database Properties
 ***************************
 
 .. table:: Kubernetes Installer Database Properties
@@ -143,20 +143,20 @@ The kubernetes installer (Setup.py )
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
 	+=====================+======================+=================================================+
-	| name                | String               |                                                 |
+	| name                | String               | Main System Database Name                       |
 	+---------------------+----------------------+-------------------------------------------------+
-	| su_password         | String               |                                                 |
+	| su_password         | String               | Postgres Super User Password                    |
 	+---------------------+----------------------+-------------------------------------------------+
-	| x0_password         | String               |                                                 |
+	| x0_password         | String               | x0 Web Application User Password                |
 	+---------------------+----------------------+-------------------------------------------------+
-	| repl_password       | String               |                                                 |
+	| repl_password       | String               | Kubergres Replication Password                  |
 	+---------------------+----------------------+-------------------------------------------------+
 
-14.3.5. Environment Element
+15.3.5. Environment Element
 ***************************
 
 .. table:: Kubernetes Installer Environment Element Properties
-	:widths: 30 20 50
+	:widths: 30 10 60
 
 	+-----------------------------------------+----------------------+-------------------------------------------------+
 	| **Property**                            | **Type**             | **Description**                                 |
@@ -182,11 +182,11 @@ The kubernetes installer (Setup.py )
 	| $env.database.replicas                  | Integer              |                                                 |
 	+-----------------------------------------+----------------------+-------------------------------------------------+
 
-14.3.6. VirtualHost Element
+15.3.6. VirtualHost Element
 ***************************
 
 .. table:: Kubernetes Installer VirtualHost Element Properties
-	:widths: 30 20 50
+	:widths: 30 10 60
 
 	+-----------------------------------------+----------------------+-------------------------------------------------+
 	| **Property**                            | **Type**             | **Description**                                 |
