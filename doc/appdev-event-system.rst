@@ -41,7 +41,7 @@ they are processed.
 * Backend Service Execution
 * Execute Action **after** successful Form Validation 
 * Fire Events **after** successful Form Validation
-* Execute Action **after** successful Service Execution
+* Execute OnResult Actions **after** successful Service Execution
 * Fire Events **after** successful Service Execution
 
 .. _appdevcontrolbuttoninternal:
