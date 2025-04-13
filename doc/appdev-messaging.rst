@@ -23,6 +23,8 @@ Start the messaging server with the following commands.
 Internally *x0-system* uses long polling mechanism which still runs stable
 and performant on HTTP/1.1. Polling timeout is set to 10 seconds.
 
+It is planned to replace this method by web-sockets in the near future.
+
 .. warning::
 
     Running the *micro-msg-server* is **not** intended for production use.
