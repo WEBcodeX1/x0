@@ -1,7 +1,7 @@
-.. clickIT x0 (Cross-Objects) JavaScript Framework Documentation.
+.. x0 JavaScript Framework Documentation.
 
-clickIT x0 Framework Documentation v1.0rc2
-===========================================
+x0 Framework Documentation v0.99
+================================
 
 .. toctree::
    :maxdepth: 2
@@ -9,24 +9,24 @@ clickIT x0 Framework Documentation v1.0rc2
 
    intro
    installation
-   base-layout
-   config-files
-   system-workflows
-   base-objects
-   control-logic
-   pulldown-onchange
-   enhanced-formating
-   object-communication
-   source-data
-   backend-integration
-   oop-model
-   enhanced-objects
-   object-instances
-   event-system
-   error-handling
-   wizards
-   examples
-   tests
+   appdev-config
+   appdev-global
+   appdev-objects
+   appdev-backend
+   appdev-event-system
+   appdev-forms
+   appdev-overlay
+   appdev-messaging
+   appdev-deployment
+   dev-architecture
+   dev-oop-model
+   dev-backend
+   dev-tests
+   dev-examples
+   dev-object-modeling
+   dev-porting
+   plugins
+   glossary
 
 Indices and tables
 ==================
