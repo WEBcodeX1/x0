@@ -65,30 +65,183 @@ rendered *x0-form-objects* when their state changes.
 11.3.1. EnableOnValues
 **********************
 
+Valid for *x0-object-type* FormfieldPulldown.
+
+Enable *x0-object* with ``ObjectID`` (set visible) when selected pulldown **value**
+matches the given value in EnableOnValues Array.
+
+``EnableOnValues`` must be specified in combination with ``DisableOnValues``
+attribute to work properly.
+
+Example see DisableOnValues.
 
 11.3.2. DisableOnValues
 ***********************
 
+Valid for *x0-object-type* FormfieldPulldown.
+
+Disable *x0-object* with ``ObjectID`` (set invisible) when selected pulldown
+**value** matches the given value in DisableOnValues Array.
+
+``DisableOnValues`` must be specified in combination with ``EnableOnValues``
+attribute to work properly.
+
+The following example will enable destination object **RecordPriority**
+when MX record type is selected and disable when A or CNAME selected.
+
+.. code-block:: javascript
+
+	"RecordType": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "pulldown",
+			"Style": "form-select w-100",
+			"Options": [
+				{
+					"TextID": "TXT.PULLDOWN.RECORD-TYPE.A",
+					"Value": "A",
+					"Default": true
+				},
+				{
+					"TextID": "TXT.PULLDOWN.RECORD-TYPE.CNAME",
+					"Value": "CNAME"
+				},
+				{
+					"TextID": "TXT.PULLDOWN.RECORD-TYPE.MX",
+					"Value": "MX"
+				}
+			],
+			"OnChange": {
+				"ObjectID": "RecordPriority",
+				"EnableOnValues": [
+					"MX"
+				],
+				"DisableOnValues": [
+					"A",
+					"CNAME"
+				]
+			}
+		}
+	}
 
 11.3.3. ActivateOnValues
 ************************
 
+Valid for *x0-object-type* FormfieldPulldown.
+
+Same as EnableOnValues with the difference that the internal object state
+is set to **activated**.
+
+Objects with deactivated state will be ommitted from validation.
+
 11.3.4. DeactivateOnValues
 **************************
+
+Same as DisableOnValues with the difference that the internal object state
+is set to **deactivated**.
 
 11.3.5. UpdateFormLength
 ************************
 
+Valid for *x0-object-type* FormfieldText and FormfieldTextarea.
+
+Update destination object with current objects input length.
 
 11.3.6. FireEvents
 ******************
 
+Globally fire Events on any objects state change.
+
+.. code-block:: javascript
+
+	"OnChange": {
+		"FireEvents": [ "EventID1", "EventID2" ]
+	}
+
 11.3.7. Chaining Events
 ***********************
 
+Multiple OnChange config can be specified if provided as **Array** type. 
 
-11.4. Validating Sources
-------------------------
+.. code-block:: javascript
+
+	"OnChange": [
+		{
+			"ObjectID": "RecordPriority",
+			"EnableOnValues": [
+				"MX"
+			],
+			"DisableOnValues": [
+				"A",
+				"CNAME"
+			]
+		},
+		{
+			"FireEvents": [ "EventID1", "EventID2" ]
+		}
+	]
+
+11.4. System Validation Types
+-----------------------------
+
+11.4.1. Regex
+*************
+
+* DefaultString
+* DefaultAtoZ
+* DefaultInteger
+* DefaultAtoZPlusNumbers
+* DefaultAtoZUpper
+* ZipCodeGerman
+* UserName
+* UserPass
+* UserGroup
+* MailAddress
+* PhoneNrInternational
+* PhoneNrGerman
+* PhoneNrAreaGerman
+* PhoneNrCountryCode
+* Country
+* StreetNr
+* EuroWithCents
+* BarcodeZebra
+
+11.4.2. Functions
+*****************
+
+* MinMax
+* MaxLength
+* IPAddress
+* IPv4Address
+* IPv6Address
+* IPAddressSubnet
+* IPPort
+* DNSRecordName
+* DateInternational
+* DateGerman
+
+11.4.3. Group Functions
+***********************
+
+* CheckUnique
+* CheckNull
+* CheckEmpty
+* CheckDatePeriodOneYear
+* CheckItemsOr
+* CheckItemsMatch
+* CheckTableRows
+* MinOneItemNotNull
+* DNSRecordValuePlusType
 
 11.5. Providing User Validation
 -------------------------------
+
+To integrate your own user based *x0-validation-functions*, define them in
+``userFunctions.js`` and reference in system database configuration.
+
+.. code-block:: sql
+
+    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[0] = "FunctionNr1"');
+    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[1] = "FunctionNr2"');
+    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[2] = "FunctionNr3"');
+    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[3] = "FunctionNr4"');
