@@ -213,7 +213,36 @@ To pass values from *x0-screen-global-data* to backend using *x0-source-data-obj
 		}
 	}
 
-8.4. AAA / Authentication 
+8.4. Notify Indicator
+---------------------
+
+To provide the user with status information (notify) a notification-indicator
+per backend service call is configurable.
+
+Add a notify indicator by adding "Notify" attribute to *x0-button-type* like
+shown in the following example. 
+
+.. code-block:: javascript
+
+	"ButtonSubmit": {
+		"Type": "Button",
+		"Attributes": {
+			"TextID": "TXT.BUTTON.SUBMIT",
+			"Style": "btn btn-primary w-100 mt-3",
+			"OnClick": "/python/example-service.py",
+			"SrcDataObjects": [
+				"FormfieldList1",
+				"FormfieldObject1",
+				"FormfieldObject2"
+			],
+			"Notify": {
+				"ID": "SubmitIdentifier",
+				"DisplayHeaderID": "TXT.NOTIFY.EXAMPLE"
+			}
+		}
+	}
+
+8.5. AAA / Authentication 
 -------------------------
 
 Currently *x0-system* only supports certificate based (Apache2 / ingress-nginx) 
