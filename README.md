@@ -7,7 +7,8 @@
 **x0 (cross-object) JavaScript Framework** /krɒs ɒb.dʒɪkt/  is a modern tool for
 building powerful Web-Browser Realtime-SPA (Single Page Applications) efficiently.
 
-Installation instruction(s) see: [./INSTALL.md](./INSTALL.md)
+Installation instruction(s) see: [./INSTALL.md](./INSTALL.md).<br>
+Rendered Sphinx documentation: https://docs.webcodex.de/x0/v1.0/.
 
 ## 2. Single Page Application
 
