@@ -2,7 +2,7 @@
 
 .. _devarchitecture:
 
-15. Architecture
+16. Architecture
 ================
 
 - Workflows

@@ -2,7 +2,7 @@
 
 .. _glossary:
 
-23. Glossary
+24. Glossary
 ============
 
 - Generated?

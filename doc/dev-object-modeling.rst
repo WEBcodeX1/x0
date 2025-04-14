@@ -2,7 +2,7 @@
 
 .. _devobjectmodeling:
 
-20. x0-Object Modeling
+21. x0-Object Modeling
 ======================
 
 - Event Handler
