@@ -20,7 +20,7 @@ though getting more and more close to *real* desktop-apps.
 What does the cross stand for you might ask. **Communication**.
 
 Due to the x0-systems clean OOP model, each object is able to e"x"change its data
-container between client(s) *directly*.
+container internally and over the network between client(s) *directly*.
 
 See examples section for more information.
 
