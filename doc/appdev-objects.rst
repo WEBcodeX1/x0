@@ -690,8 +690,8 @@ The ``FormfieldLabel`` *x0-object-type* renders a HTML form input type ``label``
 
 .. _objecttype-formfieldtextarea:
 
-7.34. FormfieldTextarea
------------------------
+7.4. FormfieldTextarea
+----------------------
 
 The ``FormfieldTextarea`` *x0-object-type* renders a HTML form ``textarea`` element.
 
