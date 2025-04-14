@@ -2,7 +2,7 @@
 
 .. _devplugins:
 
-22. Plugins
+23. Plugins
 ===========
 
 - Wordpress
