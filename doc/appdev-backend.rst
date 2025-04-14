@@ -64,7 +64,7 @@ Define ServiceConnector metadata in ``object.json``.
 .. code-block:: javascript
 
 	"TestConnector1":
-    {
+	{
 		"Type": "ServiceConnector",
 		"Attributes":
 		{
@@ -84,7 +84,7 @@ Define ServiceConnector metadata in ``object.json``.
 .. code-block:: javascript
 
 	"Screen1":
-    [
+	[
 		{
 			"TestConnector1":
 			{
@@ -121,7 +121,7 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
 .. code-block:: javascript
 
 	"SrcDataObjects":
-    [
+	[
 		"ObjectID1",
 		"ObjectID2",
 		"ObjectID3"
@@ -133,7 +133,7 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
 .. code-block:: javascript
 
 	"SrcDataObjects":
-    {
+	{
 		"Dummy":
 		{
 			"Type": "HardcodedValues",
@@ -149,7 +149,7 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
 .. code-block:: javascript
 
 	"SrcDataObjects":
-    {
+	{
 		"$ObjectID":
 		{
 			"Type": "GlobalObject"
@@ -162,7 +162,7 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
 .. code-block:: javascript
 
 	"SrcDataObjects":
-    {
+	{
 		"$ObjectID":
 		{
 			"Type": "GlobalObject"
@@ -205,7 +205,7 @@ To pass values from *x0-screen-global-data* to backend using *x0-source-data-obj
 .. code-block:: javascript
 
 	"SrcDataObjects":
-    {
+	{
 		"$ObjectID":
 		{
 			"Type": "ScreenGlobalVar",
