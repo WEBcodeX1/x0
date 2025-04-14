@@ -241,7 +241,7 @@ To integrate your own user based *x0-validation-functions*, define them in
 
 .. code-block:: sql
 
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[0] = "FunctionNr1"');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[1] = "FunctionNr2"');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[2] = "FunctionNr3"');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[3] = "FunctionNr4"');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[0] = "FunctionNr1"');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[1] = "FunctionNr2"');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[2] = "FunctionNr3"');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[3] = "FunctionNr4"');

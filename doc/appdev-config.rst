@@ -1,4 +1,4 @@
-.. appdev-config
+1.. appdev-config
 
 .. _appdevconfig:
 
@@ -272,11 +272,11 @@ The following database users will be created on docker *x0-db* image build.
     +-------------------------------+-----------------+-------------------------------------+
     | **Database User**             | **DB User**     | **Description**                     |
     +===============================+=================+=====================================+
-    | su_password                   | postgres        | Database Superuser Auth             |
+    | su_password                   | postgres        | Database Superuser Auth PWD         |
     +-------------------------------+-----------------+-------------------------------------+
-    | x0_password                   | x0              | Global Web-Backend User Auth        |
+    | x0_password                   | x0              | Global Web-Backend User Auth PWD    |
     +-------------------------------+-----------------+-------------------------------------+
-    | repl_password                 |                 | Kubegres Replication User Auth      |
+    | repl_password                 | replication     | Kubegres Replication User Auth PWD  |
     +-------------------------------+-----------------+-------------------------------------+
 
 3.3.2. Virtual Hosts
@@ -366,7 +366,7 @@ Following, the *x0-systems* current default configuration.
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
 	+=====================+======================+=================================================+
-	| vhosts              | Object               | Virtual Host Elements                           |
+	| vhosts              | Object of VHElements | Virtual Host Elements / Configuration           |
 	+---------------------+----------------------+-------------------------------------------------+
 
 3. $VhostConfig "apps" Property
@@ -390,9 +390,9 @@ Following, the *x0-systems* current default configuration.
 	+---------------------+----------------------+-------------------------------------------------+
 	| **Property**        | **Type**             | **Description**                                 |
 	+=====================+======================+=================================================+
-	| dns.hostname        | String               | DNS Hostname                                    |
+	| dns.hostname        | Host String          | DNS Hostname used for hostname.domain FQDN      |
 	+---------------------+----------------------+-------------------------------------------------+
-	| dns.domain          | String               | DNS Domain                                      |
+	| dns.domain          | Domain String        | DNS Domain used for hostname.domain FQDN        |
 	+---------------------+----------------------+-------------------------------------------------+
 
 3.4. System Metadata

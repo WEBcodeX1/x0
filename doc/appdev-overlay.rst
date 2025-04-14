@@ -45,7 +45,7 @@ appended to ``Formlist2``.
 		"Attributes": {
 			"Sections": [
 				{
-                    ...
+					...
 				}
 			]
 		}
@@ -65,7 +65,7 @@ will get a unique id.
 .. code-block:: javascript
 
 	"FormList1": {
-        "InstancePrefix": "PrefixID",
+		"InstancePrefix": "PrefixID",
 		"RefID": "FormList2",
 		"Attributes": {
 		}
@@ -87,7 +87,7 @@ You can replace attributes in the referenced object by providing
 	"FormList1": {
 		"RefID": "FormList2",
 		"AttributesReplace": [
-            { "": "" },
-            { "": "" }
-        ]
+			{ "": "" },
+			{ "": "" }
+		]
 	}

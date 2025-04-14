@@ -162,9 +162,9 @@ Details see :ref:`appdevcontrolbutton`.
 	+---------------------+------------------------------------------------------------------------+
 	| disable             | Set DOM Visible State "hidden"                                         |
 	+---------------------+------------------------------------------------------------------------+
-	| activate            | Set Internal State "active" (validate)                                 |
+	| activate            | Set Internal State to "active" (processing validation)                 |
 	+---------------------+------------------------------------------------------------------------+
-	| deactivate          | Set Internal State "inactive" (no validate)                            |
+	| deactivate          | Set Internal State to "inactive" (ommitting from validation)           |
 	+---------------------+------------------------------------------------------------------------+
 	| reset               | Call Objects reset() Method                                            |
 	+---------------------+------------------------------------------------------------------------+
@@ -184,9 +184,9 @@ Details see :ref:`appdevcontrolbutton`.
 	+---------------------+------------------------------------------------------------------------+
 	| disable             | Set DOM Visible State "hidden"                                         |
 	+---------------------+------------------------------------------------------------------------+
-	| activate            | Set Internal State "active" (validate)                                 |
+	| activate            | Set Internal State to "active" (processing validation)                 |
 	+---------------------+------------------------------------------------------------------------+
-	| deactivate          | Set Internal State "inactive" (no validate)                            |
+	| deactivate          | Set Internal State to "inactive" (ommitting from validation)           |
 	+---------------------+------------------------------------------------------------------------+
 	| reset               | Call Objects reset() Method                                            |
 	+---------------------+------------------------------------------------------------------------+
@@ -293,7 +293,7 @@ The ``LinkExternal`` *x0-object-type* controls howto open external URLs.
 	+---------------------+----------------------+-------------------------------------------------+
 	| LinkURL             | URL-String           | Link URL                                        |
 	+---------------------+----------------------+-------------------------------------------------+
-	| OpenInTab           | Boolean              | Open Link in new Browser Tab                    |
+	| OpenInTab           | Boolean              | Open Link in new, additional Browser Tab        |
 	+---------------------+----------------------+-------------------------------------------------+
 
 6.6.2. JSON Example
@@ -563,7 +563,7 @@ More info at :ref:`appdevforms`.
 	+=====================+======================+=================================================+
 	| HiddenFields        | Array                | Array of Formfield IDs                          |
 	+---------------------+----------------------+-------------------------------------------------+
-	| Sections            | Array of Elements    | Array of Section Objects                        |
+	| Sections            | Array of Elements    | Array of Section Objects / Section Properties   |
 	+---------------------+----------------------+-------------------------------------------------+
 
 7.1.2. Section Attributes
@@ -574,7 +574,7 @@ More info at :ref:`appdevforms`.
 	+=====================+======================+=================================================+
 	| ID                  | String               | Section Identifier                              |
 	+---------------------+----------------------+-------------------------------------------------+
-	| Object              | String               | Header x0-object Reference                      |
+	| Object              | String               | Header to x0-object (existing) Reference        |
 	+---------------------+----------------------+-------------------------------------------------+
 	| ObjectAttributes    | Object               | Header Properties                               |
 	+---------------------+----------------------+-------------------------------------------------+
@@ -584,19 +584,19 @@ More info at :ref:`appdevforms`.
 7.1.3. Section Object Attributes
 ********************************
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
-	| SubStyle            | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
-	| HeaderIcon          | CSS-String           | Fontawesome Icon CSS for Prepend Icon           |
-	+---------------------+----------------------+-------------------------------------------------+
-	| HeaderTextID        | TextID-String        | TextID referenced in "webui.text" DB Table      |
-	+---------------------+----------------------+-------------------------------------------------+
-	| SubHeaderTextID     | TextID-String        | TextID referenced in "webui.text" DB Table      |
-	+---------------------+----------------------+-------------------------------------------------+
+	+---------------------+---------------+--------------------------------------------------------+
+	| **Property**        | **Type**      | **Description**                                        |
+	+=====================+===============+========================================================+
+	| Style               | CSS-String    | CSS Style Classes, space separated                     |
+	+---------------------+---------------+--------------------------------------------------------+
+	| SubStyle            | CSS-String    | CSS Style Classes, space separated                     |
+	+---------------------+---------------+--------------------------------------------------------+
+	| HeaderIcon          | CSS-String    | Fontawesome Icon CSS for Prepend Icon                  |
+	+---------------------+---------------+--------------------------------------------------------+
+	| HeaderTextID        | TextID-String | TextID referenced in "webui.text" DB Table / Multilang |
+	+---------------------+---------------+--------------------------------------------------------+
+	| SubHeaderTextID     | TextID-String | TextID referenced in "webui.text" DB Table / Multilang |
+	+---------------------+---------------+--------------------------------------------------------+
 
 7.1.4. Grid Attributes
 **********************
