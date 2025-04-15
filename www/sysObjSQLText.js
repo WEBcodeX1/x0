@@ -19,8 +19,8 @@ function sysObjSQLText() {
 	this.TextID				= null;
 	this.EventListeners		= new Object();
 	this.ChildObjects		= new Array();
-	this.IconHTMLPre = '';
-	this.IconHTMLPost = '';
+	this.IconHTMLPre		= '';
+	this.IconHTMLPost		= '';
 }
 
 //- inherit sysBaseObject
