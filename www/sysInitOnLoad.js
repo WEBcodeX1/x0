@@ -38,13 +38,10 @@ function Init() {
 	else {
 		var paramString = new URLSearchParams(document.URL);
 
-		var UserSession = new Object();
-		UserSession['user_session'] = paramString.get('user_session');
-
 		var XHR = new XMLHttpRequest();
 		XHR.upload.addEventListener('error', this.InitError);
 		XHR.open('POST', sysVarPreLoadScript);
-		XHR.send(JSON.stringify(UserSession));
+		XHR.send(null);
 		XHR.onreadystatechange = function() {
 			if (XHR.readyState == 4 && XHR.status == 200) {
 				InitOk(XHR);
@@ -54,18 +51,17 @@ function Init() {
 }
 
 function InitError() {
-	alert('System Backend Error');
+	alert('Critical System Error');
 }
 
 function InitOk(XHR) {
 
 	//----------------------------------------------------------------------------
-	//- Parse User Session
+	//- Set User ID / Session
 	//----------------------------------------------------------------------------
 
-	const paramString = new URLSearchParams(document.URL);
-	const UserSession = paramString.get('user_session');
-
+	var UserID = null;
+	var UserSession = null;
 
 	//----------------------------------------------------------------------------
 	//- Construct Global Object Factory (Main Object Handler)
@@ -85,16 +81,17 @@ function InitOk(XHR) {
 		for (Key in sysVarPreLoadVars) {
 			sysFactory.ObjGlobalData[Key] = InsertResult[sysVarPreLoadVars[Key]];
 		}
+		try {
+			UserID = sysFactory.ObjGlobalData['UserID'];
+			UserSession = sysFactory.ObjGlobalData['UserSession'];
+		}
+		catch {
+			console.debug('No user data supplied by backend');
+		}
 	}
 
 	if (sysVarScreenConfig !== undefined) {
 		sysFactory.ScreenConfig = sysVarScreenConfig;
-		try {
-			sysFactory.ScreenConfig['Register']['OnScreenSwitch']['ScriptParams']['UserSession'] = UserSession;
-		}
-		catch(err) {
-			console.debug('User session replacement failed.');
-		}
 	}
 
 
@@ -133,10 +130,9 @@ function InitOk(XHR) {
 
 	sysFactory.SysDebugLevel				= sysVarDebugLevel;
 	sysFactory.SysSessionID					= 'SYS_SESSION';
+	sysFactory.SysUserID					= UserID;
 	sysFactory.SysSessionValue				= UserSession;
-	sysFactory.MsgServerGetURL				= '/python/getMessages.py';
-	sysFactory.MsgServerDelURL				= '/python/delMessages.py';
-	sysFactory.AddEncryptedMsgURL			= '/python/addEncryptedMessage.py';
+	sysFactory.MsgServerGetURL				= 'http://x0-msg-server.x0.localnet:8080/python/MsgHandler.py';
 
 	sysFactory.ParentWindowURL				= sysVarParentWindowURL;
 
