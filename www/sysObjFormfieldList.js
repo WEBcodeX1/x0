@@ -85,21 +85,21 @@ sysFormfieldList.prototype.init = function()
 //------------------------------------------------------------------------------
 //- METHOD "setupFormItem"
 //------------------------------------------------------------------------------
+
 sysFormfieldList.prototype.setupFormItem = function(FormID, Attributes, FormJSONConfig)
 {
 	try {
+
 		var FormObj = new sysFormfieldSelector(Attributes.Type);
 
 		FormObj.JSONConfig			= FormJSONConfig;
 
-		FormObj.ObjectID			= 'enclose__' + FormID;
-		FormObj.FormObjectID		= FormID;
+		FormObj.ObjectID			= FormID;
 		FormObj.overrideDOMObjectID	= true;
 		FormObj.DOMObjectID			= this.ObjectID + '__enclose__' + FormID;
 		FormObj.ObjectType			= Attributes.Type;
 		FormObj.ScreenObject 		= this.ScreenObject;
 		FormObj.ParentObject		= this;
-		//FormObj.Index				= FormIndex;
 
 		FormObj.init();
 		return FormObj;
@@ -176,9 +176,7 @@ sysFormfieldList.prototype.getServiceData = function()
 
 sysFormfieldList.prototype.callbackXMLRPCAsync = function()
 {
-	//console.debug('sysFormfieldList update FormItems:%o', this.FormfieldItems);
-
-	for (ItemKey in this.FormfieldItems) {
+	for (const ItemKey in this.FormfieldItems) {
 		FormItem = this.FormfieldItems[ItemKey];
 		//console.debug('update Key:%s FormItem:%o', ItemKey, FormItem);
 		FormItem.updateDBValue(this.XMLRPCResultData[0]);
@@ -192,19 +190,10 @@ sysFormfieldList.prototype.callbackXMLRPCAsync = function()
 
 sysFormfieldList.prototype.setData = function(DataObj)
 {
-	//console.debug('::setData DataObj:%o Formfields:%o isOverlay:%s', DataObj, this.FormfieldItems, this.isOverlay);
-
-	//console.debug('NewData:%o', NewData);
-
-	if (DataObj !== undefined) {
-		for (const FormID in this.FormfieldItems) {
-			FormItem = this.FormfieldItems[FormID];
-			//console.debug('FormItem:%o', FormItem);
-			if (FormItem !== undefined) {
-				FormItem.Value = DataObj[FormID];
-				FormItem.updateFormItemValue();
-			}
-		}
+	for (const ItemKey in this.FormfieldItems) {
+		FormItem = this.FormfieldItems[ItemKey];
+		//console.debug('FormItem:%o', FormItem);
+		FormItem.RuntimeSetDataFunc(DataObj[ItemKey]);
 	}
 }
 
@@ -352,8 +341,8 @@ sysFormfieldList.prototype.getFormfieldItemByID = function(ObjectID)
 sysFormfieldList.prototype.reset = function()
 {
 	console.debug('Formlist reset() called.');
-	for (FormKey in this.FormfieldItems) {
-		const FormItemID = this.FormfieldItems[FormKey].ObjectID;
+	for (ItemKey in this.FormfieldItems) {
+		const FormItemID = this.FormfieldItems[ItemKey].ObjectID;
 		const FormItemObj = sysFactory.getObjectByID(FormItemID);
 		console.debug('reset Object:%o', FormItemObj);
 		FormItemObj.reset();
