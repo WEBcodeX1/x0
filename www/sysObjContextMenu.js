@@ -218,7 +218,6 @@ sysContextMenu.prototype.processItems = function()
 
 		ItemColDescrTextObj.TextID = ItemObj.TextID;
 
-
 		ItemColDescrTextObj.init();
 
 		ItemColDescrObj.addObject(ItemColDescrTextObj);
