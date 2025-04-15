@@ -486,7 +486,7 @@ function sysFormFieldValidateGroup()
 		'CheckTableRows':					this.CheckTableRows,
 		'MinOneItemNotNull':				this.MinOneItemNotNull,
 		'DNSRecordValuePlusType':			this.DNSRecordValuePlusType
-    }
+	}
 }
 
 
