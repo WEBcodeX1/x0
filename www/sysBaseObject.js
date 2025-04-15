@@ -284,13 +284,6 @@ sysBaseObject.prototype.getObjectData = function()
 {
 	console.debug('::BaseObject getObjectData() this:%o', this);
 	return this.RuntimeGetDataFunc();
-	/*
-	this.GetDataResult = this.RuntimeGetDataFunc();
-
-	for (ChildItem of this.ChildObjects) {
-		this.GetDataResultChildren.push(ChildItem.getObjectData());
-	}
-	*/
 }
 
 
@@ -300,13 +293,7 @@ sysBaseObject.prototype.getObjectData = function()
 
 sysBaseObject.prototype.setObjectData = function(Data)
 {
-	//console.debug('BaseObject setObjectData() this:%o Data:%o', this, Data);
-	try {
-		this.ParentObject.RuntimeSetDataFunc(Data); //- mv to OBJECT!
-	}
-	catch(err) {
-		this.RuntimeSetDataFunc(Data);
-	}
+	this.RuntimeSetDataFunc(Data);
 }
 
 
