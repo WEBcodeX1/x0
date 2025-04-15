@@ -20,15 +20,15 @@ function sysObjLink()
 	this.EventListeners				= new Object(); 		//- Event Listeners
 	this.ChildObjects				= Array();				//- Child Objects
 
-	this.ScreenID					= null;
-	this.TextID						= null;
-	this.FireEvents					= null;
-	this.ScreenOverlayID			= null;
-	this.ScreenOverlayAttributes	= null;
+	this.ScreenID					= null;					//- ScreenID
+	this.TextID						= null;					//- TextID
+	this.FireEvents					= null;					//- Dispatch Events
+	this.OverlayID					= null;					//- Open OverlayID
+	this.OverlayAttributes			= null;					//- Overlay Open Attributes
 
 	this.DOMType					= 'button'				//- Set DOM Element Type
 
-	this.LinkHilteStyle 			= 'sysMenuLinkHilite';
+	this.LinkHilteStyle 			= null;
 }
 
 sysObjLink.prototype = new sysBaseObject();
@@ -45,21 +45,20 @@ sysObjLink.prototype.init = function()
 	console.debug('set Link Attributes:%o', Attributes);
 
 	this.DOMStyle = Attributes.Style;
+	this.LinkHilteStyle = Attributes.HiliteStyle;
 
 	this.ScreenID = Attributes.ScreenID;
 	this.ScreenStyle = Attributes.ScreenStyle;
 	this.TextID	= Attributes.TextID;
 	this.FireEvents	= Attributes.FireEvents;
-	this.ScreenOverlayID= Attributes.ScreenOverlayID;
-	this.ScreenOverlayAttributes = Attributes.ScreenOverlayAttributes;
+	this.OverlayID= Attributes.OverlayID;
+	this.OverlayAttributes = Attributes.OverlayAttributes;
 
-	if (Attributes.ShowLink === undefined && Attributes.ShowLink !== true) {
-		this.SQLTextObj = new sysObjSQLText();
-		this.SQLTextObj.ObjectID = 'SQLText';
-		this.SQLTextObj.TextID = this.TextID;
-		this.SQLTextObj.init();
-		this.addObject(this.SQLTextObj);
-	}
+	this.SQLTextObj = new sysObjSQLText();
+	this.SQLTextObj.ObjectID = 'SQLText';
+	this.SQLTextObj.TextID = this.TextID;
+	this.SQLTextObj.init();
+	this.addObject(this.SQLTextObj);
 
 	var EventConfig = new Object();
 	EventConfig['Type'] = 'mousedown';
@@ -74,26 +73,23 @@ sysObjLink.prototype.init = function()
 
 sysObjLink.prototype.EventListener = function(Event)
 {
-	//console.debug('Link EventListener ScreenID:%s ScreenOverlayID:%s', this.ScreenID, this.ScreenOverlayID);
-
-	var SwitchScreen = true;
+	//console.debug('Link EventListener ScreenID:%s OverlayID:%s', this.ScreenID, this.OverlayID);
 
 	if (this.ScreenStyle !== undefined) {
 		sysFactory.getScreenByID(this.ScreenID).updateStyle(this.ScreenStyle);
 	}
 
-	if (SwitchScreen === true && this.ScreenID !== undefined) {
+	if (this.ScreenID !== undefined) {
 		sysFactory.switchScreen(this.ScreenID);
 	}
 
-	if (this.ScreenOverlayID !== undefined) {
-		sysFactory.OverlayObj.setupOverlay(this.ScreenOverlayID, this.ScreenOverlayAttributes);
+	if (this.OverlayID !== undefined) {
+		sysFactory.OverlayObj.setupOverlay(this.OverlayID, this.OverlayAttributes);
 	}
 
 	if (this.FireEvents !== undefined) {
 		sysFactory.Reactor.fireEvents(this.FireEvents);
 	}
-
 }
 
 
