@@ -58,16 +58,15 @@ sysBaseDOMElement.prototype.setDOMAttribute = function(Attribute, Value)
 
 sysBaseDOMElement.prototype.appendDOMParentElement = function()
 {
-	//console.log('::appendDOMParentElement DOMObjectID:%s ObjectID:%s DOMParentID:%s', this.DOMObjectID, this.ObjecttID, this.DOMParentID);
 	try {
-        if (this.DOMParentID == null || this.DOMParentID === undefined) {
+		if (this.DOMParentID === undefined || this.DOMParentID == null) {
 			document.body.appendChild(this.DOMDivElement);
 		}
 		else {
 			var parentElement = document.getElementById(this.DOMParentID);
 			parentElement.appendChild(this.DOMDivElement);
 		}
-    }
+	}
 	catch(err) {
 		console.debug('::appendDOMParentElement err:%s', err);
 	}
@@ -116,7 +115,7 @@ sysBaseDOMElement.prototype.setDOMElementValue = function()
 	//console.debug('::setDOMElementValue this:%o', this);
 	if (this.DOMValue != null && this.DOMValue !== undefined) {
 		var divElement = document.getElementById(this.DOMObjectID);
-		console.debug('::setDOMElementValue divElement:%s', divElement);
+		console.debug('::setDOMElementValue divElement:%o', divElement);
 		if (divElement != null && divElement !== undefined) {
 			divElement.innerHTML = this.DOMValue;
 		}
@@ -297,7 +296,6 @@ sysBaseDOMElement.prototype.setDOMVisibleState = function()
 		try {
 			if (this.VisibleState == 'visible') {
 				Element.style.removeProperty('display');
-				//Element.style.display = 'block';
 			}
 			if (this.VisibleState == 'hidden') {
 				Element.style.display = 'none';
