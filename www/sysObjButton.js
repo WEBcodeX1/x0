@@ -17,20 +17,20 @@
 
 function sysObjButton()
 {
-	this.DOMType			= 'button'
-	this.DOMAttributes		= new Object();
+	this.DOMType				= 'button'
+	this.DOMAttributes			= new Object();
 
-	this.EventListeners		= new Object();
-	this.ChildObjects		= new Array();
+	this.EventListeners			= new Object();
+	this.ChildObjects			= new Array();
 
-	this.PostRequestData	= new sysRequestDataHandler();
+	this.PostRequestData		= new sysRequestDataHandler();
 
-	this.CallURL			= null;
-	this.CallService		= false;
+	this.CallURL				= null;
+	this.CallService			= false;
 
-	this.FormValidate		= false;
+	this.FormValidate			= false;
 
-	this.ValidateResult		= true;
+	this.ValidateResultError	= true;
 }
 
 //- inherit sysBaseObject
@@ -65,6 +65,9 @@ sysObjButton.prototype.init = function()
 	if (Attributes.FormButton !== undefined) {
 		this.DOMType = 'input';
 		this.DOMAttributes['type'] = 'button';
+		if (Attributes.TextID !== undefined) {
+			this.DOMAttributes['value'] = sysFactory.getText(Attributes.TextID);
+		}
 		SQLTextDisabled = true;
 	}
 
@@ -74,12 +77,7 @@ sysObjButton.prototype.init = function()
 
 	this.addEventListenerClick();
 
-	//console.debug('Button ConfigAttributes TextID:%s', Attributes.TextID);
-
-	if (Attributes.Value !== undefined) {
-		this.DOMAttributes['value'] = sysFactory.getText(Attributes.Value);
-		SQLTextDisabled = true;
-	}
+	console.debug('Button ConfigAttributes TextID:%s', Attributes.TextID);
 
 	if (SQLTextDisabled == false) {
 
@@ -173,13 +171,13 @@ sysObjButton.prototype.EventListenerClick = function(Event)
 
 		this.PostRequestData.reset();
 
-		this.ValidateResult = false;
+		this.ValidateResultError = true;
 
 		this.validateForm();
 
-		console.debug('::EventListenerClick Validate result:%s', this.ValidateResult);
+		console.debug('::EventListenerClick Validate result:%s', this.ValidateResultError);
 
-		if (this.ValidateResult == false) {
+		if (this.ValidateResultError == false) {
 			this.processSourceObjects();
 			this.processActions();
 			this.callService();
@@ -191,15 +189,13 @@ sysObjButton.prototype.EventListenerClick = function(Event)
 //------------------------------------------------------------------------------
 //- METHOD "callService"
 //------------------------------------------------------------------------------
+
 sysObjButton.prototype.callService = function()
 {
-	if (this.CallURL != null && this.CallURL !== undefined) {
-
+	if (this.CallURL !== undefined && this.CallURL != null) {
 		this.addNotifyHandler();
-
 		RPC = new sysCallXMLRPC(this.CallURL);
 		RPC.Request(this);
-
 	}
 }
 
@@ -261,8 +257,7 @@ sysObjButton.prototype.validateForm = function()
 				this.PostRequestData.merge(FormlistObj.RuntimeGetDataFunc());
 			}
 			else {
-				const ParentObject = FormlistObj.ParentObject;
-				this.ValidateResult = false;
+				this.ValidateResultError = false;
 			}
 		}
 
@@ -294,10 +289,9 @@ sysObjButton.prototype.validateForm = function()
 						Objects
 					);
 
-					if (Result['Error'] !== undefined && Result['Error'] === false) {
+					if (Result['Error'] !== undefined && Result['Error'] == false) {
 						ErrorDisplayText = Result['Message'];
-						this.ValidateResult = false;
-						ErrorObj.displayError(ErrorDisplayText);
+						this.ValidateResultError = false;
 					}
 				}
 			}
@@ -311,9 +305,9 @@ sysObjButton.prototype.validateForm = function()
 		IdObj['BackendServiceID'] = Attributes.ServiceID;
 		this.PostRequestData['ServiceData'] = IdObj;
 
-		console.debug('::validate Result:%s PostRequestData:%o', this.ValidateResult, this.PostRequestData);
+		console.debug('::validate Result:%s PostRequestData:%o', this.ValidateResultError, this.PostRequestData);
 
-		if (this.ValidateResult == true) {
+		if (this.ValidateResultError == false) {
 
 			if (Attributes.Validate.POSTRequestDataTransform !== undefined) {
 				this.PostRequestData.transform(Attributes.POSTRequestDataTransform);
@@ -331,9 +325,9 @@ sysObjButton.prototype.validateForm = function()
 			}
 		}
 	}
-
-	//- trigger iframe resize
-	sysFactory.resizeIframe();
+	else {
+		this.ValidateResultError = false;
+	}
 }
 
 
@@ -357,41 +351,41 @@ sysObjButton.prototype.processActions = function()
 
 	if (Action != null) {
 
+		var DstObject;
+		try {
+			DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
+		}
+		catch {
+			DstObject = undefined;
+		}
+
 		if (Action == 'append') {
 			const SrcObject = sysFactory.getObjectByID(Attributes.SrcDataObject);
 			const DstObject = sysFactory.getObjectByID(Attributes.DstDataObject);
-			console.debug('::processActions append SrcObject:%o DstObject:%o', SrcObject, DstObject);
-			const SrcData = SrcObject.getObjectData();
-			console.debug('::processActions append SrcData:%o', SrcData);
-			DstObject.appendObjectData(SrcData);
+			DstObject.RuntimeAppendDataFunc(SrcObject.RuntimeGetDataFunc());
 		}
 
 		if (Action == 'enable') {
-			const DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
 			DstObject.VisibleState = 'visible';
 			DstObject.setDOMVisibleState();
 		}
 
 		if (Action == 'disable') {
-			const DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
 			DstObject.VisibleState = 'hidden';
 			DstObject.setDOMVisibleState();
 		}
 
 		if (Action == 'activate') {
-			const DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
 			DstObject.setActivated();
 		}
 
 		if (Action == 'deactivate') {
-			const DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
 			DstObject.setDeactivated();
 		}
 
 		console.debug('::EventListenerClick Config Attributes Action:%s', Action);
 
 		if (Action == 'reset') {
-			const DstObject = sysFactory.getObjectByID(Attributes.ObjectID);
 			DstObject.reset();
 		}
 
@@ -399,12 +393,6 @@ sysObjButton.prototype.processActions = function()
 			const ScreenObject = sysFactory.getScreenByID(Attributes.DstScreenID);
 			//console.debug(this.ParentRow.SetupData);
 			this.DstScreenID = Attributes.DstScreenID;
-		}
-
-		const UserFuncAttributes = Attributes.UserFunctionAttributes;
-		if (UserFuncAttributes !== undefined && UserFuncAttributes.FunctionID !== undefined) {
-			console.debug('UserFunctionID:%s UserFunctions:%o', UserFuncAttributes.FunctionID, sysFactory.UserFunctions);
-			sysFactory.UserFunctions[UserFuncAttributes.FunctionID](sysFactory);
 		}
 
 		if (this.DstScreenID !== undefined && Action !== undefined) {
@@ -430,7 +418,6 @@ sysObjButton.prototype.processActions = function()
 		catch(err) {
 		}
 	}
-
 }
 
 
@@ -441,6 +428,7 @@ sysObjButton.prototype.processActions = function()
 sysObjButton.prototype.callbackXMLRPCAsync = function()
 {
 	const MsgHandler = sysFactory.sysGlobalAsyncNotifyHandler;
+
 	var NotifyStatus = 'ERROR';
 
 	console.debug('Error result:%o', this.XMLRPCResultData);
@@ -466,59 +454,17 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 			var ResultConfig = ConfigAttributes.OnResult;
 
 			if (Array.isArray(ResultConfig) == false) {
-				ResultConfig = [ ResultConfig ];
+				ResultConfig = [ResultConfig];
 			}
 
-			for (Index in ResultConfig) {
-
-				const Result = ResultConfig[Index];
-				const setResultValues = Result.setResultValues;
+			for (const Result of ResultConfig) {
 
 				console.debug('::ButtonAfterRPC ConfigAttributes new:%o', ConfigAttributes.OnResult);
-
-				if (setResultValues !== undefined) {
-					var DstObject = sysFactory.getObjectByID(setResultValues.DstObjectID);
-					const SetData = this.XMLRPCResultData[setResultValues.ResultKey]; 
-					DstObject.PostRequestData.add(SetData, setResultValues.ServiceKey);
-					console.log('::ButtonAfterRPC setResultValues DstObject:%o PostRequestData:%o', DstObject, DstObject.PostRequestData);
-				}
 
 				const Action = ResultConfig.Action.toLowerCase();
 
 				if (Action !== undefined) {
 
-					if (Action == 'append') {
-						const DstObject = sysFactory.getObjectByID(Result.DstObjectID);
-						console.log('::ButtonAfterRPC Action DstObject:%o', DstObject);
-						DstObject.getObjectData(this.XMLRPCResultData);
-					}
-					if (Result.DstObjectType == 'FormField' && Action == 'set') {
-						const FormListObject = sysFactory.getObjectByID(Result.FormListID);
-						const FormFieldItem = FormListObject.getFormFieldItemByID(Result.FormFieldID);
-						const UpdateValue = this.XMLRPCResultData[Result.ResultKey];
-						FormFieldItem.setValue(UpdateValue);
-						console.log('::ButtonAfterRPC set Formfield FormListObject:%o FormFieldItem:%o UpdateValue:%s', FormListObject, FormFieldItem, UpdateValue);
-						if (Result.UpdateDynPulldownFormListID !== undefined) {
-							const UpdateFormListObject = sysFactory.getObjectByID(Result.UpdateDynPulldownFormListID);
-							const UpdateFormFieldItem = UpdateFormListObject.getFormFieldItemByID(Result.UpdateDynPulldownFormFieldID);
-							console.debug('::ButtonAfterRPC set UpdateDynPulldownFormListID UpdateFormListObject:%o UpdateFormFieldItem:%o UpdateValue:%s', UpdateFormListObject, UpdateFormFieldItem, UpdateValue);
-							UpdateFormFieldItem.setValue(UpdateValue);
-						}
-					}
-					if (Action == 'updatedynvalue') {
-						const OnResultConfig = Result;
-						const DstObject = sysFactory.getObjectByID(OnResultConfig.DstObjectID);
-
-						var ResultObject = new Object();
-						ResultObject[OnResultConfig.ResultKey] = this.XMLRPCResultData[OnResultConfig.ResultKey];
-
-						/* WORKAROUND */
-						if (ResultObject[OnResultConfig.ResultKey] === undefined) {
-							ResultObject[OnResultConfig.ResultKey] = this.XMLRPCResultData[0][OnResultConfig.ResultKey];
-						}
-
-						DstObject.updateDynValue(ResultObject);
-					}
 					if (Action == 'enable') {
 						const DstObject = sysFactory.getObjectByID(Result.DstObjectID);
 						DstObject.VisibleState = 'visible';
@@ -548,6 +494,7 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 						TabContainerObj.switchTab(Result.Tab);
 					}
 				}
+
 				//- global fire events
 				if (Result.FireEvents !== undefined) {
 					sysFactory.Reactor.fireEvents(Result.FireEvents);
@@ -555,17 +502,11 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 			}
 		}
 
-		//- process reset objects
-		//this.processResetObjects();
-
 		//- switch screen
 		if (SwitchScreen !== undefined && SwitchScreen != false) {
-
 			console.debug('switchScreen:%s', SwitchScreen);
-
 			//- switch screen
 			sysFactory.switchScreen(ConfigAttributes.SwitchScreen);
-
 		}
 
 		//- switch screen tab
@@ -575,7 +516,9 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 		}
 
 		//- fire events
-		sysFactory.Reactor.fireEvents(this.JSONConfig.Attributes.FireEvents);
+		if (ConfigAttributes.FireEvents != undefined) {
+			sysFactory.Reactor.fireEvents(ConfigAttributes.FireEvents);
+		}
 
 		//- fire net events
 		this.fireNetEvents();
@@ -584,18 +527,21 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 		NotifyStatus = 'SUCCESS';
 	}
 
-	//- set notify status
-		try {
-				var IndicatorID = this.JSONConfig.Attributes.Notify.ID;
-				if (IndicatorID !== undefined) {
-						var Message = 'SYS__' + IndicatorID + '__' + NotifyStatus;
-						MsgHandler.processMsg(Message);
-				}
+	//- process notify status
+	try {
+		const IndicatorID = this.JSONConfig.Attributes.Notify.ID;
+		if (IndicatorID !== undefined) {
+			var Message = {
+				'msg-type': 'sys-indicator',
+				'notify-id': IndicatorID,
+				'notify-status': NotifyStatus
+			};
+			MsgHandler.processMsg(Message);
 		}
-		catch (err) {
-				console.log('err:%s', err);
-		}
-
+	}
+	catch (err) {
+		console.log('err:%s', err);
+	}
 }
 
 
