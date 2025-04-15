@@ -28,6 +28,7 @@ function sysListRow(ParentObject, RowIndex, RowData)
 	this.RowData				= RowData;				//- Row Data Array
 
 	this.ColItems				= new Array();			//- Col Item Objects
+	this.DynUpdateObjects		= new Array();			//- Dynamic Object Update Array
 
 	this.overrideDOMObjectID	= true;					//- Set ObjectID not recursive
 
@@ -122,9 +123,7 @@ sysListRow.prototype.addColumns = function()
 
 		const ColumnKey = ColConfigItem.ID;
 		var ColumnItem = new sysBaseObject();
-		//const ColumnConfig = Attributes.Columns[ColumnKey];
 
-		//console.log('::addColumns Processing ColumnKey:%s ColumConfig:%o', ColumnKey, ColumnConfig);
 		try {
 			ColumnItem.ObjectID = ColumnKey + this.Index;
 
@@ -133,7 +132,12 @@ sysListRow.prototype.addColumns = function()
 			if (ColAttributes !== undefined) {
 				var ColumnObj = new sysFactory.SetupClasses[ColAttributes.ObjectType]();
 
-				ColumnObj.ObjectID = 'sysObj_' + this.ParentObject.ObjectID + this.Index;
+				if (ColAttributes.ObjectID !== undefined) {
+					ColumnObj.ObjectID = ColAttributes.ObjectID + this.Index;
+				}
+				else {
+					ColumnObj.ObjectID = this.ParentObject.ObjectID + ColumnItem.ObjectID + this.Index;
+				}
 
 				ColumnObj.JSONConfig = {
 					"Attributes": ColConfigItem.Attributes
@@ -145,6 +149,14 @@ sysListRow.prototype.addColumns = function()
 
 				ColumnObj.init();
 				ColumnItem.addObject(ColumnObj);
+
+				console.debug('ColAttributes:%o', ColAttributes);
+
+				if (ColAttributes.SetObjectData == true) {
+					this.DynUpdateObjects.push(
+						[ ColumnObj.ObjectID, this.RowData[ColumnKey] ]
+					);
+				}
 			}
 			else if(ColConfigItem.IndexGenerator === true) {
 				const setValue = this.Index+1;
@@ -160,11 +172,24 @@ sysListRow.prototype.addColumns = function()
 			ColumnItem.DOMValue = 'Error';
 			console.debug('::addColumns err:%s', err);
 		}
-		//console.log('::addColumns Push ColItem DOMValue:%o', ColumnItem);
+		console.log('::addColumns Push ColItem DOMValue:%o', ColumnItem);
 
 		ColumnItem.VisibleState = ColConfigItem.VisibleState;
 
 		this.ColItems.push(ColumnItem);
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "updateColumnsValues"
+//------------------------------------------------------------------------------
+
+sysListRow.prototype.updateColumnsValues = function()
+{
+	console.debug('this.DynUpdateObjects:%o', this.DynUpdateObjects);
+	for (const UpdateElement of this.DynUpdateObjects) {
+		sysFactory.getObjectByID(UpdateElement[0]).RuntimeSetDataFunc(UpdateElement[1]);
 	}
 }
 
@@ -374,19 +399,22 @@ sysList.prototype.setupHeader = function()
 			ColObj.DOMStyle = ColItem.HeaderStyle;
 		}
 
-		var ColDisplayObj = new sysObjSQLText();
-		ColDisplayObj.ObjectID = ColObj.ObjectID + '_txt';
+		if (ColItem.HeaderTextID !== undefined) {
 
-		ColDisplayObj.JSONConfig = {
-			"Attributes": {
-				"TextID": ColItem.HeaderTextID,
-				"IconStyle": ColItem.HeaderIconStyle
+			var ColDisplayObj = new sysObjSQLText();
+			ColDisplayObj.ObjectID = ColObj.ObjectID + '_txt';
+
+			ColDisplayObj.JSONConfig = {
+				"Attributes": {
+					"TextID": ColItem.HeaderTextID,
+					"IconStyle": ColItem.HeaderIconStyle
+				}
 			}
+
+			ColDisplayObj.init();
+			ColObj.addObject(ColDisplayObj);
 		}
 
-		ColDisplayObj.init();
-
-		ColObj.addObject(ColDisplayObj);
 		HeaderRowObj.addObject(ColObj);
 
 		ColObj.VisibleState = ColItem.VisibleState;
@@ -472,11 +500,10 @@ sysList.prototype.renderPage = function()
 		this.renderObject(this.DOMParentID);
 	}
 
+	this.updateDynObjectValues();
+
 	//- register event listeners
 	this.processEventListener();
-
-	//- danymically adjust iframe size
-	sysFactory.resizeIframe();
 }
 
 
@@ -539,6 +566,18 @@ sysList.prototype.renderRows = function()
 {
 	for (const Item of this.RowItems) {
 		Item.genGrid();
+	}
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "updateDynObjectValues"
+//------------------------------------------------------------------------------
+
+sysList.prototype.updateDynObjectValues = function()
+{
+	for (const Item of this.RowItems) {
+		Item.updateColumnsValues();
 	}
 }
 
