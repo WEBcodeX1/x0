@@ -15,24 +15,6 @@
  * This should be replaced by WebSockets in future releases.
 */
 
-function sysAsyncNotifyMsgDelHandler(MsgHandlerRef)
-{
-	this.MsgHandlerRef = MsgHandlerRef;
-
-	this.RPC = new sysCallXMLRPC(sysFactory.MsgServerDelURL);
-	this.RPC.setRequestType('POST');
-	this.PostRequestData = {
-		"session_src": sysFactory.SysSessionValue
-	}
-	this.RPC.Request(this);
-}
-
-sysAsyncNotifyMsgDelHandler.prototype.callbackXMLRPCAsync = function()
-{
-	this.MsgHandlerRef.getMsg();
-}
-
-
 function sysAsyncNotifyMsgHandler()
 {
 	this.RPC = new sysCallXMLRPC(sysFactory.MsgServerGetURL);
@@ -48,9 +30,10 @@ sysAsyncNotifyMsgHandler.prototype.getMsg = function()
 {
 	console.debug('::getMsg SessionID:%s', sysFactory.SysSessionID);
 	//- if session id exists, get next messages
-	if (sysFactory.SysSessionID != null && sysFactory.SysSessionID !== undefined) {
+	if (sysFactory.SysSessionID !== undefined && sysFactory.SysSessionID != null) {
 		this.PostRequestData = {
-			"session_src": sysFactory.SysSessionValue
+			"session_src": sysFactory.SysSessionValue,
+			"type": 'GET'
 		}
 		this.RPC.Request(this);
 	}
@@ -66,19 +49,19 @@ sysAsyncNotifyMsgHandler.prototype.callbackXMLRPCAsync = function()
 	console.debug('::callbackXMLRPCAsync XMLRPCResult:%o', this.XMLRPCResultData);
 
 	try {
-		const MsgArray = this.XMLRPCResultData.Result.messages;
-		for (MessageIndex in MsgArray) {
-			const Message = MsgArray[MessageIndex];
-			this.processMsg(Message);
+		const MsgArray = this.XMLRPCResultData.messages;
+		if (MsgArray !== undefined && MsgArray != null) {
+			for (const Message of MsgArray) {
+				this.processMsg(Message);
+			}
 		}
-		var Del = new sysAsyncNotifyMsgDelHandler(this);
 	}
 	catch(err) {
 		console.log('::callbackXMLRPCAsync err:%s', err);
 	}
 
 	//- get/wait for next messages
-	//this.getMsg();
+	this.getMsg();
 }
 
 
@@ -88,164 +71,81 @@ sysAsyncNotifyMsgHandler.prototype.callbackXMLRPCAsync = function()
 
 sysAsyncNotifyMsgHandler.prototype.processMsg = function(Message)
 {
-	//- check for global message
-	const sysTextObj = sysFactory.ObjText;
-	const RegexPhone = /^SYS__PHONE_CALL\-([0-9]+)$/g;
-	const RegexPhoneResult = RegexPhone.exec(Message);
-
-	var sysID;
-
 	console.debug('::processMsg Message:%o', Message);
 
 	//- incoming phone call
-	if (RegexPhoneResult) {
+	if (Message['msg-type'] == 'net-phone' && Message['phonenr-src'] !== undefined) {
 		sysID = 'SYS__GLOBAL_MSG';
 
 		ActionNotifyDef = {
 			"ID": sysID,
-			"DisplayHeader": sysTextObj.getTextBySystemLanguage('TXT.SYS.INDICATOR.INCOMINGPHONECALL')
+			"DisplayHeader": sysFactory.getText('TXT.SYS.INDICATOR.INCOMINGPHONECALL')
 		}
 
-		//const AsyncNotifyObj = new sysObjAsyncNotify();
 		sysFactory.GlobalAsyncNotifyIndicator.addMsgItem(ActionNotifyDef);
 
-		const CallingPhoneNr = RegexPhoneResult[1]
 		const NotifyItem = sysFactory.GlobalAsyncNotifyIndicator.getMsgItemByName(sysID);
 
 		NotifyItem.setProcessStatus(0);
-		NotifyItem.setDisplayText(CallingPhoneNr);
+		NotifyItem.setDisplayText(Message['phonenr-src']);
 		NotifyItem.updateDisplay();
-
-		sysFactory.switchScreen('ShipmentHistory');
-		console.debug(sysFactory.getObjectByID('ShipmentHistoryTabContainer'));
-
-		const PhoneFormList = sysFactory.getObjectByID('ShipmentHistoryReceiverPhoneFormfields');
-		const PhoneTabContainer = sysFactory.getObjectByID('ShipmentHistoryTabContainer').TabContainerObject;
-		const PhoneFormItem = PhoneFormList.getFormFieldItemByID('ShipmentHistoryReceiverPhoneNr');
-
-		PhoneFormItem.setValue(CallingPhoneNr.slice(1));
-		PhoneTabContainer.switchTab('TabShipmentHistoryReceiverPhone');
-
-		sysFactory.Reactor.fireEvents(['ShipmentHistoryPhoneSearch']);
-
-		return;
 	}
 
-	//- check for global message
-	const RegexGlobal = /^SYS__GLOBAL_MSG\-(.+)$/g;
-	const RegexGlobalResult = RegexGlobal.exec(Message);
-
-	if (RegexGlobalResult) {
+	//- check for net messages
+	if (Message['msg-type'] == 'net-message' && Message['txt-id'] !== undefined) {
 		sysID = 'SYS__GLOBAL_MSG';
 
 		ActionNotifyDef = {
 			"ID": sysID,
-			"DisplayHeader": sysTextObj.getTextBySystemLanguage('TXT.SYS.INDICATOR.SYSTEMMSG')
+			"DisplayHeader": sysFactory.getText('TXT.SYS.INDICATOR.NETEVENT')
 		}
 
-		//var AsyncNotifyObj = new sysObjAsyncNotify();
 		sysFactory.GlobalAsyncNotifyIndicator.addMsgItem(ActionNotifyDef);
 
 		const NotifyItem = sysFactory.GlobalAsyncNotifyIndicator.getMsgItemByName(sysID);
 		NotifyItem.setProcessStatus(1);
-		NotifyItem.setDisplayText(RegexGlobalResult[1]);
+		NotifyItem.setDisplayText(sysFactory.getText(Message['txt-id']));
 		NotifyItem.updateDisplay();
-
-		return;
 	}
 
-	//- check for net events
-	const RegexNetEvent = /^SYS__NET_EVENT\-(.+)$/g;
-	const RegexNetEventResult = RegexNetEvent.exec(Message);
-
-	if (RegexNetEventResult) {
+	//- check for net method execution
+	if (Message['msg-type'] == 'net-message' && Message['method-id'] !== undefined) {
 		sysID = 'SYS__GLOBAL_MSG';
+
+		const MethodID = Message['method-id'];
+		const DstObjectID = Message['dst-object'];
+		const Payload = Message['payload'];
+
+		console.debug('::processMsg Method:%s DstObjID:%s Payload:%o', MethodID, DstObjectID, Payload);
+
+		if (MethodID == 'set-data') {
+			const DstObject = sysFactory.getObjectByID(DstObjectID);
+			console.debug('::processMsg DstObj:%o', DstObject);
+			DstObject.RuntimeSetDataFunc(Payload);
+		}
 
 		ActionNotifyDef = {
 			"ID": sysID,
-			"DisplayHeader": sysTextObj.getTextBySystemLanguage('TXT.SYS.INDICATOR.NETEVENT')
+			"DisplayHeader": sysFactory.getText('TXT.SYS.INDICATOR.NETEVENT')
 		}
 
-		//var AsyncNotifyObj = new sysObjAsyncNotify();
 		sysFactory.GlobalAsyncNotifyIndicator.addMsgItem(ActionNotifyDef);
-
 		const NotifyItem = sysFactory.GlobalAsyncNotifyIndicator.getMsgItemByName(sysID);
 		NotifyItem.setProcessStatus(1);
-		NotifyItem.setDisplayText(RegexNetEventResult[1]);
-		NotifyItem.updateDisplay();
-
-		sysFactory.Reactor.fireEvents([RegexNetEventResult[1]]);
-		return;
 	}
 
-	//- update action notifier with id contained in msg
-	const RegexNotify = /^SYS__(.+)__(SUCCESS|ERROR)/g;
-	const RegexNotifyResult = RegexNotify.exec(Message);
-
-	if (RegexNotifyResult) {
-		const NotifyID = RegexNotifyResult[1];
-		const NotifyStatus = RegexNotifyResult[2];
-
-		//- get notify item from global async indicator
-		const NotifyItem = sysFactory.GlobalAsyncNotifyIndicator.getMsgItemByName(NotifyID);
-
-		//- start processing result
-		if (NotifyItem != null && NotifyItem !== undefined) {
-			NotifyItem.processResult(NotifyStatus);
+	if (Message['msg-type'] == 'sys-indicator') {
+		const NotifyItem = sysFactory.GlobalAsyncNotifyIndicator.getMsgItemByName(Message['notify-id']);
+		if (NotifyItem !== undefined && NotifyItem != null) {
+			NotifyItem.processResult(Message['notify-status']);
 		}
 	}
 
-	/* try catch block for old style non-json messages */
-	try {
-		var EncMsgHandler = sysEncryptionMsgHandler(Message);
-	}
-	catch(err) {
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- class "sysEncryptionMsgHandler"
-//------------------------------------------------------------------------------
-
-function sysEncryptionMsgHandler(Message)
-{
-	var CallURL;
-
-	if (Message.type == 10) {
-		this.PostRequestData = {
-			"message": Message.data,
-			"source": Message.session_src
-		}
-		CallURL = sysFactory.AddEncryptedMsgURL;
+	if (Message['fire-events'] !== undefined) {
+		sysFactory.Reactor.fireEvents(Message['fire-events']);
 	}
 
-	if (Message.type == 20) {
-		this.PostRequestData = {
-			"ContactID": Message.session_src,
-			"ContactRequestHash": Message.contactrequest_hash
-		}
-		CallURL = sysFactory.AddContactRequestMsgURL;
+	if (Message['switch-screen-id'] !== undefined) {
+		sysFactory.switchScreen(Message['switch-screen-id']);
 	}
-
-	if (Message.type == 30) {
-		this.PostRequestData = {
-			"ContactID": Message.session_src,
-			"ContactRequestHash": Message.contactrequest_hash,
-			"ContactPublicKey": Message.public_key
-		}
-		CallURL = sysFactory.ApprooveContactRequestMsgURL;;
-	}
-
-	var RPC = new sysCallXMLRPC(CallURL);
-	RPC.setRequestType('POST');
-	RPC.Request(this);
-}
-
-
-//------------------------------------------------------------------------------
-//- CALLBACK "XMLRPCAsync"
-//------------------------------------------------------------------------------
-
-sysEncryptionMsgHandler.prototype.callbackXMLRPCAsync = function() {
 }
