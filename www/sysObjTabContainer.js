@@ -251,9 +251,6 @@ sysTabContainer.prototype.switchTab = function(TabID)
 
 			//- fire events
 			TabElement.fireEvents();
-
-			//- trigger iframe resize
-			sysFactory.resizeIframe();
 		}
 		else {
 			TabElement.Active = false;
