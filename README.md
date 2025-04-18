@@ -28,7 +28,7 @@ git clone https://github.com/WEBcodeX1/x0.git
 cd x0
 
 # install docker
-apt-get -y install debuild gnupg docker.io
+apt-get -y install docker.io
 
 # set docker permissions / restart shell
 usermod -aG docker your-user
