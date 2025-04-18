@@ -134,7 +134,7 @@
 		"Attributes": {
 			"Type": "checkbox",
 			"Value": true,
-			"Style": "form-check-input"
+			"Style": "form-check"
 		}
 	},
 
@@ -218,5 +218,4 @@
 			}
 		}
 	}
-
 }
