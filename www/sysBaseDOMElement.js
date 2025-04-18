@@ -58,6 +58,7 @@ sysBaseDOMElement.prototype.setDOMAttribute = function(Attribute, Value)
 
 sysBaseDOMElement.prototype.appendDOMParentElement = function()
 {
+	//console.log('::appendDOMParentElement DOMObjectID:%s ObjectID:%s DOMParentID:%s', this.DOMObjectID, this.ObjecttID, this.DOMParentID);
 	try {
 		if (this.DOMParentID === undefined || this.DOMParentID == null) {
 			document.body.appendChild(this.DOMDivElement);
@@ -97,11 +98,12 @@ sysBaseDOMElement.prototype.removeDOMParentElement = function()
 
 sysBaseDOMElement.prototype.removeDOMElement = function()
 {
+	console.debug('::removeDOMElement DOMDivElement:%s', this.DOMDivElement.id);
 	try {
-		document.body.remove(document.getElementById(this.DOMDivElement));
+		document.getElementById(this.DOMDivElement.id).remove();
 	}
 	catch(err) {
-		console.debug('::removeDOMElement failed err:%s', err);
+		console.debug('::removeDOMElement DOMDivElement:%s failed err:%s', this.DOMDivElement.id, err);
 	}
 }
 
