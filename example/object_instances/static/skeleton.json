@@ -1,0 +1,25 @@
+{
+	"Screen1":
+	[
+		{
+			"Formlist2":
+			{
+				"RefID": "Screen1"
+			}
+		},
+
+		{
+			"ServiceConnector":
+			{
+				"RefID": "Screen1"
+			}
+		},
+
+		{
+			"TestList1":
+			{
+				"RefID": "ServiceConnector"
+			}
+		}
+	]
+}

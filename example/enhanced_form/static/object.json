@@ -316,7 +316,7 @@
 	"RecordTTL": {
 		"Type": "Formfield",
 		"Attributes": {
-			"Type": "text",
+			"Type": "number",
 			"Style": "form-control mb-1 p-1 w-100",
 			"Min": 1,
 			"Max": 86400,
@@ -339,7 +339,7 @@
 	"RecordPriority": {
 		"Type": "Formfield",
 		"Attributes": {
-			"Type": "text",
+			"Type": "number",
 			"Style": "form-control mb-1 p-1 w-100",
 			"Min": 1,
 			"Max": 99,
@@ -419,18 +419,20 @@
 				"col-md-2 border-end",
 				"col-md-1"
 			],
-			"ContextMenuItems": {
-				"RemoveSingle": {
+			"ContextMenuItems": [
+				{
+					"ID": "RemoveSingle",
 					"TextID": "TXT.CONTEXTMENU.REMOVE-ITEM-SINGLE",
 					"IconStyle": "fa-regular fa-trash-can",
 					"InternalFunction": "remove"
 				},
-				"RemoveSelected": {
+				{
+					"ID": "RemoveSelected",
 					"TextID": "TXT.CONTEXTMENU.REMOVE-ITEM-SELECTED",
 					"IconStyle": "fa-regular fa-trash-can",
 					"InternalFunction": "remove-selected"
 				}
-			},
+			],
 			"ErrorContainer": "HostingNewHostsListErrorContainer"
 		}
 	},

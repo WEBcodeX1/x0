@@ -14,12 +14,29 @@
 			}
 		}	
 	],
+
 	"Screen2":
 	[
 		{
-			"HelloWorldText2":
+			"TabContainer1":
 			{
 				"RefID": "Screen2"
+			}
+		},
+
+		{
+			"HelloWorldText2":
+			{
+				"RefID": "TabContainer1",
+				"ElementID": "Tab2Content"
+			}
+		},
+
+		{
+			"FileUpload":
+			{
+				"RefID": "TabContainer1",
+				"ElementID": "Tab1Content"
 			}
 		}
 	]

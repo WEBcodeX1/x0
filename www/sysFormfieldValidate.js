@@ -1,13 +1,13 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2025								 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//-                                                                          -//
+//-																		  -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- SYSTEM "FormFieldValidate"                                               -//
+//- SYSTEM "FormFieldValidate"											   -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- FormFieldValidate                                                        -//
-//-                                                                          -//
-//-                                                                          -//
+//- FormFieldValidate														-//
+//-																		  -//
+//-																		  -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 
 //------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ sysFormFieldValidate.prototype.validate = function()
 {
 	const ValidateID = this.FormObj.JSONConfig.Attributes.ValidateRef;
 	const Value = this.FormObj.getObjectData();
-	console.debug('::validate FormObj:%s ValidateID:%s ValidateValue:%s', this.FormObj.FormElement.ObjectID, ValidateID, Value);
+	console.debug('::validate FormObj:%s ValidateID:%s ValidateValue:%s', this.FormObj.ObjectID, ValidateID, Value);
 	return this.validateByParams(ValidateID, Value, this.FormObj);
 }
 
@@ -486,7 +486,7 @@ function sysFormFieldValidateGroup()
 		'CheckTableRows':					this.CheckTableRows,
 		'MinOneItemNotNull':				this.MinOneItemNotNull,
 		'DNSRecordValuePlusType':			this.DNSRecordValuePlusType
-    }
+	}
 }
 
 

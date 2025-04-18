@@ -76,12 +76,12 @@ sysFileUpload.prototype.init = function()
 
 	var ProgressBar = new sysBaseObject();
 	ProgressBar.ObjectID = this.ObjectID + 'ProgressBar';
-	ProgressBar.DOMStyle = Attributes.ProgressBarStyle;
+	ProgressBar.DOMStyle = Attributes.StyleProgressBar;
 	ProgressContainer.addObject(ProgressBar);
 
 	var ProgressPercentage = new sysBaseObject();
 	ProgressPercentage.ObjectID = this.ObjectID + 'ProgressPercentage';
-	ProgressPercentage.DOMStyle = Attributes.ProgressBarPercentageStyle;
+	ProgressPercentage.DOMStyle = Attributes.StyleProgressBarPercentage;
 	ProgressContainer.addObject(ProgressPercentage);
 
 	var UploadButton = new sysObjButtonInternal();
@@ -89,9 +89,9 @@ sysFileUpload.prototype.init = function()
 
 	UploadButton.JSONConfig = {
 		"Attributes": {
-			"FormButton": "True",
+			"FormButton": true,
 			"Style": 'w-100 ' + Attributes.StyleUploadButton,
-			"Value": "SYSTEM.UPLOAD.BUTTON",
+			"TextID": "SYSTEM.UPLOAD.BUTTON",
 			"Action": "upload"
 		}
 	};
@@ -120,8 +120,6 @@ sysFileUpload.prototype.startUpload = function()
 	if (FileName.length > 0) {
 		this.FormObject = new FormData(this.getDOMelement());
 		this.FormObject.append("SessionID", sysFactory.SysSessionValue);
-
-		this.appendUserData();
 
 		var XHR = new XMLHttpRequest();
 		XHR.upload.addEventListener('progress', this.updateProgress.bind(this));
@@ -195,21 +193,4 @@ sysFileUpload.prototype.getObjectData = function()
 {
 	const FileUploadElement = this.ObjectID + '_select';
 	return document.getElementById(FileUploadElement).value;
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "appendUserData"
-//------------------------------------------------------------------------------
-
-sysFileUpload.prototype.appendUserData = function()
-{
-	const Attributes = this.JSONConfig.Attributes;
-
-	if (Attributes.UserIDColumn !== undefined) {
-		this.FormObject.append("UserID", this.ScreenObject.getDBColumnValue(Attributes.UserIDColumn));
-	}
-	if (Attributes.FileNr !== undefined) {
-		this.FormObject.append("FileNr", Attributes.FileNr);
-	}
 }

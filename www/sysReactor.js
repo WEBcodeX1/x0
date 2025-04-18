@@ -106,7 +106,7 @@ sysReactor.prototype.dispatchEvent = function(EventID) {
 				case "Dynpulldown":
 
 					//console.debug('Reactor Dispatch Event. Dynpulldown:%o', ProcessObj);
-					ProcessObj.updateFormItemValue();
+					ProcessObj.getDynPulldownData();
 
 					continue;
 

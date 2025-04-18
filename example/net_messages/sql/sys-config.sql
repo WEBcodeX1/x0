@@ -1,0 +1,12 @@
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'index_title', 'x0 Example Net-Messaging');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'debug_level', '10');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'display_language', 'en');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'default_screen', 'Screen1');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'parent_window_url', 'null');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'subdir', '/examples/net_messages');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'preload_script', '"PreloadAuthentication.py"');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'preload_var', '["UserID"] = "user_id"');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'preload_var', '["UserSession"] = "user_session"');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'config_file_menu', 'menu.json');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'config_file_object', 'object.json');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'config_file_skeleton', 'skeleton.json');

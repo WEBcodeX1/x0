@@ -20,7 +20,7 @@ function sysContextMenu()
 	this.ID					= null;
 
 	this.ItemConfig			= null;
-	this.Items				= new Object();
+	this.Items				= new Array();
 
 	this.pageX				= 0;
 	this.pageY				= 0;
@@ -67,7 +67,7 @@ sysContextMenu.prototype.removeRootElement = function(Event)
 	var ContextMenuRootObj = this.ScreenObject.HierarchyRootObject.getObjectByID(ContextMenuRootElementID);
 
 	if (ContextMenuRootObj !== undefined) {
-		ContextMenuRootObj.remove();
+		ContextMenuRootObj.removeParent();
 	}
 }
 
@@ -128,13 +128,11 @@ sysContextMenu.prototype.addItems = function()
 {
 	var ItemConfig = this.ItemConfig;
 
-	for (ItemKey in ItemConfig) {
-
-		var ProcessItem = ItemConfig[ItemKey];
+	for (ProcessItem of ItemConfig) {
 
 		var ContextMenuItem = new sysContextMenuItem();
 
-		ContextMenuItem.ID							= ItemKey;
+		ContextMenuItem.ID							= ProcessItem.ID;
 
 		ContextMenuItem.TextID						= ProcessItem.TextID;
 		ContextMenuItem.IconStyle					= ProcessItem.IconStyle;
@@ -169,7 +167,7 @@ sysContextMenu.prototype.addItems = function()
 
 		ContextMenuItem.ContextMenuObject			= this;
 
-		this.Items[ItemKey] = ContextMenuItem;
+		this.Items.push(ContextMenuItem);
 	}
 }
 
@@ -182,13 +180,7 @@ sysContextMenu.prototype.processItems = function()
 {
 	//var topPosGenerator = this.topPositionGenerator();
 
-	for (ItemKey in this.Items) {
-
-		//console.log('#### ITEM KEY #### Key:' + ItemKey);
-
-		var ItemObj = this.Items[ItemKey];
-
-		//console.log(ItemObj);
+	for (ItemObj of this.Items) {
 
 		var ItemRowObj = new sysBaseObject();
 		ItemRowObj.ObjectID = 'CMenuRow' + ItemObj.ID;
@@ -218,7 +210,6 @@ sysContextMenu.prototype.processItems = function()
 
 		ItemColDescrTextObj.TextID = ItemObj.TextID;
 
-
 		ItemColDescrTextObj.init();
 
 		ItemColDescrObj.addObject(ItemColDescrTextObj);
@@ -231,7 +222,6 @@ sysContextMenu.prototype.processItems = function()
 		ItemRowObj.addObject(ItemColIconObj);
 
 		this.TableObj.addObject(ItemRowObj);
-
 	}
 }
 
@@ -325,8 +315,18 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 
 	if (this.InternalFunction != null) {
 
-		console.log('RowData:%o Function:%s', this.ContextMenuObject.RowData, this.InternalFunction);
+		console.log('Function:%s', this.InternalFunction);
 		const RowData = this.ContextMenuObject.RowData;
+
+		if (this.InternalFunction == 'get-data') {
+			sysFactory.ClipboardData = this.ParentObject.RuntimeGetDataFunc();
+			this.ContextMenuObject.close();
+		}
+
+		if (this.InternalFunction == 'set-data') {
+			this.ParentObject.RuntimeSetDataFunc(sysFactory.ClipboardData);
+			this.ContextMenuObject.close();
+		}
 
 		if (this.InternalFunction == 'remove') {
 			this.ParentObject.remove();
@@ -344,9 +344,9 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 		}
 
 		else if (this.InternalFunction == 'copy') {
-			const DestObject = sysFactory.getObjectByID(this.DstObjectID);
+			const DstObject = sysFactory.getObjectByID(this.DstObjectID);
 			//console.log('::ContextMenu copy ListObject:%o RowData:%o', ListObj, RowData);
-			DestObject.appendData(RowData);
+			DstObject.RuntimeAppendDataFunc(RowData);
 		}
 
 		else if (this.InternalFunction == 'setrowcolumn') {

@@ -1,0 +1,117 @@
+{
+	"Link1":
+	{
+		"Type": "Link",
+		"Attributes": {
+			"Style": "btn btn-primary d-none",
+			"TextID": "TXT.TABLE.EXAMPLE-TABLEGRID.LINK1",
+			"ScreenID": "Screen1"
+		}
+	},
+
+	"TestList1Connector":
+	{
+		"Type": "ServiceConnector",
+		"Attributes":
+		{
+			"OnEvent":
+			{
+				"Events": [ "InitSystem" ],
+				"ServiceCall": "/python/IntegrationTestGetTableData2.py"
+			}
+		}
+	},
+
+	"TestList1":
+	{
+		"Type": "List",
+		"Attributes":
+		{
+			"Style": "border rounded-top rounded-bottom",
+			"HeaderRowStyle": "row fw-bold fs-2 m-2 border-bottom",
+			"RowCount": 4,
+			"Navigation": true,
+			"SrcDataObjects":
+			{
+				"Dummy":
+				{
+					"Type": "HardcodedValues",
+					"Values": {
+						"LimitRows": "15"
+					}
+				}
+			},
+			"Columns": [
+				{
+					"ID": "col1",
+					"HeaderTextID": "TXT.TABLE.EXAMPLE-TABLEGRID.HEADER.COL1",
+					"HeaderStyle": "col-md-4 p-3 border-end",
+					"Attributes": {
+						"ObjectID": "FormCol1",
+						"ObjectType": "FormfieldCheckbox",
+						"Type": "checkbox",
+						"Style": "form-check-input",
+						"SetObjectData": true
+					}
+				},
+				{
+					"ID": "col2",
+					"HeaderTextID": "TXT.TABLE.EXAMPLE-TABLEGRID.HEADER.COL2",
+					"HeaderStyle": "col-md-4 p-3 border-end",
+					"Attributes": {
+						"ObjectID": "FormCol2",
+						"ObjectType": "FormfieldText",
+						"Type": "text",
+						"Style": "form-control w-100",
+						"SetObjectData": true
+					}
+				},
+				{
+					"ID": "col3",
+					"HeaderTextID": "TXT.TABLE.EXAMPLE-TABLEGRID.HEADER.COL3",
+					"HeaderStyle": "col-md-4 p-3",
+					"Attributes": {
+						"ObjectID": "FormCol3",
+						"ObjectType": "FormfieldPulldown",
+						"Type": "pulldown",
+						"Style": "form-select w-100",
+						"Options": [
+							{
+								"TextID": "TXT.ID.TABLE.EXAMPLE-TABLEGRID.PDOPTION1",
+								"Value": "10"
+							},
+							{
+								"TextID": "TXT.ID.TABLE.EXAMPLE-TABLEGRID.PDOPTION2",
+								"Value": "20"
+							},
+							{
+								"TextID": "TXT.ID.TABLE.EXAMPLE-TABLEGRID.PDOPTION3",
+								"Value": "30"
+							}
+						],
+						"SetObjectData": true
+					}
+				},
+				{
+					"ID": "col4",
+					"Attributes": {
+						"ObjectID": "FormCol4",
+						"ObjectType": "FormfieldText",
+						"Type": "text",
+						"Style": "form-control w-100",
+						"SetObjectData": true
+					}
+				}
+			],
+			"RowStyle": "row m-2 border-bottom border-right",
+			"RowAfterElements": [ 3, 1 ],
+			"ColStyle": [
+				"col-md-4 p-3 border-end",
+				"col-md-4 p-3 border-end",
+				"col-md-4 p-3",
+				"col-md-12 p-3"
+			]
+		}
+	}
+
+}

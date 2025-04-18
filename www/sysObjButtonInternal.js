@@ -17,24 +17,37 @@
 
 function sysObjButtonInternal()
 {
-	this.DOMType			= 'button'
-	this.DOMAttributes		= new Object();
+	this.DOMType				= 'button'
+	this.DOMAttributes			= new Object();
 
-	this.EventListeners		= new Object();
-	this.ChildObjects		= new Array();
-	this.PostRequestData	= new sysRequestDataHandler();
+	this.EventListeners			= new Object();
+	this.ChildObjects			= new Array();
+	this.PostRequestData		= new sysRequestDataHandler();
 
-	this.ValidateResult		= true;
+	this.ValidateResultError	= true;
 }
 
 sysObjButtonInternal.prototype = new sysBaseObject();
 
 sysObjButtonInternal.prototype.init = sysObjButton.prototype.init;
-sysObjButtonInternal.prototype.addEventListenerClick = sysObjButton.prototype.addEventListenerClick;
 sysObjButtonInternal.prototype.validateForm = sysObjButton.prototype.validateForm;
 sysObjButtonInternal.prototype.processActions = sysObjButton.prototype.processActions;
 
 sysObjButtonInternal.prototype.setDstScreenProperties = sysContextMenuItem.prototype.setDstScreenProperties;
+
+
+//------------------------------------------------------------------------------
+//- METHOD "addEventListenerClick"
+//------------------------------------------------------------------------------
+
+sysObjButtonInternal.prototype.addEventListenerClick = function()
+{
+	var EventListenerObj = new Object();
+	EventListenerObj['Type'] = 'mousedown';
+	EventListenerObj['Element'] = this.EventListenerClick.bind(this);
+
+	this.EventListeners["ButtonClick"] = EventListenerObj;
+}
 
 
 //------------------------------------------------------------------------------
@@ -43,43 +56,18 @@ sysObjButtonInternal.prototype.setDstScreenProperties = sysContextMenuItem.proto
 
 sysObjButtonInternal.prototype.EventListenerClick = function(Event)
 {
-	//console.debug('Button click');
+	console.debug('ButtonInternal click');
 
-	this.ValidateResult	= true;
-
-	this.PostRequestData.reset();
+	this.ValidateResultError = true;
 
 	const Attributes = this.JSONConfig.Attributes;
 
 	this.validateForm();
 
-	//console.debug('ValidateResult:%s', this.ValidateResult);
+	console.debug('ButtonInternal ValidateResult:%s', this.ValidateResultError);
 
-	if (this.ValidateResult == false) {
+	if (this.ValidateResultError == false) {
 		this.processActions();
 		sysFactory.Reactor.fireEvents(Attributes.FireEvents);
-	}
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "setDstObjectPostRequestData"
-//------------------------------------------------------------------------------
-
-sysObjButtonInternal.prototype.setDstObjectPostRequestData = function()
-{
-	var DstScreen = this.ConfigAttributes.DstScreen;
-	var DstObject = this.ConfigAttributes.DstObject;
-
-	if (DstScreen !== undefined && DstObject !== undefined) {
-		var ScreenObj = sysFactory.getScreenByID(this.ConfigAttributes.DstScreen);
-		var DestinationObj = ScreenObj.HierarchyRootObject.getObjectByID(this.ConfigAttributes.DstObject);
-		DestinationObj.PostRequestData = this.PostRequestData;
-	}
-
-	var DynValues = this.ConfigAttributes.DynamicValues;
-	for (ValueKey in DynValues) {
-		Value = DynValues[ValueKey];
-		DestinationObj.PostRequestData.add(Value, ValueKey);
 	}
 }

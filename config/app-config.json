@@ -1,61 +1,32 @@
 {
     "project": {
-        "name": "x0-base",
-        "id": "x0",
-        "git-repo": "x0"
+        "id": "x0-system",
+        "name": "x0-base-system",
+        "git-repo": "https://github.com/WEBcodeX1/x0/"
     },
     "installer": {
-        "type": "x0",
-        "subtype": "minikube",
-        "os:": "mswindows",
-        "os_version": 11
+        "type": "x0"
     },
     "database": {
         "name": "x0",
         "su_password": "changeme",
-        "repl_password": "changeme",
-        "x0_password": "changeme",
-        "size": "50Mi"
+        "x0_password": "changeme"
     },
-    "test": {
-        "selenium": {
-            "run_servers": 1,
-            "run_images": [
-                "chrome:latest"
-            ]
-        },
-        "testenvs": [ "test" ]
-    },
-    "env_list": [ "test" ],
-    "environments": {
-        "test": {
-            "kubernetes": {
-                "deployment": {
-                    "image": "x0-app",
-                    "replicas": 1,
-                    "cpu": "200m",
-                    "memory": "512Mi",
-                    "autoscale": false
-                },
-                "namespace": "x0-app",
-                "app_templates": [ "kubegres" ]
-            }
-        }
-    },
+    "env_list": [ "default" ],
     "vhosts": {
         "x0-app": {
             "apps": [ "x0" ],
             "env": {
+                "default": {
+                    "dns": {
+                        "hostname": "x0-app",
+                        "domain": "x0.localnet"
+                    }
+                },
                 "test": {
                     "dns": {
                         "hostname": "x0-app",
                         "domain": "x0.localnet"
-                    },
-                    "ip": {
-                        "v4": {
-                            "dns_register": true,
-                            "dns_register_type": "x0-net-management"
-                        }
                     }
                 }
             }

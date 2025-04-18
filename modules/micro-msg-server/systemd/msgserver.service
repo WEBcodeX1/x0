@@ -1,0 +1,9 @@
+[Unit]
+Description=Messageserver
+
+[Service]
+ExecStart=/usr/bin/python3 /var/lib/msgserver/bin/MessagingServer.py &
+
+[Install]
+WantedBy=multi-user.target
+

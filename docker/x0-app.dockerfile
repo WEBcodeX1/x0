@@ -3,7 +3,7 @@ MAINTAINER Claus Prüfer
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG APP_DEB_FILE=x0-app_0.99_all.deb
+ARG APP_DEB_FILE=x0-app_1.0rc1_all.deb
 
 COPY ./x0/docker/tmp/apt-sources.list /etc/apt/sources.list
 COPY ./x0/docker/tmp/environment-app.sh ./environment.sh

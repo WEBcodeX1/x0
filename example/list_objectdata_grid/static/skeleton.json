@@ -1,0 +1,17 @@
+{
+	"Screen1":
+	[
+		{
+			"TestList1Connector":
+			{
+				"RefID": "Screen1"
+			}
+		},
+		{
+			"TestList1":
+			{
+				"RefID": "TestList1Connector"
+			}
+		}
+	]
+}

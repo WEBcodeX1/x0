@@ -68,8 +68,8 @@
 						"StyleSelectButton": "",
 						"StyleProgressContainer": "progress",
 						"StyleUploadButton": "btn btn-primary",
-						"ProgressBarStyle": "progress-bar progress-bar-striped progress-bar-animated",
-						"ProgressBarPercentageStyle": "",
+						"StyleProgressBar": "progress-bar progress-bar-striped progress-bar-animated",
+						"StyleProgressBarPercentage": "",
 						"UploadScript": "/python/Upload.py"
 					}
 				}

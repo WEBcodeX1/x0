@@ -20,6 +20,7 @@ function sysFormfieldList()
 	this.FormfieldItems			= new Object();						//- Form Field Items
 	this.FormfieldItemsHidden	= new Object();						//- Form Field Items Hidden
 
+	this.EventListeners			= new Object();						//- Event Listeners
 	this.ChildObjects			= new Array();						//- Child Objects
 
 	this.PostRequestData		= new sysRequestDataHandler();		//- Request Data Handler
@@ -77,29 +78,56 @@ sysFormfieldList.prototype.init = function()
 	catch(err) {
 	}
 
-	this.render();
 	//console.debug('::init FormfieldItems:%o', this.FormfieldItems);
+
+	var EventListenerObj = new Object();
+	EventListenerObj['Type'] = 'mousedown';
+	EventListenerObj['Element'] = this.EventListenerRightClick.bind(this);
+	this.EventListeners['ContextMenuOpen'] = EventListenerObj;
+
+	this.render();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "EventListenerRightClick"
+//------------------------------------------------------------------------------
+
+sysFormfieldList.prototype.EventListenerRightClick = function(Event)
+{
+	var ContextMenuItems = this.JSONConfig.Attributes.ContextMenuItems;
+
+	//- check for right click on mousedown
+	if (Event.button == 2 && ContextMenuItems !== undefined) {
+
+		var ContextMenu = new sysContextMenu();
+
+		ContextMenu.ID 					= 'CtMenu_' + this.ObjectID;
+		ContextMenu.ItemConfig 			= ContextMenuItems;
+		ContextMenu.ScreenObject 		= this.ScreenObject;
+		ContextMenu.ParentObject 		= this;
+		ContextMenu.pageX 				= Event.pageX;
+		ContextMenu.pageY 				= Event.pageY;
+
+		ContextMenu.init();
+	}
 }
 
 
 //------------------------------------------------------------------------------
 //- METHOD "setupFormItem"
 //------------------------------------------------------------------------------
+
 sysFormfieldList.prototype.setupFormItem = function(FormID, Attributes, FormJSONConfig)
 {
 	try {
 		var FormObj = new sysFormfieldSelector(Attributes.Type);
 
 		FormObj.JSONConfig			= FormJSONConfig;
+		FormObj.ObjectID			= FormID;
 
-		FormObj.ObjectID			= 'enclose__' + FormID;
-		FormObj.FormObjectID		= FormID;
-		FormObj.overrideDOMObjectID	= true;
-		FormObj.DOMObjectID			= this.ObjectID + '__enclose__' + FormID;
-		FormObj.ObjectType			= Attributes.Type;
 		FormObj.ScreenObject 		= this.ScreenObject;
 		FormObj.ParentObject		= this;
-		//FormObj.Index				= FormIndex;
 
 		FormObj.init();
 		return FormObj;
@@ -176,9 +204,7 @@ sysFormfieldList.prototype.getServiceData = function()
 
 sysFormfieldList.prototype.callbackXMLRPCAsync = function()
 {
-	//console.debug('sysFormfieldList update FormItems:%o', this.FormfieldItems);
-
-	for (ItemKey in this.FormfieldItems) {
+	for (const ItemKey in this.FormfieldItems) {
 		FormItem = this.FormfieldItems[ItemKey];
 		//console.debug('update Key:%s FormItem:%o', ItemKey, FormItem);
 		FormItem.updateDBValue(this.XMLRPCResultData[0]);
@@ -192,18 +218,14 @@ sysFormfieldList.prototype.callbackXMLRPCAsync = function()
 
 sysFormfieldList.prototype.setData = function(DataObj)
 {
-	//console.debug('::setData DataObj:%o Formfields:%o isOverlay:%s', DataObj, this.FormfieldItems, this.isOverlay);
-
-	//console.debug('NewData:%o', NewData);
-
-	if (DataObj !== undefined) {
-		for (const FormID in this.FormfieldItems) {
-			FormItem = this.FormfieldItems[FormID];
+	for (const ItemKey in this.FormfieldItems) {
+		try {
+			FormItem = this.FormfieldItems[ItemKey];
 			//console.debug('FormItem:%o', FormItem);
-			if (FormItem !== undefined) {
-				FormItem.Value = DataObj[FormID];
-				FormItem.updateFormItemValue();
-			}
+			FormItem.RuntimeSetDataFunc(DataObj[ItemKey]);
+		}
+		catch {
+			console.debug('sysFormfieldList ::setData ItemKey:%s error DataObj:%o', ItemKey, DataObj);
 		}
 	}
 }
@@ -352,8 +374,8 @@ sysFormfieldList.prototype.getFormfieldItemByID = function(ObjectID)
 sysFormfieldList.prototype.reset = function()
 {
 	console.debug('Formlist reset() called.');
-	for (FormKey in this.FormfieldItems) {
-		const FormItemID = this.FormfieldItems[FormKey].ObjectID;
+	for (ItemKey in this.FormfieldItems) {
+		const FormItemID = this.FormfieldItems[ItemKey].ObjectID;
 		const FormItemObj = sysFactory.getObjectByID(FormItemID);
 		console.debug('reset Object:%o', FormItemObj);
 		FormItemObj.reset();

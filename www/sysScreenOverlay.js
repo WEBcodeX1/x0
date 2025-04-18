@@ -183,7 +183,7 @@ sysScreenOverlay.prototype.processUpdate = function()
 
 sysScreenOverlay.prototype.EventListenerClick = function()
 {
-	this.OverlayScreen.HierarchyRootObject.remove();
+	this.OverlayScreen.HierarchyRootObject.removeParent();
 	delete sysFactory.Screens[this.OverlayScreenID];
 	this.FactoryRef.OverlayRefCount = 0;
 }

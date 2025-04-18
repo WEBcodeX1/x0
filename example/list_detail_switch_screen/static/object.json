@@ -153,25 +153,24 @@
 				{
 					"ID": "col1",
 					"HeaderTextID": "TXT.TABLE.LISTDETAILVIEW.HEADER.COL1",
-					"sortable": true,
 					"HeaderStyle": "col-md-8 p-3 border-end"
 				},
 				{
 					"ID": "col2",
 					"HeaderTextID": "TXT.TABLE.LISTDETAILVIEW.HEADER.COL2",
-					"sortable": false,
 					"HeaderStyle": "col-md-4 p-3"
 				}
 			],
-			"ContextMenuItems": {
-				"Edit": {
+			"ContextMenuItems": [
+				{
+					"ID": "Edit",
 					"TextID": "TXT.CONTEXTMENU.LISTDETAILVIEW.EDIT",
 					"IconStyle": "fa-solid fa-pen-to-square",
 					"DstScreenID": "Screen2",
 					"RowColumn": "id",
 					"FireEvents": [ "GetFormfieldData" ]
 				}
-			},
+			],
 			"RowStyle": "row m-2 border-bottom border-right",
 			"RowAfterElements": 3,
 			"ColStyle": [

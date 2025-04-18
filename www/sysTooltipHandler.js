@@ -29,24 +29,8 @@ sysTooltipHandler.prototype.initLayer = function()
 	var tmpdiv;
 
 	tmpdiv = document.createElement('div');
-
 	tmpdiv.setAttribute('id', this.DOMObjectID);
-
-	tmpdiv.style.left			= '0px';
-	tmpdiv.style.top			= '0px';
-	tmpdiv.style.width			= '800px';
-	tmpdiv.style.zIndex			= 20;
-	tmpdiv.style.transition		= 'all .5s';
-
-	tmpdiv.style.position		= 'absolute';
-
-	tmpdiv.style.padding		= '0px';
-
-	tmpdiv.style.opacity		= 0.9;
-
-    tmpdiv.setAttribute('class', 'sysTooltip');
-
-    tmpdiv.innerHTML			= '';
+	tmpdiv.innerHTML = '';
 
 	//- Append DIV to DOM body
 	document.body.appendChild(tmpdiv);

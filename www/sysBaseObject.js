@@ -69,19 +69,22 @@ sysBaseObject.prototype.renderObject = function(Prefix)
 		this.DOMObjectID = this.ObjectID;
 	}
 
-	this.createDOMElement(this.DOMObjectID);
-	this.appendDOMParentElement();
+	//- only render if dom object does not exists
+	if (this.checkDOMElementExists(this.DOMObjectID) == false) {
 
-	this.setDOMAttributes();
-	this.setDOMElementValue();
-	this.setDOMElementStyle();
-	this.setDOMElementStyleAttributes();
-	this.setDOMVisibleState();
-	this.processEventListener();
+		this.createDOMElement(this.DOMObjectID);
+		this.appendDOMParentElement();
+
+		this.setDOMAttributes();
+		this.setDOMElementValue();
+		this.setDOMElementStyle();
+		this.setDOMElementStyleAttributes();
+		this.setDOMVisibleState();
+		this.processEventListener();
+	}
 
 	//console.debug(':renderObject ObjectID:%s ChildObjects:%o:', this.ObjectID, this.ChildObjects);
-	for (i in this.ChildObjects) {
-		var ChildItem = this.ChildObjects[i];
+	for (const ChildItem of this.ChildObjects) {
 		ChildItem.renderObject(this.DOMObjectID);
 	}
 }
@@ -105,8 +108,7 @@ sysBaseObject.prototype.processEventListener = function()
 		}
 	}
 
-	for (i in this.ChildObjects) {
-		var ChildItem = this.ChildObjects[i];
+	for (const ChildItem of this.ChildObjects) {
 		ChildItem.processEventListener();
 	}
 }
@@ -122,8 +124,7 @@ sysBaseObject.prototype.connectServiceConnectorObjects = function()
 		this.connect();
 	}
 
-	for (i in this.ChildObjects) {
-		var ChildItem = this.ChildObjects[i];
+	for (const ChildItem of this.ChildObjects) {
 		ChildItem.connectServiceConnectorObjects();
 	}
 }
@@ -150,6 +151,20 @@ sysBaseObject.prototype.getObjectByID = function(ObjectID) {
 
 sysBaseObject.prototype.getChildObjectByIndex = function(Index) {
 	return this.ChildObjects[Index];
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "getChildIndexByChildItemID"
+//------------------------------------------------------------------------------
+
+sysBaseObject.prototype.getChildIndexByChildItemID = function(ID) {
+	for (const [Index, ChildItem] of this.ChildObjects.entries()) {
+		console.debug('check ChildItem.ObjectID:%s == ID:%s Index:', ChildItem.ObjectID, ID, Index);
+		if (ChildItem.ObjectID == ID) {
+			return Index;
+		}
+	};
 }
 
 
@@ -202,8 +217,7 @@ sysBaseObject.prototype.getObjects = function()
 {
 	var Items = new Object();
 
-	for (i in this.ChildObjects) {
-		var ChildItem = this.ChildObjects[i];
+	for (const ChildItem of this.ChildObjects) {
 		RItems = ChildItem.getObjects();
 		Items[ChildItem.ObjectID] = ChildItem;
 		for (RItemKey in RItems) {
@@ -234,8 +248,7 @@ sysBaseObject.prototype.setActivated = function()
 {
 	this.Deactivated = false;
 
-	for (i in this.ChildObjects) {
-		const ChildItem = this.ChildObjects[i];
+	for (const ChildItem of this.ChildObjects) {
 		ChildItem.setActivated();
 	}
 }
@@ -249,8 +262,7 @@ sysBaseObject.prototype.setDeactivated = function()
 {
 	this.Deactivated = true;
 
-	for (i in this.ChildObjects) {
-		const ChildItem = this.ChildObjects[i];
+	for (const ChildItem of this.ChildObjects) {
 		ChildItem.setDeactivated();
 	}
 }
@@ -262,16 +274,29 @@ sysBaseObject.prototype.setDeactivated = function()
 
 sysBaseObject.prototype.remove = function()
 {
+	const ChildItemIndex = this.ParentObject.getChildIndexByChildItemID(this.ObjectID);
+	this.ParentObject.ChildObjects.splice(ChildItemIndex, 1);
+	console.log('::remove ChildItemIndex:%s ChildObjects:%o', ChildItemIndex, this.ParentObject.ChildObjects);
+	this.removeDOMElement();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "removeParent"
+//------------------------------------------------------------------------------
+
+sysBaseObject.prototype.removeParent = function()
+{
 	//console.log('::remove ObjectID:%s DOMObjectID:%s this:%o', this.ObjectID, this.DOMObjectID, this);
 	try{
 		if (this.checkDOMElementExists(this.DOMObjectID)) {
 			this.removeDOMParentElement()
 		}
 		delete this.ChildObjects;
-        this.ChildObjects = new Array();
+		this.ChildObjects = new Array();
 	}
 	catch(err) {
-		console.log('::remove ObjectID:%s error:%s', this.ObjectID, err);
+		console.log('::removeParent ObjectID:%s error:%s', this.ObjectID, err);
 	}
 }
 
@@ -284,13 +309,6 @@ sysBaseObject.prototype.getObjectData = function()
 {
 	console.debug('::BaseObject getObjectData() this:%o', this);
 	return this.RuntimeGetDataFunc();
-	/*
-	this.GetDataResult = this.RuntimeGetDataFunc();
-
-	for (ChildItem of this.ChildObjects) {
-		this.GetDataResultChildren.push(ChildItem.getObjectData());
-	}
-	*/
 }
 
 
@@ -300,13 +318,7 @@ sysBaseObject.prototype.getObjectData = function()
 
 sysBaseObject.prototype.setObjectData = function(Data)
 {
-	//console.debug('BaseObject setObjectData() this:%o Data:%o', this, Data);
-	try {
-		this.ParentObject.RuntimeSetDataFunc(Data); //- mv to OBJECT!
-	}
-	catch(err) {
-		this.RuntimeSetDataFunc(Data);
-	}
+	this.RuntimeSetDataFunc(Data);
 }
 
 
@@ -327,8 +339,7 @@ sysBaseObject.prototype.appendObjectData = function(Data)
 sysBaseObject.prototype.processReset = function()
 {
 	this.reset();
-	for (i in this.ChildObjects) {
-		var ChildItem = this.ChildObjects[i];
+	for (const ChildItem of this.ChildObjects) {
 		ChildItem.processReset();
 	}
 }
@@ -350,8 +361,7 @@ sysBaseObject.prototype.reset = function()
 sysBaseObject.prototype.processUpdate = function()
 {
 	this.updateValue();
-	for (i in this.ChildObjects) {
-		var ChildItem = this.ChildObjects[i];
+	for (const ChildItem of this.ChildObjects) {
 		ChildItem.processUpdate();
 	}
 }

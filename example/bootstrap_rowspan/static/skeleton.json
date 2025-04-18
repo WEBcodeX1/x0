@@ -1,0 +1,53 @@
+{
+	"Screen1":
+	[
+		{
+			"Container":
+			{
+				"RefID": "Screen1"
+			}
+		},
+		{
+			"Row":
+			{
+				"RefID": "Container"
+			}
+		},
+		{
+			"Col1":
+			{
+				"RefID": "Row"
+			}
+		},
+		{
+			"Col2":
+			{
+				"RefID": "Row"
+			}
+		},
+		{
+			"Col3":
+			{
+				"RefID": "Row"
+			}
+		},
+		{
+			"Col4":
+			{
+				"RefID": "Row"
+			}
+		},
+		{
+			"Span1":
+			{
+				"RefID": "Col2"
+			}
+		},
+		{
+			"Span2":
+			{
+				"RefID": "Col2"
+			}
+		}
+	]
+}

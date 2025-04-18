@@ -1,0 +1,72 @@
+{
+	"Link1":
+	{
+		"Type": "Link",
+		"Attributes": {
+			"Style": "btn btn-primary d-none",
+			"TextID": "TXT.MENU.OVERLAYEXAMPLE.SCREEN1",
+			"ScreenID": "Screen1"
+		}
+	},
+	"Container":
+	{
+		"Type": "Div",
+		"Attributes": {
+			"Style": "container"
+		}
+	},
+	"Row":
+	{
+		"Type": "Div",
+		"Attributes": {
+			"Style": "row"
+		}
+	},
+	"Col1":
+	{
+		"Type": "Div",
+		"Attributes": {
+			"Style": "col-md-5",
+			"Value": "Col-1"
+		}
+	},
+	"Col2":
+	{
+		"Type": "Div",
+		"Attributes": {
+			"Style": "col-md-3"
+		}
+	},
+	"Col3":
+	{
+		"Type": "Div",
+		"Attributes": {
+			"Style": "col-md-2",
+			"Value": "Col-3"
+		}
+	},
+	"Col4":
+	{
+		"Type": "Div",
+		"Attributes": {
+			"Style": "col-md-2",
+			"Value": "Col-4"
+		}
+	},
+	"Span1":
+	{
+		"Type": "Div",
+		"Attributes": {
+			"Style": "short-div",
+			"Value": "Span-1"
+		}
+	},
+	"Span2":
+	{
+		"Type": "Div",
+		"Attributes": {
+			"Style": "short-div",
+			"Value": "Span-2"
+		}
+	}
+}

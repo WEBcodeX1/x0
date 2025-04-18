@@ -76,7 +76,7 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
 	if (RequestObject !== undefined &&
 		RequestObject.PostRequestData !== undefined) {
 		this.PostData = RequestObject.PostRequestData;
-        //console.log('::Request postRequestData:%o', RequestObject.PostRequestData);
+		//console.log('::Request postRequestData:%o', RequestObject.PostRequestData);
 	}
 
 	var HeaderContentType = null;
@@ -154,9 +154,9 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
 		if (this.RequestType == 'POST') {
 			RequestURL = this.URL + this.URLRandIndicator;
 
-            //console.log('::sysCallXMLRPC SessionID:%s', sysFactory.SysSessionValue);
+			//console.log('::sysCallXMLRPC SessionID:%s', sysFactory.SysSessionValue);
 
-            if (sysFactory.SysSessionValue != null) {
+			if (sysFactory.SysSessionValue != null) {
 				var SessionData = new Object();
 				SessionData['ID'] = sysFactory.SysSessionID;
 				SessionData['Value'] = sysFactory.SysSessionValue;

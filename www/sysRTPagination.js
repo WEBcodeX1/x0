@@ -49,7 +49,7 @@ sysPagination.prototype.render = function()
 	this.setPageCount();
 
 	if (this.DOMParentID !== null) {
-		this.remove();
+		this.removeParent();
 	}
 
 	var NavLeftButton = new sysObjButtonCallback();

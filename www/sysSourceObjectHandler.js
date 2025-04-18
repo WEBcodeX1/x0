@@ -35,10 +35,8 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
 	console.debug('::processSourceObjects SrcObjects:%o', SrcObjects);
 
 	var ObjectResultData = new Object();
-	var ObjectResultDataESB = new Object();
 
 	if (Array.isArray(SrcObjects) == true) {
-
 		for (Index in SrcObjects) {
 			const ObjectID = SrcObjects[Index];
 			console.debug('::processSourceObjects ObjectID:%s', ObjectID);
@@ -48,12 +46,7 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
 			//ObjectID = ObjectID.replace('__overlay', '');
 
 			const ObjectRuntimeData = ObjectRef.getObjectData();
-			if (Attributes.MicroESBServiceID !== undefined) {
-				ObjectResultDataESB[ObjectRef.JSONConfig.Attributes.HierarchyObjectID] = ObjectRuntimeData;
-			}
-			else {
-				ObjectResultData[ObjectID] = ObjectRuntimeData;
-			}
+			ObjectResultData[ObjectID] = ObjectRuntimeData;
 		}
 	}
 
@@ -68,7 +61,6 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
 			//console.debug('::processSourceObjects SrcObjectID:%s ScreenID:%s Type:%s ScreenObject:%o', SrcObjectID, ScreenID, SrcObjectType, ScreenObj);
 
 			try {
-
 				switch (SrcObjectType) {
 
 					case "SourceObject":
@@ -85,13 +77,6 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
 						for (Key in SourceObject.Values) {
 							ObjectResultData[Key] = SourceObject.Values[Key];
 						}
-
-						continue;
-
-					case "FileUpload":
-
-						var SrcObject = ScreenObj.HierarchyRootObject.getObjectByID(SrcObjectID);
-						ObjectResultData[SrcObjectID] = SrcObject.getObjectData();
 
 						continue;
 
