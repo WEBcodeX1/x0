@@ -9,3 +9,8 @@ INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.EXAMPLE.OBJECT-INSTA
 INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.EXAMPLE.OBJECT-INSTANCES.FORM2-LABEL', 'formfield-label', 'Form2');
 INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.EXAMPLE.OBJECT-INSTANCES.FORM3-LABEL', 'formfield-label', 'Form3');
 INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.EXAMPLE.OBJECT-INSTANCES.FORM4-LABEL', 'formfield-label', 'Form4');
+
+INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.TABLE.EXAMPLE.OBJECT-INSTANCES.TABLE-HEADER.COL1', 'table-header', 'Col1');
+INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.TABLE.EXAMPLE.OBJECT-INSTANCES.TABLE-HEADER.COL2', 'table-header', 'Col2');
+INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.TABLE.EXAMPLE.OBJECT-INSTANCES.TABLE-HEADER.COL3', 'table-header', 'Col3');
+INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.TABLE.EXAMPLE.OBJECT-INSTANCES.TABLE-HEADER.COL4', 'table-header', 'Col4');
