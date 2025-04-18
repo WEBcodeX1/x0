@@ -207,6 +207,6 @@ sysObjAsyncNotifyIndicatorItem.prototype.updateDisplayText = function()
 
 sysObjAsyncNotifyIndicatorItem.prototype.close = function()
 {
-	this.remove();
+	this.removeParent();
 	this.ParentObj.zIndex -= 1;
 }
