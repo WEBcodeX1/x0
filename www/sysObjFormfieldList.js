@@ -20,6 +20,7 @@ function sysFormfieldList()
 	this.FormfieldItems			= new Object();						//- Form Field Items
 	this.FormfieldItemsHidden	= new Object();						//- Form Field Items Hidden
 
+	this.EventListeners			= new Object();						//- Event Listeners
 	this.ChildObjects			= new Array();						//- Child Objects
 
 	this.PostRequestData		= new sysRequestDataHandler();		//- Request Data Handler
@@ -77,8 +78,39 @@ sysFormfieldList.prototype.init = function()
 	catch(err) {
 	}
 
-	this.render();
 	//console.debug('::init FormfieldItems:%o', this.FormfieldItems);
+
+	var EventListenerObj = new Object();
+	EventListenerObj['Type'] = 'mousedown';
+	EventListenerObj['Element'] = this.EventListenerRightClick.bind(this);
+	this.EventListeners['ContextMenuOpen'] = EventListenerObj;
+
+	this.render();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "EventListenerRightClick"
+//------------------------------------------------------------------------------
+
+sysFormfieldList.prototype.EventListenerRightClick = function(Event)
+{
+	var ContextMenuItems = this.JSONConfig.Attributes.ContextMenuItems;
+
+	//- check for right click on mousedown
+	if (Event.button == 2 && ContextMenuItems !== undefined) {
+
+		var ContextMenu = new sysContextMenu();
+
+		ContextMenu.ID 					= 'CtMenu_' + this.ObjectID;
+		ContextMenu.ItemConfig 			= ContextMenuItems;
+		ContextMenu.ScreenObject 		= this.ScreenObject;
+		ContextMenu.ParentObject 		= this;
+		ContextMenu.pageX 				= Event.pageX;
+		ContextMenu.pageY 				= Event.pageY;
+
+		ContextMenu.init();
+	}
 }
 
 
@@ -89,15 +121,11 @@ sysFormfieldList.prototype.init = function()
 sysFormfieldList.prototype.setupFormItem = function(FormID, Attributes, FormJSONConfig)
 {
 	try {
-
 		var FormObj = new sysFormfieldSelector(Attributes.Type);
 
 		FormObj.JSONConfig			= FormJSONConfig;
-
 		FormObj.ObjectID			= FormID;
-		FormObj.overrideDOMObjectID	= true;
-		FormObj.DOMObjectID			= this.ObjectID + '__enclose__' + FormID;
-		FormObj.ObjectType			= Attributes.Type;
+
 		FormObj.ScreenObject 		= this.ScreenObject;
 		FormObj.ParentObject		= this;
 
@@ -191,9 +219,14 @@ sysFormfieldList.prototype.callbackXMLRPCAsync = function()
 sysFormfieldList.prototype.setData = function(DataObj)
 {
 	for (const ItemKey in this.FormfieldItems) {
-		FormItem = this.FormfieldItems[ItemKey];
-		//console.debug('FormItem:%o', FormItem);
-		FormItem.RuntimeSetDataFunc(DataObj[ItemKey]);
+		try {
+			FormItem = this.FormfieldItems[ItemKey];
+			//console.debug('FormItem:%o', FormItem);
+			FormItem.RuntimeSetDataFunc(DataObj[ItemKey]);
+		}
+		catch {
+			console.debug('sysFormfieldList ::setData ItemKey:%s error DataObj:%o', ItemKey, DataObj);
+		}
 	}
 }
 
