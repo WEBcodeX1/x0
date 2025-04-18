@@ -1,8 +1,8 @@
 {
     "project": {
         "id": "x0-system",
-	"name": "x0-base-system",
-	"git-repo": "https://github.com/WEBcodeX1/x0/"
+        "name": "x0-base-system",
+        "git-repo": "https://github.com/WEBcodeX1/x0/"
     },
     "installer": {
         "type": "x0"
@@ -18,6 +18,12 @@
             "apps": [ "x0" ],
             "env": {
                 "default": {
+                    "dns": {
+                        "hostname": "x0-app",
+                        "domain": "x0.localnet"
+                    }
+                },
+                "test": {
                     "dns": {
                         "hostname": "x0-app",
                         "domain": "x0.localnet"
