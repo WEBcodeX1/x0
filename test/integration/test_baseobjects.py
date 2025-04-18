@@ -98,19 +98,19 @@ class TestBaseObjectsExistence:
 
         # field (aka input)
         elem = wait.until(EC.presence_of_element_located(
-            (By.CSS_SELECTOR, "#Test1_FormFieldList1 #FormField1")
+            (By.ID, "FormField1")
         ))
 
         # pulldown (aka select)
         elem = wait.until(EC.presence_of_element_located(
-            (By.CSS_SELECTOR, "#Test1_FormFieldList1 #enclose__FormFieldPulldown1 #FormFieldPulldown1")
+            (By.ID, "FormFieldPulldown1")
         ))
 
-        el = d.find_element(By.CSS_SELECTOR, "#FormField1")
+        el = d.find_element(By.ID, "FormField1")
         val = el.get_attribute("class")
         assert val == config["json"]["object"]["FormField1"]["Attributes"]["Style"], "FormField has improper class attribute, differs from JSON config."
 
-        el = d.find_element(By.CSS_SELECTOR, "#FormFieldPulldown1")
+        el = d.find_element(By.ID, "FormFieldPulldown1")
         val = el.get_attribute("class")
         assert val == config["json"]["object"]["FormFieldPulldown1"]["Attributes"]["Style"], "FormFieldPulldown has improper class attribute, differs from JSON config."
 

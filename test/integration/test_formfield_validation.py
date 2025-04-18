@@ -82,7 +82,7 @@ def is_valid_in_formfield(d, w, input, keys, submit, css_class):
     input_el.send_keys(keys)
 
     input_enclose_el = WebDriverWait(d, w).until(EC.presence_of_element_located(
-        (By.ID, 'enclose__{}'.format(input))
+        (By.ID, '{}'.format(input))
     ))
 
     submit_el = d.find_element(
