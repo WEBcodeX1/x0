@@ -22,8 +22,8 @@ What does the cross stand for you might ask. **Communication**.
 Due to the x0-systems clean OOP model, each object is able to e"x"change its data
 container internally and over the network between client(s) *directly*.
 
-See examples section [example #10](./examples/net_messages/) and
-[example #13](./examples/copy_paste/) for more information.
+See examples section [example #10](./example/net_messages/) and
+[example #13](./example/copy_paste/) for more information.
 
 ## 4. Responsiveness
 
