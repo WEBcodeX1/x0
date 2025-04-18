@@ -101,8 +101,8 @@ sysScreen.prototype.setupObject = function(ObjectID, HierarchyObject, HierarchyL
 	const SkeletonData = this.getSkeletonObjectsByObjectRefId(ObjectID);
 	//console.debug('::setupObject ObjectID:%s SkeletonData:%o', ObjectID, SkeletonData);
 
-	for (ObjectIndex in SkeletonData) {
-		const ObjectItem = SkeletonData[ObjectIndex];
+	for (const ObjectItem of SkeletonData) {
+		//const ObjectItem = SkeletonData[ObjectIndex];
 		const Key = Object.keys(ObjectItem)[0];
 		const SkeletonItem = ObjectItem[Key];
 		var JSONConfig = sysFactory.DataObject.XMLRPCResultData[Key];
@@ -337,10 +337,10 @@ sysScreen.prototype.getGlobalVars = function()
 //- METHOD "mergeGlobalVars"
 //------------------------------------------------------------------------------
 
-sysScreen.prototype.mergeGlobalVars = function(VarObj)
+sysScreen.prototype.mergeGlobalVars = function(Items)
 {
-	for (Key in VarObj) {
-		const Value = VarObj[Key];
+	for (Key in Items) {
+		const Value = Items[Key];
 		this.setGlobalVar(Key, Value);
 	};
 }
