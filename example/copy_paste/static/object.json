@@ -1,0 +1,234 @@
+{
+	"Link1":
+	{
+		"Type": "Link",
+		"Attributes": {
+			"Style": "btn btn-primary d-none",
+			"TextID": "TXT.TABLE.EXAMPLE-COPYPASTE.LINK1",
+			"ScreenID": "Screen1"
+		}
+	},
+
+	"TabContainer1":
+	{
+		"Type": "TabContainer",
+		"Attributes":
+		{
+			"Tabs": [
+				{
+					"ID": "Tab1",
+					"Attributes":
+						{
+							"Default": true,
+							"TextID": "TXT.TABLE.EXAMPLE-COPYPASTE.TAB1",
+							"Style": "col-md-4"
+						}
+				},
+				{
+					"ID": "Tab2",
+					"Attributes":
+						{
+							"TextID": "TXT.TABLE.EXAMPLE-COPYPASTE.TAB2",
+							"Style": "col-md-8"
+						}
+				}
+			]
+		}
+	},
+
+	"TestList1Connector":
+	{
+		"Type": "ServiceConnector",
+		"Attributes":
+		{
+			"OnEvent":
+			{
+				"Events": [ "InitSystem" ],
+				"ServiceCall": "/python/IntegrationTestGetTableData2.py"
+			}
+		}
+	},
+
+	"TestList1":
+	{
+		"Type": "List",
+		"Attributes":
+		{
+			"Style": "border rounded-top rounded-bottom",
+			"HeaderRowStyle": "row fw-bold fs-2 m-2 border-bottom",
+			"RowCount": 10,
+			"Navigation": true,
+			"SrcDataObjects":
+			{
+				"Dummy":
+				{
+					"Type": "HardcodedValues",
+					"Values": {
+						"LimitRows": "15"
+					}
+				}
+			},
+			"Columns": [
+				{
+					"ID": "col1",
+					"HeaderTextID": "TXT.TABLE.EXAMPLE-COPYPASTE.HEADER.COL1",
+					"HeaderStyle": "col-md-3 p-3 border-end"
+				},
+				{
+					"ID": "col2",
+					"HeaderTextID": "TXT.TABLE.EXAMPLE-COPYPASTE.HEADER.COL2",
+					"HeaderStyle": "col-md-3 p-3 border-end"
+				},
+				{
+					"ID": "col3",
+					"HeaderTextID": "TXT.TABLE.EXAMPLE-COPYPASTE.HEADER.COL3",
+					"HeaderStyle": "col-md-3 p-3 border-end"
+				},
+				{
+					"ID": "col4",
+					"HeaderTextID": "TXT.TABLE.EXAMPLE-COPYPASTE.HEADER.COL4",
+					"HeaderStyle": "col-md-3 p-3"
+				}
+			],
+			"ContextMenuItems": [
+				{
+					"ID": "GetData",
+					"TextID": "TXT.CONTEXTMENU.EXAMPLE-COPYPASTE.GETDATA",
+					"IconStyle": "fa-solid fa-copy",
+					"InternalFunction": "get-data"
+				}
+			],
+			"RowStyle": "row m-2 border-bottom border-right",
+			"RowAfterElements": 4,
+			"ColStyle": [
+				"col-md-3 p-3 border-end",
+				"col-md-3 p-3 border-end",
+				"col-md-3 p-3 border-end",
+				"col-md-3 p-3"
+			]
+		}
+	},
+
+	"FormlistSetData": {
+		"Type": "FormfieldList",
+		"Attributes": {
+			"Sections": [
+				{
+					"ID": "Section1",
+					"Object": "FormSectionHeader",
+					"ObjectAttributes": {
+						"Style": "card card-line bg-body-tertiary border border-dark border-2 mb-3",
+						"SubStyle": "card-body mt-n6",
+						"HeaderIcon": "fa-solid fa-recycle",
+						"HeaderTextID": "TXT.TABLE.EXAMPLE-COPYPASTE.FORMLIST1.HEADER",
+						"SubHeaderTextID": "TXT.TABLE.EXAMPLE-COPYPASTE.FORMLIST1.SUBHEADER"
+					},
+					"Formfields": [
+						"col1Descr",
+						"col1",
+						"col2Descr",
+						"col2",
+						"col3Descr",
+						"col3",
+						"col4Descr",
+						"col4"
+					],
+					"RowStyle": "row",
+					"RowAfterElements": 4,
+					"ColStyle": "col-md-6",
+					"ColAfterElements": 2
+				}
+			],
+			"ContextMenuItems": [
+				{
+					"ID": "SetData",
+					"TextID": "TXT.CONTEXTMENU.EXAMPLE-COPYPASTE.SETDATA",
+					"IconStyle": "fa-solid fa-paste",
+					"InternalFunction": "set-data"
+				}
+			]
+		}
+	},
+
+	"col1Descr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"TextID": "TXT.TABLE.EXAMPLE-COPYPASTE.FORM1-LABEL"
+		}
+	},
+
+	"col1": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "checkbox",
+			"Value": true,
+			"Style": "form-check"
+		}
+	},
+
+	"col2Descr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"TextID": "TXT.TABLE.EXAMPLE-COPYPASTE.FORM2-LABEL"
+		}
+	},
+
+	"col2": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "text",
+			"Disabled": true,
+			"Style": "form-control mb-1 p-1 w-100"
+		}
+	},
+
+	"col3Descr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"TextID": "TXT.TABLE.EXAMPLE-COPYPASTE.FORM3-LABEL"
+		}
+	},
+
+	"col3": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "pulldown",
+			"Style": "form-control mb-1 p-1 w-100",
+			"Options": [
+				{
+					"TextID": "TXT.TABLE.EXAMPLE-COPYPASTE.PULLDOWN.OPT1",
+					"Value": "10"
+				},
+				{
+					"TextID": "TXT.TABLE.EXAMPLE-COPYPASTE.PULLDOWN.OPT2",
+					"Value": "20",
+					"Default": true
+				},
+				{
+					"TextID": "TXT.TABLE.EXAMPLE-COPYPASTE.PULLDOWN.OPT3",
+					"Value": "30"
+				}
+			]
+		}
+	},
+
+	"col4Descr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"TextID": "TXT.TABLE.EXAMPLE-COPYPASTE.FORM4-LABEL"
+		}
+	},
+
+	"col4": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "textarea",
+			"Style": "form-control mb-1 p-1 w-100"
+		}
+	}
+
+}
