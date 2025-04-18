@@ -25,7 +25,7 @@ function sysListRow(ParentObject, RowIndex, RowData)
 	this.Index					= RowIndex;				//- Row Index
 	this.Selected				= false;				//- Selected Row
 
-	this.RowData				= RowData;				//- Row Data Array
+	this.RowData				= RowData;				//- Row Data Object
 
 	this.ColItems				= new Array();			//- Col Item Objects
 	this.DynUpdateObjects		= new Array();			//- Dynamic Object Update Array
@@ -34,6 +34,9 @@ function sysListRow(ParentObject, RowIndex, RowData)
 
 	this.GetDataResult			= null;					//- Reset GetDataResult
 	this.GetDataChildObjects	= new Array();			//- GetDataResult Child Objects Array
+
+	this.RuntimeGetDataFunc		= this.getRowData;		//- Get Runtime Data
+	this.RuntimeSetDataFunc		= undefined;			//- To be implemented
 
 	this.ObjectID				= 'TR_'+ ParentObject.ObjectID + '_' + RowIndex;
 }
@@ -195,6 +198,16 @@ sysListRow.prototype.updateColumnsValues = function()
 
 
 //------------------------------------------------------------------------------
+//- METHOD "getRowData"
+//------------------------------------------------------------------------------
+
+sysListRow.prototype.getRowData = function()
+{
+	return this.RowData;
+}
+
+
+//------------------------------------------------------------------------------
 //- METHOD "genGrid"
 //------------------------------------------------------------------------------
 
@@ -309,7 +322,7 @@ sysList.prototype.processSourceObjects = sysSourceObjectHandler.prototype.proces
 sysList.prototype.getServiceData = function()
 {
 	this.resetData();
-	this.remove();
+	this.removeParent();
 
 	RPC = new sysCallXMLRPC(this.DataURL, this.DataURLParams);
 	RPC.Request(this);
@@ -333,7 +346,7 @@ sysList.prototype.callbackXMLRPCAsync = function()
 sysList.prototype.update = function()
 {
 	this.UpdateCount++;
-	this.remove();
+	this.removeParent();
 	this.setUpdateResult();
 	this.renderPage();
 }
@@ -476,7 +489,7 @@ sysList.prototype.renderPage = function()
 	const Attributes = this.JSONConfig.Attributes;
 
 	if (this.UpdateCount > 0) {
-		this.remove();
+		this.removeParent();
 	}
 
 	if (Attributes.DisableHeader === undefined || Attributes.DisableHeader === false) {
