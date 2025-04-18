@@ -1,4 +1,18 @@
-x0 (0.99) bullseye; urgency=medium
+x0 (1.0rc1) bullseye; urgency=medium
+
+  [ Claus Prüfer ]
+  * Multiple generic bug fixes regarding JS array processing
+  * sysObjFormfieldItem.js code cleanup (remove enclose__ object)
+  * Add ContextMenu handling to FormfieldList *x0-object-type*
+  * Fix RuntimeSetDataFunc() for List "column" Objects
+  * Add example "list_objectdata_grid" (List grid-functionality)
+  * Add example "net_messages" (Object exchange via msg-server)
+  * Add example "object_instances" (Object instancing examples)
+  * Add example "copy_paste" (Object data get / set context-menu functionality)
+
+ -- Claus Prüfer <pruefer@webcodex.de>  Fri, 18 Apr 2025 12:11:00 +0200
+
+ x0 (0.99) bullseye; urgency=medium
 
   [ Claus Prüfer ]
   * x0 base 100% generic
@@ -17,7 +31,7 @@ x0 (0.99) bullseye; urgency=medium
   * Correct code-duplication / object inheritance inside sysObjFormfieldItem
   * Remove multiple wild unnecessary code from sysFormfieldOnChangeHandler
   * Formfield validation clean now (including group validation), correct
-    various reg-ex, add many validatie functions
+    various reg-ex, add many validate functions
   * Remove (still not complete) logic from sysObjButton and
     sysObjButtonInternal
   * Add fontawesome icons for multiple Object types
@@ -36,5 +50,3 @@ x0 (0.98rc) bullseye; urgency=medium
   * Initial commit
 
  -- Claus Prüfer <pruefer@webcodex.de>  Tue, 20 Jun 2023 21:31:22 +0200
-
-
