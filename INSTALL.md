@@ -16,8 +16,19 @@ if you intend to develop an *x0-application*, visit: https://github.com/WEBcodeX
 - Debian Package Signing (gpg)
 - Docker Engine (including buildx)
 
-Detailed information see [./debian/README.md](./debian/README.md) and
-[./docker/README.md](./docker/README.md).
+Ubuntu 22.04, 24.04
+
+```bash
+# install debian package builder / gnu gpg
+apt-get -y install debuild gnupg docker.io
+```
+
+Devuan
+
+```bash
+# install debian package builder / gnu gpg
+apt-get install devscripts pbuilder gnupg docker.io
+```
 
 ## 2. Docker Build / Run
 
@@ -44,6 +55,9 @@ cd ./docker
 ./build-x0-db.sh
 ./build-x0-test.sh
 ```
+
+Detailed information see [./debian/README.md](./debian/README.md) and
+[./docker/README.md](./docker/README.md).
 
 3. Run Containers
 
