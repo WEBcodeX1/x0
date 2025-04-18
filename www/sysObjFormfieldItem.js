@@ -12,40 +12,16 @@
 
 
 //------------------------------------------------------------------------------
-//- CONSTRUCTOR "sysFormfieldItemContent"
-//------------------------------------------------------------------------------
-
-function sysFormfieldItemContent(ObjectID, JSONConfig, ParentObject)
-{
-	const Attributes = JSONConfig.Attributes;
-
-	this.ObjectID = ObjectID;
-	this.DOMObjectID = ObjectID;
-	this.DOMType = 'input';
-	this.DOMStyle = Attributes.Style;
-	this.ParentObject = ParentObject;
-	this.overrideDOMObjectID = true;
-	this.ObjectType = 'Formfield';
-	this.JSONConfig = JSONConfig;
-
-	this.EventListeners = new Object();
-
-	this.RuntimeGetDataFunc = this.ParentObject.RuntimeGetDataFunc
-	this.RuntimeSetDataFunc = this.ParentObject.RuntimeSetDataFunc;
-	this.RuntimeAppendDataFunc = undefined;
-}
-
-sysFormfieldItemContent.prototype = new sysBaseObject();
-
-
-//------------------------------------------------------------------------------
 //- CONSTRUCTOR "sysFormfieldItem"
 //------------------------------------------------------------------------------
 
 function sysFormfieldItem()
 {
-	this.RuntimeGetDataFunc	= this.FormItemGetValue;
-	this.RuntimeSetDataFunc	= this.FormItemSetValue;
+	this.EventListeners = new Object();
+
+	this.RuntimeGetDataFunc		= this.FormItemGetValue;
+	this.RuntimeSetDataFunc		= this.FormItemSetValue;
+	this.RuntimeAppendDataFunc	= undefined;
 }
 
 sysFormfieldItem.prototype = new sysBaseObject();
@@ -69,71 +45,61 @@ sysFormfieldItem.prototype.FormItemInit = function()
 {
 	const Attributes = this.JSONConfig.Attributes;
 
+	this.DOMType = 'input';
+	this.DOMStyle = Attributes.Style;
 	this.ObjectType = Attributes.Type;
-	this.FormObjectID = this.ObjectID;
-	this.ObjectID = 'enclose__' + this.ObjectID;
 
-	console.debug('FormItem Attributes:%o', Attributes);
-
-	var FormElement = new sysFormfieldItemContent(
-		this.FormObjectID,
-		this.JSONConfig,
-		this
-	)
-
-	FormElement.DOMAttributes = {
+	this.DOMAttributes = {
 		"type": this.ObjectType
 	};
 
-	this.FormElement = FormElement;
-
+	this.overrideDOMObjectID = true;
+	this.DOMObjectID = this.ObjectID;
 	this.ValidateObj = new sysFormFieldValidate();
 	this.ValidateObj.FormObj = this;
 
-	console.debug('::formfield this.ObjectID:%s this.FormObjectID:%s', this.ObjectID, this.FormObjectID);
-
 	this.DBColumn = Attributes.DBColumn;
 
-	if (this.ParentObject.JSONConfig !== undefined && this.ParentObject.JSONConfig.InstancePrefix !== undefined) {
-		this.InstancePrefix = this.ParentObject.JSONConfig.InstancePrefix;
+	console.debug('FormItem Attributes:%o', Attributes);
+
+	if (this.JSONConfig !== undefined && this.JSONConfig.InstancePrefix !== undefined) {
+		this.InstancePrefix = this.JSONConfig.InstancePrefix;
 	}
 
 	if (Attributes.LabelFor !== undefined) {
 		this.LabelFor = (this.InstancePrefix === undefined) ? Attributes.LabelFor : this.InstancePrefix + Attributes.LabelFor;
 	}
 
-	this.OverrideValidate = (Attributes.OverrideValidate === undefined) ? false : true;
-
 	if (Attributes.Placeholder !== undefined) {
-		this.FormElement.DOMAttributes['placeholder'] = Attributes.Placeholder;
+		this.DOMAttributes['placeholder'] = Attributes.Placeholder;
 	}
 
 	if (Attributes.MaxLength !== undefined) {
-		this.FormElement.DOMAttributes['maxlength'] = Attributes.MaxLength;
+		this.DOMAttributes['maxlength'] = Attributes.MaxLength;
 	}
 
 	if (Attributes.Number !== undefined) {
-		this.FormElement.DOMAttributes['type'] = 'number';
+		this.DOMAttributes['type'] = 'number';
 	}
 
 	if (Attributes.Disabled !== undefined) {
-		this.FormElement.DOMAttributes['disabled'] = '';
+		this.DOMAttributes['disabled'] = '';
 	}
 
 	if (Attributes.ReadOnly !== undefined) {
-		this.FormElement.DOMAttributes['readOnly'] = '';
+		this.DOMAttributes['readOnly'] = '';
 	}
 
 	if (Attributes.Min !== undefined) {
-		this.FormElement.DOMAttributes['min'] = Attributes.Min;
+		this.DOMAttributes['min'] = Attributes.Min;
 	}
 
 	if (Attributes.Max !== undefined) {
-		this.FormElement.DOMAttributes['max'] = Attributes.Max;
+		this.DOMAttributes['max'] = Attributes.Max;
 	}
 
 	if (Attributes.Rows !== undefined) {
-		this.FormElement.DOMAttributes['rows'] = Attributes.Rows;
+		this.DOMAttributes['rows'] = Attributes.Rows;
 	}
 }
 
@@ -144,8 +110,6 @@ sysFormfieldItem.prototype.FormItemInit = function()
 
 sysFormfieldItem.prototype.FormItemInitFinish = function()
 {
-	console.debug('::FormItem SetupFinish');
-	this.addObject(this.FormElement);
 	this.setupEventListener();
 	this.setupIntervalHandler();
 }
@@ -162,7 +126,7 @@ sysFormfieldItem.prototype.setupEventListener = function()
 	if (Attributes.OnChange !== undefined) {
 		try {
 			const EventType = (Attributes.OnChange.Type !== undefined) ? Attributes.OnChange.Type : 'change';
-			this.FormElement.EventListeners["OnChangeHandler"] = {
+			this.EventListeners["OnChangeHandler"] = {
 				"Type": EventType,
 				"Element": this.processOnChangeItem.bind(this)
 			};
@@ -180,15 +144,15 @@ sysFormfieldItem.prototype.setupEventListener = function()
 
 sysFormfieldItem.prototype.FormItemGetValue = function()
 {
-	console.debug('::FormItemGetValue DOMObjectID:%s ObjectID:%s FormObjectID:%s', this.DOMObjectID, this.ObjectID, this.FormObjectID);
+	console.debug('::FormItemGetValue DOMObjectID:%s ObjectID:%s', this.DOMObjectID, this.ObjectID);
 	try {
-		const FormElement = document.getElementById(this.FormObjectID);
+		const FormElement = document.getElementById(this.ObjectID);
 		const FormValue = FormElement.value;
 		console.debug('::FormItemGetValue Element:%o Value:%s', FormElement, FormValue);
 		return FormValue;
 	}
 	catch(err) {
-		console.debug('::FormItemGetValue DOMObjectID:%s ObjectID:%s err:%s', this.DOMObjectID, this.FormObjectID, err);
+		console.debug('::FormItemGetValue DOMObjectID:%s ObjectID:%s err:%s', this.DOMObjectID, this.ObjectID, err);
 	}
 }
 
@@ -201,7 +165,7 @@ sysFormfieldItem.prototype.FormItemSetValue = function(Value)
 {
 	try {
 		this.Value = Value;
-		const divElement = document.getElementById(this.FormObjectID);
+		const divElement = document.getElementById(this.ObjectID);
 		//console.debug('::setDOMFormElementValue ObjectID:%s Value:%s', this.FormObjectID, this.Value);
 		divElement.value = this.Value;
 	}
@@ -217,7 +181,7 @@ sysFormfieldItem.prototype.FormItemSetValue = function(Value)
 
 sysFormfieldItem.prototype.focus = function()
 {
-	const Element = document.getElementById(this.FormElement.ObjectID);
+	const Element = document.getElementById(this.ObjectID);
 	if (Element != null && Element !== undefined) {
 		Element.focus();
 	}
@@ -300,18 +264,8 @@ sysFormfieldItem.prototype.validate = function()
 		return false;
 	}
 
-	console.debug(
-		'::validate Type:%s ValidateRef:%s OverrideValidate:%s Deactivated:%s Disabled:%s StyleValidateFail:%s',
-		Attributes.Type,
-		Attributes.ValidateRef,
-		this.OverrideValidate,
-		this.FormElement.Deactivated,
-		this.FormElement.Disabled,
-		this.StyleValidateFail
-	);
-
 	const Result = this.ValidateObj.validate();
-	console.debug('::validate FormItem ObjectID:%s Result:%s', this.FormElement.ObjectID, Result);
+	console.debug('::validate FormItem ObjectID:%s Result:%s', this.ObjectID, Result);
 
 	if (typeof Result == 'object') {
 		this.setValidateStyle(Result['Error']);
@@ -456,7 +410,7 @@ sysFormfieldItemTextarea.prototype.init = function()
 {
 	this.FormItemInit();
 
-	this.FormElement.DOMType = 'textarea';
+	this.DOMType = 'textarea';
 
 	this.FormItemInitFinish();
 }
@@ -487,7 +441,7 @@ sysFormfieldItemPulldown.prototype.init = function()
 
 	this.FormItemInit();
 
-	this.FormElement.DOMType = 'select';
+	this.DOMType = 'select';
 
 	this.generateOptions();
 	this.FormItemInitFinish();
@@ -527,7 +481,7 @@ sysFormfieldItemPulldown.prototype.generateOptions = function()
 		OptionHTML += '<option value="' + Value + '"' + Selected + '>' + Text + '</option>';
 	}
 
-	this.FormElement.DOMValue = OptionHTML;
+	this.DOMValue = OptionHTML;
 }
 
 
@@ -550,10 +504,10 @@ sysFormfieldItemPulldown.prototype.update = function() {
 	//console.debug('DomPulldownSetValue Value:' + this.Value);
 	if (this.Value !== undefined && this.Value != null) {
 
-		console.debug('::sysFormfieldItemPulldown update FormObjectID:%s', this.FormElement.ObjectID);
+		console.debug('::sysFormfieldItemPulldown update FormObjectID:%s', this.ObjectID);
 
 		const SetValue = this.Value.toString();
-		const PulldownObj = document.getElementById(this.FormElement.ObjectID);
+		const PulldownObj = document.getElementById(this.ObjectID);
 
 		try {
 			//- iterate on pulldown options, compare values
@@ -575,7 +529,7 @@ sysFormfieldItemPulldown.prototype.update = function() {
 
 sysFormfieldItemPulldown.prototype.getValue = function() {
 
-	const PulldownObj = document.getElementById(this.FormElement.ObjectID);
+	const PulldownObj = document.getElementById(this.ObjectID);
 
 	try {
 		const PDValue = PulldownObj.options[PulldownObj.selectedIndex].value;
@@ -583,7 +537,7 @@ sysFormfieldItemPulldown.prototype.getValue = function() {
 		return PDValue;
 	}
 	catch(err) {
-		console.debug('::sysFormfieldItemPulldown error:%s DOMObjectID:%o', err, this.FormObjectID);
+		console.debug('::sysFormfieldItemPulldown error:%s FormObjectID:%o', err, this.ObjectID);
 	}
 }
 
@@ -629,7 +583,7 @@ sysFormfieldItemDynPulldown.prototype.init = function()
 
 	this.FormItemInit();
 
-	this.FormElement.DOMType = 'select';
+	this.DOMType = 'select';
 
 	if (Attributes.UpdateOnEvents !== undefined) {
 		const EventConfig = {
@@ -688,7 +642,7 @@ sysFormfieldItemDynPulldown.prototype.callbackXMLRPCAsync = function()
 		PulldownOptions.push(Option);
 	}
 	this.generateOptions();
-	this.FormElement.setDOMElementValue();
+	this.setDOMElementValue();
 }
 
 
@@ -717,7 +671,7 @@ sysFormfieldItemCheckbox.prototype.init = function()
 	this.FormItemInit();
 
 	if (Attributes.Value !== undefined && Attributes.Value == true) {
-		this.FormElement.DOMAttributes['checked'] = ''
+		this.DOMAttributes['checked'] = ''
 		this.setChecked(true);
 	}
 
@@ -731,8 +685,8 @@ sysFormfieldItemCheckbox.prototype.init = function()
 
 sysFormfieldItemCheckbox.prototype.update = function() {
 	try {
-		console.debug('Checkbox update:%s', this.FormObjectID);
-		const CheckboxObj = document.getElementById(this.FormObjectID);
+		console.debug('Checkbox update:%s', this.ObjectID);
+		const CheckboxObj = document.getElementById(this.ObjectID);
 		CheckboxObj.checked = this.Value;
 	}
 	catch {
@@ -745,8 +699,8 @@ sysFormfieldItemCheckbox.prototype.update = function() {
 //------------------------------------------------------------------------------
 
 sysFormfieldItemCheckbox.prototype.getChecked = function() {
-	//console.debug('Checkbox ID:%s', this.FormElement.ObjectID);
-	const CheckboxObj = document.getElementById(this.FormObjectID);
+	//console.debug('Checkbox ID:%s', this.ObjectID);
+	const CheckboxObj = document.getElementById(this.ObjectID);
 	return CheckboxObj.checked;
 }
 
@@ -797,11 +751,11 @@ sysFormfieldItemLabel.prototype.init = function()
 
 	this.FormItemInit();
 
-	this.FormElement.DOMType = 'label';
+	this.DOMType = 'label';
 
 	const Text = (Attributes.DisplayText) ? Attributes.DisplayText : sysFactory.getText(Attributes.TextID);
 
-	this.FormElement.DOMValue = Text;
+	this.DOMValue = Text;
 
 	this.FormItemInitFinish();
 }
@@ -891,64 +845,4 @@ function sysFormfieldSelector(Type)
 	if (Type !== undefined && Type != null) {
 		return new FormTypes[Type]();
 	}
-}
-
-
-//------------------------------------------------------------------------------
-//- CONSTRUCTOR "ValidateMultiDataXMLRPCHandler"
-//------------------------------------------------------------------------------
-
-function ValidateMultiDataXMLRPCHandler(Config, FormfieldRef) {
-	this.Config = Config;
-	this.FormfieldRef = FormfieldRef;
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "callService"
-//------------------------------------------------------------------------------
-
-ValidateMultiDataXMLRPCHandler.prototype.callService = function()
-{
-	//console.debug('Config:%o', this.Config);
-
-	this.PostRequestData = {}
-	this.PostRequestData[this.Config.ServiceParam] = this.Config.FormfieldValue;
-
-	RPC = new sysCallXMLRPC(this.Config.ServiceURL);
-	RPC.Request(this);
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "callbackXMLRPCAsync"
-//------------------------------------------------------------------------------
-
-ValidateMultiDataXMLRPCHandler.prototype.callbackXMLRPCAsync = function()
-{
-	const DstObject = sysFactory.getObjectByID(this.Config.ServiceDstObject);
-	console.debug(DstObject);
-
-	const ErrorCheck = this.XMLRPCResultData['Error'];
-	if (ErrorCheck !== undefined && ErrorCheck[this.Config.CancelOnError] !== undefined && ErrorCheck[this.Config.CancelOnError] === true ) {
-		if (this.Config.ResetOnFailure === true) {
-			this.FormfieldRef.reset();
-		}
-		return;
-	}
-
-	if (DstObject.ObjectType == 'FormfieldList') {
-		DstObject.setData(this.XMLRPCResultData);
-	}
-	if (DstObject.ObjectType == 'List') {
-		DstObject.appendData(this.XMLRPCResultData);
-	}
-	if (DstObject.ObjectType == 'Formfield' && this.Config.ServiceResultKey !== undefined) {
-		DstObject.ParentObject.setValue(this.XMLRPCResultData[this.Config.ServiceResultKey]);
-	}
-
-	if (this.Config.ResetOnSuccess === true) {
-		this.FormfieldRef.reset();
-	}
-
 }
