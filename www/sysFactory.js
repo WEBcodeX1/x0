@@ -16,6 +16,7 @@ function sysFactory()
 	this.Screens			= new Object();					//- Screen Instances (Refs)
 
 	this.OverlayRefCount	= 0;
+	this.ClipboardData		= null;
 
 	this.SetupClasses = {
 		"TabContainer": sysTabContainer,
@@ -36,7 +37,8 @@ function sysFactory()
 		"FormfieldDynPulldown": sysFormfieldItemDynPulldown,
 		"FormfieldCheckbox": sysFormfieldItemCheckbox,
 		"FormfieldLabel": sysFormfieldItemLabel,
-		"FormfieldHidden": sysFormfieldItemHidden
+		"FormfieldHidden": sysFormfieldItemHidden,
+		"DynRadioList": sysObjDynRadioList
 	};
 
 	this.SetupClassesRT = {
