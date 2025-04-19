@@ -3,149 +3,152 @@
 1. Preface / Abstract
 =====================
 
-*x0* (cross-object) JavaScript Framework /krɒs ɒb.dʒɪkt/ is a modern tool
-for building powerful Web-Browser **Realtime-SPA (Single Page Applications)**
-efficiently.
+*x0* (cross-object) JavaScript Framework /krɒs ɒb.dʒɪkt/ is a modern tool for
+efficiently building powerful Web-Browser **Realtime-SPA (Single Page Applications)**.
 
 .. note::
 
-    See :ref:`targetgroup` which target group the *x0-system* is intended for.
+    See :ref:`targetgroup` to understand which target group the *x0-system* is
+    intended for.
 
 1.1. Cross Objects
 ------------------
 
-The *x* in *x0* stands for **cross** meaning **communication**.
-*x0-objects* are able to exchange (update) their metadata **directly** via
-JSON metadata internally or sent over network.
+The *x* in *x0* stands for **cross**, signifying **communication**.
+*x0-objects* can exchange (update) their metadata **directly** via
+JSON, either internally or over a network.
 
 1.2. Bootstrap / CSS Themes
 ---------------------------
 
-*x0-system* includes current Bootstrap 5.3 basic CSS stylesheets
-without a single line of JavaScript code (**zer0 Bootstrap JS**).
+*x0-system* includes the latest Bootstrap 5.3 basic CSS stylesheets
+without relying on any JavaScript code (**Zero Bootstrap JS**).
 
-Imagine *x0* as the system which empowers Bootstrap with **smart**
-enhanced, **true** OOP based JavaScript logic.
+Imagine *x0* as a system that enhances Bootstrap with **intelligent**
+JavaScript logic based on **true OOP principles**.
 
-Also **extending CSS styles** by your own stylesheets is a procedure of
-minutes.
+Additionally, extending CSS styles with your own custom stylesheets
+can be accomplished in just a few minutes.
 
 1.3. Fontawesome
 ----------------
 
-Fontawesome 6 free is integrated into *x0 base* system to provide an easy
-way to use **high quality icons**.
+Fontawesome 6 Free is integrated into the *x0 base* system, providing an easy
+way to use **high-quality icons**.
 
 1.4. CSS Grid System
----------------------
+--------------------
 
-To guarantee future-proof **responsiveness**, *x0-system* provides smart
-libraries for building real cool **device-independend** stuff relying on
-Bootstraps Grid feature.
+To ensure future-proof **responsiveness**, *x0-system* offers smart libraries
+for building advanced **device-independent** applications, leveraging
+Bootstrap's Grid feature.
 
-Boostrap Grid details see https://getbootstrap.com/docs/5.3/layout/grid/.
+For more details on the Bootstrap Grid system, visit:
+https://getbootstrap.com/docs/5.3/layout/grid/.
 
-1.5. Browser Compability
-------------------------
+1.5. Browser Compatibility
+--------------------------
 
-*x0-system* is built in a **generic** way (ECMA 6, 7) so it runs on all current
-browsers (Firefox, Chrome, Opera, Safari) **natively**.
+*x0-system* is built in a **generic** way (using ECMA 6 and 7 standards),
+enabling it to run natively on all modern browsers, including Firefox, Chrome,
+Opera, and Safari.
 
-1.6. Multi Language
--------------------
+1.6. Multi-language Support
+---------------------------
 
-*x0-system* runs **multi-language** (english and german currently); the display
-language even can be switched in **realtime** (without page reload).
+*x0-system* supports **multi-language** functionality (currently English and
+German). The display language can even be switched in **real-time** without
+requiring a page reload.
 
 1.7. Docker Images
 ------------------
 
-Docker images are provided to start playing with *x0-system* in no time.
+Pre-built Docker images are available to get started with *x0-system* quickly:
 
 - https://docker.webcodex.de/x0/docker.x0-app.tar
 - https://docker.webcodex.de/x0/docker.x0-db.tar
 - https://docker.webcodex.de/x0/docker.x0-test.tar
 
-See :ref:`installation` howto proceed.
+See :ref:`installation` for instructions on how to proceed.
 
 1.8. Kubernetes
 ---------------
 
-Also running *x0-applications* on (load-balanced) Google Kubernetes Engine has
-been natively implemented into *x0-system*.
+*x0-applications* can also be deployed on (load-balanced) Google Kubernetes Engine
+(GKE), with native support integrated into the *x0-system*.
 
-See https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md.
+For more details, visit: https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md.
 
 1.9. Licensing
 --------------
 
-*x0-base-system* is licensed under OpenSource AGPLv3 license.
+*x0-base-system* is licensed under the Open Source AGPLv3 license.
 
-Some following components including the WYSIWYG-Editor will be **non-free**.
+Certain components, including the WYSIWYG Editor, will be offered as **non-free**.
 
 1.10. Milestones
 ----------------
 
-Current milestones see GitHub https://github.com/WEBcodeX1/x0/milestones.
+For the current milestones, see: https://github.com/WEBcodeX1/x0/milestones.
 
 .. _targetgroup:
 
 1.11. x0 Target Group
 ---------------------
 
-The following 3 subsections describe the *x0-systems* **technical advantages**
-and which **target group** the system is intended for.
+The following subsections describe the *x0-system's* **technical advantages**
+and identify the **target group** for which the system is intended.
 
 1.11.1. Div 2 Object Mapping
 ****************************
 
-Assume the following example covers one of the simplest *x0-system-objects*:
-**SQLText**. It is configurable to get a Text by ID from the backend and display
-it in the current selected language (english or german).
+Consider the following example of one of the simplest *x0-system-objects*:
+**SQLText**, which is configured to fetch text by ID from the backend and display
+it in the currently selected language (e.g., English or German).
 
 .. image:: images/x0-oop-obj2div-mapping.png
-  :alt: image - oop object2div mapping
+   :alt: image - OOP object-to-DIV mapping
 
-The *x0-system* **always** associates **one single** *JS Object Instance* to a
-single (rendered) DOM DIV (1:1). There will be no DOM DIVs without a connected
-*JS Object Instance*.
+The *x0-system* **always** associates **one single** *JavaScript Object Instance*
+with a single (rendered) DOM DIV, maintaining a strict 1:1 relationship. There will
+be no DOM DIVs without a connected *JavaScript Object Instance*.
 
-If a rendered *x0-screen* contains e.g. 187 DIVs, 187 corresponding
-*JS Object Instances* have been setup by *x0-system* on *x0-app-start* (browser
-page load).
+For example, if a rendered *x0-screen* contains 187 DIVs, then 187 corresponding
+*JavaScript Object Instances* will be created by the *x0-system* during *x0-app-start*
+(browser page load).
 
-Also each object holds its information about its **parent object** and the base
-rendering routines (inherited *x0-base-classes*).
+Each object also retains information about its **parent object** as well as the
+base rendering routines (inherited from *x0-base-classes*).
 
 .. note::
 
-    More complex objects consist of multiple (far more) DIVs.
-    Check out the developer section about howto design *x0-system-objects*
-    at :ref:`devobjectmodeling`.
+    More complex objects may consist of multiple (far more) DIVs. Check the
+    developer section for details on designing *x0-system-objects* at
+    :ref:`devobjectmodeling`.
 
 1.11.2. True DOM OOP
 ********************
 
-The *x0-systems* **DIV2ObjectMapping** method opens up true OOP based DOM DIV
-modeling / manipulation to the programmer.
+The *x0-system's* **DIV2ObjectMapping** method enables true OOP-based DOM DIV
+modeling and manipulation for developers.
 
 .. note::
 
-    Which in fact makes it possible to create real powerful, enhanced,
-    **combined** *x0-system-objects* (details see next section).
+    This feature allows the creation of highly powerful, enhanced, and
+    **combined** *x0-system-objects* (details in the next section).
 
-Now continuing with the SQLText example from the previous section.
+Continuing the SQLText example from the previous section:
 
-So the *x0-system* has created a SQLText object instance with the TextID
-"Text1" defined inside `object.json`, its `update()` method is callable
-from outside to update display text (DIV) to current selected system language
-in **realtime**.
+The *x0-system* creates an SQLText object instance with the TextID
+"Text1" defined in `object.json`. Its `update()` method can be called
+externally to update the display text (DIV) to the currently selected system language
+in **real-time**.
 
 .. code-block:: javascript
 
     sysFactory.getObjectByID("Text1").update();
 
-Additionally the programmer will be provided with the following abilities:
+Developers are also provided with the following capabilities:
 
 - Redirecting Events
 - Object Callbacks
@@ -154,19 +157,19 @@ Additionally the programmer will be provided with the following abilities:
 1.11.3. Object Combination
 **************************
 
-The **most remarkable feature** provided by the *x0-system* is the possibility
-of combining (chaining) existing objects into new ones.
+One of the **most remarkable features** of the *x0-system* is its ability
+to combine (chain) existing objects into new ones.
 
-Very simplified (invalid JavaScript syntax), defining a new object
-**SelfDefinedObject** is done like:
+For example, defining a new object **SelfDefinedObject** can be done like this
+(very simplified, invalid JavaScript syntax):
 
 .. code-block:: javascript
 
     this.addObject(new SQLTextObj(TextID='TXT.DISPLAY'));
     this.addObject(new Formfield(Type='Pulldown', Options=['Option1', 'Option2']));
 
-Now, exactly in the same way defining the **SelfDefinedObject**, it can be
-repeatedly reused to define other new objects.
+Once defined, the **SelfDefinedObject** can be reused in the same way to
+define other new objects:
 
 .. code-block:: javascript
 
@@ -174,5 +177,5 @@ repeatedly reused to define other new objects.
 
 .. note::
 
-    Detailed information, how to design / integrate *x0-system-objects*, see
-    developer documentation subsection :ref:`devobjectmodeling`.
+    For detailed information on designing and integrating *x0-system-objects*, see
+    the developer documentation subsection :ref:`devobjectmodeling`.
