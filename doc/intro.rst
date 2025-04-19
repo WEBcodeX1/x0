@@ -3,8 +3,9 @@
 1. Preface / Abstract
 =====================
 
-*x0* (cross-object) JavaScript Framework is a modern tool for building
-powerful Web-Browser **Realtime-SPA (Single Page Applications)** efficiently.
+*x0* (cross-object) JavaScript Framework /krɒs ɒb.dʒɪkt/ is a modern tool
+for building powerful Web-Browser **Realtime-SPA (Single Page Applications)**
+efficiently.
 
 .. note::
 
