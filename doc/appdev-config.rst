@@ -1,5 +1,3 @@
-1.. appdev-config
-
 .. _appdevconfig:
 
 3. Basic Configuration
