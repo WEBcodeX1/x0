@@ -111,9 +111,6 @@ and **x0-screen-area** by ``<div id="id" class="col-md8 ms-auto me-auto">``.
 A better approach is to use ``<body class="row">`` and ``col-md-x`` CSS classes
 on **x0-menu-area** and **x0-screen-area**.
 
-Positioning **x0-notification-area** using ``position: absolute`` could be a
-really good idea.
-
 .. note::
 
     CSS styles in 2025 are tremendously flexible. Bootstrap in addition reduces
