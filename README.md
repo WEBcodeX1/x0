@@ -4,26 +4,26 @@
 
 ## 1. Abstract / Purpose
 
-**x0 (cross-object) JavaScript Framework** /krɒs ɒb.dʒɪkt/  is a modern tool for
-building powerful Web-Browser Realtime-SPA (Single Page Applications) efficiently.
+**x0 (cross-object) JavaScript Framework** /krɒs ɒb.dʒɪkt/ is a modern tool for
+building powerful web-browser real-time Single Page Applications (SPAs) efficiently.
 
-Installation instruction(s) see: [./INSTALL.md](./INSTALL.md).<br>
+For installation instructions, refer to: [./INSTALL.md](./INSTALL.md).<br>
 Rendered Sphinx documentation: https://docs.webcodex.de/x0/v1.0/.
 
 ## 2. Single Page Application
 
-SPA-applications are modern browser-applications which run *nearly* backend independent,
-though getting more and more close to *real* desktop-apps.
+SPAs are modern browser applications that run *almost* backend-independent, getting
+closer to the functionality of *real* desktop apps.
 
 ## 3. Quick Start
 
-To see x0-system in action immediately, download the following docker images.
+To see the x0-system in action immediately, download the following Docker images:
 
-https://docker.webcodex.de/x0/docker.x0-app.tar<br>
-https://docker.webcodex.de/x0/docker.x0-db.tar<br>
+- https://docker.webcodex.de/x0/docker.x0-app.tar<br>
+- https://docker.webcodex.de/x0/docker.x0-db.tar<br>
 
 ```bash
-# clone repository
+# clone the repository
 git clone https://github.com/WEBcodeX1/x0.git
 cd x0
 
@@ -37,100 +37,92 @@ usermod -aG docker your-user
 docker load < docker.x0-app.tar
 docker load < docker.x0-db.tar
 
-# start x0-system
+# start the x0-system
 cd ./docker/
 ./x0-start-containers.sh
 ```
-Open URL http://172.20.0.10/python/Index.py?appid=example12.
+Open the URL `http://172.20.0.10/python/Index.py?appid=example12`.
 
 ## 4. Cross Objects
 
-What does the cross stand for you might ask. **Communication**.
+What does the "cross" in x0 stand for? **Communication**.
 
-Due to the x0-systems clean OOP model, each object is able to e"x"change its data
-container internally and over the network between client(s) *directly*.
+Due to the x0-system's clean OOP model, each object can e"x"change its
+data containers internally and over the network between clients *directly*.
 
-See examples section [example #10](./example/net_messages/) and
+See the examples section: [example #10](./example/net_messages/) and
 [example #13](./example/copy_paste/) for more information.
 
 ## 5. Responsiveness
 
-Due to x0 relying on *Bootstrap CSS* cross browser standards for all end-devices are
-guaranteed (CSS Grid system).
+x0 relies on *Bootstrap CSS*, ensuring cross-browser standards for all end
+devices (CSS Grid system).
 
-Build / maintain only **ONE** single app (even android). IT-budget saved!
-
-Also x0 does not rely on bootstrap / external JavaScript includes.
+Build and maintain only **ONE** single app (even for Android) and save on
+IT budgets! Additionally, x0 does not rely on Bootstrap or external JavaScript libraries.
 
 ## 6. True Object Orientation / Clean Code
 
-JavaScript (ECMA6 / ECMA7) still lacks overloading DOM object internal functions,
-which makes building clean efficient abstraction models nearly impossible.
+JavaScript (ECMA6 / ECMA7) lacks the ability to overload DOM object internal functions,
+making it difficult to build clean and efficient abstraction models.
 
-Especially if you are a high level, experienced OOP programmer, immediate sadness,
-anger and an enormous frustration level are highly possible symptoms.
-
-x0 does the trick! **The Missing Layer** will be simulated, now modeling is fun again.
-If implemented in the correct way, even extremely efficient.
+For experienced OOP programmers, this can lead to frustration. x0 solves this problem by
+providing **The Missing Layer**, making modeling fun and efficient again.
 
 >[!NOTE]
-> Bind your own object methods to an existing *DOM element*; use object inheritance.
+> Bind your own object methods to existing **DOM elements** and use object inheritance.
 
 ## 7. Zero Code Duplication / Freedom
 
-The x0 OSI layer abstraction is very simple and relies on **0** (backend) dependencies.
+The x0 OSI layer abstraction is simple and relies on **zero** backend dependencies.
 
-Currently other compared SPA frameworks tend to code duplication by a factor > 2.
+In comparison, other SPA frameworks tend to have code duplication by a factor greater than 2.
 
 ## 8. Object Chaining / Data Abstraction
 
-A smart base-class design / model helps making object design with x0 framework a big
-enjoyment.
+A smart base-class design makes object modeling with the x0 framework enjoyable.
+Combining (chaining) objects for later reuse (even recursively chainable) is a basic
+feature of x0's clean abstraction model.
 
-Combining (chaining) objects for later reuse (even recursive chainable) is a x0 basic
-feature using a clean abstraction model.
-
-Feeding objects with data and getting data from objects (graph based JSON) also saves
-a lot of effort due to a smart / recursive objects metadata model.
-
-See Sphinx documentation examples section ([./doc](./doc)) for a better understanding
-of object modeling and how to implement in detail.
+Feeding objects with data and retrieving data from them (graph-based JSON) saves effort
+due to x0's recursive object metadata model. For a better understanding of object modeling
+and implementation details, see the Sphinx documentation examples section.
 
 >[!NOTE]
-> x0 provides *object instancing* in **runtime** with 0 backend-communication.
+> x0 provides *object instancing* in **runtime** with zero backend communication.
 
 ## 9. Kubernetes Ready
 
-*x0 applications* run on Google Kubernetes Engine (GKE).
+*x0-applications* run on Google Kubernetes Engine (GKE).
 
-The JSON based kubernetes installer makes it easy to deploy multiple application
-environments in no time.
+The JSON-based Kubernetes installer simplifies deploying multiple application
+environments quickly.
 
 See [./kubernetes/README.md](./kubernetes/README.md).
 
 >[!NOTE]
-> Also minikube on Windows is *partially* supported.
+> Minikube on Windows and Linux is partially supported.
 
 ## 10. Open Source
 
-*x0 system* is licensed under AGPL-3.0 license.
+*x0-system* is licensed under the AGPL-3.0 license.
 
 ## 11. Technically
 
-Detailed installation instruction(s) can be found in [./INSTALL.md](./INSTALL.md)
-and subdirs **README.md**.
+Detailed installation instructions can be found in [./INSTALL.md](./INSTALL.md)
+and the subdirectory **README.md** files.
 
 ### 11.1. OS Compatibility
 
-*x0 system* runs stable on current Ubuntu Linux 22.04.x LTS (Jammy Jellyfish), inside
-local Docker containers or on native Google Kubernetes Engine (GKE).
+*x0-system* runs stably on current Ubuntu Linux 22.04.x LTS (Jammy Jellyfish),
+inside local Docker containers, or on native Google Kubernetes Engine (GKE).
 
 >[!NOTE]
-> Detailed Documentation for setting up on Minikube (Windows 11) see [./kubernetes/README.md](./kubernetes/README.md).
+> For detailed documentation on setting up on Minikube, see [./kubernetes/README.md](./kubernetes/README.md).
 
 ### 11.2. Prerequisites
 
-Currently the following OpenSource products are required to run the system:
+The following open-source products are required to run the *x0-system*:
 
 - Apache2.0+
 - Apache WSGI (Python) **or** FalconAS Application Server
@@ -145,7 +137,7 @@ Currently the following OpenSource products are required to run the system:
 
 ### 11.4. Deployment
 
-*x0 system* is deployable on the following platforms:
+The *x0-system* can be deployed on the following platforms:
 
 - Linux Standalone
 - Docker
@@ -153,15 +145,13 @@ Currently the following OpenSource products are required to run the system:
 
 ## 12. Security
 
-For a better perspective on security, x0-system is PKCS 11 / PKCS 15 compatible
-(also on GKE). Provisioning is managed by its own PKI (Private Key Management) system
-(non-free).
+For enhanced security, the *x0-system* is PKCS 11 / PKCS 15 compatible (also on GKE).
+Provisioning is managed by its own PKI (Private Key Infrastructure) system (non-free).
 
 ## 13. Future Plans / Milestones
 
 >[!NOTE]
-> We currently are working on a Python Application Server (FalconAS) to replace Apache
-> and WSGI module.<br>
-> https://github.com/WEBcodeX1/http-1.2.
+> We are currently developing a Python Application Server (FalconAS) to replace Apache
+> and the WSGI module.<br> https://github.com/WEBcodeX1/http-1.2.
 
-Milestones are github managed, see https://github.com/WEBcodeX1/x0/milestones.
+Milestones are managed on GitHub: https://github.com/WEBcodeX1/x0/milestones.
