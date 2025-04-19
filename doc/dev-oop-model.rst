@@ -9,19 +9,20 @@
 --------------------------------
 
 This documentation section outlines the inheritance and interaction model between
-the foundational components of the x0 JavaScript framework: sysBaseObject, sysFactory,
-and sysReactor. These components enable object-oriented design, event management,
+the foundational components of the x0 JavaScript framework: `sysBaseObject`, `sysFactory`,
+and `sysReactor`. These components enable object-oriented design, event management,
 and object instantiation across the framework.
 
-1. sysBaseObject.js: Core Base Object
+17.1.1. sysBaseObject.js: Core Base Object
+******************************************
 
-Purpose
+- Purpose
 
-sysBaseObject serves as the foundational class for all objects in the x0 framework.
+`sysBaseObject` serves as the foundational class for all objects in the x0 framework.
 It provides core functionalities like DOM manipulation, child-parent relationships,
 and object lifecycle management.
 
-Key Features
+- Key Features
 
     1. Inheritance:
         * Inherits from sysBaseDOMElement to provide DOM-related functionality.
@@ -30,7 +31,7 @@ Key Features
     3. Lifecycle Management:
         * Methods for initialization, rendering, event processing, and removal of objects.
 
-Core Methods
+- Core Methods
 
     - addObject(ChildObject): Adds a child object to the ChildObjects array and establishes a parent-child relationship.
     - renderObject(Prefix): Renders the object and its children recursively by creating and appending DOM elements.
@@ -38,13 +39,17 @@ Core Methods
     - connectServiceConnectorObjects(): Establishes connections for objects of type ServiceConnector.
     - getObjectByID(ObjectID): Searches for and returns an object by its ObjectID.
     - remove(): Removes the object from its parent's child list and deletes its DOM element.
-    removeParent(): see x.x.x
+    - removeParent(): see x.x.x
 
-2. sysFactory.js: Object Factory
+17.1.2. sysFactory.js: Object Factory
+*************************************
 
-Purpose
+- Purpose
 
-sysFactory acts as the central factory for creating, managing, and interacting with system objects. It provides utility methods for object instantiation, screen management, and event handling.
+`sysFactory` acts as the central factory for creating, managing, and interacting
+with *x0-system-objects*. It provides utility methods for object instantiation,
+screen management, and event handling.
+
 Key Features
 
     1. Object Instantiation:
@@ -54,19 +59,22 @@ Key Features
     3. Utility Methods:
         * Provides methods for fetching objects by ID, attribute, or type.
 
-Core Methods
+- Core Methods
 
     - setupObjectRefsRecursive(ObjDefs, RefObj): Recursively sets up objects and their relationships based on hierarchical definitions.
     - addScreen(ScreenID, SkeletonData): Creates a new screen object and adds it to the factory's screen registry.
     - getObjectByID(ObjectID): Retrieves an object by its ObjectID.
     - switchScreen(ScreenID): Activates a specific screen and deactivates all others.
 
-3. sysReactor.js: Event Reactor
+17.1.3. sysReactor.js: Event Reactor
+************************************
 
-Purpose
+- Purpose
 
-sysReactor is responsible for managing and dispatching events within the system. It allows objects to register and respond to events dynamically.
-Key Features
+sysReactor is responsible for managing and dispatching events within the system.
+It allows objects to register and respond to events dynamically.
+
+- Key Features
 
     1. Event Registration:
        * Allows objects to register events with specific attributes and types.
@@ -75,55 +83,64 @@ Key Features
     3. Dynamic Interaction:
        * Supports various event types, including ServiceConnector and custom types.
 
-Core Methods
+- Core Methods
 
     - registerEvent(Attributes, ProcessObject, Type): Registers an event with the reactor by associating it with an object and attributes.
     - dispatchEvent(EventID): Dispatches an event to its associated object and processes it based on its type.
     - fireEvents(FireEvents): Fires a list of events by dispatching them sequentially.
 
-Relationships and Interactions
+- Relationships and Interactions
 
-    Objects and Factory:
+    1. Objects and Factory:
         Objects (sysBaseObject instances) are created and initialized using sysFactory.setupObjectRefsRecursive.
         The factory manages object hierarchies and facilitates inter-object communication.
 
-    Objects and Reactor:
+    2. Objects and Reactor:
         Objects register events with the sysReactor and respond to dispatched events.
         The reactor interacts with various object types, including ServiceConnector for backend service calls.
 
-    Event Flow:
+    3. Event Flow:
         Events are registered with the reactor using registerEvent.
         When an event is triggered, dispatchEvent identifies the target object and invokes the appropriate handler.
 
-Example Workflow
+- Example Workflow
 
 Scenario: Creating and Managing a Screen with Dynamic Objects
 
-    Factory Initialization:
+    1. Factory Initialization:
         Use sysFactory.addScreen to create a new screen and add it to the factory.
 
-    Object Setup:
+    2. Object Setup:
         Define object hierarchies using ObjDefs and pass them to sysFactory.setupObjectRefsRecursive.
 
-    Event Registration:
+    3. Event Registration:
         Register events for objects using sysReactor.registerEvent.
 
-    Event Dispatching:
+    4. Event Dispatching:
         Trigger events using sysReactor.dispatchEvent, which invokes the respective handlers.
 
-Conclusion
+- Conclusion
 
-The x0 framework's base OOP inheritance model, with sysBaseObject, sysFactory, and sysReactor, provides a robust foundation for building dynamic, event-driven applications. By leveraging these components, developers can create modular, maintainable, and scalable systems.
+The x0 framework's base OOP inheritance model, with `sysBaseObject`, `sysFactory`,
+and `sysReactor`, provides a robust foundation for building dynamic, event-driven
+applications. By leveraging these components, developers can create modular,
+maintainable, and scalable systems.
+
 
 17.2. Class Reference
 ---------------------
 
+17.2.1. sysBaseObject.removeParent
+**********************************
 
-sysBaseObject.prototype.removeParent
 Purpose
 
-The removeParent() method is used to remove an object's parent relationship and its associated DOM element. This ensures that the object is detached from its parent both logically (in the object hierarchy) and visually (in the DOM).
+The removeParent() method is used to remove an object's parent relationship and its
+associated DOM element. This ensures that the object is detached from its parent both
+logically (in the object hierarchy) and visually (in the DOM).
+
 Method Signature
+
 JavaScript
 
 sysBaseObject.prototype.removeParent = function()
@@ -170,15 +187,15 @@ sysBaseObject.prototype.removeParent = function() {
     }
 };
 
-Key Points
+- Key Points
 
-    DOM Management:
+    1. DOM Management:
         Ensures that any associated DOM elements are properly removed to avoid memory leaks.
 
-    Child Object Cleanup:
+    2. Child Object Cleanup:
         Clears references to child objects to maintain a clean state.
 
-    Error Resilience:
+    3. Error Resilience:
         Handles potential errors gracefully, ensuring that the application remains stable.
 
 When to Use
