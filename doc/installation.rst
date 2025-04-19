@@ -5,36 +5,35 @@
 2. Installation
 ===============
 
-As first step, check if it is **really necessary** for you to install the
+Before proceeding, check if it is **really necessary** for you to install the
 *x0-base-system*.
 
-If you intend to **develop** *x0-applications* **only**, you first should start
-setting up your own repository from *x0-skeleton* (git template repository) at
+If your goal is to **develop** *x0-applications** only, you should first set up
+your own repository using the *x0-skeleton* (a Git template repository) available at:
 https://github.com/WEBcodeX1/x0-skeleton.
 
-After finish setting up your *x0-app-repository*, you should continue
-**reading** the documentation section :ref:`appdevconfig` to get details about
-**building** / **configuring** an *x0-application*.
+After setting up your *x0-app-repository*, continue by **reading** the documentation section
+:ref:`appdevconfig` for details about **building** and **configuring** an *x0-application*.
 
-If you intend to **create** own *x0-system-objects* used in your
-*x0-application*, the *x0-system* **installation is mandatory**  and you should
+If you plan to **create** your own *x0-system-objects* to use in your
+*x0-application*, installing the *x0 system* is **mandatory**, and you should
 **continue reading** this chapter.
 
 2.1. Environments
 -----------------
 
-The following native linux distributions are supported to build the *x0-system*.
+The following native Linux distributions are supported for building the *x0-system*:
 
 * Ubuntu 22.04
 * Debian 12
 * Devuan 5
 
-Docker images created by *x0-system* rely on Ubuntu 22.04.
+Docker images created by the *x0-system* are based on Ubuntu 22.04.
 
 2.2. Dependencies
 -----------------
 
-Base dependencies.
+The following are the base dependencies required to run the *x0-system*:
 
 * Apache2 / Python3 WSGI (https://httpd.apache.org)
 * PostgreSQL Relational Database 14 (http://www.postgresql.org)
@@ -46,30 +45,29 @@ Base dependencies.
 * Chromedriver for Chromium Browser (https://chromedriver.chromium.org)
 * Docker (https://www.docker.com)
 
-GKE (Google Kubernetes Engine) deployment also depends on the following.
+For deployment on GKE (Google Kubernetes Engine), the following additional dependencies are required:
 
 * Kubegres (https://www.kubegres.io)
 * ingress-nginx (https://kubernetes.github.io/ingress-nginx)
 * cert-manager (https://cert-manager.io)
 
-Highly strutured OOP based WebServices backend abstraction layer (optional).
+Optional dependencies for a highly structured OOP-based Web Services backend abstraction layer:
 
 * Python microesb (https://github.com/clauspruefer/python-micro-esb)
 
-Messaging server used for local messaging testing (non-production, optional).
+For local messaging testing (non-production, optional):
 
 * Python micro-msg-server (https://github.com/clauspruefer/micro-msg-server)
 
 2.3. Get System Ready
 ---------------------
 
-We recommend using **docker container** as development basis.
+We recommend using **Docker containers** as the development environment.
 
-The *x0-system* provides building **docker images** including **network setup**
-for running the system including **database** and messaging server locally in
-minutes.
+The *x0-system* provides tools to build **Docker images** with **network setup**, enabling
+the system, including the **database** and messaging server, to run locally within minutes.
 
-But first, install dependenies.
+First, install the required dependencies:
 
 .. code-block:: bash
 
@@ -85,7 +83,7 @@ But first, install dependenies.
 	# install sphinx doc builder
 	apt-get install -qq -y python3-sphinx python3-sphinx-rtd-theme
 
-The following steps are required to get a **dev-environment** up and running.
+The following steps are required to set up a **development environment**:
 
 1. Clone x0 Git Repository
 2. Setup Debian Build System
@@ -97,15 +95,15 @@ The following steps are required to get a **dev-environment** up and running.
 2.3.1. Clone Git Repository
 ***************************
 
-If you are interested in getting the repository in read-only mode.
+To clone the repository in read-only mode:
 
 .. code-block:: bash
 
 	# clone x0 git repository
 	git clone https://github.com/WEBcodeX1/x0.git
 
-If you want to participate in *x0-develpopment*, send me your public ssh key
-and use git+ssh (preferable using ssh-agent with hsm).
+If you want to participate in *x0 development*, send your public SSH key
+and use git+ssh (preferably using ssh-agent with HSM):
 
 .. code-block:: bash
 
@@ -115,7 +113,7 @@ and use git+ssh (preferable using ssh-agent with hsm).
 2.3.2. Setup Debian Build System
 ********************************
 
-First generate your gpg keys (or import existing).
+Generate your GPG keys (or import existing ones):
 
 .. code-block:: bash
 
@@ -127,36 +125,36 @@ First generate your gpg keys (or import existing).
 	The gpg-ID ("Real Name" plus "Comment" in brackets, "Email address") must match
 	exactly the format inside **./debian/changelog** "Real Name (Comment) <email-address.com>".
 
-Afterwards check building.
+Next, build the package:
 
 .. code-block:: bash
 
 	# build x0 debian packages
 	cd ./debian && debuild
 
-If build was successful, the debian build system signed all packages. Packages
-plus metadata can be found in **"../../"**.
+If the build is successful, the Debian build system will sign all packages. The packages
+and metadata will be available in the **"../../"** directory.
 
 2.3.3. Prepare Docker
 *********************
 
-As **root** user, add your current user to the docker unix group.
+As the **root** user, add your current user to the Docker Unix group:
 
 .. code-block:: bash
 
 	# add user to docker group
 	sudo usermod -aG docker your-user
 
-Eventually a restart of your current shell, desktop session or even
-computer is required for changes to take effect.
+A restart of your shell, desktop session, or even your computer may be required for the
+changes to take effect.
 
-After adding your build user to the docker group you are able to control the
-docker engine by cli (shell) and ready for building.
+After adding your user to the Docker group, you will be able to control the Docker engine
+from the CLI (shell) and start building.
 
 2.3.4. Build
 ************
 
-Build debian packages and docker images.
+Build Debian packages and Docker images:
 
 .. code-block:: bash
 
@@ -180,14 +178,14 @@ Build debian packages and docker images.
 2.3.6. Develop / Rebuild
 ************************
 
-Start developing / creating / experimenting.
+Begin developing, creating, or experimenting.
 
 .. note::
 
-	Before you rebuild the whole *x0-system* you should think about copying files
-	inside the docker containers manually.
+    Before rebuilding the entire *x0-system*, consider copying files
+    manually into the Docker containers.
 
-Changelog is located at **./debian/changelog**.
+The changelog is available at **./debian/changelog**.
 
 2.4. IP-Addresses / DNS
 -----------------------
