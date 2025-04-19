@@ -99,14 +99,14 @@ and which **target group** the system is intended for.
 1.11.1. Div 2 Object Mapping
 ****************************
 
-Assume the following example covers one of the simplest *x0 system objects*:
+Assume the following example covers one of the simplest *x0-system-objects*:
 **SQLText**. It is configurable to get a Text by ID from the backend and display
 it in the current selected language (english or german).
 
 .. image:: images/x0-oop-obj2div-mapping.png
   :alt: image - oop object2div mapping
 
-The x0 system **always** associates **one single** *JS Object Instance* to a
+The *x0-system* **always** associates **one single** *JS Object Instance* to a
 single (rendered) DOM DIV (1:1). There will be no DOM DIVs without a connected
 *JS Object Instance*.
 
@@ -114,7 +114,7 @@ If a rendered *x0-screen* contains e.g. 187 DIVs, 187 corresponding
 *JS Object Instances* have been setup by *x0-system* on *x0-app-start* (browser
 page load).
 
-Also each object holds its information about its *Parent Object* and the base
+Also each object holds its information about its **parent object** and the base
 rendering routines (inherited *x0-base-classes*).
 
 .. note::
@@ -148,7 +148,7 @@ in **realtime**.
 Additionally the programmer will be provided with the following abilities:
 
 - Redirecting Events
-- Callbacks from other Objects
+- Object Callbacks
 - Web-Service Data Source Binding
 
 1.11.3. Object Combination
