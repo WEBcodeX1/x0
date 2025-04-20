@@ -5,21 +5,59 @@
 4. Grid System
 ==============
 
-Some *x0-object-types* offer global grid formating properties. Currently the
-following *x0-object-types* are supported.
+The x0 grid system is implemented through the `sysGridGenerator` system object,
+which is responsible for generating a grid layout by processing source objects
+into structured rows and columns. Below is an explanation of its key components
+and functionality:
+
+- Key Components:
+
+    1. Source Objects:
+        The grid generator takes an array of source objects as input, which are processed into grid elements.
+
+    2. Row and Column Styles:
+        Customizable row and column styles (`RowStyles` and `ColStyles`) allow you to define the CSS styling for each grid element.
+
+    3. Row and Column Enclosures:
+        Rows and columns are enclosed in containers (`sysObjDiv` objects) for structured layout.
+        The number of elements after which rows and columns are enclosed can be customized using `RowAfterElements` and `ColAfterElements`.
+
+    4. Generators for Indices and Styles:
+        The system uses generators (`RowIndexGenerator`, `ColIndexGenerator`, `RowStyleGenerator`, `ColStyleGenerator`) to dynamically determine the next row/column indices and styles.
+
+    5. Dynamic Grid Creation:
+        The `generate` method processes the source objects:
+            Groups objects into columns based on `ColAfterElements`.
+            Groups columns into rows based on `RowAfterElements`.
+        Each grid element is assigned a unique identifier for DOM manipulation.
+
+    6. Integration with Other System Objects:
+        The grid system interacts with other x0 system objects, such as `sysObjDiv`, to create and manage the grid structure dynamically.
+
+- Workflow:
+
+    * Initialization:
+        The `sysGridGenerator` object is initialized with row/column styles and enclosure settings.
+
+    * Grid Generation:
+        The generate method iterates over the source objects:
+            Groups objects into columns.
+            Groups columns into rows.
+        The generated rows are returned as an array of `sysObjDiv` objects, each representing a grid row.
+
+    * Styling and Customization:
+        Rows and columns are styled dynamically using the provided CSS styles or default styles.
+
+Currently the following *x0-object-types* are supporting the *x0-grid* feature:
 
 * List
 * FormfieldList
-
-The *x0-global-grid-system* uses the CSS Grid System / Bootstrap Grid Styles
-to replace oldfashioned HTML table colspan with a simple mechanism without loosing
-functionality.
 
 .. note::
 
 	The *x0-global-grid-system* does not provide rowspan formating, this can be
 	done otherwise by **directly referencing** or **designing own** *x0-system-objects*,
-	see example#9 or :ref:`devobjectmodeling`.
+	see example #9 or :ref:`devobjectmodeling`.
 
 .. warning::
 
