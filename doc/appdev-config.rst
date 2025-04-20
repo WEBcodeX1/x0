@@ -390,14 +390,56 @@ Following, the *x0-systems* current default configuration.
 	| dns.domain          | Domain String        | DNS Domain used for hostname.domain FQDN        |
 	+---------------------+----------------------+-------------------------------------------------+
 
-3.4. System Metadata
---------------------
+3.4. x0-Application Metadata
+----------------------------
 
-With help of the **x0-system-metadata** JSON configuration files any objects
-structure and objects relation will be defined.
+An *x0-applications* structure will be defined in `object.json`, `skeleton.json`, and `menu.json`
+configuration files.
 
-The example section `/examples` also can help to get a better understanding how
-object definition and object relation is setup correctly.
+The `object.json`, `skeleton.json`, and `menu.json` configuration files in the x0 framework provide
+structured definitions for the user interface and application behavior. Below is a breakdown of their
+roles and functionality:
+
+1. object.json
+
+    * Purpose:
+        Describes the attributes and properties of objects that are used in the application.
+    * Functionality:
+        Defines object types, such as forms, lists, or custom UI components.
+        Includes object-specific attributes (e.g., styles, event handlers, and data bindings).
+        Provides metadata for runtime object creation and manipulation.
+        Used by the sysFactory and sysSourceObjectHandler to initialize and manage objects dynamically.
+
+2. skeleton.json
+
+    * Purpose:
+        Defines the hierarchical structure of the application's UI by providing a "skeleton" for all screen elements.
+    * Functionality:
+        1. Specifies the parent-child relationships between objects, defining the layout and structure of screens.
+        2. Includes references to object.json definitions for detailed object configuration.
+        3. Supports recursive setup of objects using methods like setupObject in sysScreen.
+        4. Allows dynamic adjustment of attributes (e.g., overwriting or replacing attributes at runtime).
+
+3. menu.json
+
+    * Purpose:
+        Configures menu elements and their behavior within the application.
+    * Functionality:
+        1. Defines the menu structure, including items and their hierarchical arrangement.
+        2. Associates menu items with actions or screen navigation.
+        3. Provides styling and attributes for menu components.
+        4. Processed as a part of the skeleton for the "sysMenu" screen, enabling seamless integration with the UI.
+
+- Integration and Workflow
+
+    * These JSON files are processed by core system objects like sysFactory, sysScreen, and sysSourceObjectHandler.
+    * The skeleton.json ties together the object.json and menu.json configurations to create a cohesive UI and behavior model.
+    * During runtime:
+        1. Skeleton Initialization: The skeleton.json is parsed to build the UI hierarchy.
+        2. Object Configuration: Objects defined in object.json are dynamically created and added to the hierarchy.
+        3. Menu Setup: The menu.json is applied to configure and render menus in the application.
+
+These configuration files enable modular and scalable application development by separating concerns and allowing dynamic runtime adjustments.
 
 .. _object-json:
 
