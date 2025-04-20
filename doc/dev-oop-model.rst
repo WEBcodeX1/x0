@@ -5,6 +5,8 @@
 17. OOP Model
 =============
 
+.. _devoopmodel_base:
+
 17.1. Base OOP Inheritance Model
 --------------------------------
 
@@ -13,8 +15,10 @@ the foundational components of the x0 JavaScript framework: `sysBaseObject`, `sy
 and `sysReactor`. These components enable object-oriented design, event management,
 and object instantiation across the framework.
 
-17.1.1. sysBaseObject.js: Core Base Object
-******************************************
+17.1.1. Core Base Object
+************************
+
+Defined in `sysBaseObject.js`.
 
 - Purpose
 
@@ -41,8 +45,10 @@ and object lifecycle management.
     - remove(): Removes the object from its parent's child list and deletes its DOM element.
     - removeParent(): see x.x.x
 
-17.1.2. sysFactory.js: Object Factory
-*************************************
+17.1.2. Object Factory
+**********************
+
+Defined in `sysFactory.js`.
 
 - Purpose
 
@@ -66,8 +72,10 @@ screen management, and event handling.
     - getObjectByID(ObjectID): Retrieves an object by its ObjectID.
     - switchScreen(ScreenID): Activates a specific screen and deactivates all others.
 
-17.1.3. sysReactor.js: Event Reactor
-************************************
+17.1.3. Event Reactor
+*********************
+
+Defined in `sysReactor.js`.
 
 - Purpose
 
@@ -336,7 +344,7 @@ The purpose of setupObjectRefsRecursive is to:
         }
     ];
 
-    #TODO: add ref to x0-porting
+#TODO: add ref to x0-porting
 
 - Call the Method:
 
