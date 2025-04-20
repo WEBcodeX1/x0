@@ -5,10 +5,13 @@
 21. x0-Object Modeling
 ======================
 
-The following section describes howto integrate self-made *x0-system-objects*.
+The following sections describe how-to model self-programmed *x0-system-objects*
+and their specification before they can be integrated into the base system.
 
 21.1. Basic Building Rules
 --------------------------
+
+You should be familiar with the following x0-basics before continuing:
 
 - Base Classes / Inheritance
 - Child Objects
@@ -16,8 +19,25 @@ The following section describes howto integrate self-made *x0-system-objects*.
 - Building Object Structure (DOM)
 - Modifying Runtime Data
 
+21.1.1. Base Classes / Inheritance
+**********************************
 
-21.x. Building an Object Like sysObjDynRadioList.js
+You should be familiar with the x0 *Core Base Model*, see:
+
+21.1.2. Child Objects
+*********************
+
+21.1.3. Event Handler / Callbacks
+*********************************
+
+21.1.4. Building / Porting DOM Object Structure
+***********************************************
+
+21.1.5. Modifying Runtime Data
+******************************
+
+
+21.2. Building an Object Like sysObjDynRadioList.js
 ---------------------------------------------------
 
 This section explains how to create a dynamic system object similar to
@@ -39,7 +59,8 @@ radio button, an input field, and associated controls.
 
 - Step-by-Step Guide
 
-1. Create the Base Class
+21.2.1. Create the Base Class
+*****************************
 
 Start by defining your main object, inheriting from sysBaseObject:
 
@@ -55,7 +76,8 @@ Start by defining your main object, inheriting from sysBaseObject:
     // Inherit from sysBaseObject
     sysObjDynRadioList.prototype = new sysBaseObject();
 
-2. Initialize the Object
+21.2.2. Initialize the Object
+*****************************
 
 Define the init method to set up the object structure and default components:
 
@@ -78,15 +100,16 @@ Define the init method to set up the object structure and default components:
 
         this.addObject(
             new sysObjDynRadioListRow(
-                this,               // Parent Object
-                false,              // Context Menu disabled
-                AddButton,          // Button Reference
+                this,                   // Parent Object
+                false,                  // Context Menu disabled
+                AddButton,              // Button Reference
                 AddButtonJSONAttributes // Button Attributes
             )
         );
     };
 
-3. Define the Row Class
+21.2.3. Define the Row Class
+****************************
 
 Each row in the list is represented by sysObjDynRadioListRow. This class manages its elements (radio button, input field, and optional remove button):
 
@@ -134,7 +157,8 @@ Each row in the list is represented by sysObjDynRadioListRow. This class manages
         }
     };
 
-4. Add Rows Dynamically
+21.2.4. Add Rows Dynamically
+****************************
 
 The add method in sysObjDynRadioList creates new rows dynamically:
 
@@ -153,11 +177,11 @@ The add method in sysObjDynRadioList creates new rows dynamically:
 
         this.addObject(
             new sysObjDynRadioListRow(
-                this,               // Parent Object
-                true,               // Context Menu enabled
-                RemoveButton,       // Button Reference
+                this,                       // Parent Object
+                true,                       // Context Menu enabled
+                RemoveButton,               // Button Reference
                 RemoveButtonJSONAttributes, // Button Attributes
-                true                // Enable remove callback
+                true                        // Enable remove callback
             )
         );
 
@@ -165,7 +189,8 @@ The add method in sysObjDynRadioList creates new rows dynamically:
         this.renderObject(this.DOMParentID);
     };
 
-5. Handle Row Removal
+21.2.5. Handle Row Removal
+**************************
 
 The remove method in sysObjDynRadioListRow is used to remove a row:
 
@@ -183,7 +208,8 @@ In the parent object, the remove method manages the array of rows:
         this.RowItems[RowIndex].remove();
     };
 
-6. Define Object Structure
+21.2.6. Define Object Structure
+*******************************
 
 Use the addObjects method to define the DOM structure for each row:
 
@@ -231,6 +257,10 @@ Use the addObjects method to define the DOM structure for each row:
         sysFactory.setupObjectRefsRecursive(ObjDefs, this);
     };
 
-Conclusion
+21.2.7. Conclusion
+******************
 
-By following this guide, you can create dynamic objects similar to sysObjDynRadioList.js. The key is leveraging the x0 system's object-oriented framework, callbacks, and JSON-based DOM configuration. You can extend this structure further based on your application's specific requirements.
+By following this guide, you can create dynamic objects similar to sysObjDynRadioList.js.
+The key is leveraging the x0 system's object-oriented framework, callbacks, and
+JSON-based DOM configuration. You can extend this structure further based on
+your application's specific requirements.
