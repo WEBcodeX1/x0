@@ -50,7 +50,7 @@ and object lifecycle management.
 with *x0-system-objects*. It provides utility methods for object instantiation,
 screen management, and event handling.
 
-Key Features
+- Key Features
 
     1. Object Instantiation:
         * Creates and initializes objects based on predefined configurations.
@@ -126,66 +126,68 @@ and `sysReactor`, provides a robust foundation for building dynamic, event-drive
 applications. By leveraging these components, developers can create modular,
 maintainable, and scalable systems.
 
-
 17.2. Class Reference
 ---------------------
 
 17.2.1. sysBaseObject.removeParent
 **********************************
 
-Purpose
+- Purpose
 
 The removeParent() method is used to remove an object's parent relationship and its
-associated DOM element. This ensures that the object is detached from its parent both
+associated DOM elements. This ensures that the object is detached from its parent both
 logically (in the object hierarchy) and visually (in the DOM).
 
-Method Signature
+- Method Signature
 
-JavaScript
+.. code-block:: javascript
 
-sysBaseObject.prototype.removeParent = function()
+    sysBaseObject.prototype.removeParent = function()
 
-How It Works
+- How It Works
 
-    DOM Element Removal:
+    * DOM Element Removal:
         Checks if the DOM element associated with the object exists.
         If it exists, the DOM parent element is removed using removeDOMParentElement().
 
-    Child Objects Reset:
+    * Child Objects Reset:
         Deletes the ChildObjects array to ensure all child references are cleared.
         Resets ChildObjects to an empty array to maintain consistency.
 
-    Error Handling:
+    * Error Handling:
         Catches and logs any errors that occur during the removal process.
 
-Usage Example
+- Usage Example
 
-Suppose you have a hierarchical structure of objects (e.g., a parent object with multiple children). If you need to remove a parent object along with its DOM representation, you can call the removeParent() method.
-JavaScript
+Suppose you have a hierarchical structure of objects (e.g., a parent object with multiple children).
+If you need to remove a parent object along with its DOM representation, you can call the removeParent() method.
 
-// Example: Removing a parent object from the hierarchy
-const parentObject = sysFactory.getObjectByID('parent-id');
-parentObject.removeParent();
+.. code-block:: javascript
 
-Code Walkthrough
-JavaScript
+    // Example: Removing a parent object from the hierarchy
+    const parentObject = sysFactory.getObjectByID('parent-id');
+    parentObject.removeParent();
 
-sysBaseObject.prototype.removeParent = function() {
-    try {
-        // Check if the DOM element for this object exists
-        if (this.checkDOMElementExists(this.DOMObjectID)) {
-            // Remove the parent DOM element
-            this.removeDOMParentElement();
+- Code Walkthrough
+
+.. code-block:: javascript
+
+    sysBaseObject.prototype.removeParent = function() {
+        try {
+            // Check if the DOM element for this object exists
+            if (this.checkDOMElementExists(this.DOMObjectID)) {
+                // Remove the parent DOM element
+                this.removeDOMParentElement();
+            }
+
+            // Clear child objects
+            delete this.ChildObjects;
+            this.ChildObjects = new Array();
+        } catch (err) {
+            // Log any errors that occur during the removal process
+            console.log('::removeParent ObjectID:%s error:%s', this.ObjectID, err);
         }
-
-        // Clear child objects
-        delete this.ChildObjects;
-        this.ChildObjects = new Array();
-    } catch (err) {
-        // Log any errors that occur during the removal process
-        console.log('::removeParent ObjectID:%s error:%s', this.ObjectID, err);
-    }
-};
+    };
 
 - Key Points
 
@@ -198,18 +200,11 @@ sysBaseObject.prototype.removeParent = function() {
     3. Error Resilience:
         Handles potential errors gracefully, ensuring that the application remains stable.
 
-When to Use
+- When to Use
 
-    Use removeParent() when you need to:
+    - Use removeParent() when you need to:
         Detach an object and its associated DOM element from the object hierarchy.
         Clean up resources associated with an object.
-
-
-
-
-
-
-
 
 17.2.x.sysFactory.setupObjectRefsRecursive
 ******************************************
