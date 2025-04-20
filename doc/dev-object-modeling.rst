@@ -5,13 +5,14 @@
 21. x0-Object Modeling
 ======================
 
-The following sections describe how-to model self-programmed *x0-system-objects*
-and their specification before they can be integrated into the base system.
+The following sections explain how to design custom x0 system objects and define
+their specifications for seamless integration into the core system.
 
-21.1. Basic Building Rules
+21.1. Basic Modeling Rules
 --------------------------
 
-You should be familiar with the following x0-basics before continuing:
+You should have a solid understanding of the following x0 fundamentals before
+continuing:
 
 - Base Classes / Inheritance
 - Child Objects
@@ -22,16 +23,20 @@ You should be familiar with the following x0-basics before continuing:
 21.1.1. Base Classes / Inheritance
 **********************************
 
-You should be familiar with the x0 *Core Base Model*, see:
+You should familiarize yourself with the x0 *Core Base Model*.
+Refer to: :ref:`devoopmodel_base`.
 
 21.1.2. Child Objects
 *********************
 
+
 21.1.3. Event Handler / Callbacks
 *********************************
 
-21.1.4. Building / Porting DOM Object Structure
-***********************************************
+
+21.1.4. Building DOM Object Structure
+*************************************
+
 
 21.1.5. Modifying Runtime Data
 ******************************
