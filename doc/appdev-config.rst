@@ -390,8 +390,8 @@ Following, the *x0-systems* current default configuration.
 	| dns.domain          | Domain String        | DNS Domain used for hostname.domain FQDN        |
 	+---------------------+----------------------+-------------------------------------------------+
 
-3.4. x0-Application Metadata
-----------------------------
+3.4. App Metadata
+-----------------
 
 An *x0-applications* structure will be defined in `object.json`, `skeleton.json`, and `menu.json`
 configuration files.
