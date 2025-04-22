@@ -51,12 +51,12 @@ An icon library integrated into the x0 base system, offering high-quality icons 
 An open-source platform for managing containerized workloads and services. x0 applications are deployable on Google Kubernetes Engine (GKE) with native integration.
 
 24.10. Multi-language Support
-----------------------------
+-----------------------------
 
 The x0 system supports multiple languages (currently English and German), allowing real-time language switching without page reloads.
 
 24.11. Object Orientation
-------------------------
+-------------------------
 
 x0 provides true object-oriented programming (OOP) capabilities for JavaScript, enabling clean code and efficient DOM object modeling.
 
