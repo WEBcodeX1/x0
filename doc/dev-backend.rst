@@ -17,7 +17,7 @@ asynchronous operations. Below is an overview of its concept:
 
     * Purpose:
         1. Handles communication between the client-side application and backend services using XML-RPC.
-        2. Supports both SYNC (synchronous) and ASYNC (asynchronous) request handling, although synchronous requests are deprecated.
+        2. Supports ASYNC (asynchronous) request handling.
 
     * Core Features:
         1. Request Types:
