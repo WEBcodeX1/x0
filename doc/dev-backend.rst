@@ -23,7 +23,7 @@ asynchronous operations. Below is an overview of its concept:
         1. Request Types:
             Supports POST and GET HTTP methods.
         2. Asynchronous Support:
-            Implements XMLHttpRequest for making asynchronous requests to the server.
+            Implements ``XMLHttpRequest`` for making asynchronous requests to the server.
         3. Authentication:
             Includes support for HTTP Basic Authentication with configurable credentials.
         4. Dynamic URL Parameters:
@@ -38,8 +38,8 @@ asynchronous operations. Below is an overview of its concept:
             Executes the XML-RPC call, processes the response, and invokes the callback function if provided.
 
     * Callback Handling:
-        1. In asynchronous mode, the onreadystatechange method processes the server response and parses it as JSON.
-        2. The result is merged or directly assigned to the target object, and the callback function (e.g., callbackXMLRPCAsync) is invoked to handle post-request operations.
+        1. In asynchronous mode, the ``onreadystatechange`` method processes the server response and parses it as JSON.
+        2. The result is merged or directly assigned to the target object, and the callback function (e.g., ``callbackXMLRPCAsync``) is invoked to handle post-request operations.
 
     * Session Management:
         1. Includes session data in requests when available, ensuring secure and contextual communication with the backend.
@@ -60,3 +60,7 @@ asynchronous operations. Below is an overview of its concept:
     * Configuration methods (e.g., ``setRequestType`` or ``setRequestBasicAuth``) are used to customize the request.
     * The Request method is called with a target object containing data and ``callbackXMLRPCAsync`` callback method.
     * In asynchronous mode, the server response is processed, parsed, and passed to the callback function for further action.
+
+18.2. JSON Schemas
+------------------
+
