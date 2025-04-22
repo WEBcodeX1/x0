@@ -2,8 +2,8 @@
 
 .. _devexamples:
 
-20. Examples Development
-========================
+20. Developing Examples
+=======================
 
 - structure
   - app config (database)
