@@ -7,7 +7,7 @@
 
 It is possible to render a *x0-system-screen* in *x0-overlay-mode*.
 Due to the *x0-system* design (all screens are present, but only one visible)
-a screen instance will be setup coexisting with the original source version.
+a screen instance will be set up coexisting with the original source version.
 
 See very limited example (screen only contains one single *x0-object*) at
 http://x0-app.x0.localnet/python/Index.py?appid=example6.
@@ -25,7 +25,7 @@ See example at http://x0-app.x0.localnet/python/Index.py?appid=example11.
 
 .. warning::
 
-    The *x0-feature* *x0-object-instances* is **not** well-tested. Use with
+    The *x0-object-instances* feature is **not** well-tested. Use with
     caution, especially in combination with *x0-overlay-mode* and *x0-forms*.
 
 13.1. Decorating Instances
@@ -34,8 +34,8 @@ See example at http://x0-app.x0.localnet/python/Index.py?appid=example11.
 *x0-object-decorating* is done inside ``object.json`` (unlike referencing
 *x0-objects* inside ``skeleton.json``).
 
-If you reference a formlist like this, the Sections from ``Formlist1`` will be
-appended to ``Formlist2``.
+If you reference a FormList like this, the sections from ``Formlist1`` will
+be appended to ``Formlist2``.
 
 .. code-block:: javascript
 
@@ -59,7 +59,7 @@ appended to ``Formlist2``.
 13.2. Instance Prefixing
 ------------------------
 
-Specifying an "InstancePrefix" will prefix the referenced formfields so they
+Specifying an "InstancePrefix" will prefix the referenced form fields so they
 will get a unique id.
 
 .. code-block:: javascript
@@ -74,7 +74,7 @@ will get a unique id.
 13.3. Merging Instance Attributes
 ---------------------------------
 
-Per default, attributes get merged.
+By default, attributes get merged.
 
 13.4. Replacing Instance Attributes
 -----------------------------------
