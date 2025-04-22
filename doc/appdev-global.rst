@@ -64,12 +64,12 @@ Currently the following *x0-object-types* are supporting the *x0-grid* feature:
 
 .. warning::
 
-	You should be familiar with Boostrap Grid system before continue reading.
+	You should be familiar with Bootstrap Grid system before continue reading.
 
 4.2. Global JSON Metadata
 *************************
 
-If an *x0-object* supports *x0-global-grid-system* formating the following
+If an *x0-object* supports *x0-global-grid-system* formatting the following
 properties can be set inside the objects "Attribute" representation.
 
 .. table:: Global Grid Object Properties
@@ -147,7 +147,7 @@ Setting ``"RowAfterElements": [ 1, 2 ]`` (Array type) like this:
 	</div>
 	<div class="row">
 		<el5></el5>
-		<el6></el>
+		<el6></el6>
 	</div>
 
 Modifying ``"RowStyle": [ "row fw-bold", "row" ]`` renders:
@@ -251,7 +251,7 @@ Without table header the resulting output looks like the following.
 Any *x0-system-object* can make use of the global grid formatting routines in
 case an Array of Elements exists as input data.
 
-Checkout the developer documenation how to implement grid formating into your
+Checkout the developer documentation how to implement grid formating into your
 self designed *x0-objects*.
 
 .. _appdevglobalcontextmenu:
@@ -308,7 +308,7 @@ A context menu (right mouse click) can be bound to any *x0-object-type*.
 	+=====================+======================+=================================================+
 	| DstScreenID         | ScreenID-String      | Destination ScreenID Reference                  |
 	+---------------------+----------------------+-------------------------------------------------+
-	| RowColumn           | RowID-String         | Table Row Colun Reference                       |
+	| RowColumn           | RowID-String         | Table Row Column Reference                      |
 	+---------------------+----------------------+-------------------------------------------------+
 	| FireEvents          |  Array               | Array of EventIDs                               |
 	+---------------------+----------------------+-------------------------------------------------+
