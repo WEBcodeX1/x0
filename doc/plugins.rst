@@ -8,7 +8,7 @@
 23.1. WordPress
 ---------------
 
-The WordPress plugin in /modules/wordpress provides integrations for user registration and login events,
+The WordPress plugin in ``/modules/wordpress`` provides integrations for user registration and login events,
 enabling communication between WordPress and *x0-system*. Below is an overview of the concept:
 
 - Key Components:
