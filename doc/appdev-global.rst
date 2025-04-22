@@ -259,11 +259,13 @@ self designed *x0-objects*.
 5. Context Menu
 ===============
 
-A context menu (right mouse click) can be bound to any *x0-object-type*.
+A context menu (right mouse click) can be bound to any *x0-object-type*
+(if it was implemented by the *x0-developer*).
 
 .. note::
 
-    Currently only ``List`` *x0-object-type* are supported, this will change in future releases.
+    Currently only ``List`` and ``FormfieldList`` *x0-object-types* are supported,
+    this will change in future releases.
 
 5.1. Global Attributes
 **********************
