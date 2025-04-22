@@ -164,7 +164,7 @@ Details see :ref:`appdevcontrolbutton`.
 	+---------------------+------------------------------------------------------------------------+
 	| activate            | Set Internal State to "active" (processing validation)                 |
 	+---------------------+------------------------------------------------------------------------+
-	| deactivate          | Set Internal State to "inactive" (ommitting from validation)           |
+	| deactivate          | Set Internal State to "inactive" (omitting from validation)            |
 	+---------------------+------------------------------------------------------------------------+
 	| reset               | Call Objects reset() Method                                            |
 	+---------------------+------------------------------------------------------------------------+
@@ -186,7 +186,7 @@ Details see :ref:`appdevcontrolbutton`.
 	+---------------------+------------------------------------------------------------------------+
 	| activate            | Set Internal State to "active" (processing validation)                 |
 	+---------------------+------------------------------------------------------------------------+
-	| deactivate          | Set Internal State to "inactive" (ommitting from validation)           |
+	| deactivate          | Set Internal State to "inactive" (omitting from validation)            |
 	+---------------------+------------------------------------------------------------------------+
 	| reset               | Call Objects reset() Method                                            |
 	+---------------------+------------------------------------------------------------------------+
@@ -492,9 +492,9 @@ The ``FileUpload`` *x0-object-type* provides a file picking dialog and a upload 
 	+----------------------------+----------------------+------------------------------------------+
 	| StyleProgressBar           | CSS-String           | CSS Style Classes, space separated       |
 	+----------------------------+----------------------+------------------------------------------+
-	| StyleProgressBarPErcentage | CSS-String           | CSS Style Classes, space separated       |
+	| StyleProgressBarPercentage | CSS-String           | CSS Style Classes, space separated       |
 	+----------------------------+----------------------+------------------------------------------+
-	| StyleUploadBUtton          | CSS-String           | CSS Style Classes, space separated       |
+	| StyleUploadButton          | CSS-String           | CSS Style Classes, space separated       |
 	+----------------------------+----------------------+------------------------------------------+
 	| UploadScript               | URL-String           | POST Upload URL                          |
 	+----------------------------+----------------------+------------------------------------------+
@@ -681,7 +681,7 @@ The ``FormfieldLabel`` *x0-object-type* renders a HTML form input type ``label``
 	+---------------------+----------------------+-------------------------------------------------+
 	| Style               | CSS-String           | CSS Style Classes, space separated              |
 	+---------------------+----------------------+-------------------------------------------------+
-	| LabelFor            | String               | HTML attrribute "labelfor"                      |
+	| LabelFor            | String               | HTML attribute "labelfor"                       |
 	+---------------------+----------------------+-------------------------------------------------+
 	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
 	+---------------------+----------------------+-------------------------------------------------+
