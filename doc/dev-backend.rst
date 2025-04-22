@@ -61,6 +61,10 @@ asynchronous operations. Below is an overview of its concept:
     * The Request method is called with a target object containing data and ``callbackXMLRPCAsync`` callback method.
     * In asynchronous mode, the server response is processed, parsed, and passed to the callback function for further action.
 
+18.1.3 App Configuration
+************************
+
+
 18.2. JSON Schemas
 ------------------
 
