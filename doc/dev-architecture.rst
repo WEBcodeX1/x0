@@ -24,5 +24,5 @@
 16.2. Kubernetes Plattform
 --------------------------
 
-- Kubernetes
-- Overview Ingress / LoadBalancing
+.. image:: images/x0-kubernetes-infrastructure-exampleapp.png
+  :alt: image - kubernetes architecture loadbalancing exampleapp
