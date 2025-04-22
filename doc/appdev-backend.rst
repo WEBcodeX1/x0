@@ -18,7 +18,7 @@ specific application.
 A ServiceConnector object defines **where** to get the backend data from and **when**.
 
 * Backend Service URL
-* Occuring Events which trigger Data Load
+* Occurring Events which trigger Data Load
 
 Now after a ServiceConnector has been configured in ``object.json``, it must be
 *activated* by pointing the DestinationObjects ``RefID`` to the ServiceConnector
@@ -180,7 +180,7 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
 8.3. Global Data
 ----------------
 
-It is possible to store global data (var / value) ...
+It is possible to store global data (var / value pairs) in the following global data spaces:
 
 * Global Data
 * Screen Global Data
@@ -249,9 +249,9 @@ Currently *x0-system* only supports certificate based (Apache2 / ingress-nginx)
 authentication.
 
 Especially when using decentralized / multiple application servers it is strongly
-adviced to integrate an external SSO solution.
+advised to integrate an external SSO solution.
 
-For authentication to work correctly *x0-preload-script* must be setup
+For authentication to work correctly *x0-preload-script* must be set up
 with the correct *x0-preload-vars* ``UserID`` and ``UserSession``.
 
 .. code-block:: sql
