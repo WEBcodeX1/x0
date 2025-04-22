@@ -6,7 +6,7 @@
 =========
 
 Designing Forms is an essential part when designing modern web-applications.
-*x0-system* provides multiple mechanism for building complex forms easily.
+*x0-system* provides multiple mechanisms for building complex forms easily.
 
 11.1. FormfieldList
 -------------------
@@ -14,7 +14,7 @@ Designing Forms is an essential part when designing modern web-applications.
 The FormfieldList *x0-object-type* is a container type providing the following
 functionality.
 
-* Providing HTML conform <form> container
+* Providing HTML conform "<form>" container
 * Grouping multiple single *x0-form-object-types* together
 * Validating against *x0-system* provided JS Validation Functions
 * Validating against user provided JS Validation Functions
@@ -38,8 +38,9 @@ Example see: http://x0-app.x0.localnet/python/Index.py?appid=example5.
 11.3. FormfieldOnchange Handler
 -------------------------------
 
-The FormfieldOnChange Handler provides the mechanism to modify other already
-rendered *x0-form-objects* when their state changes.
+The FormfieldOnChange Handler provides a mechanism to modify other rendered
+*x0-form-objects* when their state changes.
+
 
 .. table:: FormfieldOnchange OnChange Attributes
 	:widths: 30 70
@@ -132,7 +133,7 @@ Valid for *x0-object-type* FormfieldPulldown.
 Same as EnableOnValues with the difference that the internal object state
 is set to **activated**.
 
-Objects with deactivated state will be ommitted from validation.
+Objects with deactivated state will be omitted from validation.
 
 11.3.4. DeactivateOnValues
 **************************
@@ -150,7 +151,7 @@ Update destination object with current objects input length.
 11.3.6. FireEvents
 ******************
 
-Globally fire Events on any objects state change.
+Globally fire (raise) Events on any objects state change.
 
 .. code-block:: javascript
 
