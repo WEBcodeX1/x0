@@ -8,7 +8,7 @@
 Before proceeding, check if it is **really necessary** for you to install the
 *x0-base-system*.
 
-If your goal is to **develop** *x0-applications** only, you should first set up
+If your goal is to **develop** *x0-applications* only, you should first set up
 your own repository using the *x0-skeleton* (a Git template repository) available at:
 https://github.com/WEBcodeX1/x0-skeleton.
 
