@@ -8,13 +8,14 @@
 Any *x0-system-object* getting backend data via *x0-service-connector* method
 is able to receive *x0-system-events*.
 
-Any *x0-system-object* is able to register to multiple *x0-events*. On *x0-init*
-(initial page load) the ``InitSystem`` *x0-system-event* gets fired.
+Any *x0-system-object* is able to register to multiple *x0-events*.
+During x0-init (initial page load), the ``InitSystem`` *x0-system-event* is triggered /
+fired.
 
 .. note::
 
-    Some *x0-object-types*, e.g. List will be removed from DOM completely and get
-    re-rendered on ``RuntimeSetDataFunc()`` invocation.
+    Some *x0-object-types*, e.g., the List object will be completely removed from
+    the DOM and re-rendered by invoking ``callbackXMLRPCAsync()`` method.
 
 .. image:: images/x0-event-system.png
   :alt: image - event system
@@ -69,5 +70,5 @@ they are processed.
 10.4. LinkExternal
 ------------------
 
-* Open External Link Only in current Browser Window
-* Open External Link Only in new Browser Tab
+* Open External Link in current Browser Window
+* Open External Link in new Browser Tab
