@@ -6,7 +6,7 @@
 The *x0-deployment* main goal is to get multiple production ready GKE
 (Google Kubernetes Engine) environments online with minimum effort.
 
-Why Kubernetes? Its the only current system worldwide to guarantee
+Why Kubernetes? It is the only current system worldwide guaranteeing
 native fail-safe operations including application load-balancing and
 auto-scaling.
 
@@ -16,7 +16,7 @@ Following, our proposed deployment workflow.
 * Deploy on Kubernetes Minikube (x0-supported)
 * Deploy to GKE Production Cluster (x0-supported)
 * Terraform Convert Metadata (x0-supported)
-* Takeover Livecycle / DevOps Management by Terraform or similar
+* Takeover Lifecycle / DevOps Management by Terraform or similar
 
 .. _appdeployment-standalone:
 
@@ -26,8 +26,8 @@ Following, our proposed deployment workflow.
 Standalone installation provides packages for Ubuntu 22.04.
 
 If you really like to run packages natively, install *x0-app* and *x0-db*
-.deb packages. It is strongly advised to use the docker environment to
-avoid unneccessary effort.
+.deb packages. Using the Docker environment is strongly recommended to avoid
+unnecessary effort.
 
 .. code-block:: bash
 
@@ -43,7 +43,7 @@ The *x0-docker-environment* is primarily intended to test your application
 locally before more time-consuming Kubernetes administration tasks apply.
 
 A Minikube deployment also includes infrastructural / loadbalancing tests
-to ensure your application also bahaves correctly on GKE.
+to ensure your application also behaves correctly on GKE.
 
 Steps for running tests.
 
@@ -72,14 +72,15 @@ Steps for running tests.
 15.4. Kubernetes
 ----------------
 
-The kubernetes installer will setup the following dependent on configuration.
+The kubernetes installer will set up the following, depending on the
+configuration.
 
 * Kubegres / Multi-Pod PostgreSQL Database
 * Multi-Pod x0-application
 * Ingress-nginX Application Load-Balancing
 
-It will setup multi-environments in different GKE namespaces with configurable
-DNS host / domain based Virtual Hosts and *x0-applications*.
+It will set up multiple environments in different GKE namespaces with
+configurable DNS host / domain based Virtual Hosts and *x0-applications*.
 
 * Environments
 * Virtual Hosts
@@ -209,7 +210,7 @@ Environment Element related properties.
 	+-----------------------------------------+----------------------+---------------------------------------+
 	| $env.kubernetes.deployment.cpu          | String               | CPU Percentage                        |
 	+-----------------------------------------+----------------------+---------------------------------------+
-	| $env.kubernetes.deployment.memory       | String               | Memory Ammount                        |
+	| $env.kubernetes.deployment.memory       | String               | Memory Amount                         |
 	+-----------------------------------------+----------------------+---------------------------------------+
 	| $env.kubernetes.deployment.autoscale    | Boolean              | Autoscaling Active                    |
 	+-----------------------------------------+----------------------+---------------------------------------+
@@ -223,7 +224,7 @@ Environment Element related properties.
 15.4.6. VirtualHost Element
 ***************************
 
-.. table:: Setup VirtualHost Element Properties
+.. table:: Set up VirtualHost Element Properties
 	:widths: 30 10 60
 
 	+-----------------------------------------+----------------------+---------------------------------------+
