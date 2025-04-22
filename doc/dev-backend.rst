@@ -12,7 +12,8 @@ The `sysXMLRPCRequest.js` file in the *x0-framework* implements the core functio
 for handling XML-RPC (Remote Procedure Call) requests, supporting both synchronous and
 asynchronous operations. Below is an overview of its concept:
 
-- Key Concepts:
+18.1.1 Key Concepts
+*******************
 
     * Purpose:
         1. Handles communication between the client-side application and backend services using XML-RPC.
@@ -45,10 +46,10 @@ asynchronous operations. Below is an overview of its concept:
     * x0-object Callback:
         1. Always execute the *x0-systems* `callbackXMLRPCAsync` callback method in the caller *x0-object*.
 
-Example Workflow:
+18.1.2 Example Workflow
+***********************
 
-    - A request is initialized using the sysCallXMLRPC constructor with a target URL and optional parameters.
-    - Configuration methods (e.g., setRequestType or setRequestBasicAuth) are used to customize the request.
-    - The Request method is called with a target object containing data and callback methods.
-    - In asynchronous mode, the server response is processed, parsed, and passed to the callback function for further action.
-
+    * A request is initialized using the sysCallXMLRPC constructor with a target URL and optional parameters.
+    * Configuration methods (e.g., setRequestType or setRequestBasicAuth) are used to customize the request.
+    * The Request method is called with a target object containing data and callback methods.
+    * In asynchronous mode, the server response is processed, parsed, and passed to the callback function for further action.
