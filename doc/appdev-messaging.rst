@@ -4,26 +4,26 @@
 =============
 
 Messaging is used to transfer JSON Object-Data between Network Clients including
-Notify Messages.
+notification messages.
 
-To get local messaging working a docker container using
-https://github.com/clauspruefer/micro-msg-server  has been configured.
+To enable local messaging functionality a docker container using
+https://github.com/clauspruefer/micro-msg-server has been set up.
 
-Docker Networking is quite limited so running the messaging server on port 8080
+Docker networking has limitations, so running the messaging server on port 8080
 is the only option to run *x0-app* and *x0-msg-server* in parallel.
 
 Start the messaging server with the following commands.
 
 .. code-block:: bash
 
-	# install docker
+	# start messaging server
 	cd ./docker
     ./x0-start-msg-server.sh
 
 Internally *x0-system* uses long polling mechanism which still runs stable
 and performant on HTTP/1.1. Polling timeout is set to 10 seconds.
 
-It is planned to replace this method by web-sockets in the near future.
+This method is planned to be replaced by WebSockets in the near future.
 
 .. warning::
 
@@ -39,8 +39,10 @@ It is planned to replace this method by web-sockets in the near future.
 14.1. Example
 -------------
 
-The following example exchanges form metadata from users session a)
-over the network to user session b).
+
+
+The following example transfers form metadata from user session A over the
+network to user session B.
 
 * http://x0-app.x0.localnet/python/Index.py?appid=example10
 
@@ -54,15 +56,15 @@ in the source users browser as soon as possible.
 
 .. warning::
 
-    The example code does not emphasise on security. It is no good idea to
+    The example code does not emphasize security. It is not advisable to
     exchange user-sessions between network clients. Normally this is the backends
     job after a successful user authentication (user-id / session-id mapping).
 
 .. warning::
 
-    Also to simplify things message deletion takes place directly after returning
-    on msg-server side. This workflow is not acceptable in real-world scenarios,
-    the deletion has to be re-triggered after receipt on client-side.
+    Also to simplify things mmessage deletion occurs immediately after processing
+    on the messaging server side. This workflow is not acceptable in real-world
+    scenarios, the deletion has to be re-triggered after receipt on client-side.
 
 14.2. Internal Messaging Format
 -------------------------------
