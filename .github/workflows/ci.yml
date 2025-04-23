@@ -7,7 +7,7 @@
 #   2. x0-db:latest from ghcr.io
 #   3. selenium-server-0 from docker hub
 # - runs
-#   1. x0-test:latest from ghcr.io (test executer)
+#   1. x0-test-github:latest from ghcr.io (test executer)
 
 name: x0-test-runner
 on:
@@ -16,10 +16,14 @@ on:
       - created
 
 jobs:
+
   # test runner job
   test-runner-job:
     runs-on: ubuntu-latest
     name: test-runner
+    container:
+      image: ghcr.io/clauspruefer/x0-test-github:latest      
+
     services:
       # x0-app apache/wsgi using hostname x0-app.x0.localnet
       x0-app.x0.localnet:
@@ -39,7 +43,7 @@ jobs:
       selenium-server-0:
         image: selenium/standalone-chrome:latest
 
-      steps:
-        - name: run tests
-        uses: ghcr.io/clauspruefer/x0-test:latest
- 
+    # start tests inside test-container
+    steps:
+      - name: run tests
+        run: /var/lib/x0/sys/docker-run-pytest.sh
