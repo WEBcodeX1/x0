@@ -1,3 +1,14 @@
+# github-action "test-runner"
+#
+# - triggered on label creation
+# - runs-on "ubuntu-latest" github action VM
+# - starts services (docker container)
+#   1. x0-app:latest from ghcr.io
+#   2. x0-db:latest from ghcr.io
+#   3. selenium-server-0 from docker hub
+# - runs
+#   1. x0-test:latest from ghcr.io (test executer)
+
 name: x0-test-runner
 on:
   label:
