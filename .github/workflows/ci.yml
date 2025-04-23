@@ -5,12 +5,18 @@ on:
       - created
 
 jobs:
-  # main docker image (test runner container)
-  container-job:
+  # test runner job
+  test-runner-job:
     runs-on: ubuntu-latest
-    container: ghcr.io/clauspruefer/x0-test:latest
-
+    name: test-runner
     services:
+      # x0-app apache/wsgi using hostname x0-app.x0.localnet
+      x0-app.x0.localnet:
+        image: ghcr.io/clauspruefer/x0-app:latest
+        credentials:
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.ghcr_password }}
+
       # x0-db container using hostname mypostgres
       mypostgres:
         image: ghcr.io/clauspruefer/x0-db:latest
@@ -18,13 +24,11 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.ghcr_password }}
 
-      # x0-app container using hostname x0-app
-      x0-app:
-        image: ghcr.io/clauspruefer/x0-app:latest
-        credentials:
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.ghcr_password }}
-
       # selenium-server container using hostname selenium-server-0
       selenium-server-0:
         image: selenium/standalone-chrome:latest
+
+      steps:
+        - name: run tests
+        uses: ghcr.io/clauspruefer/x0-test:latest
+ 
