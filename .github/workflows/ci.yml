@@ -1,0 +1,30 @@
+name: x0-test-runner
+on:
+  label:
+    types:
+      - created
+
+jobs:
+  # main docker image (test runner container)
+  container-job:
+    runs-on: ubuntu-latest
+    container: ghcr.io/clauspruefer/x0-test:latest
+
+    services:
+      # x0-db container using hostname mypostgres
+      mypostgres:
+        image: ghcr.io/clauspruefer/x0-db:latest
+        credentials:
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.ghcr_password }}
+
+      # x0-app container using hostname x0-app
+      x0-app:
+        image: ghcr.io/clauspruefer/x0-app:latest
+        credentials:
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.ghcr_password }}
+
+      # selenium-server container using hostname selenium-server-0
+      selenium-server-0:
+        image: selenium/standalone-chrome:latest
