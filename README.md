@@ -2,6 +2,8 @@
 
 ![x0-logo](./image/x0-logo-github.png)
 
+[![CodeQL](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql)
+
 ## 1. Abstract / Purpose
 
 **x0 (cross-object) JavaScript Framework** /krɒs ɒb.dʒɪkt/ is a modern tool for
