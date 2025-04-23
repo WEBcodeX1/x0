@@ -5,6 +5,12 @@
 17. OOP Model
 =============
 
+The Object-Oriented Programming (OOP) model section is structured into the
+following components:
+
+- Base OOP Inheritance Model
+- Complete *x0-system* Class Reference
+
 .. _devoopmodel_base:
 
 17.1. Base OOP Inheritance Model

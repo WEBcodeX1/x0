@@ -1,0 +1,45 @@
+# github-action "test-runner"
+#
+# - triggered on label creation
+# - runs-on "ubuntu-latest" github action VM
+# - starts services (docker container)
+#   1. x0-app:latest from ghcr.io
+#   2. x0-db:latest from ghcr.io
+#   3. selenium-server-0 from docker hub
+# - runs
+#   1. x0-test:latest from ghcr.io (test executer)
+
+name: x0-test-runner
+on:
+  label:
+    types:
+      - created
+
+jobs:
+  # test runner job
+  test-runner-job:
+    runs-on: ubuntu-latest
+    name: test-runner
+    services:
+      # x0-app apache/wsgi using hostname x0-app.x0.localnet
+      x0-app.x0.localnet:
+        image: ghcr.io/clauspruefer/x0-app:latest
+        credentials:
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.ghcr_password }}
+
+      # x0-db container using hostname mypostgres
+      mypostgres:
+        image: ghcr.io/clauspruefer/x0-db:latest
+        credentials:
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.ghcr_password }}
+
+      # selenium-server container using hostname selenium-server-0
+      selenium-server-0:
+        image: selenium/standalone-chrome:latest
+
+      steps:
+        - name: run tests
+        uses: ghcr.io/clauspruefer/x0-test:latest
+ 
