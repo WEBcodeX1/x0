@@ -10,6 +10,8 @@
 #   1. x0-test-github:latest from ghcr.io (test executer)
 
 name: x0-test-runner
+permissions:
+  contents: read
 on:
   label:
     types:
