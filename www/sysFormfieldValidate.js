@@ -360,7 +360,7 @@ sysFormFieldValidate.prototype.DNSRecordName = function(Value)
 		};
 	}
 
-	const Regex = new RegExp('^[a-z0-9\.\-]+$', 'g');
+	const Regex = new RegExp('^[a-z0-9\\.\\-]+$', 'g');
 	if (Value.search(Regex) == -1) {
 		return {
 			"Error": true,
