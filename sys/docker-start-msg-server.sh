@@ -11,4 +11,6 @@ touch ${LOG_ERROR_FILE}
 ln -sf /dev/stdout ${LOG_ACCESS_FILE}
 ln -sf /dev/stderr ${LOG_ERROR_FILE}
 
+/usr/bin/python3 /var/lib/msgserver/bin/MessagingServer.py &
+
 /usr/sbin/apache2ctl -D FOREGROUND
