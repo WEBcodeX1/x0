@@ -22,9 +22,6 @@ closer to the functionality of *real* desktop apps.
 
 To see the x0-system in action immediately, download the following Docker images:
 
-- https://docker.webcodex.de/x0/docker.x0-app.tar<br>
-- https://docker.webcodex.de/x0/docker.x0-db.tar<br>
-
 ```bash
 # clone the repository
 git clone https://github.com/WEBcodeX1/x0.git
@@ -36,15 +33,30 @@ apt-get -y install docker.io
 # set docker permissions / restart shell
 usermod -aG docker your-user
 
-# load docker images
-docker load < docker.x0-app.tar
-docker load < docker.x0-db.tar
+# pull docker images
+docker pull ghcr.io/webcodex1/x0-app
+docker pull ghcr.io/webcodex1/x0-db
+docker pull ghcr.io/webcodex1/x0-test
 
 # start the x0-system
 cd ./docker/
 ./x0-start-containers.sh
 ```
+
 Open the URL `http://172.20.0.10/python/Index.py?appid=example12`.
+
+In case direct import is failing, download and import images manually.
+
+- https://docker.webcodex.de/x0/docker.x0-app.tar<br>
+- https://docker.webcodex.de/x0/docker.x0-db.tar<br>
+- https://docker.webcodex.de/x0/docker.x0-test.tar<br>
+
+```bash
+# load docker images
+docker load < docker.x0-app.tar
+docker load < docker.x0-db.tar
+docker load < docker.x0-test.tar
+```
 
 ## 4. Cross Objects
 
