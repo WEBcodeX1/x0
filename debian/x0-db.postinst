@@ -8,7 +8,7 @@ if [ "$1" = "configure" ]; then
 	BASEDIR="/var/lib/x0"
 	CONFDIR="${BASEDIR}/conf"
 	DB_CONFDIR="${CONFDIR}/postgresql"
-	DB_DATADIR="/var/lib/postgresql/14/main"
+	DB_DATADIR="/var/lib/postgresql/16/main"
 
 	DB_CONFFILE_AUTH="pg_hba.conf"
 	DB_CONFFILE_CONF="postgresql.conf"
@@ -17,7 +17,7 @@ if [ "$1" = "configure" ]; then
 
 	DB_SU_PWD=$(${BASEDIR}/sys/get-pg-pass.py su)
 
-	ETC_POSTGRES_CONFDIR="/etc/postgresql/14/main"
+	ETC_POSTGRES_CONFDIR="/etc/postgresql/16/main"
 
 	SYSDB="x0"
 

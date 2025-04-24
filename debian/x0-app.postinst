@@ -75,7 +75,7 @@ if [ "$1" = "configure" ]; then
 
 	# install python-dbpool
 	if [ "$(pip3 list | grep python-dbpool | cut -d ' ' -f1)" != "python-dbpool" ]; then
-		pip3 install --no-deps ${BASEDIR}/bin/python-dbpool-0.1.0a0.tar.gz
+		pip3 install --no-deps ${BASEDIR}/bin/python-dbpool-0.1.0a0.tar.gz --break-system-packages
 	fi
 
 	# copy DB.py and DBMapping.py
