@@ -43,3 +43,10 @@ Architecture: all
 Depends: python3 (>= 3.4), python3-selenium, python3-pytest, python3-sphinx, python3-sphinx-rtd-theme, python3-openstackclient, python3-cinderclient, python3-designateclient, python3-heatclient, python3-swiftclient, ${misc:Depends}
 Description: Integration-Tests execution and documentation generation.
  Integration-Tests execution and documentation generation.
+
+Package: x0-msg-server
+Section: server
+Architecture: all
+Depends: python3 (>= 3.4), apache2 (>= 2.4), libapache2-mod-wsgi-py3 (>= 3.3), ${misc:Depends}
+Description: Tiny messaging server written in Python3.
+ Tiny messaging server written in Python3.
