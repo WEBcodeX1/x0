@@ -1,0 +1,19 @@
+#!/bin/sh
+
+#DEBHELPER#
+
+if [ "$1" = "configure" ]; then
+
+	# enable global port 8080
+	echo "Listen 8080" >> /etc/apache2/ports.conf
+
+	# enable headers extension
+	a2enmod headers
+
+	# enable vhost
+	a2ensite 001-msgserver
+
+	# restart apache
+	service apache2 restart
+
+fi

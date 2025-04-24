@@ -1,0 +1,4 @@
+modules/micro-msg-server/apache/001-msgserver.conf etc/apache2/sites-available
+modules/micro-msg-server/python/MessagingServer.py var/lib/msgserver/bin
+modules/micro-msg-server/python/MsgHandler.py var/www/msg-server/python
+sys/docker-start-msg-server.sh var/lib/msgserver/bin
