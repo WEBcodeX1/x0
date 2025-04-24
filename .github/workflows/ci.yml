@@ -13,14 +13,14 @@ name: x0-test-runner
 permissions:
   contents: read
 on:
-  label:
-    types:
-      - created
+  create:
 
+# run jobs
 jobs:
-
   # test runner job
   test-runner-job:
+    # only run if tag starts with "v"
+    if: ${{ startsWith(github.ref, 'refs/tags/v') }}
     runs-on: ubuntu-latest
     name: test-runner
     container:
