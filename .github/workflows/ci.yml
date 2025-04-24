@@ -30,7 +30,7 @@ jobs:
       image: ghcr.io/webcodex1/x0-test-github:latest
       credentials:
         username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ secrets.GHCR_PAT }}
 
     services:
       # x0-app apache/wsgi using hostname x0-app.x0.localnet
