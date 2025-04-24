@@ -1,7 +1,7 @@
 CREATE SCHEMA integrationtest;
 
 CREATE TABLE integrationtest.list1 (
-    id character varying NOT NULL,
+    id int NOT NULL,
     col1 character varying NOT NULL,
     col2 character varying NOT NULL
 );
@@ -42,3 +42,33 @@ INSERT INTO integrationtest.list1 (id, col1, col2) VALUES (28, 'row28-1', 'row28
 INSERT INTO integrationtest.list1 (id, col1, col2) VALUES (29, 'row29-1', 'row29-2');
 INSERT INTO integrationtest.list1 (id, col1, col2) VALUES (30, 'row30-1', 'row30-2');
 INSERT INTO integrationtest.list1 (id, col1, col2) VALUES (31, 'row31-1', 'row31-2');
+
+
+CREATE TABLE integrationtest.list2 (
+    id int NOT NULL,
+    col1 boolean NOT NULL,
+    col2 character varying NOT NULL,
+    col3 int NOT NULL,
+    col4 character varying NOT NULL
+);
+
+GRANT ALL ON TABLE integrationtest.list2 TO x0;
+
+DELETE FROM integrationtest.list2;
+
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (1, true, 'row1-2', 10, 'row1-4');
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (2, true, 'row2-2', 10, 'row2-4');
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (3, false, 'row3-2', 20, 'row3-4');
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (4, false, 'row4-2', 20, 'row4-4');
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (5, true, 'row5-2', 30, 'row5-4');
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (6, false, 'row6-2', 10, 'row6-4');
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (7, false, 'row7-2', 30, 'row7-4');
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (8, true, 'row8-2', 30, 'row8-4');
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (9, true, 'row9-2', 10, 'row9-4');
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (10, true, 'row10-2', 10, 'row10-4');
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (11, false, 'row11-2', 20, 'row11-4');
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (12, true, 'row12-2', 30, 'row12-4');
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (13, false, 'row13-2', 30, 'row13-4');
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (14, false, 'row14-2', 20, 'row14-4');
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (15, false, 'row15-2', 10, 'row15-4');
+INSERT INTO integrationtest.list2 (id, col1, col2, col3, col4) VALUES (16, true, 'row16-2', 10, 'row16-4');
