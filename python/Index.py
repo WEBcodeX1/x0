@@ -38,14 +38,12 @@ HTMLTop = """<!DOCTYPE html>
   <script type="text/javascript" src="/sysObjLink.js"></script>
   <script type="text/javascript" src="/sysObjLinkExternal.js"></script>
   <script type="text/javascript" src="/sysObjSQLText.js"></script>
-  <script type="text/javascript" src="/sysObjObjectContainer.js"></script>
   <script type="text/javascript" src="/sysObjDiv.js"></script>
   <script type="text/javascript" src="/sysObjContextMenu.js"></script>
   <script type="text/javascript" src="/sysScreenOverlay.js"></script>
   <script type="text/javascript" src="/sysObjButton.js"></script>
   <script type="text/javascript" src="/sysObjButtonInternal.js"></script>
   <script type="text/javascript" src="/sysObjButtonCallback.js"></script>
-  <script type="text/javascript" src="/sysObjNavigateForwardBackward.js"></script>
   <script type="text/javascript" src="/sysObjFileUpload.js"></script>
   <script type="text/javascript" src="/sysObjErrorContainer.js"></script>
   <script type="text/javascript" src="/sysFormfieldOnChangeHandler.js"></script>
@@ -58,6 +56,7 @@ HTMLTop = """<!DOCTYPE html>
   <script type="text/javascript" src="/sysObjList.js"></script>
   <script type="text/javascript" src="/sysObjTabContainer.js"></script>
   <script type="text/javascript" src="/sysObjFormfieldList.js"></script>
+  <script type="text/javascript" src="/sysObjDynRadioList.js"></script>
   <script type="text/javascript" src="/sysGridGenerator.js"></script>
   <script type="text/javascript" src="/sysFactory.js"></script>
   <script type="text/javascript" src="/sysAsyncNotify.js"></script>
