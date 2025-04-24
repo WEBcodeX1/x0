@@ -1,8 +1,4 @@
 version: 2
-on:
-label:
-  types:
-    - created
 updates:
   - package-ecosystem: "docker" # See documentation for possible values
     directory: "/docker" # Location of package manifests
