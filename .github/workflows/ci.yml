@@ -47,5 +47,8 @@ jobs:
 
     # start tests inside test-container
     steps:
+      - name: sleep for 20 seconds
+        run: sleep 20s
+        shell: bash
       - name: run tests
         run: /var/lib/x0/sys/docker-run-pytest.sh
