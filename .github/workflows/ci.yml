@@ -12,6 +12,7 @@
 name: x0-test-runner
 permissions:
   contents: read
+  packages: read
 
 # run only on release branches
 on:
