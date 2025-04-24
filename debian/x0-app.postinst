@@ -101,11 +101,14 @@ if [ "$1" = "configure" ]; then
 		echo "Processing example-config (static):${dirname}"
 		CONF_SQL_DIR="${EXAMPLE_CONFIG_DIR}/${dirname}/sql"
 		CONF_STATIC_DIR="${EXAMPLE_CONFIG_DIR}/${dirname}/static"
+		CONF_PYTHON_DIR="${EXAMPLE_CONFIG_DIR}/${dirname}/python"
 		DST_EXAMPLE_DIR="${APP_DIR}/examples/${dirname}"
 		mkdir -p ${DST_EXAMPLE_DIR}
 		cp ${CONF_STATIC_DIR}/* ${DST_EXAMPLE_DIR}/
+		cp ${CONF_PYTHON_DIR}/* ${APP_PYTHONDIR}/
 		cp ${APP_DIR}/static/*.css ${DST_EXAMPLE_DIR}/
 		cp -r ${APP_DIR}/static/fontawesome ${DST_EXAMPLE_DIR}/
+		cp APP_PYTHONDIR
 	done
 
 	# restart apache

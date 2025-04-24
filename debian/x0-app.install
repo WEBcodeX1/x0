@@ -12,7 +12,6 @@ python/getText.py var/www/vhosts/x0/python
 python/SQLMapper.py var/www/vhosts/x0/python
 python/Index.py var/www/vhosts/x0/python
 database/* var/lib/x0/database
-doc/* var/lib/x0/doc
 test/* var/lib/x0/test
 conf/* var/lib/x0/conf
 config/* var/lib/x0/config
