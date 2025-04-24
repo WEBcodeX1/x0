@@ -24,22 +24,19 @@ jobs:
     runs-on: ubuntu-latest
     name: test-runner
     container:
-      image: ghcr.io/clauspruefer/x0-test-github:latest
+      image: ghcr.io/webcodex1/x0-test-github:latest
+      credentials:
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     services:
       # x0-app apache/wsgi using hostname x0-app.x0.localnet
       x0-app.x0.localnet:
-        image: ghcr.io/clauspruefer/x0-app:latest
-        credentials:
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.ghcr_password }}
+        image: ghcr.io/webcodex1/x0-app:latest
 
       # x0-db container using hostname mypostgres
       mypostgres:
-        image: ghcr.io/clauspruefer/x0-db:latest
-        credentials:
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.ghcr_password }}
+        image: ghcr.io/webcodex1/x0-db:latest
 
       # selenium-server container using hostname selenium-server-0
       selenium-server-0:
