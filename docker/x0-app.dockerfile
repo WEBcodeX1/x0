@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 MAINTAINER Claus Prüfer
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -14,8 +14,6 @@ RUN rm /var/lock
 RUN mkdir -p /var/lock/
 
 RUN apt-get -qq update -y
-
-#RUN apt-get -qq install libssl3=3.0.2-0ubuntu1.15 --allow-downgrades -y
 
 RUN TZ="Europe/Berlin" apt-get -qq install -y tzdata locales
 
