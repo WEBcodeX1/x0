@@ -3,7 +3,7 @@ MAINTAINER Claus Prüfer
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG DB_DEB_FILE=x0-db_1.0rc1_all.deb
+ARG DB_DEB_FILE=x0-db_1.0~rc1_all.deb
 
 COPY ./x0/docker/tmp/apt-sources.list /etc/apt/sources.list
 COPY ./x0/docker/tmp/environment-db.sh ./environment.sh
@@ -23,3 +23,7 @@ RUN apt-get -qq install -y ./$DB_DEB_FILE
 CMD /root/start-postgresql.sh
 
 EXPOSE 5432
+
+LABEL org.opencontainers.image.source=https://github.com/clauspruefer/x0
+LABEL org.opencontainers.image.description="x0 docker container image - database component"
+LABEL org.opencontainers.image.licenses=AGPL-3.0-or-later

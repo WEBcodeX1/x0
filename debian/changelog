@@ -1,4 +1,4 @@
-x0 (1.0rc1) bullseye; urgency=medium
+x0 (1.0~rc1) bullseye; urgency=medium
 
   [ Claus Prüfer ]
   * Multiple generic bug fixes regarding JS array processing
