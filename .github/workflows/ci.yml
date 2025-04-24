@@ -17,7 +17,7 @@ permissions:
 on:
   push:
     branches:
-      - 'releases/**'
+      - main
 
 # run jobs
 jobs:
