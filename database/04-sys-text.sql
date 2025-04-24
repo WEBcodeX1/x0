@@ -41,3 +41,6 @@ INSERT INTO webui.text (id, "group", value_de, value_en) VALUES ('TXT.SYS.LOADIN
 INSERT INTO webui.text (id, "group", value_de, value_en) VALUES ('TXT.SYS.LOADING-INDICATOR-SUCCESS', 'notify-indicator', 'Die durchgeführte Aktion war erfolgreich:', 'The server action was successful:');
 INSERT INTO webui.text (id, "group", value_de, value_en) VALUES ('TXT.SYS.LOADING-INDICATOR-ERROR', 'notify-indicator', 'Bei der Aktion ist ein Fehler aufgetreten:', 'The server action was unsuccessful:');
 INSERT INTO webui.text (id, "group", value_de, value_en) VALUES ('TXT.SYS.LOADING-INDICATOR-SYSTEMERROR', 'notify-indicator', 'Es is ein Systemfehler aufgetreten.', 'A system error has occured.');
+
+INSERT INTO webui.text (id, "group", value_de, value_en) VALUES ('TXT.SYS.INDICATOR.NETEVENT', 'notify-indicator', 'Netzwerk Event empfangen.', 'Network event received.');
+INSERT INTO webui.text (id, "group", value_de, value_en) VALUES ('TXT.CONTEXTMENU.METHOD.REMOVE', 'ctxt-menu', 'Entfernen', 'Remove');
