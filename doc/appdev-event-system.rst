@@ -20,6 +20,9 @@ fired.
 .. image:: images/x0-event-system.png
   :alt: image - event system
 
+9.1. Raising Events
+-------------------
+
 The following *x0-object-types* support raising events.
 
 * Button
