@@ -331,6 +331,12 @@ Following, the *x0-systems* current default configuration.
                             "hostname": "x0-app",
                             "domain": "x0.localnet"
                         }
+                    },
+                    "test": {
+                        "dns": {
+                            "hostname": "x0-app",
+                            "domain": "x0.localnet"
+                        }
                     }
                 }
             }
