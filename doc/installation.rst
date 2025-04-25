@@ -22,7 +22,7 @@ If you plan to **create** your own *x0-system-objects* to use in your
 2.1. Environments
 -----------------
 
-Any Linux distribution is supported where Debian Packages can be built (``debuild``).
+Any Linux distribution is supported where Debian Packages can be built natively (``debuild``).
 
 * Ubuntu 22.04 / 24.04
 * Debian 12
@@ -190,8 +190,8 @@ The changelog is available at **./debian/changelog**.
 2.4. IP-Addresses / DNS
 -----------------------
 
-The following table lists all docker container ids, assigned ip-addresses and
-dns names.
+The following table lists all Docker container IDs, assigned IP addresses,
+and DNS names.
 
 .. table:: Docker Container / IP-Addresses / DNS
     :widths: 30 10 60
@@ -217,7 +217,7 @@ dns names.
 2.5. Docker Tips
 ----------------
 
-The following docker command line tips can be useful for debugging.
+The following Docker command-line tips may be helpful for debugging.
 
 .. code-block:: bash
 
@@ -243,16 +243,17 @@ The following docker command line tips can be useful for debugging.
 2.6. Local Ubuntu Mirror
 ------------------------
 
-It is possible to use a local ubuntu (apt) mirror in case of internet-absence
-or security related considerations.
+It is possible to use a local Ubuntu (apt) mirror in cases of limited
+internet access or for security-related considerations.
 
 .. note::
 
-	Also it is preferable to use a local ubuntu package mirror if you are a
-	*x0-developer* and change things a lot.
+	It is also preferable to use a local Ubuntu package mirror if
+	you are an *x0-developer* and frequently make changes.
 
-Set the following environment variables (permanent in ~/.bashrc) for using
-your specified mirror. This requires a working mirror setup of course.
+Set the following environment variables (permanently in ``~/.bashrc``) to
+use your specified mirror. Note that this requires a properly configured
+and functioning mirror setup.
 
 .. code-block:: bash
 
@@ -262,13 +263,13 @@ your specified mirror. This requires a working mirror setup of course.
 
 .. warning::
 
-	You **must** set **both** UBUNTU_MIRROR_DNS **and** UBUNTU_MIRROR_IP, the
-	provided dns must be resolvable to the specified ip address.
+	You must set both ``UBUNTU_MIRROR_DNS`` and ``UBUNTU_MIRROR_IP``.
+	The provided DNS must resolve correctly to the specified IP address.
 
-2.7. Check Working System
--------------------------
+2.7. Verify System Functionality
+--------------------------------
 
-Build debian packages, docker images and start *x0-system* containers.
+Build Debian packages, Docker images, and start *x0-system* containers.
 
 .. code-block:: bash
 	:linenos:
@@ -287,45 +288,46 @@ Build debian packages, docker images and start *x0-system* containers.
 	# start container(s)
 	./x0-start-containers.sh
 
-Open http://x0-app.x0.localnet/python/Index.py in a local browser to check if
-the system is working correctly.
+Open http://x0-app.x0.localnet/python/Index.py in a local browser to verify
+that the system is functioning correctly.
+
+.. _installation-examples:
 
 2.8. Examples
 -------------
 
-Examples can be found in **./examples** subdir.
+Examples can be found in the ``./examples`` subdirectory.
 
-Examples inside this folder will be built on docker image build. After
-*x0-system* start (docker containers up and running), the examples can be opened
-by entering the following URL(s).
+The examples in this folder will be built during the Docker image build
+process. After the *x0-system* is started (with Docker containers up and running),
+the examples can be accessed via the following URLs:
 
-* http://x0-app.x0.localnet/python/Index.py?appid=example1
-* http://x0-app.x0.localnet/python/Index.py?appid=example2
-* http://x0-app.x0.localnet/python/Index.py?appid=example3
+    http://x0-app.x0.localnet/python/Index.py?appid=example1
+    http://x0-app.x0.localnet/python/Index.py?appid=example2
+    http://x0-app.x0.localnet/python/Index.py?appid=example3
 
-Depending on release version example count varies, just take a closer look
-inside the examples folder. Detailed infos about example structure for adding own
-examples, see application development documentation at:
-#TODO: add link to dev subsection.
+The number of examples varies depending on the release version. Take a closer look
+inside the examples folder for details. For information about the example structure and
+how to add your own examples, see the devloper documentation at:
+:ref:`devexamples`.
+
+.. _installation-tests-ci:
 
 2.9. Tests / CI
 ----------------
 
-Tests are located inside **./test** subdir.
+Tests are located inside the ``./test`` subdirectory.
 
-Pytest framework in combination with Selenium-Server is used to guarantee
-network based test execution even inside GKE kubernetes pods.
+The Pytest framework, in combination with Selenium Server, is used to ensure
+network-based test execution, even within GKE Kubernetes pods.
 
-Tests are runnable
+Tests can be executed in the following environments:
 
-* From linux host to *x0-app-container*
-* Inside x0-test docker container to *x0-app-container*
-* Inside GKE (Google Kubernetes Engine)
+- From a Linux host to the ``x0-app`` Docker container
+- Inside the ``x0-test`` Docker container to the ``x0-app`` Docker container
+- Inside GKE (Google Kubernetes Engine)
 
-Detailed test setup documentation see:
-https://github.com/WEBcodeX1/x0/blob/main/test/README.md.
-
-To run tests locally, *x0-app* and *x0-db* and *x0-selenium-server* container
+To run tests locally, the ``x0-app``, ``x0-db``, and ``x0-selenium-server`` containers
 must be up and running.
 
 .. code-block:: bash
@@ -339,25 +341,25 @@ must be up and running.
 2.10. Kubernetes
 ----------------
 
-*x0* also runs on **GKE** (Google Kubernetes Engine) including **Minikube**.
+*x0* also runs on GKE (Google Kubernetes Engine), including Minikube.
 
-A *x0-kubernetes-deployment* includes an **automated**, **loadbalanced**
-(ingress-nginx), 99.9% redundant setup. Additionally the *x0-system-database*
-is setup **failsave** using kubegres.
+An *x0-kubernetes-deployment* includes an automated, load-balanced (ingress-nginx),
+99.9% redundant setup. Additionally, the *x0-system-database* is set up to be fail-safe
+using Kubegres.
 
-Detailed documentation see:
+For detailed documentation, see:
 https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md.
 
 2.11. MS Windows
 ----------------
 
-We managed to import images and run *x0-system* docker containers on
-**Windows 11 Professional** using **Docker Desktop**.
+We successfully imported images and ran *x0-system* Docker containers
+on **Windows 11 Professional** using **Docker Desktop**.
 
-Install **Docker Desktop** using **WSL2** and **Git for Windows**.
+Install **Docker Desktop** with **WSL2** and **Git for Windows**.
 
-Git for Windows provides a **Cygwin** based **git bash** which enables
-correct docker image load.
+Git for Windows provides a **Cygwin-based Git Bash**, which facilitates
+the correct loading of Docker images.
 
 .. code-block:: bash
 

@@ -104,7 +104,7 @@ and identify the **target group** for which the system is intended.
 
 Consider the following example of one of the simplest *x0-system-objects*:
 **SQLText**, which is configured to fetch text by ID from the backend and display
-it in the currently selected language (e.g., English or German).
+it in the currently selected language (English or German).
 
 .. image:: images/x0-oop-obj2div-mapping.png
    :alt: image - OOP object-to-DIV mapping
@@ -139,10 +139,9 @@ modeling and manipulation for developers.
 
 Continuing the SQLText example from the previous section:
 
-The *x0-system* creates an SQLText object instance with the TextID
-"Text1" defined in `object.json`. Its `update()` method can be called
-externally to update the display text (DIV) to the currently selected system language
-in **real-time**.
+The *x0-system* creates an SQLText object instance with the TextID "Text1"
+defined in `object.json`. Its `update()` method can be called externally to update
+the display text (DIV) to the currently selected system language in **real-time**.
 
 .. code-block:: javascript
 
