@@ -22,13 +22,13 @@ If you plan to **create** your own *x0-system-objects* to use in your
 2.1. Environments
 -----------------
 
-The following native Linux distributions are supported for building the *x0-system*:
+Any Linux distribution is supported where Debian Packages can be built (``debuild``).
 
-* Ubuntu 22.04
+* Ubuntu 22.04 / 24.04
 * Debian 12
 * Devuan 5
 
-Docker images created by the *x0-system* are based on Ubuntu 22.04.
+Docker images created by the *x0-system* are based on *Ubuntu 24.04*.
 
 2.2. Dependencies
 -----------------
