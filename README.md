@@ -44,7 +44,8 @@ cd ./docker/
 ./x0-start-containers.sh
 ```
 
-Open the URL `http://172.20.0.10/python/Index.py?appid=example12`.
+Open the URL `http://172.20.0.10/python/Index.py?appid=example12` to test if everything
+is working correctly.
 
 In case direct import is failing, download and import images manually.
 
