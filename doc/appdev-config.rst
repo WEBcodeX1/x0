@@ -242,8 +242,9 @@ configuration file:
 
 .. note::
 
-    Setting up multiple Virtual Hosts and x0-Applications requires a valid *x0-systems configuration*
-    (database) and *x0-deb-packaging setup* (deb) for all configured Virtual Hosts.
+    Setting up multiple Virtual Hosts and *x0-applications* requires a valid
+    *x0-systems configuration* (database) and *x0-deb-packaging setup* (deb) for
+    all configured Virtual Hosts.
 
 .. warning::
 
@@ -292,7 +293,7 @@ Virtual Host (Hello World output).
 
     Automated SSL setup per Virtual Host has been discontinued in *x0-standalone*
     and *x0-docker* deployments. Only the *x0-kubernetes* deployment supports a
-    fully automated workflow."
+    fully automated workflow.
 
 3.3.3. x0-Applications
 **********************
@@ -394,7 +395,7 @@ The following is the current default configuration of x0-systems.
 3.4. Application Metadata
 -------------------------
 
-The configuration files ``object.json``, ``skeleton.json``, and ``menu.json`` in the x0 framework adopt
+The configuration files ``object.json``, ``skeleton.json``, and ``menu.json`` in the *x0-framework* adopt
 a declarative approach, akin to the infrastructure configuration style used in Google Kubernetes Engine (GKE).
 
 They provide structured definitions for the user interface and application behavior. Below is a breakdown
@@ -403,41 +404,44 @@ of their roles and functionality:
 1. object.json
 
     * Purpose:
-        Describes the attributes and properties of objects that are used in the application.
+        - Describes the attributes and properties of objects that are used in the application.
     * Functionality:
-        Defines object types, such as forms, lists, or custom UI components.
-        Includes object-specific attributes (e.g., styles, event handlers, and data bindings).
-        Provides metadata for runtime object creation and manipulation.
-        Used by the sysFactory and sysSourceObjectHandler to initialize and manage objects dynamically.
+        - Defines object types, such as forms, lists, or custom UI components.
+        - Includes object-specific attributes (e.g., styles, event handlers, and data bindings).
+        - Provides metadata for runtime object creation and manipulation.
+        - Used by the ``sysFactory`` and ``sysSourceObjectHandler`` to initialize and manage objects dynamically.
 
 2. skeleton.json
 
     * Purpose:
-        Defines the hierarchical structure of the application's UI by providing a "skeleton" for all screen elements.
+        - Defines the hierarchical structure of the application's UI by providing a "skeleton" for all screen elements.
+
     * Functionality:
         1. Specifies the parent-child relationships between objects, defining the layout and structure of screens.
-        2. Includes references to object.json definitions for detailed object configuration.
-        3. Supports recursive setup of objects using methods like setupObject in sysScreen.
+        2. Includes references to ``object.json`` definitions for detailed object configuration.
+        3. Supports recursive setup of objects using methods like setupObject in ``sysScreen``.
         4. Allows dynamic adjustment of attributes (e.g., overwriting or replacing attributes at runtime).
 
 3. menu.json
 
     * Purpose:
-        Configures menu elements and their behavior within the application.
+        - Configures menu elements and their behavior within the application.
+
     * Functionality:
         1. Defines the menu structure, including items and their hierarchical arrangement.
         2. Associates menu items with actions or screen navigation.
         3. Provides styling and attributes for menu components.
-        4. Processed as a part of the skeleton for the "sysMenu" screen, enabling seamless integration with the UI.
+        4. Processed as a part of the skeleton for the ``sysMenu`` screen, enabling seamless integration with the UI.
 
-- Integration and Workflow
+Integration and Workflow
 
-    * These JSON files are processed by core system objects like sysFactory, sysScreen, and sysSourceObjectHandler.
-    * The skeleton.json ties together the object.json and menu.json configurations to create a cohesive UI and behavior model.
-    * During runtime:
-        1. Skeleton Initialization: The skeleton.json is parsed to build the UI hierarchy.
-        2. Object Configuration: Objects defined in object.json are dynamically created and added to the hierarchy.
-        3. Menu Setup: The menu.json is applied to configure and render menus in the application.
+    * These JSON files are processed by core system objects like ``sysFactory``, ``sysScreen``, and ``sysSourceObjectHandler``.
+    * The ``skeleton.json`` ties together the ``object.json`` and ``menu.json`` configurations to create a cohesive UI and behavior model.
+
+    - During runtime:
+        1. Skeleton Initialization: The ``skeleton.json`` is parsed to build the UI hierarchy.
+        2. Object Configuration: Objects defined in ``object.json`` are dynamically created and added to the hierarchy.
+        3. Menu Setup: The ``menu.json`` is applied to configure and render menus in the application.
 
 These configuration files enable modular and scalable application development by separating concerns and allowing dynamic runtime adjustments.
 
@@ -453,7 +457,7 @@ Each object must have a unique ID, which can be referenced by its ID within the
 ``menu.js`` and ``skeleton.js`` configuration files.
 
 All currently usable *x0-system-objects* JSON definitions ($ObjectType) are
-described in detail here: :ref:system-objects.
+described in detail here: :ref:`system-objects`.
 
 .. code-block:: javascript
 
@@ -468,9 +472,9 @@ described in detail here: :ref:system-objects.
 
 .. note::
 
-    The internal JavaScript representation is of the *Object* type, not the
-    *Array* type. While object definitions are unordered, object relations are
-    strictly order-dependent and are defined in skeleton.json and menu.json."
+    The **internal** JavaScript representation is of the *Object* type, not the
+    *Array* type. While **object definitions** are unordered, **object relations** are
+    strictly order-dependent and are defined in ``skeleton.json`` and ``menu.json``.
 
 .. _skeleton-json:
 
@@ -573,15 +577,15 @@ is connected to the menu root, and ``Object2`` is connected or referenced to ``O
 3.5. Metadata ElementID
 -----------------------
 
-Some *x0-objects* define elements inside the ``**object.json**`` file.
+Some *x0-objects* define elements inside the ``object.json`` file.
 
 * TabContainer
 
-These elements can also be referenced inside ``**skeleton.json**`` using
+These elements can also be referenced inside ``skeleton.json`` using
 the *x0-systems* ``ElementID`` property.
 
 The following example demonstrates how to reference *x0-tabs* defined in
-``**object.json**`` from ``**skeleton.json**``.
+``object.json`` from ``skeleton.json``.
 
 Example #3 (http://x0-app.x0.localnet/python/Index.py?appid=example3)
 provides a working example.
@@ -656,7 +660,7 @@ provides a working example.
 3.6. Object Templates
 ---------------------
 
-To integrate user-based *x0-object-templates* (programmed user-based *x0-system-objects*),
+To integrate **user-based** *x0-object-templates* (programmed user-based *x0-system-objects*),
 the ``template_file`` and ``setup_class`` configuration parameters must be specified.
 
 .. code-block:: sql
