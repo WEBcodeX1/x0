@@ -3,7 +3,7 @@
 1. Preface / Abstract
 =====================
 
-*x0* (cross-object) JavaScript Framework /krɒs ɒb.dʒɪkt/ is a modern tool for
+*x0* (**cross-object**) JavaScript Framework /krɒs ɒb.dʒɪkt/ is a modern tool for
 **efficiently building** powerful web-browser **real-time SPAs** (Single Page Applications).
 
 .. note::
@@ -106,45 +106,45 @@ and identify the **target group** for which the system is intended.
 ****************************
 
 Consider the following example of one of the simplest *x0-system-objects*:
-**SQLText**, which is configured to fetch text by ID from the backend and display
-it in the currently selected language (English or German).
+**SQLText**. This object is designed to fetch text by ID from the backend and
+render it in the currently selected language (e.g., English or German).
 
 .. image:: images/x0-oop-obj2div-mapping.png
    :alt: image - OOP object-to-DIV mapping
 
-The *x0-system* **always** associates **one single** *JavaScript Object Instance*
-with a single (rendered) DOM DIV, maintaining a strict 1:1 relationship. There will
-be no DOM DIVs without a connected *JavaScript Object Instance*.
+The *x0-system* always enforces a **strict 1:1** relationship between a JavaScript
+Object Instance and a single (rendered) DOM DIV. There are no DOM DIVs without
+a corresponding JavaScript Object Instance.
 
-For example, if a rendered *x0-screen* contains 187 DIVs, then 187 corresponding
-*JavaScript Object Instances* will be created by the *x0-system* during *x0-app-start*
-(browser page load).
+For instance, if a rendered x0-screen contains 187 DIVs, the x0-system will
+automatically generate 187 corresponding JavaScript Object Instances during
+*x0-app-start* (browser page load).
 
-Each object also retains information about its **parent object** as well as the
-base rendering routines (inherited from *x0-base-classes*).
+Each object also stores information about its **parent object** and inherits
+**base rendering routines** from *x0-base-classes*.
 
 .. note::
 
-    More complex objects may consist of multiple (far more) DIVs. Check the
-    developer section for details on designing *x0-system-objects* at
-    :ref:`devobjectmodeling`.
+    More complex objects may include multiple DIVs, often far exceeding the simplicity
+    of **SQLText**. Refer to the developer section for detailed guidance on designing
+    *x0-system-objects* at :ref:`devobjectmodeling`.
 
 1.11.2. True DOM OOP
 ********************
 
-The *x0-system's* **DIV2ObjectMapping** method enables true OOP-based DOM DIV
-modeling and manipulation for developers.
+The *x0-system's* **DIV2ObjectMapping** method empowers developers with
+true **OOP-based modeling** and manipulation of DOM DIV elements.
 
 .. note::
 
-    This feature allows the creation of highly powerful, enhanced, and
-    **combined** *x0-system-objects* (details in the next section).
+    This feature enables the creation of highly powerful, enhanced, and
+    **combined** *x0-system-objects* (Details are provided in the next section).
 
-Continuing the SQLText example from the previous section:
+Continuing with the SQLText example from the previous section:
 
-The *x0-system* creates an SQLText object instance with the TextID "Text1"
-defined in `object.json`. Its `update()` method can be called externally to update
-the display text (DIV) to the currently selected system language in **real-time**.
+The *x0-system* creates an ``SQLText`` object instance with the ``TextID`` "Text1" as
+defined in ``object.json``. Its ``update()`` method can be called externally to dynamically
+update the display text (DIV) to the currently selected system language in **real-time**.
 
 .. code-block:: javascript
 
