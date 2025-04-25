@@ -14,11 +14,11 @@ permissions:
   contents: read
   packages: read
 
-# run only on release branches
+# run only on current-release branch
 on:
   push:
     branches:
-      - main
+      - current-release
 
 # run jobs
 jobs:
