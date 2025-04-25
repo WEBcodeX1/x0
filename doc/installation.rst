@@ -302,9 +302,9 @@ The examples in this folder will be built during the Docker image build
 process. After the *x0-system* is started (with Docker containers up and running),
 the examples can be accessed via the following URLs:
 
-    http://x0-app.x0.localnet/python/Index.py?appid=example1
-    http://x0-app.x0.localnet/python/Index.py?appid=example2
-    http://x0-app.x0.localnet/python/Index.py?appid=example3
+* http://x0-app.x0.localnet/python/Index.py?appid=example1
+* http://x0-app.x0.localnet/python/Index.py?appid=example2
+* http://x0-app.x0.localnet/python/Index.py?appid=example3
 
 The number of examples varies depending on the release version. Take a closer look
 inside the examples folder for details. For information about the example structure and
@@ -318,7 +318,7 @@ how to add your own examples, see the devloper documentation at:
 
 Tests are located inside the ``./test`` subdirectory.
 
-The Pytest framework, in combination with Selenium Server, is used to ensure
+The *Pytest* framework, in combination with *Selenium Server*, is used to ensure
 network-based test execution, even within GKE Kubernetes pods.
 
 Tests can be executed in the following environments:
