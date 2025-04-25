@@ -6,7 +6,7 @@
 =======================
 
 The next chapters describe how to port an existing Web Application
-(HTML and JavaScript) into x0-format.
+(HTML and JavaScript) into *x0-format*.
 
 - Main sysFactory.setupObjectRefsRecursive() detailed description
   - Building Object Structure (DOM)

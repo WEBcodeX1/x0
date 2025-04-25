@@ -31,13 +31,13 @@ The first chart shows an overall view of global systems inter-communication.
 16.2. Kubernetes Platform
 -------------------------
 
-The following chart shows an *x0-generated* GKE (Google Kubernetes Engine)
-network-environment initialized by *x0-kubernetes-installer*.
+The following chart illustrates an x0-generated GKE (Google Kubernetes Engine)
+network environment for a demo application, initialized by the *x0-kubernetes-installer*.
 
-The main purpose of the application is to manage a large scale industrial
-packaging system / warehouse relations.
+The primary purpose of the application is to manage large-scale industrial
+packaging systems and warehouse relations.
 
-The application is devided into 3 sub-parts / environments.
+The application is divided into three sub-parts / environments:
 
 1. Packaging Factory (EDI - SAP systems interconnect)
 2. Warehouse Android Scanner Devices
