@@ -28,8 +28,8 @@ The first chart shows an overall view of global systems inter-communication.
 .. image:: images/x0-workflow-init-uml1.png
   :alt: image - architecture init workflow uml
 
-16.2. Kubernetes Plattform
---------------------------
+16.2. Kubernetes Platform
+-------------------------
 
 The following chart shows an *x0-generated* GKE (Google Kubernetes Engine)
 network-environment initialized by *x0-kubernetes-installer*.
