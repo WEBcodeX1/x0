@@ -37,7 +37,7 @@ network-environment initialized by *x0-kubernetes-installer*.
 The main purpose of the application is to manage a large scale industrial
 packaging system / warehouse relations.
 
-The application is devided into 3 sup-parts / environments.
+The application is devided into 3 sub-parts / environments.
 
 1. Packaging Factory (EDI - SAP systems interconnect)
 2. Warehouse Android Scanner Devices
