@@ -279,7 +279,7 @@ Virtual Host (Hello World output).
 .. note::
 
     A functional multi-Virtual Host setup requires correct metadata to be defined
-    inside the deb package file `$x0-app-id.install`. For more details,
+    inside the deb package file ``${x0-app-id}.install``. For more details,
     refer to :ref:`appdeployment-standalone`.
 
 .. note::
