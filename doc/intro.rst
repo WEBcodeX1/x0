@@ -4,17 +4,17 @@
 =====================
 
 *x0* (cross-object) JavaScript Framework /krɒs ɒb.dʒɪkt/ is a modern tool for
-efficiently building powerful Web-Browser **Realtime-SPA (Single Page Applications)**.
+**efficiently building** powerful web-browser **real-time SPAs** (Single Page Applications).
 
 .. note::
 
-    See :ref:`targetgroup` to understand which target group the *x0-system* is
-    intended for.
+    See :ref:`targetgroup` to understand the target audience for which
+    the *x0-system* is intended.
 
 1.1. Cross Objects
 ------------------
 
-The *x* in *x0* stands for **cross**, signifying **communication**.
+The *x* in *x0* stands for **cross**, symbolizing **communication**.
 *x0-objects* can exchange (update) their metadata **directly** via
 JSON, either internally or over a network.
 
@@ -63,11 +63,14 @@ requiring a page reload.
 1.7. Docker Images
 ------------------
 
-Pre-built Docker images are available to get started with *x0-system* quickly:
+**Pre-built** Docker images are available to get started with *x0-system* quickly:
 
-- https://docker.webcodex.de/x0/docker.x0-app.tar
-- https://docker.webcodex.de/x0/docker.x0-db.tar
-- https://docker.webcodex.de/x0/docker.x0-test.tar
+.. code-block:: bash
+
+    # pull docker images
+    docker pull ghcr.io/webcodex1/x0-app
+    docker pull ghcr.io/webcodex1/x0-db
+    docker pull ghcr.io/webcodex1/x0-test
 
 See :ref:`installation` for instructions on how to proceed.
 

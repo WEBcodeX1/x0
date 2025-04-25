@@ -5,19 +5,18 @@
 2. Installation
 ===============
 
-Before proceeding, check if it is **really necessary** for you to install the
-*x0-base-system*.
+Before proceeding, verify whether it is **absolutely necessary** for you to install
+the *x0-base-system*.
 
-If your goal is to **develop** *x0-applications* only, you should first set up
+If your goal is to develop *x0-applications* **only**, you should begin by setting up
 your own repository using the *x0-skeleton* (a Git template repository) available at:
 https://github.com/WEBcodeX1/x0-skeleton.
 
-After setting up your *x0-app-repository*, continue by **reading** the documentation section
-:ref:`appdevconfig` for details about **building** and **configuring** an *x0-application*.
+After setting up your *x0-app-repository*, proceed by reading the documentation section
+:ref:`appdevconfig` for detailed instructions on building and configuring an *x0-application*.
 
-If you plan to **create** your own *x0-system-objects* to use in your
-*x0-application*, installing the *x0 system* is **mandatory**, and you should
-**continue reading** this chapter.
+If you plan to create your own *x0-system-objects* for use in your *x0-application*,
+installing the *x0-system* is mandatory, and you should continue reading this chapter.
 
 2.1. Environments
 -----------------
@@ -33,7 +32,7 @@ Docker images created by the *x0-system* are based on *Ubuntu 24.04*.
 2.2. Dependencies
 -----------------
 
-The following are the base dependencies required to run the *x0-system*:
+The following are the **base dependencies** required to run the *x0-system*:
 
 * Apache2 / Python3 WSGI (https://httpd.apache.org)
 * PostgreSQL Relational Database 14 (http://www.postgresql.org)
@@ -123,7 +122,7 @@ Generate your GPG keys (or import existing ones):
 .. note::
 
 	The gpg-ID ("Real Name" plus "Comment" in brackets, "Email address") must match
-	exactly the format inside **./debian/changelog** "Real Name (Comment) <email-address.com>".
+	exactly the format inside ``./debian/changelog`` "Real Name (Comment) <email-address.com>".
 
 Next, build the package:
 
@@ -133,7 +132,7 @@ Next, build the package:
 	cd ./debian && debuild
 
 If the build is successful, the Debian build system will sign all packages. The packages
-and metadata will be available in the **"../../"** directory.
+and metadata will be available in the ``../../`` directory.
 
 2.3.3. Prepare Docker
 *********************
