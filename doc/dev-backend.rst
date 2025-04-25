@@ -61,10 +61,46 @@ asynchronous operations. Below is an overview of its concept:
     * The Request method is called with a target object containing data and ``callbackXMLRPCAsync`` callback method.
     * In asynchronous mode, the server response is processed, parsed, and passed to the callback function for further action.
 
-18.1.3 App Configuration
-************************
+18.1.4 Getting Backend Data
+***************************
 
+- *x0-application-developer* and *x0-systems-developer* roles always should use
+*x0-service-connector* and *x0-source-data-objects*, never setup a new sysXMLRPCRequest
+directly
+
+  for
+
+  - Developing *x0-applications*
+  - Modeling *x0-system-objects*
+
+Ref:
+
+Only
+
+  - x0-core-system
+
+18.1.4 Error Handling
+*********************
+
+- JSON result schema
+- AsynNotifyIndicator ref
+
+18.1.5 Nested RPC Requests
+**************************
+
+Only for x0-core-system.
+
+Sometimes multiple / nested XML-RPC requests ...
+
+18.1.6 Debugging Information
+**************************
+
+- ``sysXMLRPCRequest.js``
+- ``sysReactor ``
+
+- Debugging Keywords (debug-log)
 
 18.2. JSON Schemas
 ------------------
 
+How-to define JSON schmemas for *x0-system-objects* ...
