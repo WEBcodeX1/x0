@@ -157,7 +157,7 @@ Inherited from ``sysBaseObject``. Any object can call this method to
 remove itself from ParentObject.ChildObjects[] and the corresponding DIV
 from the DOM.
 
-See :ref:``.
+See :ref:`refid`.
 
 2. removeParent()
 
@@ -165,7 +165,7 @@ Inherited from ``sysBaseObject``. Any object can call this method to
 remove all ParentObject.ChildObjects[] and the corresponding DIVs
 from the DOM.
 
-See :ref:``.
+See :ref:`refid`.
 
 26.1.7. Object Loading / Initialization
 ***************************************
@@ -229,12 +229,12 @@ In objects ``init()`` method, initialize Event Listener and Callbacks.
 
             var ContextMenu = new sysContextMenu();
 
-            ContextMenu.ID 					= 'CtMenu_' + this.ObjectID;
-            ContextMenu.ItemConfig 			= ContextMenuItems;
-            ContextMenu.ScreenObject 		= sysFactory.getScreenByID(sysFactory.CurrentScreenID);
-            ContextMenu.ParentObject 		= this;
-            ContextMenu.pageX 				= Event.pageX;
-            ContextMenu.pageY 				= Event.pageY;
+            ContextMenu.ID             = 'CtMenu_' + this.ObjectID;
+            ContextMenu.ItemConfig     = ContextMenuItems;
+            ContextMenu.ScreenObject   = sysFactory.getScreenByID(sysFactory.CurrentScreenID);
+            ContextMenu.ParentObject   = this;
+            ContextMenu.pageX          = Event.pageX;
+            ContextMenu.pageY          = Event.pageY;
 
             ContextMenu.init();
         }
