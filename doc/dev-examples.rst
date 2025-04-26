@@ -89,7 +89,7 @@ After building, restart the *x0-system*:
 	cd ./docker && ./x0-start-containers.sh
 
 20.3. Final Checklist
-----------------------
+---------------------
 
 1. **Test the Example**:
    - Verify that the example runs as expected.

@@ -102,16 +102,19 @@ Refer to the relevant section :ref:`installation_build_docker` for instructions.
 
 See :ref:`appdeployment-tests` how to start tests after building.
 
-24.2.6. Final Check
-*******************
+24.2.6. Final Checklist
+***********************
 
-After completing the Test Application setup, you should manually verify its functionality
-by opening it in a browser.
+1. **Test the Test**:
+   - Verify that the test runs as expected.
+   - Ensure all configurations, database entries, and scripts are functional.
 
-24.2.7. Documentation
-*********************
+2. **Document the Test**:
+   - Provide a detailed README file explaining the purpose, usage, and setup of the test.
+   - Include screenshots or diagrams if applicable.
 
-Optional provide a ``README.md`` file.
+3. **Version Control**:
+   - Commit the test to the repository, following the project's contribution guidelines.
 
 24.3. Pytest / Selenium
 -----------------------

@@ -135,18 +135,37 @@ See :ref:`devporting`.
 26.1.5. Modifying Runtime Data
 ******************************
 
-- RuntimeSetData()
-- RuntimeGetData()
-- RuntimeAppend(Data)
-- XML-RPC Async Data
+The following types of dynamic data updates can change a *x0-object*
+state on runtime.
 
-26.1.6. Updating Realtime Objects
-*********************************
+- XML-RPC Async Call
+- RuntimeSetData()
+- RuntimeAppendData()
+
+26.1.6. Working with Realtime Objects
+*************************************
+
+When designing realtime objects, the procedure of removing
+DOM nodes completely sometimes is much smarter than complex (recursive)
+update processing.
+
+The *x0-framework* provides multiple solutions for removing DOM nodes.
 
 1. remove()
+
+Inherited from ``sysBaseObject``. Any object can call this method to
+remove itself from ParentObject.ChildObjects[] and the corresponding DIV
+from the DOM.
+
+See :ref:``.
+
 2. removeParent()
-3. RTfunctions
-4. Examples
+
+Inherited from ``sysBaseObject``. Any object can call this method to
+remove all ParentObject.ChildObjects[] and the corresponding DIVs
+from the DOM.
+
+See :ref:``.
 
 26.1.7. Object Loading / Initialization
 ***************************************
@@ -159,7 +178,6 @@ See :ref:`devporting`.
 1. Add Event Listener init()
 2. Setup Context Menu
 3. Eventually extend
-
 
 26.2. Building an Object Like sysObjDynRadioList.js
 ---------------------------------------------------

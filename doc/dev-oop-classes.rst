@@ -5,6 +5,7 @@
 22. Class Reference
 ===================
 
+
 22.1. sysBaseObject.removeParent
 --------------------------------
 
@@ -218,8 +219,6 @@ The purpose of setupObjectRefsRecursive is to:
             ]
         }
     ];
-
-#TODO: add ref to x0-porting
 
 - Call the Method:
 
