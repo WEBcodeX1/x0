@@ -4,6 +4,7 @@
 
 [![CodeQL](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql)
 [![x0-test-runner](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml)
+[![Dependabot Updates](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates)
 
 ## 1. Abstract / Purpose
 
