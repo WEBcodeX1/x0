@@ -2,8 +2,11 @@
 
 .. _installation:
 
-2. Installation
+6. Installation
 ===============
+
+6.1. Preamble
+-------------
 
 Before proceeding, verify whether it is **absolutely necessary** for you to install
 the *x0-base-system*.
@@ -18,7 +21,7 @@ After setting up your *x0-app-repository*, proceed by reading the documentation 
 If you plan to create your own *x0-system-objects* for use in your *x0-application*,
 installing the *x0-system* is mandatory, and you should continue reading this chapter.
 
-2.1. Environments
+6.2. Environments
 -----------------
 
 Any Linux distribution is supported where Debian Packages can be built natively (``debuild``).
@@ -29,7 +32,7 @@ Any Linux distribution is supported where Debian Packages can be built natively 
 
 Docker images created by the *x0-system* are based on *Ubuntu 24.04*.
 
-2.2. Dependencies
+6.3. Dependencies
 -----------------
 
 The following are the **base dependencies** required to run the *x0-system*:
@@ -58,8 +61,8 @@ For local messaging testing (non-production, optional):
 
 * Python micro-msg-server (https://github.com/clauspruefer/micro-msg-server)
 
-2.3. Get System Ready
----------------------
+6.4. System Install
+-------------------
 
 We recommend using **Docker containers** as the development environment.
 
@@ -85,13 +88,13 @@ First, install the required dependencies:
 The following steps are required to set up a **development environment**:
 
 1. Clone x0 Git Repository
-2. Setup Debian Build System
+6. Setup Debian Build System
 3. Setup Local Docker
 4. Build Debian and Docker Packages
 5. Run Docker Containers
 6. Develop / Deploy / Rebuild
 
-2.3.1. Clone Git Repository
+6.4.1. Clone Git Repository
 ***************************
 
 To clone the repository in read-only mode:
@@ -109,7 +112,7 @@ and use git+ssh (preferably using ssh-agent with HSM):
 	# clone x0 git repository
 	git clone git@github.com:WEBcodeX1/x0.git
 
-2.3.2. Setup Debian Build System
+6.4.2. Setup Debian Build System
 ********************************
 
 Generate your GPG keys (or import existing ones):
@@ -134,7 +137,7 @@ Next, build the package:
 If the build is successful, the Debian build system will sign all packages. The packages
 and metadata will be available in the ``../../`` directory.
 
-2.3.3. Prepare Docker
+6.4.3. Prepare Docker
 *********************
 
 As the **root** user, add your current user to the Docker Unix group:
@@ -150,7 +153,7 @@ changes to take effect.
 After adding your user to the Docker group, you will be able to control the Docker engine
 from the CLI (shell) and start building.
 
-2.3.4. Build
+6.4.4. Build
 ************
 
 Build Debian packages and Docker images:
@@ -166,7 +169,7 @@ Build Debian packages and Docker images:
 	./build-x0-db.sh
 	./build-x0-test.sh
 
-2.3.5. Start System
+6.4.5. Start System
 *******************
 
 .. code-block:: bash
@@ -174,7 +177,7 @@ Build Debian packages and Docker images:
 	# start x0 containers
 	cd ./docker && x0-start-containers.sh
 
-2.3.6. Develop / Rebuild
+6.4.6. Develop / Rebuild
 ************************
 
 Begin developing, creating, or experimenting.
@@ -186,7 +189,7 @@ Begin developing, creating, or experimenting.
 
 The changelog is available at **./debian/changelog**.
 
-2.4. IP-Addresses / DNS
+6.5. IP-Addresses / DNS
 -----------------------
 
 The following table lists all Docker container IDs, assigned IP addresses,
@@ -198,22 +201,22 @@ and DNS names.
     +----------------------+-----------------+-------------------------------------+
     | **Container ID**     | IP-Address      | DNS                                 |
     +======================+=================+=====================================+
-    | x0-app               | 172.20.0.10     | x0-app.x0.localnet                  |
+    | x0-app               | 176.20.0.10     | x0-app.x0.localnet                  |
     +----------------------+-----------------+-------------------------------------+
-    | x0-db                | 172.20.0.20     | mypostgres                          |
+    | x0-db                | 176.20.0.20     | mypostgres                          |
     +----------------------+-----------------+-------------------------------------+
-    | x0-test              | 172.20.0.30     |                                     |
+    | x0-test              | 176.20.0.30     |                                     |
     +----------------------+-----------------+-------------------------------------+
-    | x0-selenium-server   | 172.20.0.40     | selenium-server-0                   |
+    | x0-selenium-server   | 176.20.0.40     | selenium-server-0                   |
     +----------------------+-----------------+-------------------------------------+
-    | x0-selenium-server   | 172.20.0.50     | selenium-server-1                   |
+    | x0-selenium-server   | 176.20.0.50     | selenium-server-1                   |
     +----------------------+-----------------+-------------------------------------+
-    | x0-selenium-server   | 172.20.0.60     | selenium-server-2                   |
+    | x0-selenium-server   | 176.20.0.60     | selenium-server-2                   |
     +----------------------+-----------------+-------------------------------------+
-    | x0-msg-server        | 172.20.0.100    | x0-msg-server.x0.localnet           |
+    | x0-msg-server        | 176.20.0.100    | x0-msg-server.x0.localnet           |
     +----------------------+-----------------+-------------------------------------+
 
-2.5. Docker Tips
+6.6. Docker Tips
 ----------------
 
 The following Docker command-line tips may be helpful for debugging.
@@ -239,7 +242,7 @@ The following Docker command-line tips may be helpful for debugging.
 	docker exec -ti x0-db /bin/bash
 	psql -U postgres -d x0
 
-2.6. Local Ubuntu Mirror
+6.7. Local Ubuntu Mirror
 ------------------------
 
 It is possible to use a local Ubuntu (apt) mirror in cases of limited
@@ -258,14 +261,14 @@ and functioning mirror setup.
 
 	# use a local ubuntu mirror
 	export UBUNTU_MIRROR_DNS=your-hostname.localnet
-	export UBUNTU_MIRROR_IP=192.168.0.253
+	export UBUNTU_MIRROR_IP=196.168.0.253
 
 .. warning::
 
 	You must set both ``UBUNTU_MIRROR_DNS`` and ``UBUNTU_MIRROR_IP``.
 	The provided DNS must resolve correctly to the specified IP address.
 
-2.7. Verify System Functionality
+6.8. Verify System Functionality
 --------------------------------
 
 Build Debian packages, Docker images, and start *x0-system* containers.
@@ -292,7 +295,7 @@ that the system is functioning correctly.
 
 .. _installation-examples:
 
-2.8. Examples
+6.9. Examples
 -------------
 
 Examples can be found in the ``./examples`` subdirectory.
@@ -312,7 +315,7 @@ how to add your own examples, see the devloper documentation at:
 
 .. _installation-tests-ci:
 
-2.9. Tests / CI
+6.10. Tests / CI
 ----------------
 
 Tests are located inside the ``./test`` subdirectory.
@@ -337,7 +340,7 @@ must be up and running.
 	# wait for container startup, start all tests
 	sleep 10 && pytest-3
 
-2.10. Kubernetes
+6.11. Kubernetes
 ----------------
 
 *x0* also runs on GKE (Google Kubernetes Engine), including Minikube.
@@ -349,7 +352,7 @@ using Kubegres.
 For detailed documentation, see:
 https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md.
 
-2.11. MS Windows
+6.12. MS Windows
 ----------------
 
 We successfully imported images and ran *x0-system* Docker containers
