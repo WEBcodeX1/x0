@@ -64,8 +64,8 @@ docker load < docker.x0-test.tar
 
 What does the "cross" in x0 stand for? **Communication**.
 
-Due to the x0-system's clean OOP model, each object can e"x"change its
-data containers internally and over the network between clients *directly*.
+The *x0-system's* clean OOP model allows objects to exchange data containers
+internally and directly over the network between clients.
 
 See the examples section: [example #10](./example/net_messages/) and
 [example #13](./example/copy_paste/) for more information.
