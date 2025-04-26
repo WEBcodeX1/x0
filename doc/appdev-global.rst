@@ -2,7 +2,7 @@
 
 .. _appdevglobalgrid:
 
-4. Grid System
+8. Grid System
 ==============
 
 The x0 grid system is implemented through the `sysGridGenerator` system object,
@@ -48,7 +48,7 @@ and functionality:
     * Styling and Customization:
         Rows and columns are styled dynamically using the provided CSS styles or default styles.
 
-4.1. Supported Object Types
+8.1. Supported Object Types
 ***************************
 
 Currently the following *x0-object-types* are supporting the *x0-grid* feature:
@@ -66,7 +66,7 @@ Currently the following *x0-object-types* are supporting the *x0-grid* feature:
 
 	You should be familiar with Bootstrap Grid system before continue reading.
 
-4.2. Global JSON Metadata
+8.2. Global JSON Metadata
 *************************
 
 If an *x0-object* supports *x0-global-grid-system* formatting the following
@@ -89,7 +89,7 @@ properties can be set inside the objects "Attribute" representation.
 	|                   |                      | Optional, Default 1                                   |
 	+-------------------+----------------------+-------------------------------------------------------+
 
-4.2.1. Input Data
+8.2.1. Input Data
 -----------------
 
 The *x0-grid-system* processing requires an **Array of Elements** as input data.
@@ -98,7 +98,7 @@ The *x0-grid-system* processing requires an **Array of Elements** as input data.
 
 	[ el1, el2, el3, el4, el5, el6 ... ]
 
-4.2.2. RowStyle / RowAfterElements
+8.2.2. RowStyle / RowAfterElements
 ----------------------------------
 
 ``RowAfterElements`` is definable as a single string or an Array of Strings.
@@ -169,7 +169,7 @@ Modifying ``"RowStyle": [ "row fw-bold", "row" ]`` renders:
 		<el6></el>
 	</div>
 
-4.2.3. ColStyle / ColAfterElements
+8.2.3. ColStyle / ColAfterElements
 ----------------------------------
 
 ColAfterElements processing is likewise RowAfterElements processing,
@@ -215,7 +215,7 @@ The last
 		</div>
 	</div>
 
-4.3. Example List
+8.3. Example List
 *****************
 
 .. code-block:: javascript
@@ -245,7 +245,7 @@ Without table header the resulting output looks like the following.
 	| Col3 (col-md2) | Col4 (col-md3) | Col5 (col-md3) | Col6 (col-md5) |
 	+----------------+----------------+----------------+----------------+
 
-4.4. Developer
+8.4. Developer
 **************
 
 Any *x0-system-object* can make use of the global grid formatting routines in
@@ -256,7 +256,7 @@ self designed *x0-objects*.
 
 .. _appdevglobalcontextmenu:
 
-5. Context Menu
+9. Context Menu
 ===============
 
 A context menu (right mouse click) can be bound to any *x0-object-type*
@@ -267,7 +267,7 @@ A context menu (right mouse click) can be bound to any *x0-object-type*
     Currently only ``List`` and ``FormfieldList`` *x0-object-types* are supported,
     this will change in future releases.
 
-5.1. Global Attributes
+9.1. Global Attributes
 **********************
 
 .. table:: Context Menu Item Global Attributes
@@ -283,7 +283,7 @@ A context menu (right mouse click) can be bound to any *x0-object-type*
 	| IconStyle           | CSS-String           | CSS Style Classes, space separated              |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.2. Implemented Methods
+9.2. Implemented Methods
 ************************
 
 .. table:: Context Menu Methods
@@ -299,7 +299,7 @@ A context menu (right mouse click) can be bound to any *x0-object-type*
 	| RemoveSelected      | Array of Table-Rows  | Remove Selected Table Rows                      |
 	+---------------------+----------------------+-------------------------------------------------+
 
-5.3. Edit Attributes
+9.3. Edit Attributes
 ********************
 
 .. table:: Context Menu Item "Edit" Attributes

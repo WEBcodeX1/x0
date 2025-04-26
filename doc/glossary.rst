@@ -8,7 +8,7 @@
 24.1. Application Developing Documentation
 ------------------------------------------
 
-Application Development Documentation including system installation and configuration, parts 1-15.
+Application Development Documentation including system installation and configuration, chapters 1-19.
 
 24.2. Bootstrap
 ---------------
@@ -33,7 +33,7 @@ A containerization platform used to package, deploy, and run x0 applications. Pr
 24.6. Developer Documentation
 -----------------------------
 
-*x0-system* Development Documentation including *x0-object-modeling* how-to, parts 16-22.
+*x0-system* Development Documentation including *x0-object-modeling* how-to, chapters 20-26.
 
 24.7. DIV2ObjectMapping
 -----------------------
