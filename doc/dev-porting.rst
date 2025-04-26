@@ -6,17 +6,17 @@
 =======================
 
 The next chapters describe how to port an existing Web Application
-(HTML and JavaScript) into x0-format.
+(HTML and JavaScript) into *x0-format*.
+
+22.1. Building The DOM
+----------------------
+
+22.1.1. Recursive / Modern Approach
+***********************************
 
 - Main sysFactory.setupObjectRefsRecursive() detailed description
-  - Building Object Structure (DOM)
-- Different approaches remove() and removeParent() + RTfunctions
-- Global Ref:
-    - Base Classes / Inheritance
-    - Child Objects
-    - Event Handler / Callbacks
-    - Modifying Runtime Data
-      - RuntimeSetData()
-      - RuntimeGetData()
-      - RuntimeAppend(Data)
-      - XML-RPC Async Data
+
+22.1.2. Single Object Referencing
+*********************************
+
+Rest: Ref Object-Modeling!

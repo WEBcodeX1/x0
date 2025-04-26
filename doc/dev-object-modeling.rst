@@ -19,6 +19,7 @@ continuing:
 - Event Handler / Callbacks
 - Building Object Structure (DOM)
 - Modifying Runtime Data
+- Object Realtime Updating
 
 21.1.1. Base Classes / Inheritance
 **********************************
@@ -29,18 +30,24 @@ Refer to: :ref:`devoopmodel_base`.
 21.1.2. Child Objects
 *********************
 
-
 21.1.3. Event Handler / Callbacks
 *********************************
-
 
 21.1.4. Building DOM Object Structure
 *************************************
 
-
 21.1.5. Modifying Runtime Data
 ******************************
 
+- RuntimeSetData()
+- RuntimeGetData()
+- RuntimeAppend(Data)
+- XML-RPC Async Data
+
+21.1.6. Modifying Runtime Data
+******************************
+
+- Different approaches remove() and removeParent() + RTfunctions
 
 21.2. Building an Object Like sysObjDynRadioList.js
 ---------------------------------------------------

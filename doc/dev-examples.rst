@@ -5,6 +5,8 @@
 20. Developing Examples
 =======================
 
+After module
+
 - structure
   - app config (database)
   - app config (object.json, skeleton.json, menu.json)

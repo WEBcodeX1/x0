@@ -5,7 +5,7 @@
 6. System Objects
 =================
 
-Currently the following *x0-system-objects* are usable inside `object.json`.
+Currently the following *x0-system-objects* are usable inside ``object.json``.
 
 * :ref:`objecttype-div`
 * :ref:`objecttype-sqltext`

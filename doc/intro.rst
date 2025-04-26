@@ -1,77 +1,151 @@
 .. intro
 
-1. Preface / Abstract
+1. Title and Abstract
 =====================
 
-*x0* (cross-object) JavaScript Framework /krɒs ɒb.dʒɪkt/ is a modern tool for
-efficiently building powerful Web-Browser **Realtime-SPA (Single Page Applications)**.
+1.1. Introduction
+-----------------
 
-.. note::
+*x0* (**cross-object**) JavaScript Framework /krɒs ɒb.dʒɪkt/ is a modern tool
+for **efficiently building** powerful web-browser **real-time SPAs**
+(Single Page Applications).
 
-    See :ref:`targetgroup` to understand which target group the *x0-system* is
-    intended for.
+**Zero Bootstrap JavaScript** Dependency: Integrates Bootstrap 5.3 CSS stylesheets
+without relying on Bootstrap's JavaScript, ensuring lightweight and fast applications.
 
-1.1. Cross Objects
-------------------
+**Responsive Design with CSS Grid**: Leverages Bootstrap's grid system for building
+device-independent, future-proof responsive applications.
 
-The *x* in *x0* stands for **cross**, signifying **communication**.
-*x0-objects* can exchange (update) their metadata **directly** via
-JSON, either internally or over a network.
+**Cross-Object Communication**: Facilitates seamless metadata exchange between
+*x0-objects* using JSON, enabling efficient internal and network-based communication.
 
-1.2. Bootstrap / CSS Themes
----------------------------
+**True DOM OOP Templating** (Object-Oriented Programming): Implements a strict 1:1
+mapping between JavaScript objects and DOM elements for robust and modular development.
 
-*x0-system* includes the latest Bootstrap 5.3 basic CSS stylesheets
-without relying on any JavaScript code (**Zero Bootstrap JS**).
+**Integrated FontAwesome Icons**: Provides easy access to high-quality icons through
+FontAwesome 6 Free.
 
-Imagine *x0* as a system that enhances Bootstrap with **intelligent**
-JavaScript logic based on **true OOP principles**.
+**Streamlined Deployment**: Offers pre-built Docker images and Kubernetes support for
+quick and scalable deployment.
 
-Additionally, extending CSS styles with your own custom stylesheets
-can be accomplished in just a few minutes.
+Intended Audience: The *x0-system* is designed for developers and organizations seeking
+to create advanced, **real-time Single Page Applications** (SPAs). It is particularly
+suited for teams prioritizing modular development, robust object-oriented principles,
+and efficient cross-object communication, while maintaining lightweight and responsive
+design principles.
 
-1.3. Fontawesome
-----------------
+1.2. Abstract
+-------------
 
-Fontawesome 6 Free is integrated into the *x0 base* system, providing an easy
-way to use **high-quality icons**.
+The x0-system is a cutting-edge JavaScript framework designed to simplify the
+development of real-time Single Page Applications (SPAs). By leveraging cross-object
+communication, responsive design principles, and object-oriented DOM manipulation,
+it offers developers a powerful toolset for creating modular, scalable, and highly
+interactive web applications. With seamless integration of Bootstrap 5.3 (without
+JavaScript dependencies), multi-language support, and deployment solutions like
+Docker and Kubernetes, the x0-system is tailored for modern web development needs.
 
-1.4. CSS Grid System
+2. Core Features Overview
+=========================
+
+2.1. True DOM OOP Templating
+----------------------------
+
+The x0-system introduces a powerful feature called **True DOM OOP Templating**, which
+enables developers to build dynamic, reusable, and modular user interfaces based on
+Object-Oriented Programming (OOP) principles. This feature tightly integrates JavaScript
+objects with DOM elements, ensuring a seamless and systematic approach to UI development.
+
+Key Characteristics:
+
+    Strict 1:1 Mapping Between JavaScript Objects and DOM Elements
+        Each DOM element (e.g., a DIV) is directly associated with a single JavaScript object instance.
+        This association ensures that every DOM element has a corresponding object responsible for its
+        behavior and data handling.
+
+    Inheritance and Modularity
+        The templating system leverages OOP inheritance, allowing developers to define base objects
+        and extend them to create specialized components. This promotes code reuse, reduces duplication,
+        and simplifies complex UI designs.
+
+    Real-Time Updates
+        The templating system enables objects to update their associated DOM elements in real time.
+        For example, calling an object's update() method dynamically modifies the DOM to reflect changes
+        without requiring a page reload.
+
+    Event Handling and Propagation
+        Objects manage their own event listeners and callbacks, ensuring encapsulated and modular event
+        handling. Events can also be redirected or propagated across objects for complex interactions.
+
+    Dynamic Object Composition
+        Developers can combine multiple predefined objects into new, custom objects.
+        This feature allows for the creation of highly advanced and reusable UI components by chaining
+        existing objects together.
+
+    Web Service Integration
+        Objects can bind to web services as data sources, enabling dynamic content retrieval and seamless
+        integration with backends.
+
+2.2. CSS Grid System
 --------------------
 
-To ensure future-proof **responsiveness**, *x0-system* offers smart libraries
-for building advanced **device-independent** applications, leveraging
-Bootstrap's Grid feature.
+The *x0-system* is structured around reusable and modular JavaScript system-objects, which
+are the building blocks for creating dynamic and responsive user interfaces. These objects
+interact seamlessly with the CSS Grid System, combining functionality and layout in a way
+that supports scalability, maintainability, and responsiveness.
 
-For more details on the Bootstrap Grid system, visit:
-https://getbootstrap.com/docs/5.3/layout/grid/.
+Key Features:
 
-1.5. Browser Compatibility
+    Responsive Design
+        The grid system automatically adjusts to different screen sizes, ensuring an
+        optimal user experience across desktops, tablets, and smartphones. It uses a
+        12-column layout system, allowing developers to define flexible and precise
+        layouts.
+
+    Bootstrap Integration
+        Built on Bootstrap 5.3's Grid framework, the *x0-system* provides a reliable
+        and well-documented foundation for layout design. Developers can take advantage
+        of Bootstrap's familiar syntax and responsive breakpoints (e.g., col-sm-*,
+        col-md-*, col-lg-*).
+
+    Customizability
+        The grid system can be easily extended or overridden with custom CSS styles
+        to meet specific design requirements. Developers are free to define their own
+        class combinations for unique layouts.
+
+    Device Independence
+        The *x0-system* ensures that applications are truly device-independent by providing
+        a grid structure that adapts fluidly to the user's device and screen size.
+
+    Future-Proofing
+        By adhering to modern web standards and the latest version of Bootstrap, the
+        *x0-system's* grid ensures compatibility with future web technologies and frameworks.
+
+2.3. Browser Compatibility
 --------------------------
 
 *x0-system* is built in a **generic** way (using ECMA 6 and 7 standards),
 enabling it to run natively on all modern browsers, including Firefox, Chrome,
 Opera, and Safari.
 
-1.6. Multi-language Support
----------------------------
+3. Deployment and Integration
+=============================
 
-*x0-system* supports **multi-language** functionality (currently English and
-German). The display language can even be switched in **real-time** without
-requiring a page reload.
+3.1. Docker Support
+-------------------
 
-1.7. Docker Images
-------------------
+**Pre-built** Docker images are available to get started with *x0-system* quickly:
 
-Pre-built Docker images are available to get started with *x0-system* quickly:
+.. code-block:: bash
 
-- https://docker.webcodex.de/x0/docker.x0-app.tar
-- https://docker.webcodex.de/x0/docker.x0-db.tar
-- https://docker.webcodex.de/x0/docker.x0-test.tar
+    # pull docker images
+    docker pull ghcr.io/webcodex1/x0-app
+    docker pull ghcr.io/webcodex1/x0-db
+    docker pull ghcr.io/webcodex1/x0-test
 
 See :ref:`installation` for instructions on how to proceed.
 
-1.8. Kubernetes
+3.2. Kubernetes
 ---------------
 
 *x0-applications* can also be deployed on (load-balanced) Google Kubernetes Engine
@@ -79,103 +153,27 @@ See :ref:`installation` for instructions on how to proceed.
 
 For more details, visit: https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md.
 
-1.9. Licensing
+4. Licensing and Milestones
+===========================
+
+4.1. Licensing
 --------------
 
 *x0-base-system* is licensed under the Open Source AGPLv3 license.
 
 Certain components, including the WYSIWYG Editor, will be offered as **non-free**.
 
-1.10. Milestones
-----------------
+4.2. Milestones
+---------------
 
 For the current milestones, see: https://github.com/WEBcodeX1/x0/milestones.
 
-.. _targetgroup:
+5. References
+=============
 
-1.11. x0 Target Group
----------------------
+5.1. Related Documentation
+--------------------------
 
-The following subsections describe the *x0-system's* **technical advantages**
-and identify the **target group** for which the system is intended.
+5.2. External Resources
+-----------------------
 
-1.11.1. Div 2 Object Mapping
-****************************
-
-Consider the following example of one of the simplest *x0-system-objects*:
-**SQLText**, which is configured to fetch text by ID from the backend and display
-it in the currently selected language (e.g., English or German).
-
-.. image:: images/x0-oop-obj2div-mapping.png
-   :alt: image - OOP object-to-DIV mapping
-
-The *x0-system* **always** associates **one single** *JavaScript Object Instance*
-with a single (rendered) DOM DIV, maintaining a strict 1:1 relationship. There will
-be no DOM DIVs without a connected *JavaScript Object Instance*.
-
-For example, if a rendered *x0-screen* contains 187 DIVs, then 187 corresponding
-*JavaScript Object Instances* will be created by the *x0-system* during *x0-app-start*
-(browser page load).
-
-Each object also retains information about its **parent object** as well as the
-base rendering routines (inherited from *x0-base-classes*).
-
-.. note::
-
-    More complex objects may consist of multiple (far more) DIVs. Check the
-    developer section for details on designing *x0-system-objects* at
-    :ref:`devobjectmodeling`.
-
-1.11.2. True DOM OOP
-********************
-
-The *x0-system's* **DIV2ObjectMapping** method enables true OOP-based DOM DIV
-modeling and manipulation for developers.
-
-.. note::
-
-    This feature allows the creation of highly powerful, enhanced, and
-    **combined** *x0-system-objects* (details in the next section).
-
-Continuing the SQLText example from the previous section:
-
-The *x0-system* creates an SQLText object instance with the TextID
-"Text1" defined in `object.json`. Its `update()` method can be called
-externally to update the display text (DIV) to the currently selected system language
-in **real-time**.
-
-.. code-block:: javascript
-
-    sysFactory.getObjectByID("Text1").update();
-
-Developers are also provided with the following capabilities:
-
-- Redirecting Events
-- Object Callbacks
-- Web-Service Data Source Binding
-
-1.11.3. Object Combination
-**************************
-
-One of the **most remarkable features** of the *x0-system* is its ability
-to combine (chain) existing objects into new ones.
-
-For example, defining a new object **SelfDefinedObject** can be done like this
-(very simplified, invalid JavaScript syntax):
-
-.. code-block:: javascript
-
-    this.addObject(new SQLTextObj(TextID='TXT.DISPLAY'));
-    this.addObject(new Formfield(Type='Pulldown', Options=['Option1', 'Option2']));
-
-Once defined, the **SelfDefinedObject** can be reused in the same way to
-define other new objects:
-
-.. code-block:: javascript
-
-    this.addObject(new SelfDefinedObject(Config));
-
-.. note::
-
-    For detailed information on designing and integrating *x0-system-objects*, see
-    the developer documentation subsection :ref:`devobjectmodeling`.

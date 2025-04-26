@@ -12,8 +12,8 @@ The ``sysXMLRPCRequest.js`` file in the *x0-framework* implements the core funct
 for handling XML-RPC (Remote Procedure Call) requests, supporting both synchronous and
 asynchronous operations. Below is an overview of its concept:
 
-18.1.1 Key Concepts
-*******************
+18.1.1. Key Concepts
+********************
 
     * Purpose:
         1. Handles communication between the client-side application and backend services using XML-RPC.
@@ -53,18 +53,50 @@ asynchronous operations. Below is an overview of its concept:
     * x0-object Callback:
         1. Always execute the *x0-systems* ``callbackXMLRPCAsync`` callback method in the caller *x0-object*.
 
-18.1.2 Example Workflow
-***********************
+18.1.2. Example Workflow
+************************
 
     * A request is initialized using the ``sysCallXMLRPC`` constructor with a target URL and optional parameters.
     * Configuration methods (e.g., ``setRequestType`` or ``setRequestBasicAuth``) are used to customize the request.
     * The Request method is called with a target object containing data and ``callbackXMLRPCAsync`` callback method.
     * In asynchronous mode, the server response is processed, parsed, and passed to the callback function for further action.
 
-18.1.3 App Configuration
-************************
+18.1.3. Getting Backend Data
+****************************
 
+*x0-application-developer* and *x0-systems-developer* roles always should use
+*x0-service-connector* and *x0-source-data-objects* in the following situations:
+
+- Developing *x0-applications*
+- Modeling *x0-system-objects*
+
+Never use ``sysXMLRPCRequest`` directly.
+
+Only on developing the *x0-core-system* it is advisable to do this; also subsection 18.1.5.
+(Nested RPC Requests) is relevant for *x0-core-system* development.
+
+18.1.4. Error Handling
+**********************
+
+- JSON result schema
+- AsynNotifyIndicator ref
+
+18.1.5. Nested RPC Requests
+***************************
+
+Only for x0-core-system.
+
+Sometimes multiple / nested XML-RPC requests ...
+
+18.1.6. Debugging Information
+*****************************
+
+- ``sysXMLRPCRequest.js``
+- ``sysReactor.js``
+
+- Debugging Keywords (debug-log)
 
 18.2. JSON Schemas
 ------------------
 
+How-to define JSON schmemas for *x0-system-objects* ...

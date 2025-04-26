@@ -14,11 +14,14 @@ fired.
 
 .. note::
 
-    Some *x0-object-types*, e.g., the List object will be completely removed from
+    Some *x0-object-types*, e.g., the **List** object will be completely removed from
     the DOM and re-rendered by invoking ``callbackXMLRPCAsync()`` method.
 
 .. image:: images/x0-event-system.png
   :alt: image - event system
+
+9.1. Raising Events
+-------------------
 
 The following *x0-object-types* support raising events.
 
