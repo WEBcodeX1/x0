@@ -11,12 +11,12 @@ define their **specifications** for seamless integration into the core system.
 26.1. Basic Modeling Rules
 --------------------------
 
-You should have a **solid understanding** of the following *x0* fundamentals before
-continuing:
+Before proceeding, ensure you have a **solid understanding** of the following *x0*
+fundamentals:
 
 - Base Classes / Inheritance
 - Child Objects / Parent Object
-- Event Handler / Callbacks
+- Event Handlers / Callbacks
 - Building Object Structure (DOM)
 - Modifying Runtime Data
 - Object Realtime Updates
@@ -26,39 +26,35 @@ continuing:
 26.1.1. Base Classes / Inheritance
 **********************************
 
-You should familiarize yourself with the x0 *Core Base Model*.
-Refer to: :ref:`devoopmodel_base`.
-
-Any **custom** *x0-system-object* must inherit ``sysBaseObject`` in its prototype.
+The x0 framework follows a strict object-oriented approach. All custom *x0-system-objects*
+must inherit from ``sysBaseObject`` in their prototypes.
 
 .. code-block:: javascript
 
     //- inherit sysBaseObject
     sysObjNewcomer.prototype = new sysBaseObject();
 
+Refer to: :ref:`devoopmodel_base` for more information on the *x0* Core Base Model.
+
 26.1.2. Child Objects / Parent Object
 *************************************
 
-The ``self.ChildObjects[]`` model in ``sysBaseObject.js`` is an array that
-manages the child objects of a ``sysBaseObject`` instance. It functions as a
-recursive container for hierarchical object structures within the
-*x0-framework*.
+The ``this.ChildObjects[]`` array in ``sysBaseObject.js`` is used to manage child objects
+of a ``sysBaseObject`` instance. It acts as a recursive container, enabling hierarchical
+object structures.
 
 1. Initialization
 
-In any new modeled Object's constructor, ``this.ChildObjects[]`` must be initialized
-as an empty array:
+In a custom object's constructor, initialize ``this.ChildObjects[]`` as an empty array:
 
 .. code-block:: javascript
 
     this.ChildObjects = new Array(); //- Child Objects
 
-2. Child Object Relationships
+2. Child-Parent Relationships
 
 Each child object in the array is an instance of ``sysBaseObject`` or its derived classes.
 A parent-child relationship is established using the ``ParentObject`` property.
-
-This enables any child object to directly access its parent(s).
 
 .. code-block:: javascript
 
@@ -68,9 +64,9 @@ This enables any child object to directly access its parent(s).
     //- Do something in the ParentObject.ParentObject
     this.ParentObject.ParentObject.doSomething();
 
-3. Add Objects
+3. Adding Child Objects
 
-Adding objects to self is done like this:
+Adding objects to a parent object is straightforward:
 
 .. code-block:: javascript
 
@@ -81,9 +77,11 @@ Adding objects to self is done like this:
     //- add Obj1 to parent
     this.addObject(Obj1);
 
-see: :ref: sysBaseObject.addObject()
+Refer to: :ref:`sysBaseObject.addObject()` for more details.
 
-4. Propagate Object(s) to DOM
+4. Rendering Child Objects
+
+To propagate changes to the DOM, render all child objects:
 
 .. code-block:: javascript
 
@@ -93,15 +91,20 @@ see: :ref: sysBaseObject.addObject()
 26.1.3. Event Handler / Callbacks
 *********************************
 
-If you want to process native DOM Events (not *x0-events*),
-in any new modeled Object's constructor, ``this.EventListeners[]`` must be
-initialized as an empty array:
+Event handlers allow objects to process native DOM events. All event listeners
+must be defined in the ``this.EventListeners[]`` array.
+
+1. Initialize Event Listeners
+
+In the constructor, initialize ``this.EventListeners[]`` as an empty array:
 
 .. code-block:: javascript
 
     this.EventListeners = new Array(); //- Array of EventListener Objects
 
-1. Add Event Listeners
+2. Adding Event Listeners
+
+Add event listeners by defining their type and callback function:
 
 .. code-block:: javascript
 
@@ -110,14 +113,9 @@ initialized as an empty array:
     EventListenerObj['Element'] = this.EventListenerCallback.bind(this); //- Callback Method
     this.EventListeners['ListenerID'] = EventListenerObj; //- Add Listener with ListenerID
 
-2. Multiple Event Listeners
+3. Activating Event Listeners
 
-When adding multiple Event Listeners, processing order will be preserved.
-
-3. Event Listener Activation
-
-After adding Event Listeners in Realtime Objects, they have to be explicitely
-activated before working.
+To activate added event listeners:
 
 .. code-block:: javascript
 
@@ -125,77 +123,67 @@ activated before working.
 
 4. sysButtonCallback Object
 
-The ``sysButtonCallback`` *x0-object* can be used to asbtract ...
+The ``sysButtonCallback`` *x0-object* abstracts common button interactions.
+It simplifies event handling for buttons.
+
+Refer to: :ref:`devporting`.
 
 26.1.4. Building DOM Object Structure
 *************************************
 
-See :ref:`devporting`.
+Refer to: :ref:`devporting` for detailed instructions on building DOM object structures.
 
 26.1.5. Modifying Runtime Data
 ******************************
 
-The following types of dynamic data updates can change a *x0-object*
-state on runtime.
+The following methods enable runtime data updates for *x0-objects*:
 
-- XML-RPC Async Call
-- RuntimeSetData()
-- RuntimeAppendData()
+- **XML-RPC Async Call**: Fetches data asynchronously from remote services.
+- **RuntimeSetData(data)**: Updates the object's current data.
+- **RuntimeAppendData(data)**: Appends new data to the existing dataset.
 
 26.1.6. Working With Realtime Objects
 *************************************
 
-When designing realtime objects, the procedure of removing
-DOM nodes completely sometimes is much smarter than complex (recursive)
-update processing.
-
-The *x0-framework* provides multiple solutions for removing DOM nodes.
+For realtime objects, removing DOM nodes is often more efficient than complex
+recursive updates. The *x0-framework* provides multiple methods:
 
 1. remove()
 
-Inherited from ``sysBaseObject``. Any object can call this method to
-remove itself from ParentObject.ChildObjects[] and the corresponding DIV
-from the DOM.
+Inherited from ``sysBaseObject``, this method removes the object from
+``ParentObject.ChildObjects[]`` and deletes its corresponding DOM node.
 
-See :ref:`refid`.
+Refer to: :ref:`devporting`.
 
 2. removeParent()
 
-Inherited from ``sysBaseObject``. Any object can call this method to
-remove all ParentObject.ChildObjects[] and the corresponding DIVs
-from the DOM.
+Also inherited from ``sysBaseObject``, this method removes the parent
+object and all its child objects from the DOM.
 
-See :ref:`refid`.
+Refer to: :ref:`refid` for further details.
 
 26.1.7. Object Loading / Initialization
 ***************************************
 
-Any to the *x0-core* registered object provides the following properties.
+Objects registered with the *x0-core* system expose the following properties:
 
 1. init()
 
-AN objects ``init()`` method will be called on *x0-system-init* (browser page
-load). Process initialization logic here.
+The ``init()`` method is called during x0 system initialization (on page load).
+Use this method to define initialization logic.
 
 2. JSONConfig.Attributes
 
-The objects instance JSON configuration also will be processed on *x0-system-init*
-(browser page load) and bound to the objects live-time.
-
-Design the objects configuration data by using ``JSONConfig.Attributes`` at
-the right places.
+The object's JSON configuration is processed during system initialization and applies
+throughout its lifecycle. Use ``JSONConfig.Attributes`` to define configuration data.
 
 26.1.8. Adding Context Menu Functionality
 *****************************************
 
-Sometime you want to add Context Menu Functionality to your object.
+To add context menu functionality, initialize event listeners and callbacks in the
+``init()`` method. For example, ``sysObjDynRadioList.js`` uses a context menu for row removal:
 
-The example code is taken from ``sysObjDynRadioList.js`` which provides
-a additional Context Menu for row removal on right-click.
-
-1. Add Event Listener / Callbacks
-
-In objects ``init()`` method, initialize Event Listener and Callbacks.
+1. Add Event Listeners
 
 .. code-block:: javascript
 
@@ -209,7 +197,7 @@ In objects ``init()`` method, initialize Event Listener and Callbacks.
         }
     }
 
-2. Callback Code
+2. Context Menu Callback
 
 .. code-block:: javascript
 
@@ -245,25 +233,25 @@ In objects ``init()`` method, initialize Event Listener and Callbacks.
 
 After object-modeling has been finished, it must be added to the *x0-system*.
 
-1. User Object Runtime-Import
+1. User Object Runtime Import
 
-See :ref:`appdevconfig-object-templates`.
+Refer to: :ref:`appdevconfig-object-templates`.
 
 2. System Core Object
 
-Core *x0-system-objects* will be registered in ``sysFactory.js`` and must be added
-to ``this.SetupClasses`` Object.
+Register core *x0-system-objects* in ``sysFactory.js`` by adding them to
+``sysFactory.SetupClasses``:
 
 .. code-block:: javascript
 
     this.SetupClasses = {
-            "TabContainer": sysTabContainer,
+            "NewObjectType": sysNewObjectType,
     }
 
 26.1.10. Additional Examples
 ****************************
 
-Check addtional realtime processing code
+Check additional realtime processing code in the following system files:
 
 - ``sysRTPagination.js``
 
