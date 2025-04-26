@@ -77,7 +77,7 @@ Adding objects to a parent object is straightforward:
     //- add Obj1 to parent
     this.addObject(Obj1);
 
-Refer to: :ref:`sysBaseObject.addObject()` for more details.
+Refer to: :ref:`devoopmodel-classes-baseobj-addobject` for more details.
 
 4. Rendering Child Objects
 

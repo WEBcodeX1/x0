@@ -5,6 +5,8 @@
 22. Class Reference
 ===================
 
+.. _devoopmodel-classes-baseobj-addobject:
+
 22.1. sysBaseObject.addObject
 -----------------------------
 
@@ -113,13 +115,13 @@ description of its functionality:
         Ensures that the object is rendered only if its corresponding DOM element does not already exist.
 
     3. DOM Element Creation and Configuration:
-        Creates the required DOM element using createDOMElement() and appends it to the parent DOM element through appendDOMParentElement().
-        Configures the DOM element by setting attributes, values, styles, and visibility using various helper methods:
-            setDOMAttributes()
-            setDOMElementValue()
-            setDOMElementStyle()
-            setDOMElementStyleAttributes()
-            setDOMVisibleState()
+        - Creates the required DOM element using createDOMElement() and appends it to the parent DOM element through appendDOMParentElement().
+        - Configures the DOM element by setting attributes, values, styles, and visibility using various helper methods:
+            * setDOMAttributes()
+            * setDOMElementValue()
+            * setDOMElementStyle()
+            * setDOMElementStyleAttributes()
+            * setDOMVisibleState()
 
     4. Event Listener Processing:
         Attaches event listeners to the DOM element using processEventListener().
