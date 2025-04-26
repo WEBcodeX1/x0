@@ -2,76 +2,303 @@
 
 .. _devobjectmodeling:
 
-21. x0-Object Modeling
+26. x0-Object Modeling
 ======================
 
-The following sections explain how to design custom x0 system objects and define
-their specifications for seamless integration into the core system.
+The following sections explain how to design **custom** *x0-system-objects* and
+define their **specifications** for seamless integration into the core system.
 
-21.1. Basic Modeling Rules
+26.1. Basic Modeling Rules
 --------------------------
 
-You should have a solid understanding of the following x0 fundamentals before
+You should have a **solid understanding** of the following *x0* fundamentals before
 continuing:
 
 - Base Classes / Inheritance
-- Child Objects
+- Child Objects / Parent Object
 - Event Handler / Callbacks
 - Building Object Structure (DOM)
 - Modifying Runtime Data
-- Object Realtime Updating
+- Object Realtime Updates
+- Object Initialization
+- Adding Context Menu Functionality
 
-21.1.1. Base Classes / Inheritance
+26.1.1. Base Classes / Inheritance
 **********************************
 
 You should familiarize yourself with the x0 *Core Base Model*.
 Refer to: :ref:`devoopmodel_base`.
 
-21.1.2. Child Objects
-*********************
+Any **custom** *x0-system-object* must inherit ``sysBaseObject`` in its prototype.
 
-21.1.3. Event Handler / Callbacks
-*********************************
+.. code-block:: javascript
 
-21.1.4. Building DOM Object Structure
+    //- inherit sysBaseObject
+    sysObjNewcomer.prototype = new sysBaseObject();
+
+26.1.2. Child Objects / Parent Object
 *************************************
 
-21.1.5. Modifying Runtime Data
+The ``self.ChildObjects[]`` model in ``sysBaseObject.js`` is an array that
+manages the child objects of a ``sysBaseObject`` instance. It functions as a
+recursive container for hierarchical object structures within the
+*x0-framework*.
+
+1. Initialization
+
+In any new modeled Object's constructor, ``this.ChildObjects[]`` must be initialized
+as an empty array:
+
+.. code-block:: javascript
+
+    this.ChildObjects = new Array(); //- Child Objects
+
+2. Child Object Relationships
+
+Each child object in the array is an instance of ``sysBaseObject`` or its derived classes.
+A parent-child relationship is established using the ``ParentObject`` property.
+
+This enables any child object to directly access its parent(s).
+
+.. code-block:: javascript
+
+    //- Do something in the ParentObject
+    this.ParentObject.doSomething();
+
+    //- Do something in the ParentObject.ParentObject
+    this.ParentObject.ParentObject.doSomething();
+
+3. Add Objects
+
+Adding objects to self is done like this:
+
+.. code-block:: javascript
+
+    //- add new sysObjDiv()
+    let Obj1 = new sysObjDiv();
+    Obj1.ObjectID = 'MyDiv1';
+
+    //- add Obj1 to parent
+    this.addObject(Obj1);
+
+see: :ref: sysBaseObject.addObject()
+
+4. Propagate Object(s) to DOM
+
+.. code-block:: javascript
+
+    //- render all ParentObject.ChildObjects[]
+    this.ParentObject.renderObject();
+
+26.1.3. Event Handler / Callbacks
+*********************************
+
+If you want to process native DOM Events (not *x0-events*),
+in any new modeled Object's constructor, ``this.EventListeners[]`` must be
+initialized as an empty array:
+
+.. code-block:: javascript
+
+    this.EventListeners = new Array(); //- Array of EventListener Objects
+
+1. Add Event Listeners
+
+.. code-block:: javascript
+
+    let EventListenerObj = new Object();
+    EventListenerObj['Type'] = 'mousedown'; //- Event Type 'mousedown'
+    EventListenerObj['Element'] = this.EventListenerCallback.bind(this); //- Callback Method
+    this.EventListeners['ListenerID'] = EventListenerObj; //- Add Listener with ListenerID
+
+2. Multiple Event Listeners
+
+When adding multiple Event Listeners, processing order will be preserved.
+
+3. Event Listener Activation
+
+After adding Event Listeners in Realtime Objects, they have to be explicitely
+activated before working.
+
+.. code-block:: javascript
+
+    this.processEventListener();
+
+4. sysButtonCallback Object
+
+The ``sysButtonCallback`` *x0-object* can be used to asbtract ...
+
+26.1.4. Building DOM Object Structure
+*************************************
+
+See :ref:`devporting`.
+
+26.1.5. Modifying Runtime Data
 ******************************
 
+The following types of dynamic data updates can change a *x0-object*
+state on runtime.
+
+- XML-RPC Async Call
 - RuntimeSetData()
-- RuntimeGetData()
-- RuntimeAppend(Data)
-- XML-RPC Async Data
+- RuntimeAppendData()
 
-21.1.6. Modifying Runtime Data
-******************************
+26.1.6. Working With Realtime Objects
+*************************************
 
-- Different approaches remove() and removeParent() + RTfunctions
+When designing realtime objects, the procedure of removing
+DOM nodes completely sometimes is much smarter than complex (recursive)
+update processing.
 
-21.2. Building an Object Like sysObjDynRadioList.js
+The *x0-framework* provides multiple solutions for removing DOM nodes.
+
+1. remove()
+
+Inherited from ``sysBaseObject``. Any object can call this method to
+remove itself from ParentObject.ChildObjects[] and the corresponding DIV
+from the DOM.
+
+See :ref:`refid`.
+
+2. removeParent()
+
+Inherited from ``sysBaseObject``. Any object can call this method to
+remove all ParentObject.ChildObjects[] and the corresponding DIVs
+from the DOM.
+
+See :ref:`refid`.
+
+26.1.7. Object Loading / Initialization
+***************************************
+
+Any to the *x0-core* registered object provides the following properties.
+
+1. init()
+
+AN objects ``init()`` method will be called on *x0-system-init* (browser page
+load). Process initialization logic here.
+
+2. JSONConfig.Attributes
+
+The objects instance JSON configuration also will be processed on *x0-system-init*
+(browser page load) and bound to the objects live-time.
+
+Design the objects configuration data by using ``JSONConfig.Attributes`` at
+the right places.
+
+26.1.8. Adding Context Menu Functionality
+*****************************************
+
+Sometime you want to add Context Menu Functionality to your object.
+
+The example code is taken from ``sysObjDynRadioList.js`` which provides
+a additional Context Menu for row removal on right-click.
+
+1. Add Event Listener / Callbacks
+
+In objects ``init()`` method, initialize Event Listener and Callbacks.
+
+.. code-block:: javascript
+
+    sysObjName.prototype.init = function()
+    {
+        if (this.JSONConfig.Attributes.CtxtMenu == true) {
+            var EventListenerObj = new Object();
+            EventListenerObj['Type'] = 'mousedown';
+            EventListenerObj['Element'] = this.EventListenerRightClick.bind(this);
+            this.EventListeners['ContextMenuOpen'] = EventListenerObj;
+        }
+    }
+
+2. Callback Code
+
+.. code-block:: javascript
+
+    sysObjName.prototype.EventListenerRightClick = function(Event)
+    {
+        var ContextMenuItems = [
+            {
+                "ID": "Remove",
+                "TextID": "TXT.CONTEXTMENU.METHOD.REMOVE",
+                "IconStyle": "fa-solid fa-paste",
+                "InternalFunction": "remove"
+            }
+        ];
+
+        //- check for right click on mousedown
+        if (Event.button == 2 && ContextMenuItems !== undefined) {
+
+            var ContextMenu = new sysContextMenu();
+
+            ContextMenu.ID             = 'CtMenu_' + this.ObjectID;
+            ContextMenu.ItemConfig     = ContextMenuItems;
+            ContextMenu.ScreenObject   = sysFactory.getScreenByID(sysFactory.CurrentScreenID);
+            ContextMenu.ParentObject   = this;
+            ContextMenu.pageX          = Event.pageX;
+            ContextMenu.pageY          = Event.pageY;
+
+            ContextMenu.init();
+        }
+    }
+
+26.1.9. Object Registration
+***************************
+
+After object-modeling has been finished, it must be added to the *x0-system*.
+
+1. User Object Runtime-Import
+
+See :ref:`appdevconfig-object-templates`.
+
+2. System Core Object
+
+Core *x0-system-objects* will be registered in ``sysFactory.js`` and must be added
+to ``this.SetupClasses`` Object.
+
+.. code-block:: javascript
+
+    this.SetupClasses = {
+            "TabContainer": sysTabContainer,
+    }
+
+26.1.10. Additional Examples
+****************************
+
+Check addtional realtime processing code
+
+- ``sysRTPagination.js``
+
+26.2. Building an Object Like sysObjDynRadioList.js
 ---------------------------------------------------
 
 This section explains how to create a dynamic system object similar to
-`sysObjDynRadioList.js` in the x0 framework. It focuses on the structure,
-methods, and key principles used in `sysObjDynRadioList`.
+``sysObjDynRadioList.js`` in the *x0-framework*. It focuses on the structure,
+methods, and key principles used in ``sysObjDynRadioList``.
 
-- Overview
+26.2.1. Overview
+****************
 
-The sysObjDynRadioList is a dynamic object designed to manage a list of radio
-buttons, with rows that can be added or removed at runtime. Each row includes a
-radio button, an input field, and associated controls.
+The ``sysObjDynRadioList`` is a **dynamic object** designed to manage a list of
+**radio buttons**, with rows that can be added or removed at runtime. Each row
+includes a **radio button**, an **input field**, and **associated controls**.
 
-- Key Components:
+26.2.2. Key Components
+**********************
 
-    1. Base Object Inheritance: Inherits from sysBaseObject for core functionality.
-    2. Dynamic Rows: Rows are represented by sysObjDynRadioListRow, which also inherits from sysBaseObject.
-    3. Callbacks and Events: Used for adding/removing rows and handling user interactions.
-    4. JSON Configuration: Utilized for defining object attributes and styles.
+    1. Base Object Inheritance:
+        Inherits from ``sysBaseObject`` for core functionality.
+    2. Dynamic Rows:
+        Rows are represented by ``sysObjDynRadioListRow``, which also inherits from ``sysBaseObject``.
+    3. Callbacks and Events:
+        Used for adding/removing rows and handling user interactions.
+    4. JSON Configuration:
+        Utilized for defining object attributes and styles.
 
-- Step-by-Step Guide
+26.2.3. Step-by-Step Guide
+**************************
 
-21.2.1. Create the Base Class
+Following, a Step-by-Step Guide, guiding you through the creation process.
+
+26.2.2. Create the Base Class
 *****************************
 
 Start by defining your main object, inheriting from sysBaseObject:
@@ -88,7 +315,7 @@ Start by defining your main object, inheriting from sysBaseObject:
     // Inherit from sysBaseObject
     sysObjDynRadioList.prototype = new sysBaseObject();
 
-21.2.2. Initialize the Object
+26.2.3. Initialize the Object
 *****************************
 
 Define the init method to set up the object structure and default components:
@@ -120,10 +347,11 @@ Define the init method to set up the object structure and default components:
         );
     };
 
-21.2.3. Define the Row Class
+26.2.4. Define the Row Class
 ****************************
 
-Each row in the list is represented by sysObjDynRadioListRow. This class manages its elements (radio button, input field, and optional remove button):
+Each row in the list is represented by ``sysObjDynRadioListRow``. This class manages its
+elements (radio button, input field, and optional remove button):
 
 .. code-block:: javascript
 
@@ -169,10 +397,10 @@ Each row in the list is represented by sysObjDynRadioListRow. This class manages
         }
     };
 
-21.2.4. Add Rows Dynamically
+26.2.5. Add Rows Dynamically
 ****************************
 
-The add method in sysObjDynRadioList creates new rows dynamically:
+The add method in ``sysObjDynRadioList`` creates new rows dynamically:
 
 .. code-block:: javascript
 
@@ -201,7 +429,7 @@ The add method in sysObjDynRadioList creates new rows dynamically:
         this.renderObject(this.DOMParentID);
     };
 
-21.2.5. Handle Row Removal
+26.2.6. Handle Row Removal
 **************************
 
 The remove method in sysObjDynRadioListRow is used to remove a row:
@@ -220,10 +448,10 @@ In the parent object, the remove method manages the array of rows:
         this.RowItems[RowIndex].remove();
     };
 
-21.2.6. Define Object Structure
+26.2.7. Define Object Structure
 *******************************
 
-Use the addObjects method to define the DOM structure for each row:
+Use the ``addObjects`` method to define the DOM structure for each row:
 
 .. code-block:: javascript
 
@@ -269,7 +497,7 @@ Use the addObjects method to define the DOM structure for each row:
         sysFactory.setupObjectRefsRecursive(ObjDefs, this);
     };
 
-21.2.7. Conclusion
+26.2.8. Conclusion
 ******************
 
 By following this guide, you can create dynamic objects similar to sysObjDynRadioList.js.

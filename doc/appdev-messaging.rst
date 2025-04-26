@@ -1,7 +1,10 @@
 .. appdev-messaging
 
-14. Messaging
+18. Messaging
 =============
+
+18.1. Intro
+-----------
 
 Messaging is used to transfer JSON Object-Data between Network Clients including
 notification messages.
@@ -9,8 +12,13 @@ notification messages.
 To enable local messaging functionality a docker container using
 https://github.com/clauspruefer/micro-msg-server has been set up.
 
-Docker networking has limitations, so running the messaging server on port 8080
-is the only option to run *x0-app* and *x0-msg-server* in parallel.
+.. note::
+
+    Docker networking has limitations, so running the messaging server on port
+    8080 is the only option to run *x0-app* and *x0-msg-server* in parallel.
+
+18.2. Start Server
+------------------
 
 Start the messaging server with the following commands.
 
@@ -19,6 +27,9 @@ Start the messaging server with the following commands.
 	# start messaging server
 	cd ./docker
     ./x0-start-msg-server.sh
+
+18.3. Internal
+--------------
 
 Internally *x0-system* uses long polling mechanism which still runs stable
 and performant on HTTP/1.1. Polling timeout is set to 10 seconds.
@@ -36,10 +47,8 @@ This method is planned to be replaced by WebSockets in the near future.
     Also the messaging server code differs (patched) from the original and
     will only work with example code.
 
-14.1. Example
+18.4. Example
 -------------
-
-
 
 The following example transfers form metadata from user session A over the
 network to user session B.
@@ -65,8 +74,3 @@ in the source users browser as soon as possible.
     Also to simplify things mmessage deletion occurs immediately after processing
     on the messaging server side. This workflow is not acceptable in real-world
     scenarios, the deletion has to be re-triggered after receipt on client-side.
-
-14.2. Internal Messaging Format
--------------------------------
-
-Coming soon.

@@ -1,7 +1,10 @@
 .. appdev-deployment
 
-15. Deployment
+19. Deployment
 ==============
+
+19.1. Intro
+-----------
 
 The *x0-deployment* main goal is to get multiple production ready GKE
 (Google Kubernetes Engine) environments online with minimum effort.
@@ -20,7 +23,7 @@ Following, our proposed deployment workflow.
 
 .. _appdeployment-standalone:
 
-15.1. Standalone
+19.2. Standalone
 ----------------
 
 Standalone installation provides packages for Ubuntu 22.04.
@@ -31,12 +34,12 @@ unnecessary effort.
 
 .. code-block:: bash
 
-	dpkg -i x0-db_0.99_all.deb
-	dpkg -i x-app_0.99_all.deb
+	dpkg -i x0-db_1.0_all.deb
+	dpkg -i x-app_1.0_all.deb
 
 .. _appdeployment-docker:
 
-15.2. Docker
+19.3. Docker
 ------------
 
 The *x0-docker-environment* is primarily intended to test your application
@@ -45,7 +48,15 @@ locally before more time-consuming Kubernetes administration tasks apply.
 A Minikube deployment also includes infrastructural / loadbalancing tests
 to ensure your application also behaves correctly on GKE.
 
-Steps for running tests.
+.. _appdeployment-tests:
+
+19.4. Test Image / Container
+----------------------------
+
+To run tests transparently on any environment, the *x0-infrastructure* is
+completely dockerized.
+
+The following steps will run all system tests:
 
 * Start Application Containers (x0-app, x0-db)
 * Start Selenium Server Container
@@ -61,7 +72,7 @@ Steps for running tests.
 	python3 ./run-selenium-server.py
 	sleep 10 && ./run-test-container.sh
 
-15.4. Docker on Windows
+19.5. Docker on Windows
 -----------------------
 
 * Final built images / containers also **run** on Windows 11 (Docker Desktop)
@@ -69,7 +80,7 @@ Steps for running tests.
 
 .. _appdeployment-kubernetes:
 
-15.4. Kubernetes
+19.6. Kubernetes
 ----------------
 
 The kubernetes installer will set up the following, depending on the
@@ -113,7 +124,7 @@ to check if your application runs on GKE is starting the setup for Minikube.
 	# run installer
 	python3 ./Setup.py
 
-15.4.1. Base Properties
+19.6.1. Base Properties
 ***********************
 
 Root properties.
@@ -137,7 +148,7 @@ Root properties.
 	| vhosts              | Object               | VHosts Object Declaration                       |
 	+---------------------+----------------------+-------------------------------------------------+
 
-15.4.2. Project Properties
+19.6.2. Project Properties
 **************************
 
 Project related properties.
@@ -155,7 +166,7 @@ Project related properties.
 	| git-repo            | Git-Repo String      | Git Repository (Docker Registry Ref)            |
 	+---------------------+----------------------+-------------------------------------------------+
 
-15.4.3. Installer Properties
+19.6.3. Installer Properties
 ****************************
 
 Installer related properties.
@@ -169,7 +180,7 @@ Installer related properties.
 	| type (installer)    | Enum InstallerString | "x0" or "debian-package" or "default"           |
 	+---------------------+----------------------+-------------------------------------------------+
 
-15.4.4. Database Properties
+19.6.4. Database Properties
 ***************************
 
 Database related properties.
@@ -189,7 +200,7 @@ Database related properties.
 	| repl_password       | DB-Password String   | Kubergres Replication Password                  |
 	+---------------------+----------------------+-------------------------------------------------+
 
-15.4.5. Environment Element
+19.6.5. Environment Element
 ***************************
 
 Environment Element related properties.
@@ -221,7 +232,7 @@ Environment Element related properties.
 	| $env.database.replicas                  | Integer              | Pods Replica Count                    |
 	+-----------------------------------------+----------------------+---------------------------------------+
 
-15.4.6. VirtualHost Element
+19.6.6. VirtualHost Element
 ***************************
 
 .. table:: Set up VirtualHost Element Properties

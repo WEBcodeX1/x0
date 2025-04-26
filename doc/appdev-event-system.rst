@@ -2,9 +2,11 @@
 
 .. _appdeveventsystem:
 
-9. Event-System
-===============
+13. Event-System
+================
 
+13.1. Intro
+-----------
 Any *x0-system-object* getting backend data via *x0-service-connector* method
 is able to receive *x0-system-events*.
 
@@ -20,8 +22,8 @@ fired.
 .. image:: images/x0-event-system.png
   :alt: image - event system
 
-9.1. Raising Events
--------------------
+13.2. Raising Events
+--------------------
 
 The following *x0-object-types* support raising events.
 
@@ -31,7 +33,7 @@ The following *x0-object-types* support raising events.
 
 .. _appdevcontrolflow:
 
-10. Control Flow Items
+14. Control Flow Items
 ======================
 
 The next sub-chapters describe the logical control-flow and in which order
@@ -39,7 +41,7 @@ they are processed.
 
 .. _appdevcontrolbutton:
 
-10.1. Button
+14.1. Button
 ------------
 
 * Backend Service Execution
@@ -50,7 +52,7 @@ they are processed.
 
 .. _appdevcontrolbuttoninternal:
 
-10.2. ButtonInternal
+14.2. ButtonInternal
 --------------------
 
 * No Backend Service Execution
@@ -60,7 +62,7 @@ they are processed.
 
 .. _appdevcontrollink:
 
-10.3. Link
+14.3. Link
 ----------
 
 * Set Screen CSS Style
@@ -70,7 +72,7 @@ they are processed.
 
 .. _appdevcontrollinkext:
 
-10.4. LinkExternal
+14.4. LinkExternal
 ------------------
 
 * Open External Link in current Browser Window

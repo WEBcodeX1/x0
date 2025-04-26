@@ -1,7 +1,12 @@
 .. appdev-backend
 
-8. Backend / Services
-=====================
+.. _appdev-backend:
+
+12. Backend / Services
+======================
+
+12.1 Intro
+----------
 
 To exchange data with backend systems the *x0-system* offers various methods to choose from.
 
@@ -12,8 +17,8 @@ To exchange data with backend systems the *x0-system* offers various methods to 
 The next chapters describe all methods in detail and which method is best suited to a
 specific application.
 
-8.1 ServiceConnector
---------------------
+12.2 ServiceConnector
+---------------------
 
 A ServiceConnector object defines **where** to get the backend data from and **when**.
 
@@ -30,8 +35,8 @@ to re-trigger data load.
 .. image:: images/x0-service-connector.png
   :alt: image - service connector
 
-8.1.1. Object Properties
-************************
+12.2.1. Object Properties
+*************************
 
 .. table:: Object Type Div Attributes
 	:widths: 30 20 100
@@ -42,8 +47,8 @@ to re-trigger data load.
 	| OnEvent             | JS Object            | Event Properties                                |
 	+---------------------+----------------------+-------------------------------------------------+
 
-8.1.2. Event Properties
-***********************
+12.2.2. Event Properties
+************************
 
 .. table:: Object Type Div Attributes
 	:widths: 30 20 100
@@ -56,8 +61,8 @@ to re-trigger data load.
 	| ServiceCall         | Backend Script       | Call Backend Script on raised Event(s)          |
 	+---------------------+----------------------+-------------------------------------------------+
 
-8.1.3. object.json
-******************
+12.2.3. object.json
+*******************
 
 Define ServiceConnector metadata in ``object.json``.
 
@@ -76,8 +81,8 @@ Define ServiceConnector metadata in ``object.json``.
 		}
 	}
 
-8.1.4. skeleton.json
-********************
+12.2.4. skeleton.json
+*********************
 
 *Connect* as ParentObject in ``skeleton.json``.
 
@@ -99,8 +104,8 @@ Define ServiceConnector metadata in ``object.json``.
 		}
 	]
 
-8.2. Source Data Objects
-------------------------
+12.3. Source Data Objects
+-------------------------
 
 *x0-source-data-objects* feature is a very smart way to control **which** data will be
 sent to the backend.
@@ -115,8 +120,8 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
     *x0-source-data-objects* are not only usable in combination with
 	service connector, also buttons support the feature.
 
-8.2.1. Global Objects Array
-***************************
+12.3.1. Global Objects Array
+****************************
 
 .. code-block:: javascript
 
@@ -127,8 +132,8 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
 		"ObjectID3"
 	]
 
-8.2.2. Hardcoded Values
-***********************
+12.3.2. Hardcoded Values
+************************
 
 .. code-block:: javascript
 
@@ -143,8 +148,8 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
 		}
 	}
 
-8.2.3. Global Object
-********************
+12.3.3. Global Object
+*********************
 
 .. code-block:: javascript
 
@@ -156,8 +161,8 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
 		}
 	}
 
-8.2.4. Chaining Object Types
-****************************
+12.3.4. Chaining Object Types
+*****************************
 
 .. code-block:: javascript
 
@@ -176,17 +181,16 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
 		}
 	}
 
-
-8.3. Global Data
-----------------
+12.4. Global Data
+-----------------
 
 It is possible to store global data (var / value pairs) in the following global data spaces:
 
 * Global Data
 * Screen Global Data
 
-8.3.1. Load Global Data
-***********************
+12.4.1. Load Global Data
+************************
 
 *x0-global-data* will be loaded by *x0-preload-script* at *x0-init*.
 
@@ -197,8 +201,8 @@ It is possible to store global data (var / value pairs) in the following global 
 	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'preload_var', '["GlobalVar2"] = "ret_var2"');
 	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'preload_var', '["GlobalVar3"] = "ret_var3"');
 
-8.3.2. Pass Screen Global Data
-******************************
+12.4.2. Pass Screen Global Data
+*******************************
 
 To pass values from *x0-screen-global-data* to backend using *x0-source-data-objects* ...
 
@@ -213,8 +217,10 @@ To pass values from *x0-screen-global-data* to backend using *x0-source-data-obj
 		}
 	}
 
-8.4. Notify Indicator
----------------------
+.. _appdev-backend-notify:
+
+12.5. Notify Indicator
+----------------------
 
 To provide the user with status information (notify) a notification-indicator
 per backend service call is configurable.
@@ -242,8 +248,8 @@ shown in the following example.
 		}
 	}
 
-8.5. AAA / Authentication 
--------------------------
+12.6. AAA / Authentication
+--------------------------
 
 Currently *x0-system* only supports certificate based (Apache2 / ingress-nginx) 
 authentication.

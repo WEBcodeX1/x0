@@ -2,10 +2,10 @@
 
 .. _devplugins:
 
-23. Plugins
+28. Plugins
 ===========
 
-23.1. WordPress
+28.1. WordPress
 ---------------
 
 The WordPress plugin in ``/modules/wordpress`` provides integrations for user registration and login events,

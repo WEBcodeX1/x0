@@ -2,21 +2,28 @@
 
 .. _devporting:
 
-22. Application Porting
+27. Application Porting
 =======================
 
-The next chapters describe how to port an existing Web Application
-(HTML and JavaScript) into *x0-format*.
+27.1. Intro
+-----------
 
-22.1. Building The DOM
-----------------------
+The next chapters describe how to port an existing Web Application,
+especially the DOM / HTML from frameworks like Bootstrap into *x0-format*.
 
-22.1.1. Recursive / Modern Approach
-***********************************
+Extended object modeling / programming reference see: ...
+
+27.2. Modern Approach
+---------------------
+
+Recursive
 
 - Main sysFactory.setupObjectRefsRecursive() detailed description
 
-22.1.2. Single Object Referencing
-*********************************
+Also see concrete Example, and multiple examples in /examples.
 
-Rest: Ref Object-Modeling!
+27.3. Simple Referencing
+------------------------
+
+27.4. Combining Modern / Simple
+-------------------------------

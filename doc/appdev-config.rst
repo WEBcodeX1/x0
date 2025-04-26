@@ -1,6 +1,6 @@
 .. _appdevconfig:
 
-3. Basic Configuration
+7. Basic Configuration
 ======================
 
 The following sections describe the most important system components:
@@ -10,7 +10,7 @@ The following sections describe the most important system components:
 * Application Server Configuration (app-config.json)
 * Application Metadata / Objects and Objects Reference Configuration
 
-3.1. Browser Content Areas
+7.1. Browser Content Areas
 --------------------------
 
 The *x0-systems* browser **Main Display Area** is divided into three
@@ -27,7 +27,7 @@ visible sections:
 
     Note the invisible screen layers; details are provided below.
 
-3.1.1. Menu Area
+7.1.1. Menu Area
 ****************
 
 The **x0-menu-area** is primarily intended to contain menu-related *x0-objects*
@@ -48,9 +48,9 @@ about content area positioning, see :ref:`content-area-positioning`.
 
     The **x0-menu-area** is not limited to *x0-object-type* **link** only; any
     *x0-object* can be referenced in ``menu.json``, for example, as an object container
-    (containing *x0-object-type* **link**) used for positioning.
+    (containing multiple *x0-object-type* **link**) used for positioning.
 
-3.1.2. Screen Area
+7.1.2. Screen Area
 ******************
 
 The **x0-screen-area** acts as the main content display area.
@@ -69,7 +69,7 @@ The following diagram shows what exactly happens on **x0-screen-switch**.
 .. image:: images/x0-screen-switch.png
   :alt: image - screen switch
 
-3.1.3. Notification Area
+7.1.7. Notification Area
 ************************
 
 The x0-notification-area displays web service status information during data
@@ -78,7 +78,7 @@ exchanges with the backend or external web service calls.
 DOM layer positioning can also be managed using CSS styles. For detailed
 information about content area positioning, refer to :ref:`content-area-positioning`.
 
-3.1.4. Object State Preservation
+7.1.4. Object State Preservation
 ********************************
 
 The *x0-system* guarantees 100% **content state preservation** during any system
@@ -93,7 +93,7 @@ its data, will remain exactly in the state it was in before switching.
 
 .. _content-area-positioning:
 
-3.1.5. Area Positioning / CSS
+7.1.5. Area Positioning / CSS
 *****************************
 
 Styling, including the positioning of **x0-menu-area**, **x0-screen-area**, and
@@ -113,7 +113,7 @@ for styling the **x0-menu-area** and **x0-screen-area**.
     CSS styles in 2025 are incredibly flexible. Additionally, Bootstrap simplifies this
     complexity and makes using the *x0-system* effortless.
 
-3.2. Database Configuration
+7.2. Database Configuration
 ---------------------------
 
 Basic *x0-application* configuration data is stored in the following system tables:
@@ -128,7 +128,7 @@ during a Docker image rebuild (see subsection ref:`appdeployment-docker`).
 
 .. _systemconfig:
 
-3.2.1. System Configuration
+7.2.1. System Configuration
 ***************************
 
 *x0-systems-configuration* data is stored in database table ``system.config``.
@@ -186,7 +186,7 @@ at the URL: http://x0-app.x0.localnet/python/Index.py.
     INSERT INTO system.config (config_group, "value") VALUES ('config_file_object', 'object.json');
     INSERT INTO system.config (config_group, "value") VALUES ('config_file_skeleton', 'skeleton.json');
 
-3.2.2. Display Text
+7.2.2. Display Text
 *******************
 
 Multilanguage display text is stored in the ``webui.text`` database table.
@@ -207,7 +207,7 @@ referenced in *x0-object-metadata* JSON configuration files.
     VALUES
     ('TXT.TEXTID.2', 'group1', 'English Text #2', 'German Text #2');
 
-3.2.3. Application ID
+7.2.7. Application ID
 *********************
 
 It is possible to append the HTTP GET parameter ``appid``, such as ``example2``,
@@ -230,7 +230,7 @@ for this to function correctly.
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'config_file_object', 'object.json');
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'config_file_skeleton', 'skeleton.json');
 
-3.3. Application Configuration
+7.7. Application Configuration
 ------------------------------
 
 The following elements can be defined inside the ``/config/app-config.json``
@@ -250,7 +250,7 @@ configuration file:
 
     Environments are not supported by *x0-standalone* or *x0-docker* deployments.
 
-3.3.1. Database Authentication
+7.7.1. Database Authentication
 ******************************
 
 The following database users will be created during the Docker *x0-db* image build.
@@ -268,7 +268,7 @@ The following database users will be created during the Docker *x0-db* image bui
     | repl_password                 | replication     | Kubegres Replication User Auth PWD  |
     +-------------------------------+-----------------+-------------------------------------+
 
-3.3.2. Virtual Hosts
+7.7.2. Virtual Hosts
 ********************
 
 For each Virtual Host configured in the JSON vhosts property, an
@@ -295,13 +295,13 @@ Virtual Host (Hello World output).
     and *x0-docker* deployments. Only the *x0-kubernetes* deployment supports a
     fully automated workflow.
 
-3.3.3. x0-Applications
+7.7.7. x0-Applications
 **********************
 
 Defining multiple *x0-applications* is supported only by the x0-kubernetes deployment.
 For more details, refer to :ref:`appdeployment-kubernetes`.
 
-3.3.4. Default Config
+7.7.4. Default Config
 *********************
 
 The following is the current default configuration of x0-systems.
@@ -339,7 +339,7 @@ The following is the current default configuration of x0-systems.
         }
     }
 
-3.3.4. JSON Schema
+7.7.4. JSON Schema
 ******************
 
 1. JSON Header
@@ -366,7 +366,7 @@ The following is the current default configuration of x0-systems.
 	| vhosts              | Object of VHElements | Virtual Host Elements / Configuration           |
 	+---------------------+----------------------+-------------------------------------------------+
 
-3. $VhostConfig "apps" Property
+7. $VhostConfig "apps" Property
 
 .. table:: $VhostConfig "apps" Property
 	:widths: 30 20 50
@@ -392,7 +392,7 @@ The following is the current default configuration of x0-systems.
 	| dns.domain          | Domain String        | DNS Domain used for hostname.domain FQDN        |
 	+---------------------+----------------------+-------------------------------------------------+
 
-3.4. Application Metadata
+7.4. Application Metadata
 -------------------------
 
 The configuration files ``object.json``, ``skeleton.json``, and ``menu.json`` in the *x0-framework* adopt
@@ -422,7 +422,7 @@ of their roles and functionality:
         3. Supports recursive setup of objects using methods like setupObject in ``sysScreen``.
         4. Allows dynamic adjustment of attributes (e.g., overwriting or replacing attributes at runtime).
 
-3. menu.json
+7. menu.json
 
     * Purpose:
         - Configures menu elements and their behavior within the application.
@@ -447,7 +447,7 @@ These configuration files enable modular and scalable application development by
 
 .. _object-json:
 
-3.4.1. Object
+7.4.1. Object
 *************
 
 The declaration of *x0-object* takes place in the ``object.json`` configuration
@@ -478,7 +478,7 @@ described in detail here: :ref:`system-objects`.
 
 .. _skeleton-json:
 
-3.4.2. Skeleton
+7.4.2. Skeleton
 ***************
 
 *x0-screen* and *x0-object* relation declarations are defined in the ``skeleton.json``
@@ -549,7 +549,7 @@ referenced to ``Object1``.
 
 .. _menu-json:
 
-3.4.3. Menu
+7.4.7. Menu
 ***********
 
 Declarations inside the ``menu.json`` configuration file only reference object data
@@ -574,7 +574,7 @@ is connected to the menu root, and ``Object2`` is connected or referenced to ``O
         }
     }
 
-3.5. Metadata ElementID
+7.5. Metadata ElementID
 -----------------------
 
 Some *x0-objects* define elements inside the ``object.json`` file.
@@ -590,7 +590,7 @@ The following example demonstrates how to reference *x0-tabs* defined in
 Example #3 (http://x0-app.x0.localnet/python/Index.py?appid=example3)
 provides a working example.
 
-3.5.1. Example object.json
+7.5.1. Example object.json
 **************************
 
 .. code-block:: javascript
@@ -625,7 +625,7 @@ provides a working example.
         }
     }
 
-3.5.2. Example skeleton.json
+7.5.2. Example skeleton.json
 ****************************
 
 .. code-block:: javascript
@@ -657,7 +657,9 @@ provides a working example.
         ]
     }
 
-3.6. Object Templates
+.. _appdevconfig-object-templates:
+
+7.6. Object Templates
 ---------------------
 
 To integrate **user-based** *x0-object-templates* (programmed user-based *x0-system-objects*),
@@ -667,7 +669,7 @@ the ``template_file`` and ``setup_class`` configuration parameters must be speci
 
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'template_file', 'TemplateObject1.js');
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'template_file', 'TemplateObject2.js');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'template_file', 'TemplateObject3.js');
+    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'template_file', 'TemplateObject7.js');
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'setup_class', '["TemplateClass"] = TemplateClass');
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'setup_class', '["TemplateClassOther"] = TemplateClassOther');
     INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'setup_class', '["TemplateClassInfo"] = TemplateClassInfo');
