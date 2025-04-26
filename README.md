@@ -124,7 +124,7 @@ See [./kubernetes/README.md](./kubernetes/README.md).
 
 *x0-system* is licensed under the AGPL-3.0 license.
 
-## 11. Technically
+## 11. Technical Details
 
 Detailed installation instructions can be found in [./INSTALL.md](./INSTALL.md)
 and the subdirectory **README.md** files.
