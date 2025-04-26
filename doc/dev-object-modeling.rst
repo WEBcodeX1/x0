@@ -19,9 +19,9 @@ continuing:
 - Event Handler / Callbacks
 - Building Object Structure (DOM)
 - Modifying Runtime Data
-- Object Realtime Updates
+- Object Realtime Updating
 - Object Initialization
-- Adding Context Menu Functionality
+- Context Menu Functionality
 
 26.1.1. Base Classes / Inheritance
 **********************************
