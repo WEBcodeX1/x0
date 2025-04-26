@@ -657,6 +657,8 @@ provides a working example.
         ]
     }
 
+.. _appdevconfig-object-templates:
+
 7.6. Object Templates
 ---------------------
 

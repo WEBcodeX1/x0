@@ -142,7 +142,7 @@ state on runtime.
 - RuntimeSetData()
 - RuntimeAppendData()
 
-26.1.6. Working with Realtime Objects
+26.1.6. Working With Realtime Objects
 *************************************
 
 When designing realtime objects, the procedure of removing
@@ -170,14 +170,102 @@ See :ref:``.
 26.1.7. Object Loading / Initialization
 ***************************************
 
+Any to the *x0-core* registered object provides the following properties.
+
 1. init()
 
-26.1.8.Adding Context Menu Functionality
-****************************************
+AN objects ``init()`` method will be called on *x0-system-init* (browser page
+load). Process initialization logic here.
 
-1. Add Event Listener init()
-2. Setup Context Menu
-3. Eventually extend
+2. JSONConfig.Attributes
+
+The objects instance JSON configuration also will be processed on *x0-system-init*
+(browser page load) and bound to the objects live-time.
+
+Design the objects configuration data by using ``JSONConfig.Attributes`` at
+the right places.
+
+26.1.8. Adding Context Menu Functionality
+*****************************************
+
+Sometime you want to add Context Menu Functionality to your object.
+
+The example code is taken from ``sysObjDynRadioList.js`` which provides
+a additional Context Menu for row removal on right-click.
+
+1. Add Event Listener / Callbacks
+
+In objects ``init()`` method, initialize Event Listener and Callbacks.
+
+.. code-block:: javascript
+
+    sysObjName.prototype.init = function()
+    {
+        if (this.JSONConfig.Attributes.CtxtMenu == true) {
+            var EventListenerObj = new Object();
+            EventListenerObj['Type'] = 'mousedown';
+            EventListenerObj['Element'] = this.EventListenerRightClick.bind(this);
+            this.EventListeners['ContextMenuOpen'] = EventListenerObj;
+        }
+    }
+
+2. Callback Code
+
+.. code-block:: javascript
+
+    sysObjName.prototype.EventListenerRightClick = function(Event)
+    {
+        var ContextMenuItems = [
+            {
+                "ID": "Remove",
+                "TextID": "TXT.CONTEXTMENU.METHOD.REMOVE",
+                "IconStyle": "fa-solid fa-paste",
+                "InternalFunction": "remove"
+            }
+        ];
+
+        //- check for right click on mousedown
+        if (Event.button == 2 && ContextMenuItems !== undefined) {
+
+            var ContextMenu = new sysContextMenu();
+
+            ContextMenu.ID 					= 'CtMenu_' + this.ObjectID;
+            ContextMenu.ItemConfig 			= ContextMenuItems;
+            ContextMenu.ScreenObject 		= sysFactory.getScreenByID(sysFactory.CurrentScreenID);
+            ContextMenu.ParentObject 		= this;
+            ContextMenu.pageX 				= Event.pageX;
+            ContextMenu.pageY 				= Event.pageY;
+
+            ContextMenu.init();
+        }
+    }
+
+26.1.9. Object Registration
+***************************
+
+After object-modeling has been finished, it must be added to the *x0-system*.
+
+1. User Object Runtime-Import
+
+See :ref:`appdevconfig-object-templates`.
+
+2. System Core Object
+
+Core *x0-system-objects* will be registered in ``sysFactory.js`` and must be added
+to ``this.SetupClasses`` Object.
+
+.. code-block:: javascript
+
+    this.SetupClasses = {
+            "TabContainer": sysTabContainer,
+    }
+
+26.1.10. Additional Examples
+****************************
+
+Check addtional realtime processing code
+
+- ``sysRTPagination.js``
 
 26.2. Building an Object Like sysObjDynRadioList.js
 ---------------------------------------------------
