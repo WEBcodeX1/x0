@@ -8,19 +8,22 @@
 22.1. sysBaseObject.removeParent
 --------------------------------
 
-- Purpose
+22.1.1. Purpose
+***************
 
 The removeParent() method is used to remove an object's parent relationship and its
 associated DOM elements. This ensures that the object is detached from its parent both
 logically (in the object hierarchy) and visually (in the DOM).
 
-- Method Signature
+22.1.2. Method Signature
+************************
 
 .. code-block:: javascript
 
     sysBaseObject.prototype.removeParent = function()
 
-- How It Works
+22.1.3. How It Works
+********************
 
     * DOM Element Removal:
         Checks if the DOM element associated with the object exists.
@@ -33,7 +36,8 @@ logically (in the object hierarchy) and visually (in the DOM).
     * Error Handling:
         Catches and logs any errors that occur during the removal process.
 
-- Usage Example
+22.1.4. Usage Example
+*********************
 
 Suppose you have a hierarchical structure of objects (e.g., a parent object with multiple children).
 If you need to remove a parent object along with its DOM representation, you can call the removeParent() method.
@@ -44,7 +48,8 @@ If you need to remove a parent object along with its DOM representation, you can
     const parentObject = sysFactory.getObjectByID('parent-id');
     parentObject.removeParent();
 
-- Code Walkthrough
+22.1.5. Code Walkthrough
+************************
 
 .. code-block:: javascript
 
@@ -65,7 +70,8 @@ If you need to remove a parent object along with its DOM representation, you can
         }
     };
 
-- Key Points
+22.1.6. Key Points
+******************
 
     1. DOM Management:
         Ensures that any associated DOM elements are properly removed to avoid memory leaks.
@@ -76,7 +82,8 @@ If you need to remove a parent object along with its DOM representation, you can
     3. Error Resilience:
         Handles potential errors gracefully, ensuring that the application remains stable.
 
-- When to Use
+22.1.7. When to Use
+*******************
 
     - Use removeParent() when you need to:
         Detach an object and its associated DOM element from the object hierarchy.

@@ -5,8 +5,7 @@
 25. Developing Examples
 =======================
 
-After module
-
+Building examples is similar to building tests described in the last chapter.
 
 - structure
   - app config (database)

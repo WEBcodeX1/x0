@@ -5,6 +5,8 @@
 21. OOP Model
 =============
 
+.. _devoopmodel_base:
+
 21.1. Base OOP Inheritance Model
 --------------------------------
 
@@ -18,13 +20,15 @@ and object instantiation across the framework.
 
 Defined in `sysBaseObject.js`.
 
-- Purpose
+21.2.1. Purpose
+***************
 
 `sysBaseObject` serves as the foundational class for all objects in the x0 framework.
 It provides core functionalities like DOM manipulation, child-parent relationships,
 and object lifecycle management.
 
-- Key Features
+21.2.1. Key Features
+********************
 
     1. Inheritance:
         * Inherits from sysBaseDOMElement to provide DOM-related functionality.
@@ -33,7 +37,8 @@ and object lifecycle management.
     3. Lifecycle Management:
         * Methods for initialization, rendering, event processing, and removal of objects.
 
-- Core Methods
+21.2.1. Core Methods
+********************
 
     - addObject(ChildObject):
         * Adds a child object to the ChildObjects array and establishes a parent-child relationship.
@@ -55,13 +60,15 @@ and object lifecycle management.
 
 Defined in `sysFactory.js`.
 
-- Purpose
+21.3.1. Purpose
+***************
 
 `sysFactory` acts as the central factory for creating, managing, and interacting
 with *x0-system-objects*. It provides utility methods for object instantiation,
 screen management, and event handling.
 
-- Key Features
+21.3.2. Key Features
+********************
 
     1. Object Instantiation:
         * Creates and initializes objects based on predefined configurations.
@@ -70,7 +77,8 @@ screen management, and event handling.
     3. Utility Methods:
         * Provides methods for fetching objects by ID, attribute, or type.
 
-- Core Methods
+21.3.3. Core Methods
+********************
 
     - setupObjectRefsRecursive(ObjDefs, RefObj):
         * Recursively sets up objects and their relationships based on hierarchical definitions.
@@ -86,12 +94,14 @@ screen management, and event handling.
 
 Defined in `sysReactor.js`.
 
-- Purpose
+21.4.1. Purpose
+***************
 
 sysReactor is responsible for managing and dispatching events within the system.
 It allows objects to register and respond to events dynamically.
 
-- Key Features
+21.4.2. Key Features
+********************
 
     1. Event Registration:
         * Allows objects to register events with specific attributes and types.
@@ -100,7 +110,8 @@ It allows objects to register and respond to events dynamically.
     3. Dynamic Interaction:
         * Supports various event types, including ServiceConnector and custom types.
 
-- Core Methods
+21.4.3. Core Methods
+********************
 
     - registerEvent(Attributes, ProcessObject, Type):
         * Registers an event with the reactor by associating it with an object and attributes.
@@ -109,7 +120,8 @@ It allows objects to register and respond to events dynamically.
     - fireEvents(FireEvents):
         * Fires a list of events by dispatching them sequentially.
 
-- Relationships and Interactions
+21.4.4. Relationships and Interactions
+**************************************
 
     1. Objects and Factory:
         Objects (sysBaseObject instances) are created and initialized using sysFactory.setupObjectRefsRecursive.
@@ -123,7 +135,7 @@ It allows objects to register and respond to events dynamically.
         Events are registered with the reactor using registerEvent.
         When an event is triggered, dispatchEvent identifies the target object and invokes the appropriate handler.
 
-21.4.1. Example Workflow
+21.4.5. Example Workflow
 ************************
 
 Scenario: Creating and Managing a Screen with Dynamic Objects
@@ -140,7 +152,7 @@ Scenario: Creating and Managing a Screen with Dynamic Objects
     4. Event Dispatching:
         Trigger events using sysReactor.dispatchEvent, which invokes the respective handlers.
 
-21.4.2. Conclusion
+21.4.6. Conclusion
 ******************
 
 The x0 framework's base OOP inheritance model, with `sysBaseObject`, `sysFactory`,
