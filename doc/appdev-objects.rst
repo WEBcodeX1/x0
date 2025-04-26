@@ -23,9 +23,8 @@ Currently the following *x0-system-objects* are usable inside ``object.json``.
 10.1. Div
 ---------
 
-The ``Div`` *x0-object-type* is the most simple one.
-
-It simply generates a DOM layer with variable CSS class attribute.
+The ``Div`` *x0-object-type* is the simplest of all.
+It generates a DOM layer with a configurable CSS class attribute.
 
 10.1.1. Object Attributes
 *************************
@@ -64,7 +63,7 @@ It simply generates a DOM layer with variable CSS class attribute.
 10.2. SQLText
 -------------
 
-The ``SQLText`` *x0-object-type* renders a (multilanguage) text defined in *x0-system-db*
+The ``SQLText`` *x0-object-type* renders a multilingual text retrieved from the *x0-system-db*
 ``webui.text`` table.
 
 10.2.1. Object Attributes
