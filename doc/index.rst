@@ -20,6 +20,7 @@ x0 Framework Documentation v1.0rc1
    appdev-deployment
    dev-architecture
    dev-oop-model
+   dev-oop-classes
    dev-backend
    dev-tests
    dev-examples

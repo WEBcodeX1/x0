@@ -2,17 +2,17 @@
 
 .. _devbackend:
 
-18. Backend Development
+23. Backend Development
 =======================
 
-18.1. XMLRPC Callbacks
+23.1. XMLRPC Callbacks
 ----------------------
 
 The ``sysXMLRPCRequest.js`` file in the *x0-framework* implements the core functionality
 for handling XML-RPC (Remote Procedure Call) requests, supporting both synchronous and
 asynchronous operations. Below is an overview of its concept:
 
-18.1.1. Key Concepts
+23.1.1. Key Concepts
 ********************
 
     * Purpose:
@@ -53,7 +53,7 @@ asynchronous operations. Below is an overview of its concept:
     * x0-object Callback:
         1. Always execute the *x0-systems* ``callbackXMLRPCAsync`` callback method in the caller *x0-object*.
 
-18.1.2. Example Workflow
+23.1.2. Example Workflow
 ************************
 
     * A request is initialized using the ``sysCallXMLRPC`` constructor with a target URL and optional parameters.
@@ -61,42 +61,86 @@ asynchronous operations. Below is an overview of its concept:
     * The Request method is called with a target object containing data and ``callbackXMLRPCAsync`` callback method.
     * In asynchronous mode, the server response is processed, parsed, and passed to the callback function for further action.
 
-18.1.3. Getting Backend Data
+23.1.3. Getting Backend Data
 ****************************
 
-*x0-application-developer* and *x0-systems-developer* roles always should use
-*x0-service-connector* and *x0-source-data-objects* in the following situations:
+*x0-application-developer* and *x0-systems-developer* roles should always use *x0-service-connector*
+and *x0-source-data-objects* in the following situations:
 
 - Developing *x0-applications*
 - Modeling *x0-system-objects*
 
-Never use ``sysXMLRPCRequest`` directly.
+Direct usage of `sysXMLRPCRequest` is discouraged and should only be done when developing the
+*x0-core-system*. See :ref:`devbackend-nested-rpc` for more details on nested *x0-system* XML-RPC calls.
 
-Only on developing the *x0-core-system* it is advisable to do this; also subsection 18.1.5.
-(Nested RPC Requests) is relevant for *x0-core-system* development.
-
-18.1.4. Error Handling
+23.1.4. Error Handling
 **********************
 
-- JSON result schema
-- AsynNotifyIndicator ref
+A backend service must return the following JSON syntax when an error has occured:
 
-18.1.5. Nested RPC Requests
+.. code-block:: javascript
+
+    "Result": {
+        "Error": True
+        "Exception": "Exception String / Description"
+    }
+
+If *x0-service* handling is configured correctly, the ``AsynNotifyIndicator``
+:ref:`appdev-backend-notify` uses the error-metadata to display error information.
+
+If no error has occured, the ``Error`` and ``Exception`` properties have to
+be ommited.
+
+.. code-block:: javascript
+
+    "Result": {
+    }
+
+.. _devbackend-nested-rpc:
+
+23.1.5. Nested RPC Requests
 ***************************
 
-Only for x0-core-system.
+Only relevant for *x0-core-system* development.
 
-Sometimes multiple / nested XML-RPC requests ...
+Sometimes multiple / nested (pseudo-synchronous) XML-RPC requests are necessary.
 
-18.1.6. Debugging Information
+23.1.6. Debugging Information
 *****************************
+
+If something misbehaves drastically, first check Browser JS Console
+log / debug messages for relevant debugging keywords.
+
+If this wont help, try to comment exception handling in the following
+files:
 
 - ``sysXMLRPCRequest.js``
 - ``sysReactor.js``
+- ``sysFactory.js``
+- ``sysScreen.js``
 
-- Debugging Keywords (debug-log)
-
-18.2. JSON Schemas
+23.2. JSON Schemas
 ------------------
 
-How-to define JSON schmemas for *x0-system-objects* ...
+JSON schemas define the structure and validation rules for *x0-system-objects*.
+Properly defining JSON schemas ensures consistency and reduces runtime errors.
+
+23.2.1. How to Define JSON Schemas
+**********************************
+
+1. **Schema Structure:**
+   Define the schema for each *x0-system-object*, including required fields, data types, and default values.
+2. **Validation:**
+   Use JSON schema validation tools to enforce correctness during development and runtime.
+3. **Examples:**
+   Provide example JSON schemas in the documentation to guide developers.
+
+23.2.2. Best Practices
+**********************
+
+1. **Version Control:**
+   Maintain versioned schemas to handle backward compatibility.
+2. **Consistency:**
+   Ensure all schemas follow the same conventions and naming patterns.
+3. **Documentation:**
+   Document the purpose and structure of each schema for easy reference.

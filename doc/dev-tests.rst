@@ -2,64 +2,68 @@
 
 .. _devtests:
 
-19. Developing Tests
+24. Developing Tests
 ====================
 
 Tests are an essential component for ensuring the stability of newly designed
-*x0-system-objects* and the base system, especially after major system program
-changes.
+*x0-system-objects* and the base system, especially after major system changes.
 
 The *x0-system* design enables you to locally simulate the entire *x0-infrastructure*
-using Docker images (including the ``x0-test`` image) in no time, thereby offloading
-valuable CPU execution time. This approach ensures that only one developer executes a
+using Docker images (including the ``x0-test`` image) in minimal time, thereby offloading
+valuable CPU resources. This approach ensures that only one developer executes a
 single infrastructure run, rather than multiplying the load by the number of developers,
 reducing strain on the Git CI system's server.
 
-As a developer you are strongly advised to write sufficient tests and add them to the
-``/tests`` subdirectory. Read on this chapter howto do this in detail.
+As a developer, you are strongly encouraged to write sufficient tests and add them to the
+``/tests`` subdirectory. This chapter provides detailed instructions on how to do so.
 
-Howto build the x0-test image and run the tests inside, see :ref:`installation-tests-ci`.
+For information on building the `x0-test` image and running tests inside it, see
+:ref:`installation-tests-ci`.
 
-19.1. Test CI
+24.1. Test CI
 -------------
 
-Automated CI tests will be triggered on
-``git push --set-upstream origin current-release``
-(when pushing to the **current-release** branch).
+Automated CI tests are triggered on:
 
-After the tests have passed, a snapshot of the branch will be named
+``git push --set-upstream origin current-release``
+
+This happens when pushing to the **current-release** branch.
+
+Once the tests pass, a snapshot of the branch will be created and named:
+
 ``/releases/${release-tag}``.
 
-19.2. Test Config
+24.2. Test Config
 -----------------
 
-A single test is devided in the following sub-parts:
+A single test consists of the following components:
 
 - Test Application (x0-app)
-- Test Controller Client (pytest / Selenium)
+- Test Controller Client (Pytest / Selenium)
 
-A single test always must include:
+Every test must include:
 
 - System Database Configuration
 - Application Metadata (object.json, skeleton.json, menu.json)
 
-A single (enhanced) test optionally includes:
+Optional components for enhanced tests:
 
 - Additional Database Data
 - Backend Scripts Returning App JSON Data
 
-19.2.1. Test Identifier
+24.2.1. Test Identifier
 ***********************
 
-A test must be given an identifier. It will be treated as a single independent
-*x0-application*. It is accessible like any other *x0-application* by ${test_id} via:
-http://x0-app.x0.localnet/python/Index.py?appid=${test_id}.
+Each test must have a unique identifier. It is treated as a standalone
+*x0-application* and is accessible like any other *x0-application* via:
 
-19.2.2. System Database Config
+http://x0-app.x0.localnet/python/Index.py?appid=${test_id}
+
+24.2.2. System Database Config
 ******************************
 
-The following db-config must be generated providing the test-identifier and all
-the test properties including test subdirectory.
+The following database configuration must be generated, providing the
+test identifier and all test properties, including the test subdirectory:
 
 .. code-block:: sql
 
@@ -73,50 +77,187 @@ the test properties including test subdirectory.
 	INSERT INTO system.config (app_id, config_group, "value") VALUES ('${test_id}', 'config_file_object', 'object.json');
 	INSERT INTO system.config (app_id, config_group, "value") VALUES ('${test_id}', 'config_file_skeleton', 'skeleton.json');
 
+Save this configuration in:
 ``./test/integration/config/${test_id}/sql/01-sys-config.sql``.
 
-19.2.3. App Metadata
+24.2.3. App Metadata
 ********************
 
-Like all other *x0-applications*, valid ``object.json``, ``skeleton.json`` and
-``menu.json`` must be provided.
+As with all *x0-applications*, the test requires valid ``object.json``, ``skeleton.json``,
+and ``menu.json`` files:
 
 * ``./test/integration/config/${test_id}/static/menu.json``
 * ``./test/integration/config/${test_id}/static/object.json``
 * ``./test/integration/config/${test_id}/static/skeleton.json``
 
-19.2.4. Test Global Data
+24.2.4. Test Global Data
 ************************
 
-If a test needs backend (Python) scripts, they must be added to the global
-Python script directory ``./test/integration/python/${script_name}.py``
+If a test requires backend (Python) scripts, they must be added to the global Python
+script directory: ``./test/integration/python/${script_name}.py``.
 
-19.2.5. Test Building
-*********************
+24.2.5. Building the Test
+*************************
 
-After your test *x0-application* configuration has been stored in the
-correct places, it must be built.
+After storing your test *x0-application* configuration in the correct locations,
+it must be built. This happens automatically when you build the `x0-test` container.
+Refer to the relevant section for instructions.
 
-This happens automatically when you build the *x0-test* container,
-see:
-
-19.2.6. Final Check
+24.2.6. Final Check
 *******************
 
-After the Test Application part has been finished, you should
-test if it is working correctly be opening it manually in the browser.
+After completing the Test Application setup, you should manually verify its functionality
+by opening it in a browser.
 
-19.3. Pytest / Selenium
+24.2.7. Documentation
+*********************
+
+Optional provide a ``README.md`` file.
+
+24.3. Pytest / Selenium
 -----------------------
 
-You should be familiar with Pytest and Selenium Framework.
+Familiarity with the Pytest and Selenium frameworks is essential for writing tests.
 
-Try to orient at already existing tests ...
+Use existing tests as references to guide your work.
 
-19.3.1. Pytest Naming Schema
+24.3.1. Pytest Naming Schema
 ****************************
 
-Test must be named ``./test/integration/test_${test_group}.py``.
+Pytest files must follow this naming convention:
+``./test/integration/test_${test_group}.py``.
 
-19.3.2. Selenium Config
-***********************
+24.3.2. Selenium Configuration
+******************************
+
+For Selenium-based tests, ensure you configure the Selenium WebDriver appropriately
+to match the test environment. Specify browser options and required URLs in the test
+configuration file to streamline execution. Example configurations can be found in
+existing Selenium test files.
+
+24.3.3. Python Hints
+********************
+
+- Always import these.
+
+.. code-block:: python
+
+	import os
+	import json
+	import time
+	import pytest
+	import logging
+
+- Mandatory, internal processing.
+
+.. code-block:: python
+
+	import globalconf
+
+- Basic Selenium imports.
+
+.. code-block:: python
+
+	from selenium import webdriver
+	from selenium.webdriver.common.by import By
+	from selenium.webdriver.common.keys import Keys
+	from selenium.webdriver.support.ui import WebDriverWait
+	from selenium.webdriver.support import expected_conditions as EC
+
+- Always use logging like this.
+
+.. code-block:: python
+
+	logging.basicConfig(level=logging.DEBUG)
+	logger = logging.getLogger()
+
+- Always init like this.
+
+.. code-block:: python
+
+	wd_options = webdriver.ChromeOptions()
+	wd_options.add_argument('ignore-certificate-errors')
+	wd_options.add_argument('headless')
+
+- The global conig() always must be defined like this.
+  ``scope='module'`` will tell the selenium driver to only use one single
+  tcp connection to the selenium-server and to reuse it for the complete test
+  run.
+
+.. code-block:: python
+
+	@pytest.fixture(scope='module')
+	def config():
+
+- Currently config() **must** contain in every ``.py`` test file.
+
+.. code-block:: python
+
+	@pytest.fixture(scope='module')
+	def config():
+
+		try:
+			run_namespace = os.environ['RUN_NAMESPACE']
+		except Exception as e:
+			run_namespace = None
+
+		try:
+			run_kube_env = os.environ['KUBERNETES_SERVICE_HOST']
+		except Exception as e:
+			run_kube_env = None
+
+		try:
+			domain_suffix = '.' + run_namespace
+		except Exception as e:
+			domain_suffix = ''
+
+		if run_kube_env is not None:
+			domain_suffix += '.svc.cluster.local'
+
+		vhost_test_urls = globalconf.setup()
+
+		logger.info('test urls:{}'.format(vhost_test_urls))
+
+		selenium_server_url = 'http://selenium-server-0{}:4444'.format(domain_suffix)
+
+		logger.info('selenium server url:{}'.format(selenium_server_url))
+
+		wd = webdriver.Remote(
+			command_executor=selenium_server_url,
+			options=wd_options
+		)
+
+		config = {}
+		config["timeout"] = 10
+		config["driver"] = wd
+
+		get_url = '{}/python/Index.py?appid=test_base'.format(vhost_test_urls['x0-app'])
+
+		logger.info('test (get) url:{}'.format(get_url))
+
+		config["driver"].get(get_url)
+
+		return config
+
+- Always get the global driver data inside test method.
+
+.. code-block:: python
+
+	def test_method_name(self, config):
+		d, w = config["driver"], config["timeout"]
+		wait = WebDriverWait(d, w)
+
+- A common test class and method.
+
+.. code-block:: python
+
+	class TestGeneral:
+
+		def test_suspicious_id_null(self, config):
+			"""Find suspicious ID names containing the string null"""
+			d, w = config["driver"], config["timeout"]
+			wait = WebDriverWait(d, w)
+			elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, config["ready_selector"])))
+
+			elems = d.find_elements(By.XPATH, "//*[contains(@id,'null')]")
+			assert len(elems) == 0, 'Problematic string "null" found in one or more IDs'
