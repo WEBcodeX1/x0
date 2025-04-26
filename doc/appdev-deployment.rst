@@ -34,8 +34,8 @@ unnecessary effort.
 
 .. code-block:: bash
 
-	dpkg -i x0-db_0.99_all.deb
-	dpkg -i x-app_0.99_all.deb
+	dpkg -i x0-db_1.0_all.deb
+	dpkg -i x-app_1.0_all.deb
 
 .. _appdeployment-docker:
 
@@ -48,7 +48,15 @@ locally before more time-consuming Kubernetes administration tasks apply.
 A Minikube deployment also includes infrastructural / loadbalancing tests
 to ensure your application also behaves correctly on GKE.
 
-Steps for running tests.
+.. _appdeployment-tests:
+
+19.4. Test Image / Container
+----------------------------
+
+To run tests transparently on any environment, the *x0-infrastructure* is
+completely dockerized.
+
+The following steps will run all system tests:
 
 * Start Application Containers (x0-app, x0-db)
 * Start Selenium Server Container
@@ -64,7 +72,7 @@ Steps for running tests.
 	python3 ./run-selenium-server.py
 	sleep 10 && ./run-test-container.sh
 
-19.4. Docker on Windows
+19.5. Docker on Windows
 -----------------------
 
 * Final built images / containers also **run** on Windows 11 (Docker Desktop)
@@ -72,7 +80,7 @@ Steps for running tests.
 
 .. _appdeployment-kubernetes:
 
-19.5. Kubernetes
+19.6. Kubernetes
 ----------------
 
 The kubernetes installer will set up the following, depending on the
@@ -116,7 +124,7 @@ to check if your application runs on GKE is starting the setup for Minikube.
 	# run installer
 	python3 ./Setup.py
 
-19.5.1. Base Properties
+19.6.1. Base Properties
 ***********************
 
 Root properties.
@@ -140,7 +148,7 @@ Root properties.
 	| vhosts              | Object               | VHosts Object Declaration                       |
 	+---------------------+----------------------+-------------------------------------------------+
 
-19.5.2. Project Properties
+19.6.2. Project Properties
 **************************
 
 Project related properties.
@@ -158,7 +166,7 @@ Project related properties.
 	| git-repo            | Git-Repo String      | Git Repository (Docker Registry Ref)            |
 	+---------------------+----------------------+-------------------------------------------------+
 
-19.5.3. Installer Properties
+19.6.3. Installer Properties
 ****************************
 
 Installer related properties.
@@ -172,7 +180,7 @@ Installer related properties.
 	| type (installer)    | Enum InstallerString | "x0" or "debian-package" or "default"           |
 	+---------------------+----------------------+-------------------------------------------------+
 
-19.5.4. Database Properties
+19.6.4. Database Properties
 ***************************
 
 Database related properties.
@@ -192,7 +200,7 @@ Database related properties.
 	| repl_password       | DB-Password String   | Kubergres Replication Password                  |
 	+---------------------+----------------------+-------------------------------------------------+
 
-19.5.5. Environment Element
+19.6.5. Environment Element
 ***************************
 
 Environment Element related properties.
@@ -224,7 +232,7 @@ Environment Element related properties.
 	| $env.database.replicas                  | Integer              | Pods Replica Count                    |
 	+-----------------------------------------+----------------------+---------------------------------------+
 
-19.5.6. VirtualHost Element
+19.6.6. VirtualHost Element
 ***************************
 
 .. table:: Set up VirtualHost Element Properties

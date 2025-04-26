@@ -153,6 +153,8 @@ changes to take effect.
 After adding your user to the Docker group, you will be able to control the Docker engine
 from the CLI (shell) and start building.
 
+.. _installation_build_docker:
+
 6.4.4. Build
 ************
 
@@ -165,9 +167,7 @@ Build Debian packages and Docker images:
 
 	# build x0 docker images
 	cd ../docker
-	./build-x0-app.sh
-	./build-x0-db.sh
-	./build-x0-test.sh
+	./build-all.sh
 
 6.4.5. Start System
 *******************

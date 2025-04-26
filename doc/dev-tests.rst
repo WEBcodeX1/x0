@@ -17,9 +17,6 @@ reducing strain on the Git CI system's server.
 As a developer, you are strongly encouraged to write sufficient tests and add them to the
 ``/tests`` subdirectory. This chapter provides detailed instructions on how to do so.
 
-For information on building the `x0-test` image and running tests inside it, see
-:ref:`installation-tests-ci`.
-
 24.1. Test CI
 -------------
 
@@ -67,15 +64,15 @@ test identifier and all test properties, including the test subdirectory:
 
 .. code-block:: sql
 
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('${test_id}', 'index_title', 'x0 Test - ${test_description}');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('${test_id}', 'debug_level', '10');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('${test_id}', 'display_language', 'en');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('${test_id}', 'default_screen', 'Screen1');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('${test_id}', 'parent_window_url', 'null');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('${test_id}', 'subdir', '/test/${test_subdir}');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('${test_id}', 'config_file_menu', 'menu.json');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('${test_id}', 'config_file_object', 'object.json');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('${test_id}', 'config_file_skeleton', 'skeleton.json');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'index_title', 'x0 Test - ${test_description}');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'debug_level', '10');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'display_language', 'en');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'default_screen', 'Screen1');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'parent_window_url', 'null');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'subdir', '/test/${test_subdir}');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'config_file_menu', 'menu.json');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'config_file_object', 'object.json');
+	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'config_file_skeleton', 'skeleton.json');
 
 Save this configuration in:
 ``./test/integration/config/${test_id}/sql/01-sys-config.sql``.
@@ -100,8 +97,10 @@ script directory: ``./test/integration/python/${script_name}.py``.
 *************************
 
 After storing your test *x0-application* configuration in the correct locations,
-it must be built. This happens automatically when you build the `x0-test` container.
-Refer to the relevant section for instructions.
+*x0-system* must be re-built. This happens automatically when you build all docker images.
+Refer to the relevant section :ref:`installation_build_docker` for instructions.
+
+See :ref:`appdeployment-tests` how to start tests after building.
 
 24.2.6. Final Check
 *******************
