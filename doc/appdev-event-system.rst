@@ -7,7 +7,6 @@
 
 13.1. Intro
 -----------
-
 Any *x0-system-object* getting backend data via *x0-service-connector* method
 is able to receive *x0-system-events*.
 

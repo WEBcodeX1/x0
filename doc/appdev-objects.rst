@@ -25,7 +25,7 @@ Currently the following *x0-system-objects* are usable inside ``object.json``.
 
 The ``Div`` *x0-object-type* is the most simple one.
 
-It simply generates a DOM layer with variable CSS class attribute(s).
+It simply generates a DOM layer with variable CSS class attribute.
 
 10.1.1. Object Attributes
 *************************
@@ -64,7 +64,8 @@ It simply generates a DOM layer with variable CSS class attribute(s).
 10.2. SQLText
 -------------
 
-The ``SQLText`` *x0-object-type* renders a (multilanguage) text defined in *x0-db*.
+The ``SQLText`` *x0-object-type* renders a (multilanguage) text defined in *x0-system-db*
+``webui.text`` table.
 
 10.2.1. Object Attributes
 *************************
@@ -198,8 +199,8 @@ Details see :ref:`appdevcontrolbutton`.
 10.4. ButtonInternal
 --------------------
 
-The ``ButtonInternal`` *x0-object-type* inherits ``Button`` *x0-object-type* and as the name
-implies its use is non-backend-service centric.
+The ``ButtonInternal`` *x0-object-type* inherits ``Button`` *x0-object-type* and, as the name suggests,
+is designed for use cases that are not centered around backend services.
 
 Details see :ref:`appdevcontrolbuttoninternal`.
 
@@ -244,8 +245,8 @@ Details see :ref:`appdevcontrolbuttoninternal`.
 10.5. Link
 ----------
 
-The ``Link`` *x0-object-type* compared to ``Button`` *x0-object-type* is non-form oriented and
-controls internal control-flow.
+The ``Link`` *x0-object-type* unlike the Button x0-object-type, is not form-oriented and is primarily
+used to manage internal control flow..
 
 10.5.1. Object Attributes
 *************************
@@ -278,7 +279,7 @@ controls internal control-flow.
 10.6. LinkExternal
 ------------------
 
-The ``LinkExternal`` *x0-object-type* controls howto open external URLs.
+The ``LinkExternal`` *x0-object-type* manages the behavior for opening external URLs.
 
 10.6.1. Object Attributes
 *************************
@@ -317,10 +318,11 @@ The ``LinkExternal`` *x0-object-type* controls howto open external URLs.
 10.7. List
 ----------
 
-The ``List`` *x0-object-type* renders a HTML-like table object.
-It uses Bootstrap Grid CSS, **not** ``<table><tr><td>`` html syntax.
+The ``List`` *x0-object-type* renders a table-like HTML structure using Bootstrap's Grid CSS,
+avoiding the traditional ``<table><tr><td>`` HTML syntax for a more modern and flexible layout.
 
-Also it provides *x0-realtime-container* and *x0-context-menu* functionality.
+Additionally, it incorporates advanced features such as *x0-realtime-container*
+for dynamic updates and *x0-context-menu* for enhanced user interaction.
 
 10.7.1. Object Attributes
 *************************
@@ -377,12 +379,12 @@ Also it provides *x0-realtime-container* and *x0-context-menu* functionality.
 10.7.4. Grid Attributes
 ***********************
 
-Also Global Grid Attributes can be applied, see :ref:`appdevglobalgrid`.
+Global Grid Attributes can be applied, see :ref:`appdevglobalgrid`.
 
 10.7.5. Context Menu
 ********************
 
-Also Global Conetxt Menu Attributes can be applied, see :ref:`appdevglobalcontextmenu`.
+Global Context Menu Attributes can be applied, see :ref:`appdevglobalcontextmenu`.
 
 10.7.6. Backend JSON Schema
 ***************************
@@ -418,8 +420,9 @@ The following runtime-features are supported.
 10.8. TabContainer
 ------------------
 
-The ``TabContainer`` *x0-object-type* provides a realtime switchable object container.
-It also preserves object-state recursive like any other *x0-object-type*.
+The ``TabContainer`` *x0-object-type* offers a real-time switchable object container,
+enabling seamless transitions between different views or components. Like all *x0-object-types*,
+it preserves object states recursively, ensuring continuity and consistency across interactions.
 
 .. code-block:: bash
 
@@ -471,7 +474,8 @@ It also preserves object-state recursive like any other *x0-object-type*.
 10.9. FileUpload
 ----------------
 
-The ``FileUpload`` *x0-object-type* provides a file picking dialog and a upload progress display.
+The ``FileUpload`` *x0-object-type* provides a file selection dialog along with a visually
+intuitive upload progress indicator.
 
 10.9.1. Object Attributes
 *************************
@@ -511,7 +515,7 @@ The ``FileUpload`` *x0-object-type* provides a file picking dialog and a upload 
 10.10. ErrorContainer
 ---------------------
 
-The ``ErrorContainer`` *x0-object-type* is intended to displays info / error messages.
+The ``ErrorContainer`` *x0-object-type* is designed to display informational and error messages.
 
 10.10.1. Object Attributes
 **************************
@@ -548,10 +552,11 @@ None.
 11.1. FormfieldList
 -------------------
 
-The ``FormfieldList`` *x0-object-type* acts as a *x0-form* management and *x0-object* container.
+The ``FormfieldList`` *x0-object-type* serves as both a *x0-form* management tool
+and a *x0-object-container*.
 
-It provides enhanced *x0-form-validation* and is referencable from multiple *x0-control-flow*
-modifying *x0-object-type*.
+It offers advanced *x0-form-validation* capabilities and can be referenced by multiple
+*x0-control-flow-modifying* *x0-object-types*.
 
 More info at :ref:`appdevforms`.
 
@@ -601,7 +606,7 @@ More info at :ref:`appdevforms`.
 11.1.4. Grid Attributes
 ***********************
 
-Also Global Grid Attributes can be applied, see :ref:`appdevglobalgrid`.
+Global Grid Attributes can be applied, see :ref:`appdevglobalgrid`.
 
 11.1.5. Runnable Example
 ************************
@@ -613,7 +618,7 @@ Also Global Grid Attributes can be applied, see :ref:`appdevglobalgrid`.
 11.2. FormfieldText
 -------------------
 
-The ``FormfieldText`` *x0-object-type* renders a HTML form input type ``text`` element.
+The ``FormfieldText`` *x0-object-type* renders an HTML ``<input>`` element of type ``text``.
 
 11.2.1. Object Attributes
 *************************
@@ -666,7 +671,7 @@ The ``FormfieldText`` *x0-object-type* renders a HTML form input type ``text`` e
 11.3. FormfieldLabel
 --------------------
 
-The ``FormfieldLabel`` *x0-object-type* renders a HTML form input type ``label`` element.
+The ``FormfieldLabel`` *x0-object-type* renders an HTML ``<label>`` element for form inputs.
 
 11.3.1. Object Attributes
 *************************
@@ -693,7 +698,7 @@ The ``FormfieldLabel`` *x0-object-type* renders a HTML form input type ``label``
 11.4. FormfieldTextarea
 -----------------------
 
-The ``FormfieldTextarea`` *x0-object-type* renders a HTML form ``textarea`` element.
+The ``FormfieldTextarea`` *x0-object-type* renders an HTML ``<textarea>`` element for form inputs.
 
 11.4.1. Object Attributes
 *************************
@@ -730,8 +735,8 @@ The ``FormfieldTextarea`` *x0-object-type* renders a HTML form ``textarea`` elem
 11.5. FormfieldPulldown
 -----------------------
 
-The ``FormfieldPulldown`` *x0-object-type* renders a fixed HTML form ``select`` element
-including options.
+The ``FormfieldPulldown`` *x0-object-type* renders a static HTML ``<select>`` element with
+predefined options.
 
 11.5.1. Object Attributes
 *************************
@@ -770,12 +775,14 @@ including options.
 11.6. FormfieldDynPulldown
 --------------------------
 
-The ``FormfieldDynPulldown`` *x0-object-type*  renders a dynamic (backend data) HTML form
-``select`` element including ``options``.
+The ``FormfieldDynPulldown`` *x0-object-type*  renders renders a dynamic HTML ``<select>`` element
+with options populated from backend data. This allows for flexible and dynamic selection based on
+server-side content.
 
 .. note::
 
-    It is the only *x0-object* getting backend data not by *x0-service-connector* mechanism.
+    Unlike other *x0-object-types*, it retrieves backend data directly, bypassing the typical
+    *x0-service-connector* mechanism.
 
 11.6.1. Object Attributes
 *************************
@@ -800,7 +807,7 @@ The ``FormfieldDynPulldown`` *x0-object-type*  renders a dynamic (backend data) 
 11.7. FormfieldCheckbox
 -----------------------
 
-The ``FormfieldCheckbox`` *x0-object-type* renders a HTML form ``checkbox`` element.
+The ``FormfieldCheckbox`` *x0-object-type* renders an HTML ``<input>`` element of type ``checkbox``.
 
 11.7.1. Object Attributes
 *************************
@@ -823,8 +830,8 @@ The ``FormfieldCheckbox`` *x0-object-type* renders a HTML form ``checkbox`` elem
 11.8. FormfieldHidden
 ---------------------
 
-The ``FormfieldHidden`` *x0-object-type* renders a non-visible HTML form ``hidden`` element
-very seldomly used to pass non-visible form data to backend services.
+The ``FormfieldHidden`` *x0-object-type* renders a non-visible HTML ``<input>`` element of type
+``hidden``, which is rarely used to pass hidden form data to backend services.
 
 11.8.1. Object Attributes
 *************************
