@@ -21,7 +21,7 @@ closer to the functionality of *real* desktop apps.
 
 ## 3. Quick Start
 
-To see the x0-system in action immediately, download the following Docker images:
+To see the *x0-system* in action immediately, download the following Docker images:
 
 ```bash
 # clone the repository
