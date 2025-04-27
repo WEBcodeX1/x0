@@ -11,19 +11,19 @@
 --------------------------------
 
 This documentation section outlines the inheritance and interaction model between
-the foundational components of the x0 JavaScript framework: `sysBaseObject`, `sysFactory`,
-and `sysReactor`. These components enable object-oriented design, event management,
+the foundational components of the x0 JavaScript framework: ``sysBaseObject``, ``sysFactory``,
+and ``sysReactor``. These components enable object-oriented design, event management,
 and object instantiation across the framework.
 
 21.2. Core Base Object
 ----------------------
 
-Defined in `sysBaseObject.js`.
+Defined in ``sysBaseObject.js``.
 
 21.2.1. Purpose
 ***************
 
-`sysBaseObject` serves as the foundational class for all objects in the x0 framework.
+``sysBaseObject`` serves as the foundational class for all objects in the x0 framework.
 It provides core functionalities like DOM manipulation, child-parent relationships,
 and object lifecycle management.
 
@@ -31,7 +31,7 @@ and object lifecycle management.
 ********************
 
     1. Inheritance:
-        * Inherits from sysBaseDOMElement to provide DOM-related functionality.
+        * Inherits from ``sysBaseDOMElement`` to provide DOM-related functionality.
     2. Child-Parent Relationships:
         * Supports hierarchical object structures with methods to add, render, and manage child objects.
     3. Lifecycle Management:
@@ -41,15 +41,15 @@ and object lifecycle management.
 ********************
 
     - addObject(ChildObject):
-        * Adds a child object to the ChildObjects array and establishes a parent-child relationship.
+        * Adds a child object to the ``ChildObjects[]`` array and establishes a parent-child relationship.
     - renderObject(Prefix):
         * Renders the object and its children recursively by creating and appending DOM elements.
     - processEventListener():
         * Sets up event listeners for the object and its children.
     - connectServiceConnectorObjects():
-        * Establishes connections for objects of type ServiceConnector.
+        * Establishes connections for objects of type *ServiceConnector*.
     - getObjectByID(ObjectID):
-        * Searches for and returns an object by its ObjectID.
+        * Searches for and returns an object by its ``ObjectID``.
     - remove():
         * Removes the object from its parent's child list and deletes its DOM element.
     - removeParent():
@@ -58,12 +58,12 @@ and object lifecycle management.
 21.3. Object Factory
 --------------------
 
-Defined in `sysFactory.js`.
+Defined in ``sysFactory.js``.
 
 21.3.1. Purpose
 ***************
 
-`sysFactory` acts as the central factory for creating, managing, and interacting
+``sysFactory`` acts as the central factory for creating, managing, and interacting
 with *x0-system-objects*. It provides utility methods for object instantiation,
 screen management, and event handling.
 
@@ -92,12 +92,12 @@ screen management, and event handling.
 21.4. Event Reactor
 -------------------
 
-Defined in `sysReactor.js`.
+Defined in ``sysReactor.js``.
 
 21.4.1. Purpose
 ***************
 
-sysReactor is responsible for managing and dispatching events within the system.
+``sysReactor`` is responsible for managing and dispatching events within the system.
 It allows objects to register and respond to events dynamically.
 
 21.4.2. Key Features
@@ -124,15 +124,15 @@ It allows objects to register and respond to events dynamically.
 **************************************
 
     1. Objects and Factory:
-        Objects (sysBaseObject instances) are created and initialized using sysFactory.setupObjectRefsRecursive.
+        Objects (``sysBaseObject`` instances) are created and initialized using ``sysFactory.setupObjectRefsRecursive``.
         The factory manages object hierarchies and facilitates inter-object communication.
 
     2. Objects and Reactor:
-        Objects register events with the sysReactor and respond to dispatched events.
+        Objects register events with the ``sysReactor`` and respond to dispatched events.
         The reactor interacts with various object types, including ServiceConnector for backend service calls.
 
     3. Event Flow:
-        Events are registered with the reactor using registerEvent.
+        Events are registered with the reactor using ``registerEvent``.
         When an event is triggered, dispatchEvent identifies the target object and invokes the appropriate handler.
 
 21.4.5. Example Workflow
@@ -141,21 +141,21 @@ It allows objects to register and respond to events dynamically.
 Scenario: Creating and Managing a Screen with Dynamic Objects
 
     1. Factory Initialization:
-        Use sysFactory.addScreen to create a new screen and add it to the factory.
+        Use ``sysFactory.addScreen`` to create a new screen and add it to the factory.
 
     2. Object Setup:
-        Define object hierarchies using ObjDefs and pass them to sysFactory.setupObjectRefsRecursive.
+        Define object hierarchies using ``ObjDefs`` and pass them to ``sysFactory.setupObjectRefsRecursive``.
 
     3. Event Registration:
-        Register events for objects using sysReactor.registerEvent.
+        Register events for objects using ``sysReactor.registerEvent``.
 
     4. Event Dispatching:
-        Trigger events using sysReactor.dispatchEvent, which invokes the respective handlers.
+        Trigger events using ``sysReactor.dispatchEvent``, which invokes the respective handlers.
 
 21.4.6. Conclusion
 ******************
 
-The x0 framework's base OOP inheritance model, with `sysBaseObject`, `sysFactory`,
-and `sysReactor`, provides a robust foundation for building dynamic, event-driven
+The x0 framework's base OOP inheritance model, with ``sysBaseObject``, ``sysFactory``,
+and ``sysReactor``, provides a robust foundation for building dynamic, event-driven
 applications. By leveraging these components, developers can create modular,
 maintainable, and scalable systems.
