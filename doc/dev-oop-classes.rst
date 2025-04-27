@@ -165,21 +165,21 @@ and encapsulates all rendering logic for both parent and child objects.
 22.4. sysBaseObject.removeParent
 --------------------------------
 
-22.1.1. Purpose
+22.4.1. Purpose
 ***************
 
 The ``removeParent()`` method is used to remove an object's parent relationship and its
 associated DOM elements. This ensures that the object is detached from its parent both
 logically (in the object hierarchy) and visually (in the DOM).
 
-22.1.2. Method Signature
+22.4.2. Method Signature
 ************************
 
 .. code-block:: javascript
 
     sysBaseObject.prototype.removeParent = function()
 
-22.1.3. How It Works
+22.4.3. How It Works
 ********************
 
     * DOM Element Removal:
@@ -193,7 +193,7 @@ logically (in the object hierarchy) and visually (in the DOM).
     * Error Handling:
         Catches and logs any errors that occur during the removal process.
 
-22.1.4. Usage Example
+22.4.4. Usage Example
 *********************
 
 Suppose you have a hierarchical structure of objects (e.g., a parent object with multiple children).
@@ -205,7 +205,7 @@ If you need to remove a parent object along with its DOM representation, you can
     const parentObject = sysFactory.getObjectByID('parent-id');
     parentObject.removeParent();
 
-22.1.5. Code Walkthrough
+22.4.5. Code Walkthrough
 ************************
 
 .. code-block:: javascript
@@ -227,7 +227,7 @@ If you need to remove a parent object along with its DOM representation, you can
         }
     };
 
-22.1.6. Key Points
+22.4.6. Key Points
 ******************
 
     1. DOM Management:
@@ -239,21 +239,21 @@ If you need to remove a parent object along with its DOM representation, you can
     3. Error Resilience:
         Handles potential errors gracefully, ensuring that the application remains stable.
 
-22.1.7. When to Use
+22.4.7. When to Use
 *******************
 
     - Use removeParent() when you need to:
         Detach an object and its associated DOM element from the object hierarchy.
         Clean up resources associated with an object.
 
-22.x. sysFactory.setupObjectRefsRecursive
+22.5. sysFactory.setupObjectRefsRecursive
 -----------------------------------------
 
 The ``sysFactory.setupObjectRefsRecursive()`` method is a utility method in the *x0-framework*
 designed to create and configure hierarchical object structures. It recursively processes
 object definitions, initializes objects, and establishes parent-child relationships.
 
-22.x.1. Purpose
+22.5.1. Purpose
 ***************
 
 The purpose of ``setupObjectRefsRecursive`` is to:
@@ -263,14 +263,14 @@ The purpose of ``setupObjectRefsRecursive`` is to:
     * Establish parent-child relationships between objects.
     * Allow nested objects to be recursively processed and added to their respective parents.
 
-22.x.2. Function Signature
+22.5.2. Function Signature
 **************************
 
 .. code-block:: javascript
 
     sysFactory.prototype.setupObjectRefsRecursive = function(ObjDefs, RefObj)
 
-22.x.3. Parameters
+22.5.3. Parameters
 ******************
 
     - ObjDefs:
@@ -279,7 +279,7 @@ The purpose of ``setupObjectRefsRecursive`` is to:
     - RefObj:
         The parent object to which the processed objects will be added as children.
 
-22.x.4. Example
+22.5.4. Example
 ***************
 
 .. code-block:: javascript
@@ -299,7 +299,7 @@ The purpose of ``setupObjectRefsRecursive`` is to:
         }
     ]
 
-22.x.5. How It Works
+22.5.5. How It Works
 ********************
 
     1. Iterate Through ObjDefs:
@@ -320,7 +320,7 @@ The purpose of ``setupObjectRefsRecursive`` is to:
     5. Process Nested Objects:
         If the current object contains additional nested objects (ObjectDefs), the function recursively calls itself, passing the nested definitions and the current object as the new parent.
 
-22.x.6. Code Walkthrough
+22.5.6. Code Walkthrough
 ************************
 
 .. code-block:: javascript
@@ -349,7 +349,7 @@ The purpose of ``setupObjectRefsRecursive`` is to:
         }
     }
 
-22.x.7. Example Usage
+22.5.7. Example Usage
 *********************
 
 - Scenario:
@@ -398,7 +398,7 @@ You want to create a parent container with a button and a nested text field.
     A container (sysObjDiv) is created with a button (sysObjButton) and a text field (sysFormfieldItemText) nested inside it.
     Each object is initialized, configured, and added to its parent.
 
-22.x.8. Key Features
+22.5.8. Key Features
 ********************
 
     1. Recursive Object Setup:
@@ -414,7 +414,7 @@ You want to create a parent container with a button and a nested text field.
     4. Error Handling:
         Catches initialization errors without disrupting the overall process.
 
-22.x.9. Important Notes
+22.5.9. Important Notes
 ***********************
 
     * Object Definitions:
@@ -429,9 +429,45 @@ You want to create a parent container with a button and a nested text field.
     * Performance:
         For deeply nested hierarchies, the recursive nature of the function may impact performance. Optimize object definitions to minimize unnecessary nesting.
 
-22.x.10. Conclusion
+22.5.10. Conclusion
 *******************
 
 The setupObjectRefsRecursive method is a powerful utility for dynamically creating and
 configuring hierarchical object structures in the *x0-framework*. By leveraging this method,
 developers can efficiently build complex UI components with minimal manual effort.
+
+.. _devoopmodel-classes-buttoncallback:
+
+22.6. sysObjButtonCallback
+--------------------------
+
+The file ``sysObjButtonCallback.js`` defines a system object called ``sysObjButtonCallback``,
+which extends the functionality of a button element with callback capabilities.
+
+This object is designed to create buttons with custom callbacks, making it easier to handle
+button-specific actions in a modular and object-oriented way.
+
+22.6.1. Key Features and Methods
+********************************
+
+    1. Constructor (``sysObjButtonCallback``):
+        Initializes the object with:
+            * ``DOMType``: Set to 'button', indicating it represents a button element.
+            * ``DOMAttributes``: An object for storing HTML attributes for the button.
+            * ``EventListeners``: An object to store event listeners.
+            * ``ChildObjects``: An array for managing child objects.
+
+    2. Inheritance:
+        - Inherits from ``sysBaseObject``.
+        - Inherits methods from ``sysObjButton``, such as:
+            * init: Presumably initializes the button.
+            * ``addEventListenerClick``: Adds a click event listener.
+
+    3. setCallback Method:
+        Allows you to define a callback by setting:
+            * ``CBObject``: The object that will process the callback.
+            * ``CBFunction``: The function to be called.
+            * ``CBArgs``: Additional arguments for the callback.
+
+    4. EventListenerClick Method:
+        Handles the click event by invoking the callback function (``CallbackFunction``) on the CallbackObject with the provided arguments (``CallbackArguments``).
