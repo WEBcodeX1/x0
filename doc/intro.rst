@@ -174,6 +174,19 @@ For the current milestones, see: https://github.com/WEBcodeX1/x0/milestones.
 5.1. Related Documentation
 --------------------------
 
+- Configuration / Application Setup
+    :ref:`appdevconfig`
+- Grid System
+    :ref:`appdevglobalgrid`
+- Developer Documentation (Chapters 20 - 27)
+    :ref:`devarchitecture`
+
 5.2. External Resources
 -----------------------
 
+- SPA (Single-page application)
+    https://developer.mozilla.org/en-US/docs/Glossary/SPA
+- Boostrap 5
+    https://getbootstrap.com/
+- Font Awesome
+    https://fontawesome.com/
