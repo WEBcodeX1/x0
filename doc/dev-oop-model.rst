@@ -51,9 +51,10 @@ and object lifecycle management.
     - getObjectByID(ObjectID):
         * Searches for and returns an object by its ``ObjectID``.
     - remove():
-        * Removes the object from its parent's child list and deletes its DOM element.
+        * Removes the object from its parent's child list and deletes its DOM element, Refer to :ref:`devoopmodel-classes-baseobj-remove`.
+
     - removeParent():
-        * See: :ref:``
+        * Refer to :ref:`devoopmodel-classes-baseobj-removeparent`.
 
 21.3. Object Factory
 --------------------

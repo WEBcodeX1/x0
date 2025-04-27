@@ -14,8 +14,8 @@ The ``sysBaseObject.addObject()`` method is responsible for adding a child objec
 ``ChildObjects`` array of a ``sysBaseObject`` instance. It also establishes the parent-child
 relationship by setting the ``ParentObject`` property of the child object.
 
-This method is a fundamental part of the sysBaseObject class, enabling the *x0-framework* to
-handle complex object relationships with ease.
+This method is a fundamental part of the ``sysBaseObject`` class, enabling the *x0-framework*
+to handle complex object relationships with ease.
 
 22.1.1. Implementation
 **********************
@@ -155,8 +155,12 @@ The ``renderObject()`` method is a fundamental part of the ``sysBaseObject`` cla
 and recursive rendering of object hierarchies in the *x0-framework*. It ensures efficient DOM manipulation
 and encapsulates all rendering logic for both parent and child objects.
 
+.. _devoopmodel-classes-baseobj-remove:
+
 22.3. sysBaseObject.remove
 --------------------------
+
+.. _devoopmodel-classes-baseobj-removeparent:
 
 22.4. sysBaseObject.removeParent
 --------------------------------
