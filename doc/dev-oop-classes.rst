@@ -471,3 +471,86 @@ button-specific actions in a modular and object-oriented way.
 
     4. EventListenerClick Method:
         Handles the click event by invoking the callback function (``CallbackFunction``) on the CallbackObject with the provided arguments (``CallbackArguments``).
+
+22.7. sysBaseDOMElement
+-----------------------
+
+Defined in ``sysBaseDOMElement.js``, which defines a base system object for handling DOM elements:
+
+22.7.1. Key Methods and Their Purpose
+*************************************
+
+    1. createDOMElement:
+        Creates a new DOM element based on the DOMType property and assigns it an ID.
+
+    2. setDOMAttribute:
+        Sets a specific attribute and its value for the DOM element.
+
+    3. appendDOMParentElement:
+        Appends the DOM element to either the body or a specified parent element.
+
+    4. removeDOMParentElement:
+        Removes the DOM element from its parent element (or body if no parent is defined).
+
+    5. removeDOMElement:
+        Deletes the DOM element from the document.
+
+    6. setDOMElementValue:
+        Updates the inner HTML of the DOM element based on the DOMValue property.
+
+    7. setDOMElementStyle:
+        Sets the CSS class of the DOM element using the DOMStyle property.
+
+    8. setDOMElementStyleAttributes:
+        Configures specific style attributes (e.g., top, left, width, etc.) for the DOM element.
+
+    9. setDOMElementZIndex:
+        Sets the z-index style property for the DOM element.
+
+    10.setDOMAttributes:
+        Applies multiple attributes to the DOM element based on the DOMAttributes property.
+
+    11.addDOMElementStyle:
+        Adds one or more CSS classes to the DOM element.
+
+    12.removeDOMElementStyle:
+        Removes specific CSS classes from the DOM element.
+
+    13.checkDOMHasStyle:
+        Checks if the DOM element has a specific CSS class.
+
+    14.getDOMStyleClasses:
+        Retrieves all CSS classes assigned to the DOM element.
+
+    15.setDOMStyleClasses:
+        Sets the CSS classes for the DOM element, replacing existing ones.
+
+    16.checkDOMElementExists:
+        Verifies if a DOM element with a specific ID exists in the document.
+
+    17.setDOMVisibleState:
+        Toggles the visibility of the DOM element between visible and hidden.
+
+    18.switchDOMVisibleState:
+        Switches the visibility state of the DOM element (e.g., from visible to hidden).
+
+    19.getDOMVisibleState:
+        Retrieves the current visibility state of the DOM element.
+
+    20.enableDOMElement:
+        Enables the DOM element (e.g., removes the disabled attribute).
+
+    21.disableDOMElement:
+        Disables the DOM element (e.g., sets the disabled attribute).
+
+    22.getDOMValue:
+        Retrieves the inner HTML content of the DOM element.
+
+    23.DOMaddEventListener:
+        Adds an event listener to the DOM element for a specified event type.
+
+    24.getDOMelement:
+        Retrieves the DOM element itself.
+
+    25.getElement:
+        Helper method to fetch the DOM element using its ID.
