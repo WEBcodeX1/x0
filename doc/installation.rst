@@ -155,7 +155,17 @@ from the CLI (shell) and start building.
 
 .. _installation_build_docker:
 
-6.4.4. Build
+6.4.4. Pull Docker Images
+*************************
+
+.. code-block:: bash
+
+    # pull docker images
+    docker pull ghcr.io/webcodex1/x0-app
+    docker pull ghcr.io/webcodex1/x0-db
+    docker pull ghcr.io/webcodex1/x0-test
+
+6.4.5. Build
 ************
 
 Build Debian packages and Docker images:
@@ -169,7 +179,7 @@ Build Debian packages and Docker images:
 	cd ../docker
 	./build-all.sh
 
-6.4.5. Start System
+6.4.6. Start System
 *******************
 
 .. code-block:: bash
@@ -177,7 +187,7 @@ Build Debian packages and Docker images:
 	# start x0 containers
 	cd ./docker && x0-start-containers.sh
 
-6.4.6. Develop / Rebuild
+6.4.7. Develop / Rebuild
 ************************
 
 Begin developing, creating, or experimenting.
