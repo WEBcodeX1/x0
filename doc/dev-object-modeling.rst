@@ -26,7 +26,7 @@ fundamentals:
 26.2. Base Classes / Inheritance
 --------------------------------
 
-The x0 framework follows a strict object-oriented approach. All custom *x0-system-objects*
+The *x0-framework* follows a strict object-oriented approach. All custom *x0-system-objects*
 must inherit from ``sysBaseObject`` in their prototypes.
 
 .. code-block:: javascript
@@ -170,7 +170,7 @@ Refer to: :ref:`devporting`.
 Also inherited from ``sysBaseObject``, this method removes the parent
 object and all its child objects from the DOM.
 
-Refer to: :ref:`refid` for further details.
+Refer to: :ref:`devoopmodel-classes-baseobj-removeparent` for further details.
 
 26.8. Object Loading / Initialization
 -------------------------------------
@@ -274,7 +274,7 @@ Check additional realtime processing code in the following system files:
 - ``sysRTPagination.js``
 
 26.12. Building an Object Like sysObjDynRadioList.js
----------------------------------------------------
+----------------------------------------------------
 
 This section explains how to create a dynamic system object similar to
 ``sysObjDynRadioList.js`` in the *x0-framework*. It focuses on the structure,
