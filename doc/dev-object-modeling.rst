@@ -194,13 +194,13 @@ To activate added event listeners:
 
     this.processEventListener();
 
-26.5.4. sysButtonCallback Object
-********************************
+26.5.4. sysObjButtonCallback Object
+***********************************
 
-The ``sysButtonCallback`` *x0-object* abstracts common button interactions.
+The ``sysObjButtonCallback`` *x0-object* abstracts common button interactions.
 It simplifies event handling for buttons.
 
-Refer to: :ref:`devporting`.
+Refer to: :ref:`devoopmodel-classes-buttoncallback`.
 
 26.6. Building DOM Object Structure
 -----------------------------------
