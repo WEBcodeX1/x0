@@ -1,6 +1,6 @@
 .. intro
 
-1. x0 JavaScript Frmaework
+1. x0 JavaScript Framework
 ==========================
 
 1.1. Introduction
