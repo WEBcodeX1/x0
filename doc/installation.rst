@@ -282,10 +282,7 @@ Build Debian packages, Docker images, and start *x0-system* containers.
 
 	# build container(s)
 	cd ../docker/
-
-	./x0-build-app.sh &
-	./x0-build-db.sh &
-	./x0-build-test.sh &
+	./build-all.sh
 
 	# start container(s)
 	./x0-start-containers.sh
