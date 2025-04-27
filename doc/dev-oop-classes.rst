@@ -108,14 +108,15 @@ description of its functionality:
 ********************
 
     1. DOM Object ID Generation:
-        The method generates a unique DOMObjectID for the object based on its ObjectID and an optional Prefix.
+        The method generates a unique DOMObjectID for the object based on its ObjectID and an optional ``Prefix``.
         If overrideDOMObjectID is true, the ObjectID is used directly as the DOMObjectID.
+        The optional ``Prefix`` should only be used internally on recursion, not as *outside* call.
 
     2. Conditional Rendering:
         Ensures that the object is rendered only if its corresponding DOM element does not already exist.
 
     3. DOM Element Creation and Configuration:
-        - Creates the required DOM element using createDOMElement() and appends it to the parent DOM element through appendDOMParentElement().
+        - Creates the required DOM element using ``createDOMElement()`` and appends it to the parent DOM element through ``appendDOMParentElement()``.
         - Configures the DOM element by setting attributes, values, styles, and visibility using various helper methods:
             * setDOMAttributes()
             * setDOMElementValue()
@@ -140,13 +141,17 @@ description of its functionality:
 
 .. code-block:: javascript
 
-    const parentObject = new sysBaseObject();
-    const childObject = new sysBaseObject();
+    var Object1 = new sysBaseObject();
+    Object1.ObjectID = 'BaseObject';
 
-    parentObject.addObject(childObject);
-    parentObject.renderObject('parentDOM');
+    var childObject = new sysBaseObject();
+    Object1.addObject(childObject);
+    //- Now Object1.ChildObjects[0] = childObjectRef
 
-... ...
+    Object1.renderObject();
+    //- this.createDOMElement(this.DOMObjectID);
+    //- this.appendDOMParentElement();
+    //- => recursive renders 2 DOM divs
 
 22.2.5. Conclusion
 ******************
