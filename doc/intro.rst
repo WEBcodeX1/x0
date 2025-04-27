@@ -1,7 +1,7 @@
 .. intro
 
-1. Title and Abstract
-=====================
+1. x0 JavaScript Frmaework
+==========================
 
 1.1. Introduction
 -----------------
