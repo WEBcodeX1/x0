@@ -26,7 +26,7 @@ be run and tests executed within.
 An authenticated maintainer must ensure to push the relevant images to ``ghcr.io/webcodex1/``
 before pushing to the ``current-release`` branch by:
 
-.. code-block:: sql
+.. code-block:: bash
 
 	git branch current-release
 	git checkout current-release
