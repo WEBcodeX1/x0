@@ -20,11 +20,17 @@ As a developer, you are strongly encouraged to write sufficient tests and add th
 24.1. Test CI
 -------------
 
-Automated CI tests are triggered on:
+On pushing to the ``current-release`` branch, current-release`s test-containers will
+be run and tests executed within.
 
-``git push --set-upstream origin current-release``
+An authenticated maintainer must ensure to push the relevant images to ``ghcr.io/webcodex1/``
+before pushing to the ``current-release`` branch by:
 
-This happens when pushing to the **current-release** branch.
+.. code-block:: bash
+
+	git branch current-release
+	git checkout current-release
+	git push --set-upstream origin current-release
 
 Once the tests pass, a snapshot of the branch will be created and named:
 
