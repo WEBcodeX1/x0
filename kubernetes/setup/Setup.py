@@ -24,7 +24,7 @@ app_config_file = '{}/app-config.json'.format(dir_x0_app_config)
 def log_message(log_prefix, msg):
     logging.info('{}:{}'.format(log_prefix, msg))
 
-def prepare_minikube_hyperv(os_type, subtype, driver, offline_install):
+def prepare_minikube(os_type, subtype, driver, offline_install):
 
     if os_type == 'mswindows' and subtype == 'minikube' and driver == 'hyperv' and offline_install is False:
 
@@ -439,7 +439,7 @@ if __name__ == '__main__':
     print("Install sub type:{}".format(install_subtype))
 
     # prepare win 
-    prepare_minikube_hyperv(os_type, install_subtype, minikube_driver, install_offline)
+    prepare_minikube(os_type, install_subtype, minikube_driver, install_offline)
 
     load_balancers = get_loadbalancers(CH)
     log_message(log_prefix, 'LoadBalancers:{}'.format(load_balancers))
