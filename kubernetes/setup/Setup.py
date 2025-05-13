@@ -24,7 +24,7 @@ app_config_file = '{}/app-config.json'.format(dir_x0_app_config)
 def log_message(log_prefix, msg):
     logging.info('{}:{}'.format(log_prefix, msg))
 
-def prepare_minikube_hyperv(os_type, subtype, driver, offline_install):
+def prepare_minikube(os_type, subtype, driver, offline_install):
 
     if os_type == 'mswindows' and subtype == 'minikube' and driver == 'hyperv' and offline_install is False:
 
@@ -67,6 +67,25 @@ def prepare_minikube_hyperv(os_type, subtype, driver, offline_install):
                 image_file
             )
             res = subprocess.run(cmd_image_load, shell=True)
+
+    if os_type == 'linux' and subtype == 'minikube' and driver == 'docker' and offline_install is False:
+
+        get_installer_cmd = 'curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64'
+        res = subprocess.run(get_installer_cmd, shell=True)
+
+        install_cmd = 'sudo install minikube-linux-amd64 /usr/local/bin/minikube'
+        res = subprocess.run(install_cmd, shell=True)
+
+        cmd_create_cluster = 'minikube start --driver=docker'
+        res = subprocess.run(cmd_create_cluster, shell=True)
+
+        res = subprocess.run('minikube addons enable registry', shell=True)
+        res = subprocess.run('minikube addons enable ingress', shell=True)
+        res = subprocess.run('minikube addons enable ingress-dns', shell=True)
+
+        res = subprocess.run('minikube image pull reactivetechio/kubegres:1.19', shell=True)
+        res = subprocess.run('minikube image pull postgres:14', shell=True)
+        res = subprocess.run('minikube image pull selenium/standalone-chrome:latest', shell=True)
 
 def gen_kubernetes_templates(ConfRef, environment, tpl_group='app'):
 
@@ -439,7 +458,7 @@ if __name__ == '__main__':
     print("Install sub type:{}".format(install_subtype))
 
     # prepare win 
-    prepare_minikube_hyperv(os_type, install_subtype, minikube_driver, install_offline)
+    prepare_minikube(os_type, install_subtype, minikube_driver, install_offline)
 
     load_balancers = get_loadbalancers(CH)
     log_message(log_prefix, 'LoadBalancers:{}'.format(load_balancers))

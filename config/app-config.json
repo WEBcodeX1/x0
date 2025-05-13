@@ -1,32 +1,61 @@
 {
     "project": {
-        "id": "x0-system",
+        "id": "x0",
         "name": "x0-base-system",
         "git-repo": "https://github.com/WEBcodeX1/x0/"
     },
     "installer": {
-        "type": "x0"
+        "type": "x0",
+        "subtype": "minikube",
+        "os:": "linux",
+        "minikube_driver": "docker"
     },
     "database": {
         "name": "x0",
         "su_password": "changeme",
-        "x0_password": "changeme"
+        "repl_password": "changeme",
+        "x0_password": "changeme",
+        "size": "50Mi",
+        "replicas": 1
     },
-    "env_list": [ "default" ],
+    "test": {
+        "selenium": {
+            "run_servers": 1,
+            "run_images": [
+                "chrome:latest"
+            ]
+        },
+        "testenvs": [ "test" ]
+    },
+    "env_list": [ "test" ],
+    "environments": {
+        "test": {
+            "kubernetes": {
+                "deployment": {
+                    "image": "x0-app",
+                    "replicas": 1,
+                    "cpu": "200m",
+                    "memory": "512Mi",
+                    "autoscale": false
+                },
+                "namespace": "x0-app",
+                "app_templates": [ "kubegres" ]
+            }
+        }
+    },
     "vhosts": {
         "x0-app": {
             "apps": [ "x0" ],
             "env": {
-                "default": {
-                    "dns": {
-                        "hostname": "x0-app",
-                        "domain": "x0.localnet"
-                    }
-                },
                 "test": {
                     "dns": {
                         "hostname": "x0-app",
                         "domain": "x0.localnet"
+                    },
+                    "ip": {
+                        "v4": {
+                            "dns_register": false
+                        }
                     }
                 }
             }

@@ -8,7 +8,7 @@ spec:
   automountServiceAccountToken: false
   containers:
   - name: test-run
-    image: docker.io/library/${x0_APP_ID}-test:latest
+    image: ghcr.io/webcodex1/${x0_APP_ID}-test:latest
     imagePullPolicy: IfNotPresent
     env:
     - name: RUN_NAMESPACE
