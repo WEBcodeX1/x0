@@ -8,6 +8,6 @@ spec:
   automountServiceAccountToken: false
   containers:
   - name: db-install
-    image: docker.io/library/${x0_DB_NAME}-db-install:latest
+    image: ghcr.io/webcodex1/${x0_DB_NAME}-db-install:latest
     imagePullPolicy: IfNotPresent
   restartPolicy: Never
