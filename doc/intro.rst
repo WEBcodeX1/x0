@@ -1,7 +1,7 @@
 .. intro
 
-1. x0 JavaScript Framework
-==========================
+1. x0 Framework
+===============
 
 1.1. Introduction
 -----------------

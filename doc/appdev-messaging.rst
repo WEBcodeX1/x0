@@ -71,6 +71,6 @@ in the source users browser as soon as possible.
 
 .. warning::
 
-    Also to simplify things mmessage deletion occurs immediately after processing
+    Also to simplify things, message deletion occurs immediately after processing
     on the messaging server side. This workflow is not acceptable in real-world
     scenarios, the deletion has to be re-triggered after receipt on client-side.
