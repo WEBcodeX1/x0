@@ -45,6 +45,7 @@ function sysFormFieldValidate()
 	//- validate functions
 	this.ValidateFunc =
 	{
+		'Float':							this.Float,
 		'MinMax':							this.MinMax,
 		'MaxLength':						this.MaxLength,
 		'IPAddress':						this.IPv4Address,
@@ -462,6 +463,27 @@ sysFormFieldValidate.prototype.DateGerman = function(Value)
 		return {
 			"Error": true,
 			"Message": ErrorMsgDateGerman
+		};
+	}
+
+	return false;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "Float"
+//------------------------------------------------------------------------------
+
+sysFormFieldValidate.prototype.Float = function(Value)
+{
+	const ErrorMsgFloatFormat = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.FLOAT-FORMAT-INCORRECT');
+
+	console.debug('CheckFloat Value:%s', Value);
+
+	if (Value.includes(',') || isNaN(parseFloat(Value)) )  {
+		return {
+			"Error": true,
+			"Message": ErrorMsgFloatFormat
 		};
 	}
 
