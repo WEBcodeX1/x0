@@ -16,7 +16,7 @@
 //------------------------------------------------------------------------------
 
 function sysObjBaseDiv() {
-	this.ChildObjects = Object(); //- recursive child menu items
+    this.ChildObjects = Object(); //- recursive child menu items
 }
 
 //- inherit sysBaseObject

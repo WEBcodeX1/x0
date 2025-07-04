@@ -16,8 +16,8 @@
 //------------------------------------------------------------------------------
 
 function sysObjDiv() {
-	this.EventListeners		= new Object(); 		//- Event Listeners
-	this.ChildObjects		= new Array();			//- Child Objects
+    this.EventListeners = new Object();         //- Event Listeners
+    this.ChildObjects   = new Array();          //- Child Objects
 }
 
 //- inherit sysBaseObject
@@ -30,18 +30,18 @@ sysObjDiv.prototype = new sysBaseObject();
 
 sysObjDiv.prototype.init = function() {
 
-	if (this.JSONConfig !== undefined) {
-		const Attributes = this.JSONConfig.Attributes;
+    if (this.JSONConfig !== undefined) {
+        const Attributes = this.JSONConfig.Attributes;
 
-		//- set dom type if given
-		this.DOMType = (Attributes.DOMType === undefined) ? 'div' : Attributes.DOMType;
+        //- set dom type if given
+        this.DOMType = (Attributes.DOMType === undefined) ? 'div' : Attributes.DOMType;
 
-		//- set dom value if given
-		this.DOMValue = (Attributes.Value === undefined) ? '' : Attributes.Value;
+        //- set dom value if given
+        this.DOMValue = (Attributes.Value === undefined) ? '' : Attributes.Value;
 
-		//- set dom style
-		this.DOMStyle = Attributes.Style;
-	}
+        //- set dom style
+        this.DOMStyle = Attributes.Style;
+    }
 }
 
 
@@ -51,13 +51,13 @@ sysObjDiv.prototype.init = function() {
 
 sysObjDiv.prototype.reset = function() {
 
-	try {
-		const Attributes = this.JSONConfig.Attributes;
-		if (Attributes.Reset !== undefined) {
-			this.DOMValue = '';
-			this.setDOMElementValue();
-		}
-	}
-	catch(err) {
-	}
+    try {
+        const Attributes = this.JSONConfig.Attributes;
+        if (Attributes.Reset !== undefined) {
+            this.DOMValue = '';
+            this.setDOMElementValue();
+        }
+    }
+    catch(err) {
+    }
 }

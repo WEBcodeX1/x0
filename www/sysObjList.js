@@ -17,28 +17,28 @@
 
 function sysListRow(ParentObject, RowIndex, RowData)
 {
-	this.EventListeners			= new Object(); 		//- Event Listeners
-	this.ChildObjects			= Array();				//- Child Objects
+    this.EventListeners            = new Object();            //- Event Listeners
+    this.ChildObjects              = Array();                 //- Child Objects
 
-	this.ParentObject			= ParentObject;			//- Parent Object
+    this.ParentObject              = ParentObject;            //- Parent Object
 
-	this.Index					= RowIndex;				//- Row Index
-	this.Selected				= false;				//- Selected Row
+    this.Index                     = RowIndex;                //- Row Index
+    this.Selected                  = false;                   //- Selected Row
 
-	this.RowData				= RowData;				//- Row Data Object
+    this.RowData                   = RowData;                 //- Row Data Object
 
-	this.ColItems				= new Array();			//- Col Item Objects
-	this.DynUpdateObjects		= new Array();			//- Dynamic Object Update Array
+    this.ColItems                  = new Array();             //- Col Item Objects
+    this.DynUpdateObjects          = new Array();             //- Dynamic Object Update Array
 
-	this.overrideDOMObjectID	= true;					//- Set ObjectID not recursive
+    this.overrideDOMObjectID       = true;                    //- Set ObjectID not recursive
 
-	this.GetDataResult			= null;					//- Reset GetDataResult
-	this.GetDataChildObjects	= new Array();			//- GetDataResult Child Objects Array
+    this.GetDataResult             = null;                    //- Reset GetDataResult
+    this.GetDataChildObjects       = new Array();             //- GetDataResult Child Objects Array
 
-	this.RuntimeGetDataFunc		= this.getRowData;		//- Get Runtime Data
-	this.RuntimeSetDataFunc		= undefined;			//- To be implemented
+    this.RuntimeGetDataFunc        = this.getRowData;         //- Get Runtime Data
+    this.RuntimeSetDataFunc        = undefined;               //- To be implemented
 
-	this.ObjectID				= 'TR_'+ ParentObject.ObjectID + '_' + RowIndex;
+    this.ObjectID = 'TR_'+ ParentObject.ObjectID + '_' + RowIndex;
 }
 
 sysListRow.prototype = new sysBaseObject();
@@ -50,15 +50,15 @@ sysListRow.prototype = new sysBaseObject();
 
 sysListRow.prototype.init = function()
 {
-	var EventListenerObj = new Object();
-	EventListenerObj['Type'] = 'mousedown';
-	EventListenerObj['Element'] = this.EventListenerRightClick.bind(this);
-	this.EventListeners['ContextMenuOpen'] = EventListenerObj;
+    var EventListenerObj = new Object();
+    EventListenerObj['Type'] = 'mousedown';
+    EventListenerObj['Element'] = this.EventListenerRightClick.bind(this);
+    this.EventListeners['ContextMenuOpen'] = EventListenerObj;
 
-	var EventListenerObj = new Object();
-	EventListenerObj['Type'] = 'mousedown';
-	EventListenerObj['Element'] = this.EventListenerSelect.bind(this);
-	this.EventListeners['RowSelect'] = EventListenerObj;
+    var EventListenerObj = new Object();
+    EventListenerObj['Type'] = 'mousedown';
+    EventListenerObj['Element'] = this.EventListenerSelect.bind(this);
+    this.EventListeners['RowSelect'] = EventListenerObj;
 }
 
 
@@ -68,27 +68,27 @@ sysListRow.prototype.init = function()
 
 sysListRow.prototype.EventListenerRightClick = function(Event)
 {
-	var ContextMenuItems = this.ParentObject.JSONConfig.Attributes.ContextMenuItems;
+    var ContextMenuItems = this.ParentObject.JSONConfig.Attributes.ContextMenuItems;
 
-	//- check for right click on mousedown
-	if (Event.button == 2 && ContextMenuItems !== undefined) {
+    //- check for right click on mousedown
+    if (Event.button == 2 && ContextMenuItems !== undefined) {
 
-		var ContextMenu = new sysContextMenu();
+        var ContextMenu = new sysContextMenu();
 
-		ContextMenu.ID 					= 'CtMenu_' + this.ParentObject.ObjectID;
-		ContextMenu.ItemConfig 			= ContextMenuItems;
-		ContextMenu.ScreenObject 		= this.ParentObject.ScreenObject;
-		ContextMenu.ParentObject 		= this;
-		ContextMenu.pageX 				= Event.pageX;
-		ContextMenu.pageY 				= Event.pageY;
+        ContextMenu.ID             = 'CtMenu_' + this.ParentObject.ObjectID;
+        ContextMenu.ItemConfig     = ContextMenuItems;
+        ContextMenu.ScreenObject   = this.ParentObject.ScreenObject;
+        ContextMenu.ParentObject   = this;
+        ContextMenu.pageX          = Event.pageX;
+        ContextMenu.pageY          = Event.pageY;
 
-		ContextMenu.RowData 			= this.RowData;
-		ContextMenu.RowDataIndex 		= this.Index;
+        ContextMenu.RowData        = this.RowData;
+        ContextMenu.RowDataIndex   = this.Index;
 
-		ContextMenu.RowObject 			= this;
+        ContextMenu.RowObject      = this;
 
-		ContextMenu.init();
-	}
+        ContextMenu.init();
+    }
 }
 
 
@@ -98,18 +98,18 @@ sysListRow.prototype.EventListenerRightClick = function(Event)
 
 sysListRow.prototype.EventListenerSelect = function(Event)
 {
-	if (this.ParentObject.RowsSelectable == true && Event.button == 0) {
-		var processed = false;
-		if (this.Selected == true) {
-			this.removeDOMElementStyle('text-bg-secondary');
-			this.Selected = false;
-			processed = true;
-		}
-		if (this.Selected == false && processed == false) {
-			this.addDOMElementStyle('text-bg-secondary');
-			this.Selected = true;
-		}
-	}
+    if (this.ParentObject.RowsSelectable == true && Event.button == 0) {
+        var processed = false;
+        if (this.Selected == true) {
+            this.removeDOMElementStyle('text-bg-secondary');
+            this.Selected = false;
+            processed = true;
+        }
+        if (this.Selected == false && processed == false) {
+            this.addDOMElementStyle('text-bg-secondary');
+            this.Selected = true;
+        }
+    }
 }
 
 
@@ -119,68 +119,68 @@ sysListRow.prototype.EventListenerSelect = function(Event)
 
 sysListRow.prototype.addColumns = function()
 {
-	const Attributes = this.ParentObject.JSONConfig.Attributes;
-	console.log('::addColumns ObjectID:%s Attributes:%o', this.ParentObject.ObjectID, Attributes);
+    const Attributes = this.ParentObject.JSONConfig.Attributes;
+    console.log('::addColumns ObjectID:%s Attributes:%o', this.ParentObject.ObjectID, Attributes);
 
-	for (const ColConfigItem of Attributes.Columns) {
+    for (const ColConfigItem of Attributes.Columns) {
 
-		const ColumnKey = ColConfigItem.ID;
-		var ColumnItem = new sysBaseObject();
+        const ColumnKey = ColConfigItem.ID;
+        var ColumnItem = new sysBaseObject();
 
-		try {
-			ColumnItem.ObjectID = ColumnKey + this.Index;
+        try {
+            ColumnItem.ObjectID = ColumnKey + this.Index;
 
-			const ColAttributes = ColConfigItem.Attributes;
+            const ColAttributes = ColConfigItem.Attributes;
 
-			if (ColAttributes !== undefined) {
-				var ColumnObj = new sysFactory.SetupClasses[ColAttributes.ObjectType]();
+            if (ColAttributes !== undefined) {
+                var ColumnObj = new sysFactory.SetupClasses[ColAttributes.ObjectType]();
 
-				if (ColAttributes.ObjectID !== undefined) {
-					ColumnObj.ObjectID = ColAttributes.ObjectID + this.Index;
-				}
-				else {
-					ColumnObj.ObjectID = this.ParentObject.ObjectID + ColumnItem.ObjectID + this.Index;
-				}
+                if (ColAttributes.ObjectID !== undefined) {
+                    ColumnObj.ObjectID = ColAttributes.ObjectID + this.Index;
+                }
+                else {
+                    ColumnObj.ObjectID = this.ParentObject.ObjectID + ColumnItem.ObjectID + this.Index;
+                }
 
-				ColumnObj.JSONConfig = {
-					"Attributes": ColConfigItem.Attributes
-				};
+                ColumnObj.JSONConfig = {
+                    "Attributes": ColConfigItem.Attributes
+                };
 
-				ColumnObj.ScreenObject = this.ParentObject.ScreenObject;
-				ColumnObj.ParentObject = this.ParentObject;
-				ColumnObj.ParentRow = this;
+                ColumnObj.ScreenObject = this.ParentObject.ScreenObject;
+                ColumnObj.ParentObject = this.ParentObject;
+                ColumnObj.ParentRow = this;
 
-				ColumnObj.init();
-				ColumnItem.addObject(ColumnObj);
+                ColumnObj.init();
+                ColumnItem.addObject(ColumnObj);
 
-				console.debug('ColAttributes:%o', ColAttributes);
+                console.debug('ColAttributes:%o', ColAttributes);
 
-				if (ColAttributes.SetObjectData == true) {
-					this.DynUpdateObjects.push(
-						[ ColumnObj.ObjectID, this.RowData[ColumnKey] ]
-					);
-				}
-			}
-			else if(ColConfigItem.IndexGenerator === true) {
-				const setValue = this.Index+1;
-				ColumnItem.DOMValue = setValue;
-				this.ParentObject.Data[this.Index][ColumnKey] = setValue;
-				this.RowData[ColumnKey] = setValue;
-			}
-			else {
-				ColumnItem.DOMValue = this.RowData[ColumnKey];
-			}
-		}
-		catch(err) {
-			ColumnItem.DOMValue = 'Error';
-			console.debug('::addColumns err:%s', err);
-		}
-		console.log('::addColumns Push ColItem DOMValue:%o', ColumnItem);
+                if (ColAttributes.SetObjectData == true) {
+                    this.DynUpdateObjects.push(
+                        [ ColumnObj.ObjectID, this.RowData[ColumnKey] ]
+                    );
+                }
+            }
+            else if(ColConfigItem.IndexGenerator === true) {
+                const setValue = this.Index+1;
+                ColumnItem.DOMValue = setValue;
+                this.ParentObject.Data[this.Index][ColumnKey] = setValue;
+                this.RowData[ColumnKey] = setValue;
+            }
+            else {
+                ColumnItem.DOMValue = this.RowData[ColumnKey];
+            }
+        }
+        catch(err) {
+            ColumnItem.DOMValue = 'Error';
+            console.debug('::addColumns err:%s', err);
+        }
+        console.log('::addColumns Push ColItem DOMValue:%o', ColumnItem);
 
-		ColumnItem.VisibleState = ColConfigItem.VisibleState;
+        ColumnItem.VisibleState = ColConfigItem.VisibleState;
 
-		this.ColItems.push(ColumnItem);
-	}
+        this.ColItems.push(ColumnItem);
+    }
 }
 
 
@@ -190,10 +190,10 @@ sysListRow.prototype.addColumns = function()
 
 sysListRow.prototype.updateColumnsValues = function()
 {
-	console.debug('this.DynUpdateObjects:%o', this.DynUpdateObjects);
-	for (const UpdateElement of this.DynUpdateObjects) {
-		sysFactory.getObjectByID(UpdateElement[0]).RuntimeSetDataFunc(UpdateElement[1]);
-	}
+    console.debug('this.DynUpdateObjects:%o', this.DynUpdateObjects);
+    for (const UpdateElement of this.DynUpdateObjects) {
+        sysFactory.getObjectByID(UpdateElement[0]).RuntimeSetDataFunc(UpdateElement[1]);
+    }
 }
 
 
@@ -203,7 +203,7 @@ sysListRow.prototype.updateColumnsValues = function()
 
 sysListRow.prototype.getRowData = function()
 {
-	return this.RowData;
+    return this.RowData;
 }
 
 
@@ -213,23 +213,23 @@ sysListRow.prototype.getRowData = function()
 
 sysListRow.prototype.genGrid = function()
 {
-	var GridGenerator = new sysGridGenerator(this.ColItems);
+    var GridGenerator = new sysGridGenerator(this.ColItems);
 
-	GridGenerator.init(
-		this.ParentObject.JSONConfig.Attributes.RowStyle,
-		this.ParentObject.JSONConfig.Attributes.ColStyle,
-		this.ParentObject.JSONConfig.Attributes.RowAfterElements,
-		undefined
-	);
+    GridGenerator.init(
+        this.ParentObject.JSONConfig.Attributes.RowStyle,
+        this.ParentObject.JSONConfig.Attributes.ColStyle,
+        this.ParentObject.JSONConfig.Attributes.RowAfterElements,
+        undefined
+    );
 
-	const RowItems = GridGenerator.generate();
-	console.debug('::genGrid RowItems:%o', RowItems);
+    const RowItems = GridGenerator.generate();
+    console.debug('::genGrid RowItems:%o', RowItems);
 
-	for (const RowItem of RowItems) {
-		this.addObject(RowItem);
-	}
+    for (const RowItem of RowItems) {
+        this.addObject(RowItem);
+    }
 
-	this.ParentObject.addObject(this);
+    this.ParentObject.addObject(this);
 }
 
 
@@ -239,14 +239,14 @@ sysListRow.prototype.genGrid = function()
 
 sysListRow.prototype.getColumnById = function(Column)
 {
-	for (Index in this.ColItems) {
-		const ColItem = this.ColItems[Index];
-		MatchId = 'Column' + Column + '_' + this.Index;
-		//console.debug('MatchId:%s ColObjectID:%s', MatchId, ColItem.ObjectID);
-		if (ColItem.ObjectID == MatchId) {
-			return ColItem;
-		}
-	}
+    for (Index in this.ColItems) {
+        const ColItem = this.ColItems[Index];
+        MatchId = 'Column' + Column + '_' + this.Index;
+        //console.debug('MatchId:%s ColObjectID:%s', MatchId, ColItem.ObjectID);
+        if (ColItem.ObjectID == MatchId) {
+            return ColItem;
+        }
+    }
 }
 
 
@@ -256,7 +256,7 @@ sysListRow.prototype.getColumnById = function(Column)
 
 sysListRow.prototype.remove = function()
 {
-	this.ParentObject.removeRow(this.Index);
+    this.ParentObject.removeRow(this.Index);
 }
 
 
@@ -266,7 +266,7 @@ sysListRow.prototype.remove = function()
 
 sysListRow.prototype.updateIndex = function(UpdateIndex)
 {
-	this.Index = UpdateIndex;
+    this.Index = UpdateIndex;
 }
 
 
@@ -276,33 +276,33 @@ sysListRow.prototype.updateIndex = function(UpdateIndex)
 
 function sysList()
 {
-	this.DisplayRows			= 10;											//- Display Row Count Default
+    this.DisplayRows              = 10;                                    //- Display Row Count Default
 
-	this.DataURL				= null;											//- getServiceData XMLRPC URL
-	this.DataURLParams			= '';											//- getServiceData XMLRPC URL Params
+    this.DataURL                  = null;                                  //- getServiceData XMLRPC URL
+    this.DataURLParams            = '';                                    //- getServiceData XMLRPC URL Params
 
-	this.RuntimeGetDataFunc		= this.getRuntimeData;							//- Get Runtime Data
-	this.RuntimeSetDataFunc		= this.appendData;								//- Set Runtime Data
-	this.RuntimeAppendDataFunc	= this.appendData;								//- Append Runtime Data
+    this.RuntimeGetDataFunc       = this.getRuntimeData;                   //- Get Runtime Data
+    this.RuntimeSetDataFunc       = this.appendData;                       //- Set Runtime Data
+    this.RuntimeAppendDataFunc    = this.appendData;                       //- Append Runtime Data
 
-	this.PostRequestData		= new sysRequestDataHandler();					//- Request Data Handler
+    this.PostRequestData          = new sysRequestDataHandler();           //- Request Data Handler
 
-	this.ServiceData			= new Array();									//- Data Array
-	this.RowItems				= new Array();									//- Row Objects Array
+    this.ServiceData              = new Array();                           //- Data Array
+    this.RowItems                 = new Array();                           //- Row Objects Array
 
-	this.NavPageIndex			= 0;											//- Selected Page/Navigation Index
-	this.UpdateCount			= 0;											//- Update Counter
+    this.NavPageIndex             = 0;                                     //- Selected Page/Navigation Index
+    this.UpdateCount              = 0;                                     //- Update Counter
 
-	this.Columns				= new Array();									//- Comlumns for fast query
+    this.Columns                  = new Array();                           //- Comlumns for fast query
 
-	this.ChildObjects			= new Array();									//- Child Objects
+    this.ChildObjects             = new Array();                           //- Child Objects
 
-	this.PaginationObject		= new sysPagination(this);						//- Pagination Processing
+    this.PaginationObject         = new sysPagination(this);               //- Pagination Processing
 
-	this.RowsSelectable			= true;											//- Multi Row Selection Default
+    this.RowsSelectable           = true;                                  //- Multi Row Selection Default
 
-	this.GetDataResult			= null;											//- Reset GetDataResult
-	this.GetDataResultChildren	= new Array();									//- GetDataResult Child Objects Array
+    this.GetDataResult            = null;                                  //- Reset GetDataResult
+    this.GetDataResultChildren    = new Array();                           //- GetDataResult Child Objects Array
 }
 
 sysList.prototype = new sysBaseObject();
@@ -321,11 +321,11 @@ sysList.prototype.processSourceObjects = sysSourceObjectHandler.prototype.proces
 
 sysList.prototype.getServiceData = function()
 {
-	this.resetData();
-	this.removeParent();
+    this.resetData();
+    this.removeParent();
 
-	RPC = new sysCallXMLRPC(this.DataURL, this.DataURLParams);
-	RPC.Request(this);
+    RPC = new sysCallXMLRPC(this.DataURL, this.DataURLParams);
+    RPC.Request(this);
 }
 
 
@@ -335,7 +335,7 @@ sysList.prototype.getServiceData = function()
 
 sysList.prototype.callbackXMLRPCAsync = function()
 {
-	this.update();
+    this.update();
 }
 
 
@@ -345,10 +345,10 @@ sysList.prototype.callbackXMLRPCAsync = function()
 
 sysList.prototype.update = function()
 {
-	this.UpdateCount++;
-	this.removeParent();
-	this.setUpdateResult();
-	this.renderPage();
+    this.UpdateCount++;
+    this.removeParent();
+    this.setUpdateResult();
+    this.renderPage();
 }
 
 
@@ -358,8 +358,8 @@ sysList.prototype.update = function()
 
 sysList.prototype.reset = function()
 {
-	this.resetData();
-	this.renderPage();
+    this.resetData();
+    this.renderPage();
 }
 
 
@@ -369,18 +369,18 @@ sysList.prototype.reset = function()
 
 sysList.prototype.init = function()
 {
-	//console.debug('::List init ObjectID:%s', this.ObjectID);
-	const Attributes = this.JSONConfig.Attributes;
+    //console.debug('::List init ObjectID:%s', this.ObjectID);
+    const Attributes = this.JSONConfig.Attributes;
 
-	if (Attributes !== undefined && Attributes.RowCount != null) {
-		this.DisplayRows = Attributes.RowCount;
-	}
+    if (Attributes !== undefined && Attributes.RowCount != null) {
+        this.DisplayRows = Attributes.RowCount;
+    }
 
-	if (Attributes !== undefined && Attributes.RowsSelectable != null) {
-		this.RowsSelectable = Attributes.RowsSelectable;
-	}
+    if (Attributes !== undefined && Attributes.RowsSelectable != null) {
+        this.RowsSelectable = Attributes.RowsSelectable;
+    }
 
-	this.DOMStyle = Attributes.Style;
+    this.DOMStyle = Attributes.Style;
 
     this.renderPage();
 }
@@ -392,48 +392,48 @@ sysList.prototype.init = function()
 
 sysList.prototype.setupHeader = function()
 {
-	const Columns = this.JSONConfig.Attributes.Columns;
+    const Columns = this.JSONConfig.Attributes.Columns;
 
-	var HeaderRowObj = new sysBaseObject();
-	HeaderRowObj.ObjectID = this.ObjectID+'HdrRow';
-	HeaderRowObj.DOMStyle = this.JSONConfig.Attributes.HeaderRowStyle;
-	AddRootObject = HeaderRowObj;
+    var HeaderRowObj = new sysBaseObject();
+    HeaderRowObj.ObjectID = this.ObjectID+'HdrRow';
+    HeaderRowObj.DOMStyle = this.JSONConfig.Attributes.HeaderRowStyle;
+    AddRootObject = HeaderRowObj;
 
-	this.addObject(HeaderRowObj);
+    this.addObject(HeaderRowObj);
 
-	for (const ColItem of Columns) {
+    for (const ColItem of Columns) {
 
-		const ColumnKey = ColItem.ID;
-		var ColObj = new sysBaseObject();
+        const ColumnKey = ColItem.ID;
+        var ColObj = new sysBaseObject();
 
-		ColObj.ObjectID = this.ObjectID+'Hdr' + ColumnKey;
+        ColObj.ObjectID = this.ObjectID+'Hdr' + ColumnKey;
 
-		if (ColItem.HeaderStyle !== undefined) {
-			ColObj.DOMStyle = ColItem.HeaderStyle;
-		}
+        if (ColItem.HeaderStyle !== undefined) {
+            ColObj.DOMStyle = ColItem.HeaderStyle;
+        }
 
-		if (ColItem.HeaderTextID !== undefined) {
+        if (ColItem.HeaderTextID !== undefined) {
 
-			var ColDisplayObj = new sysObjSQLText();
-			ColDisplayObj.ObjectID = ColObj.ObjectID + '_txt';
+            var ColDisplayObj = new sysObjSQLText();
+            ColDisplayObj.ObjectID = ColObj.ObjectID + '_txt';
 
-			ColDisplayObj.JSONConfig = {
-				"Attributes": {
-					"TextID": ColItem.HeaderTextID,
-					"IconStyle": ColItem.HeaderIconStyle
-				}
-			}
+            ColDisplayObj.JSONConfig = {
+                "Attributes": {
+                    "TextID": ColItem.HeaderTextID,
+                    "IconStyle": ColItem.HeaderIconStyle
+                }
+            }
 
-			ColDisplayObj.init();
-			ColObj.addObject(ColDisplayObj);
-		}
+            ColDisplayObj.init();
+            ColObj.addObject(ColDisplayObj);
+        }
 
-		HeaderRowObj.addObject(ColObj);
+        HeaderRowObj.addObject(ColObj);
 
-		ColObj.VisibleState = ColItem.VisibleState;
+        ColObj.VisibleState = ColItem.VisibleState;
 
-		this.Columns.push(ColumnKey);
-	}
+        this.Columns.push(ColumnKey);
+    }
 }
 
 
@@ -443,8 +443,8 @@ sysList.prototype.setupHeader = function()
 
 sysList.prototype.resetData = function()
 {
-	this.ServiceData = [];
-	this.NavPageIndex	= 0;
+    this.ServiceData = [];
+    this.NavPageIndex    = 0;
 }
 
 
@@ -454,11 +454,11 @@ sysList.prototype.resetData = function()
 
 sysList.prototype.setUpdateResult = function()
 {
-	for (ResultKey in this.XMLRPCResultData) {
-		this.ServiceData.push(this.XMLRPCResultData[ResultKey]);
-	}
+    for (ResultKey in this.XMLRPCResultData) {
+        this.ServiceData.push(this.XMLRPCResultData[ResultKey]);
+    }
 
-	//console.debug('::setUpdateResult this.ServiceData:%o', this.ServiceData);
+    //console.debug('::setUpdateResult this.ServiceData:%o', this.ServiceData);
 }
 
 
@@ -468,13 +468,13 @@ sysList.prototype.setUpdateResult = function()
 
 sysList.prototype.checkDouble = function(CheckValue)
 {
-	for (RowID in this.ServiceData) {
-		var RowData = this.ServiceData[RowID];
-		if (RowData[this.JSONConfig.Attributes.DoubleCheckColumn] == CheckValue) {
-			return false;
-		}
-	}
-	return true;
+    for (RowID in this.ServiceData) {
+        var RowData = this.ServiceData[RowID];
+        if (RowData[this.JSONConfig.Attributes.DoubleCheckColumn] == CheckValue) {
+            return false;
+        }
+    }
+    return true;
 }
 
 
@@ -484,39 +484,39 @@ sysList.prototype.checkDouble = function(CheckValue)
 
 sysList.prototype.renderPage = function()
 {
-	console.log('::renderPage Result Data:%o Object:%o UpdateCount:%d', this.ServiceData, this, this.UpdateCount);
+    console.log('::renderPage Result Data:%o Object:%o UpdateCount:%d', this.ServiceData, this, this.UpdateCount);
 
-	const Attributes = this.JSONConfig.Attributes;
+    const Attributes = this.JSONConfig.Attributes;
 
-	if (this.UpdateCount > 0) {
-		this.removeParent();
-	}
+    if (this.UpdateCount > 0) {
+        this.removeParent();
+    }
 
-	if (Attributes.DisableHeader === undefined || Attributes.DisableHeader === false) {
-		this.setupHeader();
-	}
+    if (Attributes.DisableHeader === undefined || Attributes.DisableHeader === false) {
+        this.setupHeader();
+    }
 
-	this.RowItems = [];
+    this.RowItems = [];
 
-	for (RowID in this.ServiceData) {
-		var RowData = this.ServiceData[RowID];
-		this.addRow(RowData, RowID);
-	}
+    for (RowID in this.ServiceData) {
+        var RowData = this.ServiceData[RowID];
+        this.addRow(RowData, RowID);
+    }
 
-	this.renderRows();
+    this.renderRows();
 
-	if (this.UpdateCount > 0) {
-		if (Attributes.Navigation !== undefined) {
-			this.PaginationObject.update();
-		}
-		//console.debug('############# renderObject() DOMObjectID:%s DOMParentID:%s ChildObjects:%o', this.DOMObjectID, this.DOMParentID, this.ChildObjects);
-		this.renderObject(this.DOMParentID);
-	}
+    if (this.UpdateCount > 0) {
+        if (Attributes.Navigation !== undefined) {
+            this.PaginationObject.update();
+        }
+        //console.debug('############# renderObject() DOMObjectID:%s DOMParentID:%s ChildObjects:%o', this.DOMObjectID, this.DOMParentID, this.ChildObjects);
+        this.renderObject(this.DOMParentID);
+    }
 
-	this.updateDynObjectValues();
+    this.updateDynObjectValues();
 
-	//- register event listeners
-	this.processEventListener();
+    //- register event listeners
+    this.processEventListener();
 }
 
 
@@ -526,12 +526,12 @@ sysList.prototype.renderPage = function()
 
 sysList.prototype.addRow = function(RowData, Index)
 {
-	var RowObj = new sysListRow(this, Number(Index), RowData);
+    var RowObj = new sysListRow(this, Number(Index), RowData);
 
-	RowObj.init();
-	RowObj.addColumns();
+    RowObj.init();
+    RowObj.addColumns();
 
-	this.RowItems.push(RowObj);
+    this.RowItems.push(RowObj);
 }
 
 
@@ -541,10 +541,10 @@ sysList.prototype.addRow = function(RowData, Index)
 
 sysList.prototype.removeRow = function(Index)
 {
-	console.debug('Remove Row Index:%s', Index);
-	this.RowItems.splice(Index, 1);
-	this.ServiceData.splice(Index, 1);
-	this.renderPage();
+    console.debug('Remove Row Index:%s', Index);
+    this.RowItems.splice(Index, 1);
+    this.ServiceData.splice(Index, 1);
+    this.renderPage();
 }
 
 
@@ -554,20 +554,20 @@ sysList.prototype.removeRow = function(Index)
 
 sysList.prototype.removeSelectedRows = function()
 {
-	var RemoveArray = new Array();
-	for (const Item of this.RowItems) {
-		if (Item.Selected == true) {
-			RemoveArray.push(Item.Index);
-		}
-	}
+    var RemoveArray = new Array();
+    for (const Item of this.RowItems) {
+        if (Item.Selected == true) {
+            RemoveArray.push(Item.Index);
+        }
+    }
 
-	for (var i = RemoveArray.length-1; i>=0; i--) {
-		console.debug('Remove Row selected Index:%s', RemoveArray[i]);
-		this.RowItems.splice(RemoveArray[i], 1);
-		this.ServiceData.splice(RemoveArray[i], 1);
-	}
+    for (var i = RemoveArray.length-1; i>=0; i--) {
+        console.debug('Remove Row selected Index:%s', RemoveArray[i]);
+        this.RowItems.splice(RemoveArray[i], 1);
+        this.ServiceData.splice(RemoveArray[i], 1);
+    }
 
-	this.renderPage();
+    this.renderPage();
 }
 
 
@@ -577,9 +577,9 @@ sysList.prototype.removeSelectedRows = function()
 
 sysList.prototype.renderRows = function()
 {
-	for (const Item of this.RowItems) {
-		Item.genGrid();
-	}
+    for (const Item of this.RowItems) {
+        Item.genGrid();
+    }
 }
 
 
@@ -589,9 +589,9 @@ sysList.prototype.renderRows = function()
 
 sysList.prototype.updateDynObjectValues = function()
 {
-	for (const Item of this.RowItems) {
-		Item.updateColumnsValues();
-	}
+    for (const Item of this.RowItems) {
+        Item.updateColumnsValues();
+    }
 }
 
 
@@ -601,17 +601,17 @@ sysList.prototype.updateDynObjectValues = function()
 
 sysList.prototype.getColumnItems = function(ColumnID)
 {
-	//console.debug('::getColumnItems ColumnID:%s RowItems:%o', ColumnID, this.RowItems);
-	var ReturnItems = new Array();
-	for (Index in this.RowItems) {
-		const Row = this.RowItems[Index];
-		const ColumnObject = Row.ObjectRef[ColumnID];
-		//console.debug('::getColumnItems ColumnObject:%o', ColumnObject);
-		if (ColumnObject !== undefined) {
-			ReturnItems.push(ColumnObject);
-		}
-	}
-	return ReturnItems;
+    //console.debug('::getColumnItems ColumnID:%s RowItems:%o', ColumnID, this.RowItems);
+    var ReturnItems = new Array();
+    for (Index in this.RowItems) {
+        const Row = this.RowItems[Index];
+        const ColumnObject = Row.ObjectRef[ColumnID];
+        //console.debug('::getColumnItems ColumnObject:%o', ColumnObject);
+        if (ColumnObject !== undefined) {
+            ReturnItems.push(ColumnObject);
+        }
+    }
+    return ReturnItems;
 }
 
 
@@ -621,7 +621,7 @@ sysList.prototype.getColumnItems = function(ColumnID)
 
 sysList.prototype.getRowByIndex = function(Index)
 {
-	return this.RowItems[Index];
+    return this.RowItems[Index];
 }
 
 
@@ -631,10 +631,10 @@ sysList.prototype.getRowByIndex = function(Index)
 
 sysList.prototype.updateRow = function(Index, Data)
 {
-	console.debug('::updateRow Index:%s Data:%o', Index, Data);
-	this.ServiceData[(Index-1)] = Data;
-	this.UpdateCount++;
-	this.renderPage();
+    console.debug('::updateRow Index:%s Data:%o', Index, Data);
+    this.ServiceData[(Index-1)] = Data;
+    this.UpdateCount++;
+    this.renderPage();
 }
 
 
@@ -644,7 +644,7 @@ sysList.prototype.updateRow = function(Index, Data)
 
 sysList.prototype.getRuntimeData = function()
 {
-	return this.ServiceData;
+    return this.ServiceData;
 }
 
 
@@ -654,61 +654,61 @@ sysList.prototype.getRuntimeData = function()
 
 sysList.prototype.appendData = function(DataObj)
 {
-	console.debug('::appendData Data:%o', DataObj);
+    console.debug('::appendData Data:%o', DataObj);
 
-	const Attributes = this.JSONConfig.Attributes;
+    const Attributes = this.JSONConfig.Attributes;
 
-	const ErrorObj = sysFactory.getObjectByID(this.JSONConfig.Attributes.ErrorContainer);
-	if (ErrorObj !== undefined) {
-		ErrorObj.reset();
-	}
+    const ErrorObj = sysFactory.getObjectByID(this.JSONConfig.Attributes.ErrorContainer);
+    if (ErrorObj !== undefined) {
+        ErrorObj.reset();
+    }
 
-	const MaxRows = Attributes.DataMaxRows;
-	if (this.ServiceData.length >= MaxRows && ErrorObj !== undefined) {
-		ErrorObj.displayError(sysFactory.getText('TXT.SYS.ERROR.TABLE.MAX-ROW-COUNT')) + MaxRows + '.';
-		return;
-	}
+    const MaxRows = Attributes.DataMaxRows;
+    if (this.ServiceData.length >= MaxRows && ErrorObj !== undefined) {
+        ErrorObj.displayError(sysFactory.getText('TXT.SYS.ERROR.TABLE.MAX-ROW-COUNT')) + MaxRows + '.';
+        return;
+    }
 
-	const DoubleCheckColumn = Attributes.DoubleCheckColumn;
-	const DisplayText = sysFactory.getText('TXT.SYS.ERROR.TABLE.DOUBLE-ENTRIES-NOTALLOWED') + DoubleCheckColumn + '.';
-	if (DoubleCheckColumn !== undefined) {
-		if (this.checkDouble(DataObj[DoubleCheckColumn]) == false) {
-			if (ErrorObj !== undefined) {
-				ErrorObj.displayError(DisplayText);
-			}
-			return;
-		}
-	}
+    const DoubleCheckColumn = Attributes.DoubleCheckColumn;
+    const DisplayText = sysFactory.getText('TXT.SYS.ERROR.TABLE.DOUBLE-ENTRIES-NOTALLOWED') + DoubleCheckColumn + '.';
+    if (DoubleCheckColumn !== undefined) {
+        if (this.checkDouble(DataObj[DoubleCheckColumn]) == false) {
+            if (ErrorObj !== undefined) {
+                ErrorObj.displayError(DisplayText);
+            }
+            return;
+        }
+    }
 
-	const ValidateRegex = Attributes.ValidateColumnRegEx;
-	if (ValidateRegex !== undefined) {
-		for (ColKey in ValidateRegex) {
-			const ConfigObj = ValidateRegex[ColKey];
-			const Regex = new RegExp(RegexTemplate[ConfigObj.RegexTemplate], 'g');
-			const Result = DataObj[ColKey].search(Regex);
-			//console.debug('::Regex Result:%s', Result);
-			if (Result == -1) {
-				ErrorObj.displayError(ConfigObj.ErrorMsg);
-				return;
-			}
-		}
-	}
+    const ValidateRegex = Attributes.ValidateColumnRegEx;
+    if (ValidateRegex !== undefined) {
+        for (ColKey in ValidateRegex) {
+            const ConfigObj = ValidateRegex[ColKey];
+            const Regex = new RegExp(RegexTemplate[ConfigObj.RegexTemplate], 'g');
+            const Result = DataObj[ColKey].search(Regex);
+            //console.debug('::Regex Result:%s', Result);
+            if (Result == -1) {
+                ErrorObj.displayError(ConfigObj.ErrorMsg);
+                return;
+            }
+        }
+    }
 
-	this.UpdateCount++;
-	console.debug('::appendData this.ServiceData:%o', this.ServiceData);
+    this.UpdateCount++;
+    console.debug('::appendData this.ServiceData:%o', this.ServiceData);
 
-	var AppendRowObj = new Object();
+    var AppendRowObj = new Object();
 
-	for (const FormItemID in DataObj) {
-		const FormItemValue = DataObj[FormItemID];
-		if (this.Columns.includes(FormItemID)) {
-			AppendRowObj[FormItemID] = FormItemValue;
-		}
-	}
+    for (const FormItemID in DataObj) {
+        const FormItemValue = DataObj[FormItemID];
+        if (this.Columns.includes(FormItemID)) {
+            AppendRowObj[FormItemID] = FormItemValue;
+        }
+    }
 
-	console.debug('::appendData AppendRowObj:%o', AppendRowObj);
+    console.debug('::appendData AppendRowObj:%o', AppendRowObj);
 
-	this.ServiceData.push(AppendRowObj);
-	this.addRow(AppendRowObj, this.RowItems.length+1);
-	this.renderPage();
+    this.ServiceData.push(AppendRowObj);
+    this.addRow(AppendRowObj, this.RowItems.length+1);
+    this.renderPage();
 }

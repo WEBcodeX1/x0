@@ -17,11 +17,11 @@
 
 function sysFormfieldItem()
 {
-	this.EventListeners = new Object();
+    this.EventListeners = new Object();
 
-	this.RuntimeGetDataFunc		= this.FormItemGetValue;
-	this.RuntimeSetDataFunc		= this.FormItemSetValue;
-	this.RuntimeAppendDataFunc	= undefined;
+    this.RuntimeGetDataFunc     = this.FormItemGetValue;
+    this.RuntimeSetDataFunc     = this.FormItemSetValue;
+    this.RuntimeAppendDataFunc  = undefined;
 }
 
 sysFormfieldItem.prototype = new sysBaseObject();
@@ -43,64 +43,64 @@ sysFormfieldItem.prototype.processSourceObjects = sysSourceObjectHandler.prototy
 
 sysFormfieldItem.prototype.FormItemInit = function()
 {
-	const Attributes = this.JSONConfig.Attributes;
+    const Attributes = this.JSONConfig.Attributes;
 
-	this.DOMType = 'input';
-	this.DOMStyle = Attributes.Style;
-	this.ObjectType = Attributes.Type;
+    this.DOMType = 'input';
+    this.DOMStyle = Attributes.Style;
+    this.ObjectType = Attributes.Type;
 
-	this.DOMAttributes = {
-		"type": this.ObjectType
-	};
+    this.DOMAttributes = {
+        "type": this.ObjectType
+    };
 
-	this.overrideDOMObjectID = true;
-	this.DOMObjectID = this.ObjectID;
-	this.ValidateObj = new sysFormFieldValidate();
-	this.ValidateObj.FormObj = this;
+    this.overrideDOMObjectID = true;
+    this.DOMObjectID = this.ObjectID;
+    this.ValidateObj = new sysFormFieldValidate();
+    this.ValidateObj.FormObj = this;
 
-	this.DBColumn = Attributes.DBColumn;
+    this.DBColumn = Attributes.DBColumn;
 
-	console.debug('FormItem Attributes:%o', Attributes);
+    console.debug('FormItem Attributes:%o', Attributes);
 
-	if (this.JSONConfig !== undefined && this.JSONConfig.InstancePrefix !== undefined) {
-		this.InstancePrefix = this.JSONConfig.InstancePrefix;
-	}
+    if (this.JSONConfig !== undefined && this.JSONConfig.InstancePrefix !== undefined) {
+        this.InstancePrefix = this.JSONConfig.InstancePrefix;
+    }
 
-	if (Attributes.LabelFor !== undefined) {
-		this.LabelFor = (this.InstancePrefix === undefined) ? Attributes.LabelFor : this.InstancePrefix + Attributes.LabelFor;
-	}
+    if (Attributes.LabelFor !== undefined) {
+        this.LabelFor = (this.InstancePrefix === undefined) ? Attributes.LabelFor : this.InstancePrefix + Attributes.LabelFor;
+    }
 
-	if (Attributes.Placeholder !== undefined) {
-		this.DOMAttributes['placeholder'] = Attributes.Placeholder;
-	}
+    if (Attributes.Placeholder !== undefined) {
+        this.DOMAttributes['placeholder'] = Attributes.Placeholder;
+    }
 
-	if (Attributes.MaxLength !== undefined) {
-		this.DOMAttributes['maxlength'] = Attributes.MaxLength;
-	}
+    if (Attributes.MaxLength !== undefined) {
+        this.DOMAttributes['maxlength'] = Attributes.MaxLength;
+    }
 
-	if (Attributes.Number !== undefined) {
-		this.DOMAttributes['type'] = 'number';
-	}
+    if (Attributes.Number !== undefined) {
+        this.DOMAttributes['type'] = 'number';
+    }
 
-	if (Attributes.Disabled !== undefined) {
-		this.DOMAttributes['disabled'] = '';
-	}
+    if (Attributes.Disabled !== undefined) {
+        this.DOMAttributes['disabled'] = '';
+    }
 
-	if (Attributes.ReadOnly !== undefined) {
-		this.DOMAttributes['readOnly'] = '';
-	}
+    if (Attributes.ReadOnly !== undefined) {
+        this.DOMAttributes['readOnly'] = '';
+    }
 
-	if (Attributes.Min !== undefined) {
-		this.DOMAttributes['min'] = Attributes.Min;
-	}
+    if (Attributes.Min !== undefined) {
+        this.DOMAttributes['min'] = Attributes.Min;
+    }
 
-	if (Attributes.Max !== undefined) {
-		this.DOMAttributes['max'] = Attributes.Max;
-	}
+    if (Attributes.Max !== undefined) {
+        this.DOMAttributes['max'] = Attributes.Max;
+    }
 
-	if (Attributes.Rows !== undefined) {
-		this.DOMAttributes['rows'] = Attributes.Rows;
-	}
+    if (Attributes.Rows !== undefined) {
+        this.DOMAttributes['rows'] = Attributes.Rows;
+    }
 }
 
 
@@ -110,8 +110,8 @@ sysFormfieldItem.prototype.FormItemInit = function()
 
 sysFormfieldItem.prototype.FormItemInitFinish = function()
 {
-	this.setupEventListener();
-	this.setupIntervalHandler();
+    this.setupEventListener();
+    this.setupIntervalHandler();
 }
 
 
@@ -121,20 +121,20 @@ sysFormfieldItem.prototype.FormItemInitFinish = function()
 
 sysFormfieldItem.prototype.setupEventListener = function()
 {
-	const Attributes = this.JSONConfig.Attributes;
-	//console.debug('::FormItem setupEventListener AttrOnChange:%s AttrOnChangeType:%s', Attributes.OnChange,Attributes.OnChange.Type);
-	if (Attributes.OnChange !== undefined) {
-		try {
-			const EventType = (Attributes.OnChange.Type !== undefined) ? Attributes.OnChange.Type : 'change';
-			this.EventListeners["OnChangeHandler"] = {
-				"Type": EventType,
-				"Element": this.processOnChangeItem.bind(this)
-			};
-		}
-		catch(err) {
-			console.debug('::setupEventListenerObject err:%s ObjectID:%s', err, this.ObjectID);
-		}
-	}
+    const Attributes = this.JSONConfig.Attributes;
+    //console.debug('::FormItem setupEventListener AttrOnChange:%s AttrOnChangeType:%s', Attributes.OnChange,Attributes.OnChange.Type);
+    if (Attributes.OnChange !== undefined) {
+        try {
+            const EventType = (Attributes.OnChange.Type !== undefined) ? Attributes.OnChange.Type : 'change';
+            this.EventListeners["OnChangeHandler"] = {
+                "Type": EventType,
+                "Element": this.processOnChangeItem.bind(this)
+            };
+        }
+        catch(err) {
+            console.debug('::setupEventListenerObject err:%s ObjectID:%s', err, this.ObjectID);
+        }
+    }
 }
 
 
@@ -144,16 +144,16 @@ sysFormfieldItem.prototype.setupEventListener = function()
 
 sysFormfieldItem.prototype.FormItemGetValue = function()
 {
-	console.debug('::FormItemGetValue DOMObjectID:%s ObjectID:%s', this.DOMObjectID, this.ObjectID);
-	try {
-		const FormElement = document.getElementById(this.ObjectID);
-		const FormValue = FormElement.value;
-		console.debug('::FormItemGetValue Element:%o Value:%s', FormElement, FormValue);
-		return FormValue;
-	}
-	catch(err) {
-		console.debug('::FormItemGetValue DOMObjectID:%s ObjectID:%s err:%s', this.DOMObjectID, this.ObjectID, err);
-	}
+    console.debug('::FormItemGetValue DOMObjectID:%s ObjectID:%s', this.DOMObjectID, this.ObjectID);
+    try {
+        const FormElement = document.getElementById(this.ObjectID);
+        const FormValue = FormElement.value;
+        console.debug('::FormItemGetValue Element:%o Value:%s', FormElement, FormValue);
+        return FormValue;
+    }
+    catch(err) {
+        console.debug('::FormItemGetValue DOMObjectID:%s ObjectID:%s err:%s', this.DOMObjectID, this.ObjectID, err);
+    }
 }
 
 
@@ -163,15 +163,15 @@ sysFormfieldItem.prototype.FormItemGetValue = function()
 
 sysFormfieldItem.prototype.FormItemSetValue = function(Value)
 {
-	try {
-		this.Value = Value;
-		const divElement = document.getElementById(this.ObjectID);
-		//console.debug('::setDOMFormElementValue ObjectID:%s Value:%s', this.FormObjectID, this.Value);
-		divElement.value = this.Value;
-	}
-	catch(err) {
-		console.debug('::FormItemSetValue DOMObjectID:%s ObjectID:%s err:%s', this.DOMObjectID, this.ObjectID, err);
-	}
+    try {
+        this.Value = Value;
+        const divElement = document.getElementById(this.ObjectID);
+        //console.debug('::setDOMFormElementValue ObjectID:%s Value:%s', this.FormObjectID, this.Value);
+        divElement.value = this.Value;
+    }
+    catch(err) {
+        console.debug('::FormItemSetValue DOMObjectID:%s ObjectID:%s err:%s', this.DOMObjectID, this.ObjectID, err);
+    }
 }
 
 
@@ -181,10 +181,10 @@ sysFormfieldItem.prototype.FormItemSetValue = function(Value)
 
 sysFormfieldItem.prototype.focus = function()
 {
-	const Element = document.getElementById(this.ObjectID);
-	if (Element != null && Element !== undefined) {
-		Element.focus();
-	}
+    const Element = document.getElementById(this.ObjectID);
+    if (Element != null && Element !== undefined) {
+        Element.focus();
+    }
 }
 
 
@@ -194,17 +194,17 @@ sysFormfieldItem.prototype.focus = function()
 
 sysFormfieldItem.prototype.updateDBValue = function(RowData)
 {
-	if (RowData !== undefined && this.JSONConfig.Attributes.DBColumn !== undefined) {
+    if (RowData !== undefined && this.JSONConfig.Attributes.DBColumn !== undefined) {
 
-		//console.debug('::updateDBValue');
-		var DBValue = RowData[this.JSONConfig.Attributes.DBColumn];
-		//console.debug('::updateDBValue DBValue:%s DBColumn:%s', DBValue, this.JSONConfig.Attributes.DBColumn);
+        //console.debug('::updateDBValue');
+        var DBValue = RowData[this.JSONConfig.Attributes.DBColumn];
+        //console.debug('::updateDBValue DBValue:%s DBColumn:%s', DBValue, this.JSONConfig.Attributes.DBColumn);
 
-		if (DBValue == null) { DBValue = ''; }
+        if (DBValue == null) { DBValue = ''; }
 
-		this.reset();
-		this.RuntimeSetDataFunc(DBValue);
-	}
+        this.reset();
+        this.RuntimeSetDataFunc(DBValue);
+    }
 }
 
 
@@ -214,67 +214,67 @@ sysFormfieldItem.prototype.updateDBValue = function(RowData)
 
 sysFormfieldItem.prototype.validate = function()
 {
-	const Attributes = this.JSONConfig.Attributes;
+    const Attributes = this.JSONConfig.Attributes;
 
-	this.StyleValidateFail = (Attributes.StyleValidateFail === undefined) ? 'alert alert-danger p-2' : Attributes.StyleValidateFail;
-	this.StyleValidateOk = (Attributes.StyleValidateOk === undefined) ? 'alert alert-success p-2' : Attributes.StyleValidateOk;
+    this.StyleValidateFail = (Attributes.StyleValidateFail === undefined) ? 'alert alert-danger p-2' : Attributes.StyleValidateFail;
+    this.StyleValidateOk = (Attributes.StyleValidateOk === undefined) ? 'alert alert-success p-2' : Attributes.StyleValidateOk;
 
-	//- ignore non validateable types
-	if (Attributes.Type == 'pulldown' || Attributes.Type == 'dynpulldown' || Attributes.Type == 'dummy' || Attributes.Type == 'label') { return false; }
+    //- ignore non validateable types
+    if (Attributes.Type == 'pulldown' || Attributes.Type == 'dynpulldown' || Attributes.Type == 'dummy' || Attributes.Type == 'label') { return false; }
 
-	//- if deactivated, do not validate
-	if (this.Deactivated == true || this.TabDeactivated == true) { return false; }
+    //- if deactivated, do not validate
+    if (this.Deactivated == true || this.TabDeactivated == true) { return false; }
 
-	//- if disabled do not process
-	if (this.Disabled == true && this.OverrideValidate == false) { return false; }
+    //- if disabled do not process
+    if (this.Disabled == true && this.OverrideValidate == false) { return false; }
 
-	//- ignore form field without validate regex set
-	if (Attributes.ValidateRef == null || Attributes.ValidateRef === undefined) { return false; }
+    //- ignore form field without validate regex set
+    if (Attributes.ValidateRef == null || Attributes.ValidateRef === undefined) { return false; }
 
-	//- if nullable and value length = 0, do not mark as failed
-	if (Attributes.ValidateNullable == true && this.FormItemGetValue().length == 0) {
+    //- if nullable and value length = 0, do not mark as failed
+    if (Attributes.ValidateNullable == true && this.FormItemGetValue().length == 0) {
 
-		this.removeDOMElementStyle(this.StyleValidateFail);
-		this.addDOMElementStyle(this.StyleValidateOk);
+        this.removeDOMElementStyle(this.StyleValidateFail);
+        this.addDOMElementStyle(this.StyleValidateOk);
 
-		return false;
-	}
+        return false;
+    }
 
-	//- check min characters length
-	if (Attributes.ValidateMinChar !== undefined && this.FormItemGetValue().length < Attributes.ValidateMinChar) {
-		this.FormItemAddStyle(this.StyleValidateFail);
-		return false;
-	}
+    //- check min characters length
+    if (Attributes.ValidateMinChar !== undefined && this.FormItemGetValue().length < Attributes.ValidateMinChar) {
+        this.FormItemAddStyle(this.StyleValidateFail);
+        return false;
+    }
 
-	//- check max characters length
-	if (Attributes.ValidateMaxChar !== undefined && this.FormItemGetValue().length > Attributes.ValidateMaxChar) {
-		this.FormItemAddStyle(this.StyleValidateFail);
-		return false;
-	}
+    //- check max characters length
+    if (Attributes.ValidateMaxChar !== undefined && this.FormItemGetValue().length > Attributes.ValidateMaxChar) {
+        this.FormItemAddStyle(this.StyleValidateFail);
+        return false;
+    }
 
-	//- check min value
-	if (Attributes.ValidateMinValue !== undefined && this.FormItemGetValue() < Attributes.ValidateMinValue) {
-		this.FormItemAddStyle(this.StyleValidateFail);
-		return false;
-	}
+    //- check min value
+    if (Attributes.ValidateMinValue !== undefined && this.FormItemGetValue() < Attributes.ValidateMinValue) {
+        this.FormItemAddStyle(this.StyleValidateFail);
+        return false;
+    }
 
-	//- check max value
-	if (Attributes.ValidateMaxValue !== undefined && this.FormItemGetValue() > Attributes.ValidateMaxValue) {
-		this.FormItemAddStyle(this.StyleValidateFail);
-		return false;
-	}
+    //- check max value
+    if (Attributes.ValidateMaxValue !== undefined && this.FormItemGetValue() > Attributes.ValidateMaxValue) {
+        this.FormItemAddStyle(this.StyleValidateFail);
+        return false;
+    }
 
-	const Result = this.ValidateObj.validate();
-	console.debug('::validate FormItem ObjectID:%s Result:%s', this.ObjectID, Result);
+    const Result = this.ValidateObj.validate();
+    console.debug('::validate FormItem ObjectID:%s Result:%s', this.ObjectID, Result);
 
-	if (typeof Result == 'object') {
-		this.setValidateStyle(Result['Error']);
-	}
-	else {
-		this.setValidateStyle(Result);
-	}
+    if (typeof Result == 'object') {
+        this.setValidateStyle(Result['Error']);
+    }
+    else {
+        this.setValidateStyle(Result);
+    }
 
-	return Result;
+    return Result;
 }
 
 
@@ -284,14 +284,14 @@ sysFormfieldItem.prototype.validate = function()
 
 sysFormfieldItem.prototype.setValidateStyle = function(Result)
 {
-	if (Result == true) {
-		this.removeDOMElementStyle(this.StyleValidateOk);
-		this.addDOMElementStyle(this.StyleValidateFail);
-	}
-	if (Result == false) {
-		this.removeDOMElementStyle(this.StyleValidateFail);
-		this.addDOMElementStyle(this.StyleValidateOk);
-	}
+    if (Result == true) {
+        this.removeDOMElementStyle(this.StyleValidateOk);
+        this.addDOMElementStyle(this.StyleValidateFail);
+    }
+    if (Result == false) {
+        this.removeDOMElementStyle(this.StyleValidateFail);
+        this.addDOMElementStyle(this.StyleValidateOk);
+    }
 }
 
 
@@ -301,12 +301,12 @@ sysFormfieldItem.prototype.setValidateStyle = function(Result)
 
 sysFormfieldItem.prototype.setupEvents = function()
 {
-	if (this.UpdateOnEvents !== undefined) {
-		//console.log('sysFormFieldItem setupEvents() Events:%o', this.UpdateOnEvent.Events);
-		var Attributes = new Object();
-		Attributes.OnEvent = this.UpdateOnEvents;
-		sysFactory.Reactor.registerEvent(Attributes, this, 'Dynpulldown');
-	}
+    if (this.UpdateOnEvents !== undefined) {
+        //console.log('sysFormFieldItem setupEvents() Events:%o', this.UpdateOnEvent.Events);
+        var Attributes = new Object();
+        Attributes.OnEvent = this.UpdateOnEvents;
+        sysFactory.Reactor.registerEvent(Attributes, this, 'Dynpulldown');
+    }
 }
 
 
@@ -316,10 +316,10 @@ sysFormfieldItem.prototype.setupEvents = function()
 
 sysFormfieldItem.prototype.setupIntervalHandler = function()
 {
-	if (this.JSONConfig.Attributes.CheckInterval !== undefined) {
-		const Config = this.JSONConfig.Attributes.CheckInterval;
-		setTimeout(this.processInterval, Config.Interval, Config, this, ValidateMultiDataXMLRPCHandler);
-	}
+    if (this.JSONConfig.Attributes.CheckInterval !== undefined) {
+        const Config = this.JSONConfig.Attributes.CheckInterval;
+        setTimeout(this.processInterval, Config.Interval, Config, this, ValidateMultiDataXMLRPCHandler);
+    }
 }
 
 
@@ -329,8 +329,8 @@ sysFormfieldItem.prototype.setupIntervalHandler = function()
 
 sysFormfieldItem.prototype.clearStyle = function()
 {
-	this.DOMFormElementRemoveStyle(this.StyleClassValidateOk);
-	this.DOMFormElementRemoveStyle(this.StyleClassValidateFail);
+    this.DOMFormElementRemoveStyle(this.StyleClassValidateOk);
+    this.DOMFormElementRemoveStyle(this.StyleClassValidateFail);
 }
 
 
@@ -339,8 +339,8 @@ sysFormfieldItem.prototype.clearStyle = function()
 //------------------------------------------------------------------------------
 sysFormfieldItem.prototype.resetStyle = function()
 {
-	this.DOMStyle = this.StyleClass;
-	this.setDOMElementStyle();
+    this.DOMStyle = this.StyleClass;
+    this.setDOMElementStyle();
 }
 
 
@@ -350,16 +350,16 @@ sysFormfieldItem.prototype.resetStyle = function()
 
 sysFormfieldItem.prototype.reset = function()
 {
-	console.debug('FormfieldItem reset method call Object:%o', this);
+    console.debug('FormfieldItem reset method call Object:%o', this);
 
-	const Attributes = this.JSONConfig.Attributes;
-	this.RuntimeSetDataFunc(
-		(Attributes.Value !== undefined ? Attributes.Value : '')
-	);
-	if (Attributes.GlobalVar !== undefined) {
-		this.RuntimeSetDataFunc(sysFactory.getGlobalVar(Attributes.GlobalVar));
-	}
-	this.resetStyle();
+    const Attributes = this.JSONConfig.Attributes;
+    this.RuntimeSetDataFunc(
+        (Attributes.Value !== undefined ? Attributes.Value : '')
+    );
+    if (Attributes.GlobalVar !== undefined) {
+        this.RuntimeSetDataFunc(sysFactory.getGlobalVar(Attributes.GlobalVar));
+    }
+    this.resetStyle();
 }
 
 
@@ -369,21 +369,21 @@ sysFormfieldItem.prototype.reset = function()
 
 function sysFormfieldItemText()
 {
-	this.Index					= null;
+    this.Index                    = null;
 
-	this.Deactivated			= false;
-	this.Disabled				= false;
+    this.Deactivated            = false;
+    this.Disabled                = false;
 
-	this.ChildObjects			= new Array();
-	this.EventListeners			= new Object();
+    this.ChildObjects            = new Array();
+    this.EventListeners            = new Object();
 }
 
 sysFormfieldItemText.prototype = new sysFormfieldItem();
 
 sysFormfieldItemText.prototype.init = function()
 {
-	this.FormItemInit();
-	this.FormItemInitFinish();
+    this.FormItemInit();
+    this.FormItemInitFinish();
 }
 
 
@@ -393,13 +393,13 @@ sysFormfieldItemText.prototype.init = function()
 
 function sysFormfieldItemTextarea()
 {
-	this.Index					= null;
+    this.Index            = null;
 
-	this.Deactivated			= false;
-	this.Disabled				= false;
+    this.Deactivated      = false;
+    this.Disabled         = false;
 
-	this.ChildObjects			= new Array();
-	this.EventListeners			= new Object();
+    this.ChildObjects     = new Array();
+    this.EventListeners   = new Object();
 }
 
 sysFormfieldItemTextarea.prototype = new sysFormfieldItem();
@@ -408,11 +408,11 @@ sysFormfieldItemTextarea.prototype.clear = sysFormfieldItemText.prototype.clear;
 
 sysFormfieldItemTextarea.prototype.init = function()
 {
-	this.FormItemInit();
+    this.FormItemInit();
 
-	this.DOMType = 'textarea';
+    this.DOMType = 'textarea';
 
-	this.FormItemInitFinish();
+    this.FormItemInitFinish();
 }
 
 
@@ -422,14 +422,14 @@ sysFormfieldItemTextarea.prototype.init = function()
 
 function sysFormfieldItemPulldown()
 {
-	this.Index					= null;
-	this.Deactivated			= false;
+    this.Index               = null;
+    this.Deactivated         = false;
 
-	this.ChildObjects			= new Array();
-	this.EventListeners			= new Object();
+    this.ChildObjects        = new Array();
+    this.EventListeners      = new Object();
 
-	this.RuntimeGetDataFunc		= this.getValue;
-	this.RuntimeSetDataFunc		= this.setValue;
+    this.RuntimeGetDataFunc  = this.getValue;
+    this.RuntimeSetDataFunc  = this.setValue;
 }
 
 sysFormfieldItemPulldown.prototype = new sysFormfieldItem();
@@ -437,14 +437,14 @@ sysFormfieldItemPulldown.prototype = new sysFormfieldItem();
 
 sysFormfieldItemPulldown.prototype.init = function()
 {
-	const Attributes = this.JSONConfig.Attributes;
+    const Attributes = this.JSONConfig.Attributes;
 
-	this.FormItemInit();
+    this.FormItemInit();
 
-	this.DOMType = 'select';
+    this.DOMType = 'select';
 
-	this.generateOptions();
-	this.FormItemInitFinish();
+    this.generateOptions();
+    this.FormItemInitFinish();
 }
 
 
@@ -454,34 +454,34 @@ sysFormfieldItemPulldown.prototype.init = function()
 
 sysFormfieldItemPulldown.prototype.generateOptions = function()
 {
-	const Attributes = this.JSONConfig.Attributes;
+    const Attributes = this.JSONConfig.Attributes;
 
-	var OptionHTML = '';
+    var OptionHTML = '';
 
-	if (Attributes.AddNoneItem === true) {
-		const NoneItemValue = (Attributes.AddNoneItemValue !== undefined) ? Attributes.AddNoneItemValue : null;
-		Attributes.Options.unshift(
-			{
-				"TextID": Attributes.AddNoneItemTxtID,
-				"Value": NoneItemValue
-			}
-		);
-	}
+    if (Attributes.AddNoneItem === true) {
+        const NoneItemValue = (Attributes.AddNoneItemValue !== undefined) ? Attributes.AddNoneItemValue : null;
+        Attributes.Options.unshift(
+            {
+                "TextID": Attributes.AddNoneItemTxtID,
+                "Value": NoneItemValue
+            }
+        );
+    }
 
-	for (var Index in Attributes.Options) {
+    for (var Index in Attributes.Options) {
 
-		const OptionAttributes = Attributes.Options[Index];
-		const TextID = OptionAttributes.TextID;
-		const Value = OptionAttributes.Value;
+        const OptionAttributes = Attributes.Options[Index];
+        const TextID = OptionAttributes.TextID;
+        const Value = OptionAttributes.Value;
 
-		const Text = (OptionAttributes.Display) ? OptionAttributes.Display : sysFactory.getText(TextID);
+        const Text = (OptionAttributes.Display) ? OptionAttributes.Display : sysFactory.getText(TextID);
 
-		const Selected = (OptionAttributes.Default === true) ? 'selected' : '';
+        const Selected = (OptionAttributes.Default === true) ? 'selected' : '';
 
-		OptionHTML += '<option value="' + Value + '"' + Selected + '>' + Text + '</option>';
-	}
+        OptionHTML += '<option value="' + Value + '"' + Selected + '>' + Text + '</option>';
+    }
 
-	this.DOMValue = OptionHTML;
+    this.DOMValue = OptionHTML;
 }
 
 
@@ -490,8 +490,8 @@ sysFormfieldItemPulldown.prototype.generateOptions = function()
 //------------------------------------------------------------------------------
 
 sysFormfieldItemPulldown.prototype.setValue = function(Value) {
-	this.Value = Value;
-	this.update();
+    this.Value = Value;
+    this.update();
 }
 
 
@@ -501,25 +501,25 @@ sysFormfieldItemPulldown.prototype.setValue = function(Value) {
 
 sysFormfieldItemPulldown.prototype.update = function() {
 
-	//console.debug('DomPulldownSetValue Value:' + this.Value);
-	if (this.Value !== undefined && this.Value != null) {
+    //console.debug('DomPulldownSetValue Value:' + this.Value);
+    if (this.Value !== undefined && this.Value != null) {
 
-		console.debug('::sysFormfieldItemPulldown update FormObjectID:%s', this.ObjectID);
+        console.debug('::sysFormfieldItemPulldown update FormObjectID:%s', this.ObjectID);
 
-		const SetValue = this.Value.toString();
-		const PulldownObj = document.getElementById(this.ObjectID);
+        const SetValue = this.Value.toString();
+        const PulldownObj = document.getElementById(this.ObjectID);
 
-		try {
-			//- iterate on pulldown options, compare values
-			for (var i=0; i < PulldownObj.options.length; i++) {
-				if (PulldownObj.options[i].value == SetValue) {
-					PulldownObj.selectedIndex = i;
-				}
-			}
-		}
-		catch {
-		}
-	}
+        try {
+            //- iterate on pulldown options, compare values
+            for (var i=0; i < PulldownObj.options.length; i++) {
+                if (PulldownObj.options[i].value == SetValue) {
+                    PulldownObj.selectedIndex = i;
+                }
+            }
+        }
+        catch {
+        }
+    }
 }
 
 
@@ -529,16 +529,16 @@ sysFormfieldItemPulldown.prototype.update = function() {
 
 sysFormfieldItemPulldown.prototype.getValue = function() {
 
-	const PulldownObj = document.getElementById(this.ObjectID);
+    const PulldownObj = document.getElementById(this.ObjectID);
 
-	try {
-		const PDValue = PulldownObj.options[PulldownObj.selectedIndex].value;
-		console.debug('Pulldown getValue() Type:%s Value:%o', typeof(PDValue), PDValue);
-		return PDValue;
-	}
-	catch(err) {
-		console.debug('::sysFormfieldItemPulldown error:%s FormObjectID:%o', err, this.ObjectID);
-	}
+    try {
+        const PDValue = PulldownObj.options[PulldownObj.selectedIndex].value;
+        console.debug('Pulldown getValue() Type:%s Value:%o', typeof(PDValue), PDValue);
+        return PDValue;
+    }
+    catch(err) {
+        console.debug('::sysFormfieldItemPulldown error:%s FormObjectID:%o', err, this.ObjectID);
+    }
 }
 
 
@@ -548,10 +548,10 @@ sysFormfieldItemPulldown.prototype.getValue = function() {
 
 sysFormfieldItemPulldown.prototype.getDefault = function()
 {
-	for (OptionKey in this.PulldownOptions) {
-		var Item = this.PulldownOptions[OptionKey];
-		if (Item.Default == true) { return OptionKey; }
-	}
+    for (OptionKey in this.PulldownOptions) {
+        var Item = this.PulldownOptions[OptionKey];
+        if (Item.Default == true) { return OptionKey; }
+    }
 }
 
 
@@ -561,11 +561,11 @@ sysFormfieldItemPulldown.prototype.getDefault = function()
 
 function sysFormfieldItemDynPulldown()
 {
-	this.Index					= null;
-	this.Deactivated			= false;
+    this.Index          = null;
+    this.Deactivated    = false;
 
-	this.ChildObjects			= new Array();
-	this.EventListeners			= new Object();
+    this.ChildObjects   = new Array();
+    this.EventListeners = new Object();
 }
 
 sysFormfieldItemDynPulldown.prototype = new sysFormfieldItem();
@@ -579,24 +579,24 @@ sysFormfieldItemDynPulldown.prototype.clear = sysFormfieldItemPulldown.prototype
 
 sysFormfieldItemDynPulldown.prototype.init = function()
 {
-	const Attributes = this.JSONConfig.Attributes;
+    const Attributes = this.JSONConfig.Attributes;
 
-	this.FormItemInit();
+    this.FormItemInit();
 
-	this.DOMType = 'select';
+    this.DOMType = 'select';
 
-	if (Attributes.UpdateOnEvents !== undefined) {
-		const EventConfig = {
-			"OnEvent": {
-				"Events": Attributes.UpdateOnEvents
-			}
-		}
-		sysFactory.Reactor.registerEvent(EventConfig, this, 'Dynpulldown');
-	}
+    if (Attributes.UpdateOnEvents !== undefined) {
+        const EventConfig = {
+            "OnEvent": {
+                "Events": Attributes.UpdateOnEvents
+            }
+        }
+        sysFactory.Reactor.registerEvent(EventConfig, this, 'Dynpulldown');
+    }
 
-	this.getDynPulldownData();
+    this.getDynPulldownData();
 
-	this.FormItemInitFinish();
+    this.FormItemInitFinish();
 }
 
 
@@ -606,22 +606,22 @@ sysFormfieldItemDynPulldown.prototype.init = function()
 
 sysFormfieldItemDynPulldown.prototype.getDynPulldownData = function()
 {
-	const Attributes = this.JSONConfig.Attributes;
+    const Attributes = this.JSONConfig.Attributes;
 
-	const ServiceID = Attributes.ServiceID;
-	const ServiceURL = Attributes.ServiceURL;
+    const ServiceID = Attributes.ServiceID;
+    const ServiceURL = Attributes.ServiceURL;
 
-	console.debug('::getDynPulldownData ServiceID:%s ServiceURL:%s', ServiceID, ServiceURL);
+    console.debug('::getDynPulldownData ServiceID:%s ServiceURL:%s', ServiceID, ServiceURL);
 
-	if (ServiceID !== undefined) {
-		this.PostRequestData = new sysRequestDataHandler();
-		this.PostRequestData.addServiceProperty('ServiceID', ServiceID);
+    if (ServiceID !== undefined) {
+        this.PostRequestData = new sysRequestDataHandler();
+        this.PostRequestData.addServiceProperty('ServiceID', ServiceID);
 
-		this.processSourceObjects();
-	}
+        this.processSourceObjects();
+    }
 
-	RPC = new sysCallXMLRPC(Attributes.ServiceURL);
-	RPC.Request(this);
+    RPC = new sysCallXMLRPC(Attributes.ServiceURL);
+    RPC.Request(this);
 }
 
 
@@ -631,18 +631,18 @@ sysFormfieldItemDynPulldown.prototype.getDynPulldownData = function()
 
 sysFormfieldItemDynPulldown.prototype.callbackXMLRPCAsync = function()
 {
-	this.JSONConfig.Attributes.Options = new Array();
-	var PulldownOptions = this.JSONConfig.Attributes.Options;
+    this.JSONConfig.Attributes.Options = new Array();
+    var PulldownOptions = this.JSONConfig.Attributes.Options;
 
-	console.debug('::DynPulldown XMLRPCCallback');
+    console.debug('::DynPulldown XMLRPCCallback');
 
-	for (Index in this.XMLRPCResultData) {
-		console.debug('::DynPulldown XMLRPCCallback Index:%s', Index);
-		const Option = this.XMLRPCResultData[Index];
-		PulldownOptions.push(Option);
-	}
-	this.generateOptions();
-	this.setDOMElementValue();
+    for (Index in this.XMLRPCResultData) {
+        console.debug('::DynPulldown XMLRPCCallback Index:%s', Index);
+        const Option = this.XMLRPCResultData[Index];
+        PulldownOptions.push(Option);
+    }
+    this.generateOptions();
+    this.setDOMElementValue();
 }
 
 
@@ -652,30 +652,30 @@ sysFormfieldItemDynPulldown.prototype.callbackXMLRPCAsync = function()
 
 function sysFormfieldItemCheckbox()
 {
-	this.Index					= null;
-	this.Deactivated			= false;
+    this.Index              = null;
+    this.Deactivated        = false;
 
-	this.ChildObjects			= new Array();
-	this.EventListeners			= new Object();
+    this.ChildObjects       = new Array();
+    this.EventListeners     = new Object();
 
-	this.RuntimeGetDataFunc		= this.getChecked;
-	this.RuntimeSetDataFunc		= this.setChecked;
+    this.RuntimeGetDataFunc = this.getChecked;
+    this.RuntimeSetDataFunc = this.setChecked;
 }
 
 sysFormfieldItemCheckbox.prototype = new sysFormfieldItem();
 
 sysFormfieldItemCheckbox.prototype.init = function()
 {
-	const Attributes = this.JSONConfig.Attributes;
+    const Attributes = this.JSONConfig.Attributes;
 
-	this.FormItemInit();
+    this.FormItemInit();
 
-	if (Attributes.Value !== undefined && Attributes.Value == true) {
-		this.DOMAttributes['checked'] = ''
-		this.setChecked(true);
-	}
+    if (Attributes.Value !== undefined && Attributes.Value == true) {
+        this.DOMAttributes['checked'] = ''
+        this.setChecked(true);
+    }
 
-	this.FormItemInitFinish();
+    this.FormItemInitFinish();
 }
 
 
@@ -684,13 +684,13 @@ sysFormfieldItemCheckbox.prototype.init = function()
 //------------------------------------------------------------------------------
 
 sysFormfieldItemCheckbox.prototype.update = function() {
-	try {
-		console.debug('Checkbox update:%s', this.ObjectID);
-		const CheckboxObj = document.getElementById(this.ObjectID);
-		CheckboxObj.checked = this.Value;
-	}
-	catch {
-	}
+    try {
+        console.debug('Checkbox update:%s', this.ObjectID);
+        const CheckboxObj = document.getElementById(this.ObjectID);
+        CheckboxObj.checked = this.Value;
+    }
+    catch {
+    }
 }
 
 
@@ -699,9 +699,9 @@ sysFormfieldItemCheckbox.prototype.update = function() {
 //------------------------------------------------------------------------------
 
 sysFormfieldItemCheckbox.prototype.getChecked = function() {
-	//console.debug('Checkbox ID:%s', this.ObjectID);
-	const CheckboxObj = document.getElementById(this.ObjectID);
-	return CheckboxObj.checked;
+    //console.debug('Checkbox ID:%s', this.ObjectID);
+    const CheckboxObj = document.getElementById(this.ObjectID);
+    return CheckboxObj.checked;
 }
 
 
@@ -710,9 +710,9 @@ sysFormfieldItemCheckbox.prototype.getChecked = function() {
 //------------------------------------------------------------------------------
 
 sysFormfieldItemCheckbox.prototype.setChecked = function(Value) {
-	this.Value = Value;
-	console.debug('Form checkbox this:%o', this);
-	this.update();
+    this.Value = Value;
+    console.debug('Form checkbox this:%o', this);
+    this.update();
 }
 
 
@@ -722,8 +722,8 @@ sysFormfieldItemCheckbox.prototype.setChecked = function(Value) {
 
 sysFormfieldItemCheckbox.prototype.reset = function()
 {
-	this.resetStyle();
-	this.update();
+    this.resetStyle();
+    this.update();
 }
 
 
@@ -733,31 +733,31 @@ sysFormfieldItemCheckbox.prototype.reset = function()
 
 function sysFormfieldItemLabel()
 {
-	this.Index					= null;
-	this.Deactivated			= false;
+    this.Index               = null;
+    this.Deactivated         = false;
 
-	this.ChildObjects			= new Array();
-	this.EventListeners			= new Object();
+    this.ChildObjects        = new Array();
+    this.EventListeners      = new Object();
 
-	this.RuntimeGetDataFunc		= this.getRuntimeData;
-	this.RuntimeSetDataFunc		= this.setRuntimeData;
+    this.RuntimeGetDataFunc  = this.getRuntimeData;
+    this.RuntimeSetDataFunc  = this.setRuntimeData;
 }
 
 sysFormfieldItemLabel.prototype = new sysFormfieldItem();
 
 sysFormfieldItemLabel.prototype.init = function()
 {
-	const Attributes = this.JSONConfig.Attributes;
+    const Attributes = this.JSONConfig.Attributes;
 
-	this.FormItemInit();
+    this.FormItemInit();
 
-	this.DOMType = 'label';
+    this.DOMType = 'label';
 
-	const Text = (Attributes.DisplayText) ? Attributes.DisplayText : sysFactory.getText(Attributes.TextID);
+    const Text = (Attributes.DisplayText) ? Attributes.DisplayText : sysFactory.getText(Attributes.TextID);
 
-	this.DOMValue = Text;
+    this.DOMValue = Text;
 
-	this.FormItemInitFinish();
+    this.FormItemInitFinish();
 }
 
 
@@ -767,7 +767,7 @@ sysFormfieldItemLabel.prototype.init = function()
 
 sysFormfieldItemLabel.prototype.getRuntimeData = function()
 {
-	return null;
+    return null;
 }
 
 
@@ -777,15 +777,15 @@ sysFormfieldItemLabel.prototype.getRuntimeData = function()
 
 sysFormfieldItemLabel.prototype.setRuntimeData = function()
 {
-	if (this.Value !== undefined && this.Value != null) {
-		try {
-			this.DOMValue = this.Value;
-			this.setDOMElementValue();
-		}
-		catch(err) {
-			console.debug('::setDOMFormElementValue DOMObjectID:%s ObjectID:%s err:%s', this.DOMObjectID, this.ObjectID, err);
-		}
-	}
+    if (this.Value !== undefined && this.Value != null) {
+        try {
+            this.DOMValue = this.Value;
+            this.setDOMElementValue();
+        }
+        catch(err) {
+            console.debug('::setDOMFormElementValue DOMObjectID:%s ObjectID:%s err:%s', this.DOMObjectID, this.ObjectID, err);
+        }
+    }
 }
 
 
@@ -804,8 +804,8 @@ sysFormfieldItemLabel.prototype.reset = function()
 
 function sysFormfieldItemHidden()
 {
-	this.Index							= null;
-	this.Value							= null;
+    this.Index = null;
+    this.Value = null;
 }
 
 sysFormfieldItemHidden.prototype = new sysFormfieldItem();
@@ -813,10 +813,10 @@ sysFormfieldItemHidden.prototype = new sysFormfieldItem();
 
 sysFormfieldItemHidden.prototype.init = function()
 {
-	const Attributes = this.JSONConfig.Attributes;
+    const Attributes = this.JSONConfig.Attributes;
 
-	this.FormItemInit();
-	this.FormItemInitFinish();
+    this.FormItemInit();
+    this.FormItemInitFinish();
 }
 
 
@@ -826,23 +826,23 @@ sysFormfieldItemHidden.prototype.init = function()
 
 function sysFormfieldSelector(Type)
 {
-	//console.debug('Selector Type:%s', Type);
+    //console.debug('Selector Type:%s', Type);
 
-	FormTypes = {
-		'text': sysFormfieldItemText,
-		'number': sysFormfieldItemText,
-		'password': sysFormfieldItemText,
-		'file': sysFormfieldItemText,
-		'date': sysFormfieldItemText,
-		'hidden': sysFormfieldItemHidden,
-		'textarea': sysFormfieldItemTextarea,
-		'pulldown': sysFormfieldItemPulldown,
-		'dynpulldown': sysFormfieldItemDynPulldown,
-		'checkbox': sysFormfieldItemCheckbox,
-		'label': sysFormfieldItemLabel
-	};
+    FormTypes = {
+        'text': sysFormfieldItemText,
+        'number': sysFormfieldItemText,
+        'password': sysFormfieldItemText,
+        'file': sysFormfieldItemText,
+        'date': sysFormfieldItemText,
+        'hidden': sysFormfieldItemHidden,
+        'textarea': sysFormfieldItemTextarea,
+        'pulldown': sysFormfieldItemPulldown,
+        'dynpulldown': sysFormfieldItemDynPulldown,
+        'checkbox': sysFormfieldItemCheckbox,
+        'label': sysFormfieldItemLabel
+    };
 
-	if (Type !== undefined && Type != null) {
-		return new FormTypes[Type]();
-	}
+    if (Type !== undefined && Type != null) {
+        return new FormTypes[Type]();
+    }
 }

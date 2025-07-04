@@ -16,10 +16,10 @@
 //------------------------------------------------------------------------------
 
 function sysEvent(ID, Object, Type, Attributes) {
-	this.ID = ID;
-	this.ObjectRef = Object;
-	this.Type = Type;
-	this.Attributes = Attributes;
+    this.ID = ID;
+    this.ObjectRef = Object;
+    this.Type = Type;
+    this.Attributes = Attributes;
 }
 
 
@@ -28,7 +28,7 @@ function sysEvent(ID, Object, Type, Attributes) {
 //------------------------------------------------------------------------------
 
 function sysReactor() {
-	this.Events = new Array();
+    this.Events = new Array();
 }
 
 
@@ -38,24 +38,24 @@ function sysReactor() {
 
 sysReactor.prototype.registerEvent = function(Attributes, ProcessObject, Type) {
 
-	//console.debug('::registerEvent Attributes:%o ProcessObject:%o, Type:%s', Attributes, ProcessObject, Type);
+    //console.debug('::registerEvent Attributes:%o ProcessObject:%o, Type:%s', Attributes, ProcessObject, Type);
 
-	const EAttributes = Attributes.OnEvent;
+    const EAttributes = Attributes.OnEvent;
 
-	if (EAttributes !== undefined) {
-		for (EventKey in EAttributes.Events) {
-			const EventID = EAttributes.Events[EventKey];
-			const EventAttributes = EAttributes.Attributes;
-			const EventType = EAttributes.Type;
+    if (EAttributes !== undefined) {
+        for (EventKey in EAttributes.Events) {
+            const EventID = EAttributes.Events[EventKey];
+            const EventAttributes = EAttributes.Attributes;
+            const EventType = EAttributes.Type;
 
-			if (EventType !== undefined) {
-				Type = EventType;
-			}
+            if (EventType !== undefined) {
+                Type = EventType;
+            }
 
-			const Event = new sysEvent(EventID, ProcessObject, Type, EventAttributes);
-			this.Events.push(Event);
-		}
-	}
+            const Event = new sysEvent(EventID, ProcessObject, Type, EventAttributes);
+            this.Events.push(Event);
+        }
+    }
 }
 
 
@@ -65,63 +65,63 @@ sysReactor.prototype.registerEvent = function(Attributes, ProcessObject, Type) {
 
 sysReactor.prototype.dispatchEvent = function(EventID) {
 
-	console.debug('Reactor Dispatch Event. EventID:%s Events Object::%o', EventID, this.Events);
+    console.debug('Reactor Dispatch Event. EventID:%s Events Object::%o', EventID, this.Events);
 
-	for (EventKey in this.Events) {
+    for (EventKey in this.Events) {
 
-		var EventObj = this.Events[EventKey];
+        var EventObj = this.Events[EventKey];
 
-		if (EventObj.ID == EventID) {
+        if (EventObj.ID == EventID) {
 
-			const ProcessObj = EventObj.ObjectRef;
+            const ProcessObj = EventObj.ObjectRef;
 
-			var Attributes;
-			try {
-				Attributes = ProcessObj.ServiceConnector.JSONConfig.Attributes;
-			}
-			catch(err) {
-				Attributes = ProcessObj.JSONConfig.Attributes;
-			}
+            var Attributes;
+            try {
+                Attributes = ProcessObj.ServiceConnector.JSONConfig.Attributes;
+            }
+            catch(err) {
+                Attributes = ProcessObj.JSONConfig.Attributes;
+            }
 
-			//console.debug('Reactor Dispatch Event. EventObject:%o ProcessObj:%o', EventObj, ProcessObj);
+            //console.debug('Reactor Dispatch Event. EventObject:%o ProcessObj:%o', EventObj, ProcessObj);
 
-			switch (EventObj.Type) {
+            switch (EventObj.Type) {
 
-				case "ServiceConnector":
+                case "ServiceConnector":
 
-					console.debug('Reactor Dispatch Event. ServiceConnector Object:%o', ProcessObj.ServiceConnector);
+                    console.debug('Reactor Dispatch Event. ServiceConnector Object:%o', ProcessObj.ServiceConnector);
 
-					ProcessObj.processSourceObjects();
-					ProcessObj.DataURL = Attributes.OnEvent.ServiceCall;
+                    ProcessObj.processSourceObjects();
+                    ProcessObj.DataURL = Attributes.OnEvent.ServiceCall;
 
-					//- add backend service identifier
-					ProcessObj.PostRequestData.addServiceProperty(
-						'BackendServiceID',
-						Attributes.OnEvent.ServiceID
-					);
-					ProcessObj.getServiceData();
-	
-					continue;
+                    //- add backend service identifier
+                    ProcessObj.PostRequestData.addServiceProperty(
+                        'BackendServiceID',
+                        Attributes.OnEvent.ServiceID
+                    );
+                    ProcessObj.getServiceData();
+    
+                    continue;
 
-				case "Dynpulldown":
+                case "Dynpulldown":
 
-					//console.debug('Reactor Dispatch Event. Dynpulldown:%o', ProcessObj);
-					ProcessObj.getDynPulldownData();
+                    //console.debug('Reactor Dispatch Event. Dynpulldown:%o', ProcessObj);
+                    ProcessObj.getDynPulldownData();
 
-					continue;
+                    continue;
 
-				case "SetObjectPropertyValues":
+                case "SetObjectPropertyValues":
 
-					//console.debug('Reactor Dispatch Event. SetObjectPropertyValues:%o', ProcessObj);
-					var s = new setObjectPropertyValues(EventObj);
+                    //console.debug('Reactor Dispatch Event. SetObjectPropertyValues:%o', ProcessObj);
+                    var s = new setObjectPropertyValues(EventObj);
 
-					continue;
+                    continue;
 
-			}
+            }
 
-		}
+        }
 
-	}
+    }
 
 }
 
@@ -131,11 +131,11 @@ sysReactor.prototype.dispatchEvent = function(EventID) {
 //------------------------------------------------------------------------------
 
 sysReactor.prototype.fireEvents = function(FireEvents) {
-	//console.log('Reactor Fire Events. Events Array:%o', FireEvents);
-	for (EventKey in FireEvents) {
-		var Event = FireEvents[EventKey];
-		sysFactory.Reactor.dispatchEvent(Event);
-	}
+    //console.log('Reactor Fire Events. Events Array:%o', FireEvents);
+    for (EventKey in FireEvents) {
+        var Event = FireEvents[EventKey];
+        sysFactory.Reactor.dispatchEvent(Event);
+    }
 }
 
 
@@ -144,8 +144,8 @@ sysReactor.prototype.fireEvents = function(FireEvents) {
 //------------------------------------------------------------------------------
 
 function setObjectPropertyValues(EventObj) {
-	this.EventObj = EventObj;
-	this.callService();
+    this.EventObj = EventObj;
+    this.callService();
 }
 
 
@@ -155,28 +155,28 @@ function setObjectPropertyValues(EventObj) {
 
 setObjectPropertyValues.prototype.callService = function()
 {
-	const Attributes = this.EventObj.Attributes;
+    const Attributes = this.EventObj.Attributes;
 
-	for (Index in Attributes.DstProperties) {
+    for (Index in Attributes.DstProperties) {
 
-		const DstProperty = Attributes.DstProperties[Index];
-		const DstObject = sysFactory.getObjectByID(DstProperty.ObjectID);
+        const DstProperty = Attributes.DstProperties[Index];
+        const DstObject = sysFactory.getObjectByID(DstProperty.ObjectID);
 
-		try {
-			DstObject.ParentObject.disable();
-		}
-		catch(err) {
-			console.debug('Dst Object disable() failed. ObjectID:%s Object:%o', DstProperty.ObjectID, DstObject);
-		}
+        try {
+            DstObject.ParentObject.disable();
+        }
+        catch(err) {
+            console.debug('Dst Object disable() failed. ObjectID:%s Object:%o', DstProperty.ObjectID, DstObject);
+        }
 
-		if (DstProperty.SetStyle !== undefined) {
-			DstObject.addDOMElementStyle(DstProperty.SetStyle);
-		}
+        if (DstProperty.SetStyle !== undefined) {
+            DstObject.addDOMElementStyle(DstProperty.SetStyle);
+        }
 
-	}
+    }
 
-	RPC = new sysCallXMLRPC(this.EventObj.Attributes.ServiceURL);
-	RPC.Request(this);
+    RPC = new sysCallXMLRPC(this.EventObj.Attributes.ServiceURL);
+    RPC.Request(this);
 }
 
 
@@ -186,26 +186,26 @@ setObjectPropertyValues.prototype.callService = function()
 
 setObjectPropertyValues.prototype.callbackXMLRPCAsync = function()
 {
-	const Attributes = this.EventObj.Attributes;
+    const Attributes = this.EventObj.Attributes;
 
-	for (Index in Attributes.DstProperties) {
+    for (Index in Attributes.DstProperties) {
 
-		const DstProperty = Attributes.DstProperties[Index];
-		const DstObject = sysFactory.getObjectByID(DstProperty.ObjectID);
+        const DstProperty = Attributes.DstProperties[Index];
+        const DstObject = sysFactory.getObjectByID(DstProperty.ObjectID);
 
-		DstObject[DstProperty.PropertyName] = this.XMLRPCResultData[DstProperty.PropertyName];
+        DstObject[DstProperty.PropertyName] = this.XMLRPCResultData[DstProperty.PropertyName];
 
-		if (DstProperty.SetStyle !== undefined) {
-			DstObject.removeDOMElementStyle(DstProperty.SetStyle);
-		}
+        if (DstProperty.SetStyle !== undefined) {
+            DstObject.removeDOMElementStyle(DstProperty.SetStyle);
+        }
 
-		try {
-			DstObject.ParentObject.enable();
-		}
-		catch(err) {
-			console.debug('Dst Object enable() failed. ObjectID:%s Object:%o', DstProperty.ObjectID, DstObject);
-		}
+        try {
+            DstObject.ParentObject.enable();
+        }
+        catch(err) {
+            console.debug('Dst Object enable() failed. ObjectID:%s Object:%o', DstProperty.ObjectID, DstObject);
+        }
 
-		DstObject.getDOMelement().focus();
-	}
+        DstObject.getDOMelement().focus();
+    }
 }

@@ -16,32 +16,32 @@
 
 function sysTab()
 {
-	this.ObjectID				= null;							//- ObjectID
-	this.TabID					= null;							//- TabID
+    this.ObjectID                 = null;                            //- ObjectID
+    this.TabID                    = null;                            //- TabID
 
-	this.DOMType				= 'li'							//- Set DOM Element Type
-	this.DOMStyle				= 'nav-item'					//- Set DOM Element Type
+    this.DOMType                  = 'li'                             //- Set DOM Element Type
+    this.DOMStyle                 = 'nav-item'                       //- Set DOM Element Type
 
-	this.ContentObj				= new sysBaseObject();			//- Tab Content Container
+    this.ContentObj               = new sysBaseObject();             //- Tab Content Container
 
-	this.Default				= false;						//- false | true
+    this.Default                  = false;                           //- false | true
 
-	this.TextID					= null;							//- TextID
+    this.TextID                   = null;                            //- TextID
 
-	this.Active					= false;						//- false | true
+    this.Active                   = false;                           //- false | true
 
-	this.TabContainer			= null;							//- TabContainer Object
+    this.TabContainer             = null;                            //- TabContainer Object
 
-	this.ValidateStatus			= null;							//- Child Form Validate Status
+    this.ValidateStatus           = null;                            //- Child Form Validate Status
 
-	this.StyleActive			= null;							//- Active Style
-	this.StyleInactive			= null;							//- Inactive Style
+    this.StyleActive              = null;                            //- Active Style
+    this.StyleInactive            = null;                            //- Inactive Style
 
-	this.EventListeners			= new Object();					//- Event Listeners
+    this.EventListeners           = new Object();                    //- Event Listeners
 
-	this.ChildObjects			= new Array();					//- Child Objects
+    this.ChildObjects             = new Array();                     //- Child Objects
 
-	this.PostRequestData		= new sysRequestDataHandler();	//- POST Request Data
+    this.PostRequestData          = new sysRequestDataHandler();     //- POST Request Data
 }
 
 
@@ -54,8 +54,8 @@ sysTab.prototype = new sysBaseObject();
 
 sysTab.prototype.EventListenerClick = function(Event)
 {
-	//console.debug('::EventListenerClick sysTab TabID:' + this.TabID);
-	this.TabContainer.switchTab(this.TabID);
+    //console.debug('::EventListenerClick sysTab TabID:' + this.TabID);
+    this.TabContainer.switchTab(this.TabID);
 }
 
 
@@ -65,9 +65,9 @@ sysTab.prototype.EventListenerClick = function(Event)
 
 sysTab.prototype.fireEvents = function()
 {
-	if (this.FireEvents !== undefined) {
-		sysFactory.Reactor.fireEvents(this.FireEvents);
-	}
+    if (this.FireEvents !== undefined) {
+        sysFactory.Reactor.fireEvents(this.FireEvents);
+    }
 }
 
 
@@ -77,7 +77,7 @@ sysTab.prototype.fireEvents = function()
 
 sysTab.prototype.setValidateStatus = function(Status)
 {
-	this.ValidateStatus = Status;
+    this.ValidateStatus = Status;
 }
 
 
@@ -87,13 +87,13 @@ sysTab.prototype.setValidateStatus = function(Status)
 
 function sysTabContainer()
 {
-	this.ChildObjects				= new Array();				//- Child Objects
+    this.ChildObjects                = new Array();                //- Child Objects
 
-	this.Tabs						= new Object();				//- Tab Objects
-	this.ChildObjects				= new Array();				//- Child Objects recursive
+    this.Tabs                        = new Object();               //- Tab Objects
+    this.ChildObjects                = new Array();                //- Child Objects recursive
 
-	this.ContentContainer			= new sysBaseObject();		//- Tab Content Container
-	this.TabsContainer				= new sysBaseObject();		//- Tabs Container
+    this.ContentContainer            = new sysBaseObject();        //- Tab Content Container
+    this.TabsContainer               = new sysBaseObject();        //- Tabs Container
 }
 
 sysTabContainer.prototype = new sysBaseObject();
@@ -105,27 +105,27 @@ sysTabContainer.prototype = new sysBaseObject();
 
 sysTabContainer.prototype.init = function()
 {
-	//- set tabs container object ids and css style
-	this.TabsContainer.ObjectID = this.ObjectID + 'TabsContainer';
-	this.TabsContainer.DOMType = 'ul';
-	this.TabsContainer.DOMStyle = 'nav nav-tabs';
-	this.addObject(this.TabsContainer);
+    //- set tabs container object ids and css style
+    this.TabsContainer.ObjectID = this.ObjectID + 'TabsContainer';
+    this.TabsContainer.DOMType = 'ul';
+    this.TabsContainer.DOMStyle = 'nav nav-tabs';
+    this.addObject(this.TabsContainer);
 
-	//- set content container object ids
-	this.ContentContainer.ObjectID = this.ObjectID + 'ContentContainer';
-	this.ContentContainer.ObjectShortID = this.ObjectID + 'Ctnt';
-	this.addObject(this.ContentContainer);
+    //- set content container object ids
+    this.ContentContainer.ObjectID = this.ObjectID + 'ContentContainer';
+    this.ContentContainer.ObjectShortID = this.ObjectID + 'Ctnt';
+    this.addObject(this.ContentContainer);
 
-	//- set config object attributes
-	this.ContainerAttributes = this.JSONConfig.Attributes;
+    //- set config object attributes
+    this.ContainerAttributes = this.JSONConfig.Attributes;
 
-	//- connect tab container object for switching tabs from "outside"
-	this.TabContainerObject = this;
+    //- connect tab container object for switching tabs from "outside"
+    this.TabContainerObject = this;
 
-	//console.debug('::init TabContainer ObjectUD:%s', this.ObjectID);
+    //console.debug('::init TabContainer ObjectUD:%s', this.ObjectID);
 
-	//- add tabs from configurtaion
-	this.addTabs();
+    //- add tabs from configurtaion
+    this.addTabs();
 }
 
 
@@ -135,40 +135,40 @@ sysTabContainer.prototype.init = function()
 
 sysTabContainer.prototype.addTabs = function()
 {
-	var Tabs = this.ContainerAttributes.Tabs;
+    var Tabs = this.ContainerAttributes.Tabs;
 
-	for (const TabItem of Tabs) {
+    for (const TabItem of Tabs) {
 
-		TabID = TabItem.ID;
+        TabID = TabItem.ID;
 
-		console.debug('TabID:%s', TabID);
+        console.debug('TabID:%s', TabID);
 
-		var TabElement = new sysTab();
-		const TabAttributes = TabItem.Attributes;
+        var TabElement = new sysTab();
+        const TabAttributes = TabItem.Attributes;
 
-		TabElement.TabID				= TabID;
-		TabElement.ObjectID				= TabID;
-		TabElement.Default				= TabAttributes.Default;
-		TabElement.TextID				= TabAttributes.TextID;
-		TabElement.FireEvents			= TabAttributes.FireEvents;
-		TabElement.Index				= TabItem.Index;
+        TabElement.TabID       = TabID;
+        TabElement.ObjectID    = TabID;
+        TabElement.Default     = TabAttributes.Default;
+        TabElement.TextID      = TabAttributes.TextID;
+        TabElement.FireEvents  = TabAttributes.FireEvents;
+        TabElement.Index       = TabItem.Index;
 
-		TabElement.TabContainer			= this;
+        TabElement.TabContainer = this;
 
-		TabElement.ContentObj.ObjectID	= TabID + 'Content';
+        TabElement.ContentObj.ObjectID = TabID + 'Content';
 
-		if (TabAttributes.Default == true) {
-			TabElement.Active = true;
+        if (TabAttributes.Default == true) {
+            TabElement.Active = true;
             this.setGlobalCurrentTab(TabID, TabElement);
-		}
-		if (TabAttributes.Default == false || TabAttributes.Default === undefined) {
-			TabElement.Active = false;
-		}
+        }
+        if (TabAttributes.Default == false || TabAttributes.Default === undefined) {
+            TabElement.Active = false;
+        }
 
-		this.Tabs[TabID] = TabElement;
+        this.Tabs[TabID] = TabElement;
 
-		this.appendTabObject(TabElement);
-	}
+        this.appendTabObject(TabElement);
+    }
 }
 
 
@@ -178,7 +178,7 @@ sysTabContainer.prototype.addTabs = function()
 
 sysTabContainer.prototype.getTabByTabID = function(TabID)
 {
-	return this.Tabs[TabID];
+    return this.Tabs[TabID];
 }
 
 
@@ -188,24 +188,24 @@ sysTabContainer.prototype.getTabByTabID = function(TabID)
 
 sysTabContainer.prototype.appendTabObject = function(TabElement)
 {
-	TabElement.SQLTextObj = new sysObjSQLText();
-	TabElement.SQLTextObj.ObjectID = TabElement.TabID + 'Text';
-	TabElement.SQLTextObj.TextID = TabElement.TextID;
-	TabElement.SQLTextObj.DOMStyle = 'nav-link';
-	TabElement.SQLTextObj.DOMType = 'a';
-	TabElement.SQLTextObj.init();
+    TabElement.SQLTextObj = new sysObjSQLText();
+    TabElement.SQLTextObj.ObjectID = TabElement.TabID + 'Text';
+    TabElement.SQLTextObj.TextID = TabElement.TextID;
+    TabElement.SQLTextObj.DOMStyle = 'nav-link';
+    TabElement.SQLTextObj.DOMType = 'a';
+    TabElement.SQLTextObj.init();
 
-	TabElement.addObject(TabElement.SQLTextObj);
+    TabElement.addObject(TabElement.SQLTextObj);
 
-	this.TabsContainer.addObject(TabElement);
-	this.ContentContainer.addObject(TabElement.ContentObj);
+    this.TabsContainer.addObject(TabElement);
+    this.ContentContainer.addObject(TabElement.ContentObj);
 
-	var EventListenerObj = new Object();
+    var EventListenerObj = new Object();
 
-	EventListenerObj['Type'] = 'mousedown';
-	EventListenerObj['Element'] = TabElement.EventListenerClick.bind(TabElement);
+    EventListenerObj['Type'] = 'mousedown';
+    EventListenerObj['Element'] = TabElement.EventListenerClick.bind(TabElement);
 
-	TabElement.EventListeners["TabClick"] = EventListenerObj;
+    TabElement.EventListeners["TabClick"] = EventListenerObj;
 }
 
 
@@ -215,9 +215,9 @@ sysTabContainer.prototype.appendTabObject = function(TabElement)
 
 sysTabContainer.prototype.setGlobalCurrentTab = function(TabID, TabElement)
 {
-	sysFactory.currentTabID = TabID;
-	sysFactory.currentTabContainerObject = this;
-	sysFactory.currentTabObject = TabElement;
+    sysFactory.currentTabID = TabID;
+    sysFactory.currentTabContainerObject = this;
+    sysFactory.currentTabObject = TabElement;
 }
 
 
@@ -227,41 +227,41 @@ sysTabContainer.prototype.setGlobalCurrentTab = function(TabID, TabElement)
 
 sysTabContainer.prototype.switchTab = function(TabID)
 {
-	console.debug('::switchTab TabID:%s', TabID);
+    console.debug('::switchTab TabID:%s', TabID);
 
-	for (const ProcessTabID in this.Tabs) {
+    for (const ProcessTabID in this.Tabs) {
 
-		TabElement = this.Tabs[ProcessTabID];
-		console.debug('TabElement:%o TabID:%s', TabElement, ProcessTabID);
+        TabElement = this.Tabs[ProcessTabID];
+        console.debug('TabElement:%o TabID:%s', TabElement, ProcessTabID);
 
-		if (TabElement.TabID == TabID) {
+        if (TabElement.TabID == TabID) {
 
-			//console.debug('Switching active tab:%s', this.ObjectID);
-			//console.debug('::switchTab TabKey:%s Active==True', TabKey);
+            //console.debug('Switching active tab:%s', this.ObjectID);
+            //console.debug('::switchTab TabKey:%s Active==True', TabKey);
 
-			this.setGlobalCurrentTab(TabID, TabElement);
+            this.setGlobalCurrentTab(TabID, TabElement);
 
-			TabElement.Active = true;
-			TabElement.SQLTextObj.DOMStyle = 'nav-link active';
-			TabElement.SQLTextObj.setDOMElementStyle();
+            TabElement.Active = true;
+            TabElement.SQLTextObj.DOMStyle = 'nav-link active';
+            TabElement.SQLTextObj.setDOMElementStyle();
 
-			TabElement.ContentObj.setActivated();
-			TabElement.ContentObj.VisibleState = 'visible';
-			TabElement.ContentObj.setDOMVisibleState();
+            TabElement.ContentObj.setActivated();
+            TabElement.ContentObj.VisibleState = 'visible';
+            TabElement.ContentObj.setDOMVisibleState();
 
-			//- fire events
-			TabElement.fireEvents();
-		}
-		else {
-			TabElement.Active = false;
-			TabElement.SQLTextObj.DOMStyle = 'nav-link';
-			TabElement.SQLTextObj.setDOMElementStyle();
+            //- fire events
+            TabElement.fireEvents();
+        }
+        else {
+            TabElement.Active = false;
+            TabElement.SQLTextObj.DOMStyle = 'nav-link';
+            TabElement.SQLTextObj.setDOMElementStyle();
 
-			TabElement.ContentObj.setDeactivated();
-			TabElement.ContentObj.VisibleState = 'hidden';
-			TabElement.ContentObj.setDOMVisibleState();
-		}
-	}
+            TabElement.ContentObj.setDeactivated();
+            TabElement.ContentObj.VisibleState = 'hidden';
+            TabElement.ContentObj.setDOMVisibleState();
+        }
+    }
 
 }
 
@@ -272,13 +272,13 @@ sysTabContainer.prototype.switchTab = function(TabID)
 
 sysTabContainer.prototype.loadAll = function()
 {
-	for (const TabID in this.Tabs) {
-		TabElement = this.Tabs[TabID];
-		TabElement.fireEvents();
-		/*
-		TabElement.processService();
-		*/
-	}
+    for (const TabID in this.Tabs) {
+        TabElement = this.Tabs[TabID];
+        TabElement.fireEvents();
+        /*
+        TabElement.processService();
+        */
+    }
 }
 
 
@@ -288,10 +288,10 @@ sysTabContainer.prototype.loadAll = function()
 
 sysTabContainer.prototype.getActiveTabID = function()
 {
-	for (TabKey in this.Tabs) {
-		TabElement = this.Tabs[TabKey];
-		if (TabElement.Active == true) { return TabKey; }
-	}
+    for (TabKey in this.Tabs) {
+        TabElement = this.Tabs[TabKey];
+        if (TabElement.Active == true) { return TabKey; }
+    }
 }
 
 
@@ -301,9 +301,9 @@ sysTabContainer.prototype.getActiveTabID = function()
 
 sysTabContainer.prototype.switchActiveTab = function()
 {
-	const ActiveTabID = this.getActiveTabID();
-	console.debug('ActiveTabID:%s', ActiveTabID);
-	this.switchTab(ActiveTabID);
+    const ActiveTabID = this.getActiveTabID();
+    console.debug('ActiveTabID:%s', ActiveTabID);
+    this.switchTab(ActiveTabID);
 }
 
 
@@ -314,8 +314,8 @@ sysTabContainer.prototype.switchActiveTab = function()
 sysTabContainer.prototype.getDefaultTabID = function()
 {
     for (TabKey in this.Tabs) {
-		TabElement = this.Tabs[TabKey];
-		if (TabElement.Default == true) { return TabKey; }
+        TabElement = this.Tabs[TabKey];
+        if (TabElement.Default == true) { return TabKey; }
     }
 }
 
@@ -326,9 +326,9 @@ sysTabContainer.prototype.getDefaultTabID = function()
 
 sysTabContainer.prototype.switchDefaultTab = function()
 {
-	const DefaultTabID = this.getDefaultTabID();
-	console.debug('DefaultTabID:%s', DefaultTabID);
-	this.switchTab(DefaultTabID);
+    const DefaultTabID = this.getDefaultTabID();
+    console.debug('DefaultTabID:%s', DefaultTabID);
+    this.switchTab(DefaultTabID);
 }
 
 
@@ -338,8 +338,8 @@ sysTabContainer.prototype.switchDefaultTab = function()
 
 sysTabContainer.prototype.reset = function()
 {
-	//console.debug('::reset');
-	this.switchDefaultTab();
+    //console.debug('::reset');
+    this.switchDefaultTab();
 }
 
 
@@ -349,11 +349,11 @@ sysTabContainer.prototype.reset = function()
 
 sysTabContainer.prototype.switchFirstTabContainingErrors = function()
 {
-	for (TabKey in this.Tabs) {
-		TabElement = this.Tabs[TabKey];
-		if (TabElement.ValidateStatus === false) {
-			this.switchTab(TabKey);
-			break;
-		}
-	}
+    for (TabKey in this.Tabs) {
+        TabElement = this.Tabs[TabKey];
+        if (TabElement.ValidateStatus === false) {
+            this.switchTab(TabKey);
+            break;
+        }
+    }
 }

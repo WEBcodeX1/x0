@@ -17,16 +17,16 @@
 
 function sysObjAsyncNotifyIndicator() {
 
-	this.EventListeners	= new Object();
-	this.ChildObjects	= new Array();
+    this.EventListeners   = new Object();
+    this.ChildObjects     = new Array();
 
-	this.Items			= new Object();
+    this.Items            = new Object();
 
-	this.ObjectID 		= 'SYSGlobalAsyncNotifyIndicator';
+    this.ObjectID         = 'SYSGlobalAsyncNotifyIndicator';
 
-	this.zIndex			= 10;
+    this.zIndex           = 10;
 
-	this.init();
+    this.init();
 
 }
 
@@ -39,7 +39,7 @@ sysObjAsyncNotifyIndicator.prototype = new sysBaseObject();
 
 sysObjAsyncNotifyIndicator.prototype.init = function()
 {
-	this.renderObject();
+    this.renderObject();
 }
 
 
@@ -49,10 +49,10 @@ sysObjAsyncNotifyIndicator.prototype.init = function()
 
 sysObjAsyncNotifyIndicator.prototype.addMsgItem = function(Config)
 {
-	var IndicatorItem = new sysObjAsyncNotifyIndicatorItem(Config, this);
-	//console.debug('::addMsgItem Config:%o Item:%o', Config, IndicatorItem);
-	this.Items[Config.ID] = IndicatorItem;
-	this.zIndex += 1;
+    var IndicatorItem = new sysObjAsyncNotifyIndicatorItem(Config, this);
+    //console.debug('::addMsgItem Config:%o Item:%o', Config, IndicatorItem);
+    this.Items[Config.ID] = IndicatorItem;
+    this.zIndex += 1;
 }
 
 
@@ -62,5 +62,5 @@ sysObjAsyncNotifyIndicator.prototype.addMsgItem = function(Config)
 
 sysObjAsyncNotifyIndicator.prototype.getMsgItemByName = function(ID)
 {
-	return this.Items[ID];
+    return this.Items[ID];
 }

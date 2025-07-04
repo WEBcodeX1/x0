@@ -29,7 +29,7 @@ function sysXMLRPCBaseSyncLoader() {
 //------------------------------------------------------------------------------
 sysXMLRPCBaseSyncLoader.prototype.setLoaderObj = function(LoaderObject)
 {
-	this.LoaderObject = LoaderObject;
+    this.LoaderObject = LoaderObject;
 }
 
 
@@ -38,10 +38,10 @@ sysXMLRPCBaseSyncLoader.prototype.setLoaderObj = function(LoaderObject)
 //------------------------------------------------------------------------------
 sysXMLRPCBaseSyncLoader.prototype.requestXMLRPCData = function(URL)
 {
-	this.DataReadyState = false;
-	const RPC = new sysCallXMLRPC(URL);
-	this.MergeResult = true;
-	RPC.Request(this);
+    this.DataReadyState = false;
+    const RPC = new sysCallXMLRPC(URL);
+    this.MergeResult = true;
+    RPC.Request(this);
 }
 
 
@@ -50,6 +50,6 @@ sysXMLRPCBaseSyncLoader.prototype.requestXMLRPCData = function(URL)
 //------------------------------------------------------------------------------
 sysXMLRPCBaseSyncLoader.prototype.callbackXMLRPCAsync = function()
 {
-	this.DataReadyState = true;
-	this.LoaderObject.checkLoaded();
+    this.DataReadyState = true;
+    this.LoaderObject.checkLoaded();
 }

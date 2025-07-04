@@ -17,15 +17,15 @@
 
 function sysFileUpload()
 {
-	this.DOMType				= 'form';
-	this.DOMAttributes			= { 'enctype': 'multipart/form-data' };
-	this.EventListeners			= new Object();
-	this.ChildObjects			= new Array();
-	this.FileName				= null;
-	this.Status					= null;
-	this.RuntimeSetDataFunc		= this.UploadFinished;
+    this.DOMType              = 'form';
+    this.DOMAttributes        = { 'enctype': 'multipart/form-data' };
+    this.EventListeners       = new Object();
+    this.ChildObjects         = new Array();
+    this.FileName             = null;
+    this.Status               = null;
+    this.RuntimeSetDataFunc   = this.UploadFinished;
 
-	this.overrideDOMObjectID	= true;
+    this.overrideDOMObjectID  = true;
 }
 
 sysFileUpload.prototype = new sysBaseObject();
@@ -37,76 +37,76 @@ sysFileUpload.prototype = new sysBaseObject();
 
 sysFileUpload.prototype.init = function()
 {
-	const Attributes = this.JSONConfig.Attributes;
+    const Attributes = this.JSONConfig.Attributes;
 
-	this.DOMStyle = Attributes.Style;
+    this.DOMStyle = Attributes.Style;
 
-	//console.log('::init Attributes:%o', Attributes);
+    //console.log('::init Attributes:%o', Attributes);
 
-	var SQLTextObj = new sysObjSQLText();
-	SQLTextObj.ObjectID = 'SQLText';
-	SQLTextObj.TextID = Attributes.TextID;
+    var SQLTextObj = new sysObjSQLText();
+    SQLTextObj.ObjectID = 'SQLText';
+    SQLTextObj.TextID = Attributes.TextID;
 
-	SQLTextObj.JSONConfig = {
-		"Attributes": {
-			"Style": Attributes.StyleDescription,
-			"IconStyle": "fa-solid fa-upload"
-		}
-	};
+    SQLTextObj.JSONConfig = {
+        "Attributes": {
+            "Style": Attributes.StyleDescription,
+            "IconStyle": "fa-solid fa-upload"
+        }
+    };
 
-	SQLTextObj.init();
-	this.addObject(SQLTextObj);
+    SQLTextObj.init();
+    this.addObject(SQLTextObj);
 
-	var FileSelectButtonHTML = '<input ';
-	FileSelectButtonHTML += 'type="file" ';
-	FileSelectButtonHTML += 'id="' + this.ObjectID + '_select" ';
-	FileSelectButtonHTML += 'name="' + this.ObjectID + '_file" ';
-	FileSelectButtonHTML += 'class="form-control">';
+    var FileSelectButtonHTML = '<input ';
+    FileSelectButtonHTML += 'type="file" ';
+    FileSelectButtonHTML += 'id="' + this.ObjectID + '_select" ';
+    FileSelectButtonHTML += 'name="' + this.ObjectID + '_file" ';
+    FileSelectButtonHTML += 'class="form-control">';
 
-	var FileSelectButton = new sysBaseObject();
-	FileSelectButton.ObjectID = this.ObjectID + 'FileButton';
-	FileSelectButton.DOMStyle = Attributes.StyleSelectButton;
-	FileSelectButton.DOMValue = FileSelectButtonHTML;
-	this.addObject(FileSelectButton);
+    var FileSelectButton = new sysBaseObject();
+    FileSelectButton.ObjectID = this.ObjectID + 'FileButton';
+    FileSelectButton.DOMStyle = Attributes.StyleSelectButton;
+    FileSelectButton.DOMValue = FileSelectButtonHTML;
+    this.addObject(FileSelectButton);
 
-	var ProgressContainer = new sysBaseObject();
-	ProgressContainer.ObjectID = this.ObjectID + 'Progress';
-	ProgressContainer.DOMStyle = Attributes.StyleProgressContainer;
-	this.addObject(ProgressContainer);
+    var ProgressContainer = new sysBaseObject();
+    ProgressContainer.ObjectID = this.ObjectID + 'Progress';
+    ProgressContainer.DOMStyle = Attributes.StyleProgressContainer;
+    this.addObject(ProgressContainer);
 
-	var ProgressBar = new sysBaseObject();
-	ProgressBar.ObjectID = this.ObjectID + 'ProgressBar';
-	ProgressBar.DOMStyle = Attributes.StyleProgressBar;
-	ProgressContainer.addObject(ProgressBar);
+    var ProgressBar = new sysBaseObject();
+    ProgressBar.ObjectID = this.ObjectID + 'ProgressBar';
+    ProgressBar.DOMStyle = Attributes.StyleProgressBar;
+    ProgressContainer.addObject(ProgressBar);
 
-	var ProgressPercentage = new sysBaseObject();
-	ProgressPercentage.ObjectID = this.ObjectID + 'ProgressPercentage';
-	ProgressPercentage.DOMStyle = Attributes.StyleProgressBarPercentage;
-	ProgressContainer.addObject(ProgressPercentage);
+    var ProgressPercentage = new sysBaseObject();
+    ProgressPercentage.ObjectID = this.ObjectID + 'ProgressPercentage';
+    ProgressPercentage.DOMStyle = Attributes.StyleProgressBarPercentage;
+    ProgressContainer.addObject(ProgressPercentage);
 
-	var UploadButton = new sysObjButtonInternal();
-	UploadButton.ObjectID = this.ObjectID + 'UploadButton';
+    var UploadButton = new sysObjButtonInternal();
+    UploadButton.ObjectID = this.ObjectID + 'UploadButton';
 
-	UploadButton.JSONConfig = {
-		"Attributes": {
-			"FormButton": true,
-			"Style": 'w-100 ' + Attributes.StyleUploadButton,
-			"TextID": "SYSTEM.UPLOAD.BUTTON",
-			"Action": "upload"
-		}
-	};
+    UploadButton.JSONConfig = {
+        "Attributes": {
+            "FormButton": true,
+            "Style": 'w-100 ' + Attributes.StyleUploadButton,
+            "TextID": "SYSTEM.UPLOAD.BUTTON",
+            "Action": "upload"
+        }
+    };
 
-	UploadButton.ScreenObject = this.ScreenObject;
-	UploadButton.init();
+    UploadButton.ScreenObject = this.ScreenObject;
+    UploadButton.init();
 
-	//- set callback function for upload button
-	var EventListenerObj = new Object();
-	EventListenerObj['Type'] = 'mousedown';
-	EventListenerObj['Element'] = this.startUpload.bind(this);
+    //- set callback function for upload button
+    var EventListenerObj = new Object();
+    EventListenerObj['Type'] = 'mousedown';
+    EventListenerObj['Element'] = this.startUpload.bind(this);
 
-	UploadButton.EventListeners['UploadButtonCallback'] = EventListenerObj;
+    UploadButton.EventListeners['UploadButtonCallback'] = EventListenerObj;
 
-	this.addObject(UploadButton);
+    this.addObject(UploadButton);
 }
 
 
@@ -116,17 +116,17 @@ sysFileUpload.prototype.init = function()
 
 sysFileUpload.prototype.startUpload = function()
 {
-	const FileName = this.getObjectData();
-	if (FileName.length > 0) {
-		this.FormObject = new FormData(this.getDOMelement());
-		this.FormObject.append("SessionID", sysFactory.SysSessionValue);
+    const FileName = this.getObjectData();
+    if (FileName.length > 0) {
+        this.FormObject = new FormData(this.getDOMelement());
+        this.FormObject.append("SessionID", sysFactory.SysSessionValue);
 
-		var XHR = new XMLHttpRequest();
-		XHR.upload.addEventListener('progress', this.updateProgress.bind(this));
-		XHR.upload.addEventListener('load', this.UploadFinished.bind(this));
-		XHR.open('POST', this.JSONConfig.Attributes.UploadScript);
-		XHR.send(this.FormObject);
-	}
+        var XHR = new XMLHttpRequest();
+        XHR.upload.addEventListener('progress', this.updateProgress.bind(this));
+        XHR.upload.addEventListener('load', this.UploadFinished.bind(this));
+        XHR.open('POST', this.JSONConfig.Attributes.UploadScript);
+        XHR.send(this.FormObject);
+    }
 }
 
 
@@ -136,14 +136,14 @@ sysFileUpload.prototype.startUpload = function()
 
 sysFileUpload.prototype.updateProgress = function(progress)
 {
-	try {
-		console.debug('::updateProgress progress:%o', progress);
-		this.ProgressPercent = Math.round(progress.loaded * 100 / progress.total);
-	}
-	catch(err) {
-		this.ProgressPercent = 0;
-	}
-	this.renderProgressBar();
+    try {
+        console.debug('::updateProgress progress:%o', progress);
+        this.ProgressPercent = Math.round(progress.loaded * 100 / progress.total);
+    }
+    catch(err) {
+        this.ProgressPercent = 0;
+    }
+    this.renderProgressBar();
 }
 
 
@@ -153,15 +153,15 @@ sysFileUpload.prototype.updateProgress = function(progress)
 
 sysFileUpload.prototype.UploadFinished = function(progress)
 {
-	this.Status = 'uploaded';
-	this.ProgressPercent = 100;
-	this.renderProgressBar();
+    this.Status = 'uploaded';
+    this.ProgressPercent = 100;
+    this.renderProgressBar();
 
-	const Attributes = this.JSONConfig.Attributes;
+    const Attributes = this.JSONConfig.Attributes;
 
-	if (Attributes.ScreenDataLoad !== undefined) {
-		sysFactory.triggerScreenDataLoad(Attributes.ScreenDataLoad);
-	}
+    if (Attributes.ScreenDataLoad !== undefined) {
+        sysFactory.triggerScreenDataLoad(Attributes.ScreenDataLoad);
+    }
 }
 
 
@@ -171,17 +171,17 @@ sysFileUpload.prototype.UploadFinished = function(progress)
 
 sysFileUpload.prototype.renderProgressBar = function()
 {
-	try {
-		const ProgressBarElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressBar');
-		const ProgressPercentageElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressPercentage');
-		ProgressBarElement.DOMStyleWidth = this.ProgressPercent + '%'
-		ProgressBarElement.setDOMElementStyleAttributes();
-		ProgressPercentageElement.DOMValue = Math.round(this.ProgressPercent) + '%';
-		ProgressPercentageElement.setDOMElementValue();
-	}
-	catch(err) {
-		console.debug('FileUpload Progress Bar exception:%o', err);
-	}
+    try {
+        const ProgressBarElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressBar');
+        const ProgressPercentageElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressPercentage');
+        ProgressBarElement.DOMStyleWidth = this.ProgressPercent + '%'
+        ProgressBarElement.setDOMElementStyleAttributes();
+        ProgressPercentageElement.DOMValue = Math.round(this.ProgressPercent) + '%';
+        ProgressPercentageElement.setDOMElementValue();
+    }
+    catch(err) {
+        console.debug('FileUpload Progress Bar exception:%o', err);
+    }
 }
 
 
@@ -191,6 +191,6 @@ sysFileUpload.prototype.renderProgressBar = function()
 
 sysFileUpload.prototype.getObjectData = function()
 {
-	const FileUploadElement = this.ObjectID + '_select';
-	return document.getElementById(FileUploadElement).value;
+    const FileUploadElement = this.ObjectID + '_select';
+    return document.getElementById(FileUploadElement).value;
 }

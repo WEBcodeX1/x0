@@ -17,22 +17,22 @@
 
 function sysObjAsyncNotifyIndicatorItem(NotifyConfig, ParentRef)
 {
-	this.EventListeners	= new Object();
-	this.ChildObjects	= new Array();
+    this.EventListeners    = new Object();
+    this.ChildObjects      = new Array();
 
-	this.ParentObj		= ParentRef;										// Async Indicator Object Ref
+    this.ParentObj         = ParentRef;                                      // Async Indicator Object Ref
 
-	this.ObjectID		= 'IndicatorItem' + this.ParentObj.zIndex;			// ObjectID
-	this.DOMStyle		= 'm-2 card card-body alert alert-success';			// Base Indicator Item Style
+    this.ObjectID          = 'IndicatorItem' + this.ParentObj.zIndex;        // ObjectID
+    this.DOMStyle          = 'm-2 card card-body alert alert-success';       // Base Indicator Item Style
 
-	this.NotifyConfig	= NotifyConfig;										// Notify Config
-	this.ID				= NotifyConfig.ID;									// Unique Name
-	this.DisplayHeader	= NotifyConfig.DisplayHeader;						// Display Header
-	this.DisplayText	= '';												// Display Text
+    this.NotifyConfig      = NotifyConfig;                                   // Notify Config
+    this.ID                = NotifyConfig.ID;                                // Unique Name
+    this.DisplayHeader     = NotifyConfig.DisplayHeader;                     // Display Header
+    this.DisplayText       = '';                                             // Display Text
 
-	this.ProcessStatus	= -1;												// -1: processing, 0: processed ok
+    this.ProcessStatus     = -1;                                             // -1: processing, 0: processed ok
 
-	this.init();
+    this.init();
 }
 
 sysObjAsyncNotifyIndicatorItem.prototype = new sysBaseObject();
@@ -44,58 +44,58 @@ sysObjAsyncNotifyIndicatorItem.prototype = new sysBaseObject();
 
 sysObjAsyncNotifyIndicatorItem.prototype.init = function()
 {
-	//console.debug('::init IndicatorItem');
+    //console.debug('::init IndicatorItem');
 
-	this.DOMStyleZIndex = this.ParentObj.zIndex;
-	this.setDOMElementZIndex();
+    this.DOMStyleZIndex = this.ParentObj.zIndex;
+    this.setDOMElementZIndex();
 
-	var BtnEnclose = new sysBaseObject();
-	BtnEnclose.ObjectID = 'enclose';
+    var BtnEnclose = new sysBaseObject();
+    BtnEnclose.ObjectID = 'enclose';
 
-	var BtnClose = new sysBaseObject();
-	BtnClose.ObjectID = 'btnclose';
-	BtnClose.DOMType = 'button';
-	BtnClose.DOMStyle = 'btn btn-close';
-	BtnClose.DOMAttributes = new Object();	
-	BtnClose.DOMAttributes['type'] = 'button';
-	BtnClose.DOMAttributes['title'] = sysFactory.getText('TXT.SYS.LOADING-INDICATOR-TITLE-CLOSE');
+    var BtnClose = new sysBaseObject();
+    BtnClose.ObjectID = 'btnclose';
+    BtnClose.DOMType = 'button';
+    BtnClose.DOMStyle = 'btn btn-close';
+    BtnClose.DOMAttributes = new Object();    
+    BtnClose.DOMAttributes['type'] = 'button';
+    BtnClose.DOMAttributes['title'] = sysFactory.getText('TXT.SYS.LOADING-INDICATOR-TITLE-CLOSE');
 
-	BtnEnclose.addObject(BtnClose);
-	this.addObject(BtnEnclose);
+    BtnEnclose.addObject(BtnClose);
+    this.addObject(BtnEnclose);
 
-	var RowContainer = new sysBaseObject();
-	RowContainer.ObjectID = 'rowcontainer';
-	RowContainer.DOMStyle = 'row';
+    var RowContainer = new sysBaseObject();
+    RowContainer.ObjectID = 'rowcontainer';
+    RowContainer.DOMStyle = 'row';
 
-	var IconEnclose = new sysBaseObject();
-	IconEnclose.ObjectID = 'iconenclose';
-	IconEnclose.DOMStyle = 'col-2';
+    var IconEnclose = new sysBaseObject();
+    IconEnclose.ObjectID = 'iconenclose';
+    IconEnclose.DOMStyle = 'col-2';
 
-	this.IconObj = new sysBaseObject();
-	this.IconObj.ObjectID = 'icon';
-	this.IconObj.DOMStyle = 'fa fa-spinner fa-spin';
+    this.IconObj = new sysBaseObject();
+    this.IconObj.ObjectID = 'icon';
+    this.IconObj.DOMStyle = 'fa fa-spinner fa-spin';
 
-	var ResultEnclose = new sysBaseObject();
-	ResultEnclose.ObjectID = 'resultenclose';
-	ResultEnclose.DOMStyle = 'col-10';
+    var ResultEnclose = new sysBaseObject();
+    ResultEnclose.ObjectID = 'resultenclose';
+    ResultEnclose.DOMStyle = 'col-10';
 
-	this.ResultObj = new sysBaseObject();
-	this.ResultObj.ObjectID = 'result';
-	this.ResultObj.DOMStyle = '';
-	this.ResultObj.DOMValue = sysFactory.getText('TXT.SYS.LOADING-INDICATOR-SEND-SERVER');
+    this.ResultObj = new sysBaseObject();
+    this.ResultObj.ObjectID = 'result';
+    this.ResultObj.DOMStyle = '';
+    this.ResultObj.DOMValue = sysFactory.getText('TXT.SYS.LOADING-INDICATOR-SEND-SERVER');
 
-	IconEnclose.addObject(this.IconObj);
-	RowContainer.addObject(IconEnclose);
-	ResultEnclose.addObject(this.ResultObj);
-	RowContainer.addObject(ResultEnclose);
+    IconEnclose.addObject(this.IconObj);
+    RowContainer.addObject(IconEnclose);
+    ResultEnclose.addObject(this.ResultObj);
+    RowContainer.addObject(ResultEnclose);
 
-	this.addObject(RowContainer);
+    this.addObject(RowContainer);
 
-	this.ParentObj.addObject(this);
+    this.ParentObj.addObject(this);
 
-	this.renderObject(this.ParentObj.DOMObjectID);
+    this.renderObject(this.ParentObj.DOMObjectID);
 
-	this.DOMaddEventListener('mousedown', this.close.bind(this));
+    this.DOMaddEventListener('mousedown', this.close.bind(this));
 }
 
 
@@ -105,7 +105,7 @@ sysObjAsyncNotifyIndicatorItem.prototype.init = function()
 
 sysObjAsyncNotifyIndicatorItem.prototype.setProcessStatus = function(Status)
 {
-	this.ProcessStatus = Status;
+    this.ProcessStatus = Status;
 }
 
 
@@ -115,7 +115,7 @@ sysObjAsyncNotifyIndicatorItem.prototype.setProcessStatus = function(Status)
 
 sysObjAsyncNotifyIndicatorItem.prototype.setDisplayText = function(Text)
 {
-	this.DisplayText = Text;
+    this.DisplayText = Text;
 }
 
 
@@ -125,8 +125,8 @@ sysObjAsyncNotifyIndicatorItem.prototype.setDisplayText = function(Text)
 
 sysObjAsyncNotifyIndicatorItem.prototype.updateDisplay = function()
 {
-	this.updateDisplayText();
-	this.updateProcessStatus();
+    this.updateDisplayText();
+    this.updateProcessStatus();
 }
 
 
@@ -136,33 +136,33 @@ sysObjAsyncNotifyIndicatorItem.prototype.updateDisplay = function()
 
 sysObjAsyncNotifyIndicatorItem.prototype.processResult = function(status)
 {
-	var UpdateDisplayText = '';
+    var UpdateDisplayText = '';
 
-	if (status == 'SUCCESS') {
-		this.setProcessStatus(0);
-		UpdateDisplayText = sysFactory.getText('TXT.SYS.LOADING-INDICATOR-SUCCESS') + ' "' + this.ID + '"';
-	}
-	else if (status == 'ERROR') {
-		this.setProcessStatus(1);
-		UpdateDisplayText = sysFactory.getText('TXT.SYS.LOADING-INDICATOR-ERROR') + ' "' + this.ID + '"';
-	}
-	else {
-		this.setProcessStatus(2);
-		UpdateDisplayText = sysFactory.getText('TXT.SYS.LOADING-INDICATOR-SYSTEMERROR');
-	}
+    if (status == 'SUCCESS') {
+        this.setProcessStatus(0);
+        UpdateDisplayText = sysFactory.getText('TXT.SYS.LOADING-INDICATOR-SUCCESS') + ' "' + this.ID + '"';
+    }
+    else if (status == 'ERROR') {
+        this.setProcessStatus(1);
+        UpdateDisplayText = sysFactory.getText('TXT.SYS.LOADING-INDICATOR-ERROR') + ' "' + this.ID + '"';
+    }
+    else {
+        this.setProcessStatus(2);
+        UpdateDisplayText = sysFactory.getText('TXT.SYS.LOADING-INDICATOR-SYSTEMERROR');
+    }
 
-	this.setDisplayText(UpdateDisplayText);
-	this.updateDisplay();
+    this.setDisplayText(UpdateDisplayText);
+    this.updateDisplay();
 
-	//- on success, update given system object and switch screen if defined
-	if (status == 'SUCCESS') {
-		if (this.NotifyConfig.OnSuccess !== undefined && this.NotifyConfig.OnSuccess.FireEvents !== undefined) {
-			//console.log(this.NotifyConfig.OnSuccess.FireEvents);
-			sysFactory.Reactor.fireEvents(
-				this.NotifyConfig.OnSuccess.FireEvents
-			);
-		}
-	}
+    //- on success, update given system object and switch screen if defined
+    if (status == 'SUCCESS') {
+        if (this.NotifyConfig.OnSuccess !== undefined && this.NotifyConfig.OnSuccess.FireEvents !== undefined) {
+            //console.log(this.NotifyConfig.OnSuccess.FireEvents);
+            sysFactory.Reactor.fireEvents(
+                this.NotifyConfig.OnSuccess.FireEvents
+            );
+        }
+    }
 }
 
 
@@ -172,21 +172,21 @@ sysObjAsyncNotifyIndicatorItem.prototype.processResult = function(status)
 
 sysObjAsyncNotifyIndicatorItem.prototype.updateProcessStatus = function()
 {
-	if (this.ProcessStatus == 0)  {
-		this.addDOMElementStyle('IndicatorSuccess');
-		this.IconObj.DOMStyle = 'fa fa-check';
-		this.IconObj.setDOMElementStyle();
-	}
-	if (this.ProcessStatus == 1)  {
-		this.addDOMElementStyle('IndicatorWarning');
-		this.IconObj.DOMStyle = 'fa fa-exclamation';
-		this.IconObj.setDOMElementStyle();
-	}
-	if (this.ProcessStatus == 2)  {
-		this.addDOMElementStyle('IndicatorError');
-		this.IconObj.DOMStyle = 'fa fa-bug';
-		this.IconObj.setDOMElementStyle();	
-	}
+    if (this.ProcessStatus == 0)  {
+        this.addDOMElementStyle('IndicatorSuccess');
+        this.IconObj.DOMStyle = 'fa fa-check';
+        this.IconObj.setDOMElementStyle();
+    }
+    if (this.ProcessStatus == 1)  {
+        this.addDOMElementStyle('IndicatorWarning');
+        this.IconObj.DOMStyle = 'fa fa-exclamation';
+        this.IconObj.setDOMElementStyle();
+    }
+    if (this.ProcessStatus == 2)  {
+        this.addDOMElementStyle('IndicatorError');
+        this.IconObj.DOMStyle = 'fa fa-bug';
+        this.IconObj.setDOMElementStyle();    
+    }
 }
 
 
@@ -196,8 +196,8 @@ sysObjAsyncNotifyIndicatorItem.prototype.updateProcessStatus = function()
 
 sysObjAsyncNotifyIndicatorItem.prototype.updateDisplayText = function()
 {
-	this.ResultObj.DOMValue = this.DisplayText;
-	this.ResultObj.setDOMElementValue();
+    this.ResultObj.DOMValue = this.DisplayText;
+    this.ResultObj.setDOMElementValue();
 }
 
 
@@ -207,6 +207,6 @@ sysObjAsyncNotifyIndicatorItem.prototype.updateDisplayText = function()
 
 sysObjAsyncNotifyIndicatorItem.prototype.close = function()
 {
-	this.removeParent();
-	this.ParentObj.zIndex -= 1;
+    this.removeParent();
+    this.ParentObj.zIndex -= 1;
 }

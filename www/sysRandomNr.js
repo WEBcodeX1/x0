@@ -16,7 +16,7 @@
 //------------------------------------------------------------------------------
 
 function sysRandomNr() {
-	this.number = '';
+    this.number = '';
 }
 
 
@@ -26,10 +26,10 @@ function sysRandomNr() {
 
 sysRandomNr.prototype.generate = function(size) {
 
-	for (var i=0; i<size; i++) {
-		var tmpNr = Math.random()*10;
-		this.number += Math.round(tmpNr);
-	}
+    for (var i=0; i<size; i++) {
+        var tmpNr = Math.random()*10;
+        this.number += Math.round(tmpNr);
+    }
 
-	return this.number;
+    return this.number;
 }

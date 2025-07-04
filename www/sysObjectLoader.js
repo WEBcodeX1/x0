@@ -12,8 +12,8 @@
 
 function sysObjectLoader(FactoryObj) {
 
-	this.Objects	= new Array();		//- Loader Objects
-	this.Factory	= FactoryObj;		//- Factory Reference
+    this.Objects    = new Array();        //- Loader Objects
+    this.Factory    = FactoryObj;         //- Factory Reference
 
 }
 
@@ -24,7 +24,7 @@ function sysObjectLoader(FactoryObj) {
 
 sysObjectLoader.prototype.add = function(Object)
 {
-	this.Objects.push(Object);
+    this.Objects.push(Object);
 }
 
 
@@ -34,15 +34,15 @@ sysObjectLoader.prototype.add = function(Object)
 
 sysObjectLoader.prototype.checkLoaded = function()
 {
-	LoadedCount = 0;
+    LoadedCount = 0;
 
-	for (var ObjIndex in this.Objects) {
-		if (this.Objects[ObjIndex].DataReadyState) {
-			LoadedCount++;
-		}
-	}
+    for (var ObjIndex in this.Objects) {
+        if (this.Objects[ObjIndex].DataReadyState) {
+            LoadedCount++;
+        }
+    }
 
-	if (LoadedCount == this.Objects.length) {
-		this.Factory.init();
-	}
+    if (LoadedCount == this.Objects.length) {
+        this.Factory.init();
+    }
 }

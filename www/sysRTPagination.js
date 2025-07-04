@@ -15,10 +15,10 @@
 
 function sysPagination(ParentObject)
 {
-	this.ChildObjects 		= new Array();		//- Child Objects
-	this.ParentObject 		= ParentObject;		//- Parent Object
-	this.CurrentPage		= 0;				//- Current Page
-	this.PageCount			= 0;				//- Page Count
+    this.ChildObjects         = new Array();        //- Child Objects
+    this.ParentObject         = ParentObject;       //- Parent Object
+    this.CurrentPage          = 0;                  //- Current Page
+    this.PageCount            = 0;                  //- Page Count
 }
 
 sysPagination.prototype = new sysBaseObject();
@@ -30,8 +30,8 @@ sysPagination.prototype = new sysBaseObject();
 
 sysPagination.prototype.setPageCount = function()
 {
-	const Parent = this.ParentObject;
-	this.PageCount = Math.ceil(Parent.RowItems.length / Parent.DisplayRows);
+    const Parent = this.ParentObject;
+    this.PageCount = Math.ceil(Parent.RowItems.length / Parent.DisplayRows);
 }
 
 
@@ -41,150 +41,150 @@ sysPagination.prototype.setPageCount = function()
 
 sysPagination.prototype.render = function()
 {
-	this.ChildObjects = new Array();
+    this.ChildObjects = new Array();
 
-	this.DOMStyle = 'row allign-items-center m-1';
-	this.ObjectID = 'nav-row';
+    this.DOMStyle = 'row allign-items-center m-1';
+    this.ObjectID = 'nav-row';
 
-	this.setPageCount();
+    this.setPageCount();
 
-	if (this.DOMParentID !== null) {
-		this.removeParent();
-	}
+    if (this.DOMParentID !== null) {
+        this.removeParent();
+    }
 
-	var NavLeftButton = new sysObjButtonCallback();
-	NavLeftButton.setCallback(this, 'navLeft');
+    var NavLeftButton = new sysObjButtonCallback();
+    NavLeftButton.setCallback(this, 'navLeft');
 
-	var NavRightButton = new sysObjButtonCallback();
-	NavRightButton.setCallback(this, 'navRight');
+    var NavRightButton = new sysObjButtonCallback();
+    NavRightButton.setCallback(this, 'navRight');
 
-	const ButtonLeftObjs = {
-		"id": "bt-left-ct",
-		"SysObject": new sysObjDiv(),
-		"JSONAttributes": {
-			"DOMType": "li",
-			"Style": "page-item"
-		},
-		"ObjectDefs": [
-			{
-				"id": "bt-left",
-				"SysObject": NavLeftButton,
-				"JSONAttributes": {
-					"DOMType": "a",
-					"Style": "page-link",
-					"IconStyle": "fa-solid fa-angle-left",
-					"TextID": "TXT.BUTTON.LEFT"
-				}
-			}
-		]
-	};
+    const ButtonLeftObjs = {
+        "id": "bt-left-ct",
+        "SysObject": new sysObjDiv(),
+        "JSONAttributes": {
+            "DOMType": "li",
+            "Style": "page-item"
+        },
+        "ObjectDefs": [
+            {
+                "id": "bt-left",
+                "SysObject": NavLeftButton,
+                "JSONAttributes": {
+                    "DOMType": "a",
+                    "Style": "page-link",
+                    "IconStyle": "fa-solid fa-angle-left",
+                    "TextID": "TXT.BUTTON.LEFT"
+                }
+            }
+        ]
+    };
 
-	const ButtonRightObjs = {
-		"id": "bt-right-ct",
-		"SysObject": new sysObjDiv(),
-		"JSONAttributes": {
-			"DOMType": "li",
-			"Style": "page-item"
-		},
-		"ObjectDefs": [
-			{
-				"id": "button-right",
-				"SysObject": NavRightButton,
-				"JSONAttributes": {
-					"DOMType": "a",
-					"Style": "page-link",
-					"IconStylePost": "fa-solid fa-angle-right",
-					"TextID": "TXT.BUTTON.RIGHT"
-				}
-			}
-		]
-	};
+    const ButtonRightObjs = {
+        "id": "bt-right-ct",
+        "SysObject": new sysObjDiv(),
+        "JSONAttributes": {
+            "DOMType": "li",
+            "Style": "page-item"
+        },
+        "ObjectDefs": [
+            {
+                "id": "button-right",
+                "SysObject": NavRightButton,
+                "JSONAttributes": {
+                    "DOMType": "a",
+                    "Style": "page-link",
+                    "IconStylePost": "fa-solid fa-angle-right",
+                    "TextID": "TXT.BUTTON.RIGHT"
+                }
+            }
+        ]
+    };
 
-	PageItems = [];
+    PageItems = [];
 
-	PageItems.push(ButtonLeftObjs);
+    PageItems.push(ButtonLeftObjs);
 
-	for (let i=0; i<this.PageCount; i++) {
+    for (let i=0; i<this.PageCount; i++) {
 
-		const NavIndex = (i+1);
-		var NavIndexButton = new sysObjButtonCallback();
-		NavIndexButton.setCallback(this, 'navIndex', i);
+        const NavIndex = (i+1);
+        var NavIndexButton = new sysObjButtonCallback();
+        NavIndexButton.setCallback(this, 'navIndex', i);
 
-		console.log('i:%s current:%s', i, this.CurrentPage);
-		var NavHilite = '';
-		if (i == this.CurrentPage) { NavHilite = ' active'; }
+        console.log('i:%s current:%s', i, this.CurrentPage);
+        var NavHilite = '';
+        if (i == this.CurrentPage) { NavHilite = ' active'; }
 
-		var PageItemTpl =  {
-			"id": "bt-page-item-" + NavIndex,
-			"SysObject": new sysObjDiv(),
-			"JSONAttributes": {
-				"DOMType": "li",
-				"Style": "page-item"
-			},
-			"ObjectDefs": [
-				{
-					"id": "button-right",
-					"SysObject": NavIndexButton,
-					"JSONAttributes": {
-						"DOMType": "a",
-						"Style": "page-link" + NavHilite,
-						"DOMValue": NavIndex
-					}
-				}
-			]
-		};
+        var PageItemTpl =  {
+            "id": "bt-page-item-" + NavIndex,
+            "SysObject": new sysObjDiv(),
+            "JSONAttributes": {
+                "DOMType": "li",
+                "Style": "page-item"
+            },
+            "ObjectDefs": [
+                {
+                    "id": "button-right",
+                    "SysObject": NavIndexButton,
+                    "JSONAttributes": {
+                        "DOMType": "a",
+                        "Style": "page-link" + NavHilite,
+                        "DOMValue": NavIndex
+                    }
+                }
+            ]
+        };
 
-		PageItems.push(PageItemTpl);
+        PageItems.push(PageItemTpl);
 
-	}
+    }
 
-	PageItems.push(ButtonRightObjs);
+    PageItems.push(ButtonRightObjs);
 
-	ObjDef = [
-		{
-			"id": "pages-sum-col",
-			"SysObject": new sysObjDiv(),
-			"JSONAttributes": {
-				"Style": "col"
-			},
-			"ObjectDefs": [
-				{
-					"id": "pages-sum-txt",
-					"SysObject": new sysObjDiv(),
-					"JSONAttributes": {
-						"DOMType": "p",
-						"Style": "text-body-secondary mb-0",
-						"Value": (this.CurrentPage+1) + '/' + this.PageCount
-					}
-				}
-			]
-		},
-		{
-			"id": "col-nav-ct",
-			"SysObject": new sysObjDiv(),
-			"JSONAttributes": {
-				"Style": "col-auto"
-			},
-			"ObjectDefs": [
-				{
-					"id": "col-nav-ct2",
-					"SysObject": new sysObjDiv(),
-					"JSONAttributes": {
-						"DOMType": "ul",
-						"Style": "pagination mb-0"
-					},
-					"ObjectDefs": PageItems
-				}
-			]
-		}
-	];
+    ObjDef = [
+        {
+            "id": "pages-sum-col",
+            "SysObject": new sysObjDiv(),
+            "JSONAttributes": {
+                "Style": "col"
+            },
+            "ObjectDefs": [
+                {
+                    "id": "pages-sum-txt",
+                    "SysObject": new sysObjDiv(),
+                    "JSONAttributes": {
+                        "DOMType": "p",
+                        "Style": "text-body-secondary mb-0",
+                        "Value": (this.CurrentPage+1) + '/' + this.PageCount
+                    }
+                }
+            ]
+        },
+        {
+            "id": "col-nav-ct",
+            "SysObject": new sysObjDiv(),
+            "JSONAttributes": {
+                "Style": "col-auto"
+            },
+            "ObjectDefs": [
+                {
+                    "id": "col-nav-ct2",
+                    "SysObject": new sysObjDiv(),
+                    "JSONAttributes": {
+                        "DOMType": "ul",
+                        "Style": "pagination mb-0"
+                    },
+                    "ObjectDefs": PageItems
+                }
+            ]
+        }
+    ];
 
-	sysFactory.setupObjectRefsRecursive(ObjDef, this);
-	this.ParentObject.addObject(this);
+    sysFactory.setupObjectRefsRecursive(ObjDef, this);
+    this.ParentObject.addObject(this);
 
-	if (this.DOMParentID !== null) {
-		this.renderObject(this.DOMParentID);
-	}
+    if (this.DOMParentID !== null) {
+        this.renderObject(this.DOMParentID);
+    }
 }
 
 
@@ -194,28 +194,28 @@ sysPagination.prototype.render = function()
 
 sysPagination.prototype.update = function()
 {
-	for (const RowItem of this.ParentObject.RowItems) {
-		RowItem.VisibleState = 'hidden';
-		RowItem.setDOMVisibleState();
-	}
+    for (const RowItem of this.ParentObject.RowItems) {
+        RowItem.VisibleState = 'hidden';
+        RowItem.setDOMVisibleState();
+    }
 
-	const RowCount = this.ParentObject.DisplayRows;
-	const StartPos = ((this.CurrentPage+1)*RowCount)-RowCount;
-	const EndPos = ((this.CurrentPage+1)*RowCount)-1;
+    const RowCount = this.ParentObject.DisplayRows;
+    const StartPos = ((this.CurrentPage+1)*RowCount)-RowCount;
+    const EndPos = ((this.CurrentPage+1)*RowCount)-1;
 
-	console.debug('RowCount:%s StartPos:%s EndPos:%s', RowCount, StartPos, EndPos);
+    console.debug('RowCount:%s StartPos:%s EndPos:%s', RowCount, StartPos, EndPos);
 
-	for (let i=StartPos; i<=EndPos; i++) {
-		try {
-			const RowItem = this.ParentObject.RowItems[i];
-			RowItem.VisibleState = 'visible';
-			RowItem.setDOMVisibleState();
-		}
-		catch(err) {
-		}
-	}
+    for (let i=StartPos; i<=EndPos; i++) {
+        try {
+            const RowItem = this.ParentObject.RowItems[i];
+            RowItem.VisibleState = 'visible';
+            RowItem.setDOMVisibleState();
+        }
+        catch(err) {
+        }
+    }
 
-	this.render();
+    this.render();
 }
 
 
@@ -225,9 +225,9 @@ sysPagination.prototype.update = function()
 
 sysPagination.prototype.processCallback = function(Function, Arguments)
 {
-	if (Function == 'navLeft') { this.navigateLeft(); }
-	if (Function == 'navRight') { this.navigateRight(); }
-	if (Function == 'navIndex') { this.navigateIndex(Arguments); }
+    if (Function == 'navLeft') { this.navigateLeft(); }
+    if (Function == 'navRight') { this.navigateRight(); }
+    if (Function == 'navIndex') { this.navigateIndex(Arguments); }
 }
 
 
@@ -237,9 +237,9 @@ sysPagination.prototype.processCallback = function(Function, Arguments)
 
 sysPagination.prototype.navigateLeft = function()
 {
-	if (this.CurrentPage > 0) { this.CurrentPage -= 1; }
-	this.ParentObject.NavPageIndex = this.CurrentPage;
-	this.update();
+    if (this.CurrentPage > 0) { this.CurrentPage -= 1; }
+    this.ParentObject.NavPageIndex = this.CurrentPage;
+    this.update();
 }
 
 
@@ -249,9 +249,9 @@ sysPagination.prototype.navigateLeft = function()
 
 sysPagination.prototype.navigateRight = function()
 {
-	if (this.CurrentPage < (this.PageCount-1)) { this.CurrentPage += 1; }
-	this.ParentObject.NavPageIndex = this.CurrentPage;
-	this.update();
+    if (this.CurrentPage < (this.PageCount-1)) { this.CurrentPage += 1; }
+    this.ParentObject.NavPageIndex = this.CurrentPage;
+    this.update();
 }
 
 
@@ -261,7 +261,7 @@ sysPagination.prototype.navigateRight = function()
 
 sysPagination.prototype.navigateIndex = function(PageNr)
 {
-	this.CurrentPage = PageNr;
-	this.ParentObject.NavPageIndex = PageNr;
-	this.update();
+    this.CurrentPage = PageNr;
+    this.ParentObject.NavPageIndex = PageNr;
+    this.update();
 }

@@ -22,7 +22,7 @@ var sysFactory;
 //------------------------------------------------------------------------------
 
 document.oncontextmenu = function() {
-	return false;
+    return false;
 }
 
 
@@ -32,154 +32,154 @@ document.oncontextmenu = function() {
 
 function Init() {
 
-	if (sysVarPreLoadScript === undefined) {
-		InitOk();
-	}
-	else {
-		var paramString = new URLSearchParams(document.URL);
+    if (sysVarPreLoadScript === undefined) {
+        InitOk();
+    }
+    else {
+        var paramString = new URLSearchParams(document.URL);
 
-		var XHR = new XMLHttpRequest();
-		XHR.upload.addEventListener('error', this.InitError);
-		XHR.open('POST', sysVarPreLoadScript);
-		XHR.send(null);
-		XHR.onreadystatechange = function() {
-			if (XHR.readyState == 4 && XHR.status == 200) {
-				InitOk(XHR);
-			}
-		}
-	}
+        var XHR = new XMLHttpRequest();
+        XHR.upload.addEventListener('error', this.InitError);
+        XHR.open('POST', sysVarPreLoadScript);
+        XHR.send(null);
+        XHR.onreadystatechange = function() {
+            if (XHR.readyState == 4 && XHR.status == 200) {
+                InitOk(XHR);
+            }
+        }
+    }
 }
 
 function InitError() {
-	alert('Critical System Error');
+    alert('Critical System Error');
 }
 
 function InitOk(XHR) {
 
-	//----------------------------------------------------------------------------
-	//- Set User ID / Session
-	//----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
+    //- Set User ID / Session
+    //----------------------------------------------------------------------------
 
-	var UserID = null;
-	var UserSession = null;
+    var UserID = null;
+    var UserSession = null;
 
-	//----------------------------------------------------------------------------
-	//- Construct Global Object Factory (Main Object Handler)
-	//----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
+    //- Construct Global Object Factory (Main Object Handler)
+    //----------------------------------------------------------------------------
 
-	sysFactory = new sysFactory();
+    sysFactory = new sysFactory();
 
-	sysFactory.SetupClasses = Object.assign(
-		sysFactory.SetupClasses,
-		sysVarUserSetupClasses
-	);
+    sysFactory.SetupClasses = Object.assign(
+        sysFactory.SetupClasses,
+        sysVarUserSetupClasses
+    );
 
-	sysFactory.ObjGlobalData = {};
+    sysFactory.ObjGlobalData = {};
 
-	if (sysVarPreLoadScript !== undefined) {
-		const InsertResult = JSON.parse(XHR.responseText);
-		for (Key in sysVarPreLoadVars) {
-			sysFactory.ObjGlobalData[Key] = InsertResult[sysVarPreLoadVars[Key]];
-		}
-		try {
-			UserID = sysFactory.ObjGlobalData['UserID'];
-			UserSession = sysFactory.ObjGlobalData['UserSession'];
-		}
-		catch {
-			console.debug('No user data supplied by backend');
-		}
-	}
+    if (sysVarPreLoadScript !== undefined) {
+        const InsertResult = JSON.parse(XHR.responseText);
+        for (Key in sysVarPreLoadVars) {
+            sysFactory.ObjGlobalData[Key] = InsertResult[sysVarPreLoadVars[Key]];
+        }
+        try {
+            UserID = sysFactory.ObjGlobalData['UserID'];
+            UserSession = sysFactory.ObjGlobalData['UserSession'];
+        }
+        catch {
+            console.debug('No user data supplied by backend');
+        }
+    }
 
-	if (sysVarScreenConfig !== undefined) {
-		sysFactory.ScreenConfig = sysVarScreenConfig;
-	}
-
-
-	//----------------------------------------------------------------------------
-	//- System Object Loader
-	//----------------------------------------------------------------------------
-
-	sysObjLoader = new sysObjectLoader(sysFactory);
-
-	sysFactory.ObjText = new sysText();
-	sysFactory.DataMenu = new sysJSONData();
-	sysFactory.DataObject = new sysJSONData();
-	sysFactory.DataSkeleton = new sysJSONData();
-
-	sysObjLoader.add(sysFactory.ObjText);
-	sysObjLoader.add(sysFactory.DataMenu);
-	sysObjLoader.add(sysFactory.DataObject);
-	sysObjLoader.add(sysFactory.DataSkeleton);
-
-	sysFactory.ObjText.setLoaderObj(sysObjLoader);
-	sysFactory.DataMenu.setLoaderObj(sysObjLoader);
-	sysFactory.DataObject.setLoaderObj(sysObjLoader);
-	sysFactory.DataSkeleton.setLoaderObj(sysObjLoader);
-
-	sysFactory.ObjText.requestXMLRPCData('/python/getText.py');
-	sysFactory.DataMenu.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigMenuFile);
-	sysFactory.DataObject.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigObjectFile);
-	sysFactory.DataSkeleton.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigSkeletonFile);
+    if (sysVarScreenConfig !== undefined) {
+        sysFactory.ScreenConfig = sysVarScreenConfig;
+    }
 
 
-	//----------------------------------------------------------------------------
-	//- Set System Vars
-	//----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
+    //- System Object Loader
+    //----------------------------------------------------------------------------
 
-	sysFactory.DisplayDefaultScreen			= sysVarDisplayDefaultScreen;
+    sysObjLoader = new sysObjectLoader(sysFactory);
 
-	sysFactory.SysDebugLevel				= sysVarDebugLevel;
-	sysFactory.SysSessionID					= 'SYS_SESSION';
-	sysFactory.SysUserID					= UserID;
-	sysFactory.SysSessionValue				= UserSession;
-	sysFactory.MsgServerGetURL				= 'http://x0-msg-server.x0.localnet:8080/python/MsgHandler.py';
+    sysFactory.ObjText = new sysText();
+    sysFactory.DataMenu = new sysJSONData();
+    sysFactory.DataObject = new sysJSONData();
+    sysFactory.DataSkeleton = new sysJSONData();
 
-	sysFactory.ParentWindowURL				= sysVarParentWindowURL;
+    sysObjLoader.add(sysFactory.ObjText);
+    sysObjLoader.add(sysFactory.DataMenu);
+    sysObjLoader.add(sysFactory.DataObject);
+    sysObjLoader.add(sysFactory.DataSkeleton);
 
+    sysFactory.ObjText.setLoaderObj(sysObjLoader);
+    sysFactory.DataMenu.setLoaderObj(sysObjLoader);
+    sysFactory.DataObject.setLoaderObj(sysObjLoader);
+    sysFactory.DataSkeleton.setLoaderObj(sysObjLoader);
 
-	//----------------------------------------------------------------------------
-	//- Style Defaults
-	//----------------------------------------------------------------------------
-
-	sysFactory.DefaultStyleScreen			= 'col-md-8 ms-auto me-auto';
-	sysFactory.DefaultStyleMenu				= 'menu-absolute-pos';
-	sysFactory.DefaultStyleScreenOverlay	= 'p-3 shadow-lg border bg-gradient bg-opacity-75 overlay-default';
-	sysFactory.DefaultStyleListNavLeft		= 'col-6 p-4 pl-0';
-	sysFactory.DefaultStyleListNavRight		= 'col-6 p-4 float-end text-end pr-0';
-
-
-	//----------------------------------------------------------------------------
-	//- Display Language
-	//----------------------------------------------------------------------------
-
-	sysFactory.EnvUserLanguage	= sysVarDisplayLanguage;
+    sysFactory.ObjText.requestXMLRPCData('/python/getText.py');
+    sysFactory.DataMenu.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigMenuFile);
+    sysFactory.DataObject.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigObjectFile);
+    sysFactory.DataSkeleton.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigSkeletonFile);
 
 
-	//----------------------------------------------------------------------------
-	//- User Functions
-	//----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
+    //- Set System Vars
+    //----------------------------------------------------------------------------
 
-	sysFactory.UserFunctions = new Object();
+    sysFactory.DisplayDefaultScreen            = sysVarDisplayDefaultScreen;
 
+    sysFactory.SysDebugLevel                = sysVarDebugLevel;
+    sysFactory.SysSessionID                    = 'SYS_SESSION';
+    sysFactory.SysUserID                    = UserID;
+    sysFactory.SysSessionValue                = UserSession;
+    sysFactory.MsgServerGetURL                = 'http://x0-msg-server.x0.localnet:8080/python/MsgHandler.py';
 
-	//----------------------------------------------------------------------------
-	//- Set Global Reactor / Event Processing Object
-	//----------------------------------------------------------------------------
-
-	sysFactory.Reactor = new sysReactor();
-
-
-	//----------------------------------------------------------------------------
-	//- Construct Global Async Notify Indicator
-	//----------------------------------------------------------------------------
-
-	sysFactory.GlobalAsyncNotifyIndicator = new sysObjAsyncNotifyIndicator();
+    sysFactory.ParentWindowURL                = sysVarParentWindowURL;
 
 
-	//----------------------------------------------------------------------------
-	//- Start Async Notify Message Handler
-	//----------------------------------------------------------------------------
+    //----------------------------------------------------------------------------
+    //- Style Defaults
+    //----------------------------------------------------------------------------
 
-	sysFactory.sysGlobalAsyncNotifyHandler = new sysAsyncNotifyMsgHandler();
+    sysFactory.DefaultStyleScreen            = 'col-md-8 ms-auto me-auto';
+    sysFactory.DefaultStyleMenu                = 'menu-absolute-pos';
+    sysFactory.DefaultStyleScreenOverlay    = 'p-3 shadow-lg border bg-gradient bg-opacity-75 overlay-default';
+    sysFactory.DefaultStyleListNavLeft        = 'col-6 p-4 pl-0';
+    sysFactory.DefaultStyleListNavRight        = 'col-6 p-4 float-end text-end pr-0';
+
+
+    //----------------------------------------------------------------------------
+    //- Display Language
+    //----------------------------------------------------------------------------
+
+    sysFactory.EnvUserLanguage    = sysVarDisplayLanguage;
+
+
+    //----------------------------------------------------------------------------
+    //- User Functions
+    //----------------------------------------------------------------------------
+
+    sysFactory.UserFunctions = new Object();
+
+
+    //----------------------------------------------------------------------------
+    //- Set Global Reactor / Event Processing Object
+    //----------------------------------------------------------------------------
+
+    sysFactory.Reactor = new sysReactor();
+
+
+    //----------------------------------------------------------------------------
+    //- Construct Global Async Notify Indicator
+    //----------------------------------------------------------------------------
+
+    sysFactory.GlobalAsyncNotifyIndicator = new sysObjAsyncNotifyIndicator();
+
+
+    //----------------------------------------------------------------------------
+    //- Start Async Notify Message Handler
+    //----------------------------------------------------------------------------
+
+    sysFactory.sysGlobalAsyncNotifyHandler = new sysAsyncNotifyMsgHandler();
 
 }

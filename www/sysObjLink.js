@@ -17,18 +17,18 @@
 
 function sysObjLink()
 {
-	this.EventListeners				= new Object(); 		//- Event Listeners
-	this.ChildObjects				= Array();				//- Child Objects
+    this.EventListeners         = new Object();   //- Event Listeners
+    this.ChildObjects           = Array();        //- Child Objects
 
-	this.ScreenID					= null;					//- ScreenID
-	this.TextID						= null;					//- TextID
-	this.FireEvents					= null;					//- Dispatch Events
-	this.OverlayID					= null;					//- Open OverlayID
-	this.OverlayAttributes			= null;					//- Overlay Open Attributes
+    this.ScreenID               = null;           //- ScreenID
+    this.TextID                 = null;           //- TextID
+    this.FireEvents             = null;           //- Dispatch Events
+    this.OverlayID              = null;           //- Open OverlayID
+    this.OverlayAttributes      = null;           //- Overlay Open Attributes
 
-	this.DOMType					= 'button'				//- Set DOM Element Type
+    this.DOMType                = 'button'        //- Set DOM Element Type
 
-	this.LinkHilteStyle 			= null;
+    this.LinkHilteStyle         = null;
 }
 
 sysObjLink.prototype = new sysBaseObject();
@@ -40,30 +40,30 @@ sysObjLink.prototype = new sysBaseObject();
 
 sysObjLink.prototype.init = function()
 {
-	const Attributes = this.JSONConfig.Attributes;
+    const Attributes = this.JSONConfig.Attributes;
 
-	console.debug('set Link Attributes:%o', Attributes);
+    console.debug('set Link Attributes:%o', Attributes);
 
-	this.DOMStyle = Attributes.Style;
-	this.LinkHilteStyle = Attributes.HiliteStyle;
+    this.DOMStyle = Attributes.Style;
+    this.LinkHilteStyle = Attributes.HiliteStyle;
 
-	this.ScreenID = Attributes.ScreenID;
-	this.ScreenStyle = Attributes.ScreenStyle;
-	this.TextID	= Attributes.TextID;
-	this.FireEvents	= Attributes.FireEvents;
-	this.OverlayID= Attributes.OverlayID;
-	this.OverlayAttributes = Attributes.OverlayAttributes;
+    this.ScreenID = Attributes.ScreenID;
+    this.ScreenStyle = Attributes.ScreenStyle;
+    this.TextID    = Attributes.TextID;
+    this.FireEvents    = Attributes.FireEvents;
+    this.OverlayID= Attributes.OverlayID;
+    this.OverlayAttributes = Attributes.OverlayAttributes;
 
-	this.SQLTextObj = new sysObjSQLText();
-	this.SQLTextObj.ObjectID = 'SQLText';
-	this.SQLTextObj.TextID = this.TextID;
-	this.SQLTextObj.init();
-	this.addObject(this.SQLTextObj);
+    this.SQLTextObj = new sysObjSQLText();
+    this.SQLTextObj.ObjectID = 'SQLText';
+    this.SQLTextObj.TextID = this.TextID;
+    this.SQLTextObj.init();
+    this.addObject(this.SQLTextObj);
 
-	var EventConfig = new Object();
-	EventConfig['Type'] = 'mousedown';
-	EventConfig['Element'] = this.EventListener.bind(this);
-	this.EventListeners['sysLink'] = EventConfig;
+    var EventConfig = new Object();
+    EventConfig['Type'] = 'mousedown';
+    EventConfig['Element'] = this.EventListener.bind(this);
+    this.EventListeners['sysLink'] = EventConfig;
 }
 
 
@@ -73,23 +73,23 @@ sysObjLink.prototype.init = function()
 
 sysObjLink.prototype.EventListener = function(Event)
 {
-	//console.debug('Link EventListener ScreenID:%s OverlayID:%s', this.ScreenID, this.OverlayID);
+    //console.debug('Link EventListener ScreenID:%s OverlayID:%s', this.ScreenID, this.OverlayID);
 
-	if (this.ScreenStyle !== undefined) {
-		sysFactory.getScreenByID(this.ScreenID).updateStyle(this.ScreenStyle);
-	}
+    if (this.ScreenStyle !== undefined) {
+        sysFactory.getScreenByID(this.ScreenID).updateStyle(this.ScreenStyle);
+    }
 
-	if (this.ScreenID !== undefined) {
-		sysFactory.switchScreen(this.ScreenID);
-	}
+    if (this.ScreenID !== undefined) {
+        sysFactory.switchScreen(this.ScreenID);
+    }
 
-	if (this.OverlayID !== undefined) {
-		sysFactory.OverlayObj.setupOverlay(this.OverlayID, this.OverlayAttributes);
-	}
+    if (this.OverlayID !== undefined) {
+        sysFactory.OverlayObj.setupOverlay(this.OverlayID, this.OverlayAttributes);
+    }
 
-	if (this.FireEvents !== undefined) {
-		sysFactory.Reactor.fireEvents(this.FireEvents);
-	}
+    if (this.FireEvents !== undefined) {
+        sysFactory.Reactor.fireEvents(this.FireEvents);
+    }
 }
 
 
@@ -99,8 +99,8 @@ sysObjLink.prototype.EventListener = function(Event)
 
 sysObjLink.prototype.Hilite = function(Event)
 {
-	//console.debug('::Hilite Style:%s', this.LinkHilteStyle);
-	this.addDOMElementStyle(this.LinkHilteStyle);
+    //console.debug('::Hilite Style:%s', this.LinkHilteStyle);
+    this.addDOMElementStyle(this.LinkHilteStyle);
 }
 
 
@@ -110,6 +110,6 @@ sysObjLink.prototype.Hilite = function(Event)
 
 sysObjLink.prototype.DeHilite = function(Event)
 {
-	//console.debug('::DeHilite Style:%s', this.LinkHilteStyle);
-	this.removeDOMElementStyle(this.LinkHilteStyle);
+    //console.debug('::DeHilite Style:%s', this.LinkHilteStyle);
+    this.removeDOMElementStyle(this.LinkHilteStyle);
 }
