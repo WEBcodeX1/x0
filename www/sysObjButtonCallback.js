@@ -16,11 +16,11 @@
 //------------------------------------------------------------------------------
 
 function sysObjButtonCallback() {
-	this.DOMType			= 'button'
-	this.DOMAttributes		= new Object();
+    this.DOMType        = 'button'
+    this.DOMAttributes  = new Object();
 
-	this.EventListeners		= new Object();
-	this.ChildObjects		= new Array();
+    this.EventListeners = new Object();
+    this.ChildObjects   = new Array();
 }
 
 //- inherit sysBaseObject
@@ -36,9 +36,9 @@ sysObjButtonCallback.prototype.addEventListenerClick = sysObjButton.prototype.ad
 //------------------------------------------------------------------------------
 
 sysObjButtonCallback.prototype.setCallback = function(CBObject, CBFunction, CBArgs) {
-	this.CallbackObject = CBObject;
-	this.CallbackFunction = CBFunction;
-	this.CallbackArguments = CBArgs;
+    this.CallbackObject = CBObject;
+    this.CallbackFunction = CBFunction;
+    this.CallbackArguments = CBArgs;
 }
 
 
@@ -47,5 +47,5 @@ sysObjButtonCallback.prototype.setCallback = function(CBObject, CBFunction, CBAr
 //------------------------------------------------------------------------------
 
 sysObjButtonCallback.prototype.EventListenerClick = function(Event) {
-	this.CallbackObject.processCallback(this.CallbackFunction, this.CallbackArguments);
+    this.CallbackObject.processCallback(this.CallbackFunction, this.CallbackArguments);
 }

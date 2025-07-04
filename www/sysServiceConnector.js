@@ -16,8 +16,8 @@
 //------------------------------------------------------------------------------
 
 function sysServiceConnector() {
-	this.ChildObjects 		= new Array();
-	this.PostRequestData	= new sysRequestDataHandler();
+    this.ChildObjects         = new Array();
+    this.PostRequestData    = new sysRequestDataHandler();
 }
 
 sysServiceConnector.prototype = new sysBaseObject();
@@ -38,13 +38,13 @@ sysServiceConnector.prototype.init = function()
 
 sysServiceConnector.prototype.connect = function()
 {
-	const DstObject = this.getChildObjectByIndex(0);
-	console.debug('::connect ChildObjects:%o DstObject:%o', this.ChildObjects, DstObject);
-	try {
-		DstObject.ServiceConnector = this;
-		sysFactory.Reactor.registerEvent(this.JSONConfig.Attributes, DstObject, 'ServiceConnector');
-	}
-	catch(err) {
-		console.debug('::connect err:%s', err);
-	}
+    const DstObject = this.getChildObjectByIndex(0);
+    console.debug('::connect ChildObjects:%o DstObject:%o', this.ChildObjects, DstObject);
+    try {
+        DstObject.ServiceConnector = this;
+        sysFactory.Reactor.registerEvent(this.JSONConfig.Attributes, DstObject, 'ServiceConnector');
+    }
+    catch(err) {
+        console.debug('::connect err:%s', err);
+    }
 }

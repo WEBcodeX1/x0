@@ -17,14 +17,14 @@
 
 function sysObjButtonInternal()
 {
-	this.DOMType				= 'button'
-	this.DOMAttributes			= new Object();
+    this.DOMType             = 'button'
+    this.DOMAttributes       = new Object();
 
-	this.EventListeners			= new Object();
-	this.ChildObjects			= new Array();
-	this.PostRequestData		= new sysRequestDataHandler();
+    this.EventListeners      = new Object();
+    this.ChildObjects        = new Array();
+    this.PostRequestData     = new sysRequestDataHandler();
 
-	this.ValidateResultError	= true;
+    this.ValidateResultError = true;
 }
 
 sysObjButtonInternal.prototype = new sysBaseObject();
@@ -42,11 +42,11 @@ sysObjButtonInternal.prototype.setDstScreenProperties = sysContextMenuItem.proto
 
 sysObjButtonInternal.prototype.addEventListenerClick = function()
 {
-	var EventListenerObj = new Object();
-	EventListenerObj['Type'] = 'mousedown';
-	EventListenerObj['Element'] = this.EventListenerClick.bind(this);
+    var EventListenerObj = new Object();
+    EventListenerObj['Type'] = 'mousedown';
+    EventListenerObj['Element'] = this.EventListenerClick.bind(this);
 
-	this.EventListeners["ButtonClick"] = EventListenerObj;
+    this.EventListeners["ButtonClick"] = EventListenerObj;
 }
 
 
@@ -56,18 +56,18 @@ sysObjButtonInternal.prototype.addEventListenerClick = function()
 
 sysObjButtonInternal.prototype.EventListenerClick = function(Event)
 {
-	console.debug('ButtonInternal click');
+    console.debug('ButtonInternal click');
 
-	this.ValidateResultError = true;
+    this.ValidateResultError = true;
 
-	const Attributes = this.JSONConfig.Attributes;
+    const Attributes = this.JSONConfig.Attributes;
 
-	this.validateForm();
+    this.validateForm();
 
-	console.debug('ButtonInternal ValidateResult:%s', this.ValidateResultError);
+    console.debug('ButtonInternal ValidateResult:%s', this.ValidateResultError);
 
-	if (this.ValidateResultError == false) {
-		this.processActions();
-		sysFactory.Reactor.fireEvents(Attributes.FireEvents);
-	}
+    if (this.ValidateResultError == false) {
+        this.processActions();
+        sysFactory.Reactor.fireEvents(Attributes.FireEvents);
+    }
 }

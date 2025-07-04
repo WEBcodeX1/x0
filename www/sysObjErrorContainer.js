@@ -16,8 +16,8 @@
 
 function sysErrorContainer()
 {
-    this.EventListeners		= new Object();
-	this.ChildObjects		= new Array();
+    this.EventListeners   = new Object();
+    this.ChildObjects     = new Array();
 }
 
 sysErrorContainer.prototype = new sysBaseObject();
@@ -29,7 +29,7 @@ sysErrorContainer.prototype = new sysBaseObject();
 
 sysErrorContainer.prototype.init = function()
 {
-	console.debug('Init Error Container');
+    console.debug('Init Error Container');
 }
 
 
@@ -39,10 +39,10 @@ sysErrorContainer.prototype.init = function()
 
 sysErrorContainer.prototype.reset = function()
 {
-	this.DOMStyle = '';
-	this.DOMValue = '';
-	this.setDOMElementStyle();
-	this.setDOMElementValue();
+    this.DOMStyle = '';
+    this.DOMValue = '';
+    this.setDOMElementStyle();
+    this.setDOMElementValue();
 }
 
 
@@ -52,15 +52,15 @@ sysErrorContainer.prototype.reset = function()
 
 sysErrorContainer.prototype.displayError = function(ErrorMsg, ErrorDetailMsg)
 {
-	var ErrorDisplayMsg = ErrorMsg;
+    var ErrorDisplayMsg = ErrorMsg;
 
-	if (ErrorDetailMsg !== undefined) {
-		ErrorMsg = ErrorMsg.replace(/\.$/, '');
-		ErrorDisplayMsg = ErrorMsg + ' (' + ErrorDetailMsg + ').';
-	}
+    if (ErrorDetailMsg !== undefined) {
+        ErrorMsg = ErrorMsg.replace(/\.$/, '');
+        ErrorDisplayMsg = ErrorMsg + ' (' + ErrorDetailMsg + ').';
+    }
 
-	this.DOMStyle = 'alert alert-danger';
-	this.DOMValue = '<i class="fa-solid fa-triangle-exclamation fa-lg"></i> ' + ErrorDisplayMsg;
-	this.setDOMElementStyle();
-	this.setDOMElementValue();
+    this.DOMStyle = 'alert alert-danger';
+    this.DOMValue = '<i class="fa-solid fa-triangle-exclamation fa-lg"></i> ' + ErrorDisplayMsg;
+    this.setDOMElementStyle();
+    this.setDOMElementValue();
 }

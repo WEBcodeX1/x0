@@ -16,8 +16,8 @@
 
 function sysText()
 {
-	this.Languages = ['de', 'en'];
-	this.XMLRPCResultData = null;
+    this.Languages = ['de', 'en'];
+    this.XMLRPCResultData = null;
 }
 
 
@@ -34,23 +34,23 @@ sysText.prototype = new sysXMLRPCBaseSyncLoader();
 sysText.prototype.getTextObjectByID = function(TextID)
 {
 
-	var TextObj = new Object();
+    var TextObj = new Object();
 
-	var TextString = '';
+    var TextString = '';
 
-	if (TextID === undefined) {
-		TextID = 'TXT.SYS.OBJECT.DEFAULT.TEXT';
-	}
+    if (TextID === undefined) {
+        TextID = 'TXT.SYS.OBJECT.DEFAULT.TEXT';
+    }
 
-	if (this.XMLRPCResultData[TextID] === undefined) {
-		console.log('TextID not found:' + TextID);
-	}
-	else {
-		var TextObj = new Object();
-		TextObj['de'] = this.XMLRPCResultData[TextID]['value_de'];
-		TextObj['en'] = this.XMLRPCResultData[TextID]['value_en'];
-		return TextObj;
-	}
+    if (this.XMLRPCResultData[TextID] === undefined) {
+        console.log('TextID not found:' + TextID);
+    }
+    else {
+        var TextObj = new Object();
+        TextObj['de'] = this.XMLRPCResultData[TextID]['value_de'];
+        TextObj['en'] = this.XMLRPCResultData[TextID]['value_en'];
+        return TextObj;
+    }
 
 }
 
@@ -60,6 +60,6 @@ sysText.prototype.getTextObjectByID = function(TextID)
 //------------------------------------------------------------------------------
 sysText.prototype.getTextBySystemLanguage = function(TextID)
 {
-	return this.getTextObjectByID(TextID)[sysFactory.EnvUserLanguage];
+    return this.getTextObjectByID(TextID)[sysFactory.EnvUserLanguage];
 }
 

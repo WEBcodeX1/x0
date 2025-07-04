@@ -16,7 +16,7 @@
 //------------------------------------------------------------------------------
 
 function sysTooltipHandler() {
-	this.DOMObjectID	= 'SYSGlobalTooltips';	// DOM Object ID
+    this.DOMObjectID    = 'SYSGlobalTooltips';    // DOM Object ID
 }
 
 
@@ -26,12 +26,12 @@ function sysTooltipHandler() {
 
 sysTooltipHandler.prototype.initLayer = function()
 {
-	var tmpdiv;
+    var tmpdiv;
 
-	tmpdiv = document.createElement('div');
-	tmpdiv.setAttribute('id', this.DOMObjectID);
-	tmpdiv.innerHTML = '';
+    tmpdiv = document.createElement('div');
+    tmpdiv.setAttribute('id', this.DOMObjectID);
+    tmpdiv.innerHTML = '';
 
-	//- Append DIV to DOM body
-	document.body.appendChild(tmpdiv);
+    //- Append DIV to DOM body
+    document.body.appendChild(tmpdiv);
 }

@@ -16,7 +16,7 @@
 //------------------------------------------------------------------------------
 
 function sysRequestDataHandler() {
-	this.reset();
+    this.reset();
 }
 
 
@@ -25,8 +25,8 @@ function sysRequestDataHandler() {
 //------------------------------------------------------------------------------
 
 sysRequestDataHandler.prototype.reset = function() {
-	this.RequestData = new Object();
-	this.ServiceData = new Object();
+    this.RequestData = new Object();
+    this.ServiceData = new Object();
 }
 
 
@@ -35,7 +35,7 @@ sysRequestDataHandler.prototype.reset = function() {
 //------------------------------------------------------------------------------
 
 sysRequestDataHandler.prototype.addServiceProperty = function(Key, Value) {
-	this.ServiceData[Key] = Value;
+    this.ServiceData[Key] = Value;
 }
 
 
@@ -44,7 +44,7 @@ sysRequestDataHandler.prototype.addServiceProperty = function(Key, Value) {
 //------------------------------------------------------------------------------
 
 sysRequestDataHandler.prototype.add = function(DataObject, Key) {
-	this.RequestData[Key] = DataObject;
+    this.RequestData[Key] = DataObject;
 }
 
 
@@ -53,10 +53,10 @@ sysRequestDataHandler.prototype.add = function(DataObject, Key) {
 //------------------------------------------------------------------------------
 
 sysRequestDataHandler.prototype.merge = function(DataObject) {
-	for (DataKey in DataObject) {
-		DataItem = DataObject[DataKey];
-		this.RequestData[DataKey] = DataItem;
-	}
+    for (DataKey in DataObject) {
+        DataItem = DataObject[DataKey];
+        this.RequestData[DataKey] = DataItem;
+    }
 }
 
 
@@ -65,13 +65,13 @@ sysRequestDataHandler.prototype.merge = function(DataObject) {
 //------------------------------------------------------------------------------
 
 sysRequestDataHandler.prototype.removePrefix = function(Prefix) {
-	for (DataKey in this.RequestData) {
-		if (DataKey.includes(Prefix)) {
-			const NewKey = DataKey.replace(Prefix, '');
-			this.RequestData[NewKey] = this.RequestData[DataKey];
-			delete this.RequestData[DataKey];
-		}
-	}
+    for (DataKey in this.RequestData) {
+        if (DataKey.includes(Prefix)) {
+            const NewKey = DataKey.replace(Prefix, '');
+            this.RequestData[NewKey] = this.RequestData[DataKey];
+            delete this.RequestData[DataKey];
+        }
+    }
 }
 
 
@@ -80,14 +80,14 @@ sysRequestDataHandler.prototype.removePrefix = function(Prefix) {
 //------------------------------------------------------------------------------
 
 sysRequestDataHandler.prototype.transform = function(TransformData) {
-	for (DataKey in TransformData) {
-		const DataValue = TransformData[DataKey];
-		for (Key in this.RequestData) {
-			if (Key == DataKey) {
-				this.RequestData[DataValue] = this.RequestData[Key];
-				delete this.RequestData[Key]
-				break;
-			}
-		}
-	}
+    for (DataKey in TransformData) {
+        const DataValue = TransformData[DataKey];
+        for (Key in this.RequestData) {
+            if (Key == DataKey) {
+                this.RequestData[DataValue] = this.RequestData[Key];
+                delete this.RequestData[Key]
+                break;
+            }
+        }
+    }
 }
