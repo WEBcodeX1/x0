@@ -74,7 +74,7 @@ http://x0-app.x0.localnet/python/Index.py?appid=example7
 ```
 
 Full install details: [INSTALL.md](./INSTALL.md)
-Rendered docs: [Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/).
+Rendered docs: [Official Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/).
 
 ---
 
