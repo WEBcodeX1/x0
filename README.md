@@ -79,19 +79,6 @@ Run examples (by passing appid URL parameter).
 http://x0-app.x0.localnet/python/Index.py?appid=example7
 ```
 
-In case direct import is failing, download and import images manually.
-
-- https://docker.webcodex.de/x0/docker.x0-app.tar<br>
-- https://docker.webcodex.de/x0/docker.x0-db.tar<br>
-- https://docker.webcodex.de/x0/docker.x0-test.tar<br>
-
-```bash
-# load docker images
-docker load < docker.x0-app.tar
-docker load < docker.x0-db.tar
-docker load < docker.x0-test.tar
-```
-
 ## 4. Cross Objects
 
 What does the "cross" in x0 stand for? **Communication**.
