@@ -55,7 +55,7 @@
 
 ---
 
-## 1. :racehorse: Quick Start
+## :racehorse: Quick Start
 
 Try x0 now in minutes!
 
@@ -95,7 +95,7 @@ Rendered docs: [Official Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/
 
 ---
 
-## 2. :star2: Features
+## :star2: Features
 
 - **Cross Objects:** Clean OOP, seamless data exchange between clients and network
 - **Responsiveness:** Bootstrap CSS grid, single app for all devices
@@ -108,19 +108,19 @@ Learn more in [Examples](#14-examples).
 
 ---
 
-## 3. :computer: Single Page Application
+## :computer: Single Page Application
 
 Modern browser apps with near desktop power. Backend independence, real-time updates.
 
 ---
 
-## 4. :mega: Abstract / Purpose
+## :mega: Abstract / Purpose
 
 **x0** is designed to make advanced SPA development fun, fast, and maintainable. With zero code duplication and clean OOP, x0 powers complex, modern web applications.
 
 ---
 
-## 5. :zap: Technical Details
+## :zap: Technical Details
 
 **OS Compatibility:**
 - Ubuntu 22.04 (Jammy Jellyfish)
@@ -143,21 +143,21 @@ Modern browser apps with near desktop power. Backend independence, real-time upd
 
 ---
 
-## 6. :closed_lock_with_key: Security
+## :closed_lock_with_key: Security
 
 PKCS 11/15 compatible. Optional advanced PKI (non-free).
 Full details in [WEB/codeX PKI Manager](http://www.webcodex.de/Projects/WCDXPKIManager).
 
 ---
 
-## 7. :alarm_clock: Future Plans / Milestones
+## :alarm_clock: Future Plans / Milestones
 
 - Replace Apache with FalconAS Python Application Server: [Repo](https://github.com/WEBcodeX1/http-1.2)
 - Roadmap: [GitHub Milestones](https://github.com/WEBcodeX1/x0/milestones)
 
 ---
 
-## 8. :bulb: Examples
+## :bulb: Examples
 
 Try 13 live examples:
 
@@ -170,7 +170,7 @@ The most impressive: **12 (list_dyn_radio)** and **13 (copy_paste)**.
 
 ---
 
-## 9. :file_folder: File & Folder Structure
+## :file_folder: File & Folder Structure
 
 Partial overview, see [GitHub file search](https://github.com/WEBcodeX1/x0/search):
 
@@ -203,14 +203,14 @@ Partial overview, see [GitHub file search](https://github.com/WEBcodeX1/x0/searc
 
 ---
 
-## 10. :wave: Contributing
+## :wave: Contributing
 
 Contributions & feedback welcome!
 See [CONTRIBUTING.md](./CONTRIBUTING.md) (if exists) or open an issue.
 
 ---
 
-## 11. :globe_with_meridians: Community & Support
+## :globe_with_meridians: Community & Support
 
 - [Discussions](https://github.com/WEBcodeX1/x0/discussions)
 - [Issues](https://github.com/WEBcodeX1/x0/issues)
@@ -218,7 +218,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) (if exists) or open an issue.
 
 ---
 
-## 12. :memo: License
+## :memo: License
 
 AGPL-3.0. See [LICENSE](./LICENSE).
 
