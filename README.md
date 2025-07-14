@@ -64,11 +64,14 @@ cd ./docker/
 ```
 
 Add to `/etc/hosts`:
-```
+```bash
 172.20.0.10     x0-app.x0.localnet
 ```
+
 Try examples:
-`http://x0-app.x0.localnet/python/Index.py?appid=example7`
+```
+http://x0-app.x0.localnet/python/Index.py?appid=example7`
+```
 
 Full install details: [INSTALL.md](./INSTALL.md)
 Rendered docs: [Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/).
