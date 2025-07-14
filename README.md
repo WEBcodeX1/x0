@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./image/x0-logo-github.png" alt="x0 Framework Logo" width="120"/>
+  <img src="./image/x0-logo-github.png" alt="x0 Framework Logo" width="800"/>
 </p>
 
 <h1 align="center">x0 JavaScript Framework</h1>
