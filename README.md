@@ -6,6 +6,26 @@
 [![x0-test-runner](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml)
 [![Dependabot Updates](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates)
 
+## Table of Contents
+
+1. [Abstract / Purpose](#1-abstract--purpose)
+2. [Single Page Application](#2-single-page-application)
+3. [Quick Start](#3-quick-start)
+4. [Cross Objects](#4-cross-objects)
+5. [Responsiveness](#5-responsiveness)
+6. [True Object Orientation / Clean Code](#6-true-object-orientation--clean-code)
+7. [Zero Code Duplication / Freedom](#7-zero-code-duplication--freedom)
+8. [Object Chaining / Data Abstraction](#8-object-chaining--data-abstraction)
+9. [Kubernetes Ready](#9-kubernetes-ready)
+10. [Open Source](#10-open-source)
+11. [Technical Details](#11-technical-details)
+    - [OS Compatibility](#111-os-compatibility)
+    - [Prerequisites](#112-prerequisites)
+    - [Prerequisites Kubernetes](#113-prerequisites-kubernetes)
+    - [Deployment](#114-deployment)
+12. [Security](#12-security)
+13. [Future Plans / Milestones](#13-future-plans--milestones)
+14. [File & Folder Structure](#file--folder-structure)
 ## 1. Abstract / Purpose
 
 **x0 (cross-object) JavaScript Framework** /krɒs ɒb.dʒɪkt/ is a modern tool for
