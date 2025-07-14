@@ -184,13 +184,17 @@ Partial overview, see [GitHub file search](https://github.com/WEBcodeX1/x0/searc
 │   ├── dev-examples.rst
 │   ├── Makefile
 │   └── conf.py
+├── example/
+│   ├── example1
+│   └── example2
 ├── conf/
 │   └── wsgi.conf
 ├── www/
 │   └── sysText.js
+├── test/
+│   └── README.md
 └── ... (more files & folders)
 ```
-More: [WEBcodeX1/x0 on GitHub](https://github.com/WEBcodeX1/x0)
 
 ---
 
