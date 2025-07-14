@@ -63,7 +63,6 @@ cd ./docker/
 ./x0-start-containers.sh
 ```
 
-Visit: `http://172.20.0.10/python/Index.py?appid=example12`
 Add to `/etc/hosts`:
 ```
 172.20.0.10     x0-app.x0.localnet
