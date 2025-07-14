@@ -67,6 +67,18 @@ cd ./docker/
 Open the URL `http://172.20.0.10/python/Index.py?appid=example12` to test if everything
 is working correctly.
 
+Add IPv4 / Hostname mapping to `/etc/hosts` or add to your (local) DNS server.
+
+```bash
+172.20.0.10     x0-app.x0.localnet
+```
+
+Run examples (by passing appid URL parameter).
+
+```bash
+http://x0-app.x0.localnet/python/Index.py?appid=example7
+```
+
 In case direct import is failing, download and import images manually.
 
 - https://docker.webcodex.de/x0/docker.x0-app.tar<br>
