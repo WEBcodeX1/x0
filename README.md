@@ -70,7 +70,7 @@ apt-get -y install docker.io
 # Docker permissions & setup
 usermod -aG docker your-user
 
-# Pull images
+# Pull pre-built images
 docker pull ghcr.io/webcodex1/x0-app
 docker pull ghcr.io/webcodex1/x0-db
 docker pull ghcr.io/webcodex1/x0-test
