@@ -34,7 +34,7 @@
 - **Clean OOP**: True object orientation, abstraction, chaining, metadata modeling
 - **Zero Code Duplication**: Efficient, maintainable, backend-agnostic
 - **Kubernetes Ready**: Easy cloud-native deployment
-- **Security**: PKCS 11/15 compatible, own PKI system
+- **Security**: PKCS 11/15 compatible, own PKI system (non-free)
 
 ## :racehorse: Quick Start
 
