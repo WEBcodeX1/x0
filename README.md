@@ -70,7 +70,7 @@ Add to `/etc/hosts`:
 
 Try examples:
 ```
-http://x0-app.x0.localnet/python/Index.py?appid=example7`
+http://x0-app.x0.localnet/python/Index.py?appid=example7
 ```
 
 Full install details: [INSTALL.md](./INSTALL.md)
