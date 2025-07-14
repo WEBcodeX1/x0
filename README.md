@@ -141,7 +141,7 @@ Modern browser apps with near desktop power. Backend independence, real-time upd
 ## :closed_lock_with_key: Security
 
 PKCS 11/15 compatible. Optional advanced PKI (non-free).
-Full details in [Security section](#security).
+Full details in [WEB/codeX PKI Manager](http://www.webcodex.de/Projects/WCDXPKIManager).
 
 ---
 
