@@ -172,3 +172,34 @@ Provisioning is managed by its own PKI (Private Key Infrastructure) system (non-
 > and the WSGI module.<br> https://github.com/WEBcodeX1/http-1.2.
 
 Milestones are managed on GitHub: https://github.com/WEBcodeX1/x0/milestones.
+
+---
+
+## File & Folder Structure
+
+Below is a partial overview of the repository structure.  
+For a complete and up-to-date tree, visit [GitHub file search](https://github.com/WEBcodeX1/x0/search):
+
+```
+├── README.md
+├── INSTALL.md
+├── debian/
+│   └── README.md
+├── docker/
+│   ├── README.md
+│   ├── build-all.sh
+│   └── ... (other build scripts)
+├── doc/
+│   ├── index.rst
+│   ├── intro.rst
+│   ├── dev-examples.rst
+│   ├── Makefile
+│   └── conf.py
+├── conf/
+│   └── wsgi.conf
+├── www/
+│   └── sysText.js
+└── ... (other files and folders)
+```
+
+*Note: This is an incomplete listing. More files and folders exist; see [WEBcodeX1/x0 on GitHub](https://github.com/WEBcodeX1/x0) for full details.*
