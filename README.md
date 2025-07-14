@@ -25,7 +25,9 @@
     - [Deployment](#114-deployment)
 12. [Security](#12-security)
 13. [Future Plans / Milestones](#13-future-plans--milestones)
-14. [File & Folder Structure](#file--folder-structure)
+14. [Examples](#14-examples)
+15. [File & Folder Structure](#file--folder-structure)
+
 ## 1. Abstract / Purpose
 
 **x0 (cross-object) JavaScript Framework** /krɒs ɒb.dʒɪkt/ is a modern tool for
@@ -192,9 +194,30 @@ Provisioning is managed by its own PKI (Private Key Infrastructure) system (non-
 
 Milestones are managed on GitHub: https://github.com/WEBcodeX1/x0/milestones.
 
+## 14. Examples
+
+Currently 13 examples exist. View one by opening one of the following URLs:
+
+- http://x0-app.x0.localnet/python/Index.py?appid=example1
+- http://x0-app.x0.localnet/python/Index.py?appid=example2
+- http://x0-app.x0.localnet/python/Index.py?appid=example3
+- http://x0-app.x0.localnet/python/Index.py?appid=example4
+- http://x0-app.x0.localnet/python/Index.py?appid=example5
+- http://x0-app.x0.localnet/python/Index.py?appid=example6
+- http://x0-app.x0.localnet/python/Index.py?appid=example7
+- http://x0-app.x0.localnet/python/Index.py?appid=example8
+- http://x0-app.x0.localnet/python/Index.py?appid=example9
+- http://x0-app.x0.localnet/python/Index.py?appid=example10
+- http://x0-app.x0.localnet/python/Index.py?appid=example11
+- http://x0-app.x0.localnet/python/Index.py?appid=example12
+- http://x0-app.x0.localnet/python/Index.py?appid=example13
+- http://x0-app.x0.localnet/python/Index.py?appid=example14
+
+The most impressive examples are 12 (list_dyn_radio) and 13 (copy_paste).
+
 ---
 
-## File & Folder Structure
+## 15. File & Folder Structure
 
 Below is a partial overview of the repository structure.  
 For a complete and up-to-date tree, visit [GitHub file search](https://github.com/WEBcodeX1/x0/search):
