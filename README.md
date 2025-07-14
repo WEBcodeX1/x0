@@ -36,8 +36,6 @@
 - **Kubernetes Ready**: Easy cloud-native deployment
 - **Security**: PKCS 11/15 compatible, own PKI system
 
-<br>
-
 ## :racehorse: Quick Start
 
 Try x0 now in minutes!
