@@ -45,7 +45,7 @@
 3. [Single Page Application](#computer-single-page-application)
 4. [Abstract / Purpose](#mega-abstract--purpose)
 5. [Technical Details](#zap-technical-details)
-6. [Security](#closed-lock-with-key-security)
+6. [Security](#closed_lock_with_key-security)
 7. [Future Plans / Milestones](#alarm_clock-future-plans--milestones)
 8. [Examples](#bulb-examples)
 9. [File & Folder Structure](#file_folder-file--folder-structure)
