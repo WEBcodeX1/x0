@@ -90,7 +90,7 @@ Try examples:
 http://x0-app.x0.localnet/python/Index.py?appid=example7
 ```
 
-Full install details: [INSTALL.md](./INSTALL.md)
+Full install details including build instructions: [INSTALL.md](./INSTALL.md)
 Rendered docs: [Official Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/).
 
 ---
