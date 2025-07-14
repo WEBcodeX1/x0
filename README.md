@@ -36,6 +36,22 @@
 - **Kubernetes Ready**: Easy cloud-native deployment
 - **Security**: PKCS 11/15 compatible, own PKI system (non-free)
 
+---
+
+## :bookmark_tabs: Table of Contents
+
+1. [Abstract / Purpose](#abstract--purpose)
+2. [Technical Details](#technical-details)
+3. [Security](#security)
+4. [Future Plans / Milestones](#future-plans--milestones)
+5. [Examples](#examples)
+6. [File & Folder Structure](#file--folder-structure)
+7. [Contributing](#contributing)
+8. [Community & Support](#community)
+9. [License](#license)
+
+---
+
 ## :racehorse: Quick Start
 
 Try x0 now in minutes!
