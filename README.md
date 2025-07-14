@@ -147,7 +147,7 @@ Full details in [WEB/codeX PKI Manager](http://www.webcodex.de/Projects/WCDXPKIM
 
 ## :alarm_clock: Future Plans / Milestones
 
-- FalconAS Python Application Server: [repo](https://github.com/WEBcodeX1/http-1.2)
+- Replace Apache with FalconAS Python Application Server: [Repo](https://github.com/WEBcodeX1/http-1.2)
 - Roadmap: [GitHub Milestones](https://github.com/WEBcodeX1/x0/milestones)
 
 ---
