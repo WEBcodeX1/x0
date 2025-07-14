@@ -32,7 +32,7 @@
 building powerful web-browser real-time Single Page Applications (SPAs) efficiently.
 
 For installation instructions, refer to: [./INSTALL.md](./INSTALL.md).<br>
-Rendered Sphinx documentation: https://docs.webcodex.de/x0/v1.0/.
+Official Sphinx rendered documentation: https://docs.webcodex.de/x0/v1.0/.
 
 ## 2. Single Page Application
 
