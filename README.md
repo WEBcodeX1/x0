@@ -1,226 +1,173 @@
-# x0 JavaScript Framework
+<p align="center">
+  <img src="./image/x0-logo-github.png" alt="x0 Framework Logo" width="800"/>
+</p>
 
-![x0-logo](./image/x0-logo-github.png)
+<h1 align="center">x0 JavaScript Framework</h1>
+<p align="center"><em>Modern, Real-Time SPA Framework for Powerful Web Applications</em></p>
 
-[![CodeQL](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql)
-[![x0-test-runner](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml)
-[![Dependabot Updates](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates)
+<div align="center">
+  <a href="https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql">
+    <img src="https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql/badge.svg" alt="CodeQL">
+  </a>
+  <a href="https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml">
+    <img src="https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml/badge.svg" alt="x0 Test Runner">
+  </a>
+  <a href="https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates">
+    <img src="https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates/badge.svg" alt="Dependabot">
+  </a>
+  <a href="https://github.com/WEBcodeX1/x0/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/WEBcodeX1/x0?style=flat" alt="License">
+  </a>
+  <a href="https://docs.webcodex.de/x0/v1.0/">
+    <img src="https://img.shields.io/badge/docs-sphinx-blue" alt="Docs">
+  </a>
+</div>
 
-## Table of Contents
+---
 
-1. [Abstract / Purpose](#1-abstract--purpose)
-2. [Single Page Application](#2-single-page-application)
-3. [Quick Start](#3-quick-start)
-4. [Cross Objects](#4-cross-objects)
-5. [Responsiveness](#5-responsiveness)
-6. [True Object Orientation / Clean Code](#6-true-object-orientation--clean-code)
-7. [Zero Code Duplication / Freedom](#7-zero-code-duplication--freedom)
-8. [Object Chaining / Data Abstraction](#8-object-chaining--data-abstraction)
-9. [Kubernetes Ready](#9-kubernetes-ready)
-10. [Open Source](#10-open-source)
-11. [Technical Details](#11-technical-details)
-    - [OS Compatibility](#111-os-compatibility)
-    - [Prerequisites](#112-prerequisites)
-    - [Prerequisites Kubernetes](#113-prerequisites-kubernetes)
-    - [Deployment](#114-deployment)
-12. [Security](#12-security)
-13. [Future Plans / Milestones](#13-future-plans--milestones)
-14. [Examples](#14-examples)
-15. [File & Folder Structure](#file--folder-structure)
+## :pushpin: Overview
 
-## 1. Abstract / Purpose
+**x0** (cross-object) is a next-gen JavaScript framework for building robust, real-time Single Page Applications (SPAs) with true object orientation, zero code duplication, and modern deployment options (Docker/Kubernetes).
 
-**x0 (cross-object) JavaScript Framework** /krɒs ɒb.dʒɪkt/ is a modern tool for
-building powerful web-browser real-time Single Page Applications (SPAs) efficiently.
+- **Fast SPA Development**: Near desktop-app speed and features
+- **Responsive by Design**: One app, every device, standards via Bootstrap CSS
+- **Clean OOP**: True object orientation, abstraction, chaining, metadata modeling
+- **Zero Code Duplication**: Efficient, maintainable, backend-agnostic
+- **Kubernetes Ready**: Easy cloud-native deployment
+- **Security**: PKCS 11/15 compatible, own PKI system (non-free)
 
-For installation instructions, refer to: [./INSTALL.md](./INSTALL.md).<br>
-Official Sphinx rendered documentation: https://docs.webcodex.de/x0/v1.0/.
+## :racehorse: Quick Start
 
-## 2. Single Page Application
-
-SPAs are modern browser applications that run *almost* backend-independent, getting
-closer to the functionality of *real* desktop apps.
-
-## 3. Quick Start
-
-To see the *x0-system* in action immediately, follow these steps:
+Try x0 now in minutes!
 
 ```bash
-# clone the repository
+# Clone & enter repo
 git clone https://github.com/WEBcodeX1/x0.git
 cd x0
 
-# install docker
+# Install Docker
 apt-get -y install docker.io
 
-# set docker permissions / restart shell
+# Docker permissions & setup
 usermod -aG docker your-user
 
-# pull docker images
+# Pull images
 docker pull ghcr.io/webcodex1/x0-app
 docker pull ghcr.io/webcodex1/x0-db
 docker pull ghcr.io/webcodex1/x0-test
 
-# start the x0-system
+# Start x0-system
 cd ./docker/
 ./x0-start-containers.sh
 ```
 
-Open the URL `http://172.20.0.10/python/Index.py?appid=example12` to test if everything
-is working correctly.
-
-Add IPv4 / Hostname mapping to `/etc/hosts` or add to your (local) DNS server.
-
+Add to `/etc/hosts`:
 ```bash
 172.20.0.10     x0-app.x0.localnet
 ```
 
-Run examples (by passing appid URL parameter).
-
-```bash
+Try examples:
+```
 http://x0-app.x0.localnet/python/Index.py?appid=example7
 ```
 
-## 4. Cross Objects
+Full install details: [INSTALL.md](./INSTALL.md)
+Rendered docs: [Official Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/).
 
-What does the "cross" in x0 stand for? **Communication**.
+---
 
-The *x0-system's* clean OOP model allows objects to exchange data containers
-internally and directly over the network between clients.
+## :star2: Features
 
-See the examples section: [example #10](./example/net_messages/) and
-[example #13](./example/copy_paste/) for more information.
+- **Cross Objects:** Clean OOP, seamless data exchange between clients and network
+- **Responsiveness:** Bootstrap CSS grid, single app for all devices
+- **Object Chaining/Data Abstraction:** Chain objects, enjoy recursive, reusable modeling
+- **Zero Code Duplication/Freedom:** OSI-layer abstraction, minimal backend dependencies
+- **Kubernetes Ready:** Google Kubernetes Engine (GKE), Minikube support
+- **Security:** PKCS-compatible, optional advanced PKI system
 
-## 5. Responsiveness
+Learn more in [Examples](#14-examples).
 
-x0 relies on *Bootstrap CSS*, ensuring cross-browser standards for all end
-devices (CSS Grid system).
+---
 
-Build and maintain only **ONE** single app (even for Android) and save on
-IT budgets! Additionally, x0 does not rely on Bootstrap or external JavaScript libraries.
+## :computer: Single Page Application
 
-## 6. True Object Orientation / Clean Code
+Modern browser apps with near desktop power. Backend independence, real-time updates.
 
-JavaScript (ECMA6 / ECMA7) lacks the ability to overload DOM object internal functions,
-making it difficult to build clean and efficient abstraction models.
+---
 
-For experienced OOP programmers, this can lead to frustration. x0 solves this problem by
-providing **The Missing Layer**, making modeling fun and efficient again.
+## :bookmark_tabs: Table of Contents
 
->[!NOTE]
-> Bind your own object methods to existing **DOM elements** and use object inheritance.
+1. [Abstract / Purpose](#abstract--purpose)
+2. [Technical Details](#technical-details)
+3. [Security](#security)
+4. [Future Plans / Milestones](#future-plans--milestones)
+5. [Examples](#examples)
+6. [File & Folder Structure](#file--folder-structure)
+7. [Contributing](#contributing)
+8. [Community & Support](#community)
+9. [License](#license)
 
-## 7. Zero Code Duplication / Freedom
+---
 
-The x0 OSI layer abstraction is simple and relies on **zero** backend dependencies.
+## :mega: Abstract / Purpose
 
-In comparison, other SPA frameworks tend to have code duplication by a factor greater than 2.
+**x0** is designed to make advanced SPA development fun, fast, and maintainable. With zero code duplication and clean OOP, x0 powers complex, modern web applications.
 
-## 8. Object Chaining / Data Abstraction
+---
 
-A smart base-class design makes object modeling with the x0 framework enjoyable.
-Combining (chaining) objects for later reuse (even recursively chainable) is a basic
-feature of x0's clean abstraction model.
+## :zap: Technical Details
 
-Feeding objects with data and retrieving data from them (graph-based JSON) saves effort
-due to x0's recursive object metadata model. For a better understanding of object modeling
-and implementation details, see the Sphinx documentation examples section.
+**OS Compatibility:**
+- Ubuntu 22.04 (Jammy Jellyfish)
+- Ubuntu 24.04 (Noble Numbat)
+- Devuan (Daedalus 5.0)
 
->[!NOTE]
-> x0 provides *object instancing* in **runtime** with zero backend communication.
-
-## 9. Kubernetes Ready
-
-*x0-applications* run on Google Kubernetes Engine (GKE).
-
-The JSON-based Kubernetes installer simplifies deploying multiple application
-environments quickly.
-
-See [./kubernetes/README.md](./kubernetes/README.md).
-
->[!NOTE]
-> Minikube on Windows and Linux is partially supported.
-
-## 10. Open Source
-
-*x0-system* is licensed under the AGPL-3.0 license.
-
-## 11. Technical Details
-
-Detailed installation instructions can be found in [./INSTALL.md](./INSTALL.md)
-and the subdirectory **README.md** files.
-
-### 11.1. OS Compatibility
-
-*x0-system* runs stably on current Ubuntu Linux 22.04.x LTS (Jammy Jellyfish),
-inside local Docker containers, or on native Google Kubernetes Engine (GKE).
-
->[!NOTE]
-> For detailed documentation on setting up on Minikube, see [./kubernetes/README.md](./kubernetes/README.md).
-
-### 11.2. Prerequisites
-
-The following open-source products are required to run the *x0-system*:
-
-- Apache2.0+
-- Apache WSGI (Python) **or** FalconAS Application Server
+**Prerequisites:**
+- Apache2.0+ / WSGI or FalconAS
 - PostgreSQL 13+
-- Python3+
-- Psycopg2 (Python) PostgreSQL Client-Library
-- Selenium Browser Test-Framework / Python Libraries
+- Python3+, Psycopg2, Selenium
 
-### 11.3. Prerequisites Kubernetes
+**Kubernetes:**
+- Kubegres: [GitHub](https://github.com/reactive-tech/kubegres)
+- Minikube: Partial support on Windows/Linux
 
-- Kubegres (https://github.com/reactive-tech/kubegres)
-
-### 11.4. Deployment
-
-The *x0-system* can be deployed on the following platforms:
-
+**Deployment:**
 - Linux Standalone
 - Docker
 - Google Kubernetes Engine (GKE)
 
-## 12. Security
+---
 
-For enhanced security, the *x0-system* is PKCS 11 / PKCS 15 compatible (also on GKE).
-Provisioning is managed by its own PKI (Private Key Infrastructure) system (non-free).
+## :closed_lock_with_key: Security
 
-## 13. Future Plans / Milestones
-
->[!NOTE]
-> We are currently developing a Python Application Server (FalconAS) to replace Apache
-> and the WSGI module.<br> https://github.com/WEBcodeX1/http-1.2.
-
-Milestones are managed on GitHub: https://github.com/WEBcodeX1/x0/milestones.
-
-## 14. Examples
-
-Currently 13 examples exist. View one by opening one of the following URLs:
-
-- http://x0-app.x0.localnet/python/Index.py?appid=example1
-- http://x0-app.x0.localnet/python/Index.py?appid=example2
-- http://x0-app.x0.localnet/python/Index.py?appid=example3
-- http://x0-app.x0.localnet/python/Index.py?appid=example4
-- http://x0-app.x0.localnet/python/Index.py?appid=example5
-- http://x0-app.x0.localnet/python/Index.py?appid=example6
-- http://x0-app.x0.localnet/python/Index.py?appid=example7
-- http://x0-app.x0.localnet/python/Index.py?appid=example8
-- http://x0-app.x0.localnet/python/Index.py?appid=example9
-- http://x0-app.x0.localnet/python/Index.py?appid=example10
-- http://x0-app.x0.localnet/python/Index.py?appid=example11
-- http://x0-app.x0.localnet/python/Index.py?appid=example12
-- http://x0-app.x0.localnet/python/Index.py?appid=example13
-- http://x0-app.x0.localnet/python/Index.py?appid=example14
-
-The most impressive examples are 12 (list_dyn_radio) and 13 (copy_paste).
+PKCS 11/15 compatible. Optional advanced PKI (non-free).
+Full details in [WEB/codeX PKI Manager](http://www.webcodex.de/Projects/WCDXPKIManager).
 
 ---
 
-## 15. File & Folder Structure
+## :alarm_clock: Future Plans / Milestones
 
-Below is a partial overview of the repository structure.  
-For a complete and up-to-date tree, visit [GitHub file search](https://github.com/WEBcodeX1/x0/search):
+- Replace Apache with FalconAS Python Application Server: [Repo](https://github.com/WEBcodeX1/http-1.2)
+- Roadmap: [GitHub Milestones](https://github.com/WEBcodeX1/x0/milestones)
+
+---
+
+## :bulb: Examples
+
+Try 13 live examples:
+
+```
+http://x0-app.x0.localnet/python/Index.py?appid=example1
+...
+http://x0-app.x0.localnet/python/Index.py?appid=example13
+```
+The most impressive: **12 (list_dyn_radio)** and **13 (copy_paste)**.
+
+---
+
+## :file_folder: File & Folder Structure
+
+Partial overview, see [GitHub file search](https://github.com/WEBcodeX1/x0/search):
 
 ```
 ├── README.md
@@ -230,18 +177,46 @@ For a complete and up-to-date tree, visit [GitHub file search](https://github.co
 ├── docker/
 │   ├── README.md
 │   ├── build-all.sh
-│   └── ... (other build scripts)
+│   └── ...
 ├── doc/
 │   ├── index.rst
 │   ├── intro.rst
 │   ├── dev-examples.rst
 │   ├── Makefile
 │   └── conf.py
+├── example/
+│   ├── example1
+│   └── example2
 ├── conf/
 │   └── wsgi.conf
 ├── www/
 │   └── sysText.js
-└── ... (other files and folders)
+├── test/
+│   └── README.md
+└── ... (more files & folders)
 ```
 
-*Note: This is an incomplete listing. More files and folders exist; see [WEBcodeX1/x0 on GitHub](https://github.com/WEBcodeX1/x0) for full details.*
+---
+
+## :wave: Contributing
+
+Contributions & feedback welcome!
+See [CONTRIBUTING.md](./CONTRIBUTING.md) (if exists) or open an issue.
+
+---
+
+## :globe_with_meridians: Community & Support
+
+- [Discussions](https://github.com/WEBcodeX1/x0/discussions)
+- [Issues](https://github.com/WEBcodeX1/x0/issues)
+- [Docs](https://docs.webcodex.de/x0/v1.0/)
+
+---
+
+## :memo: License
+
+AGPL-3.0. See [LICENSE](./LICENSE).
+
+---
+
+<p align="center"><sub>Made with ❤️ by Claus Prüfer / clickIT / WEBcodeX</sub></p>
