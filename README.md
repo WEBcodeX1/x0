@@ -117,7 +117,10 @@ Modern browser apps with near desktop power. Backend independence, real-time upd
 
 ## :zap: Technical Details
 
-**OS Compatibility:** Ubuntu 22.04.x LTS (Jammy Jellyfish), Docker, GKE
+**OS Compatibility:**
+- Ubuntu 22.04 (Jammy Jellyfish)
+- Ubuntu 24.04 (Noble Numbat)
+- Devuan (Daedalus 5.0)
 
 **Prerequisites:**
 - Apache2.0+ / WSGI or FalconAS
