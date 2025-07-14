@@ -50,7 +50,7 @@
 8. [Examples](#bulb-examples)
 9. [File & Folder Structure](#file-folder-file--folder-structure)
 10. [Contributing](#wave-contributing)
-11. [Community & Support](#globe-with-meridians-community)
+11. [Community & Support](#globe-with-meridians-community--support)
 12. [License](#memo-license)
 
 ---
