@@ -36,6 +36,25 @@
 - **Kubernetes Ready**: Easy cloud-native deployment
 - **Security**: PKCS 11/15 compatible, own PKI system (non-free)
 
+---
+
+## :bookmark_tabs: Table of Contents
+
+1. [Quick Start](#racehorse-quick-start)
+2. [Features](#star2-features)
+3. [Single Page Application](#computer-single-page-application)
+4. [Abstract / Purpose](#mega-abstract--purpose)
+5. [Technical Details](#zap-technical-details)
+6. [Security](#closed_lock_with_key-security)
+7. [Future Plans / Milestones](#alarm_clock-future-plans--milestones)
+8. [Examples](#bulb-examples)
+9. [File & Folder Structure](#file_folder-file--folder-structure)
+10. [Contributing](#wave-contributing)
+11. [Community & Support](#globe_with_meridians-community--support)
+12. [License](#memo-license)
+
+---
+
 ## :racehorse: Quick Start
 
 Try x0 now in minutes!
@@ -92,20 +111,6 @@ Learn more in [Examples](#14-examples).
 ## :computer: Single Page Application
 
 Modern browser apps with near desktop power. Backend independence, real-time updates.
-
----
-
-## :bookmark_tabs: Table of Contents
-
-1. [Abstract / Purpose](#abstract--purpose)
-2. [Technical Details](#technical-details)
-3. [Security](#security)
-4. [Future Plans / Milestones](#future-plans--milestones)
-5. [Examples](#examples)
-6. [File & Folder Structure](#file--folder-structure)
-7. [Contributing](#contributing)
-8. [Community & Support](#community)
-9. [License](#license)
 
 ---
 
