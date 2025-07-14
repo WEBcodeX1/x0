@@ -219,4 +219,4 @@ AGPL-3.0. See [LICENSE](./LICENSE).
 
 ---
 
-<p align="center"><sub>Made with ❤️ by Claus Prüfer & WEBcodeX1</sub></p>
+<p align="center"><sub>Made with ❤️ by Claus Prüfer / clickIT / WEBcodeX</sub></p>
