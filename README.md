@@ -72,7 +72,7 @@ Try examples:
 `http://x0-app.x0.localnet/python/Index.py?appid=example7`
 
 Full install details: [INSTALL.md](./INSTALL.md)
-Rendered docs: [Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/)
+Rendered docs: [Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/).
 
 ---
 
@@ -85,7 +85,7 @@ Rendered docs: [Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/)
 - **Kubernetes Ready:** Google Kubernetes Engine (GKE), Minikube support
 - **Security:** PKCS-compatible, optional advanced PKI system
 
-Learn more in [Examples](#14-examples) and [Sphinx Docs](https://docs.webcodex.de/x0/v1.0/)
+Learn more in [Examples](#14-examples).
 
 ---
 
@@ -98,23 +98,14 @@ Modern browser apps with near desktop power. Backend independence, real-time upd
 ## :bookmark_tabs: Table of Contents
 
 1. [Abstract / Purpose](#abstract--purpose)
-2. [Single Page Application](#single-page-application)
-3. [Quick Start](#quick-start)
-4. [Features](#features)
-5. [Cross Objects](#cross-objects)
-6. [Responsiveness](#responsiveness)
-7. [True Object Orientation / Clean Code](#true-object-orientation--clean-code)
-8. [Zero Code Duplication / Freedom](#zero-code-duplication--freedom)
-9. [Object Chaining / Data Abstraction](#object-chaining--data-abstraction)
-10. [Kubernetes Ready](#kubernetes-ready)
-11. [Technical Details](#technical-details)
-12. [Security](#security)
-13. [Future Plans / Milestones](#future-plans--milestones)
-14. [Examples](#examples)
-15. [File & Folder Structure](#file--folder-structure)
-16. [Contributing](#contributing)
-17. [Community](#community)
-18. [License](#license)
+2. [Technical Details](#technical-details)
+3. [Security](#security)
+4. [Future Plans / Milestones](#future-plans--milestones)
+5. [Examples](#examples)
+6. [File & Folder Structure](#file--folder-structure)
+7. [Contributing](#contributing)
+8. [Community & Support](#community)
+9. [License](#license)
 
 ---
 
@@ -127,6 +118,7 @@ Modern browser apps with near desktop power. Backend independence, real-time upd
 ## :zap: Technical Details
 
 **OS Compatibility:** Ubuntu 22.04.x LTS (Jammy Jellyfish), Docker, GKE
+
 **Prerequisites:**
 - Apache2.0+ / WSGI or FalconAS
 - PostgreSQL 13+
