@@ -154,13 +154,12 @@ Full details in [Security section](#security).
 
 ## :bulb: Examples
 
-Try 13+ live examples:
+Try 13 live examples:
 
 ```
 http://x0-app.x0.localnet/python/Index.py?appid=example1
 ...
 http://x0-app.x0.localnet/python/Index.py?appid=example13
-http://x0-app.x0.localnet/python/Index.py?appid=example14
 ```
 The most impressive: **12 (list_dyn_radio)** and **13 (copy_paste)**.
 
