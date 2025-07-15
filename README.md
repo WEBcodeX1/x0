@@ -35,7 +35,7 @@
 - **Zero Code Duplication**: Efficient, maintainable, backend-agnostic
 - **Kubernetes Ready**: Easy cloud-native deployment
 - **Security**: PKCS 11/15 compatible, own PKI system (non-free)
-
+- **Multiple Language Support**: x0 supports multiple display languages
 ---
 
 ## :bookmark_tabs: Table of Contents
