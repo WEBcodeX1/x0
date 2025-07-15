@@ -46,7 +46,7 @@ sudo apt-get install devscripts pbuilder gnupg docker.io
 
 The quickest way to get started is with Docker.
 
-### 📦 Required Docker Images
+### 📦 Primary Docker Images Getting Built
 
 - `x0-app`
 - `x0-db`
