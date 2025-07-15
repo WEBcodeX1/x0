@@ -518,7 +518,7 @@ function sysFormFieldValidateGroup()
 
 sysFormFieldValidateGroup.prototype.validate = function(FunctionID, FormfieldItems)
 {
-    //try {
+    try {
         //- reset form style to validated
         for (const FormItem of FormfieldItems) {
             console.debug('::validateGroup FormItem:%o', FormItem);
@@ -542,11 +542,11 @@ sysFormFieldValidateGroup.prototype.validate = function(FunctionID, FormfieldIte
         }
 
         return RetValue;
-    //}
-    //catch(err) {
-    //    console.debug('::validateGroup err:%s', err);
-    //    return false;
-    //}
+    }
+    catch(err) {
+        console.debug('::validateGroup err:%s', err);
+        return false;
+    }
 }
 
 
