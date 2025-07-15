@@ -104,7 +104,7 @@ Rendered docs: [Official Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/
 - **Kubernetes Ready:** Google Kubernetes Engine (GKE), Minikube support
 - **Security:** PKCS-compatible, optional advanced PKI system
 
-Learn more in [Examples](#14-examples).
+Learn more in [Examples](#bulb-examples).
 
 ---
 
