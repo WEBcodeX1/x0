@@ -9,7 +9,7 @@ This guide will help you get your development environment up and running on popu
 
 - **Google Kubernetes Engine (GKE) - Minikube**
 - **Google Kubernetes Engine (GKE) - Production Cluster**
-- **Local Docker Environment / Linux** (Ubuntu, Devuan)**
+- **Local Docker Environment / Linux (Ubuntu, Devuan)**
 
 > **Note:**
 > This documentation is intended for **x0-system developers**.
