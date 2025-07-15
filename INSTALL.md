@@ -51,6 +51,10 @@ The quickest way to get started is with Docker.
 - `x0-db`
 - `x0-test`
 
+> ℹ️ Check debian and docker requirements before building:
+> - [debian/README.md](./debian/README.md)
+> - [docker/README.md](./docker/README.md)
+
 ### 🏗️ Build Debian Packages
 
 ```bash
@@ -65,10 +69,6 @@ cd ./docker
 ./build-x0-db.sh
 ./build-x0-test.sh
 ```
-
-> ℹ️ For more details, see:
-> - [debian/README.md](./debian/README.md)
-> - [docker/README.md](./docker/README.md)
 
 ### ▶️ Run Containers
 
