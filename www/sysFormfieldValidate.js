@@ -522,7 +522,7 @@ sysFormFieldValidateGroup.prototype.validate = function(FunctionID, FormfieldIte
         //- reset form style to validated
         for (const FormItem of FormfieldItems) {
             console.debug('::validateGroup FormItem:%o', FormItem);
-            FormItem.ParentObject.setValidateStyle(false);
+            FormItem.setValidateStyle(false);
         }
 
         const RetValue = this.ValidateFunc[FunctionID](FormfieldItems);
@@ -534,7 +534,7 @@ sysFormFieldValidateGroup.prototype.validate = function(FunctionID, FormfieldIte
                 (typeof RetValue == 'object' && RetValue['Error'] == true) ||
                 (RetValue == true)) {
                 for (const FormItem of FormfieldItems) {
-                    FormItem.ParentObject.setValidateStyle(true);
+                    FormItem.setValidateStyle(true);
                 }
             }
         }
@@ -562,12 +562,12 @@ sysFormFieldValidateGroup.prototype.CheckUnique = function(Items)
 
     for (ItemID in Items) {
         Item = Items[ItemID];
-        UniqueElements[Item.ParentObject.getObjectData()] = 0;
+        UniqueElements[Item.getObjectData()] = 0;
     }
 
     for (ItemID in Items) {
         Item = Items[ItemID];
-        UniqueElements[Item.ParentObject.getObjectData()] += 1;
+        UniqueElements[Item.getObjectData()] += 1;
     }
 
     var FormFieldsCount = Object.keys(Items).length;
@@ -588,7 +588,7 @@ sysFormFieldValidateGroup.prototype.CheckNull = function(Items)
     var i=0;
     for (Index in Items) {
         var Item = Items[Index];
-        var ItemData = Item.ParentObject.getObjectData();
+        var ItemData = Item.getObjectData();
         console.debug('::CheckNull Item:%o ItemData:%s', Item, ItemData);
         if (ItemData == '<NULL>') { return true; }
     }
@@ -605,7 +605,7 @@ sysFormFieldValidateGroup.prototype.CheckEmpty = function(Items)
     var i=0;
     for (Index in Items) {
         var Item = Items[Index];
-        var ItemData = Item.ParentObject.getObjectData();
+        var ItemData = Item.getObjectData();
         console.debug('::CheckEmpty Item:%o ItemData:%s', Item, ItemData);
         if (ItemData.length == 0) { return true; }
     }
@@ -628,13 +628,13 @@ sysFormFieldValidateGroup.prototype.CheckDatePeriodOneYear = function(Items)
         const ItemEndMonth = Items[4];
         const ItemEndYear = Items[5];
 
-        var BeginDay = ItemStartDay.ParentObject.getObjectData();
-        var BeginMonth = ItemStartMonth.ParentObject.getObjectData();
-        var BeginYear = ItemStartYear.ParentObject.getObjectData();
+        var BeginDay = ItemStartDay.getObjectData();
+        var BeginMonth = ItemStartMonth.getObjectData();
+        var BeginYear = ItemStartYear.getObjectData();
 
-        var EndDay = ItemEndDay.ParentObject.getObjectData();
-        var EndMonth = ItemEndMonth.ParentObject.getObjectData();
-        var EndYear = ItemEndYear.ParentObject.getObjectData();
+        var EndDay = ItemEndDay.getObjectData();
+        var EndMonth = ItemEndMonth.getObjectData();
+        var EndYear = ItemEndYear.getObjectData();
 
         var DateBeginn = new Date(BeginMonth+"/"+BeginDay+"/"+BeginYear);
         var DateEnd = new Date(EndMonth+"/"+EndDay+"/"+EndYear);
@@ -659,8 +659,8 @@ sysFormFieldValidateGroup.prototype.CheckItemsOr = function(Items)
 {
     const ErrorMessage = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.FIELDS-2ITEMS-OR-LENGTH');
 
-    const Item1Value = Items[0].ParentObject.getObjectData();
-    const Item2Value = Items[1].ParentObject.getObjectData();
+    const Item1Value = Items[0].getObjectData();
+    const Item2Value = Items[1].getObjectData();
 
     console.debug('Val1:%s Val2:%s', Item1Value.length, Item2Value.length);
 
@@ -683,8 +683,8 @@ sysFormFieldValidateGroup.prototype.CheckItemsMatch = function(Items)
     const Attributes1 = Items[0].JSONConfig.Attributes;
     const Attributes2 = Items[1].JSONConfig.Attributes;
 
-    const Item1Value = Items[0].ParentObject.getObjectData();
-    const Item2Value = Items[1].ParentObject.getObjectData();
+    const Item1Value = Items[0].getObjectData();
+    const Item2Value = Items[1].getObjectData();
 
     console.debug('Val1:%s Val2:%s', Item1Value.length, Item2Value.length);
 
@@ -706,7 +706,7 @@ sysFormFieldValidateGroup.prototype.MinOneItemNotNull = function(Items)
 
     for (Index in Items) {
         Item = Items[Index];
-        const ItemValue = Items[Index].ParentObject.getObjectData();
+        const ItemValue = Items[Index].getObjectData();
         if (ItemValue.length > 0) {
             ItemsNotNull += 1;
         }
@@ -724,7 +724,7 @@ sysFormFieldValidateGroup.prototype.MinOneItemNotNull = function(Items)
 
 sysFormFieldValidateGroup.prototype.CheckTableRows = function(Items)
 {
-    const TableData = Items[0].ParentObject.getObjectData();
+    const TableData = Items[0].getObjectData();
 
     if (TableData.length == 0) {
         return true;
@@ -740,8 +740,8 @@ sysFormFieldValidateGroup.prototype.CheckTableRows = function(Items)
 
 sysFormFieldValidateGroup.prototype.DNSRecordValuePlusType = function(Items)
 {
-    const DNSValueTypeObj = Items[0].ParentObject;
-    const DNSValueObj = Items[1].ParentObject;
+    const DNSValueTypeObj = Items[0];
+    const DNSValueObj = Items[1];
 
     const DNSValueType = DNSValueTypeObj.getObjectData();
     const DNSValue = DNSValueObj.getObjectData();
