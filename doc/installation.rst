@@ -1,381 +1,271 @@
-.. installation
-
 .. _installation:
 
-6. Installation
-===============
+6. Installation Guide
+=====================
 
-6.1. Preamble
--------------
-
-Before proceeding, verify whether it is **absolutely necessary** for you to install
-the *x0-base-system*.
-
-If your goal is to develop *x0-applications* **only**, you should begin by setting up
-your own repository using the *x0-skeleton* (a Git template repository) available at:
-https://github.com/WEBcodeX1/x0-skeleton.
-
-After setting up your *x0-app-repository*, proceed by reading the documentation section
-:ref:`appdevconfig` for detailed instructions on building and configuring an *x0-application*.
-
-If you plan to create your own *x0-system-objects* for use in your *x0-application*,
-installing the *x0-system* is mandatory, and you should continue reading this chapter.
-
-6.2. Environments
------------------
-
-Any Linux distribution is supported where Debian Packages can be built natively (``debuild``).
-
-* Ubuntu 22.04 / 24.04
-* Debian 12
-* Devuan 5
-
-Docker images created by the *x0-system* are based on *Ubuntu 24.04*.
-
-6.3. Dependencies
------------------
-
-The following are the **base dependencies** required to run the *x0-system*:
-
-* Apache2 / Python3 WSGI (https://httpd.apache.org)
-* PostgreSQL Relational Database 14 (http://www.postgresql.org)
-* Psycopg2 high-speed threaded PostgreSQL DB interface (https://pypi.org/project/psycopg2)
-* Python DB-Pool for Apache2 (https://github.com/clauspruefer/python-db-pool)
-* Bootstrap 5.3 CSS (https://getbootstrap.com)
-* Sphinx Documentation Generator and RTD Theme (https://www.sphinx-doc.org)
-* Selenium Test Framework (https://www.selenium.dev)
-* Chromedriver for Chromium Browser (https://chromedriver.chromium.org)
-* Docker (https://www.docker.com)
-
-For deployment on GKE (Google Kubernetes Engine), the following additional dependencies are required:
-
-* Kubegres (https://www.kubegres.io)
-* ingress-nginx (https://kubernetes.github.io/ingress-nginx)
-* cert-manager (https://cert-manager.io)
-
-Optional dependencies for a highly structured OOP-based Web Services backend abstraction layer:
-
-* Python microesb (https://github.com/clauspruefer/python-micro-esb)
-
-For local messaging testing (non-production, optional):
-
-* Python micro-msg-server (https://github.com/clauspruefer/micro-msg-server)
-
-6.4. System Install
--------------------
-
-We recommend using **Docker containers** as the development environment.
-
-The *x0-system* provides tools to build **Docker images** with **network setup**, enabling
-the system, including the **database** and messaging server, to run locally within minutes.
-
-First, install the required dependencies:
-
-.. code-block:: bash
-
-	# install docker
-	apt-get install -qq -y docker.io docker-buildx
-
-	# install debian build dependencies
-	apt-get install -qq -y debuild gpg
-
-	# install python pip, pytest
-	apt-get install -qq -y python3-pip python3-pytest python3-selenium
-
-	# install sphinx doc builder
-	apt-get install -qq -y python3-sphinx python3-sphinx-rtd-theme
-
-The following steps are required to set up a **development environment**:
-
-1. Clone x0 Git Repository
-6. Setup Debian Build System
-3. Setup Local Docker
-4. Build Debian and Docker Packages
-5. Run Docker Containers
-6. Develop / Deploy / Rebuild
-
-6.4.1. Clone Git Repository
-***************************
-
-To clone the repository in read-only mode:
-
-.. code-block:: bash
-
-	# clone x0 git repository
-	git clone https://github.com/WEBcodeX1/x0.git
-
-If you want to participate in *x0 development*, send your public SSH key
-and use git+ssh (preferably using ssh-agent with HSM):
-
-.. code-block:: bash
-
-	# clone x0 git repository
-	git clone git@github.com:WEBcodeX1/x0.git
-
-6.4.2. Setup Debian Build System
-********************************
-
-Generate your GPG keys (or import existing ones):
-
-.. code-block:: bash
-
-	# generate gpg signing key
-	gpg --full-generate-key
+Welcome to the installation guide for the **x0-system**!
 
 .. note::
+   If your goal is to develop *x0-applications* **only**, you **do not** need to install the full x0-base-system. Instead, start by setting up your own repository using the `x0-skeleton <https://github.com/WEBcodeX1/x0-skeleton>`_ template. Then, see the :ref:`appdevconfig` documentation for instructions on building and configuring your app.
 
-	The gpg-ID ("Real Name" plus "Comment" in brackets, "Email address") must match
-	exactly the format inside ``./debian/changelog`` "Real Name (Comment) <email-address.com>".
+.. important::
+   If you plan to create your own *x0-system-objects* for custom use in your applications, **installing the x0-system is mandatory**. Continue reading below.
 
-Next, build the package:
+6.1. Supported Environments
+---------------------------
 
-.. code-block:: bash
+You can use **any Linux distribution** where Debian packages can be built natively (``debuild``):
 
-	# build x0 debian packages
-	cd ./debian && debuild
+- Ubuntu 22.04 / 24.04
+- Debian 12
+- Devuan 5
 
-If the build is successful, the Debian build system will sign all packages. The packages
-and metadata will be available in the ``../../`` directory.
+.. tip::
+   Official x0-system Docker images are based on **Ubuntu 24.04**.
 
-6.4.3. Prepare Docker
-*********************
+6.2. Dependencies
+-----------------
 
-As the **root** user, add your current user to the Docker Unix group:
+**Base requirements:**
 
-.. code-block:: bash
+- `Apache2` with Python3 WSGI — https://httpd.apache.org
+- `PostgreSQL 14` — https://www.postgresql.org
+- `psycopg2` (PostgreSQL DB interface) — https://pypi.org/project/psycopg2
+- `python-db-pool` — https://github.com/clauspruefer/python-db-pool
+- `Bootstrap 5.3` — https://getbootstrap.com
+- `Sphinx` + RTD theme — https://www.sphinx-doc.org
+- `Selenium` — https://www.selenium.dev
+- `Chromedriver` — https://chromedriver.chromium.org
+- `Docker` — https://www.docker.com
 
-	# add user to docker group
-	sudo usermod -aG docker your-user
+**For GKE (Google Kubernetes Engine) deployments:**
 
-A restart of your shell, desktop session, or even your computer may be required for the
-changes to take effect.
+- `Kubegres` — https://www.kubegres.io
+- `ingress-nginx` — https://kubernetes.github.io/ingress-nginx
+- `cert-manager` — https://cert-manager.io
 
-After adding your user to the Docker group, you will be able to control the Docker engine
-from the CLI (shell) and start building.
+**Optional for advanced OOP web services:**
 
-.. _installation_build_docker:
+- [`python-microesb`](https://github.com/clauspruefer/python-micro-esb)
 
-6.4.4. Pull Docker Images
-*************************
+**Optional for local messaging tests:**
 
-.. code-block:: bash
+- [`micro-msg-server`](https://github.com/clauspruefer/micro-msg-server)
 
-    # pull docker images
-    docker pull ghcr.io/webcodex1/x0-app
-    docker pull ghcr.io/webcodex1/x0-db
-    docker pull ghcr.io/webcodex1/x0-test
-
-6.4.5. Build
-************
-
-Build Debian packages and Docker images:
-
-.. code-block:: bash
-
-	# build x0 debian packages
-	cd ./debian && debuild
-
-	# build x0 docker images
-	cd ../docker
-	./build-all.sh
-
-6.4.6. Start System
-*******************
-
-.. code-block:: bash
-
-	# start x0 containers
-	cd ./docker && x0-start-containers.sh
-
-6.4.7. Develop / Rebuild
-************************
-
-Begin developing, creating, or experimenting.
-
-.. note::
-
-    Before rebuilding the entire *x0-system*, consider copying files
-    manually into the Docker containers.
-
-The changelog is available at **./debian/changelog**.
-
-6.5. IP-Addresses / DNS
------------------------
-
-The following table lists all Docker container IDs, assigned IP addresses,
-and DNS names.
-
-.. table:: Docker Container / IP-Addresses / DNS
-    :widths: 30 10 60
-
-    +----------------------+-----------------+-------------------------------------+
-    | **Container ID**     | IP-Address      | DNS                                 |
-    +======================+=================+=====================================+
-    | x0-app               | 176.20.0.10     | x0-app.x0.localnet                  |
-    +----------------------+-----------------+-------------------------------------+
-    | x0-db                | 176.20.0.20     | mypostgres                          |
-    +----------------------+-----------------+-------------------------------------+
-    | x0-test              | 176.20.0.30     |                                     |
-    +----------------------+-----------------+-------------------------------------+
-    | x0-selenium-server   | 176.20.0.40     | selenium-server-0                   |
-    +----------------------+-----------------+-------------------------------------+
-    | x0-selenium-server   | 176.20.0.50     | selenium-server-1                   |
-    +----------------------+-----------------+-------------------------------------+
-    | x0-selenium-server   | 176.20.0.60     | selenium-server-2                   |
-    +----------------------+-----------------+-------------------------------------+
-    | x0-msg-server        | 176.20.0.100    | x0-msg-server.x0.localnet           |
-    +----------------------+-----------------+-------------------------------------+
-
-6.6. Docker Tips
-----------------
-
-The following Docker command-line tips may be helpful for debugging.
-
-.. code-block:: bash
-
-	# copy files to running docker container
-	docker cp ./file x0-app:/path/
-
-.. code-block:: bash
-
-	# run a shell inside running docker container
-	docker exec -ti x0-app /bin/bash
-
-.. code-block:: bash
-
-	# show (apache) log files
-	docker logs x0-app
-
-.. code-block:: bash
-
-	# connect to the x0 system database
-	docker exec -ti x0-db /bin/bash
-	psql -U postgres -d x0
-
-6.7. Local Ubuntu Mirror
+6.3. System Installation
 ------------------------
 
-It is possible to use a local Ubuntu (apt) mirror in cases of limited
-internet access or for security-related considerations.
+.. highlight:: bash
 
-.. note::
+We **strongly recommend** using Docker containers for development.
 
-	It is also preferable to use a local Ubuntu package mirror if
-	you are an *x0-developer* and frequently make changes.
+The x0-system provides tooling to build Docker images with full networking, so you can run the system (including DB and messaging server) **locally within minutes**.
 
-Set the following environment variables (permanently in ``~/.bashrc``) to
-use your specified mirror. Note that this requires a properly configured
-and functioning mirror setup.
+First, install dependencies:
 
 .. code-block:: bash
 
-	# use a local ubuntu mirror
-	export UBUNTU_MIRROR_DNS=your-hostname.localnet
-	export UBUNTU_MIRROR_IP=196.168.0.253
+    # Install Docker & build tools
+    sudo apt-get install -y docker.io docker-buildx debuild gpg
 
-.. warning::
+    # Python tools & testing
+    sudo apt-get install -y python3-pip python3-pytest python3-selenium
 
-	You must set both ``UBUNTU_MIRROR_DNS`` and ``UBUNTU_MIRROR_IP``.
-	The provided DNS must resolve correctly to the specified IP address.
+    # Sphinx documentation
+    sudo apt-get install -y python3-sphinx python3-sphinx-rtd-theme
 
-6.8. Verify System Functionality
+6.4. Step-by-Step Setup
+-----------------------
+
+1. **Clone the x0 Repository**
+
+   .. code-block:: bash
+
+      # HTTP clone (read-only)
+      git clone https://github.com/WEBcodeX1/x0.git
+
+      # OR: SSH clone (for contributors)
+      git clone git@github.com:WEBcodeX1/x0.git
+
+2. **Set Up Debian Build System**
+
+   Generate or import your GPG key for package signing:
+
+   .. code-block:: bash
+
+      gpg --full-generate-key
+
+   .. note::
+      Your GPG identity **must exactly match** the format in ``./debian/changelog``: "Real Name (Comment) <email-address.com>"
+
+   Build Debian packages:
+
+   .. code-block:: bash
+
+      cd ./debian
+      debuild
+
+   Packages and metadata will be in the parent directory.
+
+3. **Configure Docker**
+
+   Add your user to the Docker group:
+
+   .. code-block:: bash
+
+      sudo usermod -aG docker $(whoami)
+
+   .. warning::
+      You must restart your shell/session for group changes to take effect.
+
+4. **Pull or Build Docker Images**
+
+   .. code-block:: bash
+
+      # Pull prebuilt images (recommended)
+      docker pull ghcr.io/webcodex1/x0-app
+      docker pull ghcr.io/webcodex1/x0-db
+      docker pull ghcr.io/webcodex1/x0-test
+
+      # Or build images yourself
+      cd ./debian && debuild
+      cd ../docker && ./build-all.sh
+
+5. **Start the x0 System**
+
+   .. code-block:: bash
+
+      cd ./docker
+      ./x0-start-containers.sh
+
+6. **Develop, Test, and Rebuild**
+
+   Develop your application, copy files into containers as needed, and rebuild images or restart containers.
+
+   .. note::
+      For minor changes, copying files directly into containers can be faster than a full rebuild.
+
+   The changelog is at ``./debian/changelog``.
+
+6.5. Docker Network Reference
+-----------------------------
+
+.. list-table:: Docker Containers / IP Addresses / DNS
+   :widths: 30 15 55
+   :header-rows: 1
+
+   * - **Container ID**
+     - **IP Address**
+     - **DNS**
+   * - x0-app
+     - 176.20.0.10
+     - x0-app.x0.localnet
+   * - x0-db
+     - 176.20.0.20
+     - mypostgres
+   * - x0-test
+     - 176.20.0.30
+     -
+   * - x0-selenium-server
+     - 176.20.0.40–60
+     - selenium-server-0/1/2
+   * - x0-msg-server
+     - 176.20.0.100
+     - x0-msg-server.x0.localnet
+
+6.6. Docker Tips & Tricks
+-------------------------
+
+.. code-block:: bash
+
+    # Copy files to a container
+    docker cp ./file x0-app:/path/
+
+    # Interactive shell in a container
+    docker exec -ti x0-app /bin/bash
+
+    # View logs
+    docker logs x0-app
+
+    # Database access
+    docker exec -ti x0-db /bin/bash
+    psql -U postgres -d x0
+
+6.7. Using a Local Ubuntu Mirror
 --------------------------------
 
-Build Debian packages, Docker images, and start *x0-system* containers.
+For restricted or frequent development environments, a local Ubuntu apt mirror can accelerate package downloads.
 
 .. code-block:: bash
-	:linenos:
 
-	# build package
-	cd ./debian/
-	debuild
+    export UBUNTU_MIRROR_DNS=your-hostname.localnet
+    export UBUNTU_MIRROR_IP=196.168.0.253
 
-	# build container(s)
-	cd ../docker/
-	./build-all.sh
+.. warning::
+   Both ``UBUNTU_MIRROR_DNS`` and ``UBUNTU_MIRROR_IP`` must be set and your DNS must resolve correctly.
 
-	# start container(s)
-	./x0-start-containers.sh
+6.8. System Verification
+------------------------
 
-Open http://x0-app.x0.localnet/python/Index.py in a local browser to verify
-that the system is functioning correctly.
+Build everything and start the system:
 
-.. _installation-examples:
+.. code-block:: bash
+   :linenos:
+
+    cd ./debian && debuild
+    cd ../docker && ./build-all.sh
+    ./x0-start-containers.sh
+
+Then open http://x0-app.x0.localnet/python/Index.py in your browser to verify functionality.
 
 6.9. Examples
 -------------
 
-Examples can be found in the ``./examples`` subdirectory.
+Find ready-to-run examples in the ``./examples`` directory. After starting the containers, access them via:
 
-The examples in this folder will be built during the Docker image build
-process. After the *x0-system* is started (with Docker containers up and running),
-the examples can be accessed via the following URLs:
+- http://x0-app.x0.localnet/python/Index.py?appid=example1
+- http://x0-app.x0.localnet/python/Index.py?appid=example2
+- http://x0-app.x0.localnet/python/Index.py?appid=example3
 
-* http://x0-app.x0.localnet/python/Index.py?appid=example1
-* http://x0-app.x0.localnet/python/Index.py?appid=example2
-* http://x0-app.x0.localnet/python/Index.py?appid=example3
+See :ref:`devexamples` for details on structure and adding your own examples.
 
-The number of examples varies depending on the release version. Take a closer look
-inside the examples folder for details. For information about the example structure and
-how to add your own examples, see the devloper documentation at:
-:ref:`devexamples`.
+6.10. Testing & Continuous Integration
+--------------------------------------
 
-.. _installation-tests-ci:
+Tests are in ``./test``. The system uses **pytest** and **Selenium Server** for network-based tests, including in GKE pods.
 
-6.10. Tests / CI
-----------------
-
-Tests are located inside the ``./test`` subdirectory.
-
-The *Pytest* framework, in combination with *Selenium Server*, is used to ensure
-network-based test execution, even within GKE Kubernetes pods.
-
-Tests can be executed in the following environments:
-
-- From a Linux host to the ``x0-app`` Docker container
-- Inside the ``x0-test`` Docker container to the ``x0-app`` Docker container
-- Inside GKE (Google Kubernetes Engine)
-
-To run tests locally, the ``x0-app``, ``x0-db``, and ``x0-selenium-server`` containers
-must be up and running.
+Run tests locally after containers are running:
 
 .. code-block:: bash
 
-	# start selenium server container
-	cd ./test && python3 ./run-selenium-server.py
+    cd ./test && python3 ./run-selenium-server.py
+    sleep 10 && pytest-3
 
-	# wait for container startup, start all tests
-	sleep 10 && pytest-3
+6.11. Kubernetes Deployment
+---------------------------
 
-6.11. Kubernetes
-----------------
+x0 runs on GKE and Minikube with automated ingress, redundancy (Kubegres), and fail-safe DB setup.
 
-*x0* also runs on GKE (Google Kubernetes Engine), including Minikube.
+For details, see: https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md
 
-An *x0-kubernetes-deployment* includes an automated, load-balanced (ingress-nginx),
-99.9% redundant setup. Additionally, the *x0-system-database* is set up to be fail-safe
-using Kubegres.
+6.12. Running on Windows 11
+---------------------------
 
-For detailed documentation, see:
-https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md.
+**x0-system** Docker containers can be run on Windows 11 Pro using Docker Desktop.
 
-6.12. MS Windows
-----------------
-
-We successfully imported images and ran *x0-system* Docker containers
-on **Windows 11 Professional** using **Docker Desktop**.
-
-Install **Docker Desktop** with **WSL2** and **Git for Windows**.
-
-Git for Windows provides a **Cygwin-based Git Bash**, which facilitates
-the correct loading of Docker images.
+- Install Docker Desktop (with WSL2) and Git for Windows.
+- Use Git Bash (Cygwin-based) for correct image loading.
 
 .. code-block:: bash
 
-	# load docker images
-	docker load < docker.x0-app.tar
-	docker load < docker.x0-db.tar
+    # Load images
+    docker load < docker.x0-app.tar
+    docker load < docker.x0-db.tar
 
-	# start docker containers
-	cd ./docker
-	./x0-start-containers.sh
+    # Start containers
+    cd ./docker
+    ./x0-start-containers.sh
+
+----
+
+Congratulations! Your x0-system is now ready for development, testing, or deployment.
