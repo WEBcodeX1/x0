@@ -1,680 +1,311 @@
-.. _appdevconfig:
-
 7. Basic Configuration
 ======================
 
-The following sections describe the most important system components:
+Unlock the power of x0! This section guides you through setting up your
+SPA with clear, modular, and scalable configurations.
 
-* Browser Content Areas / Screen Definition
-* System Database Configuration
-* Application Server Configuration (app-config.json)
-* Application Metadata / Objects and Objects Reference Configuration
+--------------
 
 7.1. Browser Content Areas
 --------------------------
 
-The *x0-systems* browser **Main Display Area** is divided into three
-visible sections:
+The x0 framework features a modern, three-pane layout:
 
-1. "Menu" Area
-2. "Screen" Content Area
-3. "Notification" Area
+1. **Menu Area** – Navigation and commands (DOM id: ``sysMenu``)
+2. **Screen Content Area** – Main display for app content
+3. **Notification Area** – Real-time app and status messages
 
-.. image:: images/x0-browser-content-areas.png
-  :alt: image - browser content areas
+.. figure:: images/x0-browser-content-areas.png
+   :alt: Browser Content Areas
 
-.. note::
+   Browser Content Areas
 
-    Note the invisible screen layers; details are provided below.
+..
+
+   💡 **Tip:** Invisible screen layers work behind the scenes for
+   seamless transitions.
 
 7.1.1. Menu Area
-****************
+~~~~~~~~~~~~~~~~
 
-The **x0-menu-area** is primarily intended to contain menu-related *x0-objects*
-of *x0-object-type* **link**.
-
-The DOM DIV layer with id = ``sysMenu`` is used for this purpose. The referenced
-*x0-objects* inside ``menu.json`` will be appended to the ``sysMenu DIV`` during
-system initialization (page load).
-
-An *x0-screen* (textual ID) can be referenced by a **link** *x0-object-type*.
-When clicked, the system activates or makes the corresponding screen layer visible
-within the **x0-screen-area**.
-
-DOM layer positioning can be managed using CSS styles. For detailed information
-about content area positioning, see :ref:`content-area-positioning`.
-
-.. note::
-
-    The **x0-menu-area** is not limited to *x0-object-type* **link** only; any
-    *x0-object* can be referenced in ``menu.json``, for example, as an object container
-    (containing multiple *x0-object-type* **link**) used for positioning.
+-  Holds menu-related x0-objects, primarily of type **link**.
+-  Menu objects are loaded from ``menu.json`` into the ``sysMenu`` DIV
+   on page load.
+-  Clicking a menu link activates the related screen in the Screen Area.
+-  Positioning is CSS-driven (see: `Content Area
+   Positioning <#content-area-positioning>`__).
+-  Not just for links: any x0-object can be referenced for rich,
+   flexible menus.
 
 7.1.2. Screen Area
-******************
+~~~~~~~~~~~~~~~~~~
 
-The **x0-screen-area** acts as the main content display area.
+-  The main stage for your content.
+-  ``default_screen`` is set via config (see: `System
+   Config <#systemconfig>`__).
+-  UI structure and object relationships are defined in
+   ``skeleton.json``.
+-  CSS (e.g., Bootstrap Grid) controls layout.
 
-The **default_screen** which will be activated on system init (page load) can
-be set by *x0-config-parameter* (details see :ref:`systemconfig`).
+.. figure:: images/x0-screen-switch.png
+   :alt: Screen Switch
 
-Screen definition and object relations will be defined inside **skeleton.json**
-(details see :ref:`skeleton-json`).
+   Screen Switch
 
-Also DOM Layer positioning can be achieved via CSS styles, detailed info about
-content area positioning, see :ref:`content-area-positioning`.
+7.1.3. Notification Area
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following diagram shows what exactly happens on **x0-screen-switch**.
-
-.. image:: images/x0-screen-switch.png
-  :alt: image - screen switch
-
-7.1.7. Notification Area
-************************
-
-The x0-notification-area displays web service status information during data
-exchanges with the backend or external web service calls.
-
-DOM layer positioning can also be managed using CSS styles. For detailed
-information about content area positioning, refer to :ref:`content-area-positioning`.
+-  Displays status info from backend/web service calls.
+-  Flexible CSS positioning.
 
 7.1.4. Object State Preservation
-********************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The *x0-system* guarantees 100% **content state preservation** during any system
-interaction, such as button clicks, screen or tab switches, and page navigation.
+x0 guarantees **100% state preservation**—switch screens, tabs, or
+navigate, and every object stays exactly as you left it.
 
-Even combined or chained real-time objects always preserve their state, thanks
-to the *x0-system* design.
-
-For example, if you switch from a screen with the ID ``screen1`` to ``screen2``,
-perform some tasks, and then switch back to ``screen1``, every object, including
-its data, will remain exactly in the state it was in before switching.
-
-.. _content-area-positioning:
+--------------
 
 7.1.5. Area Positioning / CSS
-*****************************
+-----------------------------
 
-Styling, including the positioning of **x0-menu-area**, **x0-screen-area**, and
-**x0-notification-area**, using Bootstrap Grid CSS is relatively straightforward.
+-  Uses Bootstrap Grid for simple, responsive layouts.
+-  Example: ``<body class="row">``, with ``col-md-x`` classes for areas.
+-  Menu defaults to ``position: absolute``, but fully customizable.
+-  See `Bootstrap Grid
+   Docs <https://getbootstrap.com/docs/5.3/layout/grid/>`__.
 
-You should be familiar with the basics of CSS Grid and the features of the
-Bootstrap Grid system. For more information, refer to the Bootstrap Grid documentation
-https://getbootstrap.com/docs/5.3/layout/grid/.
+..
 
-Currently, the **x0-menu-area** is positioned using ``position: absolute``, and the
-**x0-screen-area** is styled with ``<div id="id" class="col-md-8 ms-auto me-auto">``.
+   ✨ **Modern CSS and Bootstrap make layout effortless!**
 
-A better approach would be to use ``<body class="row">`` and the *col-md-x* CSS classes
-for styling the **x0-menu-area** and **x0-screen-area**.
-.. note::
-
-    CSS styles in 2025 are incredibly flexible. Additionally, Bootstrap simplifies this
-    complexity and makes using the *x0-system* effortless.
+--------------
 
 7.2. Database Configuration
 ---------------------------
 
-Basic *x0-application* configuration data is stored in the following system tables:
-``system.config`` and ``webui.text``.`` The metadata described below must exist for
-an *x0-application* to function properly.
+**x0-application** config data lives in the ``system.config`` and
+``webui.text`` tables.
 
-The SQL scripts (with the filename suffix ``.sql``) must reside in the ``/database``
-folder of the *x0-system* or *x0-skeleton*.
-
-The system database is updated from ``.sql`` scripts located in the ``/database`` folder
-during a Docker image rebuild (see subsection ref:`appdeployment-docker`).
-
-.. _systemconfig:
+-  SQL scripts must be in ``/database``.
+-  Database updates occur during Docker image builds.
 
 7.2.1. System Configuration
-***************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-*x0-systems-configuration* data is stored in database table ``system.config``.
+Key config parameters (in ``system.config``):
 
-.. table:: System Database Table "system.config"
-    :widths: 20 30 100
++----------------------+--------------+--------------------------------+
+| Parameter            | Type         | Description                    |
++======================+==============+================================+
+| index_title          | String       | Page title                     |
++----------------------+--------------+--------------------------------+
+| debug_level          | Integer      | Debug level                    |
++----------------------+--------------+--------------------------------+
+| display_language     | ‘en’ \| ‘de’ | UI language                    |
++----------------------+--------------+--------------------------------+
+| default_screen       | String       | Default screen ID              |
++----------------------+--------------+--------------------------------+
+| parent_window_url    | String (URL) | Parent (WP) plugin URL         |
++----------------------+--------------+--------------------------------+
+| subdir               | String       | Static backend path            |
+|                      | (Path)       |                                |
++----------------------+--------------+--------------------------------+
+| config_file_menu     | String       | Menu config filename           |
++----------------------+--------------+--------------------------------+
+| config_file_object   | String       | Object config filename         |
++----------------------+--------------+--------------------------------+
+| config_file_skeleton | String       | Skeleton config filename       |
++----------------------+--------------+--------------------------------+
 
-    +----------------------+-----------------+-------------------------------------+
-    | **Table Column**     | **Default**     | **Description**                     |
-    +======================+=================+=====================================+
-    | app_id               | 'default' (str) | x0 Application ID                   |
-    +----------------------+-----------------+-------------------------------------+
-    | config_group         |                 | Configuration Parameter ID          |
-    +----------------------+-----------------+-------------------------------------+
-    | "value"              |                 | Configuration Parameter Value       |
-    +----------------------+-----------------+-------------------------------------+
+..
 
-.. table:: Configuration Parameter "x0-config-parameter"
-    :widths: 20 30 50
+   **Default insert example:**
 
-    +----------------------+-----------------+-------------------------------------+
-    | **Parameter**        | **Type**        | **Description**                     |
-    +======================+=================+=====================================+
-    | index_title          | String          | x0 Browser Page Title               |
-    +----------------------+-----------------+-------------------------------------+
-    | debug_level          | Integer         | System Debug Level                  |
-    +----------------------+-----------------+-------------------------------------+
-    | display_language     | 'en' | 'de'     | System Display Language             |
-    +----------------------+-----------------+-------------------------------------+
-    | default_screen       | String          | Screen ID Reference                 |
-    +----------------------+-----------------+-------------------------------------+
-    | parent_window_url    | String (URL)    | Wordpress Plugin Parent URL         |
-    +----------------------+-----------------+-------------------------------------+
-    | subdir               | String (Path)   | "static" Backend Path               |
-    +----------------------+-----------------+-------------------------------------+
-    | config_file_menu     | String (File)   | Override Menu Config Data Filename  |
-    +----------------------+-----------------+-------------------------------------+
-    | config_file_object   | String (File)   | Override Menu Config Data Filename  |
-    +----------------------+-----------------+-------------------------------------+
-    | config_file_skeleton | String (File)   | Override Menu Config Data Filename  |
-    +----------------------+-----------------+-------------------------------------+
+.. code:: sql
 
-The following SQL data reflects the default x0-application-config, which can be viewed
-at the URL: http://x0-app.x0.localnet/python/Index.py.
-
-.. code-block:: sql
-
-    INSERT INTO system.config (config_group, "value") VALUES ('index_title', 'x0 Default App');
-    INSERT INTO system.config (config_group, "value") VALUES ('debug_level', '10');
-    INSERT INTO system.config (config_group, "value") VALUES ('display_language', 'en');
-    INSERT INTO system.config (config_group, "value") VALUES ('default_screen', 'Screen1');
-    INSERT INTO system.config (config_group, "value") VALUES ('parent_window_url', 'null');
-    INSERT INTO system.config (config_group, "value") VALUES ('subdir', '/static');
-    INSERT INTO system.config (config_group, "value") VALUES ('config_file_menu', 'menu.json');
-    INSERT INTO system.config (config_group, "value") VALUES ('config_file_object', 'object.json');
-    INSERT INTO system.config (config_group, "value") VALUES ('config_file_skeleton', 'skeleton.json');
+   INSERT INTO system.config (config_group, "value") VALUES ('index_title', 'x0 Default App');
 
 7.2.2. Display Text
-*******************
+~~~~~~~~~~~~~~~~~~~
 
-Multilanguage display text is stored in the ``webui.text`` database table.
+-  Multi-language text in ``webui.text``.
+-  Reference these IDs in your JSON configs.
 
-The following example inserts four multilanguage texts with IDs ``TXT.TEXTID.1`` and
-``TXT.TEXTID.2`` (English and German) into the system text table, which can later be
-referenced in *x0-object-metadata* JSON configuration files.
+.. code:: sql
 
-.. code-block:: sql
+   INSERT INTO webui.text (id, "group", value_en, value_de)
+   VALUES ('TXT.TEXTID.1', 'group1', 'English Text #1', 'German Text #1');
 
-    INSERT INTO webui.text 
-    (id, "group", value_en, value_de)
-    VALUES
-    ('TXT.TEXTID.1', 'group1', 'English Text #1', 'German Text #1');
+7.2.3. Application ID
+~~~~~~~~~~~~~~~~~~~~~
 
-    INSERT INTO webui.text
-    (id, "group", value_en, value_de)
-    VALUES
-    ('TXT.TEXTID.2', 'group1', 'English Text #2', 'German Text #2');
+-  Append ``?appid=example2`` to your app URL to load another config
+   set!
+-  Store separate config rows for each ``app_id``.
 
-7.2.7. Application ID
-*********************
+--------------
 
-It is possible to append the HTTP GET parameter ``appid``, such as ``example2``,
-to the base URL of the ``Index.py`` script.
+7.7. Application Server Config (``app-config.json``)
+----------------------------------------------------
 
-For example: http://x0-app.x0.localnet/python/Index.py?appid=example2
+Define in ``/config/app-config.json``:
 
-The following SQL statements demonstrate how configuration data must be stored
-for this to function correctly.
+-  Database auth
+-  Virtual hosts
+-  x0-applications
 
-.. code-block:: sql
+..
 
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'index_title', 'x0 Example Basic-Menu-Screen');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'debug_level', '10');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'display_language', 'en');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'default_screen', 'Screen1');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'parent_window_url', 'null');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'subdir', '/examples/basic_menu_screen');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'config_file_menu', 'menu.json');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'config_file_object', 'object.json');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('example2', 'config_file_skeleton', 'skeleton.json');
-
-7.7. Application Configuration
-------------------------------
-
-The following elements can be defined inside the ``/config/app-config.json``
-configuration file:
-
-* Database Authentication
-* Virtual Hosts
-* x0-Applications
-
-.. note::
-
-    Setting up multiple Virtual Hosts and *x0-applications* requires a valid
-    *x0-systems configuration* (database) and *x0-deb-packaging setup* (deb) for
-    all configured Virtual Hosts.
-
-.. warning::
-
-    Environments are not supported by *x0-standalone* or *x0-docker* deployments.
+   ⚠️ Multi-virtual-host and environment support requires proper
+   database config and packaging. Not available in standalone/Docker.
 
 7.7.1. Database Authentication
-******************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following database users will be created during the Docker *x0-db* image build.
+-  Users created automatically during Docker build:
 
-.. table:: Database Authentication Properties
-    :widths: 30 20 50
-
-    +-------------------------------+-----------------+-------------------------------------+
-    | **Database User**             | **DB User**     | **Description**                     |
-    +===============================+=================+=====================================+
-    | su_password                   | postgres        | Database Superuser Auth PWD         |
-    +-------------------------------+-----------------+-------------------------------------+
-    | x0_password                   | x0              | Global Web-Backend User Auth PWD    |
-    +-------------------------------+-----------------+-------------------------------------+
-    | repl_password                 | replication     | Kubegres Replication User Auth PWD  |
-    +-------------------------------+-----------------+-------------------------------------+
+   -  ``postgres`` (su_password)
+   -  ``x0`` (x0_password)
+   -  ``replication`` (repl_password)
 
 7.7.2. Virtual Hosts
-********************
-
-For each Virtual Host configured in the JSON vhosts property, an
-Apache Virtual Host will be generated during the Docker (re-)build process.
-
-Self-signed SSL certificates will be generated for the *x0-base*
-Virtual Host (Hello World output).
-
-.. note::
-
-    A functional multi-Virtual Host setup requires correct metadata to be defined
-    inside the deb package file ``${x0-app-id}.install``. For more details,
-    refer to :ref:`appdeployment-standalone`.
-
-.. note::
-
-    If you require a more complex web server setup, such as aliasing, redirects,
-    or similar configurations, it is intended that you manually edit the generated
-    configuration inside the Docker containers after building.
-
-.. warning::
-
-    Automated SSL setup per Virtual Host has been discontinued in *x0-standalone*
-    and *x0-docker* deployments. Only the *x0-kubernetes* deployment supports a
-    fully automated workflow.
-
-7.7.7. x0-Applications
-**********************
-
-Defining multiple *x0-applications* is supported only by the x0-kubernetes deployment.
-For more details, refer to :ref:`appdeployment-kubernetes`.
-
-7.7.4. Default Config
-*********************
-
-The following is the current default configuration of x0-systems.
-
-.. code-block:: javascript
-
-    {
-        "installer": {
-            "type": "x0"
-        },
-        "database": {
-            "name": "x0",
-            "su_password": "changeme",
-            "x0_password": "changeme"
-        },
-        "env_list": [ "default" ],
-        "vhosts": {
-            "x0-app": {
-                "apps": [ "x0" ],
-                "env": {
-                    "default": {
-                        "dns": {
-                            "hostname": "x0-app",
-                            "domain": "x0.localnet"
-                        }
-                    },
-                    "test": {
-                        "dns": {
-                            "hostname": "x0-app",
-                            "domain": "x0.localnet"
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-7.7.4. JSON Schema
-******************
-
-1. JSON Header
-
-.. table:: JSON Header
-	:widths: 30 20 50
-
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| installer.type      | Enum String          | Installer Type                                  |
-	+---------------------+----------------------+-------------------------------------------------+
-	| env_list            | Array of EnvString   | Environment List                                |
-	+---------------------+----------------------+-------------------------------------------------+
-
-2. "vhosts" Property
+~~~~~~~~~~~~~~~~~~~~
 
-.. table:: "vhosts" Property
-	:widths: 30 20 50
+-  Apache virtual hosts are generated per JSON config during Docker
+   builds.
+-  SSL is only fully automated for Kubernetes deploys.
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| vhosts              | Object of VHElements | Virtual Host Elements / Configuration           |
-	+---------------------+----------------------+-------------------------------------------------+
+7.7.3. x0-Applications
+~~~~~~~~~~~~~~~~~~~~~~
 
-7. $VhostConfig "apps" Property
-
-.. table:: $VhostConfig "apps" Property
-	:widths: 30 20 50
+-  Multiple apps: **Kubernetes only**.
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| apps                | Array of AppString   | Application List                                |
-	+---------------------+----------------------+-------------------------------------------------+
-	| env                 | Object               | Environment Elements                            |
-	+---------------------+----------------------+-------------------------------------------------+
+7.7.4. Default Config Example
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-4. Env Properties
+.. code:: json
 
-.. table:: Env Properties
-	:widths: 30 20 50
+   {
+     "installer": { "type": "x0" },
+     "database": { "name": "x0", "su_password": "changeme", "x0_password": "changeme" },
+     "env_list": [ "default" ],
+     "vhosts": {
+       "x0-app": {
+         "apps": [ "x0" ],
+         "env": {
+           "default": {
+             "dns": { "hostname": "x0-app", "domain": "x0.localnet" }
+           }
+         }
+       }
+     }
+   }
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| dns.hostname        | Host String          | DNS Hostname used for hostname.domain FQDN      |
-	+---------------------+----------------------+-------------------------------------------------+
-	| dns.domain          | Domain String        | DNS Domain used for hostname.domain FQDN        |
-	+---------------------+----------------------+-------------------------------------------------+
+--------------
 
-7.4. Application Metadata
--------------------------
+7.4. Application Metadata & Object Model
+----------------------------------------
 
-The configuration files ``object.json``, ``skeleton.json``, and ``menu.json`` in the *x0-framework* adopt
-a declarative approach, akin to the infrastructure configuration style used in Google Kubernetes Engine (GKE).
+x0 uses a declarative, JSON-driven UI/config model:
 
-They provide structured definitions for the user interface and application behavior. Below is a breakdown
-of their roles and functionality:
+-  **object.json** – All UI objects, attributes, metadata
+-  **skeleton.json** – How objects/screens are structured and related
+-  **menu.json** – Menu objects and navigation hierarchy
 
-1. object.json
+**Workflow:** 1. ``skeleton.json`` initializes the UI hierarchy. 2.
+``object.json`` defines the objects, inserted dynamically. 3.
+``menu.json`` creates the menu structure.
 
-    * Purpose:
-        - Describes the attributes and properties of objects that are used in the application.
-    * Functionality:
-        - Defines object types, such as forms, lists, or custom UI components.
-        - Includes object-specific attributes (e.g., styles, event handlers, and data bindings).
-        - Provides metadata for runtime object creation and manipulation.
-        - Used by the ``sysFactory`` and ``sysSourceObjectHandler`` to initialize and manage objects dynamically.
+   **Highly modular, scalable, and runtime-flexible!**
 
-2. skeleton.json
+7.4.1. object.json
+~~~~~~~~~~~~~~~~~~
 
-    * Purpose:
-        - Defines the hierarchical structure of the application's UI by providing a "skeleton" for all screen elements.
+Each object:
 
-    * Functionality:
-        1. Specifies the parent-child relationships between objects, defining the layout and structure of screens.
-        2. Includes references to ``object.json`` definitions for detailed object configuration.
-        3. Supports recursive setup of objects using methods like setupObject in ``sysScreen``.
-        4. Allows dynamic adjustment of attributes (e.g., overwriting or replacing attributes at runtime).
+.. code:: json
 
-7. menu.json
-
-    * Purpose:
-        - Configures menu elements and their behavior within the application.
+   {
+     "$ObjectID": {
+       "Type": "$ObjectType",
+       "Attributes": { ... }
+     }
+   }
 
-    * Functionality:
-        1. Defines the menu structure, including items and their hierarchical arrangement.
-        2. Associates menu items with actions or screen navigation.
-        3. Provides styling and attributes for menu components.
-        4. Processed as a part of the skeleton for the ``sysMenu`` screen, enabling seamless integration with the UI.
+-  IDs are referenced in ``menu.json`` and ``skeleton.json``.
 
-Integration and Workflow
+7.4.2. skeleton.json
+~~~~~~~~~~~~~~~~~~~~
 
-    * These JSON files are processed by core system objects like ``sysFactory``, ``sysScreen``, and ``sysSourceObjectHandler``.
-    * The ``skeleton.json`` ties together the ``object.json`` and ``menu.json`` configurations to create a cohesive UI and behavior model.
+Defines screens and what objects are on them, e.g.:
 
-    - During runtime:
-        1. Skeleton Initialization: The ``skeleton.json`` is parsed to build the UI hierarchy.
-        2. Object Configuration: Objects defined in ``object.json`` are dynamically created and added to the hierarchy.
-        3. Menu Setup: The ``menu.json`` is applied to configure and render menus in the application.
-
-These configuration files enable modular and scalable application development by separating concerns and allowing dynamic runtime adjustments.
-
-.. _object-json:
-
-7.4.1. Object
-*************
-
-The declaration of *x0-object* takes place in the ``object.json`` configuration
-file.
-
-Each object must have a unique ID, which can be referenced by its ID within the
-``menu.js`` and ``skeleton.js`` configuration files.
-
-All currently usable *x0-system-objects* JSON definitions ($ObjectType) are
-described in detail here: :ref:`system-objects`.
-
-.. code-block:: javascript
-
-    {
-        "$ObjectID": {
-            "Type": String::$ObjectType
-            "Attributes": {
-                Object::$ObjectMetadata
-            }
-        }
-    }
-
-.. note::
-
-    The **internal** JavaScript representation is of the *Object* type, not the
-    *Array* type. While **object definitions** are unordered, **object relations** are
-    strictly order-dependent and are defined in ``skeleton.json`` and ``menu.json``.
-
-.. _skeleton-json:
-
-7.4.2. Skeleton
-***************
-
-*x0-screen* and *x0-object* relation declarations are defined in the ``skeleton.json``
-configuration file.
-
-    * Screen Data
-    * Screen / Object Relations
-
-The following metadata enables three screens: ``Screen1``, ``Screen2``, and ``Screen3``,
-without any object relations.
-
-.. code-block:: javascript
-
-    {
-        "Screen1":
-        [
-            {}
-        ],
-        "Screen2":
-        [
-            {}
-        ],
-        "Screen3":
-        [
-            {}
-        ]
-    }
-
-The following metadata defines one screen, ``Screen1``, and references
-one object to ``Screen1``.
-
-.. code-block:: javascript
-
-    {
-        "Screen1":
-        [
-            {
-                "Object1":
-                {
-                    "RefID": "Screen1"
-                }
-            }
-        ]
-    }
-
-
-The following metadata defines one screen, ``Screen1``, and references
-one object to ``Screen1``. Additionally, ``Object2`` is connected or
-referenced to ``Object1``.
-
-.. code-block:: javascript
-
-    {
-        "Screen1":
-        [
-            {
-                "Object1":
-                {
-                    "RefID": "Screen1"
-                },
-                "Object2":
-                {
-                    "RefID": "Object1"
-                }
-            }
-        ]
-    }
-
-.. _menu-json:
-
-7.4.7. Menu
-***********
-
-Declarations inside the ``menu.json`` configuration file only reference object data
-to the *x0-menu-area*. The syntax is the same as in ``skeleton.json``, except that
-the root ``RefID`` property must be set to ``sysMenu``.
-
-The following metadata defines two objects, ``Object1`` and ``Object2``. ``Object1``
-is connected to the menu root, and ``Object2`` is connected or referenced to ``Object1``.
-
-.. code-block:: javascript
-
-    {
-        {
-            "Object1":
-            {
-                "RefID": "sysMenu"
-            },
-            "Object2":
-            {
-                "RefID": "Object1"
-            }
-        }
-    }
+.. code:: json
+
+   {
+     "Screen1": [
+       { "Object1": { "RefID": "Screen1" } }
+     ]
+   }
+
+7.4.3. menu.json
+~~~~~~~~~~~~~~~~
+
+Same syntax as skeleton, but root ``RefID`` is always ``sysMenu``.
+
+--------------
 
 7.5. Metadata ElementID
 -----------------------
 
-Some *x0-objects* define elements inside the ``object.json`` file.
+-  Reference object elements (like tabs) via ``ElementID`` property in
+   ``skeleton.json``.
 
-* TabContainer
+Example: Tab Container
+~~~~~~~~~~~~~~~~~~~~~~
 
-These elements can also be referenced inside ``skeleton.json`` using
-the *x0-systems* ``ElementID`` property.
+**object.json**
 
-The following example demonstrates how to reference *x0-tabs* defined in
-``object.json`` from ``skeleton.json``.
+.. code:: json
 
-Example #3 (http://x0-app.x0.localnet/python/Index.py?appid=example3)
-provides a working example.
+   {
+     "TabContainer1": {
+       "Type": "TabContainer",
+       "Attributes": {
+         "Tabs": [
+           { "ID": "Tab1", "Default": true, "TextID": "TXT.BASIC-TABCONTAINER.TAB1", "Style": "col-md-4" },
+           { "ID": "Tab2", "TextID": "TXT.BASIC-TABCONTAINER.TAB2", "Style": "col-md-8" }
+         ]
+       }
+     }
+   }
 
-7.5.1. Example object.json
-**************************
+**skeleton.json**
 
-.. code-block:: javascript
+.. code:: json
 
-    {
-        "TabContainer1":
-            {
-                "Type": "TabContainer",
-                "Attributes":
-                {
-                    "Tabs": [
-                        {
-                            "ID": "Tab1",
-                            "Attributes":
-                                {
-                                    "Default": true,
-                                    "TextID": "TXT.BASIC-TABCONTAINER.TAB1",
-                                    "Style": "col-md-4"
-                                }
-                        },
-                        {
-                            "ID": "Tab2",
-                            "Attributes":
-                                {
-                                    "TextID": "TXT.BASIC-TABCONTAINER.TAB2",
-                                    "Style": "col-md-8"
-                                }
-                        }
-                    ]
-                }
-            }
-        }
-    }
+   {
+     "Screen1": [
+       { "TabContainer1": { "RefID": "Screen1" } },
+       { "Text1": { "RefID": "TabContainer1", "ElementID": "Tab1" } },
+       { "Text2": { "RefID": "TabContainer1", "ElementID": "Tab2" } }
+     ]
+   }
 
-7.5.2. Example skeleton.json
-****************************
-
-.. code-block:: javascript
-
-    {
-        "Screen1":
-        [
-            {
-                "TabContainer1":
-                {
-                    "RefID": "Screen1"
-                }
-            },
-            {
-                "Text1":
-                {
-                    "RefID": "TabContainer1",
-                    "ElementID": "Tab1"
-                }
-            },
-            {
-                "Text2":
-                {
-                    "RefID": "TabContainer1",
-                    "ElementID": "Tab2"
-                }
-            }
-
-        ]
-    }
-
-.. _appdevconfig-object-templates:
+--------------
 
 7.6. Object Templates
 ---------------------
 
-To integrate **user-based** *x0-object-templates* (programmed user-based *x0-system-objects*),
-the ``template_file`` and ``setup_class`` configuration parameters must be specified.
+-  Add custom object templates via ``template_file`` and ``setup_class``
+   config parameters in the DB.
+-  Place ``.js`` templates in ``/static``.
+-  See: `Object Modeling <#devobjectmodeling>`__
 
-.. code-block:: sql
+--------------
 
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'template_file', 'TemplateObject1.js');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'template_file', 'TemplateObject2.js');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'template_file', 'TemplateObject7.js');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'setup_class', '["TemplateClass"] = TemplateClass');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'setup_class', '["TemplateClassOther"] = TemplateClassOther');
-    INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'setup_class', '["TemplateClassInfo"] = TemplateClassInfo');
+**🚀 x0: Modular, Dynamic, and Developer Friendly**
 
-Template ``.js`` files must be placed in the *x0-application* ``/static`` subdirectory
-to be loaded correctly.
-
-For detailed instructions on modeling *x0-system-objects*, see :ref:`devobjectmodeling`.
+With JSON-powered configuration, robust state management, and modern CSS
+support, x0 is built for serious SPA development—without sacrificing
+flexibility or performance.
