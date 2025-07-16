@@ -9,7 +9,7 @@ SPA with clear, modular, and scalable configurations.
 7.1. Browser Content Areas
 --------------------------
 
-The x0 framework features a modern, three-pane layout:
+The *x0-framework* features a modern, three-pane layout:
 
 1. **Menu Area** – Navigation and commands (DOM id: ``sysMenu``)
 2. **Screen Content Area** – Main display for app content
@@ -28,13 +28,13 @@ The x0 framework features a modern, three-pane layout:
 7.1.1. Menu Area
 ~~~~~~~~~~~~~~~~
 
--  Holds menu-related x0-objects, primarily of type **link**.
+-  Holds menu-related *x0-objects*, primarily of type **link**.
 -  Menu objects are loaded from ``menu.json`` into the ``sysMenu`` DIV
    on page load.
 -  Clicking a menu link activates the related screen in the Screen Area.
 -  Positioning is CSS-driven (see: `Content Area
    Positioning <#content-area-positioning>`__).
--  Not just for links: any x0-object can be referenced for rich,
+-  Not just for links: any *x0-object* can be referenced for rich,
    flexible menus.
 
 7.1.2. Screen Area

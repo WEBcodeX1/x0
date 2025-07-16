@@ -21,7 +21,7 @@ You can use **any Linux distribution** where Debian packages can be built native
 - Devuan 5
 
 .. tip::
-   Official x0-system Docker images are based on **Ubuntu 24.04**.
+   Official *x0-system* Docker images are based on **Ubuntu 24.04**.
 
 6.2. Dependencies
 -----------------
@@ -59,7 +59,7 @@ You can use **any Linux distribution** where Debian packages can be built native
 
 We **strongly recommend** using Docker containers for development.
 
-The x0-system provides tooling to build Docker images with full networking, so you can run the system (including DB and messaging server) **locally within minutes**.
+The *x0-system* provides tooling to build Docker images with full networking, so you can run the system (including DB and messaging server) **locally within minutes**.
 
 First, install dependencies:
 
@@ -268,4 +268,4 @@ For details, see: https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md
 
 ----
 
-Congratulations! Your x0-system is now ready for development, testing, or deployment.
+Congratulations! Your *x0-system* is now ready for development, testing, or deployment.
