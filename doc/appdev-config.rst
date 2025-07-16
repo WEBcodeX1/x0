@@ -229,7 +229,7 @@ Each object:
    {
      "$ObjectID": {
        "Type": "$ObjectType",
-       "Attributes": { ... }
+       "Attributes": {}
      }
    }
 
@@ -300,7 +300,7 @@ Example: Tab Container
 -  Add custom object templates via ``template_file`` and ``setup_class``
    config parameters in the DB.
 -  Place ``.js`` templates in ``/static``.
--  See: `Object Modeling <#devobjectmodeling>`__
+-  See: :ref:`devobjectmodeling`
 
 --------------
 
