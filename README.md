@@ -85,6 +85,11 @@ Add to `/etc/hosts`:
 172.20.0.10     x0-app.x0.localnet
 ```
 
+Try hello world:
+```
+http://x0-app.x0.localnet/python/Index.py
+```
+
 Try examples:
 ```
 http://x0-app.x0.localnet/python/Index.py?appid=example7
