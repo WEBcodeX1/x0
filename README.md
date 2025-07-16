@@ -80,17 +80,17 @@ cd ./docker/
 ./x0-start-containers.sh
 ```
 
-Add to `/etc/hosts`:
+1. Add to `/etc/hosts`:
 ```bash
 172.20.0.10     x0-app.x0.localnet
 ```
 
-Try hello world:
+2. Try hello world:
 ```
 http://x0-app.x0.localnet/python/Index.py
 ```
 
-Try examples:
+3. Try examples:
 ```
 http://x0-app.x0.localnet/python/Index.py?appid=example7
 ```
