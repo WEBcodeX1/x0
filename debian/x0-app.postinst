@@ -74,8 +74,8 @@ if [ "$1" = "configure" ]; then
 	ln -s ${WEBSERVER_CONF_DIR}/sites-available/${VHOST_CONFIG_FILE} ${WEBSERVER_CONF_DIR}/sites-enabled/${VHOST_CONFIG_FILE} || echo "Apache vhost conf already exists."
 
 	# install python-dbpool
-	if [ "$(pip3 list | grep python-dbpool | cut -d ' ' -f1)" != "python-dbpool" ]; then
-		pip3 install --no-deps ${BASEDIR}/bin/python-dbpool-0.1.0a0.tar.gz --break-system-packages
+	if [ "$(pip3 list | grep pgdbpool | cut -d ' ' -f1)" != "pgdbpool" ]; then
+		pip3 install --no-index --no-build-isolation ${BASEDIR}/bin/pgdbpool-0.99.tar.gz --break-system-packages
 	fi
 
 	# copy DB.py and DBMapping.py

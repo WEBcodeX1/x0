@@ -4,8 +4,6 @@ import json
 
 from datetime import datetime
 
-import dbpool.pool
-
 
 DBName = 'x0'
 DBUser = 'x0'
@@ -27,7 +25,7 @@ config = {
     'groups': {
         'x0': {
             'connection_count': 3,
-            'autoommit': True,
+            'autocommit': True
         }
     }
 }
@@ -47,7 +45,7 @@ config_ac_disabled = {
     'groups': {
         'x0noac': {
             'connection_count': 3,
-            'autoommit': False,
+            'autocommit': False,
         }
     }
 }

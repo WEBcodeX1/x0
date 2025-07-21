@@ -3,11 +3,11 @@ import json
 import re
 
 import DB
-import dbpool.pool
+from pgdbpool import pool
 
 from StdoutLogger import logger
 
-dbpool.pool.Connection.init(DB.config)
+pool.Connection.init(DB.config)
 
 HTMLTop = """<!DOCTYPE html>
 <html>
@@ -121,7 +121,7 @@ def application(environ, start_response):
         except Exception as e:
             SQLParams = { "AppID": "default" }
 
-        with dbpool.pool.Handler('x0') as db:
+        with pool.Handler('x0') as db:
 
             PreLoadScript = 'undefined';
             SQLParams['ConfigGroup'] = 'preload_script'

@@ -2,11 +2,11 @@ import sys
 import json
 
 import DB
-import dbpool.pool
+from pgdbpool import pool
 
 from StdoutLogger import logger
 
-dbpool.pool.Connection.init(DB.config)
+pool.Connection.init(DB.config)
 
 
 def application(environ, start_response):
@@ -24,7 +24,7 @@ def application(environ, start_response):
                        "webui"."text"
                       ORDER BY orderby""";
 
-            with dbpool.pool.Handler('x0') as db:
+            with pool.Handler('x0') as db:
                 for tmpRecord in db.query(sql):
                     tmpDict = {
                         "id":       tmpRecord[0],

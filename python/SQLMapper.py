@@ -5,11 +5,11 @@ import DB
 import DBMapping
 import POSTData
 
-import dbpool.pool
+from pgdbpool import pool
 
 from StdoutLogger import logger
 
-dbpool.pool.Connection.init(DB.config)
+pool.Connection.init(DB.config)
 
 
 def application(environ, start_response):
@@ -55,7 +55,7 @@ def application(environ, start_response):
                     sql_params[param] = None
 
             row_index = row_index_generator()
-            with dbpool.pool.Handler('x0') as db:
+            with pool.Handler('x0') as db:
                 try:
                     for rec in db.query(config['sql'], sql_params):
                         tmp_record = {}
