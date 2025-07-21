@@ -2,11 +2,11 @@ import sys
 import json
 
 import DB
-import dbpool.pool
+from pgdbpool import pool
 
 import POSTData
 
-dbpool.pool.Connection.init(DB.config)
+pool.Connection.init(DB.config)
 
 
 def application(environ, start_response):
@@ -20,33 +20,32 @@ def application(environ, start_response):
         service_json = json.loads(POSTData.Environment.getPOSTData(environ))
         data_req = service_json['RequestData']
 
-        #try:
-        for i in range(1):
+        try:
+            for i in range(1):
 
-            sql = """SELECT
-                       id,
-                       col1,
-                       col2
-                    FROM
-                    integrationtest.list1
-                    WHERE
-                    id = %(RequestDataID)s"""
+                sql = """SELECT
+                        id,
+                        col1,
+                        col2
+                        FROM
+                        integrationtest.list1
+                        WHERE
+                        id = %(RequestDataID)s"""
 
-            sql_params = {
-                'RequestDataID': data_req['id']
-            }
+                sql_params = {
+                    'RequestDataID': data_req['id']
+                }
 
-            with dbpool.pool.Handler('x0') as db:
-                for Record in db.query(sql, sql_params):
-                    Row = {}
-                    Row['id'] = Record['id']
-                    Row['col1'] = Record['col1']
-                    Row['col2'] = Record['col2']
-                    Result.append(Row)
+                with pool.Handler('x0') as db:
+                    for Record in db.query(sql, sql_params):
+                        Row = {}
+                        Row['id'] = Record['id']
+                        Row['col1'] = Record['col1']
+                        Row['col2'] = Record['col2']
+                        Result.append(Row)
 
-        #except Exception as e:
-            #Result['Error'] = True
-            #Result['Exception'] = type(e).__name__
-            #pass
+        except Exception as e:
+            Result['Error'] = True
+            Result['Exception'] = type(e).__name__
 
         yield bytes(json.dumps(Result), 'utf-8')

@@ -2,11 +2,11 @@ import sys
 import json
 
 import DB
-import dbpool.pool
+from pgdbpool import pool
 
 import POSTData
 
-dbpool.pool.Connection.init(DB.config)
+pool.Connection.init(DB.config)
 
 
 def application(environ, start_response):
@@ -38,7 +38,7 @@ def application(environ, start_response):
                     'LimitRows': 100
                 }
 
-            with dbpool.pool.Handler('x0') as db:
+            with pool.Handler('x0') as db:
                 for Record in db.query(sql, sql_params):
                     Row = {}
                     Row['id'] = Record['id']

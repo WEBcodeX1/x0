@@ -5,9 +5,9 @@ import DB
 import DBMapping
 import POSTData
 
-import dbpool.pool
+from pgdbpool import pool
 
-dbpool.pool.Connection.init(DB.config)
+pool.Connection.init(DB.config)
 
 
 def application(environ, start_response):
@@ -32,7 +32,7 @@ def application(environ, start_response):
         try:
             user_id = 0
 
-            with dbpool.pool.Handler('clickit') as db:
+            with pool.Handler('clickit') as db:
                 sql = 'SELECT id, usertype FROM public.wpuser WHERE session_id = %(SessionID)s'
                 sql_params = { 'SessionID': session_id }
                 for record in db.query(sql, sql_params):
@@ -85,7 +85,7 @@ def application(environ, start_response):
                     sql_params[param] = None
 
             row_index = row_index_generator()
-            with dbpool.pool.Handler('x0') as db:
+            with pool.Handler('x0') as db:
                 try:
                     for rec in db.query(config['sql'], sql_params):
                         tmp_record = {}

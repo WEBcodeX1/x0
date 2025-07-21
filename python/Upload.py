@@ -4,11 +4,11 @@ import json
 
 import DB
 import DBMapping
-import dbpool.pool
+from pgdbpool import pool
 
 import POSTData
 
-dbpool.pool.Connection.init(DB.config)
+pool.Connection.init(DB.config)
 
 
 def application(environ, start_response):
@@ -117,7 +117,7 @@ def application(environ, start_response):
 
             user_id = 0
 
-            with dbpool.pool.Handler('x0') as db:
+            with pool.Handler('x0') as db:
                 sql = 'SELECT id, usertype FROM public.wpuser WHERE session_id = %(SessionID)s'
                 sql_params = { 'SessionID': session_id }
                 for record in db.query(sql, sql_params):

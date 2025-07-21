@@ -3,13 +3,14 @@ import json
 
 import DB
 import DBMapping
-import dbpool.pool
+
+from pgdbpool import pool
 
 import POSTData
 
 from StdoutLogger import logger
 
-dbpool.pool.Connection.init(DB.config)
+pool.Connection.init(DB.config)
 
 
 def application(environ, start_response):
@@ -36,7 +37,7 @@ def application(environ, start_response):
                 data_req[param] = str(data_req[param])
                 sql_params[param] = data_req[param] if len(data_req[param]) > 0 else None
 
-            with dbpool.pool.Handler('x0') as db:
+            with pool.Handler('x0') as db:
                 try:
                     for tmpRecord in db.query(sql, sql_params):
                         tmpDict = {
