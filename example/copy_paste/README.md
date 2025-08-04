@@ -26,7 +26,7 @@ A demonstration video `x0-example-13-copy-paste.mkv` shows the example in action
 
 ### 2. Object Metadata
 
-All UI and logic are defined in the respective `object.json` metadata file, found at `./static/object.json`.
+All UI and logic are defined in the respective `./static/object.json`.
 
 - [Object Type List Documentation](https://docs.webcodex.de/x0/v1.0/appdev-objects.html#list)
 - [Object Type TabContainer Documentation](https://docs.webcodex.de/x0/v1.0/appdev-objects.html#tabcontainer)
