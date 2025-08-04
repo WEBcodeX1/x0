@@ -42,35 +42,37 @@ Inspect the examples JSON object metadata in `./static/object.json`.
 The following JSON excerpt shows how to configure the two columns used in this example:
 
 ```json
-Columns":
-    [
-        {
-            "ID": "col1",
-            "HeaderTextID": "TXT.TABLE.EXAMPLETABLECOLOBJECTS.HEADER.COL1",
-            "Attributes": {
-                "ObjectType": "ButtonInternal",
-                "Style": "btn btn-secondary",
-                "IconStyle": "fa-solid fa-martini-glass-empty",
-                "TextID": "TXT.BUTTON.EXAMPLETABLECOLOBJECTS"
+{
+    Columns":
+        [
+            {
+                "ID": "col1",
+                "HeaderTextID": "TXT.TABLE.EXAMPLETABLECOLOBJECTS.HEADER.COL1",
+                "Attributes": {
+                    "ObjectType": "ButtonInternal",
+                    "Style": "btn btn-secondary",
+                    "IconStyle": "fa-solid fa-martini-glass-empty",
+                    "TextID": "TXT.BUTTON.EXAMPLETABLECOLOBJECTS"
+                }
+            },
+            {
+                "ID": "col2",
+                "HeaderTextID": "TXT.TABLE.EXAMPLETABLECOLOBJECTS.HEADER.COL2",
+                "Attributes": {
+                    "ObjectType": "FileUpload",
+                    "TextID": "TXT.EXAMPLETABLECOLOBJECTS.UPLOAD",
+                    "Style": "md-3",
+                    "StyleDescription": "fst-italic",
+                    "StyleSelectButton": "",
+                    "StyleProgressContainer": "progress",
+                    "StyleUploadButton": "btn btn-primary",
+                    "StyleProgressBar": "progress-bar progress-bar-striped progress-bar-animated",
+                    "StyleProgressBarPercentage": "",
+                    "UploadScript": "/python/Upload.py"
+                }
             }
-        },
-        {
-            "ID": "col2",
-            "HeaderTextID": "TXT.TABLE.EXAMPLETABLECOLOBJECTS.HEADER.COL2",
-            "Attributes": {
-                "ObjectType": "FileUpload",
-                "TextID": "TXT.EXAMPLETABLECOLOBJECTS.UPLOAD",
-                "Style": "md-3",
-                "StyleDescription": "fst-italic",
-                "StyleSelectButton": "",
-                "StyleProgressContainer": "progress",
-                "StyleUploadButton": "btn btn-primary",
-                "StyleProgressBar": "progress-bar progress-bar-striped progress-bar-animated",
-                "StyleProgressBarPercentage": "",
-                "UploadScript": "/python/Upload.py"
-            }
-        }
-    ]
+        ]
+}
 ```
 
 > [!IMPORTANT]
