@@ -73,8 +73,7 @@ An example JSON excerpt for configuring the menu objects (`./static/object.json`
             "TextID": "TXT.MENU.BASICEXAMPLE.SCREEN2",
             "ScreenID": "Screen2"
         }
-    },
-    // Additional menu items...
+    }
 }
 ```
 
