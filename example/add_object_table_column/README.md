@@ -76,7 +76,7 @@ The following JSON excerpt shows how to configure the two columns used in this e
 ```
 
 > [!IMPORTANT]
-> The **Attributes** *sub* element gets passes to each objects `init()` as `JSONConfig.Attributes`
+> The **Attributes** *sub* element gets passed to each objects `init()` as `JSONConfig.Attributes`
 > on row / column rendering.
 
 ## How It Works
