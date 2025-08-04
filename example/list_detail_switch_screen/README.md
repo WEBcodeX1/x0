@@ -22,9 +22,22 @@ This example implements a two-pane layout:
 
 Switching the selection in the list instantly updates the detail pane, demonstrating real-time data binding and component communication.
 
-## 2. Key Features Demonstrated
+### 2. Object Metadata
+
+All UI and logic are defined in the respective `./static/object.json`.
+
+- [Object Type List Documentation](https://docs.webcodex.de/x0/v1.0/appdev-objects.html#list)
+- [Object Type TabContainer Documentation](https://docs.webcodex.de/x0/v1.0/appdev-objects.html#tabcontainer)
+- [Object Types FormFields Documentation](https://docs.webcodex.de/x0/v1.0/appdev-objects.html#formfield-objects)
+
+### 3. Usage
+
+This example can be used as a template for:
 
 - Dynamic master-detail UI synchronization.
-- Real-time UI updates using **x0-system-objects**.
-- Event-driven component communication (`sysReactor.js`).
+- Event-driven component communication between **x0-system-objects** (`sysReactor.js`).
 - Demonstrating modular UI construction using the **x0-framework**.
+
+---
+
+**Note:** *x0-app* and *x0-db* docker containers must be up and running for viewing.

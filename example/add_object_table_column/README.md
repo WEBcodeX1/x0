@@ -13,7 +13,7 @@ A demonstration video `x0-example-add-object-table-column.mkv` illustrates the e
 
 ## Main Components
 
-### 1. `TestObjTable` Table
+### 1. `TestObjTable` List
 
 - Configured as a list/table with:
   - Custom styles for headers and rows.
