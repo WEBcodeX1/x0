@@ -1,6 +1,6 @@
 # Example #12 (Dynamic Radio List)
 
-Example #12 demonstrates the enhanced *x0-system-object* `sysObjDynRadioList.js`
+This example demonstrates the enhanced *x0-system-object* `sysObjDynRadioList.js`
 in action. It showcases how the *x0-system* enables flexible, realtime UI
 lists—dynamically bound to a List column.
 
@@ -10,7 +10,7 @@ Open URL:`http://x0-app.x0.localnet/python/Index.py?appid=example12`.
 
 ## Video
 
-A simple video `x0-example-12-dyn-radio-button-list.mkv` demonstrates how this example works.
+A demonstration video `x0-example-12-dyn-radio-button-list.mkv` illustrates the example in action.
 
 ## Main Components
 
@@ -28,7 +28,7 @@ A simple video `x0-example-12-dyn-radio-button-list.mkv` demonstrates how this e
 
 Inspect the examples JSON object metadata in `./static/object.json`.
 
-[Object Type List Documentation](https://docs.webcodex.de/x0/v1.0/appdev-objects.html#list).
+- [Object Type List Documentation](https://docs.webcodex.de/x0/v1.0/appdev-objects.html#list).
 
 ### 3. `TestList1Connector`
 
@@ -62,7 +62,7 @@ This example can be used as a template for:
 - Dynamic realtime object rendering.
 - Creating dynamic list table columns with custom input controls (like radio buttons).
 - Integrating backend data sources in a low-code or configuration-driven manner.
-- Demonstrating modular UI construction using the x0 framework.
+- Demonstrating modular UI construction using the **x0-framework**.
 
 ---
 

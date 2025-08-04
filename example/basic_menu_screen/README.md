@@ -28,7 +28,7 @@ A demonstration video `x0-example-basic-menu-screen.mkv` illustrates the menu sc
 
 Inspect this example’s JSON object metadata in `./static/object.json`.
 
-- [Basic Configuration Documentation](https://docs.webcodex.de/x0/v1.0/appdev-config.html)
+- [Basic Configuration Documentation](https://docs.webcodex.de/x0/v1.0/appdev-config.html).
 
 ### 3. Menu Configuration Syntax
 

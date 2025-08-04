@@ -9,11 +9,12 @@ Open URL: `http://x0-app.x0.localnet/python/Index.py?appid=example1`.
 
 ## Video
 
-A simple video `x0-example-add-object-table-column.mkv` demonstrates how this example works.
+A demonstration video `x0-example-add-object-table-column.mkv` illustrates the example in action.
 
 ## Main Components
 
 ### 1. `TestObjTable` Table
+
 - Configured as a list/table with:
   - Custom styles for headers and rows.
   - Two columns by default.
@@ -25,8 +26,8 @@ A simple video `x0-example-add-object-table-column.mkv` demonstrates how this ex
 
 Inspect the examples JSON object metadata in `./static/object.json`.
 
-[Object Type List Documentation](https://docs.webcodex.de/x0/v1.0/appdev-objects.html#list).
-[Object Type FileUpload Documentation](https://docs.webcodex.de/x0/v1.0/appdev-objects.html#fileupload).
+- [Object Type List Documentation](https://docs.webcodex.de/x0/v1.0/appdev-objects.html#list).
+- [Object Type FileUpload Documentation](https://docs.webcodex.de/x0/v1.0/appdev-objects.html#fileupload).
 
 ### 3. `TestObjTableConnector`
 
@@ -89,7 +90,7 @@ The following JSON excerpt shows how to configure the two columns used in this e
 
 This example can be used as a template for:
 - Configure *x0-object-type* `sysList` table columns with existing *x0-object-type* instances.
-- Demonstrating modular, low-code UI construction using the x0 framework.
+- Demonstrating modular UI construction using the **x0-framework**.
 
 ---
 
