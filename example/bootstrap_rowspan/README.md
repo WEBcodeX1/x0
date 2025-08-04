@@ -163,9 +163,8 @@ This example can be used as a template for:
 
 - Building tables with grouped rows or merged cells in **x0-applications**.
 - Demonstrating advanced table features (like rowspan) with Bootstrap styling.
-- Creating configuration-driven, low-code UIs for data presentation.
+- Demonstrating modular UI construction using the **x0-framework**.
 
 ---
 
-**Note:**
-*x0-app* and *x0-db* docker containers must be up and running for viewing.
+**Note:** *x0-app* and *x0-db* docker containers must be up and running for viewing.
