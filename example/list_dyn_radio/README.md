@@ -15,28 +15,37 @@ A simple video `x0-example-12-dyn-radio-button-list.mkv` demonstrates how this e
 ## Main Components
 
 ### 1. `TestList1` Table
+
 - Configured as a list/table with:
   - Custom styles for headers and rows.
   - Two columns:
     - A text column "Column 1".
     - A dynamic radio list column "Column 2", defined by `ObjectType: DynRadioList`.
-  - Data source that supports both hardcoded and backend-provided data.
+  - Data source with backend-provided data.
   - Navigation options (3 pages).
 
-### 2. `TestList1Connector`
+### 2. Object Metadata
+
+Inspect the examples JSON object metadata in `./static/object.json`.
+
+[Object Type List Documentation](https://docs.webcodex.de/x0/v1.0/appdev-objects.html#list).
+
+### 3. `TestList1Connector`
+
 - A service connector object that fetches table data from a backend Python service (`/python/IntegrationTestGetTableData.py`) on the `InitSystem` event.
 
-### 3. Screen Composition
+### 4. Screen Composition
+
 - The screen (`Screen1`) is composed by connecting the service connector and table together using reference IDs, enabling modular and reusable UI configuration.
 
-### 4. Real Time Manipulation
+### 5. Real Time Manipulation
 
 - One radio button element can be appended to the dynamic radio list column in realtime by pressing the **+ add** button.
 - An already added radio button element can be removed from the dynamic radio list column in realtime by pressing the **- rem** button.
 - An already added radio button element can also be removed by right-clicking the element and selecting *Remove*.
 - Pressing a navigation button on bottom (1 to 3 list pages) demonstrates the rock solid *x0-consistent-object-state* feature.
 
-### 5. Object Implementation
+### 6. Object Implementation
 
 A system-developer should take a closer look at `sysObjDynRadioList.js`, it is a
 well-suited, enhanced realtime-feature implementation example.
@@ -50,7 +59,8 @@ well-suited, enhanced realtime-feature implementation example.
 ## Usage
 
 This example can be used as a template for:
-- Creating dynamic data tables with custom input controls (like radio buttons).
+- Dynamic realtime object rendering.
+- Creating dynamic list table columns with custom input controls (like radio buttons).
 - Integrating backend data sources in a low-code or configuration-driven manner.
 - Demonstrating modular UI construction using the x0 framework.
 
