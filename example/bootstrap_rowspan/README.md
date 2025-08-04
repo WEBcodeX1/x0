@@ -18,11 +18,11 @@ This example is too simple, no video provided.
 
 Inspect the example’s JSON object metadata in `./static/object.json`.
 
-### 3. Purpose
+### 2. Purpose
 
 - Demonstrates how to align rowspans with static-provided data.
 
-### 4. Rowspan Configuration Example
+### 3. Rowspan Configuration Example
 
 Below is a JSON excerpt showing how to configure **x0-objects** of type `sysObjDiv`
 with bootstrap rowspan `short-div` CSS styles in `object.json`:
