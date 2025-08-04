@@ -1,7 +1,7 @@
 # Example(s) Directory
 
 This directory contains example code and configuration demonstrating how to use
-the features and capabilities of the **x0-frmaework** / repository.
+the features and capabilities of the **x0-framework** / repository.
 
 ## Introduction
 
