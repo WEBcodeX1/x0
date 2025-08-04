@@ -32,7 +32,7 @@ Inspect the examples JSON object metadata in `./static/object.json`.
 
 ### 3. `TestList1Connector`
 
-- A service connector object that fetches table data from a backend Python service (`/python/IntegrationTestGetTableData.py`) on the `InitSystem` event.
+- A `ServiceConnector` **x0-object** that fetches table data from a backend Python service (`/python/IntegrationTestGetTableData.py`) on the `InitSystem` event.
 
 ### 4. Screen Composition
 
