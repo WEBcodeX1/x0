@@ -1,27 +1,16 @@
-# Dynamic Radio List Example (`list_dyn_radio`)
+# Example #12 (Dynamic Radio List)
 
-This example demonstrates how to build a dynamic table component with radio button
-lists using the x0 framework, focusing on realtime object manipulation (**add**, **remove**).
-The configuration is data-driven and showcases integration between static JSON definitions and
-backend service connectors, enabling flexible UI generation and dynamic data loading.
+Example #12 demonstrates the enhanced *x0-system-object* `sysObjDynRadioList.js`
+in action. It showcases how the *x0-system* enables flexible, realtime UI
+lists—dynamically bound to a List column.
 
 ## URL
 
-Example is accessible by calling URL:`http://x0-app.x0.localnet/python/Index.py?appid=example12`.
+Open URL:`http://x0-app.x0.localnet/python/Index.py?appid=example12`.
 
 ## Video
 
 A simple video `x0-example-12-dyn-radio-button-list.mkv` demonstrates how this example works.
-
-## Directory Structure
-
-- `static/`
-  - `object.json`: Defines UI objects, including a link, a service connector, and a table (`TestList1`) with dynamic radio list columns.
-  - `skeleton.json`: Specifies the screen layout and object composition.
-  - `menu.json`: (Not shown) Defines menu/navigation structure.
-- `sql/`
-  - `insert-txt.sql`: (Not shown) Inserts example text or labels for UI localization.
-  - `sys-config.sql`: (Not shown) Provides system configuration or initial setup for the example.
 
 ## Main Components
 
@@ -29,10 +18,10 @@ A simple video `x0-example-12-dyn-radio-button-list.mkv` demonstrates how this e
 - Configured as a list/table with:
   - Custom styles for headers and rows.
   - Two columns:
-    - A text column.
-    - A dynamic radio list column, defined by `ObjectType: DynRadioList`.
+    - A text column "Column 1".
+    - A dynamic radio list column "Column 2", defined by `ObjectType: DynRadioList`.
   - Data source that supports both hardcoded and backend-provided data.
-  - Navigation and selection options.
+  - Navigation options (3 pages).
 
 ### 2. `TestList1Connector`
 - A service connector object that fetches table data from a backend Python service (`/python/IntegrationTestGetTableData.py`) on the `InitSystem` event.
@@ -49,8 +38,8 @@ A simple video `x0-example-12-dyn-radio-button-list.mkv` demonstrates how this e
 
 ### 5. Object Implementation
 
-How it is implemented:
-- sysObjDynRadioList.js
+A system-developer should take a closer look at `sysObjDynRadioList.js`, it is a
+well-suited, enhanced realtime-feature implementation example.
 
 ## How It Works
 
