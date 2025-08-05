@@ -211,7 +211,7 @@ Partial overview, see [GitHub file search](https://github.com/WEBcodeX1/x0/searc
 ## :wave: Contributing
 
 Contributions & feedback welcome!
-See [CONTRIBUTING.md](./CONTRIBUTING.md) (if exists) or open an issue.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) or open an issue.
 
 ---
 
