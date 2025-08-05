@@ -31,7 +31,7 @@
 
 - **Fast SPA Development**: Near desktop-app speed and features
 - **Responsive by Design**: One app, every device, standards via Bootstrap CSS
-- **Clean OOP**: True object orientation, abstraction, chaining, metadata modeling
+- **Clean OOP Model**: True object orientation, abstraction, chaining, metadata modeling
 - **Zero Code Duplication**: Efficient, maintainable, backend-agnostic
 - **Kubernetes Ready**: Easy cloud-native deployment
 - **Security**: PKCS 11/15 compatible, own PKI system (non-free)
