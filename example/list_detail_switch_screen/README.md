@@ -1,15 +1,15 @@
-# Example #14 (List Detail Switch Screen)
+# Example #4 (List Detail Switch Screen)
 
 This example demonstrates a classic master-detail interface with dynamic screen switching
 using **x0-system-objects** in the x0 JavaScript SPA Browser Framework.
 
 ## URL
 
-Open URL: `http://x0-app.x0.localnet/python/Index.py?appid=example14`
+Open URL: `http://x0-app.x0.localnet/python/Index.py?appid=example4`
 
 ## Video
 
-A demonstration video `x0-example-4-list-detail-switch-screen.mkv` shows the example in action.
+[Download example video (VLC or MPV player recommended)](https://download.webcodex.de/x0/video/x0-example-4-list-detail-switch-screen.mkv).
 
 ## Main Components
 

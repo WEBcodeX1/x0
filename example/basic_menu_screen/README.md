@@ -11,7 +11,7 @@ Open URL: `http://x0-app.x0.localnet/python/Index.py?appid=example2`
 
 ## Video
 
-A demonstration video `x0-example-basic-menu-screen.mkv` illustrates the menu screen in action.
+[Download example video (VLC or MPV player recommended)](https://download.webcodex.de/x0/video/x0-example-2-basic-menu-screen.mkv).
 
 ## Main Components
 
