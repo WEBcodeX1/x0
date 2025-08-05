@@ -9,7 +9,7 @@ Open URL: `http://x0-app.x0.localnet/python/Index.py?appid=example6`
 
 ## Video
 
-A demonstration video `x0-example-6-screen-overlay.mkv` shows the example in action.
+[Download example video (VLC or MPV player recommended)](https://download.webcodex.de/x0/video/x0-example-6-screen-overlay.mkv).
 
 ## Main Components
 

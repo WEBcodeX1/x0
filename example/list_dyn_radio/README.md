@@ -10,7 +10,7 @@ Open URL:`http://x0-app.x0.localnet/python/Index.py?appid=example12`.
 
 ## Video
 
-A demonstration video `x0-example-12-dyn-radio-button-list.mkv` illustrates the example in action.
+[Download example video (VLC or MPV player recommended)](https://download.webcodex.de/x0/video/x0-example-12-dyn-radio-button-list.mkv).
 
 ## Main Components
 

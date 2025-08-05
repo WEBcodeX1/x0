@@ -9,7 +9,7 @@ Open URL: `http://x0-app.x0.localnet/python/Index.py?appid=example7`
 
 ## Video
 
-A demonstration video `x0-example-7-list-object-data-grid.mkv` shows the example in action.
+[Download example video (VLC or MPV player recommended)](https://download.webcodex.de/x0/video/x0-example-7-list-object-data-grid.mkv).
 
 ## Main Components
 

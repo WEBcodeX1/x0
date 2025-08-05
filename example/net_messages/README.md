@@ -20,7 +20,11 @@ cd ./docker/
 
 Add `x0-msg-server.x0-localnet` with IP address `172.20.0.100` to /etc/hosts or dns zone.
 
-## 2. Open Browser Tabs
+## 2. Video
+
+[Download example video (VLC or MPV player recommended)](https://download.webcodex.de/x0/video/x0-example-10-net-messages.mkv).
+
+## 3. Open Browser Tabs
 
 Open URL `http://x0-app.x0.localnet/python/Index.py?appid=example10` in two browser tabs.
 

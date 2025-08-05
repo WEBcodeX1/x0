@@ -11,7 +11,7 @@ Open URL: `http://x0-app.x0.localnet/python/Index.py?appid=example13`
 
 ## Video
 
-A demonstration video `x0-example-13-copy-paste.mkv` shows the example in action.
+[Download example video (VLC or MPV player recommended)](https://download.webcodex.de/x0/video/x0-example-13-copy-paste.mkv).
 
 ## Main Components
 
