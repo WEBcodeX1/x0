@@ -88,9 +88,20 @@ sysFormFieldValidate.prototype.validateByParams = function(ValidateID, Value, Fo
         return (Value.search(Regex) == -1) ? true : false;
     }
 
+    //- system validate
     try {
         if (Value !== undefined) {
             return this.ValidateFunc[ValidateID](Value, FormObj);
+        }
+    }
+    catch(err) {
+        console.debug('::validate err:%s', err);
+    }
+
+    //- user functons validate
+    try {
+        if (Value !== undefined) {
+            return sysFactory.UserValidate.ValidateFunc[ValidateID](Value, FormObj);
         }
     }
     catch(err) {
@@ -525,8 +536,19 @@ sysFormFieldValidateGroup.prototype.validate = function(FunctionID, FormfieldIte
             FormItem.setValidateStyle(false);
         }
 
-        const RetValue = this.ValidateFunc[FunctionID](FormfieldItems);
-        console.debug('::validateGroup RetValue:%o', RetValue);
+        try {
+            const RetValue = this.ValidateFunc[FunctionID](FormfieldItems);
+            console.debug('::validateGroup RetValue:%o', RetValue);
+        }
+        catch(err) {
+        }
+
+        try {
+            const RetValue = sysFactory.UserValidate.ValidateFunc[FunctionID](FormfieldItems);
+            console.debug('::User validateGroup() RetValue:%o', RetValue);
+        }
+        catch(err) {
+        }
 
         //- on error set all group form fields not validated
         try {
