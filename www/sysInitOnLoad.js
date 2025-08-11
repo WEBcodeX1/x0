@@ -126,11 +126,11 @@ function InitOk(XHR) {
     //- Set System Vars
     //----------------------------------------------------------------------------
 
-    sysFactory.DisplayDefaultScreen            = sysVarDisplayDefaultScreen;
+    sysFactory.DisplayDefaultScreen           = sysVarDisplayDefaultScreen;
 
-    sysFactory.SysDebugLevel                = sysVarDebugLevel;
-    sysFactory.SysSessionID                    = 'SYS_SESSION';
-    sysFactory.SysUserID                    = UserID;
+    sysFactory.SysDebugLevel                  = sysVarDebugLevel;
+    sysFactory.SysSessionID                   = 'SYS_SESSION';
+    sysFactory.SysUserID                      = UserID;
     sysFactory.SysSessionValue                = UserSession;
     sysFactory.MsgServerGetURL                = 'http://x0-msg-server.x0.localnet:8080/python/MsgHandler.py';
 
@@ -141,11 +141,11 @@ function InitOk(XHR) {
     //- Style Defaults
     //----------------------------------------------------------------------------
 
-    sysFactory.DefaultStyleScreen            = 'col-md-8 ms-auto me-auto';
-    sysFactory.DefaultStyleMenu                = 'menu-absolute-pos';
-    sysFactory.DefaultStyleScreenOverlay    = 'p-3 shadow-lg border bg-gradient bg-opacity-75 overlay-default';
+    sysFactory.DefaultStyleScreen             = 'col-md-8 ms-auto me-auto';
+    sysFactory.DefaultStyleMenu               = 'menu-absolute-pos';
+    sysFactory.DefaultStyleScreenOverlay      = 'p-3 shadow-lg border bg-gradient bg-opacity-75 overlay-default';
     sysFactory.DefaultStyleListNavLeft        = 'col-6 p-4 pl-0';
-    sysFactory.DefaultStyleListNavRight        = 'col-6 p-4 float-end text-end pr-0';
+    sysFactory.DefaultStyleListNavRight       = 'col-6 p-4 float-end text-end pr-0';
 
 
     //----------------------------------------------------------------------------
@@ -160,6 +160,22 @@ function InitOk(XHR) {
     //----------------------------------------------------------------------------
 
     sysFactory.UserFunctions = new Object();
+
+
+    //----------------------------------------------------------------------------
+    //- OVerride User Defaults
+    //----------------------------------------------------------------------------
+
+    sysFactory.UserDefaults = new UserDefaults();
+
+
+    //----------------------------------------------------------------------------
+    //- User Globals
+    //----------------------------------------------------------------------------
+
+    sysFactory.UserValidate = new UserValidate();
+    sysFactory.UserValidateGroup = new UserValidateGroup();
+    sysFactory.UserContextMenu = new UserContextMenu();
 
 
     //----------------------------------------------------------------------------
