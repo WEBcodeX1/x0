@@ -181,7 +181,7 @@ sysFactory.prototype.getLastScreenObject = function() {
 //------------------------------------------------------------------------------
 
 sysFactory.prototype.getObjectByID = function(ObjectID) {
-    console.debug('::getObjectByID this.Screens:%o', this.Screens);
+    //console.debug('::getObjectByID this.Screens:%o', this.Screens);
     for (ScreenID in this.Screens) {
         const ScreenObj = this.Screens[ScreenID];
         const ResultObj = ScreenObj.HierarchyRootObject.getObjectByID(ObjectID);

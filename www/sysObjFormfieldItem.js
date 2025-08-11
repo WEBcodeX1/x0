@@ -60,7 +60,7 @@ sysFormfieldItem.prototype.FormItemInit = function()
 
     this.DBColumn = Attributes.DBColumn;
 
-    console.debug('FormItem Attributes:%o', Attributes);
+    //console.debug('FormItem Attributes:%o', Attributes);
 
     if (this.JSONConfig !== undefined && this.JSONConfig.InstancePrefix !== undefined) {
         this.InstancePrefix = this.JSONConfig.InstancePrefix;
@@ -144,11 +144,11 @@ sysFormfieldItem.prototype.setupEventListener = function()
 
 sysFormfieldItem.prototype.FormItemGetValue = function()
 {
-    console.debug('::FormItemGetValue DOMObjectID:%s ObjectID:%s', this.DOMObjectID, this.ObjectID);
+    //console.debug('::FormItemGetValue DOMObjectID:%s ObjectID:%s', this.DOMObjectID, this.ObjectID);
     try {
         const FormElement = document.getElementById(this.ObjectID);
         const FormValue = FormElement.value;
-        console.debug('::FormItemGetValue Element:%o Value:%s', FormElement, FormValue);
+        //console.debug('::FormItemGetValue Element:%o Value:%s', FormElement, FormValue);
         return FormValue;
     }
     catch(err) {
@@ -350,8 +350,7 @@ sysFormfieldItem.prototype.resetStyle = function()
 
 sysFormfieldItem.prototype.reset = function()
 {
-    console.debug('FormfieldItem reset method call Object:%o', this);
-
+    //console.debug('FormfieldItem reset method call Object:%o', this);
     const Attributes = this.JSONConfig.Attributes;
     this.RuntimeSetDataFunc(
         (Attributes.Value !== undefined ? Attributes.Value : '')

@@ -98,7 +98,7 @@ sysBaseDOMElement.prototype.removeDOMParentElement = function()
 
 sysBaseDOMElement.prototype.removeDOMElement = function()
 {
-    console.debug('::removeDOMElement DOMDivElement:%s', this.DOMDivElement.id);
+    //console.debug('::removeDOMElement DOMDivElement:%s', this.DOMDivElement.id);
     try {
         document.getElementById(this.DOMDivElement.id).remove();
     }
@@ -117,7 +117,7 @@ sysBaseDOMElement.prototype.setDOMElementValue = function()
     //console.debug('::setDOMElementValue this:%o', this);
     if (this.DOMValue != null && this.DOMValue !== undefined) {
         var divElement = document.getElementById(this.DOMObjectID);
-        console.debug('::setDOMElementValue divElement:%o', divElement);
+        //console.debug('::setDOMElementValue divElement:%o', divElement);
         if (divElement != null && divElement !== undefined) {
             divElement.innerHTML = this.DOMValue;
         }
@@ -389,7 +389,9 @@ sysBaseDOMElement.prototype.DOMaddEventListener = function(Type, Destination)
     try {
         const ElementID = this.DOMObjectID;
         const Element = document.getElementById(ElementID);
-        Element.addEventListener(Type, Destination);
+        if (Element != null) {
+            Element.addEventListener(Type, Destination);
+        }
     }
     catch(err) {
         console.debug('::addEventListener err:%s ObjectID:%s DOMObjectID:%s', err, this.ObjectID, this.DOMObjectID);
