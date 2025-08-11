@@ -373,6 +373,14 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
 
             this.ContextMenuObject.close();
         }
+
+        try {
+            sysFactory.UserContextMenu.process(this);
+        }
+        catch(err) {
+            console.log('::ContextMenu process UserContextMenu error:%s', err);
+        }
+
     }
 
     if (this.ServiceURL != null) {
