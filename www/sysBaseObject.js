@@ -307,7 +307,7 @@ sysBaseObject.prototype.removeParent = function()
 
 sysBaseObject.prototype.getObjectData = function()
 {
-    console.debug('::BaseObject getObjectData() this:%o', this);
+    //console.debug('::BaseObject getObjectData() this:%o', this);
     return this.RuntimeGetDataFunc();
 }
 
