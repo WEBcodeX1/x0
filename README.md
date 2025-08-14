@@ -66,7 +66,7 @@ cd x0
 
 # Install Docker
 apt-get -y install docker.io
-apt-get -y install docker-buildx
+apt-get -y install docker.io docker-buildx
 
 # Docker permissions & setup (as root)
 usermod -aG docker your-user
