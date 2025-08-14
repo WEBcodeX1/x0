@@ -15,8 +15,9 @@
  * This should be replaced by WebSockets in future releases.
 */
 
-function sysAsyncNotifyMsgHandler()
+function sysAsyncNotifyMsgHandler(MsgProcessing)
 {
+    this.MsgProcessing = MsgProcessing;
     this.RPC = new sysCallXMLRPC(sysFactory.MsgServerGetURL);
     this.RPC.setRequestType('POST');
 }
@@ -28,14 +29,22 @@ function sysAsyncNotifyMsgHandler()
 
 sysAsyncNotifyMsgHandler.prototype.getMsg = function()
 {
-    console.debug('::getMsg SessionID:%s', sysFactory.SysSessionID);
-    //- if session id exists, get next messages
-    if (sysFactory.SysSessionID !== undefined && sysFactory.SysSessionID != null) {
-        this.PostRequestData = {
-            "session_src": sysFactory.SysSessionValue,
-            "type": 'GET'
+    console.debug(
+        '::getMsg SessionID:%s MessageProcessing:%s',
+        sysFactory.SysSessionID,
+        this.MsgProcessing
+    );
+
+    //- if message processing is activated
+    if (this.MsgProcessing == true) {
+        //- if session id exists, get next messages
+        if (sysFactory.SysSessionID !== undefined && sysFactory.SysSessionID != null) {
+            this.PostRequestData = {
+                "session_src": sysFactory.SysSessionValue,
+                "type": 'GET'
+            }
+            this.RPC.Request(this);
         }
-        this.RPC.Request(this);
     }
 }
 
