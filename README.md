@@ -65,7 +65,6 @@ git clone https://github.com/WEBcodeX1/x0.git
 cd x0
 
 # Install Docker
-apt-get -y install docker.io
 apt-get -y install docker.io docker-buildx
 
 # Docker permissions & setup (as root)
