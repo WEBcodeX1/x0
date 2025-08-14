@@ -146,7 +146,7 @@ Modern browser apps with near desktop power. Backend independence, real-time upd
 **Kubernetes:**
 - Kubegres: [GitHub](https://github.com/reactive-tech/kubegres)
 - Minikube: Partial support on Windows / Linux
-- Install Instructions: [/kubernetes/README.md](/kubernetes/README.md) 
+- Install Instructions: [/kubernetes/README.md](/kubernetes/README.md)
 
 **Deployment:**
 - Linux Standalone
@@ -178,7 +178,9 @@ http://x0-app.x0.localnet/python/Index.py?appid=example1
 ...
 http://x0-app.x0.localnet/python/Index.py?appid=example13
 ```
-The most impressive: **12 (list_dyn_radio)** and **13 (copy_paste)**.
+
+Take a closer look, from now on, nearly each example contains a descriptive video:
+[/example/README.md](/example/README.md).
 
 ---
 
