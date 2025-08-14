@@ -2,19 +2,30 @@
 
 The *x0-system* ships **kubernetes-ready**.
 
+>[!NOTE]
+> Per default the installer will set up a *Minikube* system on *Linux* using the *docker* driver.
+
 ## 1. Quick Start / Minikube
 
-The kubernetes installer can be started with the following command
-`cd ./setup/ && python3 Setup.py`. The configuration is taken from `/config/app-config.json`.
+```bash
+# install dependencies
+apt-get -y install curl
+```
 
-Per default the installer will set up a *Minikube* system on *Linux* using the *docker*
-driver.
+```bash
+# change to setup dir
+cd ./setup/
+
+# start installer
+python3 Setup.py
+```
+
+The configuration (JSON) is taken from `../config/app-config.json`.
 
 Prerequisites:
 
 - Non root user inside sudo group
-- A running Docker setup
-- Kubectl binary `apt-get install kubernetes-client`
+- A running local Docker setup
 
 >[!NOTE]
 > Some installation steps require root (sudo) access (prompted).
@@ -228,3 +239,4 @@ The last lines should look like this.
 ------------------ generated xml file: /tmp/pytest-junit.xml -------------------
 ======================== 51 passed in 81.53s (0:01:21) =========================
 ```
+
