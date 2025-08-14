@@ -66,11 +66,12 @@ cd x0
 
 # Install Docker
 apt-get -y install docker.io
+apt-get -y install docker.io docker-buildx
 
-# Docker permissions & setup
+# Docker permissions & setup (as root)
 usermod -aG docker your-user
 
-# Pull pre-built images
+# Restart (session) and pull pre-built images
 docker pull ghcr.io/webcodex1/x0-app
 docker pull ghcr.io/webcodex1/x0-db
 docker pull ghcr.io/webcodex1/x0-test
