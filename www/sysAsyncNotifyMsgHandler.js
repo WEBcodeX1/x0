@@ -36,7 +36,7 @@ sysAsyncNotifyMsgHandler.prototype.getMsg = function()
     );
 
     //- if message processing is activated
-    if (this.MsgProcessing == true) {
+    if (this.MsgProcessing === true) {
         //- if session id exists, get next messages
         if (sysFactory.SysSessionID !== undefined && sysFactory.SysSessionID != null) {
             this.PostRequestData = {
