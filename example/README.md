@@ -37,6 +37,7 @@ Below is a schematic structure of a typical example:
 │   ├── menu.json
 │   ├── object.json
 │   └── skeleton.json
+└── example-video.mkv
 ```
 
 More information is available at *x0-documentation* [Developing Examples Section](https://docs.webcodex.de/x0/v1.0/dev-examples.html).
