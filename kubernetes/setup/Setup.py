@@ -76,6 +76,12 @@ def prepare_minikube(os_type, subtype, driver, offline_install):
         install_cmd = 'sudo install minikube-linux-amd64 /usr/local/bin/minikube'
         res = subprocess.run(install_cmd, shell=True)
 
+        get_kubectl_cmd = 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"'
+        res = subprocess.run(get_kubectl_cmd, shell=True)
+
+        install_kubectl_cmd = 'sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl'
+        res = subprocess.run(install_kubectl_cmd, shell=True)
+
         cmd_create_cluster = 'minikube start --driver=docker'
         res = subprocess.run(cmd_create_cluster, shell=True)
 
