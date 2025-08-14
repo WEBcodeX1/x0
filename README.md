@@ -42,16 +42,17 @@
 
 1. [Quick Start](#racehorse-quick-start)
 2. [Features](#star2-features)
-3. [Single Page Application](#computer-single-page-application)
-4. [Abstract / Purpose](#mega-abstract--purpose)
-5. [Technical Details](#zap-technical-details)
-6. [Security](#closed_lock_with_key-security)
-7. [Future Plans / Milestones](#alarm_clock-future-plans--milestones)
-8. [Examples](#bulb-examples)
-9. [File & Folder Structure](#file_folder-file--folder-structure)
-10. [Contributing](#wave-contributing)
-11. [Community & Support](#globe_with_meridians-community--support)
-12. [License](#memo-license)
+3. [Documentation](#page_with_curl-documentation)
+4. [Single Page Application](#computer-single-page-application)
+5. [Abstract / Purpose](#mega-abstract--purpose)
+6. [Technical Details](#zap-technical-details)
+7. [Security](#closed_lock_with_key-security)
+8. [Future Plans / Milestones](#alarm_clock-future-plans--milestones)
+9. [Examples](#bulb-examples)
+10. [File & Folder Structure](#file_folder-file--folder-structure)
+11. [Contributing](#wave-contributing)
+12. [Community & Support](#globe_with_meridians-community--support)
+13. [License](#memo-license)
 
 ---
 
@@ -95,8 +96,7 @@ http://x0-app.x0.localnet/python/Index.py
 http://x0-app.x0.localnet/python/Index.py?appid=example7
 ```
 
-Full install details including build instructions: [INSTALL.md](./INSTALL.md)
-Rendered docs: [Official Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/).
+Full install details including build instructions: [INSTALL.md](./INSTALL.md).
 
 ---
 
@@ -110,6 +110,12 @@ Rendered docs: [Official Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/
 - **Security:** PKCS-compatible, optional advanced PKI system
 
 Learn more in [Examples](#bulb-examples).
+
+---
+
+## :page_with_curl: Documentation
+
+Rendered docs: [Official Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/).
 
 ---
 
