@@ -146,7 +146,7 @@ Modern browser apps with near desktop power. Backend independence, real-time upd
 **Kubernetes:**
 - Kubegres: [GitHub](https://github.com/reactive-tech/kubegres)
 - Minikube: Partial support on Windows / Linux
-- Install Instructions: [/kubernetes/README.me](/kubernetes/README.me) 
+- Install Instructions: [/kubernetes/README.md](/kubernetes/README.md) 
 
 **Deployment:**
 - Linux Standalone
