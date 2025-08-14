@@ -98,11 +98,15 @@ HTMLDynScript = """
 
 sql = """
 SELECT
+ config_group,
  "value"
 FROM
  system.config
 WHERE
-app_id = %(AppID)s AND config_group = %(ConfigGroup)s""";
+ app_id = %(AppID)s
+ORDER BY
+ config_group, "value" ASC
+""";
 
 
 def application(environ, start_response):
@@ -123,76 +127,52 @@ def application(environ, start_response):
 
         with pool.Handler('x0') as db:
 
-            PreLoadScript = 'undefined';
-            SQLParams['ConfigGroup'] = 'preload_script'
-            for Record in db.query(sql, SQLParams):
-                PreLoadScript = Record[0]
-
             PreLoadVars = ''
-            SQLParams['ConfigGroup'] = 'preload_var'
-            for Record in db.query(sql, SQLParams):
-                PreLoadVarLine = 'sysVarPreLoadVars{};'.format(Record[0])
-                PreLoadVars += PreLoadVarLine
-
             UserFunctions = ''
-            SQLParams['ConfigGroup'] = 'user_function'
-            for Record in db.query(sql, SQLParams):
-                UserFunctionLine = 'sysVarUserFunctions{};'.format(Record[0])
-                UserFunctions += UserFunctionLine
-
             SetupClasses = ''
-            SQLParams['ConfigGroup'] = 'setup_class'
-            for Record in db.query(sql, SQLParams):
-                SetupClassLine = 'sysVarUserSetupClasses{};'.format(Record[0])
-                SetupClasses += SetupClassLine
-
-            SQLParams['ConfigGroup'] = 'index_title'
-            for Record in db.query(sql, SQLParams):
-                SiteTitle = Record[0]
-
-            SQLParams['ConfigGroup'] = 'subdir'
-            for Record in db.query(sql, SQLParams):
-                SubDirEnclosed = '"{}"'.format(Record[0])
-                SubDir = Record[0]
-
-            SQLParams['ConfigGroup'] = 'template_file'
             TemplateFiles = ''
-            for Record in db.query(sql, SQLParams):
-                ScriptLine = """<script type="text/javascript" src="/{}"></script>""".format(Record[0])
-                TemplateFiles += ScriptLine
 
-            SQLParams['ConfigGroup'] = 'config_file_menu'
-            for Record in db.query(sql, SQLParams):
-                ConfigFileMenu = '"{}"'.format(Record[0])
-
-            SQLParams['ConfigGroup'] = 'config_file_object'
-            for Record in db.query(sql, SQLParams):
-                ConfigFileObject = '"{}"'.format(Record[0])
-
-            SQLParams['ConfigGroup'] = 'config_file_skeleton'
-            for Record in db.query(sql, SQLParams):
-                ConfigFileSkeleton = '"{}"'.format(Record[0])
-
-            SQLParams['ConfigGroup'] = 'debug_level'
-            for Record in db.query(sql, SQLParams):
-                DebugLevel = Record[0]
-
-            SQLParams['ConfigGroup'] = 'display_language'
-            for Record in db.query(sql, SQLParams):
-                DisplayLanguage = '"{}"'.format(Record[0])
-
-            SQLParams['ConfigGroup'] = 'default_screen'
-            for Record in db.query(sql, SQLParams):
-                DefaultScreen = '"{}"'.format(Record[0])
-
-            SQLParams['ConfigGroup'] = 'parent_window_url'
-            for Record in db.query(sql, SQLParams):
-                ParentWindowURL = Record[0]
-
+            PreLoadScript = 'undefined';
             ScreenConfig = 'undefined'
-            SQLParams['ConfigGroup'] = 'screen_config'
+
             for Record in db.query(sql, SQLParams):
-                ScreenConfig = Record[0]
+
+                if Record[0] == 'preload_script':
+                    PreLoadScript = Record[1]
+                if Record[0] == 'index_title':
+                    SiteTitle = Record[1]
+                if Record[0] == 'subdir':
+                    SubDirEnclosed = '"{}"'.format(Record[1])
+                    SubDir = Record[1]
+                if Record[0] == 'config_file_menu':
+                    ConfigFileMenu = '"{}"'.format(Record[1])
+                if Record[0] == 'config_file_object':
+                    ConfigFileObject = '"{}"'.format(Record[1])
+                if Record[0] == 'config_file_skeleton':
+                    ConfigFileSkeleton = '"{}"'.format(Record[1])
+                if Record[0] == 'debug_level':
+                    DebugLevel = Record[1]
+                if Record[0] == 'display_language':
+                    DisplayLanguage = '"{}"'.format(Record[1])
+                if Record[0] == 'default_screen':
+                    DefaultScreen = '"{}"'.format(Record[1])
+                if Record[0] == 'parent_window_url':
+                    ParentWindowURL = Record[1]
+                if Record[0] == 'screen_config':
+                    ScreenConfig = Record[1]
+
+                if Record[0] == 'preload_var':
+                    PreLoadVarLine = 'sysVarPreLoadVars{};'.format(Record[1])
+                    PreLoadVars += PreLoadVarLine
+                if Record[0] == 'user_function':
+                    UserFunctionLine = 'sysVarUserFunctions{};'.format(Record[1])
+                    UserFunctions += UserFunctionLine
+                if Record[0] == 'setup_class':
+                    SetupClassLine = 'sysVarUserSetupClasses{};'.format(Record[1])
+                    SetupClasses += SetupClassLine
+                if Record[0] == 'template_file':
+                    ScriptLine = """<script type="text/javascript" src="/{}"></script>""".format(Record[1])
+                    TemplateFiles += ScriptLine
 
             HTMLTopR = HTMLTop.format(
                 title = SiteTitle,
