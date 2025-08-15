@@ -10,3 +10,4 @@ INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', '
 INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'config_file_menu', 'menu.json');
 INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'config_file_object', 'object.json');
 INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'config_file_skeleton', 'skeleton.json');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example10', 'message_handler', 'true');

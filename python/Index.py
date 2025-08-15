@@ -90,6 +90,7 @@ HTMLDynScript = """
   var sysVarParentWindowURL = {parent_window_url};
   var sysVarDisplayLanguage = {display_language};
   var sysVarScreenConfig = {screen_config};
+  var sysVarMessageHandling = {message_handling};
   {preload_vars}
   {user_functions}
   {setup_classes}
@@ -134,43 +135,46 @@ def application(environ, start_response):
 
             PreLoadScript = 'undefined';
             ScreenConfig = 'undefined'
+            MessageHandling = 'false'
 
             for Record in db.query(sql, SQLParams):
 
                 if Record[0] == 'preload_script':
                     PreLoadScript = Record[1]
-                if Record[0] == 'index_title':
+                elif Record[0] == 'index_title':
                     SiteTitle = Record[1]
-                if Record[0] == 'subdir':
+                elif Record[0] == 'subdir':
                     SubDirEnclosed = '"{}"'.format(Record[1])
                     SubDir = Record[1]
-                if Record[0] == 'config_file_menu':
+                elif Record[0] == 'config_file_menu':
                     ConfigFileMenu = '"{}"'.format(Record[1])
-                if Record[0] == 'config_file_object':
+                elif Record[0] == 'config_file_object':
                     ConfigFileObject = '"{}"'.format(Record[1])
-                if Record[0] == 'config_file_skeleton':
+                elif Record[0] == 'config_file_skeleton':
                     ConfigFileSkeleton = '"{}"'.format(Record[1])
-                if Record[0] == 'debug_level':
+                elif Record[0] == 'debug_level':
                     DebugLevel = Record[1]
-                if Record[0] == 'display_language':
+                elif Record[0] == 'display_language':
                     DisplayLanguage = '"{}"'.format(Record[1])
-                if Record[0] == 'default_screen':
+                elif Record[0] == 'default_screen':
                     DefaultScreen = '"{}"'.format(Record[1])
-                if Record[0] == 'parent_window_url':
+                elif Record[0] == 'parent_window_url':
                     ParentWindowURL = Record[1]
-                if Record[0] == 'screen_config':
+                elif Record[0] == 'screen_config':
                     ScreenConfig = Record[1]
+                elif Record[0] == 'message_handler':
+                    MessageHandling = Record[1]
 
-                if Record[0] == 'preload_var':
+                elif Record[0] == 'preload_var':
                     PreLoadVarLine = 'sysVarPreLoadVars{};'.format(Record[1])
                     PreLoadVars += PreLoadVarLine
-                if Record[0] == 'user_function':
+                elif Record[0] == 'user_function':
                     UserFunctionLine = 'sysVarUserFunctions{};'.format(Record[1])
                     UserFunctions += UserFunctionLine
-                if Record[0] == 'setup_class':
+                elif Record[0] == 'setup_class':
                     SetupClassLine = 'sysVarUserSetupClasses{};'.format(Record[1])
                     SetupClasses += SetupClassLine
-                if Record[0] == 'template_file':
+                elif Record[0] == 'template_file':
                     ScriptLine = """<script type="text/javascript" src="/{}"></script>""".format(Record[1])
                     TemplateFiles += ScriptLine
 
@@ -193,7 +197,8 @@ def application(environ, start_response):
                 display_language = DisplayLanguage,
                 default_screen = DefaultScreen,
                 parent_window_url = ParentWindowURL,
-                screen_config = ScreenConfig
+                screen_config = ScreenConfig,
+                message_handling = MessageHandling
             )
 
         Result = "{}{}{}".format(HTMLTopR, HTMLDynScriptR, HTMLBottom);

@@ -196,6 +196,8 @@ function InitOk(XHR) {
     //- Start Async Notify Message Handler
     //----------------------------------------------------------------------------
 
-    sysFactory.sysGlobalAsyncNotifyHandler = new sysAsyncNotifyMsgHandler();
+    sysFactory.sysGlobalAsyncNotifyHandler = new sysAsyncNotifyMsgHandler(
+        sysVarMessageHandling
+    );
 
 }
