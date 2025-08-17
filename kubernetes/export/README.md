@@ -15,7 +15,7 @@ sudo apt update && sudo apt install terraform
 install_file="k2tf_0.8.0_Linux_amd64.tar.gz"
 wget https://github.com/sl1pm4t/k2tf/releases/download/v0.8.0/${install_file}
 tar -xvf ${install_file}
-install
+sudo install -o root -g root -m 0755 ${install_file} /usr/local/bin/${install_file}
 ```
 
 3. Run x0 Kubernetes installer
