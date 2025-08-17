@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 
 dstpath=$1
 echo "Terrarform destination (output) path:${dstpath}"
