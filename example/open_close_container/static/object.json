@@ -1,0 +1,90 @@
+{
+	"Link1":
+	{
+		"Type": "Link",
+		"Attributes": {
+			"Style": "btn btn-secondary d-none",
+			"TextID": "TXT.MENU.LINK1",
+			"ScreenID": "Screen1"
+		}
+	},
+
+	"OpenCloseElement1":
+	{
+		"Type": "OpenCloseContainer",
+		"Attributes": {
+			"TextID": "TXT.OPENCLOSE1-HEADER"
+		}
+	},
+
+	"SQLText1":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "md-3 mb-3",
+			"TextID": "TXT.TEXT1"
+		}
+	},
+
+	"SQLText2":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "md-3 mb-3",
+			"TextID": "TXT.TEXT2"
+		}
+	},
+
+	"OpenCloseElement2":
+	{
+		"Type": "OpenCloseContainer",
+		"Attributes": {
+			"TextID": "TXT.OPENCLOSE2-HEADER"
+		}
+	},
+
+	"SQLText3":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "md-3 mb-3",
+			"TextID": "TXT.TEXT3"
+		}
+	},
+
+	"SQLText4":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "md-3 mb-3",
+			"TextID": "TXT.TEXT4"
+		}
+	},
+
+	"OpenCloseElement3":
+	{
+		"Type": "OpenCloseContainer",
+		"Attributes": {
+			"TextID": "TXT.OPENCLOSE3-HEADER"
+		}
+	},
+
+	"SQLText5":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "md-3 mb-3",
+			"TextID": "TXT.TEXT5"
+		}
+	},
+
+	"SQLText6":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "md-3 mb-3",
+			"TextID": "TXT.TEXT6"
+		}
+	}
+
+}
