@@ -36,15 +36,15 @@ Recommended reading: [Clean Code by Robert C. Martin](https://www.goodreads.com/
 
 ## ❓ Questions, Feature Requests & Improvements
 
-- Email us at [http1-2@webcodex.de](mailto:http1-2@webcodex.de) for questions, feature requests, or improvement ideas.
-- For technical discussions, use [GitHub Discussions](https://github.com/WEBcodeX1/http-1.2/discussions) if enabled.
+- Email us at [x0@webcodex.de](mailto:x0@webcodex.de) for questions, feature requests, or improvement ideas.
+- For technical discussions, use [GitHub Discussions](https://github.com/WEBcodeX1/x0/discussions) if enabled.
 
 ---
 
 ## 🐞 Reporting Bugs & Issues
 
-1. **Search existing issues** [here](https://github.com/WEBcodeX1/http-1.2/issues) before opening a new one.
-2. If your bug is new, [create an issue](https://github.com/WEBcodeX1/http-1.2/issues/new) and include:
+1. **Search existing issues** [here](https://github.com/WEBcodeX1/x0/issues) before opening a new one.
+2. If your bug is new, [create an issue](https://github.com/WEBcodeX1/x0/issues/new) and include:
    - A **descriptive title**
    - A **clear explanation** of the problem
    - Steps to **reproduce**
@@ -67,7 +67,7 @@ Recommended reading: [Clean Code by Robert C. Martin](https://www.goodreads.com/
 
 ## 🌟 Happy Hacking!
 
-We’re excited to see your contributions. Thank you for making HTTP/1.2 better!
+We’re excited to see your contributions. Thank you for making x0-Framework better!
 
 x0 Framework Lead Developer
 **Claus Prüfer**
