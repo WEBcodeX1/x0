@@ -125,7 +125,7 @@ sysObjOpenClose.prototype.processChildObjects = function()
         if (this.OpenCloseIcon.StateOpen === true) {
             ChildObject.VisibleState = 'visible';
         }
-        if (this.OpenCloseIcon.StateOpen === false) {
+        } else {
             ChildObject.VisibleState = 'hidden';
         }
         ChildObject.setDOMVisibleState();
