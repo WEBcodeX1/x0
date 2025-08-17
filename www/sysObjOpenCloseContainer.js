@@ -46,7 +46,7 @@ sysObjOpenClose.prototype.init = function()
     this.OpenCloseIcon.EventListeners["OpenClose"] = EventListenerObj;
 
     //- setup recursive object structure
-    ObjDefs = [
+    const ObjDefs = [
         {
             "id": "card-ctn",
             "SysObject": new sysObjDiv(),
