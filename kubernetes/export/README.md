@@ -1,0 +1,69 @@
+# Terraform Export
+- terraform-export.sh generates .tf terraform compatible files from running minikube
+
+# Prerequisites / Install
+1. Install terraform (Ubuntu)
+
+```bash
+wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install terraform
+```
+
+2. Install k2tf
+```bash
+install_file="k2tf_0.8.0_Linux_amd64.tar.gz"
+wget https://github.com/sl1pm4t/k2tf/releases/download/v0.8.0/${install_file}
+tar -xvf ${install_file}
+install
+```
+
+3. Run x0 Kubernetes installer
+```bash
+cd ../setup
+python3 Setup.py
+```
+
+4. Create terraform output directory
+```bash
+terraform_dir="~/terraform-test"
+mkdir ${terraform_dir}
+```
+
+5. Init terraform
+```bash
+cd /${terraform_dir} && terraform init
+```
+
+# Current Kubernetes Infrastructure
+- 1 Ingress-NGINX loadbalancer pod
+- 2 x0-app application pods
+- 2 Database pods (binary replication)
+- 1 Selenium test-framework pod
+
+Diagram: ./x0-kubernetes-default-infrastructure.pdf
+
+# Converted Objects
+
+1. global
+
+- (all) namespaces
+- ingress for namespace x0-app
+
+2. namespaces ingress-nginx, kubegres-system and x0-app
+
+- deployments
+- endpoints
+- services
+- pods
+
+# Convert
+4. Run converter script
+```bash
+./terraform-export.sh ${terraform_dir}
+```
+
+# Check Terraform
+```bash
+cd /${terraform_dir} && terraform plan
+```
