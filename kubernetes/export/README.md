@@ -1,8 +1,11 @@
-# Terraform Export
-- terraform-export.sh generates .tf terraform compatible files from running minikube
+# Overview / Terraform Export
+
+Script `./terraform-export.sh` generates .tf HashiCorp Terraform compatible files from the
+running x0 minikube infrastructure.
 
 # Prerequisites / Install
-1. Install terraform (Ubuntu)
+
+1. Install Terraform (Ubuntu)
 
 ```bash
 wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
@@ -11,6 +14,7 @@ sudo apt update && sudo apt install terraform
 ```
 
 2. Install k2tf
+
 ```bash
 install_file="k2tf_0.8.0_Linux_amd64.tar.gz"
 wget https://github.com/sl1pm4t/k2tf/releases/download/v0.8.0/${install_file}
@@ -19,23 +23,27 @@ sudo install -o root -g root -m 0755 ${install_file} /usr/local/bin/${install_fi
 ```
 
 3. Run x0 Kubernetes installer
+
 ```bash
 cd ../setup
 python3 Setup.py
 ```
 
 4. Create terraform output directory
+
 ```bash
 terraform_dir="~/terraform-test"
 mkdir ${terraform_dir}
 ```
 
 5. Init terraform
+
 ```bash
 cd /${terraform_dir} && terraform init
 ```
 
 # Current Kubernetes Infrastructure
+
 - 1 Ingress-NGINX loadbalancer pod
 - 2 x0-app application pods
 - 2 Database pods (binary replication)
@@ -43,24 +51,32 @@ cd /${terraform_dir} && terraform init
 
 Diagram: ./x0-kubernetes-default-infrastructure.pdf
 
-# Converted Objects
+# Objects Being Converted
 
 1. Global
 
-- ingress for namespace x0-app
+- Ingress for namespace x0-app
 
 2. Namespaces ingress-nginx, kubegres-system and x0-app
 
-- deployments
-- services
+- Deployments
+- Services
 
 # Convert
-4. Run converter script
+
+Finally, run converter script.
+
 ```bash
 ./terraform-export.sh ${terraform_dir}
 ```
 
-# Check Terraform
+# Check Working Terraform
+
 ```bash
 cd /${terraform_dir} && terraform plan
 ```
+
+# External References
+
+- (https://github.com/sl1pm4t/k2tf/)[https://github.com/sl1pm4t/k2tf/]
+- (https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)[https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/]
