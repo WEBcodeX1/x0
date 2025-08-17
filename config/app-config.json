@@ -16,7 +16,7 @@
         "repl_password": "changeme",
         "x0_password": "changeme",
         "size": "50Mi",
-        "replicas": 1
+        "replicas": 2
     },
     "test": {
         "selenium": {
@@ -33,7 +33,7 @@
             "kubernetes": {
                 "deployment": {
                     "image": "x0-app",
-                    "replicas": 1,
+                    "replicas": 2,
                     "cpu": "200m",
                     "memory": "512Mi",
                     "autoscale": false
