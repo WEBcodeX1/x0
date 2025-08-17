@@ -53,6 +53,7 @@
 11. [Contributing](#wave-contributing)
 12. [Community & Support](#globe_with_meridians-community--support)
 13. [License](#memo-license)
+14. [References](#link-external-references)
 
 ---
 
@@ -234,6 +235,20 @@ See [./CONTRIBUTING.md](./CONTRIBUTING.md) or open an issue.
 ## :memo: License
 
 AGPL-3.0. See [./LICENSE](./LICENSE).
+
+---
+
+## :link: External References
+
+- [https://kubernetes.io](https://kubernetes.io)
+- [https://www.selenium.dev](https://www.selenium.dev)
+- [https://www.kubegres.io](https://www.kubegres.io)
+- [https://www.sphinx-doc.org](https://www.sphinx-doc.org)
+- [https://www.devuan.org/](https://www.devuan.org/)
+- [https://github.com/sl1pm4t/k2tf](https://github.com/sl1pm4t/k2tf)
+- [https://github.com/WEBcodeX1/http-1.2](https://github.com/WEBcodeX1/http-1.2)
+
+
 
 ---
 
