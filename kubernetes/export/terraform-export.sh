@@ -1,6 +1,11 @@
 #!/bin/sh
 
 dstpath=$1
+if [ -z "$1" ]; then
+    echo "No destination path given, exiting..."
+    exit 1
+fi
+
 echo "Terraform destination (output) path:${dstpath}"
 
 kubectl get ingress -n x0-app -o yaml | k2tf -o ${dstpath}/x0-app-ingress.tf
