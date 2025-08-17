@@ -21,7 +21,7 @@ sudo apt update && sudo apt install terraform
 2. Install k2tf
 
 ```bash
-# get k2f
+# get k2tf
 install_file="k2tf_0.8.0_Linux_amd64.tar.gz"
 wget https://github.com/sl1pm4t/k2tf/releases/download/v0.8.0/${install_file}
 
