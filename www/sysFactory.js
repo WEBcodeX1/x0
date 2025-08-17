@@ -38,7 +38,8 @@ function sysFactory()
         "FormfieldCheckbox": sysFormfieldItemCheckbox,
         "FormfieldLabel": sysFormfieldItemLabel,
         "FormfieldHidden": sysFormfieldItemHidden,
-        "DynRadioList": sysObjDynRadioList
+        "DynRadioList": sysObjDynRadioList,
+        "OpenCloseContainer": sysObjOpenClose
     };
 
     this.SetupClassesRT = {
