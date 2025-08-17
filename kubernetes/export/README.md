@@ -29,7 +29,7 @@ wget https://github.com/sl1pm4t/k2tf/releases/download/v0.8.0/${install_file}
 tar -xvf ${install_file}
 
 # install
-sudo install -o root -g root -m 0755 ${install_file} /usr/local/bin/${install_file}
+sudo install -o root -g root -m 0755 k2tf /usr/local/bin/k2tf
 ```
 
 3. Run x0 Kubernetes installer
