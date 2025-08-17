@@ -29,14 +29,14 @@ cd ../setup
 python3 Setup.py
 ```
 
-4. Create terraform output directory
+4. Create Terraform output directory
 
 ```bash
 terraform_dir="~/terraform-test"
 mkdir ${terraform_dir}
 ```
 
-5. Init terraform
+5. Init Terraform
 
 ```bash
 cd /${terraform_dir} && terraform init
@@ -44,10 +44,10 @@ cd /${terraform_dir} && terraform init
 
 # Current Kubernetes Infrastructure
 
-- 1 Ingress-NGINX loadbalancer pod
-- 2 x0-app application pods
-- 2 Database pods (binary replication)
-- 1 Selenium test-framework pod
+- 1 *Ingress-NGINX* loadbalancer pod
+- 2 *x0-app* application pods
+- 2 *Kubegres* Database pods (binary replication)
+- 1 *Selenium* test-framework pod
 
 Diagram: ./x0-kubernetes-default-infrastructure.pdf
 
@@ -55,12 +55,12 @@ Diagram: ./x0-kubernetes-default-infrastructure.pdf
 
 1. Global
 
-- Ingress for namespace x0-app
+- *Ingress* for namespace x0-app
 
 2. Namespaces ingress-nginx, kubegres-system and x0-app
 
-- Deployments
-- Services
+- *Deployments*
+- *Services*
 
 # Convert
 
