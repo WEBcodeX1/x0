@@ -3,7 +3,6 @@
 dstpath=$1
 echo "Terrarform destination (output) path:${dstpath}"
 
-kubectl get namespaces -o yaml | k2tf -o ${dstpath}/namespaces.tf
 kubectl get ingress -n x0-app -o yaml | k2tf -o ${dstpath}/x0-app-ingress.tf
 
 namespaces=(
@@ -14,9 +13,7 @@ namespaces=(
 
 objects=(
     deployments
-    endpoints
     services
-    pods
 )
 
 for namespace in "${namespaces[@]}"; do

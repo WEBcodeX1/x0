@@ -45,17 +45,14 @@ Diagram: ./x0-kubernetes-default-infrastructure.pdf
 
 # Converted Objects
 
-1. global
+1. Global
 
-- (all) namespaces
 - ingress for namespace x0-app
 
-2. namespaces ingress-nginx, kubegres-system and x0-app
+2. Namespaces ingress-nginx, kubegres-system and x0-app
 
 - deployments
-- endpoints
 - services
-- pods
 
 # Convert
 4. Run converter script
