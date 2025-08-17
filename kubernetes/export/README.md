@@ -49,7 +49,7 @@ cd /${terraform_dir} && terraform init
 - 2 *Kubegres* database pods (binary replication)
 - 1 *Selenium* test-framework pod
 
-Diagram: ./x0-kubernetes-default-infrastructure.pdf
+Diagram: [./x0-kubernetes-default-infrastructure.pdf](./x0-kubernetes-default-infrastructure.pdf)
 
 # Objects Being Converted
 
