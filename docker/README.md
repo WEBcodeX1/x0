@@ -32,5 +32,5 @@ When setting up the docker-network "x0-connect" in `x0-network.sh` script, the s
 `x0-app` container uses ip-address 172.20.0.10, `x0-db` 172.20.0.20.
 
 The `x0-db` is accessible (resolvable) by hostname "mypostgres". The ports 80, 443 and 5432 are
-accesible from localhost (testing, database administration, browser access).
+reachable from localhost (testing, database administration, browser access).
 
