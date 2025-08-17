@@ -57,6 +57,7 @@ HTMLTop = """<!DOCTYPE html>
   <script type="text/javascript" src="/sysObjTabContainer.js"></script>
   <script type="text/javascript" src="/sysObjFormfieldList.js"></script>
   <script type="text/javascript" src="/sysObjDynRadioList.js"></script>
+  <script type="text/javascript" src="/sysObjOpenCloseContainer.js"></script>
   <script type="text/javascript" src="/sysGridGenerator.js"></script>
   <script type="text/javascript" src="/sysFactory.js"></script>
   <script type="text/javascript" src="/sysAsyncNotify.js"></script>
