@@ -78,5 +78,8 @@ cd /${terraform_dir} && terraform plan
 
 # External References
 
-- (https://github.com/sl1pm4t/k2tf/)[https://github.com/sl1pm4t/k2tf/]
-- (https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)[https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/]
+- [https://developer.hashicorp.com/terraform](https://developer.hashicorp.com/terraform)
+- [https://github.com/sl1pm4t/k2tf/](https://github.com/sl1pm4t/k2tf/)
+- [https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
+- [https://www.selenium.dev](https://www.selenium.dev)
+- [https://www.kubegres.io](https://www.kubegres.io)
