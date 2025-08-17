@@ -1,7 +1,7 @@
-#/bin/sh
+#!/bin/sh
 
 dstpath=$1
-echo "Terrarform destination (output) path:${dstpath}"
+echo "Terraform destination (output) path:${dstpath}"
 
 kubectl get ingress -n x0-app -o yaml | k2tf -o ${dstpath}/x0-app-ingress.tf
 
