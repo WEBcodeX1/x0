@@ -179,8 +179,7 @@ http://x0-app.x0.localnet/python/Index.py?appid=example1
 http://x0-app.x0.localnet/python/Index.py?appid=example13
 ```
 
-Take a closer look, from now on, nearly each example contains a descriptive video:
-[./example/README.md](./example/README.md).
+Most examples now include a descriptive video: [./example/README.md](./example/README.md).
 
 ---
 
