@@ -105,7 +105,7 @@ sysObjOpenClose.prototype.toggleVisibleState = function()
         this.RootObject.processChildObjects();
         return;
     }
-    else if (this.StateOpen === false) {
+    else {
         this.StateOpen = true;
         this.DOMValue = '<i class="fa-regular fa-square-caret-down"></i>';
         this.setDOMElementValue();
