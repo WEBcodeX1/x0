@@ -54,7 +54,7 @@ mkdir ${terraform_dir}
 
 ```bash
 # init terraform
-cd /${terraform_dir} && terraform init
+cd ${terraform_dir} && terraform init
 ```
 
 # Current Kubernetes Infrastructure
@@ -89,7 +89,7 @@ Finally, run converter script.
 
 ```bash
 # check terraform syntax
-cd /${terraform_dir} && terraform plan
+cd ${terraform_dir} && terraform plan
 ```
 
 # External References
