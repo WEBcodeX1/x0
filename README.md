@@ -96,7 +96,7 @@ http://x0-app.x0.localnet/python/Index.py
 http://x0-app.x0.localnet/python/Index.py?appid=example7
 ```
 
-Full install details including build instructions: [INSTALL.md](./INSTALL.md).
+Full install details including build instructions: [./INSTALL.md](./INSTALL.md).
 
 ---
 
@@ -146,7 +146,7 @@ Modern browser apps with near desktop power. Backend independence, real-time upd
 **Kubernetes:**
 - Kubegres: [GitHub](https://github.com/reactive-tech/kubegres)
 - Minikube: Partial support on Windows / Linux
-- Install Instructions: [/kubernetes/README.md](/kubernetes/README.md)
+- Install Instructions: [./kubernetes/README.md](./kubernetes/README.md)
 
 **Deployment:**
 - Linux Standalone
@@ -180,7 +180,7 @@ http://x0-app.x0.localnet/python/Index.py?appid=example13
 ```
 
 Take a closer look, from now on, nearly each example contains a descriptive video:
-[/example/README.md](/example/README.md).
+[./example/README.md](./example/README.md).
 
 ---
 
@@ -220,7 +220,7 @@ Partial overview, see [GitHub file search](https://github.com/WEBcodeX1/x0/searc
 ## :wave: Contributing
 
 Contributions & feedback welcome!
-See [CONTRIBUTING.md](./CONTRIBUTING.md) or open an issue.
+See [./CONTRIBUTING.md](./CONTRIBUTING.md) or open an issue.
 
 ---
 
@@ -234,7 +234,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) or open an issue.
 
 ## :memo: License
 
-AGPL-3.0. See [LICENSE](./LICENSE).
+AGPL-3.0. See [./LICENSE](./LICENSE).
 
 ---
 
