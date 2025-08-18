@@ -105,8 +105,8 @@ Full install details including build instructions: [./INSTALL.md](./INSTALL.md).
 
 - **Cross Objects:** Clean OOP, seamless data exchange between clients and network
 - **Responsiveness:** Bootstrap CSS grid, single app for all devices
-- **Object Chaining/Data Abstraction:** Chain objects, enjoy recursive, reusable modeling
-- **Zero Code Duplication/Freedom:** OSI-layer abstraction, minimal backend dependencies
+- **Object Chaining / Data Abstraction:** Chain objects, enjoy recursive, reusable modeling
+- **Zero Code Duplication / Freedom:** OSI-layer abstraction, minimal backend dependencies
 - **Kubernetes Ready:** Google Kubernetes Engine (GKE), Minikube support
 - **Security:** PKCS-compatible, optional advanced PKI system
 
