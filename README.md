@@ -128,7 +128,7 @@ Modern browser apps with near desktop power. Backend independence, real-time upd
 
 ## :mega: Abstract / Purpose
 
-**x0** is designed to make advanced SPA development fun, fast, and maintainable. With zero code duplication and clean OOP, x0 powers complex, modern web applications.
+**x0** is designed to make advanced SPA development fun, fast, and maintainable. With zero code duplication and a clean OOP model, x0 powers complex, modern web applications.
 
 ---
 
