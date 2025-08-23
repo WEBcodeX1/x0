@@ -1,17 +1,17 @@
 .. _appdevconfig:
 
-7. Basic Configuration
-======================
+Application Configuration
+=========================
 
-Unlock the power of x0! This section guides you through setting up your
-SPA with clear, modular, and scalable configurations.
+This section guides you through setting up your Single Page Application (SPA) with clear, modular, and scalable configurations.
 
---------------
+Application Layout
+------------------
 
-7.1. Browser Content Areas
---------------------------
+Browser Content Areas
+~~~~~~~~~~~~~~~~~~~~~~
 
-The *x0-framework* features a modern, three-pane layout:
+The x0 framework features a modern, three-pane layout structure:
 
 1. **Menu Area** – Navigation and commands (DOM id: ``sysMenu``)
 2. **Screen Content Area** – Main display for app content

@@ -1,27 +1,36 @@
 .. _installation:
 
-6. Installation Guide
-=====================
+Installation Guide
+==================
 
-Welcome to the installation guide for the **x0-system**!
+Welcome to the installation guide for the **x0 framework**!
+
+Installation Paths
+------------------
 
 .. note::
-   If your goal is to develop *x0-applications* **only**, you **do not** need to install the full x0-base-system. Instead, start by setting up your own repository using the `x0-skeleton <https://github.com/WEBcodeX1/x0-skeleton>`_ template. Then, see the :ref:`appdevconfig` documentation for instructions on building and configuring your app.
+   **Application Development Only**: If your goal is to develop x0 applications without creating custom system objects, you **do not** need to install the full x0 system. Instead:
+   
+   1. Set up your repository using the `x0-skeleton <https://github.com/WEBcodeX1/x0-skeleton>`_ template
+   2. Follow the :ref:`appdevconfig` documentation for building and configuring your app
 
 .. important::
-   If you plan to create your own *x0-system-objects* for custom use in your applications, **installing the x0-system is mandatory**. Continue reading below.
+   **Custom System Objects**: If you plan to create your own x0 system objects for custom use in your applications, **installing the full x0 system is required**. Continue reading below.
 
-6.1. Supported Environments
----------------------------
+System Requirements
+-------------------
+
+Supported Platforms
+~~~~~~~~~~~~~~~~~~~~
 
 You can use **any Linux distribution** where Debian packages can be built natively (``debuild``):
 
 - Ubuntu 22.04 / 24.04
-- Debian 12
+- Debian 12  
 - Devuan 5
 
 .. tip::
-   Official *x0-system* Docker images are based on **Ubuntu 24.04**.
+   Official x0 Docker images are based on **Ubuntu 24.04**.
 
 6.2. Dependencies
 -----------------
