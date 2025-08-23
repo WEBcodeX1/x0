@@ -11,19 +11,24 @@ get started quickly.
 
 ## List of Examples
 
-- [add_object_table_column](https://github.com/WEBcodeX1/x0/tree/main/example/add_object_table_column)
-- [basic_menu_screen](https://github.com/WEBcodeX1/x0/tree/main/example/basic_menu_screen)
-- [basic_tabcontainer](https://github.com/WEBcodeX1/x0/tree/main/example/basic_tabcontainer)
-- [bootstrap_rowspan](https://github.com/WEBcodeX1/x0/tree/main/example/bootstrap_rowspan)
-- [copy_paste](https://github.com/WEBcodeX1/x0/tree/main/example/copy_paste)
-- [enhanced_form](https://github.com/WEBcodeX1/x0/tree/main/example/enhanced_form)
-- [list_detail_switch_screen](https://github.com/WEBcodeX1/x0/tree/main/example/list_detail_switch_screen)
-- [list_dyn_radio](https://github.com/WEBcodeX1/x0/tree/main/example/list_dyn_radio)
-- [list_objectdata_grid](https://github.com/WEBcodeX1/x0/tree/main/example/list_objectdata_grid)
-- [multi_tabcontainer](https://github.com/WEBcodeX1/x0/tree/main/example/multi_tabcontainer)
-- [net_messages](https://github.com/WEBcodeX1/x0/tree/main/example/net_messages)
-- [object_instances](https://github.com/WEBcodeX1/x0/tree/main/example/object_instances)
-- [screen_overlay](https://github.com/WEBcodeX1/x0/tree/main/example/screen_overlay)
+- [add_object_table_column](https://github.com/WEBcodeX1/x0/tree/main/example/add_object_table_column) - Adding object types as table columns
+- [basic_menu_screen](https://github.com/WEBcodeX1/x0/tree/main/example/basic_menu_screen) - Basic navigation menu implementation
+- [basic_tabcontainer](https://github.com/WEBcodeX1/x0/tree/main/example/basic_tabcontainer) - Simple tabbed interface
+- [bootstrap_rowspan](https://github.com/WEBcodeX1/x0/tree/main/example/bootstrap_rowspan) - Bootstrap grid with rowspan functionality
+- [copy_paste](https://github.com/WEBcodeX1/x0/tree/main/example/copy_paste) - Copy/paste functionality between objects
+- [enhanced_form](https://github.com/WEBcodeX1/x0/tree/main/example/enhanced_form) - Advanced form features and validation
+- [list_detail_switch_screen](https://github.com/WEBcodeX1/x0/tree/main/example/list_detail_switch_screen) - List/detail view switching
+- [list_dyn_radio](https://github.com/WEBcodeX1/x0/tree/main/example/list_dyn_radio) - Dynamic radio button lists
+- [list_objectdata_grid](https://github.com/WEBcodeX1/x0/tree/main/example/list_objectdata_grid) - Object data grid functionality
+- [multi_tabcontainer](https://github.com/WEBcodeX1/x0/tree/main/example/multi_tabcontainer) - Multi-level tabbed containers
+- [net_messages](https://github.com/WEBcodeX1/x0/tree/main/example/net_messages) - Network messaging between sessions
+- [object_instances](https://github.com/WEBcodeX1/x0/tree/main/example/object_instances) - Dynamic object instancing (experimental)
+- [open_close_container](https://github.com/WEBcodeX1/x0/tree/main/example/open_close_container) - Collapsible container sections
+- [screen_overlay](https://github.com/WEBcodeX1/x0/tree/main/example/screen_overlay) - Modal overlay functionality
+
+## Video Demonstrations
+
+Many examples include demonstration videos in `.mkv` format. You can find them in each example directory or download them from the documentation links provided in each example's README.
 
 ## Example Structure
 
