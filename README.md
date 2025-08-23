@@ -36,24 +36,26 @@
 - **Kubernetes Ready**: Easy cloud-native deployment
 - **Security**: PKCS 11/15 compatible, own PKI system (non-free)
 - **Multiple Language Support**: x0 supports multiple display languages
+
 ---
 
 ## :bookmark_tabs: Table of Contents
 
 1. [Quick Start](#racehorse-quick-start)
 2. [Features](#star2-features)
-3. [Documentation](#page_with_curl-documentation)
-4. [Single Page Application](#computer-single-page-application)
-5. [Abstract / Purpose](#mega-abstract--purpose)
-6. [Technical Details](#zap-technical-details)
-7. [Security](#closed_lock_with_key-security)
-8. [Future Plans / Milestones](#alarm_clock-future-plans--milestones)
-9. [Examples](#bulb-examples)
-10. [File & Folder Structure](#file_folder-file--folder-structure)
-11. [Contributing](#wave-contributing)
-12. [Community & Support](#globe_with_meridians-community--support)
-13. [License](#memo-license)
-14. [References](#link-external-references)
+3. [Simple Usage](#pencil-simple-usage)
+4. [Documentation](#page_with_curl-documentation)
+5. [Single Page Application](#computer-single-page-application)
+6. [Abstract / Purpose](#mega-abstract--purpose)
+7. [Technical Details](#zap-technical-details)
+8. [Security](#closed_lock_with_key-security)
+9. [Future Plans / Milestones](#alarm_clock-future-plans--milestones)
+10. [Examples](#bulb-examples)
+11. [File & Folder Structure](#file_folder-file--folder-structure)
+12. [Contributing](#wave-contributing)
+13. [Community & Support](#globe_with_meridians-community--support)
+14. [License](#memo-license)
+15. [References](#link-external-references)
 
 ---
 
@@ -111,6 +113,34 @@ Full install details including build instructions: [./INSTALL.md](./INSTALL.md).
 - **Security:** PKCS-compatible, optional advanced PKI system
 
 Learn more in [Examples](#bulb-examples).
+
+---
+
+## :pencil: Simple Usage
+
+```javascript
+# define new object from already existing
+let myRootObject1 = new sysBaseObject();
+const myObject1 = new sysObjFormfieldItem(JSONConfig);
+const myObject2 = new sysObjLink(JSONConfig);
+const myObject3 = new sysObjButton(JSONConfig);
+myRootObject.addObject(myObject1);
+myRootObject.addObject(myObject2);
+myRootObject.addObject(myObject3);
+
+# register as system object
+sysRegister(myRootObject1, 'MyCoolObject');
+
+# reuse and combine
+let myRootObject2 = new sysBaseObject();
+const myObject4 = new sysObjMyCoolObject(JSONConfig);
+const myObject5 = new sysObjMyCoolObject(JSONConfig);
+myRootObject2.addObject(myObject4);
+myRootObject2.addObject(myObject5);
+
+# render in realtime
+myRootObject2.renderObject();
+```
 
 ---
 
