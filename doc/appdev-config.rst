@@ -1,3 +1,5 @@
+.. _appdevconfig:
+
 7. Basic Configuration
 ======================
 
@@ -293,6 +295,8 @@ Example: Tab Container
    }
 
 --------------
+
+.. _appdevconfig-object-templates:
 
 7.6. Object Templates
 ---------------------

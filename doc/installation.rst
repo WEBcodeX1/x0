@@ -77,7 +77,8 @@ First, install dependencies:
 6.4. Step-by-Step Setup
 -----------------------
 
-1. **Clone the x0 Repository**
+1. Clone the x0 Repository
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    .. code-block:: bash
 
@@ -87,7 +88,8 @@ First, install dependencies:
       # OR: SSH clone (for contributors)
       git clone git@github.com:WEBcodeX1/x0.git
 
-2. **Set Up Debian Build System**
+2. Set Up Debian Build System
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    Generate or import your GPG key for package signing:
 
@@ -107,7 +109,8 @@ First, install dependencies:
 
    Packages and metadata will be in the parent directory.
 
-3. **Configure Docker**
+3. Configure Docker
+~~~~~~~~~~~~~~~~~~~
 
    Add your user to the Docker group:
 
@@ -118,7 +121,10 @@ First, install dependencies:
    .. warning::
       You must restart your shell/session for group changes to take effect.
 
-4. **Pull or Build Docker Images**
+.. _installation_build_docker:
+
+4. Pull or Build Docker Images
+-------------------------------
 
    .. code-block:: bash
 
@@ -131,14 +137,16 @@ First, install dependencies:
       cd ./debian && debuild
       cd ../docker && ./build-all.sh
 
-5. **Start the x0 System**
+5. Start the x0 System
+~~~~~~~~~~~~~~~~~~~~~~
 
    .. code-block:: bash
 
       cd ./docker
       ./x0-start-containers.sh
 
-6. **Develop, Test, and Rebuild**
+6. Develop, Test, and Rebuild
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
    Develop your application, copy files into containers as needed, and rebuild images or restart containers.
 

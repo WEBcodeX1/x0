@@ -105,8 +105,8 @@ Key Features:
     Bootstrap Integration
         Built on Bootstrap 5.3's Grid framework, the *x0-system* provides a reliable
         and well-documented foundation for layout design. Developers can take advantage
-        of Bootstrap's familiar syntax and responsive breakpoints (e.g., "col-sm-*",
-        "col-md-*", "col-lg-*").
+        of Bootstrap's familiar syntax and responsive breakpoints (e.g., ``col-sm-*``,
+        ``col-md-*``, ``col-lg-*``).
 
     Customizability
         The grid system can be easily extended or overridden with custom CSS styles
