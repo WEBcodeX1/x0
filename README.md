@@ -119,7 +119,7 @@ Learn more in [Examples](#bulb-examples).
 ## :pencil: Simple Usage
 
 ```javascript
-# define new object from already existing
+# define object from system objects
 let myRootObject1 = new sysBaseObject();
 const myObject1 = new sysObjFormfieldItem(JSONConfig);
 const myObject2 = new sysObjLink(JSONConfig);
@@ -128,7 +128,7 @@ myRootObject.addObject(myObject1);
 myRootObject.addObject(myObject2);
 myRootObject.addObject(myObject3);
 
-# register as system object
+# register new system object
 sysRegister(myRootObject1, 'MyCoolObject');
 
 # reuse and combine
@@ -138,7 +138,7 @@ const myObject5 = new sysObjMyCoolObject(JSONConfig);
 myRootObject2.addObject(myObject4);
 myRootObject2.addObject(myObject5);
 
-# render in realtime
+# realtime render
 myRootObject2.renderObject();
 ```
 
