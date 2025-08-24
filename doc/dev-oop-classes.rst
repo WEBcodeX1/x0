@@ -764,7 +764,7 @@ Individual notification item within async indicators.
 - ``updateDisplay()``: Refreshes the display
 
 22.12. Specialized UI Components
--------------------------------
+--------------------------------
 
 22.12.1. sysObjFileUpload
 *************************
@@ -797,7 +797,7 @@ Defined in ``sysObjContextMenu.js``. Implements context menu functionality.
 - ``sysContextMenuItem``: Individual menu items
 
 22.13. List and Grid Components
-------------------------------
+-------------------------------
 
 22.13.1. sysList
 ****************
@@ -815,7 +815,7 @@ Individual row component within list structures.
 Defined in ``sysRTPagination.js``. Handles pagination for large datasets.
 
 22.14. Screen Management Classes
--------------------------------
+--------------------------------
 
 22.14.1. sysScreen
 ******************
