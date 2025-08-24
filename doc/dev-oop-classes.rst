@@ -9,8 +9,8 @@ This section provides a comprehensive reference for all JavaScript classes
 in the *x0-framework*. Each class is documented with its constructor,
 properties, methods, and inheritance relationships.
 
-22.1. Core Framework Classes
------------------------------
+22.1. Special Object Classes
+----------------------------
 
 This section contains the most important and fundamental classes of the x0-framework.
 These classes provide essential functionality that forms the backbone of the entire system.
