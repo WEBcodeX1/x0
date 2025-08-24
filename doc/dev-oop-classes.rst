@@ -9,10 +9,16 @@ This section provides a comprehensive reference for all JavaScript classes
 in the *x0-framework*. Each class is documented with its constructor,
 properties, methods, and inheritance relationships.
 
+22.1. Core Framework Classes
+-----------------------------
+
+This section contains the most important and fundamental classes of the x0-framework.
+These classes provide essential functionality that forms the backbone of the entire system.
+
 .. _devoopmodel-classes-baseobj-addobject:
 
-22.1. sysBaseObject.addObject
------------------------------
+22.1.1. sysBaseObject.addObject
+********************************
 
 The ``sysBaseObject.addObject()`` method is responsible for adding a child object to the
 ``ChildObjects`` array of a ``sysBaseObject`` instance. It also establishes the parent-child
@@ -21,8 +27,8 @@ relationship by setting the ``ParentObject`` property of the child object.
 This method is a fundamental part of the ``sysBaseObject`` class, enabling the *x0-framework*
 to handle complex object relationships with ease.
 
-22.1.1. Implementation
-**********************
+22.1.1.1. Implementation
+########################
 
 .. code-block:: javascript
 
@@ -31,8 +37,8 @@ to handle complex object relationships with ease.
         this.ChildObjects.push(ChildObject); // Add the child object to the ChildObjects array
     };
 
-22.1.2. Key Features
-********************
+22.1.1.2. Key Features
+#######################
 
     1. Parent-Child Relationship:
         The method ensures that the ChildObject has a reference to its parent object via the ParentObject property.
@@ -46,8 +52,8 @@ to handle complex object relationships with ease.
     4. Usage:
         The method is used to organize objects in a parent-child relationship, making it easier to manage and traverse object hierarchies.
 
-22.1.3. Example Usage
-*********************
+22.1.1.3. Example Usage
+########################
 
 .. code-block:: javascript
 
@@ -59,22 +65,22 @@ to handle complex object relationships with ease.
     console.log(parentObject.ChildObjects); // Outputs: [childObject]
     console.log(childObject.ParentObject);  // Outputs: parentObject
 
-22.1.3. Use Cases
-*****************
+22.1.1.3. Use Cases
+####################
 
     - Building hierarchical UI components or layouts.
     - Managing nested data structures in an application.
     - Creating parent-child relationships between objects dynamically.
 
-22.2. sysBaseObject.renderObject
---------------------------------
+22.1.2. sysBaseObject.renderObject
+***********************************
 
 The ``sysBaseObject.renderObject()`` method is responsible for rendering a sysBaseObject
 instance and its child objects into the Document Object Model (DOM). Below is a detailed
 description of its functionality:
 
-22.2.1. Method Implementation
-*****************************
+22.1.2.1. Method Implementation
+################################
 
 .. code-block:: javascript
 
@@ -108,8 +114,8 @@ description of its functionality:
         }
     };
 
-22.2.2. Key Features
-********************
+22.1.2.2. Key Features
+#######################
 
     1. DOM Object ID Generation:
         The method generates a unique DOMObjectID for the object based on its ObjectID and an optional ``Prefix``.
@@ -134,14 +140,14 @@ description of its functionality:
     5. Recursive Rendering:
         Iterates over the ChildObjects array and invokes renderObject() on each child, propagating the rendering process recursively.
 
-22.2.3. Use Cases
-*****************
+22.1.2.3. Use Cases
+####################
 
     Dynamically rendering UI components and their nested child elements into the browser's DOM.
     Managing hierarchical structures where parent and child relationships need to be reflected in the DOM.
 
-22.2.4. Example Usage
-*********************
+22.1.2.4. Example Usage
+########################
 
 .. code-block:: javascript
 
@@ -157,8 +163,8 @@ description of its functionality:
     //- this.appendDOMParentElement();
     //- => recursive renders 2 DOM divs
 
-22.2.5. Conclusion
-******************
+22.1.2.5. Conclusion
+#####################
 
 The ``renderObject()`` method is a fundamental part of the ``sysBaseObject`` class, enabling dynamic
 and recursive rendering of object hierarchies in the *x0-framework*. It ensures efficient DOM manipulation
@@ -166,30 +172,30 @@ and encapsulates all rendering logic for both parent and child objects.
 
 .. _devoopmodel-classes-baseobj-remove:
 
-22.3. sysBaseObject.remove
---------------------------
+22.1.3. sysBaseObject.remove
+*****************************
 
 .. _devoopmodel-classes-baseobj-removeparent:
 
-22.4. sysBaseObject.removeParent
---------------------------------
+22.1.4. sysBaseObject.removeParent
+***********************************
 
-22.4.1. Purpose
-***************
+22.1.4.1. Purpose
+##################
 
 The ``removeParent()`` method is used to remove an object's parent relationship and its
 associated DOM elements. This ensures that the object is detached from its parent both
 logically (in the object hierarchy) and visually (in the DOM).
 
-22.4.2. Method Signature
-************************
+22.1.4.2. Method Signature
+###########################
 
 .. code-block:: javascript
 
     sysBaseObject.prototype.removeParent = function()
 
-22.4.3. How It Works
-********************
+22.1.4.3. How It Works
+#######################
 
     * DOM Element Removal:
         Checks if the DOM element associated with the object exists.
@@ -202,8 +208,8 @@ logically (in the object hierarchy) and visually (in the DOM).
     * Error Handling:
         Catches and logs any errors that occur during the removal process.
 
-22.4.4. Usage Example
-*********************
+22.1.4.4. Usage Example
+########################
 
 Suppose you have a hierarchical structure of objects (e.g., a parent object with multiple children).
 If you need to remove a parent object along with its DOM representation, you can call the removeParent() method.
@@ -214,8 +220,8 @@ If you need to remove a parent object along with its DOM representation, you can
     const parentObject = sysFactory.getObjectByID('parent-id');
     parentObject.removeParent();
 
-22.4.5. Code Walkthrough
-************************
+22.1.4.5. Code Walkthrough
+###########################
 
 .. code-block:: javascript
 
@@ -236,8 +242,8 @@ If you need to remove a parent object along with its DOM representation, you can
         }
     };
 
-22.4.6. Key Points
-******************
+22.1.4.6. Key Points
+#####################
 
     1. DOM Management:
         Ensures that any associated DOM elements are properly removed to avoid memory leaks.
@@ -248,22 +254,22 @@ If you need to remove a parent object along with its DOM representation, you can
     3. Error Resilience:
         Handles potential errors gracefully, ensuring that the application remains stable.
 
-22.4.7. When to Use
-*******************
+22.1.4.7. When to Use
+######################
 
     - Use removeParent() when you need to:
         Detach an object and its associated DOM element from the object hierarchy.
         Clean up resources associated with an object.
 
-22.5. sysFactory.setupObjectRefsRecursive
------------------------------------------
+22.1.5. sysFactory.setupObjectRefsRecursive
+********************************************
 
 The ``sysFactory.setupObjectRefsRecursive()`` method is a utility method in the *x0-framework*
 designed to create and configure hierarchical object structures. It recursively processes
 object definitions, initializes objects, and establishes parent-child relationships.
 
-22.5.1. Purpose
-***************
+22.1.5.1. Purpose
+##################
 
 The purpose of ``setupObjectRefsRecursive`` is to:
 
@@ -272,15 +278,15 @@ The purpose of ``setupObjectRefsRecursive`` is to:
     * Establish parent-child relationships between objects.
     * Allow nested objects to be recursively processed and added to their respective parents.
 
-22.5.2. Function Signature
-**************************
+22.1.5.2. Function Signature
+#############################
 
 .. code-block:: javascript
 
     sysFactory.prototype.setupObjectRefsRecursive = function(ObjDefs, RefObj)
 
-22.5.3. Parameters
-******************
+22.1.5.3. Parameters
+#####################
 
     - ObjDefs:
         An array of object definitions, where each definition specifies the id, SysObject, JSONAttributes, and optionally nested ObjectDefs.
@@ -288,8 +294,8 @@ The purpose of ``setupObjectRefsRecursive`` is to:
     - RefObj:
         The parent object to which the processed objects will be added as children.
 
-22.5.4. Example
-***************
+22.1.5.4. Example
+##################
 
 .. code-block:: javascript
 
@@ -308,8 +314,8 @@ The purpose of ``setupObjectRefsRecursive`` is to:
         }
     ]
 
-22.5.5. How It Works
-********************
+22.1.5.5. How It Works
+#######################
 
     1. Iterate Through ObjDefs:
         The function loops through each object definition in the ObjDefs array.
@@ -329,8 +335,8 @@ The purpose of ``setupObjectRefsRecursive`` is to:
     5. Process Nested Objects:
         If the current object contains additional nested objects (ObjectDefs), the function recursively calls itself, passing the nested definitions and the current object as the new parent.
 
-22.5.6. Code Walkthrough
-************************
+22.1.5.6. Code Walkthrough
+###########################
 
 .. code-block:: javascript
 
@@ -358,8 +364,8 @@ The purpose of ``setupObjectRefsRecursive`` is to:
         }
     }
 
-22.5.7. Example Usage
-*********************
+22.1.5.7. Example Usage
+########################
 
 - Scenario:
 
@@ -407,8 +413,8 @@ You want to create a parent container with a button and a nested text field.
     A container (sysObjDiv) is created with a button (sysObjButton) and a text field (sysFormfieldItemText) nested inside it.
     Each object is initialized, configured, and added to its parent.
 
-22.5.8. Key Features
-********************
+22.1.5.8. Key Features
+#######################
 
     1. Recursive Object Setup:
         Automatically handles deeply nested object hierarchies.
@@ -423,8 +429,8 @@ You want to create a parent container with a button and a nested text field.
     4. Error Handling:
         Catches initialization errors without disrupting the overall process.
 
-22.5.9. Important Notes
-***********************
+22.1.5.9. Important Notes
+#########################
 
     * Object Definitions:
         Ensure that each object definition specifies the correct SysObject type and necessary attributes.
@@ -438,8 +444,8 @@ You want to create a parent container with a button and a nested text field.
     * Performance:
         For deeply nested hierarchies, the recursive nature of the function may impact performance. Optimize object definitions to minimize unnecessary nesting.
 
-22.5.10. Conclusion
-*******************
+22.1.5.10. Conclusion
+######################
 
 The setupObjectRefsRecursive method is a powerful utility for dynamically creating and
 configuring hierarchical object structures in the *x0-framework*. By leveraging this method,
@@ -447,8 +453,8 @@ developers can efficiently build complex UI components with minimal manual effor
 
 .. _devoopmodel-classes-buttoncallback:
 
-22.6. sysObjButtonCallback
---------------------------
+22.1.6. sysObjButtonCallback
+*****************************
 
 The file ``sysObjButtonCallback.js`` defines a system object called ``sysObjButtonCallback``,
 which extends the functionality of a button element with callback capabilities.
@@ -456,8 +462,8 @@ which extends the functionality of a button element with callback capabilities.
 This object is designed to create buttons with custom callbacks, making it easier to handle
 button-specific actions in a modular and object-oriented way.
 
-22.6.1. Key Features and Methods
-********************************
+22.1.6.1. Key Features and Methods
+###################################
 
     1. Constructor (``sysObjButtonCallback``):
         Initializes the object with:
@@ -481,13 +487,13 @@ button-specific actions in a modular and object-oriented way.
     4. EventListenerClick Method:
         Handles the click event by invoking the callback function (``CallbackFunction``) on the CallbackObject with the provided arguments (``CallbackArguments``).
 
-22.7. sysBaseDOMElement
------------------------
+22.1.7. sysBaseDOMElement
+**************************
 
 Defined in ``sysBaseDOMElement.js``, which defines a base system object for handling DOM elements:
 
-22.7.1. Key Methods and Their Purpose
-*************************************
+22.1.7.1. Key Methods and Their Purpose
+########################################
 
     1. createDOMElement:
         Creates a new DOM element based on the DOMType property and assigns it an ID.
@@ -564,13 +570,13 @@ Defined in ``sysBaseDOMElement.js``, which defines a base system object for hand
     25.getElement:
         Helper method to fetch the DOM element using its ID.
 
-22.8. UI Object Classes
+22.2. UI Object Classes
 -----------------------
 
 The following classes represent user interface components and widgets that extend
 the base functionality to provide specific UI elements.
 
-22.8.1. sysObjButton
+22.2.1. sysObjButton
 ********************
 
 Defined in ``sysObjButton.js``. Creates interactive button elements with event handling
@@ -593,7 +599,7 @@ and service connectivity capabilities.
 - ``callService()``: Makes service calls
 - ``validateForm()``: Validates associated forms
 
-22.8.2. sysObjDiv
+22.2.2. sysObjDiv
 *****************
 
 Defined in ``sysObjDiv.js``. Creates div container elements for layout and grouping.
@@ -605,7 +611,7 @@ Defined in ``sysObjDiv.js``. Creates div container elements for layout and group
 - ``init()``: Initializes the div container
 - ``reset()``: Resets the container state
 
-22.8.3. sysObjTabContainer
+22.2.3. sysObjTabContainer
 **************************
 
 Defined in ``sysObjTabContainer.js``. Implements tabbed interface functionality.
@@ -621,26 +627,26 @@ Defined in ``sysObjTabContainer.js``. Implements tabbed interface functionality.
 - ``addTabs()``: Adds tabs to the container
 - ``getTabByTabID(TabID)``: Retrieves tab by ID
 
-22.8.4. sysObjLink
+22.2.4. sysObjLink
 ******************
 
 Defined in ``sysObjLink.js``. Creates navigation links and clickable elements.
 
 **Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
 
-22.8.5. sysObjSQLText
+22.2.5. sysObjSQLText
 *********************
 
 Defined in ``sysObjSQLText.js``. Displays text content loaded from database sources.
 
 **Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
 
-22.9. Form Component Classes
+22.3. Form Component Classes
 ----------------------------
 
 These classes handle form elements, validation, and user input processing.
 
-22.9.1. sysFormfieldItem
+22.3.1. sysFormfieldItem
 ************************
 
 Defined in ``sysObjFormfieldItem.js``. Base class for form field components.
@@ -653,22 +659,22 @@ Defined in ``sysObjFormfieldItem.js``. Base class for form field components.
 - ``ValidationStatus``: Current validation state
 - ``Required``: Whether field is required
 
-22.9.2. sysFormfieldItemText
+22.3.2. sysFormfieldItemText
 ****************************
 
 Text input field component for single-line text entry.
 
-22.9.3. sysFormfieldItemTextarea
+22.3.3. sysFormfieldItemTextarea
 ********************************
 
 Multi-line text input component for longer text content.
 
-22.9.4. sysFormfieldItemPulldown
+22.3.4. sysFormfieldItemPulldown
 ********************************
 
 Dropdown/select component for choosing from predefined options.
 
-22.9.5. sysFormFieldValidate
+22.3.5. sysFormFieldValidate
 ****************************
 
 Defined in ``sysFormfieldValidate.js``. Provides comprehensive form validation functionality.
@@ -681,12 +687,12 @@ Defined in ``sysFormfieldValidate.js``. Provides comprehensive form validation f
 - ``IPv4Address()``: Validates IPv4 addresses
 - ``DateInternational()``: Validates international date formats
 
-22.10. System Utility Classes
+22.4. System Utility Classes
 -----------------------------
 
 These classes provide core system functionality and utilities.
 
-22.10.1. sysFactory
+22.4.1. sysFactory
 *******************
 
 Defined in ``sysFactory.js``. Central factory class managing screens, objects, and navigation.
@@ -699,7 +705,7 @@ Defined in ``sysFactory.js``. Central factory class managing screens, objects, a
 - ``getObjectByID()``: Retrieves objects by identifier
 - ``setupObjectRefsRecursive(ObjDefs, RefObj)``: Creates hierarchical object structures
 
-22.10.2. sysXMLRPCRequest
+22.4.2. sysXMLRPCRequest
 *************************
 
 Defined in ``sysXMLRPCRequest.js``. Handles XML-RPC communication with backend services.
@@ -710,7 +716,7 @@ Defined in ``sysXMLRPCRequest.js``. Handles XML-RPC communication with backend s
 - ``setRequestBasicAuth()``: Configures basic authentication
 - ``Request()``: Executes the XML-RPC request
 
-22.10.3. sysGridGenerator
+22.4.3. sysGridGenerator
 *************************
 
 Defined in ``sysGridGenerator.js``. Generates CSS Grid layouts programmatically.
@@ -724,7 +730,7 @@ Defined in ``sysGridGenerator.js``. Generates CSS Grid layouts programmatically.
 - ``ColIndexGenerator()``: Generates column indices
 - ``RowIndexGenerator()``: Generates row indices
 
-22.10.4. sysText
+22.4.4. sysText
 ****************
 
 Defined in ``sysText.js``. Manages internationalization and text resources.
@@ -736,12 +742,12 @@ Defined in ``sysText.js``. Manages internationalization and text resources.
 - ``getTextObjectByID()``: Retrieves text by identifier
 - ``getTextBySystemLanguage()``: Gets localized text
 
-22.11. Async Notification Classes
+22.5. Async Notification Classes
 ---------------------------------
 
 These classes handle asynchronous notifications and status indicators.
 
-22.11.1. sysObjAsyncNotifyIndicator
+22.5.1. sysObjAsyncNotifyIndicator
 ***********************************
 
 Defined in ``sysAsyncNotifyIndicator.js``. Creates visual indicators for async operations.
@@ -752,7 +758,7 @@ Defined in ``sysAsyncNotifyIndicator.js``. Creates visual indicators for async o
 - ``addMsgItem()``: Adds message items
 - ``getMsgItemByName()``: Retrieves items by name
 
-22.11.2. sysObjAsyncNotifyIndicatorItem
+22.5.2. sysObjAsyncNotifyIndicatorItem
 ***************************************
 
 Individual notification item within async indicators.
@@ -763,20 +769,20 @@ Individual notification item within async indicators.
 - ``setDisplayText()``: Sets display text
 - ``updateDisplay()``: Refreshes the display
 
-22.12. Specialized UI Components
+22.6. Specialized UI Components
 --------------------------------
 
-22.12.1. sysObjFileUpload
+22.6.1. sysObjFileUpload
 *************************
 
 Defined in ``sysObjFileUpload.js``. Handles file upload functionality.
 
-22.12.2. sysObjOpenClose
+22.6.2. sysObjOpenClose
 ************************
 
 Defined in ``sysObjOpenCloseContainer.js``. Creates collapsible/expandable containers.
 
-22.12.3. sysObjDynRadioList
+22.6.3. sysObjDynRadioList
 ***************************
 
 Defined in ``sysObjDynRadioList.js``. Dynamic radio button list component.
@@ -786,7 +792,7 @@ Defined in ``sysObjDynRadioList.js``. Dynamic radio button list component.
 - ``sysObjDynRadioListRow``: Individual radio button row
 - ``sysObjDynRadioList``: Container for dynamic radio list
 
-22.12.4. sysContextMenu
+22.6.4. sysContextMenu
 ***********************
 
 Defined in ``sysObjContextMenu.js``. Implements context menu functionality.
@@ -796,28 +802,28 @@ Defined in ``sysObjContextMenu.js``. Implements context menu functionality.
 - ``sysContextMenu``: Main context menu container
 - ``sysContextMenuItem``: Individual menu items
 
-22.13. List and Grid Components
+22.7. List and Grid Components
 -------------------------------
 
-22.13.1. sysList
+22.7.1. sysList
 ****************
 
 Defined in ``sysObjList.js``. Creates data lists with pagination and filtering.
 
-22.13.2. sysListRow
+22.7.2. sysListRow
 *******************
 
 Individual row component within list structures.
 
-22.13.3. sysPagination
+22.7.3. sysPagination
 **********************
 
 Defined in ``sysRTPagination.js``. Handles pagination for large datasets.
 
-22.14. Screen Management Classes
+22.8. Screen Management Classes
 --------------------------------
 
-22.14.1. sysScreen
+22.8.1. sysScreen
 ******************
 
 Defined in ``sysScreen.js``. Manages individual application screens.
@@ -828,7 +834,7 @@ Defined in ``sysScreen.js``. Manages individual application screens.
 - ``setupObject()``: Sets up screen objects
 - ``triggerGlobalDataLoad()``: Loads global data
 
-22.14.2. sysScreenOverlay
+22.8.2. sysScreenOverlay
 *************************
 
 Defined in ``sysScreenOverlay.js``. Manages modal overlays and dialogs.
