@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>x0 Framework - Real-time Consistency Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .upload-progress {
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 5px 0;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            animation: progress-animation 2s ease-in-out;
+            transition: width 0.3s ease;
+        }
+        .upload-item {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            background: #f8f9fa;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-uploading { background-color: #ffc107; animation: pulse 1s infinite; }
+        .status-completed { background-color: #28a745; }
+        .status-pending { background-color: #6c757d; }
+        .page-indicator {
+            background: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        @keyframes progress-animation {
+            from { background-position: 0 0; }
+            to { background-position: 40px 0; }
+        }
+        .list-container {
+            max-height: 500px;
+            overflow-y: auto;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            background: white;
+        }
+        .pagination-demo {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center mb-4">
+                    <i class="fas fa-upload text-primary"></i>
+                    x0 Framework: Real-time File Upload Consistency Demo
+                </h1>
+                <p class="lead text-center">
+                    Demonstrating real-time consistency across paginated lists during multiple simultaneous file uploads
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5><i class="fas fa-list"></i> Document List with File Upload</h5>
+                        <div class="pagination-demo">
+                            <span class="page-indicator">Page 1 of 3</span>
+                            <span class="ms-3">Items 1-8 of 24</span>
+                            <button class="btn btn-sm btn-outline-light ms-3" onclick="navigatePage(-1)">
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <button class="btn btn-sm btn-outline-light ms-2" onclick="navigatePage(1)">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-container" id="documentList">
+                            <!-- List items will be generated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5><i class="fas fa-tasks"></i> Upload Status Monitor</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="uploadStatus">
+                            <p class="text-muted">Multiple uploads in progress...</p>
+                        </div>
+                        <button class="btn btn-success btn-sm" onclick="startBulkUpload()">
+                            <i class="fas fa-rocket"></i> Start Bulk Upload Demo
+                        </button>
+                        <button class="btn btn-warning btn-sm ms-2" onclick="resetDemo()">
+                            <i class="fas fa-refresh"></i> Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card mt-3">
+                    <div class="card-header bg-info text-white">
+                        <h5><i class="fas fa-info-circle"></i> Demo Features</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success"></i> Real-time upload progress</li>
+                            <li><i class="fas fa-check text-success"></i> Pagination during uploads</li>
+                            <li><i class="fas fa-check text-success"></i> Consistent state across pages</li>
+                            <li><i class="fas fa-check text-success"></i> Multiple simultaneous uploads</li>
+                            <li><i class="fas fa-check text-success"></i> Live status updates</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="alert alert-info">
+                    <h5><i class="fas fa-lightbulb"></i> How it works:</h5>
+                    <p class="mb-0">
+                        This demo simulates the x0 framework's real-time consistency features. When file uploads are initiated, 
+                        you can navigate between pages and the upload status remains consistent. The framework maintains 
+                        object state across page transitions, ensuring a seamless user experience during long-running operations.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentPage = 1;
+        const totalPages = 3;
+        const itemsPerPage = 8;
+        let uploads = {};
+        let uploadCounter = 1;
+
+        // Sample document data
+        const documents = [
+            { id: 1, name: "Annual Report 2024.pdf", size: "2.4 MB", type: "PDF" },
+            { id: 2, name: "Marketing Presentation.pptx", size: "15.7 MB", type: "PowerPoint" },
+            { id: 3, name: "Financial Statements.xlsx", size: "890 KB", type: "Excel" },
+            { id: 4, name: "Project Documentation.docx", size: "3.2 MB", type: "Word" },
+            { id: 5, name: "Database Backup.sql", size: "45.6 MB", type: "SQL" },
+            { id: 6, name: "Website Images.zip", size: "12.3 MB", type: "Archive" },
+            { id: 7, name: "Legal Contracts.pdf", size: "1.8 MB", type: "PDF" },
+            { id: 8, name: "User Manual.pdf", size: "4.5 MB", type: "PDF" },
+            { id: 9, name: "Training Videos.mp4", size: "89.2 MB", type: "Video" },
+            { id: 10, name: "Client Proposals.docx", size: "2.1 MB", type: "Word" },
+            { id: 11, name: "System Logs.txt", size: "567 KB", type: "Text" },
+            { id: 12, name: "Configuration Files.json", size: "234 KB", type: "JSON" },
+            { id: 13, name: "Source Code.zip", size: "23.4 MB", type: "Archive" },
+            { id: 14, name: "Meeting Minutes.docx", size: "1.2 MB", type: "Word" },
+            { id: 15, name: "Product Catalog.pdf", size: "7.8 MB", type: "PDF" },
+            { id: 16, name: "Survey Results.csv", size: "445 KB", type: "CSV" },
+            { id: 17, name: "Design Mockups.psd", size: "34.5 MB", type: "Photoshop" },
+            { id: 18, name: "Email Templates.html", size: "123 KB", type: "HTML" },
+            { id: 19, name: "Inventory Report.xlsx", size: "1.9 MB", type: "Excel" },
+            { id: 20, name: "Security Audit.pdf", size: "3.7 MB", type: "PDF" },
+            { id: 21, name: "Performance Metrics.json", size: "678 KB", type: "JSON" },
+            { id: 22, name: "Backup Scripts.sh", size: "45 KB", type: "Shell" },
+            { id: 23, name: "API Documentation.md", size: "234 KB", type: "Markdown" },
+            { id: 24, name: "Test Results.xml", size: "789 KB", type: "XML" }
+        ];
+
+        function getPageData() {
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            return documents.slice(start, end);
+        }
+
+        function renderList() {
+            const container = document.getElementById('documentList');
+            const pageData = getPageData();
+            
+            container.innerHTML = pageData.map(doc => `
+                <div class="upload-item">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center">
+                                <span class="status-indicator ${getUploadStatus(doc.id)}"></span>
+                                <div>
+                                    <strong>${doc.name}</strong><br>
+                                    <small class="text-muted">${doc.size} • ${doc.type}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            ${getUploadProgressHtml(doc.id)}
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-sm btn-primary" onclick="startUpload(${doc.id})" 
+                                    ${uploads[doc.id] ? 'disabled' : ''}>
+                                <i class="fas fa-upload"></i>
+                                ${uploads[doc.id] ? 'Uploading...' : 'Upload'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            updatePaginationInfo();
+        }
+
+        function getUploadStatus(docId) {
+            if (!uploads[docId]) return 'status-pending';
+            if (uploads[docId].progress < 100) return 'status-uploading';
+            return 'status-completed';
+        }
+
+        function getUploadProgressHtml(docId) {
+            if (!uploads[docId]) return '<small class="text-muted">Ready to upload</small>';
+            
+            const progress = uploads[docId].progress;
+            return `
+                <div class="upload-progress">
+                    <div class="progress-bar" style="width: ${progress}%"></div>
+                </div>
+                <small>${progress}% complete</small>
+            `;
+        }
+
+        function updatePaginationInfo() {
+            const indicator = document.querySelector('.page-indicator');
+            indicator.textContent = `Page ${currentPage} of ${totalPages}`;
+            
+            const start = (currentPage - 1) * itemsPerPage + 1;
+            const end = Math.min(currentPage * itemsPerPage, documents.length);
+            document.querySelector('.pagination-demo span:nth-child(2)').textContent = 
+                `Items ${start}-${end} of ${documents.length}`;
+        }
+
+        function navigatePage(direction) {
+            const newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                renderList();
+                
+                // Highlight that uploads continue across pages
+                setTimeout(() => {
+                    const uploadingItems = Object.keys(uploads).filter(id => uploads[id].progress < 100);
+                    if (uploadingItems.length > 0) {
+                        showToast(`${uploadingItems.length} uploads continue on page ${currentPage}`);
+                    }
+                }, 300);
+            }
+        }
+
+        function startUpload(docId) {
+            if (uploads[docId]) return;
+            
+            uploads[docId] = {
+                progress: 0,
+                startTime: Date.now(),
+                id: uploadCounter++
+            };
+            
+            renderList();
+            updateUploadStatus();
+            simulateUpload(docId);
+        }
+
+        function simulateUpload(docId) {
+            const upload = uploads[docId];
+            const totalTime = Math.random() * 8000 + 3000; // 3-11 seconds
+            const interval = 200;
+            const progressStep = (100 / totalTime) * interval;
+            
+            const progressInterval = setInterval(() => {
+                upload.progress += progressStep;
+                
+                if (upload.progress >= 100) {
+                    upload.progress = 100;
+                    clearInterval(progressInterval);
+                    showToast(`Upload completed: ${documents[docId-1].name}`);
+                }
+                
+                renderList();
+                updateUploadStatus();
+            }, interval);
+        }
+
+        function startBulkUpload() {
+            // Start uploads for 3-5 random documents from current page
+            const pageData = getPageData();
+            const uploadCount = Math.floor(Math.random() * 3) + 3;
+            const shuffled = [...pageData].sort(() => 0.5 - Math.random());
+            
+            for (let i = 0; i < Math.min(uploadCount, shuffled.length); i++) {
+                if (!uploads[shuffled[i].id]) {
+                    setTimeout(() => startUpload(shuffled[i].id), i * 500);
+                }
+            }
+            
+            showToast(`Starting ${uploadCount} simultaneous uploads...`);
+        }
+
+        function resetDemo() {
+            uploads = {};
+            uploadCounter = 1;
+            renderList();
+            updateUploadStatus();
+            showToast('Demo reset - all uploads cleared');
+        }
+
+        function updateUploadStatus() {
+            const activeUploads = Object.keys(uploads).filter(id => uploads[id].progress < 100);
+            const completedUploads = Object.keys(uploads).filter(id => uploads[id].progress === 100);
+            
+            const statusHtml = `
+                <div class="mb-2">
+                    <strong>Active Uploads:</strong> ${activeUploads.length}
+                </div>
+                <div class="mb-2">
+                    <strong>Completed:</strong> ${completedUploads.length}
+                </div>
+                <div class="mb-2">
+                    <strong>Total:</strong> ${Object.keys(uploads).length}
+                </div>
+                <hr>
+                <div class="small text-muted">
+                    Navigate between pages to see uploads persist across the entire application state.
+                </div>
+            `;
+            
+            document.getElementById('uploadStatus').innerHTML = statusHtml;
+        }
+
+        function showToast(message) {
+            // Simple toast notification
+            const toast = document.createElement('div');
+            toast.className = 'position-fixed top-0 end-0 p-3';
+            toast.style.zIndex = '1050';
+            toast.innerHTML = `
+                <div class="toast show" role="alert">
+                    <div class="toast-body bg-info text-white">
+                        <i class="fas fa-info-circle"></i> ${message}
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Initialize the demo
+        document.addEventListener('DOMContentLoaded', function() {
+            renderList();
+            updateUploadStatus();
+            
+            // Start a demo upload after a brief delay
+            setTimeout(() => {
+                showToast('Welcome! This demo shows real-time upload consistency across paginated lists.');
+                setTimeout(() => startUpload(2), 2000);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
