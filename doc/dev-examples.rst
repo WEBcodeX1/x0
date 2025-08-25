@@ -79,7 +79,10 @@ Place the scripts in: ``/examples/example_app/python/``.
 After storing your example *x0-application* configuration in the correct locations,
 *x0-system* must be re-built. This happens automatically when you build all docker images.
 
-Refer to the relevant section :ref:`installation_build_docker` for instructions.
+Refer to the relevant sections for instructions:
+
+- https://github.com/WEBcodeX1/x0/blob/main/docker/README.md
+- https://github.com/WEBcodeX1/x0/blob/main/debian/README.md
 
 After building, restart the *x0-system*:
 

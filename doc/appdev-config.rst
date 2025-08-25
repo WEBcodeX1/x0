@@ -1,3 +1,7 @@
+.. appdev-config
+
+.. _appdevconfig:
+
 7. Basic Configuration
 ======================
 
