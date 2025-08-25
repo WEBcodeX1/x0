@@ -104,7 +104,7 @@ script directory: ``./test/integration/python/${script_name}.py``.
 
 After storing your test *x0-application* configuration in the correct locations,
 *x0-system* must be re-built. This happens automatically when you build all docker images.
-Refer to the relevant section :ref:`installation_build_docker` for instructions.
+Refer to https://github.com/WEBcodeX1/x0/tree/main/docker for detailed instructions.
 
 See :ref:`appdeployment-tests` how to start tests after building.
 

@@ -316,7 +316,7 @@ After object-modeling has been finished, it must be added to the *x0-system*.
 26.11.1. User Object Runtime Import
 ***********************************
 
-Refer to: :ref:`appdevconfig-object-templates`.
+Checkout the instructions / examples provided at https://github.com/WEBcodeX1/x0-skeleton.
 
 26.11.2. System Core Object
 ***************************

@@ -46,11 +46,11 @@ The messaging system consists of three main components:
 
 .. code-block:: text
 
-    Client A                 Messaging Server              Client B
-       |                          |                          |
-       |-- POST message data ---->|                          |
+    Client A                 Messaging Server            Client B
+       |                          |                         |
+       |-- POST message data ---->|                         |
        |                          |-- store message ------->|
-       |<-- confirmation ---------|                          |
+       |<-- confirmation ---------|                         |
        |                          |<-- GET polling request--|
        |                          |-- return messages ----->|
        |                          |-- delete messages ----->|
