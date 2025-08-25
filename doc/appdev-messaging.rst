@@ -1,76 +1,372 @@
 .. appdev-messaging
 
-18. Messaging
-=============
+.. _appdev-messaging:
 
-18.1. Intro
------------
+18. Messaging System
+====================
 
-Messaging is used to transfer JSON Object-Data between Network Clients including
-notification messages.
+18.1. Overview
+--------------
 
-To enable local messaging functionality a docker container using
-https://github.com/clauspruefer/micro-msg-server has been set up.
+The *x0-messaging-system* provides real-time communication capabilities between browser
+clients, enabling the transfer of JSON object data and notification messages across
+network connections. This system facilitates multi-user collaboration, real-time data
+synchronization, and interactive web applications.
+
+The messaging infrastructure is built around a lightweight micro-messaging server that
+handles message routing, session management, and delivery between connected clients.
+
+**Key Features:**
+
+* Real-time JSON object data exchange
+* Session-based message routing
+* Long-polling communication mechanism
+* Cross-browser client communication
+* Docker containerized deployment
+* Integration with *x0-framework* objects
+
+18.2. Architecture
+------------------
+
+The messaging system consists of three main components:
+
+**18.2.1. Client-Side Components**
+
+* **sysAsyncNotifyMsgHandler**: JavaScript client that manages message polling and processing
+* **sysXMLRPCRequest**: Handles HTTP communication with the messaging server
+* **Session Management**: Tracks user sessions and message routing
+
+**18.2.2. Messaging Server**
+
+* **MsgHandler.py**: WSGI application handling HTTP requests from clients
+* **MessagingServer.py**: Core message processing and routing logic
+* **Unix Socket Communication**: Internal communication between components
+
+**18.2.3. Communication Flow**
+
+.. code-block:: text
+
+    Client A                 Messaging Server              Client B
+       |                          |                          |
+       |-- POST message data ---->|                          |
+       |                          |-- store message ------->|
+       |<-- confirmation ---------|                          |
+       |                          |<-- GET polling request--|
+       |                          |-- return messages ----->|
+       |                          |-- delete messages ----->|
+
+**18.2.4. Technical Implementation**
+
+The system uses HTTP long-polling with a 10-second timeout for real-time communication.
+Messages are temporarily stored in memory and delivered to destination sessions through
+continuous polling requests.
 
 .. note::
 
-    Docker networking has limitations, so running the messaging server on port
-    8080 is the only option to run *x0-app* and *x0-msg-server* in parallel.
+    WebSocket implementation is planned for future releases to improve efficiency
+    and reduce server load.
 
-18.2. Start Server
-------------------
+18.3. Setup and Installation
+-----------------------------
 
-Start the messaging server with the following commands.
+**18.3.1. Prerequisites**
+
+* Docker environment
+* *x0-app* container running
+* Network connectivity between containers
+
+**18.3.2. Server Installation**
+
+Download and start the messaging server:
 
 .. code-block:: bash
 
-	# start messaging server
-	cd ./docker
+    # Download message server image
+    curl -o docker.x0-msg-server.tar https://docker.webcodex.de/x0/docker.x0-msg-server.tar
+
+    # Load Docker image
+    docker load < docker.x0-msg-server.tar
+
+    # Start messaging server
+    cd ./docker
     ./x0-start-msg-server.sh
 
-18.3. Internal
---------------
+**18.3.3. Network Configuration**
 
-Internally *x0-system* uses long polling mechanism which still runs stable
-and performant on HTTP/1.1. Polling timeout is set to 10 seconds.
+Configure DNS resolution for the messaging server:
 
-This method is planned to be replaced by WebSockets in the near future.
+.. code-block:: bash
+
+    # Add to /etc/hosts
+    echo "172.20.0.100 x0-msg-server.x0-localnet" >> /etc/hosts
+
+.. note::
+
+    Due to Docker networking limitations, the messaging server runs on port 8080
+    to ensure compatibility with *x0-app* and *x0-msg-server* parallel execution.
+
+18.4. Configuration
+-------------------
+
+**18.4.1. Server Configuration**
+
+The messaging server configuration is defined in the Docker container:
+
+.. code-block:: python
+
+    server_config = {
+        'address': '/var/lib/msgserver/messageserver.socket',
+        'permissions': {
+            'user': 'www-data',
+            'group': 'www-data',
+            'userid': 33,
+            'groupid': 33,
+            'mod': '0770'
+        }
+    }
+
+**18.4.2. Client Configuration**
+
+Configure the messaging client in your *x0-application*:
+
+.. code-block:: javascript
+
+    // Initialize messaging handler
+    const msgHandler = new sysAsyncNotifyMsgHandler(true);
+    
+    // Configure server URL
+    sysFactory.MsgServerGetURL = 'http://x0-msg-server.x0-localnet:8080/get';
+
+18.5. API Reference
+-------------------
+
+**18.5.1. Message Structure**
+
+.. code-block:: javascript
+
+    {
+        "session_src": "source_session_id",
+        "session_dst": "destination_session_id", 
+        "payload": {
+            "msg-type": "net-message",
+            "method-id": "set-data",
+            "dst-object": "target_object_name",
+            "payload": { /* actual data */ }
+        }
+    }
+
+**18.5.2. HTTP Endpoints**
+
+**GET /get**
+    Retrieve messages for a session (long-polling)
+    
+    *Parameters:*
+    - ``session_src``: Source session identifier
+    - ``type``: Request type ("GET")
+
+**POST /set**
+    Send message to destination session
+    
+    *Parameters:*
+    - ``session_src``: Source session identifier  
+    - ``session_dst``: Destination session identifier
+    - ``payload``: Message data object
+
+**18.5.3. JavaScript API**
+
+.. code-block:: javascript
+
+    // Start message processing
+    msgHandler.getMsg();
+    
+    // Process received message
+    msgHandler.processMsg(messageObject);
+    
+    // Handle callback
+    msgHandler.callbackXMLRPCAsync();
+
+18.6. Security Considerations
+-----------------------------
 
 .. warning::
 
-    Running the *micro-msg-server* is **not** intended for production use.
-    Some system similar to rabbit-mq should be considered when processing heavy
-    messaging loads.
+    The current messaging implementation is designed for development and demonstration
+    purposes only. **Do not use in production environments** without implementing
+    proper security measures.
+
+**18.6.1. Security Limitations**
+
+* No authentication mechanism
+* Session IDs transmitted in plain text
+* No message encryption
+* Immediate message deletion after delivery
+* No access control or authorization
+
+**18.6.2. Production Recommendations**
+
+For production deployments, consider implementing:
+
+* User authentication and session validation
+* Message encryption (TLS/SSL)
+* Access control and permissions
+* Message persistence and acknowledgment
+* Rate limiting and abuse prevention
+* Proper error handling and logging
+
+.. note::
+
+    For production messaging requirements, consider enterprise solutions like
+    RabbitMQ, Apache Kafka, or Redis Pub/Sub.
+
+18.7. Example Implementation
+----------------------------
+
+**18.7.1. Basic Usage**
+
+The messaging system is demonstrated in Example #10:
+
+**URL:** http://x0-app.x0.localnet/python/Index.py?appid=example10
+
+**18.7.2. Testing Procedure**
+
+1. Open the example URL in two separate browser tabs
+2. Reload both tabs until different User IDs are displayed
+3. Select the destination "User Dst SessionID" in the first tab
+4. Enter test data in the form fields
+5. Click "Send Data" to transmit data to the second tab
+6. Observe real-time data transfer and notification display
+
+**18.7.3. Code Example**
+
+.. code-block:: javascript
+
+    // Initialize messaging in your application
+    function initializeMessaging() {
+        const msgHandler = new sysAsyncNotifyMsgHandler(true);
+        msgHandler.getMsg();
+    }
+    
+    // Send message to another session
+    function sendMessage(destSessionId, data) {
+        const msgData = {
+            "session_dst": destSessionId,
+            "payload": {
+                "msg-type": "net-message", 
+                "method-id": "set-data",
+                "dst-object": "FormlistExchangeData",
+                "payload": data
+            }
+        };
+        
+        // Send via RPC handler
+        const rpc = new sysCallXMLRPC(sysFactory.MsgServerSetURL);
+        rpc.PostData = msgData;
+        rpc.Request();
+    }
+
+18.8. Best Practices
+--------------------
+
+**18.8.1. Development Guidelines**
+
+* Always validate session IDs before message transmission
+* Implement proper error handling for failed message delivery
+* Use meaningful message types and identifiers
+* Keep message payloads small and focused
+* Test message flow in multiple browser instances
+
+**18.8.2. Performance Optimization**
+
+* Minimize polling frequency where possible
+* Implement message batching for high-volume scenarios
+* Use appropriate timeout values for long-polling
+* Monitor server resource usage
+
+**18.8.3. Debugging**
+
+Enable console debugging for message flow analysis:
+
+.. code-block:: javascript
+
+    console.debug('Message received:', messageData);
+    console.debug('Session ID:', sysFactory.SysSessionID);
+
+18.9. Troubleshooting
+---------------------
+
+**18.9.1. Common Issues**
+
+**Messages not delivered:**
+    - Verify messaging server is running
+    - Check network connectivity between containers
+    - Validate session IDs are correctly generated
+    - Ensure proper DNS resolution
+
+**Connection timeouts:**
+    - Increase polling timeout if necessary
+    - Verify server port accessibility
+    - Check firewall settings
+
+**CORS errors:**
+    - Wait approximately 30 seconds for CORS setup
+    - Verify server configuration allows cross-origin requests
+
+**18.9.2. Diagnostic Commands**
+
+.. code-block:: bash
+
+    # Check server status
+    docker ps | grep msg-server
+    
+    # View server logs
+    docker logs x0-msg-server
+    
+    # Test network connectivity
+    curl -X GET "http://x0-msg-server.x0-localnet:8080/get"
+
+**18.9.3. Error Messages**
+
+Common error responses and solutions:
+
+.. code-block:: javascript
+
+    // Connection error
+    {
+        "error": true,
+        "exception": "Connection refused"
+    }
+    // Solution: Ensure messaging server is running
+
+    // Invalid session
+    {
+        "error": true, 
+        "exception": "Invalid session ID"
+    }
+    // Solution: Verify session ID format and validity
+
+18.10. Migration and Future Considerations
+------------------------------------------
+
+**18.10.1. WebSocket Migration**
+
+The current long-polling implementation will be replaced with WebSockets:
+
+* Improved real-time performance
+* Reduced server resource consumption  
+* Better scalability for multiple concurrent users
+* Enhanced browser compatibility
+
+**18.10.2. Production Alternatives**
+
+For production environments, consider migrating to:
+
+* **Redis Pub/Sub**: Simple publish-subscribe messaging
+* **RabbitMQ**: Robust message queuing with persistence
+* **Apache Kafka**: High-throughput distributed messaging
+* **WebSocket.io**: Real-time bidirectional communication
 
 .. warning::
 
-    Also the messaging server code differs (patched) from the original and
-    will only work with example code.
-
-18.4. Example
--------------
-
-The following example transfers form metadata from user session A over the
-network to user session B.
-
-* http://x0-app.x0.localnet/python/Index.py?appid=example10
-
-To test message exchange, open the given URL in multiple (two) browser tabs
-and reload until two different user ids in the ``User ID`` form (user ids are
-random generated) will be displayed.
-
-Now select the correct destination ``User Dst SessionID``. Clicking the 
-``Send Data`` button will exchange the data and display the form data entered
-in the source users browser as soon as possible.
-
-.. warning::
-
-    The example code does not emphasize security. It is not advisable to
-    exchange user-sessions between network clients. Normally this is the backends
-    job after a successful user authentication (user-id / session-id mapping).
-
-.. warning::
-
-    Also to simplify things, message deletion occurs immediately after processing
-    on the messaging server side. This workflow is not acceptable in real-world
-    scenarios, the deletion has to be re-triggered after receipt on client-side.
+    The micro-msg-server code differs from the original implementation and
+    is specifically adapted for *x0-framework* compatibility. Direct usage
+    outside the *x0-ecosystem* is not recommended.
