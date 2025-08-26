@@ -43,10 +43,10 @@
 
 1. [Quick Start](#racehorse-quick-start)
 2. [Features](#star2-features)
-3. [Simple Usage](#pencil-simple-usage)
-4. [Documentation](#page_with_curl-documentation)
-5. [Single Page Application](#computer-single-page-application)
-6. [Abstract / Purpose](#mega-abstract--purpose)
+3. [Abstract / Purpose](#mega-abstract--purpose)
+4. [Single Page Application](#computer-single-page-application)
+5. [Documentation](#page_with_curl-documentation)
+6. [Simple Usage](#pencil-simple-usage)
 7. [Technical Details](#zap-technical-details)
 8. [Security](#closed_lock_with_key-security)
 9. [Future Plans / Milestones](#alarm_clock-future-plans--milestones)
@@ -116,6 +116,34 @@ Learn more in [Examples](#bulb-examples).
 
 ---
 
+## :mega: Abstract / Purpose
+
+**x0** is designed to make advanced SPA development fun, fast, and maintainable. With zero code duplication and a clean OOP model,
+**x0** powers complex, modern web applications.
+
+---
+
+## :computer: Single Page Application
+
+Single Page Applications (SPAs) are modern web apps that deliver a seamless,
+desktop-like user experience directly in the browser. Unlike traditional multi-page
+websites, SPAs dynamically update content without requiring full page reloads, resulting
+in faster interactions and smoother navigation.
+
+- **Real-Time Updates:** By using technologies like WebSockets or polling, SPAs can reflect changes instantly — ideal for chat apps, dashboards, or any application requiring live data.
+- **Optimized Performance:** Static assets are loaded once, and only data or components needed for each interaction are fetched afterward, reducing bandwidth and latency.
+
+Modern SPAs, empowered by frameworks like x0, are at the forefront of web innovation,
+closing the gap between browser-based apps and native desktop software.
+
+---
+
+## :page_with_curl: Documentation
+
+Rendered docs: [Official Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/).
+
+---
+
 ## :pencil: Simple Usage
 
 ```javascript
@@ -141,34 +169,6 @@ myRootObject2.addObject(myObject5);
 # realtime render
 myRootObject2.renderObject();
 ```
-
----
-
-## :page_with_curl: Documentation
-
-Rendered docs: [Official Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/).
-
----
-
-## :computer: Single Page Application
-
-Single Page Applications (SPAs) are modern web apps that deliver a seamless,
-desktop-like user experience directly in the browser. Unlike traditional multi-page
-websites, SPAs dynamically update content without requiring full page reloads, resulting
-in faster interactions and smoother navigation.
-
-- **Real-Time Updates:** By using technologies like WebSockets or polling, SPAs can reflect changes instantly — ideal for chat apps, dashboards, or any application requiring live data.
-- **Optimized Performance:** Static assets are loaded once, and only data or components needed for each interaction are fetched afterward, reducing bandwidth and latency.
-
-Modern SPAs, empowered by frameworks like x0, are at the forefront of web innovation,
-closing the gap between browser-based apps and native desktop software.
-
----
-
-## :mega: Abstract / Purpose
-
-**x0** is designed to make advanced SPA development fun, fast, and maintainable. With zero code duplication and a clean OOP model,
-**x0** powers complex, modern web applications.
 
 ---
 
