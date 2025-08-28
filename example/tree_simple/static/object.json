@@ -1,0 +1,63 @@
+{
+    "Link1":
+    {
+        "Type": "Link",
+        "Attributes": {
+            "Style": "btn btn-secondary d-none",
+            "TextID": "TXT.MENU.LINK1",
+            "ScreenID": "Screen1"
+        }
+    },
+
+    "TreeSimpleElement1":
+    {
+        "Type": "TreeSimple",
+        "Attributes":
+        {
+            "TreeItems":
+            [
+                {
+                    "Type": "Node",
+                    "TextID": "TXT.NODE1",
+                    "Icon": "Icon1",
+                    "Children":
+                    [
+                        {
+                            "Type": "Item",
+                            "TextID": "TXT.ITEM1",
+                            "Icon": "Icon2"
+                        },
+                        {
+                            "Type": "Item",
+                            "TextID": "TXT.ITEM2",
+                            "Icon": "Icon3"
+                        },
+                        {
+                            "Type": "Item",
+                            "TextID": "TXT.ITEM3",
+                            "Icon": "Icon4"
+                        }
+                    ]
+                },
+                {
+                    "Type": "Node",
+                    "TextID": "TXT.NODE2",
+                    "Icon": "Icon5",
+                    "Children":
+                    [
+                        {
+                            "Type": "Item",
+                            "TextID": "TXT.ITEM4",
+                            "Icon": "Icon6"
+                        },
+                        {
+                            "Type": "Item",
+                            "TextID": "TXT.ITEM5",
+                            "Icon": "Icon7"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

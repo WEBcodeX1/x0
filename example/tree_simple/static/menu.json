@@ -1,0 +1,13 @@
+[
+	{
+		"TreeSimpleElement1":
+		{
+			"RefID": "sysMenu"
+		},
+
+		"Link1":
+		{
+			"RefID": "sysMenu"
+		}
+	}
+]
