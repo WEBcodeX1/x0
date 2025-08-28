@@ -40,10 +40,47 @@ color: blue;
 }
 
 .tr-height-default {
-    height:40px;
+    height:40px
 }
 
 .sysContextMenuTable {
     position: absolute;
     width: 200px;
+}
+
+.SystreeNodeRoot {
+}
+
+.SystreeSelected {
+    width: 4px;
+    height: 22px;
+    border-radius: 25px;
+    margin-right: 2px;
+    background: #202020;
+    float: left;
+}
+
+.SystreeItemContainer {
+    width: 150px;
+    height: 22px;
+    border-radius: 5px;
+    padding-left: 2px;
+    background: #3e3e3e;
+    float: right;
+}
+
+.SystreeIcon {
+    float: left;
+}
+
+.SystreeNodeText {
+    font-size: 14px;
+    padding-top: 0px;
+    padding-left: 2px;
+    float: left;
+}
+
+.SystreeOpenClose {
+    padding-right: 2px;
+    float: right;
 }
