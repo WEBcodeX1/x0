@@ -44,6 +44,10 @@ sysObjLink.prototype.init = function()
 
     console.debug('set Link Attributes:%o', Attributes);
 
+    if (Attributes.DOMType !== undefined) {
+        this.DOMType = Attributes.DOMType;
+    }
+
     this.DOMStyle = Attributes.Style;
     this.LinkHilteStyle = Attributes.HiliteStyle;
 
@@ -62,18 +66,18 @@ sysObjLink.prototype.init = function()
 
     var EventConfig = new Object();
     EventConfig['Type'] = 'mousedown';
-    EventConfig['Element'] = this.EventListener.bind(this);
+    EventConfig['Element'] = this.processClick.bind(this);
     this.EventListeners['sysLink'] = EventConfig;
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "EventListener"
+//- METHOD "processClick"
 //------------------------------------------------------------------------------
 
-sysObjLink.prototype.EventListener = function(Event)
+sysObjLink.prototype.processClick = function()
 {
-    //console.debug('Link EventListener ScreenID:%s OverlayID:%s', this.ScreenID, this.OverlayID);
+    console.debug('Link EventListener ScreenID:%s OverlayID:%s', this.ScreenID, this.OverlayID);
 
     if (this.ScreenStyle !== undefined) {
         sysFactory.getScreenByID(this.ScreenID).updateStyle(this.ScreenStyle);
@@ -97,7 +101,7 @@ sysObjLink.prototype.EventListener = function(Event)
 //- METHOD "Hilite"
 //------------------------------------------------------------------------------
 
-sysObjLink.prototype.Hilite = function(Event)
+sysObjLink.prototype.Hilite = function()
 {
     //console.debug('::Hilite Style:%s', this.LinkHilteStyle);
     this.addDOMElementStyle(this.LinkHilteStyle);
@@ -108,7 +112,7 @@ sysObjLink.prototype.Hilite = function(Event)
 //- METHOD "DeHilite"
 //------------------------------------------------------------------------------
 
-sysObjLink.prototype.DeHilite = function(Event)
+sysObjLink.prototype.DeHilite = function()
 {
     //console.debug('::DeHilite Style:%s', this.LinkHilteStyle);
     this.removeDOMElementStyle(this.LinkHilteStyle);
