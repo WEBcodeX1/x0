@@ -1,0 +1,61 @@
+{
+    "Screen1":
+    [
+        {
+            "OpenCloseElement1":
+            {
+                "RefID": "Screen1"
+            }
+        },
+        {
+            "TreeSimpleElement1":
+            {
+                "RefID": "OpenCloseElement1"
+            }
+        }
+    ],
+
+    "Screen2":
+    [
+        {
+            "OpenCloseElement2":
+            {
+                "RefID": "Screen2"
+            }
+        },
+        {
+            "TreeSimpleElement2":
+            {
+                "RefID": "OpenCloseElement2"
+            }
+        }
+    ],
+
+    "Screen3":
+    [
+        {
+            "OpenCloseElement3":
+            {
+                "RefID": "Screen3"
+            }
+        },
+        {
+            "OpenCloseElement4":
+            {
+                "RefID": "Screen3"
+            }
+        },
+        {
+            "TreeSimpleElement1":
+            {
+                "RefID": "OpenCloseElement3"
+            }
+        },
+        {
+            "TreeSimpleElement2":
+            {
+                "RefID": "OpenCloseElement4"
+            }
+        }
+    ]
+}
