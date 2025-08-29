@@ -25,6 +25,7 @@ get started quickly.
 - [object_instances](https://github.com/WEBcodeX1/x0/tree/main/example/object_instances) - Dynamic object instancing (experimental)
 - [open_close_container](https://github.com/WEBcodeX1/x0/tree/main/example/open_close_container) - Collapsible container sections
 - [screen_overlay](https://github.com/WEBcodeX1/x0/tree/main/example/screen_overlay) - Modal overlay functionality
+- [tree_simple](https://github.com/WEBcodeX1/x0/tree/main/example/tree_simple) - Hierarchical tree structures with navigation
 
 ## Video Demonstrations
 
