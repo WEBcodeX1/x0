@@ -1,0 +1,192 @@
+{
+    "TreeSimpleElement1":
+    {
+        "Type": "TreeSimple",
+        "Attributes":
+        {
+            "TreeItems":
+            [
+                {
+                    "Type": "Node",
+                    "TextID": "TXT.NODE1",
+                    "Icon": "fa-solid fa-hexagon-nodes",
+                    "Children":
+                    [
+                        {
+                            "Type": "Item",
+                            "TextID": "TXT.ITEM1",
+                            "Icon": "fa-solid fa-code-branch",
+                            "ScreenID": "Screen1"
+                        },
+                        {
+                            "Type": "Item",
+                            "TextID": "TXT.ITEM2",
+                            "Icon": "fa-solid fa-lightbulb",
+                            "ScreenID": "Screen2"
+                        },
+                        {
+                            "Type": "Item",
+                            "TextID": "TXT.ITEM3",
+                            "Icon": "fa-solid fa-sack-dollar",
+                            "ScreenID": "Screen3"
+                        }
+                    ]
+                },
+                {
+                    "Type": "Node",
+                    "TextID": "TXT.NODE2",
+                    "Icon": "Icon5",
+                    "Children":
+                    [
+                        {
+                            "Type": "Item",
+                            "TextID": "TXT.ITEM4",
+                            "Icon": "fa-solid fa-hotdog",
+                            "ScreenID": "Screen2"
+                        },
+                        {
+                            "Type": "Item",
+                            "TextID": "TXT.ITEM5",
+                            "Icon": "fa-solid fa-power-off",
+                            "ScreenID": "Screen1"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+
+    "TreeSimpleElement2":
+    {
+        "Type": "TreeSimple",
+        "Attributes":
+        {
+            "TreeItems":
+            [
+                {
+                    "Type": "Node",
+                    "TextID": "TXT.NODE1",
+                    "Icon": "fa-solid fa-hexagon-nodes",
+                    "Children":
+                    [
+                        {
+                            "Type": "Item",
+                            "TextID": "TXT.ITEM1",
+                            "Icon": "fa-solid fa-code-branch",
+                            "ScreenID": "Screen1"
+                        },
+                        {
+                            "Type": "Item",
+                            "TextID": "TXT.ITEM2",
+                            "Icon": "fa-solid fa-lightbulb",
+                            "ScreenID": "Screen2"
+                        },
+                        {
+                            "Type": "Node",
+                            "TextID": "TXT.NODE3",
+                            "Icon": "fa-solid fa-hexagon-nodes",
+                            "Children":
+                            [
+                                {
+                                    "Type": "Item",
+                                    "TextID": "TXT.ITEM6",
+                                    "Icon": "fa-solid fa-print",
+                                    "ScreenID": "Screen1"
+                                },
+                                {
+                                    "Type": "Item",
+                                    "TextID": "TXT.ITEM7",
+                                    "Icon": "fa-solid fa-shuffle",
+                                    "ScreenID": "Screen2"
+                                }
+                            ]
+                        },
+                        {
+                            "Type": "Item",
+                            "TextID": "TXT.ITEM3",
+                            "Icon": "fa-solid fa-sack-dollar",
+                            "ScreenID": "Screen3"
+                        }
+                    ]
+                },
+                {
+                    "Type": "Node",
+                    "TextID": "TXT.NODE2",
+                    "Icon": "Icon5",
+                    "Children":
+                    [
+                        {
+                            "Type": "Item",
+                            "TextID": "TXT.ITEM4",
+                            "Icon": "fa-solid fa-hotdog",
+                            "ScreenID": "Screen2"
+                        },
+                        {
+                            "Type": "Node",
+                            "TextID": "TXT.NODE4",
+                            "Icon": "fa-solid fa-hexagon-nodes",
+                            "Children":
+                            [
+                                {
+                                    "Type": "Item",
+                                    "TextID": "TXT.ITEM8",
+                                    "Icon": "fa-solid fa-sliders",
+                                    "ScreenID": "Screen1"
+                                },
+                                {
+                                    "Type": "Item",
+                                    "TextID": "TXT.ITEM9",
+                                    "Icon": "fa-solid fa-bolt-lightning",
+                                    "ScreenID": "Screen2"
+                                }
+                            ]
+                        },
+                        {
+                            "Type": "Item",
+                            "TextID": "TXT.ITEM5",
+                            "Icon": "fa-solid fa-power-off",
+                            "ScreenID": "Screen1"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+
+    "OpenCloseElement1":
+    {
+        "Type": "OpenCloseContainer",
+        "Attributes": {
+            "TextID": "TXT.TREE-OPENCLOSE1-HEADER",
+            "Style": "TreeOpenCloseContainerLeft"
+        }
+    },
+
+    "OpenCloseElement2":
+    {
+        "Type": "OpenCloseContainer",
+        "Attributes": {
+            "TextID": "TXT.TREE-OPENCLOSE2-HEADER",
+            "Style": "TreeOpenCloseContainerLeft"
+        }
+    },
+
+    "OpenCloseElement3":
+    {
+        "Type": "OpenCloseContainer",
+        "Attributes": {
+            "TextID": "TXT.TREE-OPENCLOSE3-HEADER",
+            "Style": "TreeOpenCloseContainerLeft"
+        }
+    },
+
+    "OpenCloseElement4":
+    {
+        "Type": "OpenCloseContainer",
+        "Attributes": {
+            "TextID": "TXT.TREE-OPENCLOSE4-HEADER",
+            "Style": "TreeOpenCloseContainerRight"
+        }
+    }
+
+}
