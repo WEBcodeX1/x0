@@ -49,7 +49,7 @@ sysObjTreeSimple.prototype.init = function()
 
         NodeItem.init();
         this.addObject(NodeItem);
-        this.addTreeItems(NodeItem, RootItem.Children);
+        this.addTreeItems(this, NodeItem, RootItem.Children);
         ++i;
     }
 }
@@ -59,16 +59,23 @@ sysObjTreeSimple.prototype.init = function()
 //- METHOD "addTreeItems"
 //------------------------------------------------------------------------------
 
-sysObjTreeSimple.prototype.addTreeItems = function(NodeItem, ChildItems)
+sysObjTreeSimple.prototype.addTreeItems = function(RootObj, NodeItem, ChildItems)
 {
     let i=0;
     for (const ChildItem of ChildItems)
     {
-        let TreeItem = new sysObjTreeSimpleItem(this);
+        var TreeItem;
 
-        const NodeObjectID = NodeItem.JSONConfig.Attributes.ObjectID;
+        const ItemObjectID = NodeItem.JSONConfig.Attributes.ObjectID;
+        ChildItem['ObjectID'] = ItemObjectID+i;
 
-        ChildItem['ObjectID'] = NodeObjectID+i;
+        if (ChildItem.Type == 'Item') {
+            TreeItem = new sysObjTreeSimpleItem(RootObj);
+        }
+
+        if (ChildItem.Type == 'Node') {
+            TreeItem = new sysObjTreeSimpleNode();
+        }
 
         TreeItem.JSONConfig = {
             "Attributes": ChildItem
@@ -76,6 +83,11 @@ sysObjTreeSimple.prototype.addTreeItems = function(NodeItem, ChildItems)
 
         TreeItem.init();
         NodeItem.ItemContainerObj.addObject(TreeItem);
+
+        if (ChildItem.Type == 'Node') {
+            this.addTreeItems(RootObj, TreeItem, ChildItem.Children);
+        }
+
         ++i;
     }
 }
@@ -128,7 +140,7 @@ sysObjTreeSimpleNode.prototype.init = function()
     this.OpenCloseIcon.EventListeners["OpenClose"] = EventListenerObj;
 
     //- setup recursive object structure
-    ObjDefs =  [
+    const ObjDefs =  [
         {
             "id": "selected",
             "SysObject": new sysObjDiv(),
@@ -250,7 +262,7 @@ sysObjTreeSimpleItem.prototype.init = function()
     this.ItemContainerObj.EventListeners["LinkClick"] = EventLinkClick;
 
     //- setup recursive object structure
-    ObjDefs =  [
+    const ObjDefs =  [
         {
             "id": "selected",
             "SysObject": this.SelectedIndicator,
@@ -323,6 +335,7 @@ sysObjTreeSimpleItem.prototype.activateSelected = function()
         this.ParentObject.TreeRootObj.LastSelectedItem.removeDOMElementStyle('sysTreeSelectedHilite');
     }
     catch(err) {
+        console.debug('TreeSimple activateSelected error:%s', err);
     }
 
     this.ParentObject.TreeRootObj.LastSelectedItem = this;

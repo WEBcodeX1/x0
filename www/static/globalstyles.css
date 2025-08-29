@@ -4,16 +4,19 @@ body {
 }
 
 a:link {
-color: #2b5550;
+    color: #2b5550;
 }
+
 a:visited {
-color: #2b55a5;
+    color: #2b55a5;
 }
+
 a:hover {
-color: hotpink;
+    color: hotpink;
 }
+
 a:active {
-color: blue;
+    color: blue;
 }
 
 .required::before {
@@ -48,39 +51,69 @@ color: blue;
     width: 200px;
 }
 
-.SystreeNodeRoot {
+.sysTreeNodeRoot {
 }
 
-.SystreeSelected {
+.sysTreeSelected {
     width: 4px;
-    height: 22px;
+    height: 24px;
     border-radius: 25px;
     margin-right: 2px;
-    background: #202020;
     float: left;
 }
 
-.SystreeItemContainer {
+.sysTreeSelectedHilite {
+    background: #202020;
+}
+
+.sysTreeItemContainer {
     width: 150px;
-    height: 22px;
+    height: 24px;
     border-radius: 5px;
+    border-style: dotted;
+    border-width: thin;
+    border-color: #202020;
     padding-left: 2px;
-    background: #3e3e3e;
+    background: #848484;
     float: right;
 }
 
-.SystreeIcon {
+.sysTreeIcon {
     float: left;
 }
 
-.SystreeNodeText {
+.sysTreeNodeText {
     font-size: 14px;
     padding-top: 0px;
     padding-left: 2px;
     float: left;
 }
 
-.SystreeOpenClose {
+.sysTreeNodeTextHilite {
+    border-style: solid;
+    background: #202020;
+    color: #ffffff;
+}
+
+.sysTreeOpenClose {
     padding-right: 2px;
+    float: right;
+}
+
+.sysTreeItemLink {
+    font-size: 14px;
+    text-decoration: underline dotted;
+    padding-top: 0px;
+    padding-left: 2px;
+    float: left;
+}
+
+.TreeOpenCloseContainerLeft {
+    width: 160px;
+    float: left;
+}
+
+.TreeOpenCloseContainerRight {
+    width: 160px;
     float: right;
 }

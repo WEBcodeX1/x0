@@ -1,13 +1,8 @@
 [
-	{
-		"TreeSimpleElement1":
-		{
-			"RefID": "sysMenu"
-		},
-
-		"Link1":
-		{
-			"RefID": "sysMenu"
-		}
-	}
+    {
+        "TreeSimpleElement2":
+        {
+            "RefID": "sysMenu"
+        }
+    }
 ]
