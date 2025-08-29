@@ -49,10 +49,10 @@
 6. [Simple Usage](#pencil-simple-usage)
 7. [Technical Details](#zap-technical-details)
 8. [Security](#closed_lock_with_key-security)
-9. [Future Plans / Milestones](#alarm_clock-future-plans--milestones)
-10. [Examples](#bulb-examples)
-11. [File & Folder Structure](#file_folder-file--folder-structure)
-12. [Contributing](#wave-contributing)
+9. [Examples](#bulb-examples)
+10. [File & Folder Structure](#file_folder-file--folder-structure)
+11. [Contributing](#wave-contributing)
+12. [Future Plans / Milestones](#alarm_clock-future-plans--milestones)
 13. [Community & Support](#globe_with_meridians-community--support)
 14. [License](#memo-license)
 15. [References](#link-external-references)
@@ -203,13 +203,6 @@ Full details in [WEB/codeX PKI Manager](http://www.webcodex.de/Projects/WCDXPKIM
 
 ---
 
-## :alarm_clock: Future Plans / Milestones
-
-- Replace Apache with FalconAS Python Application Server: [Repo](https://github.com/WEBcodeX1/http-1.2)
-- Roadmap: [GitHub Milestones](https://github.com/WEBcodeX1/x0/milestones)
-
----
-
 ## :bulb: Examples
 
 Try 13 live examples (after local docker containers have been started):
@@ -261,6 +254,13 @@ Partial overview, see [GitHub file search](https://github.com/WEBcodeX1/x0/searc
 
 Contributions & feedback welcome!
 See [./CONTRIBUTING.md](./CONTRIBUTING.md) or open an issue.
+
+---
+
+## :alarm_clock: Future Plans / Milestones
+
+- Replace Apache with FalconAS Python Application Server: [Repo](https://github.com/WEBcodeX1/http-1.2)
+- Roadmap: [GitHub Milestones](https://github.com/WEBcodeX1/x0/milestones)
 
 ---
 
