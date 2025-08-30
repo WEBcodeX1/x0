@@ -92,4 +92,3 @@ This example can be used as a template for:
 ---
 
 **Note:** *x0-app* and *x0-db* docker containers must be up and running for viewing.
->>>>>>> main
