@@ -125,8 +125,11 @@ class TestExamples:
         wait = WebDriverWait(d, w)
         elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "body")))
         
-        time.sleep(2)
-        assert len(d.find_elements(By.TAG_NAME, "body")) > 0, "Example4 failed to load"
+        # Check for ServiceConnector and FormfieldList elements
+        time.sleep(3)
+        service_connectors = d.find_elements(By.CSS_SELECTOR, "[id*='Connector']")
+        formfield_lists = d.find_elements(By.CSS_SELECTOR, "[id*='Formfields']")
+        assert len(service_connectors) >= 1 or len(formfield_lists) >= 1, "Example4 list/detail components not found"
 
     def test_example5_enhanced_form(self, config):
         """Test Example 5: Advanced form features and validation"""
@@ -139,8 +142,10 @@ class TestExamples:
         wait = WebDriverWait(d, w)
         elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "body")))
         
-        time.sleep(2)
-        assert len(d.find_elements(By.TAG_NAME, "body")) > 0, "Example5 failed to load"
+        # Check for FormfieldList components
+        time.sleep(3)
+        formfield_lists = d.find_elements(By.CSS_SELECTOR, "[id*='FormfieldList'], [id*='Formfield']")
+        assert len(formfield_lists) >= 1, "Example5 form components not found"
 
     def test_example6_screen_overlay(self, config):
         """Test Example 6: Modal overlay functionality"""
