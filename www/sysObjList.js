@@ -239,8 +239,7 @@ sysListRow.prototype.genGrid = function()
 
 sysListRow.prototype.getColumnById = function(Column)
 {
-    for (Index in this.ColItems) {
-        const ColItem = this.ColItems[Index];
+    for (const ColItem of this.ColItems) {
         MatchId = 'Column' + Column + '_' + this.Index;
         //console.debug('MatchId:%s ColObjectID:%s', MatchId, ColItem.ObjectID);
         if (ColItem.ObjectID == MatchId) {
@@ -603,8 +602,7 @@ sysList.prototype.getColumnItems = function(ColumnID)
 {
     //console.debug('::getColumnItems ColumnID:%s RowItems:%o', ColumnID, this.RowItems);
     var ReturnItems = new Array();
-    for (Index in this.RowItems) {
-        const Row = this.RowItems[Index];
+    for (const Row of this.RowItems) {
         const ColumnObject = Row.ObjectRef[ColumnID];
         //console.debug('::getColumnItems ColumnObject:%o', ColumnObject);
         if (ColumnObject !== undefined) {

@@ -437,8 +437,7 @@ sysFormfieldList.prototype.getFormfieldItemByIndex = function(CheckIndex)
 sysFormfieldList.prototype.getFormItemByType = function(CheckTypes)
 {
     var FormItems = new Array();
-    for (i in CheckTypes) {
-        const CheckType = CheckTypes[i];
+    for (const CheckType of CheckTypes) {
         for (ItemKey in this.FormfieldItems) {
             const FormItem = this.FormfieldItems[ItemKey];
             if (FormItem.Type == CheckType) { FormItems.push(FormItem); }

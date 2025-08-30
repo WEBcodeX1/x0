@@ -63,8 +63,7 @@ sysFactory.prototype.init = function()
     //- Set User Functions
     //- ------------------------------------------------------
 
-    for (Index in sysVarUserFunctions) {
-        UserFunctionID = sysVarUserFunctions[Index];
+    for (const UserFunctionID of sysVarUserFunctions) {
         console.debug('Setting User Functions. FunctionID:%s', UserFunctionID);
         this.UserFunctions[UserFunctionID] = window[UserFunctionID];
     }
@@ -350,8 +349,7 @@ sysFactory.prototype.resetErrorContainer = function()
 {
     try {
         const ErrorContainerItems = this.getObjectsByType(this.CurrentScreenID, 'ErrorContainer');
-        for (Index in ErrorContainerItems) {
-            const ErrorContainerItem = ErrorContainerItems[Index];
+        for (const ErrorContainerItem of ErrorContainerItems) {
             ErrorContainerItem.reset();
         }
     }

@@ -242,16 +242,14 @@ sysObjButton.prototype.validateForm = function()
         }
 
         if (Attributes.Validate.Formlists !== undefined) {
-            for (Index in Attributes.Validate.Formlists) {
-                const FormlistID = Attributes.Validate.Formlists[Index];
+            for (const FormlistID of Attributes.Validate.Formlists) {
                 ValidateFormlistObjects.push(sysFactory.getObjectByID(FormlistID));
             }
         }
 
         console.debug('::validate FormlistObjects:%o', ValidateFormlistObjects);
 
-        for (Index in ValidateFormlistObjects) {
-            const FormlistObj = ValidateFormlistObjects[Index];
+        for (const FormlistObj of ValidateFormlistObjects) {
             const Result = FormlistObj.validate();
             if (Result == false) {
                 this.PostRequestData.merge(FormlistObj.RuntimeGetDataFunc());
@@ -280,8 +278,8 @@ sysObjButton.prototype.validateForm = function()
                     ErrorObj.reset();
 
                     var Objects = new Array();
-                    for (ObjectKey in GroupConf.ObjectIDs) {
-                        Objects.push(sysFactory.getObjectByID(GroupConf.ObjectIDs[ObjectKey]));
+                    for (const ObjectID of GroupConf.ObjectIDs) {
+                        Objects.push(sysFactory.getObjectByID(ObjectID));
                     }
 
                     const Result = sysFactory.ObjValidate.validateGroup(
