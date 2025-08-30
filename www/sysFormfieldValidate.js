@@ -183,8 +183,7 @@ sysFormFieldValidate.prototype.IPv4Address = function(Value)
         };
     }
 
-    for (Index in IPArray) {
-        const IPOctet = IPArray[Index];
+    for (const IPOctet of IPArray) {
         const checkNumber = parseInt(IPOctet);
         console.debug('::validate IPv4Address checkNumber:%s', checkNumber);
         if (isNaN(checkNumber) || checkNumber < 1 || checkNumber > 255) {
@@ -267,8 +266,7 @@ sysFormFieldValidate.prototype.IPAddressSubnet = function(Value)
     }
 
     //- check subnet mask
-    for (Index in CheckValidBitmasks) {
-        const CheckArray = CheckValidBitmasks[Index];
+    for (const CheckArray of CheckValidBitmasks) {
         if (
             NetArray[0] == CheckArray[0] &&
             NetArray[1] == CheckArray[1] &&
@@ -335,11 +333,9 @@ sysFormFieldValidate.prototype.IPv6Address = function(Value)
 
     const checkHex = [ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' ];
 
-    for (Index in IPArray) {
-        const QuadNibble = IPArray[Index];
+    for (const QuadNibble of IPArray) {
         const QuadNibbleChars = QuadNibble.split('');
-        for (QnIndex in QuadNibbleChars) {
-            const Char = QuadNibbleChars[QnIndex];
+        for (const Char of QuadNibbleChars) {
             if (!checkHex.includes(Char)) {
                 return {
                     "Error": true,

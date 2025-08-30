@@ -467,9 +467,8 @@ sysFormfieldItemPulldown.prototype.generateOptions = function()
         );
     }
 
-    for (var Index in Attributes.Options) {
+    for (const OptionAttributes of Attributes.Options) {
 
-        const OptionAttributes = Attributes.Options[Index];
         const TextID = OptionAttributes.TextID;
         const Value = OptionAttributes.Value;
 
@@ -635,9 +634,8 @@ sysFormfieldItemDynPulldown.prototype.callbackXMLRPCAsync = function()
 
     console.debug('::DynPulldown XMLRPCCallback');
 
-    for (Index in this.XMLRPCResultData) {
-        console.debug('::DynPulldown XMLRPCCallback Index:%s', Index);
-        const Option = this.XMLRPCResultData[Index];
+    for (const Option of this.XMLRPCResultData) {
+        console.debug('::DynPulldown XMLRPCCallback Option:%s', Option);
         PulldownOptions.push(Option);
     }
     this.generateOptions();
