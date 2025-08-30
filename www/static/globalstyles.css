@@ -108,6 +108,22 @@ a:active {
     float: left;
 }
 
+.sysTreeItemIndent0 {
+    padding-left: 4px;
+}
+
+.sysTreeItemIndent1 {
+    padding-left: 10px;
+}
+
+.sysTreeItemIndent2 {
+    padding-left: 16px;
+}
+
+.sysTreeItemIndent3 {
+    padding-left: 22px;
+}
+
 .TreeOpenCloseContainerLeft {
     width: 160px;
     float: left;
