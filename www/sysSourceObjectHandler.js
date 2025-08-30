@@ -37,8 +37,7 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
     var ObjectResultData = new Object();
 
     if (Array.isArray(SrcObjects) == true) {
-        for (Index in SrcObjects) {
-            const ObjectID = SrcObjects[Index];
+        for (const ObjectID of SrcObjects) {
             console.debug('::processSourceObjects ObjectID:%s', ObjectID);
             const ObjectRef = sysFactory.getObjectByID(ObjectID);
             console.debug('::processSourceObjects Object:%o', ObjectRef);

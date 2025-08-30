@@ -30,9 +30,7 @@ sysIntervalHandler.prototype.processInterval = function(Config, ParentFormObject
     const CheckObjects = Config.ValidateMultiDataOnSuccess;
     const FormObject = ParentFormObject.ChildObjects[0];
 
-    for (Index in Config.Items) {
-
-        const IntervalConfig = Config.Items[Index];
+    for (const IntervalConfig of Config.Items) {
 
         if (IntervalConfig.Type == 'ValidateData') {
 
@@ -80,9 +78,7 @@ sysIntervalHandler.prototype.processInterval = function(Config, ParentFormObject
             const FormValue = ParentFormObject.getRuntimeData();
             const Length = FormValue.length;
 
-            for (Index in MultiData) {
-
-                MultiDataItem = MultiData[Index];
+            for (const MultiDataItem of MultiData) {
 
                 //console.debug('Multidata Item:%o', MultiDataItem);
 
@@ -142,8 +138,8 @@ sysIntervalHandler.prototype.processInterval = function(Config, ParentFormObject
 
                 var CheckCount = 0;
 
-                for (Index in CheckObjects.CheckObjects) {
-                    const CheckObject = sysFactory.getObjectByID(CheckObjects.CheckObjects[Index]);
+                for (const CheckObjectID of CheckObjects.CheckObjects) {
+                    const CheckObject = sysFactory.getObjectByID(CheckObjectID);
                     //console.debug('::CheckObject Object:%o', CheckObject);
                     const ObjectData = CheckObject.ParentObject.getObjectData();
                     //console.debug('::CheckObjects ObjectData:%o', ObjectData);

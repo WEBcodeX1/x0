@@ -190,8 +190,7 @@ sysScreen.prototype.processReplaceAtttributes = function(JSONConfig, JSONConfigR
 {
     const AttributesReplace = JSONConfig.AttributesReplace;
     if (AttributesReplace !== undefined) {
-        for (Index in AttributesReplace) {
-            const Config = AttributesReplace[Index];
+        for (const Config of AttributesReplace) {
             const Source = Config.DataSrc;
             //console.debug('::processReplaceAtttributes Config:%o Source:%o', Config, Source);
             if (Source.length == 1) {
@@ -256,8 +255,7 @@ sysScreen.prototype.triggerGlobalDataLoad = function()
 
     //- fire all tab related events, load all service connected object data
     if (Config !== undefined && Config.TabContainersLoadAll !== undefined) {
-        for (Index in MenuItem.TabContainersLoadAll) {
-            const TabContainerID = this.TabContainersLoadAll[Index];
+        for (const TabContainerID of this.TabContainersLoadAll) {
             //console.debug('::triggerGlobalDataLoad Index:%s TabContainerID:%s', Index, TabContainerID);
             const TabContainer = this.HierarchyRootObject.getObjectByID(TabContainerID);
             //console.debug('::triggerGlobalDataLoad TabContainer:%o', TabContainer);
