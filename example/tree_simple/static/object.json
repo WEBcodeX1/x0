@@ -185,7 +185,26 @@
         "Type": "OpenCloseContainer",
         "Attributes": {
             "TextID": "TXT.TREE-OPENCLOSE4-HEADER",
+            "Style": "TreeOpenCloseContainerLeft"
+        }
+    },
+
+    "OpenCloseElement5":
+    {
+        "Type": "OpenCloseContainer",
+        "Attributes": {
+            "TextID": "TXT.TREE-OPENCLOSE5-HEADER",
+            "Style": "TreeOpenCloseContainerLeft"
+        }
+    },
+
+    "OpenCloseElement6":
+    {
+        "Type": "OpenCloseContainer",
+        "Attributes": {
+            "TextID": "TXT.TREE-OPENCLOSE6-HEADER",
             "Style": "TreeOpenCloseContainerRight"
         }
     }
+
 }

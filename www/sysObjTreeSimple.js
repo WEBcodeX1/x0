@@ -34,11 +34,13 @@ sysObjTreeSimple.prototype.init = function()
     const Attributes = this.JSONConfig.Attributes;
     console.debug('TreeSimple JSONConfig:%o', Attributes);
 
+    this.IndentLevel = 0;
+
     let i=0;
     for (const RootItem of Attributes.TreeItems)
     {
         console.debug('TreeSimple RootItem:%o', RootItem);
-        let NodeItem = new sysObjTreeSimpleNode();
+        let NodeItem = new sysObjTreeSimpleNode(this.IndentLevel);
 
         NodeItem.JSONConfig = {
             "Attributes": {
@@ -61,6 +63,8 @@ sysObjTreeSimple.prototype.init = function()
 
 sysObjTreeSimple.prototype.addTreeItems = function(RootObj, NodeItem, ChildItems)
 {
+    this.IndentLevel += 1;
+
     let i=0;
     for (const ChildItem of ChildItems)
     {
@@ -70,11 +74,11 @@ sysObjTreeSimple.prototype.addTreeItems = function(RootObj, NodeItem, ChildItems
         ChildItem['ObjectID'] = ItemObjectID+i;
 
         if (ChildItem.Type == 'Item') {
-            TreeItem = new sysObjTreeSimpleItem(RootObj);
+            TreeItem = new sysObjTreeSimpleItem(RootObj, this.IndentLevel);
         }
 
         if (ChildItem.Type == 'Node') {
-            TreeItem = new sysObjTreeSimpleNode();
+            TreeItem = new sysObjTreeSimpleNode(this.IndentLevel);
         }
 
         TreeItem.JSONConfig = {
@@ -90,6 +94,8 @@ sysObjTreeSimple.prototype.addTreeItems = function(RootObj, NodeItem, ChildItems
 
         ++i;
     }
+
+    this.IndentLevel -= 1;
 }
 
 
@@ -97,10 +103,11 @@ sysObjTreeSimple.prototype.addTreeItems = function(RootObj, NodeItem, ChildItems
 //- CONSTRUCTOR "sysObjTreeSimpleNode"
 //------------------------------------------------------------------------------
 
-function sysObjTreeSimpleNode()
+function sysObjTreeSimpleNode(IndentLevel)
 {
     this.ChildObjects   = new Array();          //- Child Objects
     this.DOMStyle       = 'sysTreeNodeRoot';    //- CSS Style
+    this.IndentLevel    = IndentLevel;          //- Tree Indent Level
 }
 
 //- inherit sysBaseObject
@@ -152,7 +159,7 @@ sysObjTreeSimpleNode.prototype.init = function()
             "id": "item-container",
             "SysObject": new sysObjDiv(),
             "JSONAttributes": {
-                "Style": "sysTreeItemContainer"
+                "Style": "sysTreeItemContainer sysTreeItemIndent" + this.IndentLevel
             },
             "ObjectDefs": [
                 {
@@ -213,11 +220,12 @@ sysObjTreeSimpleNode.prototype.toggleVisibleState = function()
 //- CONSTRUCTOR "sysObjTreeSimpleItem"
 //------------------------------------------------------------------------------
 
-function sysObjTreeSimpleItem(TreeRootObj)
+function sysObjTreeSimpleItem(TreeRootObj, IndentLevel)
 {
     this.ChildObjects   = new Array();          //- Child Objects
     this.DOMStyle       = 'sysTreeItemRoot';    //- CSS Style
     this.TreeRootObj    = TreeRootObj;          //- Tree root Reference
+    this.IndentLevel    = IndentLevel;          //- Tree Indent Level
 }
 
 //- inherit sysBaseObject
@@ -274,7 +282,7 @@ sysObjTreeSimpleItem.prototype.init = function()
             "id": "item-container",
             "SysObject": this.ItemContainerObj,
             "JSONAttributes": {
-                "Style": "sysTreeItemContainer"
+                "Style": "sysTreeItemContainer sysTreeItemIndent" + this.IndentLevel
             },
             "ObjectDefs": [
                 {

@@ -39,7 +39,8 @@ function sysFactory()
         "FormfieldLabel": sysFormfieldItemLabel,
         "FormfieldHidden": sysFormfieldItemHidden,
         "DynRadioList": sysObjDynRadioList,
-        "OpenCloseContainer": sysObjOpenClose
+        "OpenCloseContainer": sysObjOpenClose,
+        "TreeSimple": sysObjTreeSimple
     };
 
     this.SetupClassesRT = {
@@ -72,6 +73,7 @@ sysFactory.prototype.init = function()
     //- ------------------------------------------------------
     //- Add all System Screens
     //- ------------------------------------------------------
+
     const SkeletonData = this.DataSkeleton.XMLRPCResultData;
 
     for(SkeletonKey in SkeletonData) {
