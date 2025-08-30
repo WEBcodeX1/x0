@@ -157,9 +157,8 @@ setObjectPropertyValues.prototype.callService = function()
 {
     const Attributes = this.EventObj.Attributes;
 
-    for (Index in Attributes.DstProperties) {
+    for (const DstProperty of Attributes.DstProperties) {
 
-        const DstProperty = Attributes.DstProperties[Index];
         const DstObject = sysFactory.getObjectByID(DstProperty.ObjectID);
 
         try {
@@ -188,9 +187,8 @@ setObjectPropertyValues.prototype.callbackXMLRPCAsync = function()
 {
     const Attributes = this.EventObj.Attributes;
 
-    for (Index in Attributes.DstProperties) {
+    for (const DstProperty of Attributes.DstProperties) {
 
-        const DstProperty = Attributes.DstProperties[Index];
         const DstObject = sysFactory.getObjectByID(DstProperty.ObjectID);
 
         DstObject[DstProperty.PropertyName] = this.XMLRPCResultData[DstProperty.PropertyName];

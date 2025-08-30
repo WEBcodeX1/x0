@@ -36,8 +36,8 @@ sysObjectLoader.prototype.checkLoaded = function()
 {
     LoadedCount = 0;
 
-    for (var ObjIndex in this.Objects) {
-        if (this.Objects[ObjIndex].DataReadyState) {
+    for (const Obj of this.Objects) {
+        if (Obj.DataReadyState) {
             LoadedCount++;
         }
     }
