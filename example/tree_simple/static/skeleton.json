@@ -46,6 +46,18 @@
             }
         },
         {
+            "OpenCloseElement5":
+            {
+                "RefID": "Screen3"
+            }
+        },
+        {
+            "OpenCloseElement6":
+            {
+                "RefID": "Screen3"
+            }
+        },
+        {
             "TreeSimpleElement1":
             {
                 "RefID": "OpenCloseElement3"
@@ -55,6 +67,18 @@
             "TreeSimpleElement2":
             {
                 "RefID": "OpenCloseElement4"
+            }
+        },
+        {
+            "TreeSimpleElement1":
+            {
+                "RefID": "OpenCloseElement5"
+            }
+        },
+        {
+            "TreeSimpleElement2":
+            {
+                "RefID": "OpenCloseElement6"
             }
         }
     ]

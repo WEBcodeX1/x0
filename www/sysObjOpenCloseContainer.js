@@ -32,6 +32,11 @@ sysObjOpenClose.prototype.init = function()
 {
     const Attributes = this.JSONConfig.Attributes;
 
+    //- set css style attributes
+    if (Attributes.Style !== undefined) {
+        this.DOMStyle = Attributes.Style;
+    }
+
     //- define open/close button
     this.OpenCloseIcon = new sysBaseObject();
     this.OpenCloseIcon.EventListeners = new Object();
@@ -46,7 +51,7 @@ sysObjOpenClose.prototype.init = function()
     this.OpenCloseIcon.EventListeners["OpenClose"] = EventListenerObj;
 
     //- setup recursive object structure
-    const ObjDefs = [
+    ObjDefs = [
         {
             "id": "card-ctn",
             "SysObject": new sysObjDiv(),
@@ -105,7 +110,7 @@ sysObjOpenClose.prototype.toggleVisibleState = function()
         this.RootObject.processChildObjects();
         return;
     }
-    else {
+    else if (this.StateOpen === false) {
         this.StateOpen = true;
         this.DOMValue = '<i class="fa-regular fa-square-caret-down"></i>';
         this.setDOMElementValue();
@@ -125,7 +130,7 @@ sysObjOpenClose.prototype.processChildObjects = function()
         if (this.OpenCloseIcon.StateOpen === true) {
             ChildObject.VisibleState = 'visible';
         }
-        } else {
+        if (this.OpenCloseIcon.StateOpen === false) {
             ChildObject.VisibleState = 'hidden';
         }
         ChildObject.setDOMVisibleState();

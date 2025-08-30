@@ -1,7 +1,9 @@
 INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.TREE-OPENCLOSE1-HEADER', 'openclose-card-header', 'Screen 1 - Tree 1');
-INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.TREE-OPENCLOSE2-HEADER', 'openclose-card-header', 'Screen 2 - Tree 1');
-INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.TREE-OPENCLOSE3-HEADER', 'openclose-card-header', 'Screen 3 - Tree 1');
-INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.TREE-OPENCLOSE4-HEADER', 'openclose-card-header', 'Screen 3 - Tree 2');
+INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.TREE-OPENCLOSE2-HEADER', 'openclose-card-header', 'Screen 2 - Tree 2');
+INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.TREE-OPENCLOSE3-HEADER', 'openclose-card-header', 'Screen 3 - Tree 1-1');
+INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.TREE-OPENCLOSE4-HEADER', 'openclose-card-header', 'Screen 3 - Tree 2-1');
+INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.TREE-OPENCLOSE5-HEADER', 'openclose-card-header', 'Screen 3 - Tree 1-2');
+INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.TREE-OPENCLOSE6-HEADER', 'openclose-card-header', 'Screen 3 - Tree 2-2');
 
 INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.NODE1', 'tree-node', 'Node-1');
 INSERT INTO webui.text (id, "group", value_en) VALUES ('TXT.NODE2', 'tree-node', 'Node-2');
