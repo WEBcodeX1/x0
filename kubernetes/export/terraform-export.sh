@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 dstpath=$1
 if [ -z "$1" ]; then
@@ -27,3 +27,8 @@ for namespace in "${namespaces[@]}"; do
         kubectl get ${object} -n ${namespace} -o yaml | k2tf -o ${dstpath}/${namespace}-${object}.tf
     done
 done
+
+for cfgfile in ${dstpath}/*.tf; do
+    sed -i -e 's/cluster\_i\_ps/cluster\_ips/g' "${cfgfile}"
+done
+
