@@ -194,7 +194,7 @@ Add custom context menu items in List configurations:
 					"ID": "CustomExport",
 					"TextID": "TXT.EXPORT.CUSTOM",
 					"IconStyle": "fa-solid fa-file-export",
-					"InternalFunction": "CustomExport",
+					"InternalFunction": "CustomExport"
 				}
 			]
 		}
