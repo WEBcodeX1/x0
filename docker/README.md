@@ -180,7 +180,7 @@ docker exec -it x0-db psql -U postgres
 ### Container IP Assignments
 | Container | IP Address | Hostname |
 |-----------|------------|----------|
-| <img width="320px"> | <img width="320px"> | <img width="380px"> |
+| <img width="260px"> | <img width="380px"> | <img width="380px"> |
 | x0-app | `172.20.0.10` | x0-app |
 | x0-db | `172.20.0.20` | mypostgres |
 
