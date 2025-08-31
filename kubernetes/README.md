@@ -118,15 +118,15 @@ kubectl get namespace -o wide
 
 Check, if the following namespaces, especially "x0-app" exists.
 
-| NAME                | STATUS             |
-| ------------------- | ------------------ |
-| <img width="700px"> | <img width="320">  |
-| ingress-nginx       | Active             |
-| kube-node-lease     | Active             |
-| kube-public         | Active             |
-| kube-system         | Active             |
-| kubegres-system     | Active             |
-| x0-app              | Active             |
+| NAME                | STATUS              |
+| ------------------- | ------------------- |
+| <img width="700px"> | <img width="320px"> |
+| ingress-nginx       | Active              |
+| kube-node-lease     | Active              |
+| kube-public         | Active              |
+| kube-system         | Active              |
+| kubegres-system     | Active              |
+| x0-app              | Active              |
 
 ### 6.2. Pods
 
@@ -140,14 +140,14 @@ kubectl get pods -n x0-app
 Check if the following pods exist, especially "READY" and "STATUS".
 Also an internal IPv4 address must be assigned.
 
-| NAME                   | READY              | STATUS             | IP                 |
-| ---------------------- | ------------------ | ------------------ | ------------------ |
-| <img width="420px">    | <img width="200">  | <img width="200">  | <img width="200">  |
-| mypostgres-1-0         | 1/1                | Running            | 10.244.x.x         |
-| selenium-server-0      | 1/1                | Running            | 10.244.x.x         |
-| x0-test-db-install     | 0/1                | Completed          | 10.244.x.x         |
-| x0-test-deployment-... | 1/1                | Running            | 10.244.x.x         |
-| x0-test-test-run       | 0/1                | Completed          | 10.244.x.x         |
+| NAME                   | READY                | STATUS               | IP                   |
+| ---------------------- | -------------------- | -------------------- | -------------------- |
+| <img width="420px">    | <img width="200px">  | <img width="200px">  | <img width="200px">  |
+| mypostgres-1-0         | 1/1                  | Running              | 10.244.x.x           |
+| selenium-server-0      | 1/1                  | Running              | 10.244.x.x           |
+| x0-test-db-install     | 0/1                  | Completed            | 10.244.x.x           |
+| x0-test-deployment-... | 1/1                  | Running              | 10.244.x.x           |
+| x0-test-test-run       | 0/1                  | Completed            | 10.244.x.x           |
 
 ### 6.3. Service
 
@@ -160,12 +160,12 @@ kubectl get service -o wide -n x0-app
 
 Check if the following services exist.
 
-| NAME                   | TYPE               | CLUSTER-IP         | PORT(S)            |
-| ---------------------- | ------------------ | ------------------ | ------------------ |
-| <img width="420px">    | <img width="200">  | <img width="200">  | <img width="200">  |
-| mypostgres             | ClusterIP          | None               | 5432/TCP           |
-| selenium-server-0      | ClusterIP          | 10.103.x.x         | 4444/TCP           |
-| x0-x0-app-test-svc     | ClusterIP          | 10.104.x.x         | 80/TCP             |
+| NAME                   | TYPE                 | CLUSTER-IP           | PORT(S)              |
+| ---------------------- | -------------------- | -------------------- | -------------------- |
+| <img width="420px">    | <img width="200px">  | <img width="200px">  | <img width="200px">  |
+| mypostgres             | ClusterIP            | None                 | 5432/TCP             |
+| selenium-server-0      | ClusterIP            | 10.103.x.x           | 4444/TCP             |
+| x0-x0-app-test-svc     | ClusterIP            | 10.104.x.x           | 80/TCP               |
 
 ### 6.4. Endpoints
 
@@ -178,12 +178,12 @@ kubectl get endpoints -o wide -n x0-app
 
 Check if the following endpoints exist and the IP-mapping to pods is correct.
 
-| NAME                | ENDPOINTS          |
-| ------------------- | ------------------ |
-| <img width="700px"> | <img width="320">  |
-| mypostgres          | 10.244.x.x:5432    |
-| selenium-server-0   | 10.244.x.x:4444    |
-| x0-x0-app-test-svc  | 10.244.x.x:80      |
+| NAME                | ENDPOINTS            |
+| ------------------- | -------------------- |
+| <img width="700px"> | <img width="320px">  |
+| mypostgres          | 10.244.x.x:5432      |
+| selenium-server-0   | 10.244.x.x:4444      |
+| x0-x0-app-test-svc  | 10.244.x.x:80        |
 
 ### 6.5. Ingress
 
@@ -196,10 +196,10 @@ kubectl get ingress -o wide -n x0-app
 
 Check if the following ingress exists (IP addresses / subnets may differ).
 
-| NAME                            | CLASS              | HOSTS              | ADDRESS            |
-| ------------------------------- | ------------------ | ------------------ | ------------------ |
-| <img width="420px">             | <img width="200">  | <img width="200">  | <img width="200">  |
-| x0-x0-app-test-minikube-ingress | nginx              | x0-app.x0.localnet | 172.17.84.42       |
+| NAME                            | CLASS                | HOSTS                | ADDRESS              |
+| ------------------------------- | -------------------- | -------------------- | -------------------- |
+| <img width="420px">             | <img width="200px">  | <img width="200px">  | <img width="200px">  |
+| x0-x0-app-test-minikube-ingress | nginx                | x0-app.x0.localnet   | 172.17.84.42         |
 
 ### 6.6. DNS
 
@@ -239,4 +239,3 @@ The last lines should look like this.
 ------------------ generated xml file: /tmp/pytest-junit.xml -------------------
 ======================== 51 passed in 81.53s (0:01:21) =========================
 ```
-

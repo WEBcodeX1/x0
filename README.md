@@ -64,22 +64,22 @@
 Try x0 now in minutes!
 
 ```bash
-# Clone & enter repo
+# clone & enter repo
 git clone https://github.com/WEBcodeX1/x0.git
 cd x0
 
-# Install Docker
+# install Docker
 apt-get -y install docker.io docker-buildx
 
-# Docker permissions & setup (as root)
+# docker permissions & setup (as root)
 usermod -aG docker your-user
 
-# Restart (system) and pull pre-built images
+# restart (system) and pull pre-built images
 docker pull ghcr.io/webcodex1/x0-app
 docker pull ghcr.io/webcodex1/x0-db
 docker pull ghcr.io/webcodex1/x0-test
 
-# Start x0-system
+# start x0-system
 cd ./docker/
 ./x0-start-containers.sh
 ```
