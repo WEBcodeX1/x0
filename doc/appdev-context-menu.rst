@@ -61,4 +61,3 @@ A context menu (right mouse click) can be bound to any *x0-object-type*
 	| FireEvents          |  Array               | Array of EventIDs                               |
 	+---------------------+----------------------+-------------------------------------------------+
 
-.. _appdevglobaluser:
