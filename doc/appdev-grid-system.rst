@@ -181,7 +181,6 @@ of a **row** container div.
     Note that ColAfterElements default value is ``[1]``, so the container
 	div including CSS will be set for each processed element.
 
-The last 
 
 .. code-block:: javascript
 
