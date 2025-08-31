@@ -166,7 +166,7 @@ Modifying ``"RowStyle": [ "row fw-bold", "row" ]`` renders:
 	</div>
 	<div class="row">
 		<el5></el5>
-		<el6></el>
+		<el6></el6>
 	</div>
 
 9.2.3. ColStyle / ColAfterElements
