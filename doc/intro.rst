@@ -176,8 +176,10 @@ For the current milestones, see: https://github.com/WEBcodeX1/x0/milestones.
 
 - Configuration / Application Setup
     :ref:`appdevconfig`
+- Css Styling Guide
+    :ref:`appdevglobalcss`
 - Grid System
-    :ref:`appdevglobalgrid`
+    :ref:`appdevgridsystem`
 - Developer Documentation (Chapters 20 - 27)
     :ref:`devarchitecture`
 
