@@ -180,14 +180,14 @@ docker exec -it x0-db psql -U postgres
 ### Container IP Assignments
 | Container | IP Address | Hostname |
 |-----------|------------|----------|
-| <img width="700px"> | <img width="320"> | <img width="320"> |
+| <img width="320px"> | <img width="320px"> | <img width="380px"> |
 | x0-app | `172.20.0.10` | x0-app |
 | x0-db | `172.20.0.20` | mypostgres |
 
 ### Port Mappings
 | Service | Container Port | Host Port | Protocol |
 |---------|----------------|-----------|----------|
-| <img width="700px"> | <img width="320"> | <img width="320"> | <img width="320"> |
+| <img width="160px"> | <img width="160px"> | <img width="320px"> | <img width="380px"> |
 | Web UI (HTTP) | 80 | 80 | TCP |
 | Web UI (HTTPS) | 443 | 443 | TCP |
 | PostgreSQL | 5432 | 5432 | TCP |
