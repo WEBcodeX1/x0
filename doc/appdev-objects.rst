@@ -17,6 +17,8 @@ Currently the following *x0-system-objects* are usable inside ``object.json``.
 * :ref:`objecttype-tabcontainer`
 * :ref:`objecttype-fileupload`
 * :ref:`objecttype-errorcontainer`
+* :ref:`objecttype-openclosecontainer`
+* :ref:`objecttype-treesimple`
 
 .. _objecttype-div:
 
@@ -847,3 +849,234 @@ The ``FormfieldHidden`` *x0-object-type* renders a non-visible HTML ``<input>`` 
 	+---------------------+----------------------+-------------------------------------------------+
 	| Value               | String               | Hardcoded Value                                 |
 	+---------------------+----------------------+-------------------------------------------------+
+
+.. _objecttype-openclosecontainer:
+
+10.11. OpenCloseContainer
+------------------------
+
+The ``OpenCloseContainer`` *x0-object-type* provides a collapsible content container 
+with toggle functionality, allowing users to expand or collapse sections to manage 
+screen real estate effectively. This component is particularly useful for organizing 
+large amounts of content in a compact, user-friendly manner.
+
+10.11.1. Object Attributes
+**************************
+
+.. table:: Object Type OpenCloseContainer Attributes
+	:widths: 30 20 80
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| Style               | CSS-String           | CSS Style Classes, space separated              |
+	+---------------------+----------------------+-------------------------------------------------+
+	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+	+---------------------+----------------------+-------------------------------------------------+
+
+10.11.2. Features
+****************
+
+- **Toggle Functionality**: Click to expand or collapse content sections
+- **State Management**: Maintains open/close state across interactions
+- **Nested Content**: Can contain any x0-system-objects within collapsible sections
+- **Responsive Design**: Adapts to different screen sizes using Bootstrap styling
+- **Visual Indicators**: Uses FontAwesome caret icons to indicate state
+
+10.11.3. JSON Example
+*********************
+
+.. code-block:: javascript
+
+	"OpenCloseElement1": {
+		"Type": "OpenCloseContainer",
+		"Attributes": {
+			"TextID": "TXT.OPENCLOSE1-HEADER"
+		}
+	}
+
+.. code-block:: javascript
+
+	"OpenCloseElement2": {
+		"Type": "OpenCloseContainer",
+		"Attributes": {
+			"Style": "mb-4",
+			"TextID": "TXT.SECTION.ADVANCED.SETTINGS"
+		}
+	}
+
+10.11.4. Usage Examples
+**********************
+
+This system object can be used for:
+
+- Creating collapsible content sections
+- Organizing complex forms with grouped sections
+- Building accordion-style interfaces
+- Managing information hierarchy and screen space
+- Demonstrating modular UI construction
+
+10.11.5. Runnable Example
+************************
+
+* Example #14 - Open Close Container: 
+  ``http://x0-app.x0.localnet/python/Index.py?appid=example14``
+
+.. _objecttype-treesimple:
+
+10.12. TreeSimple
+----------------
+
+The ``TreeSimple`` *x0-object-type* creates hierarchical tree structures with 
+expandable/collapsible nodes, FontAwesome icons, and navigation capabilities. It 
+supports both expandable nodes (containers) and interactive items (navigation elements) 
+with visual selection indicators and state management.
+
+10.12.1. Object Attributes
+**************************
+
+.. table:: Object Type TreeSimple Attributes
+	:widths: 30 20 80
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| TreeItems           | Array of Elements    | Array of Tree Node and Item definitions         |
+	+---------------------+----------------------+-------------------------------------------------+
+
+10.12.2. Tree Item Types
+***********************
+
+10.12.2.1. Node Type
+-------------------
+
+Expandable/collapsible containers that can contain other nodes or items:
+
+.. table:: Tree Node Attributes
+	:widths: 30 20 80
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| Type                | Constant String      | Fixed String 'Node'                             |
+	+---------------------+----------------------+-------------------------------------------------+
+	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+	+---------------------+----------------------+-------------------------------------------------+
+	| Icon                | CSS-String           | FontAwesome Icon CSS Classes                    |
+	+---------------------+----------------------+-------------------------------------------------+
+	| Children            | Array of Elements    | Array of child Node and Item elements           |
+	+---------------------+----------------------+-------------------------------------------------+
+
+10.12.2.2. Item Type
+-------------------
+
+Interactive navigation elements that trigger screen navigation:
+
+.. table:: Tree Item Attributes
+	:widths: 30 20 80
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| Type                | Constant String      | Fixed String 'Item'                             |
+	+---------------------+----------------------+-------------------------------------------------+
+	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+	+---------------------+----------------------+-------------------------------------------------+
+	| Icon                | CSS-String           | FontAwesome Icon CSS Classes                    |
+	+---------------------+----------------------+-------------------------------------------------+
+	| ScreenID            | ScreenID-String      | Target Screen for navigation                    |
+	+---------------------+----------------------+-------------------------------------------------+
+
+10.12.3. Features
+****************
+
+- **Hierarchical Structure**: Support for nested nodes and items
+- **Expandable Nodes**: Click caret controls to expand/collapse tree nodes
+- **Navigation Items**: Tree items trigger screen navigation while maintaining tree state
+- **Icon Integration**: FontAwesome icons provide visual cues for different node and item types
+- **Visual Feedback**: Hover effects and selection indicators enhance user interaction
+- **State Management**: Tree state is preserved during navigation between screens
+
+10.12.4. JSON Example
+*********************
+
+.. code-block:: javascript
+
+	"TreeSimpleElement1": {
+		"Type": "TreeSimple",
+		"Attributes": {
+			"TreeItems": [
+				{
+					"Type": "Node",
+					"TextID": "TXT.NODE1",
+					"Icon": "fa-solid fa-hexagon-nodes",
+					"Children": [
+						{
+							"Type": "Item",
+							"TextID": "TXT.ITEM1",
+							"Icon": "fa-solid fa-code-branch",
+							"ScreenID": "Screen1"
+						},
+						{
+							"Type": "Item",
+							"TextID": "TXT.ITEM2",
+							"Icon": "fa-solid fa-lightbulb",
+							"ScreenID": "Screen2"
+						}
+					]
+				},
+				{
+					"Type": "Node",
+					"TextID": "TXT.NODE2",
+					"Icon": "fa-solid fa-folder",
+					"Children": [
+						{
+							"Type": "Node",
+							"TextID": "TXT.SUBNODE1",
+							"Icon": "fa-solid fa-folder-open",
+							"Children": [
+								{
+									"Type": "Item",
+									"TextID": "TXT.SUBITEM1",
+									"Icon": "fa-solid fa-file",
+									"ScreenID": "Screen3"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	}
+
+10.12.5. Usage Examples
+**********************
+
+This system object can be used for:
+
+- Creating hierarchical navigation menus with expandable categories
+- Building file explorer-style interfaces
+- Implementing sidebar navigation with nested menu structures
+- Demonstrating tree-based data organization in x0 applications
+- Creating multi-level category browsers
+
+10.12.6. Integration with OpenCloseContainer
+*******************************************
+
+TreeSimple objects work well when wrapped in OpenCloseContainer for additional 
+collapsibility:
+
+.. code-block:: javascript
+
+	"TreeContainer": {
+		"Type": "OpenCloseContainer",
+		"Attributes": {
+			"TextID": "TXT.NAVIGATION.TREE"
+		}
+	}
+
+10.12.7. Runnable Example
+************************
+
+* Example #15 - Tree Simple: 
+  ``http://x0-app.x0.localnet/python/Index.py?appid=example15``
