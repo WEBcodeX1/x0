@@ -1,4 +1,4 @@
-11. User Defaults
+13. User Defaults
 =================
 
 The **x0-framework** provides a comprehensive user-based functionality system that allows
@@ -6,13 +6,13 @@ developers to extend core framework capabilities with custom validation function
 default value configurations, and context menu processing. This system was introduced
 to provide greater flexibility and customization options for application developers.
 
-11.1. Default Values
+13.1. Default Values
 ********************
 
 The ``UserDefaults`` class allows you to override system-wide default values and
 configurations for various x0 components.
 
-11.1.1. UserDefaults Class
+13.1.1. UserDefaults Class
 --------------------------
 
 The UserDefaults class is automatically instantiated on **x0-system-init**,
@@ -26,7 +26,7 @@ use it to override global default values.
 		sysFactory.DefaultStyleMenu = 'menu-custom-pos';
 	}
 
-11.1.2. Available Default Properties
+13.1.2. Available Default Properties
 ------------------------------------
 
 .. table:: User Default Properties
@@ -46,13 +46,13 @@ use it to override global default values.
 	| DefaultStyleListNavRight    | Override default list navigation right CSS classes     |
 	+-----------------------------+--------------------------------------------------------+
 
-11.2. User Validation Functions
+13.2. User Validation Functions
 *******************************
 
 The framework supports custom validation functions that extend or override the built-in
 validation system through the ``UserValidate`` class.
 
-11.2.1. UserValidate Class
+13.2.1. UserValidate Class
 --------------------------
 
 Custom validation functions are defined in the ``UserValidate`` class:
@@ -79,7 +79,7 @@ Custom validation functions are defined in the ``UserValidate`` class:
 		return phoneRegex.test(Value);
 	}
 
-11.2.2. Using Custom Validation
+13.2.2. Using Custom Validation
 -------------------------------
 
 Apply custom validation functions in form field configurations:
@@ -95,13 +95,13 @@ Apply custom validation functions in form field configurations:
 		}
 	}
 
-11.3. User Group Validation Functions
+13.3. User Group Validation Functions
 *************************************
 
 For validation scenarios that require multiple form fields, the ``UserValidateGroup``
 class provides group-based validation capabilities.
 
-11.3.1. UserValidateGroup Class
+13.3.1. UserValidateGroup Class
 -------------------------------
 
 .. code-block:: javascript
@@ -125,7 +125,7 @@ class provides group-based validation capabilities.
 		return false;
 	}
 
-11.3.2. Group Validation Configuration
+13.3.2. Group Validation Configuration
 --------------------------------------
 
 Configure group validation in FormfieldList objects:
@@ -142,13 +142,13 @@ Configure group validation in FormfieldList objects:
 		}
 	}
 
-11.4. User Context Menu Processing
+13.4. User Context Menu Processing
 **********************************
 
 The ``UserContextMenu`` class allows custom processing of context menu interactions
 beyond the standard framework methods.
 
-11.4.1. UserContextMenu Class
+13.4.1. UserContextMenu Class
 -----------------------------
 
 .. code-block:: javascript
@@ -179,7 +179,7 @@ beyond the standard framework methods.
 		console.debug('Exporting data:', rowData);
 	}
 
-11.4.2. Context Menu Configuration
+13.4.2. Context Menu Configuration
 ----------------------------------
 
 Add custom context menu items in List configurations:
@@ -200,7 +200,7 @@ Add custom context menu items in List configurations:
 		}
 	}
 
-11.5. Implementation Example
+13.5. Implementation Example
 ****************************
 
 Complete example showing user functionality integration:

@@ -2,13 +2,13 @@
 
 .. _appdevforms:
 
-15. Forms
+17. Forms
 =========
 
 Designing Forms is an essential part when designing modern web-applications.
 *x0-system* provides multiple mechanisms for building complex forms easily.
 
-15.1. FormfieldList
+17.1. FormfieldList
 -------------------
 
 The FormfieldList *x0-object-type* is a container type providing the following
@@ -21,7 +21,7 @@ functionality.
 * Multilanguage Error / Info Display 
 * CSS styled / Bootstrap conform Subsections
 
-15.2. Form Validation
+17.2. Form Validation
 ---------------------
 
 The FormfieldList *x0-object-type* provides *x0-form-validation*.
@@ -35,7 +35,7 @@ The FormfieldList *x0-object-type* provides *x0-form-validation*.
 
 Example see: http://x0-app.x0.localnet/python/Index.py?appid=example5.
 
-15.3. FormfieldOnchange Handler
+17.3. FormfieldOnchange Handler
 -------------------------------
 
 The FormfieldOnChange Handler provides a mechanism to modify other rendered
@@ -63,7 +63,7 @@ The FormfieldOnChange Handler provides a mechanism to modify other rendered
 	| FireEvents          | Fire Events on change to given Value                                  |
 	+---------------------+-----------------------------------------------------------------------+
 
-15.3.1. EnableOnValues
+17.3.1. EnableOnValues
 **********************
 
 Valid for *x0-object-type* FormfieldPulldown.
@@ -76,7 +76,7 @@ attribute to work properly.
 
 Example see DisableOnValues.
 
-15.3.2. DisableOnValues
+17.3.2. DisableOnValues
 ***********************
 
 Valid for *x0-object-type* FormfieldPulldown.
@@ -125,7 +125,7 @@ when MX record type is selected and disable when A or CNAME selected.
 		}
 	}
 
-15.3.3. ActivateOnValues
+17.3.3. ActivateOnValues
 ************************
 
 Valid for *x0-object-type* FormfieldPulldown.
@@ -135,20 +135,20 @@ is set to **activated**.
 
 Objects with deactivated state will be omitted from validation.
 
-15.3.4. DeactivateOnValues
+17.3.4. DeactivateOnValues
 **************************
 
 Same as DisableOnValues with the difference that the internal object state
 is set to **deactivated**.
 
-15.3.5. UpdateFormLength
+17.3.5. UpdateFormLength
 ************************
 
 Valid for *x0-object-type* FormfieldText and FormfieldTextarea.
 
 Update destination object with current objects input length.
 
-15.3.6. FireEvents
+17.3.6. FireEvents
 ******************
 
 Globally fire (raise) Events on any objects state change.
@@ -159,7 +159,7 @@ Globally fire (raise) Events on any objects state change.
 		"FireEvents": [ "EventID1", "EventID2" ]
 	}
 
-15.3.7. Chaining Events
+17.3.7. Chaining Events
 ***********************
 
 Multiple OnChange config can be specified if provided as **Array** type. 
@@ -182,10 +182,10 @@ Multiple OnChange config can be specified if provided as **Array** type.
 		}
 	]
 
-15.4. System Validation Types
+17.4. System Validation Types
 -----------------------------
 
-15.4.1. Regex
+17.4.1. Regex
 *************
 
 * DefaultString
@@ -207,7 +207,7 @@ Multiple OnChange config can be specified if provided as **Array** type.
 * EuroWithCents
 * BarcodeZebra
 
-15.4.2. Functions
+17.4.2. Functions
 *****************
 
 * MinMax
@@ -221,7 +221,7 @@ Multiple OnChange config can be specified if provided as **Array** type.
 * DateInternational
 * DateGerman
 
-15.4.3. Group Functions
+17.4.3. Group Functions
 ***********************
 
 * CheckUnique
@@ -234,7 +234,7 @@ Multiple OnChange config can be specified if provided as **Array** type.
 * MinOneItemNotNull
 * DNSRecordValuePlusType
 
-15.5. Providing User Validation
+17.5. Providing User Validation
 -------------------------------
 
 To integrate your own user based *x0-validation-functions*, define them in

@@ -2,7 +2,7 @@
 
 .. _appdevcontextmenu:
 
-10. Context Menu
+12. Context Menu
 ================
 
 A context menu (right mouse click) can be bound to any *x0-object-type*
@@ -13,7 +13,7 @@ A context menu (right mouse click) can be bound to any *x0-object-type*
     Currently only ``List`` and ``FormfieldList`` *x0-object-types* are supported,
     this will change in future releases.
 
-10.1. Global Attributes
+12.1. Global Attributes
 ***********************
 
 .. table:: Context Menu Item Global Attributes
@@ -29,7 +29,7 @@ A context menu (right mouse click) can be bound to any *x0-object-type*
 	| IconStyle           | CSS-String           | CSS Style Classes, space separated              |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.2. Implemented Methods
+12.2. Implemented Methods
 *************************
 
 .. table:: Context Menu Methods
@@ -45,7 +45,7 @@ A context menu (right mouse click) can be bound to any *x0-object-type*
 	| RemoveSelected      | Array of Table-Rows  | Remove Selected Table Rows                      |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.3. Edit Attributes
+12.3. Edit Attributes
 *********************
 
 .. table:: Context Menu Item "Edit" Attributes
@@ -60,4 +60,3 @@ A context menu (right mouse click) can be bound to any *x0-object-type*
 	+---------------------+----------------------+-------------------------------------------------+
 	| FireEvents          |  Array               | Array of EventIDs                               |
 	+---------------------+----------------------+-------------------------------------------------+
-

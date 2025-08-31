@@ -2,7 +2,7 @@
 
 .. _devporting:
 
-27. Application Porting
+29. Application Porting
 =======================
 
 This document explains how to port an existing web application, particularly
@@ -13,7 +13,7 @@ principles.
 Extended object modeling and programming references are available in the relevant
 documentation sections.
 
-27.1. Introduction
+29.1. Introduction
 -------------------
 
 Porting a web application into *x0* involves converting static HTML and dynamically
@@ -29,14 +29,14 @@ Key processes include:
 
 For additional modeling references, see: :ref:`devobjectmodeling`.
 
-27.2. Modern Approach
+29.2. Modern Approach
 ---------------------
 
 The *modern approach* to porting focuses on recursive object referencing and
 modularization. This method ensures scalability and maintainability by leveraging
 the ``sysFactory.setupObjectRefsRecursive()`` function.
 
-27.2.1. Recursive Referencing
+29.2.1. Recursive Referencing
 *****************************
 
 Using ``sysFactory.setupObjectRefsRecursive()`` allows you to:
@@ -45,7 +45,7 @@ Using ``sysFactory.setupObjectRefsRecursive()`` allows you to:
 - Automatically initialize, configure, and render objects recursively.
 - Simplify the process of converting nested DOM elements into *x0-objects*.
 
-27.2.2. Example: Recursive Object Definition
+29.2.2. Example: Recursive Object Definition
 ********************************************
 
 The following example demonstrates how to structure a Bootstrap-formatted
@@ -91,13 +91,13 @@ component into a recursive *x0-object* hierarchy:
 This example converts a Bootstrap container, row, and column with a button
 into an *x0-object* hierarchy.
 
-27.3. Simple Referencing
+29.3. Simple Referencing
 ------------------------
 
 The *simple referencing* approach is ideal for small or isolated components.
 It does not require deep nesting or complex hierarchies.
 
-27.3.1. Example: Simple Object Initialization
+29.3.1. Example: Simple Object Initialization
 *********************************************
 
 Here is an example of defining and adding a single object without recursion:
@@ -118,7 +118,7 @@ Here is an example of defining and adding a single object without recursion:
 In this case, the button is directly added to ``this`` object.
 This method is straightforward but less flexible for scaling or reusing components.
 
-27.4. Combining Modern and Simple Approaches
+29.4. Combining Modern and Simple Approaches
 --------------------------------------------
 
 In practice, you may need to combine modern and simple referencing techniques.
@@ -127,7 +127,7 @@ For example:
 - Use recursive referencing for defining the application's primary structure.
 - Use simple referencing for dynamically adding or modifying objects at runtime.
 
-27.4.1. Example: Combined Approach
+29.4.1. Example: Combined Approach
 **********************************
 
 .. code-block:: javascript
@@ -165,7 +165,7 @@ For example:
 This approach maximizes the flexibility of the *x0-framework*,
 combining the strengths of both methods.
 
-27.5. Best Practices
+29.5. Best Practices
 --------------------
 
 Follow these best practices when porting applications into *x0*:
@@ -189,7 +189,7 @@ Follow these best practices when porting applications into *x0*:
 5. **Document Components**:
    - Provide clear documentation for each reusable component, including its JSON configuration and expected behavior.
 
-27.6. Additional Resources
+29.6. Additional Resources
 --------------------------
 
 For more information, see:
