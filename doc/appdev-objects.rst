@@ -631,11 +631,8 @@ with visual selection indicators and state management.
 	| TreeItems           | Array of Elements    | Array of Tree Node and Item definitions         |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.12.2. Tree Item Types
-************************
-
-10.12.2.1. Node Type
---------------------
+10.12.2. Element Type Node
+**************************
 
 Expandable/collapsible containers that can contain other nodes or items:
 
@@ -654,8 +651,8 @@ Expandable/collapsible containers that can contain other nodes or items:
 	| Children            | Array of Elements    | Array of child Node and Item elements           |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.12.2.2. Item Type
---------------------
+10.12.3. Element Type Item
+**************************
 
 Interactive navigation elements that trigger screen navigation:
 
@@ -674,7 +671,7 @@ Interactive navigation elements that trigger screen navigation:
 	| ScreenID            | ScreenID-String      | Target Screen for navigation                    |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.12.3. Features
+10.12.4. Features
 *****************
 
 - **Hierarchical Structure**: Support for nested nodes and items
@@ -684,7 +681,7 @@ Interactive navigation elements that trigger screen navigation:
 - **Visual Feedback**: Hover effects and selection indicators enhance user interaction
 - **State Management**: Tree state is preserved during navigation between screens
 
-10.12.4. JSON Example
+10.12.5. JSON Example
 *********************
 
 .. code-block:: javascript
@@ -736,7 +733,7 @@ Interactive navigation elements that trigger screen navigation:
 		}
 	}
 
-10.12.5. Usage Examples
+10.12.6. Usage Examples
 ***********************
 
 This system object can be used for:
@@ -747,7 +744,7 @@ This system object can be used for:
 - Demonstrating tree-based data organization in x0 applications
 - Creating multi-level category browsers
 
-10.12.6. Integration with OpenCloseContainer
+10.12.7. Integration with OpenCloseContainer
 ********************************************
 
 TreeSimple objects work well when wrapped in OpenCloseContainer for additional 
@@ -762,7 +759,7 @@ collapsibility:
 		}
 	}
 
-10.12.7. Runnable Example
+10.12.8. Runnable Example
 *************************
 
 * Example #15 - Tree Simple: 

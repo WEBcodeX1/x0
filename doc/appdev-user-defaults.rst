@@ -1,7 +1,7 @@
 11. User Defaults
 =================
 
-The x0 framework provides a comprehensive user-based functionality system that allows
+The **x0-framework** provides a comprehensive user-based functionality system that allows
 developers to extend core framework capabilities with custom validation functions,
 default value configurations, and context menu processing. This system was introduced
 to provide greater flexibility and customization options for application developers.
@@ -15,22 +15,15 @@ configurations for various x0 components.
 11.1.1. UserDefaults Class
 --------------------------
 
-The UserDefaults class is automatically instantiated as ``sysFactory.UserDefaults``
-during framework initialization:
+The UserDefaults class is automatically instantiated on **x0-system-init**,
+use it to override global default values.
 
 .. code-block:: javascript
 
 	function UserDefaults() {
-		// Override default style configurations
-		this.DefaultStyleScreen = 'col-md-10 ms-auto me-auto';
-		this.DefaultStyleMenu = 'menu-custom-pos';
-
-		// Set custom validation defaults
-		this.DefaultValidationMessages = {
-			'required': 'This field is required',
-			'email': 'Please enter a valid email address',
-			'number': 'Please enter a valid number'
-		};
+		//- override default style configurations
+		sysFactory.DefaultStyleScreen = 'col-md-10 ms-auto me-auto';
+		sysFactory.DefaultStyleMenu = 'menu-custom-pos';
 	}
 
 11.1.2. Available Default Properties
@@ -94,11 +87,11 @@ Apply custom validation functions in form field configurations:
 .. code-block:: javascript
 
 	"EmailField": {
-		"Type": "FormfieldText",
+		"Type": "Formfield",
 		"Attributes": {
-			"Validate": {
-				"customEmail": true
-			}
+			"Type": "text",
+			"ValidateRef": "customEmail",
+			"ValidateErrorTextID": "MultiLangTextID"
 		}
 	}
 
@@ -142,10 +135,9 @@ Configure group validation in FormfieldList objects:
 	"LoginForm": {
 		"Type": "FormfieldList",
 		"Attributes": {
-			"Validate": {
-				"Group": {
-					"passwordConfirmation": ["Password", "PasswordConfirm"]
-				}
+			"GroupValidate": {
+				"FunctionRef": "passwordConfirmation",
+				"ObjectIDs": ["Password", "PasswordConfirm"]
 			}
 		}
 	}
@@ -199,9 +191,10 @@ Add custom context menu items in List configurations:
 		"Attributes": {
 			"ContextMenuItems": [
 				{
-					"Method": "CustomExport",
+					"ID": "CustomExport",
 					"TextID": "TXT.EXPORT.CUSTOM",
-					"IconStyle": "fa-solid fa-file-export"
+					"IconStyle": "fa-solid fa-file-export",
+					"InternalFunction": "CustomExport"
 				}
 			]
 		}
