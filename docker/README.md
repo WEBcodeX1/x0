@@ -68,16 +68,16 @@ cd x0/docker
 
 The x0 system is composed of **7 specialized Docker images**:
 
-| Image | Purpose | Base | Registry |
-|-------|---------|------|----------|
-| <img width="200px"> | <img width="280px"> | <img width="200px"> | <img width="340px"> |
-| **x0-app** | Web application server | Ubuntu 24.04 | `ghcr.io/webcodex1/x0-app` |
-| **x0-db** | PostgreSQL 14 database | Ubuntu 24.04 | `ghcr.io/webcodex1/x0-db` |
-| **x0-db-install** | Kubernetes DB installer | Ubuntu 24.04 | `ghcr.io/webcodex1/x0-db-install` |
-| **x0-db-install-tpl** | DB template installer | Ubuntu 24.04 | `ghcr.io/webcodex1/x0-db-install-tpl` |
-| **x0-test** | Integration test runner | Ubuntu 24.04 | `ghcr.io/webcodex1/x0-test` |
-| **x0-test-github** | GitHub Actions test runner | Ubuntu 24.04 | `ghcr.io/webcodex1/x0-test-github` |
-| **x0-msg-server** | Message server component | Ubuntu 24.04 | `ghcr.io/webcodex1/x0-msg-server` |
+| Image                 | Purpose                    | Base                | Registry                              |
+| --------------------- | -------------------------- | ------------------- | ------------------------------------- |
+| <img width="200px">   | <img width="280px">        | <img width="200px"> | <img width="340px">                   |
+| **x0-app**            | Web application server     | Ubuntu 24.04        | `ghcr.io/webcodex1/x0-app`            |
+| **x0-db**             | PostgreSQL 14 database     | Ubuntu 24.04        | `ghcr.io/webcodex1/x0-db`             |
+| **x0-db-install**     | Kubernetes DB installer    | Ubuntu 24.04        | `ghcr.io/webcodex1/x0-db-install`     |
+| **x0-db-install-tpl** | DB template installer      | Ubuntu 24.04        | `ghcr.io/webcodex1/x0-db-install-tpl` |
+| **x0-test**           | Integration test runner    | Ubuntu 24.04        | `ghcr.io/webcodex1/x0-test`           |
+| **x0-test-github**    | GitHub Actions test runner | Ubuntu 24.04        | `ghcr.io/webcodex1/x0-test-github`    |
+| **x0-msg-server**     | Message server component   | Ubuntu 24.04        | `ghcr.io/webcodex1/x0-msg-server`     |
 
 ---
 
@@ -178,19 +178,19 @@ docker exec -it x0-db psql -U postgres
 - **Gateway:** `172.20.0.1`
 
 ### Container IP Assignments
-| Container | IP Address | Hostname |
-|-----------|------------|----------|
-| <img width="255px"> | <img width="380px"> | <img width="385px"> |
-| x0-app | `172.20.0.10` | x0-app |
-| x0-db | `172.20.0.20` | mypostgres |
+| Container              | IP Address          | Hostname            |
+| ---------------------- | ------------------- | ------------------- |
+| <img width="255px">    | <img width="380px"> | <img width="385px"> |
+| x0-app                 | `172.20.0.10`       | x0-app              |
+| x0-db                  | `172.20.0.20`       | mypostgres          |
 
 ### Port Mappings
-| Service | Container Port | Host Port | Protocol |
-|---------|----------------|-----------|----------|
+| Service             | Container Port      | Host Port           | Protocol            |
+| ------------------- | ------------------- | ------------------- | ------------------- |
 | <img width="255px"> | <img width="255px"> | <img width="255px"> | <img width="255px"> |
-| Web UI (HTTP) | 80 | 80 | TCP |
-| Web UI (HTTPS) | 443 | 443 | TCP |
-| PostgreSQL | 5432 | 5432 | TCP |
+| Web UI (HTTP)       | 80                  | 80                  | TCP                 |
+| Web UI (HTTPS)      | 443                 | 443                 | TCP                 |
+| PostgreSQL          | 5432                | 5432                | TCP                 |
 
 ### Network Commands
 ```bash
