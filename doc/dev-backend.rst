@@ -2,17 +2,17 @@
 
 .. _devbackend:
 
-23. Backend Development
+25. Backend Development
 =======================
 
-23.1. XMLRPC Callbacks
+25.1. XMLRPC Callbacks
 ----------------------
 
 The ``sysXMLRPCRequest.js`` file in the *x0-framework* implements the core functionality
 for handling XML-RPC (Remote Procedure Call) requests, supporting both synchronous and
 asynchronous operations. Below is an overview of its concept:
 
-23.1.1. Key Concepts
+25.1.1. Key Concepts
 ********************
 
     * Purpose:
@@ -53,7 +53,7 @@ asynchronous operations. Below is an overview of its concept:
     * x0-object Callback:
         1. Always execute the *x0-systems* ``callbackXMLRPCAsync`` callback method in the caller *x0-object*.
 
-23.1.2. Example Workflow
+25.1.2. Example Workflow
 ************************
 
     * A request is initialized using the ``sysCallXMLRPC`` constructor with a target URL and optional parameters.
@@ -61,7 +61,7 @@ asynchronous operations. Below is an overview of its concept:
     * The Request method is called with a target object containing data and ``callbackXMLRPCAsync`` callback method.
     * In asynchronous mode, the server response is processed, parsed, and passed to the callback function for further action.
 
-23.1.3. Getting Backend Data
+25.1.3. Getting Backend Data
 ****************************
 
 *x0-application-developer* and *x0-systems-developer* roles should always use *x0-service-connector*
@@ -73,7 +73,7 @@ and *x0-source-data-objects* in the following situations:
 Direct usage of `sysXMLRPCRequest` is discouraged and should only be done when developing the
 *x0-core-system*. See :ref:`devbackend-nested-rpc` for more details on nested *x0-system* XML-RPC calls.
 
-23.1.4. Error Handling
+25.1.4. Error Handling
 **********************
 
 A backend service must return the following JSON syntax when an error has occured:
@@ -98,14 +98,14 @@ be ommited.
 
 .. _devbackend-nested-rpc:
 
-23.1.5. Nested RPC Requests
+25.1.5. Nested RPC Requests
 ***************************
 
 Only relevant for *x0-core-system* development.
 
 Sometimes multiple / nested (pseudo-synchronous) XML-RPC requests are necessary.
 
-23.1.6. Debugging Information
+25.1.6. Debugging Information
 *****************************
 
 If something misbehaves drastically, first check Browser JS Console
@@ -119,13 +119,13 @@ files:
 - ``sysFactory.js``
 - ``sysScreen.js``
 
-23.2. JSON Schemas
+25.2. JSON Schemas
 ------------------
 
 JSON schemas define the structure and validation rules for *x0-system-objects*.
 Properly defining JSON schemas ensures consistency and reduces runtime errors.
 
-23.2.1. How to Define JSON Schemas
+25.2.1. How to Define JSON Schemas
 **********************************
 
 1. **Schema Structure:**
@@ -135,7 +135,7 @@ Properly defining JSON schemas ensures consistency and reduces runtime errors.
 3. **Examples:**
    Provide example JSON schemas in the documentation to guide developers.
 
-23.2.2. Best Practices
+25.2.2. Best Practices
 **********************
 
 1. **Version Control:**

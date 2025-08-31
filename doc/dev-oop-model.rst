@@ -2,12 +2,12 @@
 
 .. _devoopmodel:
 
-21. OOP Model
+23. OOP Model
 =============
 
 .. _devoopmodel_base:
 
-21.1. Base OOP Inheritance Model
+23.1. Base OOP Inheritance Model
 --------------------------------
 
 This documentation section outlines the inheritance and interaction model between
@@ -15,19 +15,19 @@ the foundational components of the x0 JavaScript framework: ``sysBaseObject``, `
 and ``sysReactor``. These components enable object-oriented design, event management,
 and object instantiation across the framework.
 
-21.2. Core Base Object
+23.2. Core Base Object
 ----------------------
 
 Defined in ``sysBaseObject.js``.
 
-21.2.1. Purpose
+23.2.1. Purpose
 ***************
 
 ``sysBaseObject`` serves as the foundational class for all objects in the x0 framework.
 It provides core functionalities like DOM manipulation, child-parent relationships,
 and object lifecycle management.
 
-21.2.1. Key Features
+23.2.1. Key Features
 ********************
 
     1. Inheritance:
@@ -37,7 +37,7 @@ and object lifecycle management.
     3. Lifecycle Management:
         * Methods for initialization, rendering, event processing, and removal of objects.
 
-21.2.1. Core Methods
+23.2.1. Core Methods
 ********************
 
     - addObject(ChildObject):
@@ -56,19 +56,19 @@ and object lifecycle management.
     - removeParent():
         * Refer to :ref:`devoopmodel-classes-baseobj-removeparent`.
 
-21.3. Object Factory
+23.3. Object Factory
 --------------------
 
 Defined in ``sysFactory.js``.
 
-21.3.1. Purpose
+23.3.1. Purpose
 ***************
 
 ``sysFactory`` acts as the central factory for creating, managing, and interacting
 with *x0-system-objects*. It provides utility methods for object instantiation,
 screen management, and event handling.
 
-21.3.2. Key Features
+23.3.2. Key Features
 ********************
 
     1. Object Instantiation:
@@ -78,7 +78,7 @@ screen management, and event handling.
     3. Utility Methods:
         * Provides methods for fetching objects by ID, attribute, or type.
 
-21.3.3. Core Methods
+23.3.3. Core Methods
 ********************
 
     - setupObjectRefsRecursive(ObjDefs, RefObj):
@@ -90,18 +90,18 @@ screen management, and event handling.
     - switchScreen(ScreenID):
         * Activates a specific screen and deactivates all others.
 
-21.4. Event Reactor
+23.4. Event Reactor
 -------------------
 
 Defined in ``sysReactor.js``.
 
-21.4.1. Purpose
+23.4.1. Purpose
 ***************
 
 ``sysReactor`` is responsible for managing and dispatching events within the system.
 It allows objects to register and respond to events dynamically.
 
-21.4.2. Key Features
+23.4.2. Key Features
 ********************
 
     1. Event Registration:
@@ -111,7 +111,7 @@ It allows objects to register and respond to events dynamically.
     3. Dynamic Interaction:
         * Supports various event types, including ServiceConnector and custom types.
 
-21.4.3. Core Methods
+23.4.3. Core Methods
 ********************
 
     - registerEvent(Attributes, ProcessObject, Type):
@@ -121,7 +121,7 @@ It allows objects to register and respond to events dynamically.
     - fireEvents(FireEvents):
         * Fires a list of events by dispatching them sequentially.
 
-21.4.4. Relationships and Interactions
+23.4.4. Relationships and Interactions
 **************************************
 
     1. Objects and Factory:
@@ -136,7 +136,7 @@ It allows objects to register and respond to events dynamically.
         Events are registered with the reactor using ``registerEvent``.
         When an event is triggered, dispatchEvent identifies the target object and invokes the appropriate handler.
 
-21.4.5. Example Workflow
+23.4.5. Example Workflow
 ************************
 
 Scenario: Creating and Managing a Screen with Dynamic Objects
@@ -153,7 +153,7 @@ Scenario: Creating and Managing a Screen with Dynamic Objects
     4. Event Dispatching:
         Trigger events using ``sysReactor.dispatchEvent``, which invokes the respective handlers.
 
-21.4.6. Conclusion
+23.4.6. Conclusion
 ******************
 
 The x0 framework's base OOP inheritance model, with ``sysBaseObject``, ``sysFactory``,

@@ -2,7 +2,7 @@
 
 .. _devarchitecture:
 
-20. System Architecture
+22. System Architecture
 =======================
 
 The current chapter introduces the **developer-documentation** part.
@@ -11,24 +11,24 @@ The first chart shows an overall view of global systems inter-communication.
 .. image:: images/x0-architecture-overview.png
   :alt: image - architecture overview
 
-20.1. Global Workflows
+22.1. Global Workflows
 ----------------------
 
 - Initialization (Browser Page Load)
 
-20.1.1. Init Logical
+22.1.1. Init Logical
 ********************
 
 .. image:: images/x0-workflow-init-nonuml.png
   :alt: image - architecture init workflow no-uml
 
-20.1.2. Init UML Sequence
+22.1.2. Init UML Sequence
 *************************
 
 .. image:: images/x0-workflow-init-uml1.png
   :alt: image - architecture init workflow uml
 
-20.2. Kubernetes Platform
+22.2. Kubernetes Platform
 -------------------------
 
 The following chart illustrates an x0-generated GKE (Google Kubernetes Engine)

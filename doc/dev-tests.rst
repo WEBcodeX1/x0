@@ -2,7 +2,7 @@
 
 .. _devtests:
 
-24. Developing Tests
+27. Developing Tests
 ====================
 
 Tests are an essential component for ensuring the stability of newly designed
@@ -17,7 +17,7 @@ reducing strain on the Git CI system's server.
 As a developer, you are strongly encouraged to write sufficient tests and add them to the
 ``/tests`` subdirectory. This chapter provides detailed instructions on how to do so.
 
-24.1. Test CI
+27.1. Test CI
 -------------
 
 On pushing to the ``current-release`` branch, current-release`s test-containers will
@@ -36,7 +36,7 @@ Once the tests pass, a snapshot of the branch will be created and named:
 
 ``/releases/${release-tag}``.
 
-24.2. Test Config
+27.2. Test Config
 -----------------
 
 A single test consists of the following components:
@@ -54,7 +54,7 @@ Optional components for enhanced tests:
 - Additional Database Data
 - Backend Scripts Returning App JSON Data
 
-24.2.1. Test Identifier
+27.2.1. Test Identifier
 ***********************
 
 Each test must have a unique identifier. It is treated as a standalone
@@ -62,7 +62,7 @@ Each test must have a unique identifier. It is treated as a standalone
 
 http://x0-app.x0.localnet/python/Index.py?appid=${test_id}
 
-24.2.2. System Database Config
+27.2.2. System Database Config
 ******************************
 
 The following database configuration must be generated, providing the
@@ -83,7 +83,7 @@ test identifier and all test properties, including the test subdirectory:
 Save this configuration in:
 ``./test/integration/config/${test_id}/sql/01-sys-config.sql``.
 
-24.2.3. App Metadata
+27.2.3. App Metadata
 ********************
 
 As with all *x0-applications*, the test requires valid ``object.json``, ``skeleton.json``,
@@ -93,13 +93,13 @@ and ``menu.json`` files:
 * ``./test/integration/config/${test_id}/static/object.json``
 * ``./test/integration/config/${test_id}/static/skeleton.json``
 
-24.2.4. Test Global Data
+27.2.4. Test Global Data
 ************************
 
 If a test requires backend (Python) scripts, they must be added to the global Python
 script directory: ``./test/integration/python/${script_name}.py``.
 
-24.2.5. Building the Test
+27.2.5. Building the Test
 *************************
 
 After storing your test *x0-application* configuration in the correct locations,
@@ -108,7 +108,7 @@ Refer to https://github.com/WEBcodeX1/x0/tree/main/docker for detailed instructi
 
 See :ref:`appdeployment-tests` how to start tests after building.
 
-24.2.6. Final Checklist
+27.2.6. Final Checklist
 ***********************
 
 1. **Test the Test**:
@@ -122,20 +122,20 @@ See :ref:`appdeployment-tests` how to start tests after building.
 3. **Version Control**:
    - Commit the test to the repository, following the project's contribution guidelines.
 
-24.3. Pytest / Selenium
+27.3. Pytest / Selenium
 -----------------------
 
 Familiarity with the Pytest and Selenium frameworks is essential for writing tests.
 
 Use existing tests as references to guide your work.
 
-24.3.1. Pytest Naming Schema
+27.3.1. Pytest Naming Schema
 ****************************
 
 Pytest files must follow this naming convention:
 ``./test/integration/test_${test_group}.py``.
 
-24.3.2. Selenium Configuration
+27.3.2. Selenium Configuration
 ******************************
 
 For Selenium-based tests, ensure you configure the Selenium WebDriver appropriately
@@ -143,7 +143,7 @@ to match the test environment. Specify browser options and required URLs in the 
 configuration file to streamline execution. Example configurations can be found in
 existing Selenium test files.
 
-24.3.3. Python Hints
+27.3.3. Python Hints
 ********************
 
 - Always import these.

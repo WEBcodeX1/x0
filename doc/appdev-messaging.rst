@@ -2,10 +2,10 @@
 
 .. _appdev-messaging:
 
-18. Messaging System
+20. Messaging System
 ====================
 
-18.1. Overview
+20.1. Overview
 --------------
 
 The *x0-messaging-system* provides real-time communication capabilities between browser
@@ -25,24 +25,24 @@ handles message routing, session management, and delivery between connected clie
 * Docker containerized deployment
 * Integration with *x0-framework* objects
 
-18.2. Architecture
+20.2. Architecture
 ------------------
 
 The messaging system consists of three main components:
 
-**18.2.1. Client-Side Components**
+**20.2.1. Client-Side Components**
 
 * **sysAsyncNotifyMsgHandler**: JavaScript client that manages message polling and processing
 * **sysXMLRPCRequest**: Handles HTTP communication with the messaging server
 * **Session Management**: Tracks user sessions and message routing
 
-**18.2.2. Messaging Server**
+**20.2.2. Messaging Server**
 
 * **MsgHandler.py**: WSGI application handling HTTP requests from clients
 * **MessagingServer.py**: Core message processing and routing logic
 * **Unix Socket Communication**: Internal communication between components
 
-**18.2.3. Communication Flow**
+**20.2.3. Communication Flow**
 
 .. code-block:: text
 
@@ -55,7 +55,7 @@ The messaging system consists of three main components:
        |                          |-- return messages ----->|
        |                          |-- delete messages ----->|
 
-**18.2.4. Technical Implementation**
+**20.2.4. Technical Implementation**
 
 The system uses HTTP long-polling with a 10-second timeout for real-time communication.
 Messages are temporarily stored in memory and delivered to destination sessions through
@@ -66,16 +66,16 @@ continuous polling requests.
     WebSocket implementation is planned for future releases to improve efficiency
     and reduce server load.
 
-18.3. Setup and Installation
+20.3. Setup and Installation
 -----------------------------
 
-**18.3.1. Prerequisites**
+**20.3.1. Prerequisites**
 
 * Docker environment
 * *x0-app* container running
 * Network connectivity between containers
 
-**18.3.2. Server Installation**
+**20.3.2. Server Installation**
 
 Download and start the messaging server:
 
@@ -91,7 +91,7 @@ Download and start the messaging server:
     cd ./docker
     ./x0-start-msg-server.sh
 
-**18.3.3. Network Configuration**
+**20.3.3. Network Configuration**
 
 Configure DNS resolution for the messaging server:
 
@@ -105,10 +105,10 @@ Configure DNS resolution for the messaging server:
     Due to Docker networking limitations, the messaging server runs on port 8080
     to ensure compatibility with *x0-app* and *x0-msg-server* parallel execution.
 
-18.4. Configuration
+20.4. Configuration
 -------------------
 
-**18.4.1. Server Configuration**
+**20.4.1. Server Configuration**
 
 The messaging server configuration is defined in the Docker container:
 
@@ -125,7 +125,7 @@ The messaging server configuration is defined in the Docker container:
         }
     }
 
-**18.4.2. Client Configuration**
+**20.4.2. Client Configuration**
 
 Configure the messaging client in your *x0-application*:
 
@@ -137,10 +137,10 @@ Configure the messaging client in your *x0-application*:
     // Configure server URL
     sysFactory.MsgServerGetURL = 'http://x0-msg-server.x0-localnet:8080/get';
 
-18.5. API Reference
+20.5. API Reference
 -------------------
 
-**18.5.1. Message Structure**
+**20.5.1. Message Structure**
 
 .. code-block:: javascript
 
@@ -155,7 +155,7 @@ Configure the messaging client in your *x0-application*:
         }
     }
 
-**18.5.2. HTTP Endpoints**
+**20.5.2. HTTP Endpoints**
 
 **GET /get**
     Retrieve messages for a session (long-polling)
@@ -172,7 +172,7 @@ Configure the messaging client in your *x0-application*:
     - ``session_dst``: Destination session identifier
     - ``payload``: Message data object
 
-**18.5.3. JavaScript API**
+**20.5.3. JavaScript API**
 
 .. code-block:: javascript
 
@@ -185,7 +185,7 @@ Configure the messaging client in your *x0-application*:
     // Handle callback
     msgHandler.callbackXMLRPCAsync();
 
-18.6. Security Considerations
+20.6. Security Considerations
 -----------------------------
 
 .. warning::
@@ -194,7 +194,7 @@ Configure the messaging client in your *x0-application*:
     purposes only. **Do not use in production environments** without implementing
     proper security measures.
 
-**18.6.1. Security Limitations**
+**20.6.1. Security Limitations**
 
 * No authentication mechanism
 * Session IDs transmitted in plain text
@@ -202,7 +202,7 @@ Configure the messaging client in your *x0-application*:
 * Immediate message deletion after delivery
 * No access control or authorization
 
-**18.6.2. Production Recommendations**
+**20.6.2. Production Recommendations**
 
 For production deployments, consider implementing:
 
@@ -218,16 +218,16 @@ For production deployments, consider implementing:
     For production messaging requirements, consider enterprise solutions like
     RabbitMQ, Apache Kafka, or Redis Pub/Sub.
 
-18.7. Example Implementation
+20.7. Example Implementation
 ----------------------------
 
-**18.7.1. Basic Usage**
+**20.7.1. Basic Usage**
 
 The messaging system is demonstrated in Example #10:
 
 **URL:** http://x0-app.x0.localnet/python/Index.py?appid=example10
 
-**18.7.2. Testing Procedure**
+**20.7.2. Testing Procedure**
 
 1. Open the example URL in two separate browser tabs
 2. Reload both tabs until different User IDs are displayed
@@ -236,7 +236,7 @@ The messaging system is demonstrated in Example #10:
 5. Click "Send Data" to transmit data to the second tab
 6. Observe real-time data transfer and notification display
 
-**18.7.3. Code Example**
+**20.7.3. Code Example**
 
 .. code-block:: javascript
 
@@ -264,10 +264,10 @@ The messaging system is demonstrated in Example #10:
         rpc.Request();
     }
 
-18.8. Best Practices
+20.8. Best Practices
 --------------------
 
-**18.8.1. Development Guidelines**
+**20.8.1. Development Guidelines**
 
 * Always validate session IDs before message transmission
 * Implement proper error handling for failed message delivery
@@ -275,14 +275,14 @@ The messaging system is demonstrated in Example #10:
 * Keep message payloads small and focused
 * Test message flow in multiple browser instances
 
-**18.8.2. Performance Optimization**
+**20.8.2. Performance Optimization**
 
 * Minimize polling frequency where possible
 * Implement message batching for high-volume scenarios
 * Use appropriate timeout values for long-polling
 * Monitor server resource usage
 
-**18.8.3. Debugging**
+**20.8.3. Debugging**
 
 Enable console debugging for message flow analysis:
 
@@ -291,10 +291,10 @@ Enable console debugging for message flow analysis:
     console.debug('Message received:', messageData);
     console.debug('Session ID:', sysFactory.SysSessionID);
 
-18.9. Troubleshooting
+20.9. Troubleshooting
 ---------------------
 
-**18.9.1. Common Issues**
+**20.9.1. Common Issues**
 
 **Messages not delivered:**
     - Verify messaging server is running
@@ -311,7 +311,7 @@ Enable console debugging for message flow analysis:
     - Wait approximately 30 seconds for CORS setup
     - Verify server configuration allows cross-origin requests
 
-**18.9.2. Diagnostic Commands**
+**20.9.2. Diagnostic Commands**
 
 .. code-block:: bash
 
@@ -324,7 +324,7 @@ Enable console debugging for message flow analysis:
     # Test network connectivity
     curl -X GET "http://x0-msg-server.x0-localnet:8080/get"
 
-**18.9.3. Error Messages**
+**20.9.3. Error Messages**
 
 Common error responses and solutions:
 
@@ -344,10 +344,10 @@ Common error responses and solutions:
     }
     // Solution: Verify session ID format and validity
 
-18.10. Migration and Future Considerations
+20.10. Migration and Future Considerations
 ------------------------------------------
 
-**18.10.1. WebSocket Migration**
+**20.10.1. WebSocket Migration**
 
 The current long-polling implementation will be replaced with WebSockets:
 
@@ -356,7 +356,7 @@ The current long-polling implementation will be replaced with WebSockets:
 * Better scalability for multiple concurrent users
 * Enhanced browser compatibility
 
-**18.10.2. Production Alternatives**
+**20.10.2. Production Alternatives**
 
 For production environments, consider migrating to:
 
