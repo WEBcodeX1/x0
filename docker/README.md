@@ -187,7 +187,7 @@ docker exec -it x0-db psql -U postgres
 ### Port Mappings
 | Service | Container Port | Host Port | Protocol |
 |---------|----------------|-----------|----------|
-| <img width="160px"> | <img width="160px"> | <img width="320px"> | <img width="380px"> |
+| <img width="255px"> | <img width="255px"> | <img width="255px"> | <img width="255px"> |
 | Web UI (HTTP) | 80 | 80 | TCP |
 | Web UI (HTTPS) | 443 | 443 | TCP |
 | PostgreSQL | 5432 | 5432 | TCP |
