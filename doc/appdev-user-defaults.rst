@@ -15,7 +15,7 @@ configurations for various x0 components.
 11.1.1. UserDefaults Class
 --------------------------
 
-The UserDefaults class is automatically instanciated on **x0-system-init**,
+The UserDefaults class is automatically instantiated on **x0-system-init**,
 use it to override global default values.
 
 .. code-block:: javascript
@@ -194,7 +194,7 @@ Add custom context menu items in List configurations:
 					"ID": "CustomExport",
 					"TextID": "TXT.EXPORT.CUSTOM",
 					"IconStyle": "fa-solid fa-file-export",
-					"InternalFunction": "CustomExport",
+					"InternalFunction": "CustomExport"
 				}
 			]
 		}
