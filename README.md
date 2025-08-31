@@ -27,7 +27,7 @@
 
 ## :pushpin: Overview
 
-**x0** (cross-objects /krɒs ɒb.dʒɪkts/) is a next-gen JavaScript framework for building robust, real-time Single Page Applications (SPAs) with *true object orientation*, *zero code duplication*, and *modern deployment options* (Docker / Kubernetes).
+**x0** (cross-objects /krɒs ɒb.dʒɪkts/) is a **next-gen JavaScript framework** for building robust, real-time Single Page Applications (SPAs).
 
 - **Fast SPA Development**: Near desktop-app speed and features
 - **Responsive by Design**: One app, every device, standards via Bootstrap CSS
