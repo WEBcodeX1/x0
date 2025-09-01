@@ -10,6 +10,11 @@ within the *x0-framework*. These examples are critical for showcasing the
 framework's capabilities and providing developers with a reference for
 implementing features.
 
+For production-ready examples and advanced implementations, see the `x0-skeleton repository <https://github.com/WEBcodeX1/x0-skeleton>`_ which contains comprehensive examples including:
+
+* `Forms with MicroESB <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/01-forms-microesb>`_ - Complete form implementation with microservice integration
+* `List with Calculations <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/02-list-calculateable>`_ - Advanced list processing with dynamic calculations
+
 28.1. Example Structure
 ------------------------
 
@@ -107,3 +112,45 @@ After building, restart the *x0-system*:
 
 By following these guidelines, you can create robust and reusable examples that demonstrate
 the capabilities of the *x0-framework*.
+
+28.4. Example Repository Reference
+----------------------------------
+
+**Current Local Examples:**
+
+The `/example` directory contains numerous demonstrations of x0-framework features:
+
+**Form Examples:**
+  - :ref:`Enhanced Form (Example 5) <enhanced-form-example>` - `http://x0-app.x0.localnet/python/Index.py?appid=example5 <http://x0-app.x0.localnet/python/Index.py?appid=example5>`_
+
+**Object Examples:**
+  - See :ref:`object-examples-reference` for comprehensive object demonstrations
+
+**Navigation Examples:**
+  - Example 15 - Tree Simple: `http://x0-app.x0.localnet/python/Index.py?appid=example15 <http://x0-app.x0.localnet/python/Index.py?appid=example15>`_
+  - Example 14 - Open Close Container: `http://x0-app.x0.localnet/python/Index.py?appid=example14 <http://x0-app.x0.localnet/python/Index.py?appid=example14>`_
+
+**External Production Examples:**
+
+**x0-skeleton Repository:** `https://github.com/WEBcodeX1/x0-skeleton <https://github.com/WEBcodeX1/x0-skeleton>`_
+
+* **01-forms-microesb:** `https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/01-forms-microesb <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/01-forms-microesb>`_
+  
+  - Production-ready form implementation
+  - MicroESB microservice integration  
+  - Advanced validation and error handling
+  - Service abstraction layer
+
+* **02-list-calculateable:** `https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/02-list-calculateable <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/02-list-calculateable>`_
+  
+  - Advanced list object with calculation capabilities
+  - Dynamic data processing and aggregation
+  - Real-time computation examples
+  - Complex data manipulation patterns
+
+**Related Documentation:**
+
+* :ref:`appdevforms` - Form development and validation
+* :ref:`systemobjects` - System object reference
+* :ref:`appdevformobjects` - Form-specific objects
+* :ref:`appdevoverlay` - Overlay and object instancing
