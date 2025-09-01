@@ -7,7 +7,7 @@
 [ ! -z "$1" ] && DB_NAME=$1 || DB_NAME="x0"
 [ ! -z "$2" ] && DB_HOST="-h $2" || DB_HOST=""
 
-#echo "DB:${DB_NAME} HOST:${DB_HOST}"
+#echo "db:${DB_NAME} host:${DB_HOST}"
 
 # system paths
 BASE_DIR="/var/lib/x0"
