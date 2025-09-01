@@ -122,7 +122,7 @@ The x0 system is composed of **7 specialized Docker images**:
 
 ### Starting the System
 ```bash
-# create the Docker network
+# create the docker network
 ./x0-network.sh
 
 # start all containers
