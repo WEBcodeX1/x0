@@ -171,22 +171,7 @@ For the current milestones, see: https://github.com/WEBcodeX1/x0/milestones.
 5. References
 =============
 
-5.1. Getting Started with Examples
-----------------------------------
-
-**Local Examples (when x0-system is running):**
-
-- **Enhanced Forms:** `Example 5 <http://x0-app.x0.localnet/python/Index.py?appid=example5>`_ - Complete form validation and interaction patterns
-- **Interactive Lists:** `Example 1 <http://x0-app.x0.localnet/python/Index.py?appid=example1>`_, `Example 4 <http://x0-app.x0.localnet/python/Index.py?appid=example4>`_ - Data display and management
-- **Navigation:** `Example 15 <http://x0-app.x0.localnet/python/Index.py?appid=example15>`_ (TreeSimple), `Example 14 <http://x0-app.x0.localnet/python/Index.py?appid=example14>`_ (OpenCloseContainer)
-
-**External Production Examples:**
-
-- **x0-skeleton Repository:** `https://github.com/WEBcodeX1/x0-skeleton <https://github.com/WEBcodeX1/x0-skeleton>`_
-- **Forms with MicroESB:** `01-forms-microesb <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/01-forms-microesb>`_ - Production-ready form implementation
-- **Advanced Lists:** `02-list-calculateable <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/02-list-calculateable>`_ - Dynamic calculation capabilities
-
-5.2. Related Documentation
+5.1. Related Documentation
 --------------------------
 
 - Configuration / Application Setup
@@ -204,7 +189,7 @@ For the current milestones, see: https://github.com/WEBcodeX1/x0/milestones.
 - Developer Documentation (Chapters 20 - 27)
     :ref:`devarchitecture`
 
-5.3. External Resources
+5.2. External Resources
 -----------------------
 
 - SPA (Single-page application)
