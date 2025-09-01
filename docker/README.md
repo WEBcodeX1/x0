@@ -312,21 +312,21 @@ docker inspect x0-app
 # ensure scripts are executable
 chmod +x *.sh scripts/*.sh
 
-# check Docker daemon permissions
+# check docker daemon permissions
 sudo usermod -aG docker $USER
 ```
 
 ### Debugging Commands
 ```bash
-# System information
+# system information
 docker system info
 docker version
 
-# Resource usage
+# resource usage
 docker system df
 docker stats
 
-# Container inspection
+# container inspection
 docker exec -it x0-app bash
 docker exec -it x0-db psql -U postgres -c '\l'
 ```
