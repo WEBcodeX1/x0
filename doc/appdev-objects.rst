@@ -776,11 +776,11 @@ collapsibility:
 .. _object-examples-reference:
 
 10.13. Object Examples Reference
-=================================
+--------------------------------
 
 This section provides a comprehensive overview of examples demonstrating various *x0-system-objects* in action.
 
-**Local Repository Examples:**
+**Local Repository Examples (requires running x0-backend):**
 
 * **Example 1** - `Basic Objects <http://x0-app.x0.localnet/python/Index.py?appid=example1>`_: List, FileUpload
 * **Example 3** - `Tabcontainer <http://x0-app.x0.localnet/python/Index.py?appid=example3>`_: Basic tabbed interface
@@ -814,8 +814,15 @@ This section provides a comprehensive overview of examples demonstrating various
 
 **External x0-skeleton Examples:**
 
-* **List with Calculations:** `https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/02-list-calculateable <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/02-list-calculateable>`_
-  
+* `Enhanced Form with MicroESB integration <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/01-forms-microesb>`_
+
+  - Advanced formfield object
+  - Small DNS management system
+  - Demonstrates advanced form validation processing
+  - Demonstrates https://github.com/clauspruefer/python-micro-esb integration
+
+* `List with Calculations <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/02-list-calculateable>`_
+
   - Advanced list object with calculation capabilities
   - Demonstrates dynamic data processing
 
