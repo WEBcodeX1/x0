@@ -8,6 +8,11 @@
 Designing Forms is an essential part when designing modern web-applications.
 *x0-system* provides multiple mechanisms for building complex forms easily.
 
+For complete form examples with microservice integration, see the `x0-skeleton repository examples <https://github.com/WEBcodeX1/x0-skeleton>`_, particularly:
+
+* `Forms with MicroESB <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/01-forms-microesb>`_ - Complete form implementation with microservice abstraction layer
+* Enhanced form functionality - See :ref:`Example 5 (Enhanced Form) <enhanced-form-example>` in the local examples
+
 17.1. FormfieldList
 -------------------
 
@@ -21,6 +26,13 @@ functionality.
 * Multilanguage Error / Info Display 
 * CSS styled / Bootstrap conform Subsections
 
+For detailed formfield object documentation, see :ref:`appdevformobjects`.
+
+**Local Examples:**
+
+* :ref:`Example 5 (Enhanced Form) <enhanced-form-example>` - Advanced form functionality with validation
+* See also the complete list of :ref:`form-related examples <form-examples-list>` in the local repository
+
 17.2. Form Validation
 ---------------------
 
@@ -33,7 +45,13 @@ The FormfieldList *x0-object-type* provides *x0-form-validation*.
 * User Based Validation Functions (Single and Group Validation)
 * Regex Validation
 
-Example see: http://x0-app.x0.localnet/python/Index.py?appid=example5.
+.. _enhanced-form-example:
+
+**Examples:**
+
+* **Local Example:** `Enhanced Form (Example 5) <http://x0-app.x0.localnet/python/Index.py?appid=example5>`_ - Demonstrates comprehensive form validation features
+* **External Example:** `Forms with MicroESB <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/01-forms-microesb>`_ - Complete implementation with microservice integration
+* See :ref:`form validation types <form-validation-types>` below for system-provided validation options
 
 17.3. FormfieldOnchange Handler
 -------------------------------
@@ -182,6 +200,8 @@ Multiple OnChange config can be specified if provided as **Array** type.
 		}
 	]
 
+.. _form-validation-types:
+
 17.4. System Validation Types
 -----------------------------
 
@@ -246,3 +266,31 @@ To integrate your own user based *x0-validation-functions*, define them in
 	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[1] = "FunctionNr2"');
 	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[2] = "FunctionNr3"');
 	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[3] = "FunctionNr4"');
+
+.. _form-examples-list:
+
+17.6. Form Examples Reference
+-----------------------------
+
+**Local Repository Examples:**
+
+* **Example 5 - Enhanced Form:** `http://x0-app.x0.localnet/python/Index.py?appid=example5 <http://x0-app.x0.localnet/python/Index.py?appid=example5>`_
+  
+  - Advanced form validation features
+  - Multiple form field types
+  - Error handling and user feedback
+  - Integration with backend services
+
+**External x0-skeleton Examples:**
+
+* **Forms with MicroESB:** `https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/01-forms-microesb <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/01-forms-microesb>`_
+  
+  - Complete form implementation with microservice abstraction layer
+  - Production-ready form handling
+  - Service integration patterns
+
+**Related Documentation:**
+
+* :ref:`appdevformobjects` - Detailed formfield object documentation
+* :ref:`appdevoverlay` - Overlay mode forms
+* :ref:`devexamples` - Guidelines for creating new examples
