@@ -199,7 +199,7 @@ myRootObject2.renderObject();
 ## :closed_lock_with_key: Security
 
 PKCS 11/15 compatible. Optional advanced PKI (non-free).
-Full details in [WEB/codeX PKI Manager](http://www.webcodex.de/Projects/WCDXPKIManager).
+Full details in [WEB/codeX PKI Manager](https://www.webcodex.de/index.html?menu=content-projects-wcdx-pkimanager).
 
 ---
 
