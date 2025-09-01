@@ -68,7 +68,7 @@ Try x0 now in minutes!
 git clone https://github.com/WEBcodeX1/x0.git
 cd x0
 
-# install Docker
+# install docker
 apt-get -y install docker.io docker-buildx
 
 # docker permissions & setup (as root)
