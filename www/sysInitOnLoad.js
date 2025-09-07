@@ -163,7 +163,7 @@ function InitOk(XHR) {
 
 
     //----------------------------------------------------------------------------
-    //- OVerride User Defaults
+    //- Override User Defaults
     //----------------------------------------------------------------------------
 
     sysFactory.UserDefaults = new UserDefaults();
