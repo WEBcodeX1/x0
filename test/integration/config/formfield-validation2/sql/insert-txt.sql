@@ -1,0 +1,10 @@
+INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.MENU.TEST.INTEGRATION.FORMFIELD2.LINK1', 'menu-link', 'Link 1');
+INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.TEST.FORMVALIDATION2.FORM-SECTION-HEADER1', 'form-header', 'Test Formvalidation');
+INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.TEST.FORMVALIDATION.FORM-SECTION-SUBHEADER1', 'form-subheader', 'Functions');
+INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.TEST.FORMVALIDATION2.FORM-SECTION-HEADER2', 'form-header', 'Test Formvalidation');
+INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.TEST.FORMVALIDATION.FORM-SECTION-SUBHEADER2', 'form-subheader', 'Group Function Differ');
+INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.TEST.FORMVALIDATION2.FORM-SECTION-HEADER3', 'form-header', 'Test Formvalidation');
+INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.TEST.FORMVALIDATION.FORM-SECTION-SUBHEADER3', 'form-subheader', 'Group Function Date Period 1Year');
+INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.TEST-FORM2-BUTTON1', 'button', 'Validate 1');
+INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.TEST-FORM2-BUTTON2', 'button', 'Validate 2');
+INSERT INTO webui.text (id, "group", value_de) VALUES ('TXT.TEST-FORM2-BUTTON3', 'button', 'Validate 3');

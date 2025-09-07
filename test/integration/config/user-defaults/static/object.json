@@ -1,0 +1,18 @@
+{
+	"Link1": {
+		"Type": "Link",
+		"Attributes": {
+			"Style": "btn btn-primary",
+			"TextID": "TXT.MENU.TEST.USER-DEFAULTS.SCREEN-CSS.LINK1",
+			"ScreenID": "Test1"
+		}
+	},
+	"SQLText1":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "md-4",
+			"TextID": "TXT.TEST.USER-DEFAULTS.SCREEN-CSS.TEXT1"
+		}
+	}
+}

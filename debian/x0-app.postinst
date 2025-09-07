@@ -4,114 +4,115 @@
 
 if [ "$1" = "configure" ]; then
 
-	# system vars
-	WEBSERVER_DIR="/var/www"
-	GLOBAL_PYTHONDIR="/${WEBSERVER_DIR}/python"
-	VHOST_PYTHONDIR="/${WEBSERVER_DIR}/vhosts/x0/python"
+    # system vars
+    WEBSERVER_DIR="/var/www"
+    GLOBAL_PYTHONDIR="/${WEBSERVER_DIR}/python"
+    VHOST_PYTHONDIR="/${WEBSERVER_DIR}/vhosts/x0/python"
 
-	APP_DIR="/${WEBSERVER_DIR}/vhosts/x0"
-	APP_PYTHONDIR="/${APP_DIR}/python"
-	APP_STATICDIR="/${APP_DIR}/static"
+    APP_DIR="/${WEBSERVER_DIR}/vhosts/x0"
+    APP_PYTHONDIR="/${APP_DIR}/python"
+    APP_STATICDIR="/${APP_DIR}/static"
 
-	ETC_SSL="/etc/ssl"
-	ETC_SSL_APACHE="${ETC_SSL}/apache"
+    ETC_SSL="/etc/ssl"
+    ETC_SSL_APACHE="${ETC_SSL}/apache"
 
-	APACHE_GLOBAL_CONF="/etc/apache2/apache2.conf"
-	APACHE_DEFAULT_VHOST_CONF="/etc/apache2/sites-enabled/000-default.conf"
+    APACHE_GLOBAL_CONF="/etc/apache2/apache2.conf"
+    APACHE_DEFAULT_VHOST_CONF="/etc/apache2/sites-enabled/000-default.conf"
 
-	CERT_CA_FILE="${ETC_SSL_APACHE}/x0-ca-cert.pem"
-	CERT_CA_KEY_FILE="${ETC_SSL_APACHE}/x0-ca-cert-key.pem"
-	CERT_FILE="${ETC_SSL_APACHE}/x0-cert.pem"
-	CERT_KEY_FILE="${ETC_SSL_APACHE}/x0-cert-key.pem"
-	CERT_CSR_FILE="${ETC_SSL_APACHE}/x0-csr.pem"
+    CERT_CA_FILE="${ETC_SSL_APACHE}/x0-ca-cert.pem"
+    CERT_CA_KEY_FILE="${ETC_SSL_APACHE}/x0-ca-cert-key.pem"
+    CERT_FILE="${ETC_SSL_APACHE}/x0-cert.pem"
+    CERT_KEY_FILE="${ETC_SSL_APACHE}/x0-cert-key.pem"
+    CERT_CSR_FILE="${ETC_SSL_APACHE}/x0-csr.pem"
 
-	CERT_CA_PASSPHRASE="change4prod-ca"
-	CERT_PASSPHRASE="change4prod"
+    CERT_CA_PASSPHRASE="change4prod-ca"
+    CERT_PASSPHRASE="change4prod"
 
-	DEMO_FQDN="x0-app.x0.localnet"
+    DEMO_FQDN="x0-app.x0.localnet"
 
-	WEBSERVER_CONF_DIR="/etc/apache2"
-	VHOST_CONFIG_FILE="vhost-x0.conf"
+    WEBSERVER_CONF_DIR="/etc/apache2"
+    VHOST_CONFIG_FILE="vhost-x0.conf"
 
-	BASEDIR="/var/lib/x0"
+    BASEDIR="/var/lib/x0"
 
-	TEST_CONFIG_DIR="${BASEDIR}/test/integration/config"
-	EXAMPLE_CONFIG_DIR="${BASEDIR}/example"
+    TEST_CONFIG_DIR="${BASEDIR}/test/integration/config"
+    EXAMPLE_CONFIG_DIR="${BASEDIR}/example"
 
-	# enable de_DE and en_US UTF-8 locale
-	sed -i 's/^# de_DE.UTF-8 UTF-8$/de_DE.UTF-8 UTF-8/g' /etc/locale.gen
-	sed -i 's/^# en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/g' /etc/locale.gen
-	locale-gen
+    # enable de_DE and en_US UTF-8 locale
+    sed -i 's/^# de_DE.UTF-8 UTF-8$/de_DE.UTF-8 UTF-8/g' /etc/locale.gen
+    sed -i 's/^# en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/g' /etc/locale.gen
+    locale-gen
 
-	# remove default vhost config
-	rm ${APACHE_DEFAULT_VHOST_CONF}
+    # remove default vhost config
+    rm ${APACHE_DEFAULT_VHOST_CONF}
 
-	# create ssl /etc dir if not exists
-	if [ ! -d ${ETC_SSL_APACHE} ]; then
-		mkdir -p ${ETC_SSL_APACHE};
-	fi
+    # create ssl /etc dir if not exists
+    if [ ! -d ${ETC_SSL_APACHE} ]; then
+        mkdir -p ${ETC_SSL_APACHE};
+    fi
 
-	# generate apache ssl cert
-	if [ ! -e ${CERT_FILE} ]; then
-		openssl genrsa -des3 -out ${CERT_CA_KEY_FILE} -passout pass:${CERT_CA_PASSPHRASE} 4096
-		openssl req -x509 -new -nodes -key ${CERT_CA_KEY_FILE} -sha512 -days 365 -out ${CERT_CA_FILE} -subj "/C=DE/ST=MA/O=clickIT/CN=ca.local" -passin pass:${CERT_CA_PASSPHRASE}
-		openssl genrsa -out ${CERT_KEY_FILE} -passout pass:${CERT_PASSPHRASE} 4096
-		openssl req -new -sha512 -key ${CERT_KEY_FILE} -subj "/C=DE/ST=MA/O=clickIT/CN=${DEMO_FQDN}" -out ${CERT_CSR_FILE} -passin pass:${CERT_PASSPHRASE}
-		openssl x509 -req -in ${CERT_CSR_FILE} -CA ${CERT_CA_FILE} -CAkey ${CERT_CA_KEY_FILE} -CAcreateserial -out ${CERT_FILE} -days 365 -sha512 -passin pass:${CERT_CA_PASSPHRASE}
-	fi
+    # generate apache ssl cert
+    if [ ! -e ${CERT_FILE} ]; then
+        openssl genrsa -des3 -out ${CERT_CA_KEY_FILE} -passout pass:${CERT_CA_PASSPHRASE} 4096
+        openssl req -x509 -new -nodes -key ${CERT_CA_KEY_FILE} -sha512 -days 365 -out ${CERT_CA_FILE} -subj "/C=DE/ST=MA/O=clickIT/CN=ca.local" -passin pass:${CERT_CA_PASSPHRASE}
+        openssl genrsa -out ${CERT_KEY_FILE} -passout pass:${CERT_PASSPHRASE} 4096
+        openssl req -new -sha512 -key ${CERT_KEY_FILE} -subj "/C=DE/ST=MA/O=clickIT/CN=${DEMO_FQDN}" -out ${CERT_CSR_FILE} -passin pass:${CERT_PASSPHRASE}
+        openssl x509 -req -in ${CERT_CSR_FILE} -CA ${CERT_CA_FILE} -CAkey ${CERT_CA_KEY_FILE} -CAcreateserial -out ${CERT_FILE} -days 365 -sha512 -passin pass:${CERT_CA_PASSPHRASE}
+    fi
 
-	# enable apache2 ssl mod
-	a2enmod ssl
+    # enable apache2 ssl mod
+    a2enmod ssl
 
-	# copy apache main config file
-	cp ${BASEDIR}/config/apache2/apache2.conf /etc/apache2/apache2.conf
+    # copy apache main config file
+    cp ${BASEDIR}/config/apache2/apache2.conf /etc/apache2/apache2.conf
 
-	# copy apache virtualhost config
-	cp ${BASEDIR}/conf/${VHOST_CONFIG_FILE} ${WEBSERVER_CONF_DIR}/sites-available/
-	cp ${BASEDIR}/conf/wsgi.conf ${WEBSERVER_CONF_DIR}/mods-available/
+    # copy apache virtualhost config
+    cp ${BASEDIR}/conf/${VHOST_CONFIG_FILE} ${WEBSERVER_CONF_DIR}/sites-available/
+    cp ${BASEDIR}/conf/wsgi.conf ${WEBSERVER_CONF_DIR}/mods-available/
 
-	# activate apache vhost
-	ln -s ${WEBSERVER_CONF_DIR}/sites-available/${VHOST_CONFIG_FILE} ${WEBSERVER_CONF_DIR}/sites-enabled/${VHOST_CONFIG_FILE} || echo "Apache vhost conf already exists."
+    # activate apache vhost
+    ln -s ${WEBSERVER_CONF_DIR}/sites-available/${VHOST_CONFIG_FILE} ${WEBSERVER_CONF_DIR}/sites-enabled/${VHOST_CONFIG_FILE} || echo "Apache vhost conf already exists."
 
-	# install python-dbpool
-	if [ "$(pip3 list | grep pgdbpool | cut -d ' ' -f1)" != "pgdbpool" ]; then
-		pip3 install --no-index --no-build-isolation ${BASEDIR}/bin/pgdbpool-0.99.tar.gz --break-system-packages
-	fi
+    # install python-dbpool
+    if [ "$(pip3 list | grep pgdbpool | cut -d ' ' -f1)" != "pgdbpool" ]; then
+        pip3 install --no-index --no-build-isolation ${BASEDIR}/bin/pgdbpool-0.99.tar.gz --break-system-packages
+    fi
 
-	# copy DB.py and DBMapping.py
-	cp ${BASEDIR}/python/DB.py ${GLOBAL_PYTHONDIR}/
-	cp ${BASEDIR}/python/DBMapping.py ${GLOBAL_PYTHONDIR}/
+    # copy DB.py and DBMapping.py
+    cp ${BASEDIR}/python/DB.py ${GLOBAL_PYTHONDIR}/
+    cp ${BASEDIR}/python/DBMapping.py ${GLOBAL_PYTHONDIR}/
 
-	# copy favicon.ico
-	cp ${BASEDIR}/image/favicon-32x32.png ${VHOST_PYTHONDIR}/favicon.ico
+    # copy favicon.ico
+    cp ${BASEDIR}/image/favicon-32x32.png ${VHOST_PYTHONDIR}/favicon.ico
 
-	# process tests (copy to vhost subdir)
-	ls ${TEST_CONFIG_DIR} | while read dirname; do
-		echo "Processing tests-config (static):${dirname}"
-		CONF_SQL_DIR="${TEST_CONFIG_DIR}/${dirname}/sql"
-		CONF_STATIC_DIR="${TEST_CONFIG_DIR}/${dirname}/static"
-		DST_TEST_DIR="${APP_DIR}/test/${dirname}"
-		mkdir -p ${DST_TEST_DIR}
-		cp ${CONF_STATIC_DIR}/* ${DST_TEST_DIR}/
-		cp ${APP_DIR}/static/*.css ${DST_TEST_DIR}/
-	done
+    # process tests (copy to vhost subdir)
+    ls ${TEST_CONFIG_DIR} | while read dirname; do
+        echo "Processing tests-config (static):${dirname}"
+        CONF_SQL_DIR="${TEST_CONFIG_DIR}/${dirname}/sql"
+        CONF_STATIC_DIR="${TEST_CONFIG_DIR}/${dirname}/static"
+        DST_TEST_DIR="${APP_DIR}/test/${dirname}"
+        mkdir -p ${DST_TEST_DIR}
+        cp ${CONF_STATIC_DIR}/* ${DST_TEST_DIR}/
+        cp ${APP_DIR}/static/*.css ${DST_TEST_DIR}/
+        cp -r ${APP_DIR}/static/fontawesome ${DST_TEST_DIR}/
+    done
 
-	# process examples (copy to vhost subdir)
-	ls ${EXAMPLE_CONFIG_DIR} | while read dirname; do
-		echo "Processing example-config (static):${dirname}"
-		CONF_SQL_DIR="${EXAMPLE_CONFIG_DIR}/${dirname}/sql"
-		CONF_STATIC_DIR="${EXAMPLE_CONFIG_DIR}/${dirname}/static"
-		CONF_PYTHON_DIR="${EXAMPLE_CONFIG_DIR}/${dirname}/python"
-		DST_EXAMPLE_DIR="${APP_DIR}/examples/${dirname}"
-		mkdir -p ${DST_EXAMPLE_DIR}
-		cp ${CONF_STATIC_DIR}/* ${DST_EXAMPLE_DIR}/
-		cp ${CONF_PYTHON_DIR}/* ${APP_PYTHONDIR}/
-		cp ${APP_DIR}/static/*.css ${DST_EXAMPLE_DIR}/
-		cp -r ${APP_DIR}/static/fontawesome ${DST_EXAMPLE_DIR}/
-		cp APP_PYTHONDIR
-	done
+    # process examples (copy to vhost subdir)
+    ls ${EXAMPLE_CONFIG_DIR} | while read dirname; do
+        echo "Processing example-config (static):${dirname}"
+        CONF_SQL_DIR="${EXAMPLE_CONFIG_DIR}/${dirname}/sql"
+        CONF_STATIC_DIR="${EXAMPLE_CONFIG_DIR}/${dirname}/static"
+        CONF_PYTHON_DIR="${EXAMPLE_CONFIG_DIR}/${dirname}/python"
+        DST_EXAMPLE_DIR="${APP_DIR}/examples/${dirname}"
+        mkdir -p ${DST_EXAMPLE_DIR}
+        cp ${CONF_STATIC_DIR}/* ${DST_EXAMPLE_DIR}/
+        cp ${CONF_PYTHON_DIR}/* ${APP_PYTHONDIR}/
+        cp ${APP_DIR}/static/*.css ${DST_EXAMPLE_DIR}/
+        cp -r ${APP_DIR}/static/fontawesome ${DST_EXAMPLE_DIR}/
+        cp APP_PYTHONDIR
+    done
 
-	# restart apache
-	service apache2 restart
+    # restart apache
+    service apache2 restart
 
 fi

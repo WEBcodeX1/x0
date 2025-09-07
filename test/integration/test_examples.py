@@ -1,4 +1,4 @@
-import os
+﻿import os
 import json
 import time
 import pytest
@@ -99,7 +99,7 @@ class TestExamples:
         nav_button_2.click()
 
         file_input = d.find_element(By.ID, "TestList1col288_select")
-        file_input.send_keys("/var/lib/x0/test/integration/test_general.py")
+        file_input.send_keys("/var/lib/x0/test/integration/test_anomalies.py")
         d.find_element(By.ID, "TestList1col288_TestList1col288UploadButton").click()
 
     def test_example2_basic_menu_screen(self, config):
@@ -114,7 +114,7 @@ class TestExamples:
         elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "body")))
 
         # Check for main application elements
-        assert len(d.find_elements(By.TAG_NAME, "body")) > 0, "Example1 failed to load basic DOM structure"
+        assert len(d.find_elements(By.TAG_NAME, "body")) > 0, "Example2 failed to load basic DOM structure"
 
         nav_button_id = "Screen1_TestList1Connector_TestList1_nav-row_col-nav-ct_col-nav-ct2_bt-page-item-2_button-right"
 
@@ -351,10 +351,10 @@ class TestExamples:
         sel3 = wait.until(EC.presence_of_element_located((By.ID, "FormCol36")))
         sel4 = wait.until(EC.presence_of_element_located((By.ID, "FormCol37")))
 
-        assert Select(sel1).first_selected_option.get_attribute('value') == '30', "Selcetd value must be 30"
-        assert Select(sel2).first_selected_option.get_attribute('value') == '10', "Selcetd value must be 30"
-        assert Select(sel3).first_selected_option.get_attribute('value') == '30', "Selcetd value must be 30"
-        assert Select(sel4).first_selected_option.get_attribute('value') == '30', "Selcetd value must be 30"
+        assert Select(sel1).first_selected_option.get_attribute('value') == '30', "Selected value must be 30"
+        assert Select(sel2).first_selected_option.get_attribute('value') == '10', "Selected value must be 10"
+        assert Select(sel3).first_selected_option.get_attribute('value') == '30', "Selected value must be 30"
+        assert Select(sel4).first_selected_option.get_attribute('value') == '30', "Selected value must be 30"
 
         bt3 = wait.until(EC.presence_of_element_located((By.ID, "Screen1_TestList1Connector_TestList1_nav-row_col-nav-ct_col-nav-ct2_bt-page-item-3_button-right")))
         bt3.click()
@@ -564,7 +564,7 @@ class TestExamples:
 
         assert col1.is_selected() == False, "Checkbox must not be checked"
         assert col2.get_attribute("value") == 'row3-2', "Value must be row3-2"
-        assert Select(col3).first_selected_option.get_attribute('value') == '20', "Selcetd value must be 20"
+        assert Select(col3).first_selected_option.get_attribute('value') == '20', "Selected value must be 20"
         assert col4.get_attribute("value") == 'row3-4', "Value must be row3-4"
 
         src_tab = wait.until(EC.presence_of_element_located((By.ID, "Screen1_TabContainer1_TabContainer1TabsContainer_Tab1")))
@@ -602,7 +602,7 @@ class TestExamples:
 
         assert col1.is_selected() == False, "Checkbox must not be checked"
         assert col2.get_attribute("value") == 'row15-2', "Value must be row15-2"
-        assert Select(col3).first_selected_option.get_attribute('value') == '10', "Selcetd value must be 10"
+        assert Select(col3).first_selected_option.get_attribute('value') == '10', "Selected value must be 10"
         assert col4.get_attribute("value") == 'row15-4', "Value must be row15-4"
 
     def test_example14_open_close_container(self, config):

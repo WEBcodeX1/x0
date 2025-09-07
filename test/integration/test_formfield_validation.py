@@ -72,7 +72,7 @@ def is_valid_in_formfield(d, w, input, keys, submit, css_class):
     # Check the validity using the "css_class" parameter. Use
     # "alert-success" to check for validity, or "alert-danger" to check for invalidity.
 
-    time.sleep(0.2)
+    time.sleep(0.1)
 
     input_el = WebDriverWait(d, w).until(EC.presence_of_element_located(
         (By.ID, input)
