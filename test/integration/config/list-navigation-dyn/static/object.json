@@ -1,0 +1,137 @@
+{
+	"Link1": {
+		"Type": "Link",
+		"Attributes": {
+			"Style": "btn btn-primary",
+			"TextID": "TXT.MENU.TEST.INTEGRATION.LISTNAV-DYN.LINK1",
+			"ScreenID": "Test1"
+		}
+	},
+
+	"FormfieldListSrc": {
+		"Type": "FormfieldList",
+		"Attributes": {
+			"Sections": [
+				{
+					"ID": "Formcontainer",
+					"Object": "FormSectionHeader",
+					"ObjectAttributes": {
+						"Style": "card card-line bg-body-tertiary border border-dark border-2 mb-3",
+						"SubStyle": "card-body mt-n6",
+						"HeaderIcon": "fa-solid fa-microscope",
+						"HeaderTextID": "TXT.TEST.LISTNAV-DYN.HEADER1",
+						"SubHeaderTextID": "TXT.TEST.LISTNAV-DYN.SUBHEADER1"
+					},
+					"Formfields": [
+						"ListCol1",
+						"ListCol2",
+						"ListCol3"
+					],
+					"RowStyle": "row",
+					"RowAfterElements": 3,
+					"ColStyle": "col-md-4"
+				}
+			],
+			"ErrorContainer": "FormfieldListSrcErrorContainer"
+		}
+	},
+
+	"ListCol1": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "text",
+			"Style": "form-control mb-1 p-1 w-100"
+		}
+	},
+
+	"ListCol2": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "text",
+			"Style": "form-control mb-1 p-1 w-100"
+		}
+	},
+
+	"ListCol3": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "text",
+			"Style": "form-control mb-1 p-1 w-100"
+		}
+	},
+
+	"FormfieldListSrcErrorContainer": {
+		"Type": "ErrorContainer",
+		"Attributes": {
+		}
+	},
+
+	"AddListEntryButton": {
+		"Type": "ButtonInternal",
+		"Attributes": {
+			"Style": "btn btn-secondary w-100 mb-3",
+			"IconStyle": "fa-solid fa-circle-arrow-down",
+			"TextID": "TXT.TEST.LISTNAV-DYN.ADDDATA",
+			"Action": "append",
+			"SrcDataObject": "FormfieldListSrc",
+			"DstDataObject": "ListDst"
+		}
+	},
+
+	"ListDst": {
+		"Type": "List",
+		"Attributes": {
+			"Style": "border border-dark border-3 rounded-top rounded-bottom",
+			"HeaderRowStyle": "row m-1 mt-0 mb-0 fw-bold border-bottom",
+			"RowCount": 4,
+			"RowsSelectable": true,
+			"Navigation": true,
+			"Columns": [
+				{
+					"ID": "ListCol1",
+					"HeaderTextID": "TXT.TEST.LISTNAV-DYN.DSTLIST.COL1",
+					"HeaderStyle": "col-md-4 border-end"
+				},
+				{
+					"ID": "ListCol2",
+					"HeaderTextID": "TXT.TEST.LISTNAV-DYN.DSTLIST.COL2",
+					"HeaderStyle": "col-md-4 border-end"
+				},
+				{
+					"ID": "ListCol3",
+					"HeaderTextID": "TXT.TEST.LISTNAV-DYN.DSTLIST.COL3",
+					"HeaderStyle": "col-md-4"
+				}
+			],
+			"RowStyle": "row m-1 mt-0 mb-0 border-bottom",
+			"RowAfterElements": 3,
+			"ColStyle": [
+				"col-md-4 border-end",
+				"col-md-4 border-end",
+				"col-md-4"
+			],
+			"ContextMenuItems": [
+				{
+					"ID": "RemoveSingle",
+					"TextID": "TXT.CONTEXTMENU.REMOVE-ITEM-SINGLE",
+					"IconStyle": "fa-regular fa-trash-can",
+					"InternalFunction": "remove"
+				},
+				{
+					"ID": "RemoveSelected",
+					"TextID": "TXT.CONTEXTMENU.REMOVE-ITEM-SELECTED",
+					"IconStyle": "fa-regular fa-trash-can",
+					"InternalFunction": "remove-selected"
+				}
+			],
+			"ErrorContainer": "ListDstErrorContainer"
+		}
+	},
+
+	"ListDstErrorContainer": {
+		"Type": "ErrorContainer",
+		"Attributes": {
+		}
+	}
+
+}

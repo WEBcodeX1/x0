@@ -47,11 +47,10 @@ function sysFormFieldValidate()
     {
         'Float':                       this.Float,
         'MinMax':                      this.MinMax,
-        'MaxLength':                   this.MaxLength,
         'IPAddress':                   this.IPv4Address,
         'IPv4Address':                 this.IPv4Address,
         'IPv6Address':                 this.IPv6Address,
-        'IPAddressSubnet':             this.IPAddressSubnet,
+        'IPv4SubnetMask':              this.IPv4SubnetMask,
         'IPPort':                      this.IPPort,
         'DNSRecordName':               this.DNSRecordName,
         'DateInternational':           this.DateInternational,
@@ -80,6 +79,8 @@ sysFormFieldValidate.prototype.validate = function()
 sysFormFieldValidate.prototype.validateByParams = function(ValidateID, Value, FormObj)
 {
     console.debug('::validate ValidateID:%s, Value:%s', ValidateID, Value);
+
+    if (ValidateID === undefined) { return true; }
 
     const RegexString = this.ValidateRegex[ValidateID];
 
@@ -151,18 +152,6 @@ sysFormFieldValidate.prototype.MinMax = function(Value, FormObj)
 
 
 //------------------------------------------------------------------------------
-//- METHOD "MaxLength"
-//------------------------------------------------------------------------------
-
-sysFormFieldValidate.prototype.MaxLength = function(Value)
-{
-    const ErrorMsgMinValue = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.MAX-LENGTH');
-
-    return false;
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "IPv4Address"
 //------------------------------------------------------------------------------
 
@@ -199,85 +188,76 @@ sysFormFieldValidate.prototype.IPv4Address = function(Value)
 
 
 //------------------------------------------------------------------------------
-//- METHOD "IPAddressSubnet"
+//- METHOD "IPv4SubnetMask"
 //------------------------------------------------------------------------------
 
-sysFormFieldValidate.prototype.IPAddressSubnet = function(Value)
+sysFormFieldValidate.prototype.IPv4SubnetMask = function(Value)
 {
     const ErrorMsgOctetCount = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.IPv4SUBNET-OCTET');
     const ErrorMsgBitmask = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.IPv4SUBNET-BITMASK');
 
-    const NetArray = Value.split('.');
+    const NetmaskArray = Value.split('.');
 
     //- check correct octet count
-    if (NetArray.length != 4) {
+    if (NetmaskArray.length != 4) {
         return {
             "Error": true,
             "Message": ErrorMsgOctetCount
         };
     }
 
-    const BitMasks8Bit = [ 128, 192, 224, 240, 248, 252, 254, 255 ];
+    const Octet1 = parseInt(NetmaskArray[0]);
+    const Octet2 = parseInt(NetmaskArray[1]);
+    const Octet3 = parseInt(NetmaskArray[2]);
+    const Octet4 = parseInt(NetmaskArray[3]);
 
-    var CheckValidBitmasks = new Array();
+    if (Octet1 == 0 &&
+        Octet2 == 0 &&
+        Octet3 == 0 &&
+        Octet4 == 0
+    ) { return false; }
 
-    for (const i of Array(8).keys()) {
-        const TmpArray = new Array();
+    if (Octet1 == 255 &&
+        Octet2 == 255 &&
+        Octet3 == 255 &&
+        Octet4 == 255
+    ) { return false; }
 
-        TmpArray[0] = BitMasks8Bit[i];
-        TmpArray[1] = 0;
-        TmpArray[2] = 0;
-        TmpArray[3] = 0;
+    const ValidValues = [ 0, 128, 192, 224, 240, 248, 252, 254 ];
 
-        CheckValidBitmasks.push(TmpArray);
-    }
-
-    for (const i of Array(8).keys()) {
-        const TmpArray = new Array();
-
-        TmpArray[0] = 0;
-        TmpArray[1] = BitMasks8Bit[i];
-        TmpArray[2] = 0;
-        TmpArray[3] = 0;
-
-        CheckValidBitmasks.push(TmpArray);
-    }
-
-    for (const i of Array(8).keys()) {
-        const TmpArray = new Array();
-
-        TmpArray[0] = 0;
-        TmpArray[1] = 0;
-        TmpArray[2] = BitMasks8Bit[i];
-        TmpArray[3] = 0;
-
-        CheckValidBitmasks.push(TmpArray);
-    }
-
-    for (const i of Array(8).keys()) {
-        const TmpArray = new Array();
-
-        TmpArray[0] = 0;
-        TmpArray[1] = 0;
-        TmpArray[2] = 0;
-        TmpArray[3] = BitMasks8Bit[i];;
-
-        CheckValidBitmasks.push(TmpArray);
-    }
-
-    //- check subnet mask
-    for (const CheckArray of CheckValidBitmasks) {
+    if (Octet1 > 0 && Octet1 < 255) {
         if (
-            NetArray[0] == CheckArray[0] &&
-            NetArray[1] == CheckArray[1] &&
-            NetArray[2] == CheckArray[2] &&
-            NetArray[3] == CheckArray[3]
+            ValidValues.includes(Octet1) &&
+            Octet2 == 0 &&
+            Octet3 == 0 &&
+            Octet4 == 0
+        ) { return false; }
+    }
+
+    if (Octet1 == 255 && Octet2 < 255) {
+        if (
+            ValidValues.includes(Octet2) &&
+            Octet3 == 0 &&
+            Octet4 == 0
+        ) { return false; }
+    }
+
+    if (Octet1 == 255 && Octet2 == 255 && Octet3 < 255) {
+        if (
+            ValidValues.includes(Octet3) &&
+            Octet4 == 0
+        ) { return false; }
+    }
+
+    if (Octet1 == 255 && Octet2 == 255 && Octet3 == 255 && Octet4 < 255) {
+        if (
+            ValidValues.includes(Octet4)
         ) { return false; }
     }
 
     return {
         "Error": true,
-        "Message": ErrorMsgOctetCount
+        "Message": ErrorMsgBitmask
     };
 }
 
@@ -319,7 +299,7 @@ sysFormFieldValidate.prototype.IPPort = function(Value)
 sysFormFieldValidate.prototype.IPv6Address = function(Value)
 {
     const ErrorMsgQuadNibbleCount = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.IPv6ADDRESS-QUADNIBBLE-COUNT');
-    const ErrorMsgQuadNibble = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.IPv4ADDRESS-QUADNIBBLE-SYNTAX');
+    const ErrorMsgQuadNibble = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.IPv6ADDRESS-QUADNIBBLE-SYNTAX');
 
     const IPArray = Value.split(':');
 
@@ -506,10 +486,11 @@ function sysFormFieldValidateGroup()
 {
     this.ValidateFunc =
     {
-        'CheckUnique':               this.CheckUnique,
+        'CheckDiffer':               this.CheckDiffer,
         'CheckNull':                 this.CheckNull,
         'CheckEmpty':                this.CheckEmpty,
         'CheckDatePeriodOneYear':    this.CheckDatePeriodOneYear,
+        'CheckDatePeriodOneYearDP':  this.CheckDatePeriodOneYearDP,
         'CheckItemsOr':              this.CheckItemsOr,
         'CheckItemsMatch':           this.CheckItemsMatch,
         'CheckTableRows':            this.CheckTableRows,
@@ -533,33 +514,32 @@ sysFormFieldValidateGroup.prototype.validate = function(FunctionID, FormfieldIte
         }
 
         try {
-            const RetValue = this.ValidateFunc[FunctionID](FormfieldItems);
+            let RetValue = this.ValidateFunc[FunctionID](FormfieldItems);
             console.debug('::validateGroup RetValue:%o', RetValue);
-        }
-        catch(err) {
-        }
-
-        try {
-            const RetValue = sysFactory.UserValidate.ValidateFunc[FunctionID](FormfieldItems);
-            console.debug('::User validateGroup() RetValue:%o', RetValue);
-        }
-        catch(err) {
-        }
-
-        //- on error set all group form fields not validated
-        try {
             if (
-                (typeof RetValue == 'object' && RetValue['Error'] == true) ||
-                (RetValue == true)) {
+                (typeof RetValue == 'object' && RetValue['Error'] == true) || (RetValue == true)) {
                 for (const FormItem of FormfieldItems) {
                     FormItem.setValidateStyle(true);
                 }
             }
+            return RetValue;
         }
         catch(err) {
         }
 
-        return RetValue;
+        try {
+            let RetValue = sysFactory.UserValidate.ValidateFunc[FunctionID](FormfieldItems);
+            console.debug('::User validateGroup() RetValue:%o', RetValue);
+            if (
+                (typeof RetValue == 'object' && RetValue['Error'] == true) || (RetValue == true)) {
+                for (const FormItem of FormfieldItems) {
+                    FormItem.setValidateStyle(true);
+                }
+            }
+            return RetValue;
+        }
+        catch(err) {
+        }
     }
     catch(err) {
         console.debug('::validateGroup err:%s', err);
@@ -569,12 +549,12 @@ sysFormFieldValidateGroup.prototype.validate = function(FunctionID, FormfieldIte
 
 
 //------------------------------------------------------------------------------
-//- METHOD "CheckUnique"
+//- METHOD "CheckDiffer"
 //------------------------------------------------------------------------------
 
-sysFormFieldValidateGroup.prototype.CheckUnique = function(Items)
+sysFormFieldValidateGroup.prototype.CheckDiffer = function(Items)
 {
-    //console.debug('FormValidate GroupNonUnique Items:%o', Items);
+    console.debug('FormValidate GroupDiffer Items:%o', Items);
 
     var UniqueElements = new Object();
 
@@ -591,7 +571,7 @@ sysFormFieldValidateGroup.prototype.CheckUnique = function(Items)
     var FormFieldsCount = Object.keys(Items).length;
     var UniqueCount = Object.keys(UniqueElements).length;
 
-    //console.debug('FormValidate UniqueElements:%o FormCount:%s UniqueCount:%s', UniqueElements, FormFieldsCount, UniqueCount);
+    console.debug('FormValidate UniqueElements:%o FormCount:%s UniqueCount:%s', UniqueElements, FormFieldsCount, UniqueCount);
 
     return (UniqueCount == FormFieldsCount ? false : true);
 }
@@ -653,6 +633,43 @@ sysFormFieldValidateGroup.prototype.CheckDatePeriodOneYear = function(Items)
         var EndDay = ItemEndDay.getObjectData();
         var EndMonth = ItemEndMonth.getObjectData();
         var EndYear = ItemEndYear.getObjectData();
+
+        if (BeginDay === undefined || EndDay === undefined) { return true; }
+
+        var DateBeginn = new Date(BeginMonth+"/"+BeginDay+"/"+BeginYear);
+        var DateEnd = new Date(EndMonth+"/"+EndDay+"/"+EndYear);
+
+        var PeriodTime = DateEnd.getTime()-DateBeginn.getTime();
+        var PeriodDays = PeriodTime / (1000*3600*24);
+    }
+    catch(err) {
+        PeriodDays = 1000;
+        console.debug('::CheckDatePeriodOneYear err:%s', err);
+    }
+    console.debug('::validate grouped CheckDatePeriodOneYear BT:%s BM:%s MJ:%s ET:%s EM:%s EJ:%s DateBeginn:%s DateEnd:%s Period:%s', BeginDay, BeginMonth, BeginYear, EndDay, EndMonth, EndYear, DateBeginn, DateEnd, PeriodDays);
+    return (PeriodDays > 365 ? true : false);
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "CheckDatePeriodOneYearDP"
+//------------------------------------------------------------------------------
+
+sysFormFieldValidateGroup.prototype.CheckDatePeriodOneYearDP = function(Items)
+{
+    try {
+        const DateStartSplit = Items[0].getObjectData().split('-');
+        const DateEndSplit = Items[1].getObjectData().split('-');
+
+        var BeginDay = DateStartSplit[2];
+        var BeginMonth = DateStartSplit[1];
+        var BeginYear = DateStartSplit[0];
+
+        var EndDay = DateEndSplit[2];
+        var EndMonth = DateEndSplit[1];
+        var EndYear = DateEndSplit[0];
+
+        if (BeginDay === undefined || EndDay === undefined) { return true; }
 
         var DateBeginn = new Date(BeginMonth+"/"+BeginDay+"/"+BeginYear);
         var DateEnd = new Date(EndMonth+"/"+EndDay+"/"+EndYear);

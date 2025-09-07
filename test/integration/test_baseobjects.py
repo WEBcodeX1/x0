@@ -171,4 +171,5 @@ class TestBaseObjectsVariants:
 
         assert len(rows) > 2, "Table has no rows."
 
+        # Clean up driver after last test (following existing pattern)
         d.quit()

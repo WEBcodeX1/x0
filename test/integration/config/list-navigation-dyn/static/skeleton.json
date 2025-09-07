@@ -1,0 +1,23 @@
+{
+	"Screen1":
+	[
+		{
+			"FormfieldListSrc":
+			{
+				"RefID": "Screen1"
+			}
+		},
+		{
+			"AddListEntryButton":
+			{
+				"RefID": "Screen1"
+			}
+		},
+		{
+			"ListDst":
+			{
+				"RefID": "Screen1"
+			}
+		}
+	]
+}
