@@ -1,3 +1,14 @@
+x0 (1.0) bullseye; urgency=medium
+
+  [ Claus Prüfer ]
+  * Stable release v1.0 - promoted from release candidate
+  * Complete GitHub integration with issue templates and workflows  
+  * Comprehensive CHANGELOG.md following Keep a Changelog format
+  * Documentation improvements and standardization
+  * Final bug fixes and stabilization for stable release
+
+ -- Claus Prüfer <pruefer@webcodex.de>  Sun, 07 Sep 2025 23:13:11 +0200
+
 x0 (1.0~rc1) bullseye; urgency=medium
 
   [ Claus Prüfer ]

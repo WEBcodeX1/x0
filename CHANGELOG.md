@@ -7,11 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2025-09-07
+
 ### Added
 - Comprehensive CHANGELOG.md following Keep a Changelog format
+- Complete GitHub integration with issue templates, workflows, and documentation
 
 ### Changed
 - Documentation improvements and standardization
+- Promoted from release candidate to stable release
+
+### Fixed
+- Final bug fixes and stabilization for stable release
 
 ## [1.0.0-rc1] - 2025-04-18
 
@@ -159,7 +166,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **License**: AGPL-3.0
 - **Maintainer**: Claus Prüfer <pruefer@webcodex.de>
 
-[Unreleased]: https://github.com/WEBcodeX1/x0/compare/v1.0.0-rc1...HEAD
+[Unreleased]: https://github.com/WEBcodeX1/x0/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/WEBcodeX1/x0/compare/v1.0.0-rc1...v1.0.0
 [1.0.0-rc1]: https://github.com/WEBcodeX1/x0/compare/v0.99.0...v1.0.0-rc1
 [0.99.0]: https://github.com/WEBcodeX1/x0/compare/v0.98.0-rc...v0.99.0
 [0.98.0-rc]: https://github.com/WEBcodeX1/x0/releases/tag/v0.98.0-rc
