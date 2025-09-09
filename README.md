@@ -140,7 +140,10 @@ closing the gap between browser-based apps and native desktop software.
 
 ## :page_with_curl: Documentation
 
-Rendered docs: [Official Sphinx Documentation](https://docs.webcodex.de/x0/v1.0/).
+- **Official Sphinx Documentation:** [docs.webcodex.de/x0/v1.0/](https://docs.webcodex.de/x0/v1.0/)
+- **Release Notes (v1.0.0):** [RELEASE_NOTES.md](./RELEASE_NOTES.md)
+- **Installation Guide:** [INSTALL.md](./INSTALL.md)
+- **Changelog:** [CHANGELOG.md](./CHANGELOG.md)
 
 ---
 
@@ -205,7 +208,7 @@ Full details in [WEB/codeX PKI Manager](https://www.webcodex.de/index.html?menu=
 
 ## :bulb: Examples
 
-Try 15 live examples (after local docker containers have been started):
+Try **15 interactive examples** with comprehensive video demonstrations (after local docker containers have been started):
 
 ```
 http://x0-app.x0.localnet/python/Index.py?appid=example1
@@ -213,7 +216,20 @@ http://x0-app.x0.localnet/python/Index.py?appid=example1
 http://x0-app.x0.localnet/python/Index.py?appid=example15
 ```
 
-Most examples now include a descriptive video: [./example/README.md](./example/README.md).
+### 📹 Video Demonstrations Available
+
+**9 examples include high-quality demonstration videos** showing real-world usage:
+- **Object Table Columns** - Dynamic table generation and manipulation
+- **Navigation Menus** - Interactive menu systems and routing
+- **List/Detail Views** - Seamless data browsing and editing
+- **Modal Overlays** - Advanced UI patterns and user interaction
+- **Data Grids** - Complex data display and manipulation
+- **Tabbed Interfaces** - Multi-level navigation containers
+- **Real-time Messaging** - Network communication between sessions
+- **Dynamic Forms** - Interactive form generation and validation
+- **Copy/Paste Operations** - Object data exchange with context menus
+
+**Complete video catalog:** [./example/README.md](./example/README.md)
 
 ---
 
