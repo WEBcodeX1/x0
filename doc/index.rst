@@ -15,6 +15,7 @@ x0 Framework Documentation
    :caption: Application Development Guide
 
    appdev-config
+   appdev-logging
    appdev-global-css
    appdev-grid-system
    appdev-objects
