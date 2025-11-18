@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">x0 JavaScript Framework</h1>
-<p align="center"><em>Modern, True OOP Real-Time SPA Framework for Powerful Web Applications</em></p>
+<p align="center"><em>Framework for building complex, recursive OOP based realtime objects</em></p>
 
 <div align="center">
   <a href="https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql">
