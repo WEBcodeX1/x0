@@ -4,7 +4,7 @@ MAINTAINER Claus Prüfer
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG APP_DEB_FILE=x0-test_1.0~rc1_all.deb
+ARG APP_DEB_FILE=x0-test_1.0_all.deb
 
 COPY ./x0/docker/tmp/apt-sources.list /etc/apt/sources.list
 
