@@ -7,11 +7,16 @@ including integration with microservices and enhanced validation capabilities.
 
 Open URL: `http://x0-app.x0.localnet/python/Index.py?appid=example5`
 
+## Video
+
+[Download example video (VLC or MPV player recommended)](https://download.webcodex.de/x0/video/x0-example-enhanced-form-microesb.mkv).
+
 ## Main Components
 
 ### 1. Overview
 
 This example showcases enhanced form functionality including:
+
 - Advanced form field validation
 - Integration with backend services
 - Dynamic form behavior and state management
