@@ -28,7 +28,7 @@
 ## :pushpin: Overview
 
 **x0** (cross-objects /krɒs ɒb.dʒɪkts/) is a **Next-Level JavaScript Framework** for building robust, complex, highly structured
-and real-time-modifieable objects usable in a **100%-Server-Less** infrastructure.
+and real-time-modifiable objects usable in a **100%-Server-Less** infrastructure.
 
 - **Responsive by Design**: One app, every device, standards via Bootstrap CSS
 - **Clean OOP Model**: True object orientation, abstraction, chaining, metadata modeling
