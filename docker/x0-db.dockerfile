@@ -3,7 +3,7 @@ MAINTAINER Claus Prüfer
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-ARG DB_DEB_FILE=x0-db_1.0~rc1_all.deb
+ARG DB_DEB_FILE=x0-db_1.0_all.deb
 
 COPY ./x0/docker/tmp/apt-sources.list /etc/apt/sources.list
 COPY ./x0/docker/tmp/environment-db.sh ./environment.sh
