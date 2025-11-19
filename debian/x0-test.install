@@ -1,8 +1,0 @@
-doc/* var/lib/x0/doc
-docker/* var/lib/x0/docker
-test/* var/lib/x0/test
-example/* var/lib/x0/example
-sys/* var/lib/x0/sys
-kubernetes/* var/lib/x0/kubernetes
-config/* var/lib/x0/config
-www/*.js var/lib/x0/www

@@ -1,8 +1,0 @@
-{
-	"TestLink": {
-		"TextID": "TXT.MENU.LINK1",
-		"ScreenID": "Screen1",
-		"RefID": "MenuRoot",
-		"IconStyle": "ContactNew"
-	}
-}
