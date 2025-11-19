@@ -20,6 +20,7 @@ HTMLTop = """<!DOCTYPE html>
   <link href="{subdir}/globalstyles.css" rel="stylesheet">
   <link href="{subdir}/fontawesome/css/all.min.css" rel="stylesheet">
   <script type="text/javascript" src="/userFunctions.js"></script>
+  <script type="text/javascript" src="/sysLogger.js"></script>
   <script type="text/javascript" src="/sysHelper.js"></script>
   <script type="text/javascript" src="/sysSourceObjectHandler.js"></script>
   <script type="text/javascript" src="/sysRequestDataHandler.js"></script>
