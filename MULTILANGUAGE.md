@@ -37,5 +37,3 @@ These text IDs can then be referenced in your UI object metadata for automatic l
 ### Summary
 
 **x0’s multilanguage system is designed for seamless, dynamic language changes and easy integration into real-time Single Page Applications.** It is well-suited for international projects and teams who need to support multiple languages with minimal overhead.
-
-If you need technical details or a code/config example for a specific part of the multilanguage system, let me know!
