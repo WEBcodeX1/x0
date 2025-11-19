@@ -19,25 +19,37 @@ This guide will help you get your development environment up and running on popu
 
 ## 1️⃣ System Prerequisites
 
-Before you begin, ensure you have the following installed:
+Before you begin, ensure you have the following installed (all architectures):
 
 - **Debian Build System** (`debuild`)
 - **Debian Package Signing** (`gpg`)
 - **Docker Engine** (including `buildx`)
 
-### 🐧 Ubuntu (22.04, 24.04)
+### 🐧 Ubuntu (22.04, 24.04) - x64
 
 ```bash
-# Install Debian package builder and GNU gpg
+# install Debian package builder, docker and GNU gpg
 sudo apt-get -y install debuild gnupg docker.io
 ```
 
-### 🐧 Devuan
+### 🐧 Devuan - x64
 
 ```bash
-# Install Debian package builder and GNU gpg
+# install Debian package builder, docker and GNU gpg
 sudo apt-get install devscripts pbuilder gnupg docker.io
 ```
+
+### 🐧 Ubuntu (24.04.3) - arm64
+
+```bash
+# install Debian package builder, docker, GNU gpg and debhelper
+sudo apt-get install devscripts pbuilder gnupg docker.io debhelper
+```
+
+>[!NOTE]
+> We do not ship multiarch docker images. For arm64 (runs also on
+> Macintosh AArch64 processors), x0-app and x0-db image can be downloaded
+> here: https://docker.webcodex.de/x0-arm64/
 
 ---
 
