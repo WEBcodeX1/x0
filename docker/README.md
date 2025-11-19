@@ -8,15 +8,15 @@
 ## 📋 Table of Contents
 
 1. [Prerequisites](#prerequisites)
-2. [Quick Start](#-quick-start)
-3. [Image List](#-image-list)
-4. [Building Images](#-building-images)
-5. [Container Management](#-container-management)
-6. [Network Configuration](#-network-configuration)
-7. [Image Management](#-image-management)
-8. [Environment Variables](#-environment-variables)
-9. [Troubleshooting](#-troubleshooting)
-10. [References](#-references)
+2. [Quick Start](#quick-start)
+3. [Image List](#image-list)
+4. [Building Images](#building-images)
+5. [Container Management](#container-management)
+6. [Network Configuration](#network-configuration)
+7. [Image Management](#image-management)
+8. [Environment Variables](#environment-variables)
+9. [Troubleshooting](#troubleshooting)
+10. [References](#references)
 
 ---
 
@@ -114,7 +114,7 @@ The x0 system is composed of **7 specialized Docker images**:
 - **Progress output** is enabled with `--progress=plain`
 - **No cache** option is used for database image (`--no-cache`)
 
-**Speed up builds** by configuring a local Ubuntu mirror (see [Environment Variables](#-environment-variables)).
+**Speed up builds** by configuring a local Ubuntu mirror (see [Environment Variables](#environment-variables)).
 
 ---
 
