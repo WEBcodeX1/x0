@@ -48,7 +48,7 @@ sudo apt-get install devscripts pbuilder gnupg docker.io debhelper
 
 >[!NOTE]
 > We do not ship multiarch docker images. For arm64 (runs also on
-> macintosh AArch64 processors), x0-app and x0-db image can be downloaded
+> Macintosh AArch64 processors), x0-app and x0-db image can be downloaded
 > here: https://docker.webcodex.de/x0-arm64/
 
 ---
