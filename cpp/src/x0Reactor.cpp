@@ -10,6 +10,7 @@
 #include "x0BaseObject.h"
 #include "x0Factory.h"
 #include <QDebug>
+#include <memory>
 
 namespace x0 {
 
@@ -91,8 +92,11 @@ void x0Reactor::dispatchEvent(const QString& eventId)
             
         } else if (event.type == "SetObjectPropertyValues") {
             qDebug() << "x0Reactor::dispatchEvent() - SetObjectPropertyValues";
-            auto setter = new SetObjectPropertyValues(event, this);
-            Q_UNUSED(setter)
+            // Create and immediately execute the property setter
+            // The SetObjectPropertyValues constructor calls callService() internally
+            SetObjectPropertyValues setter(event, this);
+            // Note: setter goes out of scope here - this is intentional as the
+            // constructor performs the required service call synchronously
         }
     }
     

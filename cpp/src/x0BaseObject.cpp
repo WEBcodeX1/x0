@@ -207,20 +207,32 @@ void x0BaseObject::setDeactivated()
 
 json x0BaseObject::getObjectData()
 {
-    // Override in derived classes for custom data retrieval
-    return json();
+    // Default implementation returns empty JSON object
+    // Derived classes should override to return their specific data
+    return json::object();
 }
 
 void x0BaseObject::setObjectData(const json& data)
 {
-    // Override in derived classes for custom data setting
-    Q_UNUSED(data)
+    // Default implementation stores data in config
+    // Derived classes can override for custom behavior
+    if (!data.is_null()) {
+        m_jsonConfig["data"] = data;
+    }
 }
 
 void x0BaseObject::appendObjectData(const json& data)
 {
-    // Override in derived classes for custom data appending
-    Q_UNUSED(data)
+    // Default implementation appends to existing data array
+    // Derived classes can override for custom behavior
+    if (!data.is_null()) {
+        if (!m_jsonConfig.contains("data")) {
+            m_jsonConfig["data"] = json::array();
+        }
+        if (m_jsonConfig["data"].is_array()) {
+            m_jsonConfig["data"].push_back(data);
+        }
+    }
 }
 
 void x0BaseObject::processReset()

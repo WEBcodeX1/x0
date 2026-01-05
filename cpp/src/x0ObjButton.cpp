@@ -39,9 +39,11 @@ void x0ObjButton::init()
     
     const json& attributes = m_jsonConfig["Attributes"];
     
-    // Set DOM value (button text)
+    // Set DOM value (button text) - supports both 'DOMValue' and 'Value' for flexibility
     if (attributes.contains("DOMValue")) {
         m_value = QString::fromStdString(attributes["DOMValue"].get<std::string>());
+    } else if (attributes.contains("Value")) {
+        m_value = QString::fromStdString(attributes["Value"].get<std::string>());
     }
     
     // Set style

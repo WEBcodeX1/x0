@@ -84,7 +84,7 @@ protected:
     // Helper methods
     json getSkeletonObjectsByRefId(const QString& objectId);
     void processOverwriteAttributes(json& config);
-    void processReplaceAttributes(json& config, const json& refConfig);
+    void processReplaceAttributes(json& config, [[maybe_unused]] const json& refConfig);
 };
 
 } // namespace x0

@@ -190,9 +190,9 @@ void x0Screen::processOverwriteAttributes(json& config)
     }
 }
 
-void x0Screen::processReplaceAttributes(json& config, const json& refConfig)
+void x0Screen::processReplaceAttributes(json& config, [[maybe_unused]] const json& refConfig)
 {
-    Q_UNUSED(refConfig)
+    // Note: refConfig reserved for future use with reference config merging
     
     if (!config.contains("AttributesReplace")) return;
     
