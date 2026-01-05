@@ -20,3 +20,5 @@ debian/x0-db-install
 debian/x0-db-install-tpl
 debian/x0-msg-server
 debian/.debhelper
+_codeql_detected_source_root
+cpp/build/
