@@ -9,7 +9,7 @@
 cmake_minimum_required(VERSION 3.16)
 project(x0-cpp VERSION 1.0.0 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -38,8 +38,8 @@ FetchContent_MakeAvailable(json)
 # Include directories
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-# Source files
-set(X0_SOURCES
+# Library source files (without main.cpp)
+set(X0_LIB_SOURCES
     src/x0BaseElement.cpp
     src/x0BaseObject.cpp
     src/x0Factory.cpp
@@ -47,7 +47,6 @@ set(X0_SOURCES
     src/x0Reactor.cpp
     src/x0ObjDiv.cpp
     src/x0ObjButton.cpp
-    src/main.cpp
 )
 
 # Header files
@@ -61,14 +60,27 @@ set(X0_HEADERS
     include/x0ObjButton.h
 )
 
-# Create executable
-add_executable(x0-app ${X0_SOURCES} ${X0_HEADERS})
-
-# Link libraries
-target_link_libraries(x0-app PRIVATE
+# Create static library
+add_library(x0-lib STATIC ${X0_LIB_SOURCES} ${X0_HEADERS})
+target_link_libraries(x0-lib PUBLIC
     ${QT_LIBS}
     nlohmann_json::nlohmann_json
 )
+
+# Create main executable
+add_executable(x0-app src/main.cpp)
+target_link_libraries(x0-app PRIVATE x0-lib)
+
+# Create test executable for validating examples
+add_executable(x0-test-examples test/test_examples.cpp)
+target_link_libraries(x0-test-examples PRIVATE
+    x0-lib
+    nlohmann_json::nlohmann_json
+)
+
+# Enable testing
+enable_testing()
+add_test(NAME test_examples COMMAND x0-test-examples "${CMAKE_SOURCE_DIR}/../example")
 
 # Install targets
 install(TARGETS x0-app DESTINATION bin)
