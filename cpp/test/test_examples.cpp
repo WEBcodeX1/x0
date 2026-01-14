@@ -219,8 +219,9 @@ int main(int argc, char* argv[]) {
         
         std::string exampleName = entry.path().filename().string();
         
-        // Skip non-example directories
-        if (exampleName.starts_with(".") || exampleName == "README.md") continue;
+        // Skip non-example directories (use compatible check for C++17 fallback)
+        if (!exampleName.empty() && exampleName[0] == '.') continue;
+        if (exampleName == "README.md") continue;
         
         std::cout << "Testing: " << exampleName << std::endl;
         

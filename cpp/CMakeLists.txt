@@ -80,7 +80,10 @@ target_link_libraries(x0-test-examples PRIVATE
 
 # Enable testing
 enable_testing()
-add_test(NAME test_examples COMMAND x0-test-examples "${CMAKE_SOURCE_DIR}/../example")
+
+# Define examples directory path
+set(EXAMPLES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../example")
+add_test(NAME test_examples COMMAND x0-test-examples "${EXAMPLES_DIR}")
 
 # Install targets
 install(TARGETS x0-app DESTINATION bin)
