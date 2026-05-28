@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center">x0 JavaScript Framework</h1>
-<p align="center"><em>Framework for building complex, recursive OOP based real-time objects</em></p>
+<p align="center"><em>Serverless in-browser RTTE for complex objects and clean OOP abstraction</em></p>
 
 <div align="center">
   <a href="https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql">
@@ -27,15 +27,14 @@
 
 ## :pushpin: Overview
 
-**x0** (cross-objects /krɒs ɒb.dʒɪkts/) is a **Next-Level JavaScript Framework** for building robust, complex, highly structured
-and real-time-modifiable objects usable in a **100%-Server-Less** infrastructure.
+The **x0 framework** is a **serverless in-browser RTTE (Real Time Templating Engine)** that lets you combine complex objects with a cleaner-than-clean OOP abstraction model and clean code principles.
 
-- **Responsive by Design**: One app, every device, standards via Bootstrap CSS
-- **Clean OOP Model**: True object orientation, abstraction, chaining, metadata modeling
-- **Zero Code Duplication**: Efficient, maintainable, backend-agnostic
-- **Kubernetes Ready**: Easy cloud-native deployment
-- **Security**: PKCS 11/15 compatible, own PKI system (non-free)
-- **Multiple Language Support**: x0 supports multiple display languages
+- **In-Browser RTTE**: Render and evolve object-driven interfaces directly in the browser
+- **Composable Object System**: Combine complex objects into reusable, structured application models
+- **Clean OOP Abstraction**: Build with chaining, metadata, and a consistently clean code style
+- **Serverless by Design**: Keep deployment lightweight without depending on a classic backend stack
+- **Real-Time Modifiable UI**: Update object structures and behavior while the application is running
+- **Multi-Language Ready**: Deliver the same object model across multiple display languages
 
 ---
 
