@@ -85,6 +85,23 @@ sysFormfieldList.prototype.init = function()
     EventListenerObj['Element'] = this.EventListenerRightClick.bind(this);
     this.EventListeners['ContextMenuOpen'] = EventListenerObj;
 
+    if (Attributes.DropTarget === true) {
+        var EventListenerObj = new Object();
+        EventListenerObj['Type'] = 'dragover';
+        EventListenerObj['Element'] = this.onDragOver.bind(this);
+        this.EventListeners['DragOver'] = EventListenerObj;
+
+        var EventListenerObj = new Object();
+        EventListenerObj['Type'] = 'dragleave';
+        EventListenerObj['Element'] = this.onDragLeave.bind(this);
+        this.EventListeners['DragLeave'] = EventListenerObj;
+
+        var EventListenerObj = new Object();
+        EventListenerObj['Type'] = 'drop';
+        EventListenerObj['Element'] = this.onDrop.bind(this);
+        this.EventListeners['Drop'] = EventListenerObj;
+    }
+
     this.render();
 }
 
@@ -458,4 +475,44 @@ sysFormfieldList.prototype.initOnChangeItems = function()
         //console.debug('ItemKey:%s', ItemKey);
         this.FormfieldItems[ItemKey].processOnChangeItem();
     }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "onDragOver"
+//------------------------------------------------------------------------------
+
+sysFormfieldList.prototype.onDragOver = function(Event)
+{
+    Event.preventDefault();
+    this.addDOMElementStyle('sysDragDropOver');
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "onDragLeave"
+//------------------------------------------------------------------------------
+
+sysFormfieldList.prototype.onDragLeave = function(Event)
+{
+    const Element = this.getElement();
+    if (Element !== null && !Element.contains(Event.relatedTarget)) {
+        this.removeDOMElementStyle('sysDragDropOver');
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "onDrop"
+//------------------------------------------------------------------------------
+
+sysFormfieldList.prototype.onDrop = function(Event)
+{
+    Event.preventDefault();
+    this.removeDOMElementStyle('sysDragDropOver');
+    const DragData = sysFactory.DragDropHandler.getDragData();
+    if (DragData !== null) {
+        this.setData(DragData);
+    }
+    sysFactory.DragDropHandler.clearDragSource();
 }

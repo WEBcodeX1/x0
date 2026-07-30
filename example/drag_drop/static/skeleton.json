@@ -1,0 +1,50 @@
+{
+	"Screen1":
+	[
+		{
+			"TabContainer1":
+			{
+				"RefID": "Screen1"
+			}
+		},
+
+		{
+			"SourceListConnector":
+			{
+				"RefID": "TabContainer1",
+				"ElementID": "Tab1Content"
+			}
+		},
+
+		{
+			"SourceList":
+			{
+				"RefID": "SourceListConnector"
+			}
+		},
+
+		{
+			"DestinationList":
+			{
+				"RefID": "TabContainer1",
+				"ElementID": "Tab2Content"
+			}
+		},
+
+		{
+			"DestinationForm":
+			{
+				"RefID": "TabContainer1",
+				"ElementID": "Tab2Content"
+			}
+		},
+
+		{
+			"DragDropTree":
+			{
+				"RefID": "TabContainer1",
+				"ElementID": "Tab3Content"
+			}
+		}
+	]
+}

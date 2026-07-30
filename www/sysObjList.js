@@ -59,6 +59,15 @@ sysListRow.prototype.init = function()
     EventListenerObj['Type'] = 'mousedown';
     EventListenerObj['Element'] = this.EventListenerSelect.bind(this);
     this.EventListeners['RowSelect'] = EventListenerObj;
+
+    if (this.ParentObject.JSONConfig.Attributes.DragSource === true) {
+        this.DOMAttributes = { 'draggable': 'true' };
+
+        var EventListenerObj = new Object();
+        EventListenerObj['Type'] = 'dragstart';
+        EventListenerObj['Element'] = this.onDragStart.bind(this);
+        this.EventListeners['DragStart'] = EventListenerObj;
+    }
 }
 
 
@@ -270,6 +279,17 @@ sysListRow.prototype.updateIndex = function(UpdateIndex)
 
 
 //------------------------------------------------------------------------------
+//- METHOD "onDragStart"
+//------------------------------------------------------------------------------
+
+sysListRow.prototype.onDragStart = function(Event)
+{
+    sysFactory.DragDropHandler.setDragSource(this, this.RowData);
+    Event.dataTransfer.effectAllowed = 'copy';
+}
+
+
+//------------------------------------------------------------------------------
 //- CONSTRUCTOR "sysList"
 //------------------------------------------------------------------------------
 
@@ -295,6 +315,8 @@ function sysList()
     this.Columns                  = new Array();                           //- Comlumns for fast query
 
     this.ChildObjects             = new Array();                           //- Child Objects
+
+    this.EventListeners           = new Object();                          //- Event Listeners
 
     this.PaginationObject         = new sysPagination(this);               //- Pagination Processing
 
@@ -380,6 +402,23 @@ sysList.prototype.init = function()
     }
 
     this.DOMStyle = Attributes.Style;
+
+    if (Attributes.DropTarget === true) {
+        var EventListenerObj = new Object();
+        EventListenerObj['Type'] = 'dragover';
+        EventListenerObj['Element'] = this.onDragOver.bind(this);
+        this.EventListeners['DragOver'] = EventListenerObj;
+
+        var EventListenerObj = new Object();
+        EventListenerObj['Type'] = 'dragleave';
+        EventListenerObj['Element'] = this.onDragLeave.bind(this);
+        this.EventListeners['DragLeave'] = EventListenerObj;
+
+        var EventListenerObj = new Object();
+        EventListenerObj['Type'] = 'drop';
+        EventListenerObj['Element'] = this.onDrop.bind(this);
+        this.EventListeners['Drop'] = EventListenerObj;
+    }
 
     this.renderPage();
 }
@@ -709,4 +748,49 @@ sysList.prototype.appendData = function(DataObj)
     this.ServiceData.push(AppendRowObj);
     this.addRow(AppendRowObj, this.RowItems.length+1);
     this.renderPage();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "onDragOver"
+//------------------------------------------------------------------------------
+
+sysList.prototype.onDragOver = function(Event)
+{
+    Event.preventDefault();
+    this.addDOMElementStyle('sysDragDropOver');
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "onDragLeave"
+//------------------------------------------------------------------------------
+
+sysList.prototype.onDragLeave = function(Event)
+{
+    const Element = this.getElement();
+    if (Element !== null && !Element.contains(Event.relatedTarget)) {
+        this.removeDOMElementStyle('sysDragDropOver');
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "onDrop"
+//------------------------------------------------------------------------------
+
+sysList.prototype.onDrop = function(Event)
+{
+    Event.preventDefault();
+    this.removeDOMElementStyle('sysDragDropOver');
+    const DragSourceObj = sysFactory.DragDropHandler.getDragSourceObject();
+    if (DragSourceObj !== null && DragSourceObj !== undefined) {
+        if (DragSourceObj.ParentObject !== this) {
+            const DragData = sysFactory.DragDropHandler.getDragData();
+            if (DragData !== null) {
+                this.appendData(DragData);
+            }
+        }
+    }
+    sysFactory.DragDropHandler.clearDragSource();
 }

@@ -133,3 +133,9 @@ a:active {
     width: 160px;
     float: right;
 }
+
+.sysDragDropOver {
+    outline: 2px dashed #2b5575;
+    background-color: rgba(43, 85, 117, 0.12);
+    cursor: copy;
+}
