@@ -17,8 +17,8 @@
 
 function sysFormfieldList()
 {
-    this.overrideDOMObjectID    = true;                                  //- Override recursive ObjectID
-    this.ObjectID               = this.ID;                               //- Set unique ID
+    this.overrideDOMObjectID      = true;                                //- Override recursive ObjectID
+    this.ObjectID                 = this.ID;                             //- Set unique ID
 
     this.FormfieldItems           = new Object();                        //- Form Field Items
     this.FormfieldItemsHidden     = new Object();                        //- Form Field Items Hidden

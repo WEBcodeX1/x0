@@ -17,7 +17,7 @@
 
 function sysFormfieldItem()
 {
-    this.EventListeners = new Object();
+    this.EventListeners         = new Object();
 
     this.RuntimeGetDataFunc     = this.FormItemGetValue;
     this.RuntimeSetDataFunc     = this.FormItemSetValue;
@@ -66,39 +66,39 @@ sysFormfieldItem.prototype.FormItemInit = function()
         this.InstancePrefix = this.JSONConfig.InstancePrefix;
     }
 
-    if (Attributes.LabelFor !== undefined) {
+    else if (Attributes.LabelFor !== undefined) {
         this.LabelFor = (this.InstancePrefix === undefined) ? Attributes.LabelFor : this.InstancePrefix + Attributes.LabelFor;
     }
 
-    if (Attributes.Placeholder !== undefined) {
+    else if (Attributes.Placeholder !== undefined) {
         this.DOMAttributes['placeholder'] = Attributes.Placeholder;
     }
 
-    if (Attributes.MaxLength !== undefined) {
+    else if (Attributes.MaxLength !== undefined) {
         this.DOMAttributes['maxlength'] = Attributes.MaxLength;
     }
 
-    if (Attributes.Number !== undefined) {
+    else if (Attributes.Number !== undefined) {
         this.DOMAttributes['type'] = 'number';
     }
 
-    if (Attributes.Disabled !== undefined) {
+    else if (Attributes.Disabled !== undefined) {
         this.DOMAttributes['disabled'] = '';
     }
 
-    if (Attributes.ReadOnly !== undefined) {
+    else if (Attributes.ReadOnly !== undefined) {
         this.DOMAttributes['readOnly'] = '';
     }
 
-    if (Attributes.Min !== undefined) {
+    else if (Attributes.Min !== undefined) {
         this.DOMAttributes['min'] = Attributes.Min;
     }
 
-    if (Attributes.Max !== undefined) {
+    else if (Attributes.Max !== undefined) {
         this.DOMAttributes['max'] = Attributes.Max;
     }
 
-    if (Attributes.Rows !== undefined) {
+    else if (Attributes.Rows !== undefined) {
         this.DOMAttributes['rows'] = Attributes.Rows;
     }
 }
