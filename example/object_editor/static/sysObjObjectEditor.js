@@ -139,7 +139,7 @@ sysObjObjectEditor.prototype.getCurrentScreenID = function() {
 sysObjObjectEditor.prototype.setStatus = function(Text) {
     const El = document.getElementById(this.DOMObjectID + '__status');
     if (El !== null) {
-        El.innerHTML = Text;
+        El.textContent = Text;
     }
 };
 
