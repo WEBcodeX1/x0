@@ -17,6 +17,8 @@
 
 function sysCallXMLRPC(URL, URLParams='')
 {
+    this.RandURLOption        = '?a__=';
+
     this.RPCType              = 'ASYNC';                   //- ASYNC | SYNC
 
     this.RequestType          = 'GET';                     //- POST | GET
@@ -28,6 +30,7 @@ function sysCallXMLRPC(URL, URLParams='')
 
     this.URL                  = URL;                       //- URL
     this.URLParams            = URLParams;                 //- URL Params
+    this.URLRandIndicator     = this.RandURLOption + '1';  //- Random URL Part
 
     this.PostData             = new Object();              //- Post Request Data Object
 }
@@ -117,13 +120,24 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
         }
 
         //------------------------------------------------------------------------------
+        //- CACHED REQUEST
+        //------------------------------------------------------------------------------
+
+        if (this.RequestCache == false) {
+            var RandomNrObject;
+            RandomNrObject = new sysRandomNr();
+            RandomNrObject.generate(10);
+            this.URLRandIndicator = this.RandURLOption + RandomNrObject.number;
+        }
+
+        //------------------------------------------------------------------------------
         //- PREPARE REQUEST
         //------------------------------------------------------------------------------
 
         var RequestURL = '';
-        RequestURL = this.URL;
 
         if (this.RequestType == 'GET') {
+            RequestURL = this.URL + this.URLRandIndicator;
 
             if (sysFactory.SysSessionValue != null) {
                 RequestURL += '&' + sysFactory.SysSessionID + '=' + sysFactory.SysSessionValue;
@@ -136,6 +150,7 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
         }
 
         if (this.RequestType == 'POST') {
+            RequestURL = this.URL + this.URLRandIndicator;
 
             //console.log('::sysCallXMLRPC SessionID:%s', sysFactory.SysSessionValue);
 

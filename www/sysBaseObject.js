@@ -303,12 +303,88 @@ sysBaseObject.prototype.removeParent = function()
 
 
 //------------------------------------------------------------------------------
+//- METHOD "getObjectDataRecursive"
+//------------------------------------------------------------------------------
+
+sysBaseObject.prototype.getObjectDataRecursive = function()
+{
+    var Result = new Object();
+
+    //- Object has RuntimeGetDataFunc: include its data and stop recursing
+    if (typeof this.RuntimeGetDataFunc === 'function') {
+        Result[this.ObjectID] = this.RuntimeGetDataFunc();
+        return Result;
+    }
+
+    //- Pure container: skip own data, recurse into children
+    for (const ChildItem of this.ChildObjects) {
+        var ChildResult = ChildItem.getObjectDataRecursive();
+        for (var Key in ChildResult) {
+            Result[Key] = ChildResult[Key];
+        }
+    }
+
+    return Result;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "setObjectDataRecursive"
+//------------------------------------------------------------------------------
+
+sysBaseObject.prototype.setObjectDataRecursive = function(Data)
+{
+    if (Data === undefined || Data === null) return;
+
+    var ObjectIDs = Data['ObjectIDs'];
+    if (ObjectIDs === undefined) return;
+
+    for (var ObjID in ObjectIDs) {
+
+        var ObjData = ObjectIDs[ObjID];
+        var TargetObj = this.getObjectByID(ObjID);
+
+        if (TargetObj === undefined) continue;
+
+        if (ObjData !== null && typeof ObjData === 'object' && !Array.isArray(ObjData) && ObjData['Action'] !== undefined) {
+            //- Action directive: { "Action": "set"|"append", "Data": <value> }
+            var Action = ObjData['Action'];
+            var ActionData = ObjData['Data'];
+            if (Action === 'append') {
+                if (typeof TargetObj.RuntimeAppendDataFunc === 'function') {
+                    TargetObj.RuntimeAppendDataFunc(ActionData);
+                }
+            }
+            else {
+                if (typeof TargetObj.RuntimeSetDataFunc === 'function') {
+                    TargetObj.RuntimeSetDataFunc(ActionData);
+                }
+            }
+        }
+        else if (ObjData !== null && typeof ObjData === 'object' && !Array.isArray(ObjData) && ObjData['ObjectIDs'] !== undefined) {
+            //- Nested container: recurse
+            TargetObj.setObjectDataRecursive(ObjData);
+        }
+        else {
+            //- Array or leaf value: default set
+            if (typeof TargetObj.RuntimeSetDataFunc === 'function') {
+                TargetObj.RuntimeSetDataFunc(ObjData);
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------------------
 //- METHOD "getObjectData"
 //------------------------------------------------------------------------------
 
-sysBaseObject.prototype.getObjectData = function()
+sysBaseObject.prototype.getObjectData = function(recursive)
 {
     //console.debug('::BaseObject getObjectData() this:%o', this);
+    if (recursive === true) {
+        return this.getObjectDataRecursive();
+    }
     return this.RuntimeGetDataFunc();
 }
 
@@ -317,8 +393,11 @@ sysBaseObject.prototype.getObjectData = function()
 //- METHOD "setObjectData"
 //------------------------------------------------------------------------------
 
-sysBaseObject.prototype.setObjectData = function(Data)
+sysBaseObject.prototype.setObjectData = function(Data, recursive)
 {
+    if (recursive === true) {
+        return this.setObjectDataRecursive(Data);
+    }
     this.RuntimeSetDataFunc(Data);
 }
 
