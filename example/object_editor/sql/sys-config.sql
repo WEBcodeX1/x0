@@ -1,0 +1,11 @@
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example16', 'index_title', 'x0 Example Object Editor');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example16', 'debug_level', '10');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example16', 'display_language', 'en');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example16', 'default_screen', 'Screen1');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example16', 'parent_window_url', 'null');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example16', 'subdir', '/examples/object_editor');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example16', 'config_file_menu', 'menu.json');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example16', 'config_file_object', 'object.json');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example16', 'config_file_skeleton', 'skeleton.json');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example16', 'template_file', 'examples/object_editor/sysObjObjectEditor.js');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('example16', 'setup_class', "['ObjectEditor']=sysObjObjectEditor");
