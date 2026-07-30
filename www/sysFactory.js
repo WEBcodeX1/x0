@@ -373,6 +373,12 @@ sysFactory.prototype.getText = function(TextID)
         const TextObj = this.ObjText.getTextObjectByID(TextID);
         RetValue = TextObj[this.EnvUserLanguage];
     }
+        catch(err) {
+            RetValue = 'Missing Text with ID:' + TextID;
+            console.debug('Text not found for given TextID:' + TextID);
+        }
+        return RetValue;
+    }
 
 
     //------------------------------------------------------------------------------
@@ -399,12 +405,6 @@ sysFactory.prototype.getText = function(TextID)
             SQLTextObj.update();
             SQLTextObj.setDOMElementValue();
         }
-    }
-    catch(err) {
-        RetValue = 'Missing Text with ID:' + TextID;
-        console.debug('Text not found for given TextID:' + TextID);
-    }
-    return RetValue;
 }
 
 
