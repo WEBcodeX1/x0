@@ -17,8 +17,11 @@
 
 function sysObjTreeSimple()
 {
-    this.ChildObjects       = new Array();      //- Child Objects
-    this.LastSelectedItem   = null;             //- Last Selected Objet Reference
+    this.ChildObjects           = new Array();                      //- Child Objects
+    this.LastSelectedItem       = null;                             //- Last Selected Objet Reference
+    this.DOMStyle               = 'list-group list-group-flush';    //- Bootstrap List Group CSS
+    this.overrideDOMObjectID    = true;                             //- Override recursive ID
+    this.ObjectID               = this.ID;                          //- Set Unique ID
 }
 
 //- inherit sysBaseObject
@@ -77,7 +80,7 @@ sysObjTreeSimple.prototype.addTreeItems = function(RootObj, NodeItem, ChildItems
             TreeItem = new sysObjTreeSimpleItem(RootObj, this.IndentLevel);
         }
 
-        if (ChildItem.Type == 'Node') {
+        else if (ChildItem.Type == 'Node') {
             TreeItem = new sysObjTreeSimpleNode(this.IndentLevel);
         }
 
@@ -86,7 +89,7 @@ sysObjTreeSimple.prototype.addTreeItems = function(RootObj, NodeItem, ChildItems
         }
 
         TreeItem.init();
-        NodeItem.ItemContainerObj.addObject(TreeItem);
+        NodeItem.TreeItemContainerObj.addObject(TreeItem);
 
         if (ChildItem.Type == 'Node') {
             this.addTreeItems(RootObj, TreeItem, ChildItem.Children);
@@ -106,7 +109,8 @@ sysObjTreeSimple.prototype.addTreeItems = function(RootObj, NodeItem, ChildItems
 function sysObjTreeSimpleNode(IndentLevel)
 {
     this.ChildObjects   = new Array();          //- Child Objects
-    this.DOMStyle       = 'sysTreeNodeRoot';    //- CSS Style
+    this.DOMType        = 'li';                 //- Div Type
+    this.DOMStyle       = 'list-group-item';    //- Bootstrap CSS Style
     this.IndentLevel    = IndentLevel;          //- Tree Indent Level
 }
 
@@ -125,21 +129,19 @@ sysObjTreeSimpleNode.prototype.init = function()
 
     this.ObjectID = Attributes.ObjectID;
 
-    const NodeText = sysFactory.getText(Attributes.TextID);
-    console.debug('TreeSimpleNode NodeText:%s', NodeText);
+    //- children container
+    this.TreeItemContainerObj = new sysBaseObject();
+    this.TreeItemContainerObj.DOMStyle = 'list-group list-group-flush';
+    this.TreeItemContainerObj.ObjectID = 'Children';
+    this.TreeItemContainerObj.ChildObjects = new Array();
 
-    //- define items container object
-    this.ItemContainerObj = new sysBaseObject();
-    this.ItemContainerObj.ObjectID = 'children-container';
-    this.ItemContainerObj.ChildObjects = new Array();
-
-    //- define open/close button
+    //- define open/close folder icon
     this.OpenCloseIcon = new sysBaseObject();
     this.OpenCloseIcon.EventListeners = new Object();
-    this.OpenCloseIcon.DOMStyle = 'sysTreeOpenClose';
-    this.OpenCloseIcon.DOMValue = '<i class="fa-regular fa-square-caret-down"></i>';
+    this.OpenCloseIcon.DOMStyle = 'col-1';
+    this.OpenCloseIcon.DOMValue = '<i class="fa-solid fa-folder-open"></i>';
     this.OpenCloseIcon.StateOpen = true;
-    this.OpenCloseIcon.RootObject = this.ItemContainerObj;
+    this.OpenCloseIcon.RootObject = this.TreeItemContainerObj;
 
     let EventListenerObj = new Object();
     EventListenerObj['Type'] = 'mousedown';
@@ -149,46 +151,31 @@ sysObjTreeSimpleNode.prototype.init = function()
     //- setup recursive object structure
     const ObjDefs =  [
         {
-            "id": "selected",
+            "id": "NodeContainer",
             "SysObject": new sysObjDiv(),
             "JSONAttributes": {
-                "Style": "sysTreeSelected"
-            }
-        },
-        {
-            "id": "item-container",
-            "SysObject": new sysObjDiv(),
-            "JSONAttributes": {
-                "Style": "sysTreeItemContainer sysTreeItemIndent" + this.IndentLevel
+                "Style": "row"
             },
             "ObjectDefs": [
                 {
-                    "id": "node-icon",
-                    "SysObject": new sysObjDiv(),
-                    "JSONAttributes": {
-                        "Style": "sysTreeIcon",
-                        "Value": '<i class="fa-solid fa-hexagon-nodes"></i>'
-                    }
+                    "id": "NodeIcon",
+                    "SysObject": this.OpenCloseIcon,
                 },
                 {
-                    "id": "node-text",
-                    "SysObject": new sysObjDiv(),
+                    "id": "NodeText",
+                    "SysObject": new sysObjSQLText(),
                     "JSONAttributes": {
-                        "Style": "sysTreeNodeText",
-                        "Value": NodeText
+                        "Style": "col-xl-11",
+                        "TextID": Attributes.TextID
                     }
-                },
-                {
-                    "id": "open-close-button",
-                    "SysObject": this.OpenCloseIcon
                 }
             ]
         }
-    ]
+    ];
 
     sysFactory.setupObjectRefsRecursive(ObjDefs, this);
 
-    this.addObject(this.ItemContainerObj);
+    this.addObject(this.TreeItemContainerObj);
 }
 
 
@@ -200,7 +187,7 @@ sysObjTreeSimpleNode.prototype.toggleVisibleState = function()
 {
     if (this.StateOpen === true) {
         this.StateOpen = false;
-        this.DOMValue = '<i class="fa-regular fa-square-caret-right"></i>';
+        this.DOMValue = '<i class="fa-regular fa-folder"></i>';
         this.setDOMElementValue();
         this.RootObject.VisibleState = 'hidden';
         this.RootObject.setDOMVisibleState();
@@ -208,7 +195,7 @@ sysObjTreeSimpleNode.prototype.toggleVisibleState = function()
     }
     else if (this.StateOpen === false) {
         this.StateOpen = true;
-        this.DOMValue = '<i class="fa-regular fa-square-caret-down"></i>';
+        this.DOMValue = '<i class="fa-regular fa-folder-open"></i>';
         this.setDOMElementValue();
         this.RootObject.VisibleState = 'visible';
         this.RootObject.setDOMVisibleState();
@@ -222,10 +209,13 @@ sysObjTreeSimpleNode.prototype.toggleVisibleState = function()
 
 function sysObjTreeSimpleItem(TreeRootObj, IndentLevel)
 {
-    this.ChildObjects   = new Array();          //- Child Objects
-    this.DOMStyle       = 'sysTreeItemRoot';    //- CSS Style
-    this.TreeRootObj    = TreeRootObj;          //- Tree root Reference
-    this.IndentLevel    = IndentLevel;          //- Tree Indent Level
+    this.ChildObjects       = new Array();              //- Child Objects
+    this.DOMType            = 'li';                     //- Div Type
+    this.DOMStyle           = 'list-group-item';        //- Bootstrap CSS Style
+    this.TreeRootObj        = TreeRootObj;              //- Tree root Reference
+    this.IndentLevel        = IndentLevel;              //- Tree Indent Level
+    this.EventListeners     = new Array();              //- Event Listeners
+    this.HiLiteStyle        = 'bg-body-secondary';      //- Hilite CSS
 }
 
 //- inherit sysBaseObject
@@ -246,66 +236,44 @@ sysObjTreeSimpleItem.prototype.init = function()
     //- selected indicator object
     this.SelectedIndicator = new sysObjDiv();
 
-    //- item container object
-    this.ItemContainerObj = new sysObjDiv();
-    this.ItemContainerObj.EventListeners = new Array();
-
-    let EventMouseOver = new Object();
-    EventMouseOver['Type'] = 'mouseover';
-    EventMouseOver['Element'] = this.setHilite.bind(this.ItemContainerObj);
-    this.ItemContainerObj.EventListeners["MouseOver"] = EventMouseOver;
-
-    let EventMouseOut = new Object();
-    EventMouseOut['Type'] = 'mouseout';
-    EventMouseOut['Element'] = this.removeHilite.bind(this.ItemContainerObj);
-    this.ItemContainerObj.EventListeners["MouseOut"] = EventMouseOut;
-
     //- link object
-    this.LinkObj = new sysObjLink();
+    this.LinkObj = new sysObjSQLText();
     this.LinkObj.EventListeners = new Array();
 
     let EventLinkClick = new Object();
     EventLinkClick['Type'] = 'mousedown';
     EventLinkClick['Element'] = this.activateSelected.bind(this.SelectedIndicator);
-    this.ItemContainerObj.EventListeners["LinkClick"] = EventLinkClick;
+    this.LinkObj.EventListeners["LinkClick"] = EventLinkClick;
+
+    //- mouseover / mouseout event handler
+    let EventMouseOver = new Object();
+    EventMouseOver['Type'] = 'mouseover';
+    EventMouseOver['Element'] = this.setHilite.bind(this);
+    this.LinkObj.EventListeners["MouseOver"] = EventMouseOver;
+
+    let EventMouseOut = new Object();
+    EventMouseOut['Type'] = 'mouseout';
+    EventMouseOut['Element'] = this.removeHilite.bind(this);
+    this.LinkObj.EventListeners["MouseOut"] = EventMouseOut;
 
     //- setup recursive object structure
     const ObjDefs =  [
         {
-            "id": "selected",
+            "id": "ItemSelected",
             "SysObject": this.SelectedIndicator,
             "JSONAttributes": {
-                "Style": "sysTreeSelected"
+                "Style": "sysTreeItemSelected"
             }
         },
         {
-            "id": "item-container",
-            "SysObject": this.ItemContainerObj,
+            "id": "ItemDisplay",
+            "SysObject": this.LinkObj,
             "JSONAttributes": {
-                "Style": "sysTreeItemContainer sysTreeItemIndent" + this.IndentLevel
-            },
-            "ObjectDefs": [
-                {
-                    "id": "item-icon",
-                    "SysObject": new sysObjDiv(),
-                    "JSONAttributes": {
-                        "Style": "sysTreeIcon",
-                        "Value": '<i class="' + Attributes.Icon + '"></i>'
-                    }
-                },
-                {
-                    "id": "item-link",
-                    "SysObject": this.LinkObj,
-                    "JSONAttributes": {
-                        "Style": "sysTreeItemLink",
-                        "DOMType": "div",
-                        "TextID": Attributes.TextID,
-                        "ScreenID": Attributes.ScreenID
-                    }
-                }
-            ]
+                "IconStyle": Attributes.Icon,
+                "TextID": Attributes.TextID
+            }
         }
-    ]
+    ];
 
     sysFactory.setupObjectRefsRecursive(ObjDefs, this);
 }
@@ -317,7 +285,7 @@ sysObjTreeSimpleItem.prototype.init = function()
 
 sysObjTreeSimpleItem.prototype.setHilite = function()
 {
-    this.addDOMElementStyle('sysTreeNodeTextHilite');
+    this.addDOMElementStyle(this.HiLiteStyle);
 }
 
 
@@ -327,7 +295,7 @@ sysObjTreeSimpleItem.prototype.setHilite = function()
 
 sysObjTreeSimpleItem.prototype.removeHilite = function()
 {
-    this.removeDOMElementStyle('sysTreeNodeTextHilite');
+    this.removeDOMElementStyle(this.HiLiteStyle);
 }
 
 
@@ -337,10 +305,10 @@ sysObjTreeSimpleItem.prototype.removeHilite = function()
 
 sysObjTreeSimpleItem.prototype.activateSelected = function()
 {
-    this.addDOMElementStyle('sysTreeSelectedHilite');
+    this.addDOMElementStyle('sysTreeItemSelectedHilite');
 
     try {
-        this.ParentObject.TreeRootObj.LastSelectedItem.removeDOMElementStyle('sysTreeSelectedHilite');
+        this.ParentObject.TreeRootObj.LastSelectedItem.removeDOMElementStyle('sysTreeItemSelectedHilite');
     }
     catch(err) {
         console.debug('TreeSimple activateSelected error:%s', err);

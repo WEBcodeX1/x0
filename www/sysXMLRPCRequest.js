@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -17,11 +17,9 @@
 
 function sysCallXMLRPC(URL, URLParams='')
 {
-    this.RandURLOption        = '?a__=';
-
     this.RPCType              = 'ASYNC';                   //- ASYNC | SYNC
 
-    this.RequestType          = 'POST';                    //- POST | GET
+    this.RequestType          = 'GET';                     //- POST | GET
     this.RequestCache         = false;                     //- Cache Request
 
     this.HTTPAuthBasic        = false;                     //- HTTP Basic Authentication
@@ -30,7 +28,6 @@ function sysCallXMLRPC(URL, URLParams='')
 
     this.URL                  = URL;                       //- URL
     this.URLParams            = URLParams;                 //- URL Params
-    this.URLRandIndicator     = this.RandURLOption + '1';  //- Random URL Part
 
     this.PostData             = new Object();              //- Post Request Data Object
 }
@@ -120,24 +117,13 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
         }
 
         //------------------------------------------------------------------------------
-        //- CACHED REQUEST
-        //------------------------------------------------------------------------------
-
-        if (this.RequestCache == false) {
-            var RandomNrObject;
-            RandomNrObject = new sysRandomNr();
-            RandomNrObject.generate(10);
-            this.URLRandIndicator = this.RandURLOption + RandomNrObject.number;
-        }
-
-        //------------------------------------------------------------------------------
         //- PREPARE REQUEST
         //------------------------------------------------------------------------------
 
         var RequestURL = '';
+        RequestURL = this.URL;
 
         if (this.RequestType == 'GET') {
-            RequestURL = this.URL + this.URLRandIndicator;
 
             if (sysFactory.SysSessionValue != null) {
                 RequestURL += '&' + sysFactory.SysSessionID + '=' + sysFactory.SysSessionValue;
@@ -150,7 +136,6 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
         }
 
         if (this.RequestType == 'POST') {
-            RequestURL = this.URL + this.URLRandIndicator;
 
             //console.log('::sysCallXMLRPC SessionID:%s', sysFactory.SysSessionValue);
 
@@ -167,7 +152,7 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
 
         request.open(this.RequestType, RequestURL);
 
-        request.setRequestHeader('Upgrade-Insecure-Requests', 1);
+        //request.setRequestHeader('Upgrade-Insecure-Requests', 1);
         request.setRequestHeader('Cache-Control', 'max-age=0');
         request.setRequestHeader('Content-Type', HeaderContentType);
         request.setRequestHeader('Accept', HeaderAccept);

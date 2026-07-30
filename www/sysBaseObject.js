@@ -192,6 +192,7 @@ sysBaseObject.prototype.getObjectsByAttribute = function(Attribute) {
 //------------------------------------------------------------------------------
 //- METHOD "getObjectByType"
 //------------------------------------------------------------------------------
+
 sysBaseObject.prototype.getObjectsByType = function(ObjectType) {
 
     var ResultObjects = new Object();

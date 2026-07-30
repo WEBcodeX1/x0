@@ -17,7 +17,9 @@
 
 function sysObjOpenClose()
 {
-    this.ChildObjects   = new Array();     //- Child Objects
+    this.overrideDOMObjectID    = true;            //- Override recursive ObjectID
+    this.ObjectID               = this.ID;         //- Set unique ID
+    this.ChildObjects           = new Array();     //- Child Objects
 }
 
 //- inherit sysBaseObject
@@ -75,10 +77,11 @@ sysObjOpenClose.prototype.init = function()
                             "ObjectDefs": [
                                 {
                                     "id": "header-text",
-                                    "SysObject": new sysObjDiv(),
+                                    "SysObject": new sysObjSQLText(),
                                     "JSONAttributes": {
                                         "Style": "col-sm-8 mb-3 mb-sm-0",
-                                        "Value": sysFactory.getText(Attributes.TextID)
+                                        "TextID": Attributes.TextID,
+                                        "IconStyle": Attributes.IconStyle
                                     }
                                 },
                                 {

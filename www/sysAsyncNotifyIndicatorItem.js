@@ -23,7 +23,7 @@ function sysObjAsyncNotifyIndicatorItem(NotifyConfig, ParentRef)
     this.ParentObj         = ParentRef;                                      // Async Indicator Object Ref
 
     this.ObjectID          = 'IndicatorItem' + this.ParentObj.zIndex;        // ObjectID
-    this.DOMStyle          = 'm-2 card card-body alert alert-success';       // Base Indicator Item Style
+    this.DOMStyle          = 'm-2 alert alert-success';                      // Base Indicator Item Style
 
     this.NotifyConfig      = NotifyConfig;                                   // Notify Config
     this.ID                = NotifyConfig.ID;                                // Unique Name

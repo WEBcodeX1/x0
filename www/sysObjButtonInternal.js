@@ -17,14 +17,17 @@
 
 function sysObjButtonInternal()
 {
-    this.DOMType             = 'button'
-    this.DOMAttributes       = new Object();
+    this.DOMType                = 'button'                      //- DOM Type
+    this.DOMAttributes          = new Object();                 //- DOM Attributes
 
-    this.EventListeners      = new Object();
-    this.ChildObjects        = new Array();
-    this.PostRequestData     = new sysRequestDataHandler();
+    this.overrideDOMObjectID    = true;                         //- Override recursive ObjectID
+    this.ObjectID               = this.ID;                      //- Set unique ID
 
-    this.ValidateResultError = true;
+    this.EventListeners         = new Object();                 //- Event Listerners Object
+    this.ChildObjects           = new Array();                  //- Child Objects Array
+    this.PostRequestData        = new sysRequestDataHandler();  //- POST Request Data Handler
+
+    this.ValidateResultError    = true;                         //- Validation Result (true || false)
 }
 
 sysObjButtonInternal.prototype = new sysBaseObject();

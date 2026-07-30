@@ -525,10 +525,11 @@ sysFormFieldValidateGroup.prototype.validate = function(FunctionID, FormfieldIte
             return RetValue;
         }
         catch(err) {
+            console.debug('::validateGroup err:%s', err);
         }
 
         try {
-            let RetValue = sysFactory.UserValidate.ValidateFunc[FunctionID](FormfieldItems);
+            let RetValue = sysFactory.UserValidateGroup.ValidateFunc[FunctionID](FormfieldItems);
             console.debug('::User validateGroup() RetValue:%o', RetValue);
             if (
                 (typeof RetValue == 'object' && RetValue['Error'] == true) || (RetValue == true)) {
@@ -539,11 +540,11 @@ sysFormFieldValidateGroup.prototype.validate = function(FunctionID, FormfieldIte
             return RetValue;
         }
         catch(err) {
+            console.debug('::validateGroup err:%s', err);
         }
     }
     catch(err) {
         console.debug('::validateGroup err:%s', err);
-        return false;
     }
 }
 
@@ -705,6 +706,7 @@ sysFormFieldValidateGroup.prototype.CheckItemsOr = function(Items)
             "Message": ErrorMessage
         };
     }
+
     return false;
 }
 

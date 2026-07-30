@@ -17,6 +17,9 @@
 
 function sysFormfieldList()
 {
+    this.overrideDOMObjectID    = true;                                  //- Override recursive ObjectID
+    this.ObjectID               = this.ID;                               //- Set unique ID
+
     this.FormfieldItems           = new Object();                        //- Form Field Items
     this.FormfieldItemsHidden     = new Object();                        //- Form Field Items Hidden
 
@@ -218,11 +221,22 @@ sysFormfieldList.prototype.callbackXMLRPCAsync = function()
 
 sysFormfieldList.prototype.setData = function(DataObj)
 {
-    for (const ItemKey in this.FormfieldItems) {
+    const Attributes = this.JSONConfig.Attributes;
+
+    for (const ItemKey in this.FormfieldItems)
+    {
+        var SrcFormKey;
+        try {
+            SrcFormKey = Attributes.SetDataMapping[ItemKey];
+        }
+        catch {
+            SrcFormKey = ItemKey;
+        }
+
         try {
             FormItem = this.FormfieldItems[ItemKey];
             //console.debug('FormItem:%o', FormItem);
-            FormItem.RuntimeSetDataFunc(DataObj[ItemKey]);
+            FormItem.RuntimeSetDataFunc(DataObj[SrcFormKey]);
         }
         catch {
             console.debug('sysFormfieldList ::setData ItemKey:%s error DataObj:%o', ItemKey, DataObj);
@@ -241,21 +255,23 @@ sysFormfieldList.prototype.validate = function()
 
     console.debug('::validate Attributes:%o', Attributes);
 
-    const Ovrlay = Attributes.ErrorContainerOverlay;
-    const ErrorContainerID = (Ovrlay === true) ? Attributes.ErrorContainer + '__overlay' : Attributes.ErrorContainer;
+    const Overlay = Attributes.ErrorContainerOverlay;
+    const ErrorContainerID = (Overlay === true) ? Attributes.ErrorContainer + '__overlay' : Attributes.ErrorContainer;
     const ErrorObj = sysFactory.getObjectByID(ErrorContainerID);
 
     var ValidateStatus = true;
 
     console.debug('::validate ErrorContainerID:%s ErrorObj:%o', ErrorContainerID, ErrorObj);
 
-    if (ErrorObj !== undefined) {
+    if (ErrorObj !== undefined)
+    {
         ErrorObj.reset();
 
         var ErrorDisplayText;
         var ErrorDetailDisplayText;
 
-        for (Key in this.FormfieldItems) {
+        for (Key in this.FormfieldItems)
+        {
             const FormItem = this.FormfieldItems[Key];
             console.debug('::validate FormfieldID:%s', Key);
             const FormAttributes = FormItem.JSONConfig.Attributes;
@@ -266,6 +282,7 @@ sysFormfieldList.prototype.validate = function()
             console.debug('::validate RetValue:%s', RetValue);
 
             var ValidateError;
+
             if (typeof RetValue == 'object' && RetValue['Error'] == true) {
                 ErrorDetailDisplayText = RetValue['Message'];
                 ValidateError = RetValue['Error'];
@@ -291,7 +308,6 @@ sysFormfieldList.prototype.validate = function()
 
                 const GTxtID = GroupItem.ValidateErrorTextID;
                 const GroupErrorDisplayTextID = (GTxtID !== undefined) ? GTxtID : 'TXT.SYS.ERROR.FORMVALIDATE.DEFAULT';
-                ErrorDisplayText = sysFactory.getText(GroupErrorDisplayTextID);
 
                 console.debug('GroupValidate:%o', GroupItem);
 
@@ -304,7 +320,9 @@ sysFormfieldList.prototype.validate = function()
                     GroupFunction,
                     FormObjects
                 );
+
                 if (Result['Error'] !== undefined && Result['Error'] == true) {
+                    ErrorDisplayText = sysFactory.getText(GroupErrorDisplayTextID);
                     ErrorDetailDisplayText = Result['Message'];
                     ValidateStatus = false;
                 }
@@ -314,6 +332,7 @@ sysFormfieldList.prototype.validate = function()
         // ----------------------------------------------------------------
         // - check validate status
         // ----------------------------------------------------------------
+
         console.debug('::validate ValidateStatus:%s', ValidateStatus);
         if (ValidateStatus == false) {
             console.debug('ErrorObj:%o', ErrorObj);
