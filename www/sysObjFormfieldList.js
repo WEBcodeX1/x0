@@ -512,7 +512,7 @@ sysFormfieldList.prototype.onDrop = function(Event)
     this.removeDOMElementStyle('sysDragDropOver');
     const DragData = sysFactory.DragDropHandler.getDragData();
     if (DragData !== null) {
-        this.setData(DragData);
+        this.RuntimeSetDataFunc(DragData);
     }
     sysFactory.DragDropHandler.clearDragSource();
 }

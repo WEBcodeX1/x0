@@ -788,7 +788,7 @@ sysList.prototype.onDrop = function(Event)
         if (DragSourceObj.ParentObject !== this) {
             const DragData = sysFactory.DragDropHandler.getDragData();
             if (DragData !== null) {
-                this.appendData(DragData);
+                this.RuntimeAppendDataFunc(DragData);
             }
         }
     }
