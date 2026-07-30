@@ -544,7 +544,8 @@ sysFormFieldValidateGroup.prototype.validate = function(FunctionID, FormfieldIte
         }
     }
     catch(err) {
-        console.debug('::validateGroup err:%s', err);
+        console.debug('::validateGroup err:%s', err);+
+        return false;
     }
 }
 

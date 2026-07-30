@@ -208,7 +208,7 @@ sysFormfieldList.prototype.getServiceData = function()
 sysFormfieldList.prototype.callbackXMLRPCAsync = function()
 {
     for (const ItemKey in this.FormfieldItems) {
-        FormItem = this.FormfieldItems[ItemKey];
+        let FormItem = this.FormfieldItems[ItemKey];
         //console.debug('update Key:%s FormItem:%o', ItemKey, FormItem);
         FormItem.updateDBValue(this.XMLRPCResultData[0]);
     }
@@ -234,7 +234,7 @@ sysFormfieldList.prototype.setData = function(DataObj)
         }
 
         try {
-            FormItem = this.FormfieldItems[ItemKey];
+            let FormItem = this.FormfieldItems[ItemKey];
             //console.debug('FormItem:%o', FormItem);
             FormItem.RuntimeSetDataFunc(DataObj[SrcFormKey]);
         }
