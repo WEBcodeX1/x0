@@ -60,6 +60,12 @@ sysObjSQLText.prototype.init = function() {
         }
     }
 
+    try {
+        sysFactory.registerSQLTextObject(this);
+    }
+    catch(err) {
+    }
+
     this.update();
 
 }

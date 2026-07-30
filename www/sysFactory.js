@@ -14,6 +14,7 @@ function sysFactory()
 {
     this.OverlayObj         = new sysScreenOverlay(this);      //- Overlay Object Ref
     this.Screens            = new Object();                    //- Screen Instances (Refs)
+    this.SQLTextObjects     = new Array();                     //- SQLText object refs
 
     this.OverlayRefCount    = 0;
     this.ClipboardData      = null;
@@ -38,6 +39,7 @@ function sysFactory()
         "FormfieldCheckbox": sysFormfieldItemCheckbox,
         "FormfieldLabel": sysFormfieldItemLabel,
         "FormfieldHidden": sysFormfieldItemHidden,
+        "LanguageSwitch": sysObjLanguageSwitch,
         "DynRadioList": sysObjDynRadioList,
         "OpenCloseContainer": sysObjOpenClose,
         "TreeSimple": sysObjTreeSimple
@@ -370,6 +372,33 @@ sysFactory.prototype.getText = function(TextID)
     try {
         const TextObj = this.ObjText.getTextObjectByID(TextID);
         RetValue = TextObj[this.EnvUserLanguage];
+    }
+
+
+    //------------------------------------------------------------------------------
+    //- METHOD "registerSQLTextObject"
+    //------------------------------------------------------------------------------
+
+    sysFactory.prototype.registerSQLTextObject = function(SQLTextObject)
+    {
+        if (SQLTextObject !== undefined && SQLTextObject !== null) {
+            if (this.SQLTextObjects.indexOf(SQLTextObject) == -1) {
+                this.SQLTextObjects.push(SQLTextObject);
+            }
+        }
+    }
+
+
+    //------------------------------------------------------------------------------
+    //- METHOD "updateAllSQLTextObjects"
+    //------------------------------------------------------------------------------
+
+    sysFactory.prototype.updateAllSQLTextObjects = function()
+    {
+        for (const SQLTextObj of this.SQLTextObjects) {
+            SQLTextObj.update();
+            SQLTextObj.setDOMElementValue();
+        }
     }
     catch(err) {
         RetValue = 'Missing Text with ID:' + TextID;
