@@ -132,7 +132,7 @@ sysObjTreeSimpleNode.prototype.init = function()
     //- children container
     this.TreeItemContainerObj = new sysBaseObject();
     this.TreeItemContainerObj.DOMStyle = 'list-group list-group-flush';
-    this.TreeItemContainerObj.ObjectID = 'Children';
+    this.TreeItemContainerObj.ObjectID = 'Children_' + this.ObjectID;
     this.TreeItemContainerObj.ChildObjects = new Array();
 
     //- define open/close folder icon
