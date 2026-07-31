@@ -116,7 +116,8 @@ function InitOk(XHR) {
     sysFactory.DataObject.setLoaderObj(sysObjLoader);
     sysFactory.DataSkeleton.setLoaderObj(sysObjLoader);
 
-    sysFactory.ObjText.requestXMLRPCData('/python/getText.py');
+    const TextDataURL = (typeof sysVarTextDataFile !== 'undefined') ? sysVarTextDataFile : '/python/getText.py';
+    sysFactory.ObjText.requestXMLRPCData(TextDataURL);
     sysFactory.DataMenu.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigMenuFile);
     sysFactory.DataObject.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigObjectFile);
     sysFactory.DataSkeleton.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigSkeletonFile);
