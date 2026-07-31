@@ -66,39 +66,39 @@ sysFormfieldItem.prototype.FormItemInit = function()
         this.InstancePrefix = this.JSONConfig.InstancePrefix;
     }
 
-    else if (Attributes.LabelFor !== undefined) {
+    if (Attributes.LabelFor !== undefined) {
         this.LabelFor = (this.InstancePrefix === undefined) ? Attributes.LabelFor : this.InstancePrefix + Attributes.LabelFor;
     }
 
-    else if (Attributes.Placeholder !== undefined) {
+    if (Attributes.Placeholder !== undefined) {
         this.DOMAttributes['placeholder'] = Attributes.Placeholder;
     }
 
-    else if (Attributes.MaxLength !== undefined) {
+    if (Attributes.MaxLength !== undefined) {
         this.DOMAttributes['maxlength'] = Attributes.MaxLength;
     }
 
-    else if (Attributes.Number !== undefined) {
+    if (Attributes.Number !== undefined) {
         this.DOMAttributes['type'] = 'number';
     }
 
-    else if (Attributes.Disabled !== undefined) {
+    if (Attributes.Disabled !== undefined) {
         this.DOMAttributes['disabled'] = '';
     }
 
-    else if (Attributes.ReadOnly !== undefined) {
+    if (Attributes.ReadOnly !== undefined) {
         this.DOMAttributes['readOnly'] = '';
     }
 
-    else if (Attributes.Min !== undefined) {
+    if (Attributes.Min !== undefined) {
         this.DOMAttributes['min'] = Attributes.Min;
     }
 
-    else if (Attributes.Max !== undefined) {
+    if (Attributes.Max !== undefined) {
         this.DOMAttributes['max'] = Attributes.Max;
     }
 
-    else if (Attributes.Rows !== undefined) {
+    if (Attributes.Rows !== undefined) {
         this.DOMAttributes['rows'] = Attributes.Rows;
     }
 }
