@@ -14,7 +14,6 @@ function sysFactory()
 {
     this.OverlayObj         = new sysScreenOverlay(this);      //- Overlay Object Ref
     this.Screens            = new Object();                    //- Screen Instances (Refs)
-    this.SQLTextObjects     = new Array();                     //- SQLText object refs
 
     this.OverlayRefCount    = 0;
     this.ClipboardData      = null;
@@ -382,28 +381,18 @@ sysFactory.prototype.getText = function(TextID)
 
 
     //------------------------------------------------------------------------------
-    //- METHOD "registerSQLTextObject"
-    //------------------------------------------------------------------------------
-
-    sysFactory.prototype.registerSQLTextObject = function(SQLTextObject)
-    {
-        if (SQLTextObject !== undefined && SQLTextObject !== null) {
-            if (this.SQLTextObjects.indexOf(SQLTextObject) == -1) {
-                this.SQLTextObjects.push(SQLTextObject);
-            }
-        }
-    }
-
-
-    //------------------------------------------------------------------------------
     //- METHOD "updateAllSQLTextObjects"
     //------------------------------------------------------------------------------
 
     sysFactory.prototype.updateAllSQLTextObjects = function()
     {
-        for (const SQLTextObj of this.SQLTextObjects) {
-            SQLTextObj.update();
-            SQLTextObj.setDOMElementValue();
+        for (const ScreenID in this.Screens) {
+            const ScreenObj = this.Screens[ScreenID];
+            const SQLTextObjects = ScreenObj.HierarchyRootObject.getObjectsByType('SQLText');
+            for (const SQLTextObj of SQLTextObjects) {
+                SQLTextObj.update();
+                SQLTextObj.setDOMElementValue();
+            }
         }
 }
 
