@@ -10,8 +10,10 @@ A context menu (right mouse click) can be bound to any *x0-object-type*
 
 .. note::
 
-    Currently only ``List`` and ``FormfieldList`` *x0-object-types* are supported,
-    this will change in future releases.
+    Supported *x0-object-types*: ``List``, ``FormfieldList``, and ``HiliteContainer``.
+    For ``HiliteContainer``, the context menu is bound directly to the container element;
+    ``RowData`` is not applicable (set to ``null``) — use ``openOverlay``, ``DstScreenID``,
+    service calls, or user-defined ``InternalFunction`` values instead.
 
 12.1. Global Attributes
 ***********************

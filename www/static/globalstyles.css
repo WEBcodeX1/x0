@@ -133,3 +133,28 @@ a:active {
     width: 160px;
     float: right;
 }
+
+.sysHiliteContainerRoot {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sysHiliteContainerBorder {
+    border-color: #4a90d9;
+    box-shadow: 0 0 6px rgba(74, 144, 217, 0.5);
+}
+
+.sysHiliteContainerLabel {
+    font-size: 11px;
+    font-weight: 600;
+    color: #4a90d9;
+    padding: 2px 4px;
+    margin-bottom: 2px;
+    background: rgba(74, 144, 217, 0.08);
+    border-radius: 3px 3px 0 0;
+}

@@ -19,6 +19,7 @@ Currently the following *x0-system-objects* are usable inside ``object.json``.
 * :ref:`objecttype-errorcontainer`
 * :ref:`objecttype-openclosecontainer`
 * :ref:`objecttype-treesimple`
+* :ref:`objecttype-hilitecontainer`
 
 For form-specific objects, see :ref:`appdevformobjects`. For practical examples and implementations, see the :ref:`examples section <object-examples-reference>` at the end of this document.
 
@@ -773,10 +774,134 @@ collapsibility:
 * Example #15 - Tree Simple: 
   ``http://x0-app.x0.localnet/python/Index.py?appid=example15``
 
+.. _objecttype-hilitecontainer:
+
+10.13. HiliteContainer
+-----------------------
+
+The ``HiliteContainer`` *x0-object-type* is a visual wrapper that highlights one (*singular*)
+or multiple hierarchical (*plural*) child objects. When the mouse pointer enters the
+container a border is drawn around all contained objects. A right-click context menu
+provides actions such as edit, move hierarchy, or any user-defined operation on the
+contained objects.
+
+10.13.1. Object Attributes
+***************************
+
+.. table:: Object Type HiliteContainer Attributes
+	:widths: 30 20 100
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| Mode                | Enum-String          | ``singular`` (one object) or ``plural``         |
+	|                     |                      | (multiple hierarchical objects). Default:       |
+	|                     |                      | ``singular``                                    |
+	+---------------------+----------------------+-------------------------------------------------+
+	| Style               | CSS-String           | Additional CSS classes appended to the root     |
+	|                     |                      | container element                               |
+	+---------------------+----------------------+-------------------------------------------------+
+	| TextID              | TextID-String        | Optional label rendered at the top of the       |
+	|                     |                      | container. TextID referenced in                 |
+	|                     |                      | ``webui.text`` DB table                         |
+	+---------------------+----------------------+-------------------------------------------------+
+	| ContextMenuItems    | Array of Items       | Right-click context menu item definitions.      |
+	|                     |                      | Uses the same item format as the ``List``       |
+	|                     |                      | object type (see :ref:`appdevcontextmenu`)      |
+	+---------------------+----------------------+-------------------------------------------------+
+
+10.13.2. Features
+*****************
+
+- **Hover border**: A visible border and glow effect are drawn when the mouse pointer
+  enters the container and removed when it leaves.
+- **Mode support**: ``singular`` wraps a single object; ``plural`` wraps a group of
+  hierarchical objects — both share the same visual behaviour (one unified bounding box).
+- **Right-click context menu**: Any ``ContextMenuItems`` configured on the object are
+  shown on ``mousedown`` button 2. All standard context-menu methods are supported
+  (``openOverlay``, ``DstScreenID``, service calls, internal functions, etc.).
+- **Optional label**: A small header label can be shown at the top of the container
+  when ``TextID`` is supplied.
+- **Transparent nesting**: Child objects declared inside the container in ``object.json``
+  are rendered naturally within the container's DOM element; no special wrapping needed.
+
+10.13.3. JSON Example — singular
+*********************************
+
+.. code-block:: javascript
+
+	"HiliteWrapper1": {
+		"Type": "HiliteContainer",
+		"Attributes": {
+			"Mode": "singular",
+			"TextID": "TXT.MY.OBJECT.LABEL",
+			"ContextMenuItems": [
+				{
+					"ID": "edit",
+					"TextID": "TXT.EDIT",
+					"IconStyle": "fa-solid fa-pen",
+					"DstScreenID": "EditScreen",
+					"RowColumn": "id"
+				}
+			]
+		},
+		"Objects": {
+			"MyChildObject": {
+				"Type": "Div",
+				"Attributes": {
+					"Style": "p-2"
+				}
+			}
+		}
+	}
+
+10.13.4. JSON Example — plural
+********************************
+
+.. code-block:: javascript
+
+	"HiliteGroup1": {
+		"Type": "HiliteContainer",
+		"Attributes": {
+			"Mode": "plural",
+			"Style": "mb-3",
+			"ContextMenuItems": [
+				{
+					"ID": "move",
+					"TextID": "TXT.MOVE.HIERARCHY",
+					"IconStyle": "fa-solid fa-arrows-up-down",
+					"InternalFunction": "move-hierarchy"
+				},
+				{
+					"ID": "edit",
+					"TextID": "TXT.EDIT",
+					"IconStyle": "fa-solid fa-pen",
+					"ScreenOverlayID": "EditOverlay",
+					"ScreenOverlaySetDataObjects": [],
+					"InternalFunction": "openOverlay"
+				}
+			]
+		},
+		"Objects": {
+			"ChildA": { "Type": "Div", "Attributes": { "Style": "p-1" } },
+			"ChildB": { "Type": "SQLText", "Attributes": { "TextID": "TXT.CHILD.B" } }
+		}
+	}
+
+10.13.5. Usage Examples
+************************
+
+This system object can be used for:
+
+- Highlighting a single form widget or display element on hover for discoverability
+- Grouping a set of hierarchical objects that belong to one logical entity
+- Providing context-menu-driven edit / move / delete actions on complex object groups
+- Building drag-and-drop-style UIs where the selection area must be visually indicated
+
 .. _object-examples-reference:
 
-10.13. Object Examples Reference
---------------------------------
+10.14. Object Examples Reference
+---------------------------------
 
 This section provides a comprehensive overview of examples demonstrating various *x0-system-objects* in action.
 
@@ -797,6 +922,7 @@ This section provides a comprehensive overview of examples demonstrating various
   - :ref:`objecttype-div` - Example 9
   - :ref:`objecttype-tabcontainer` - Examples 3, 8  
   - :ref:`objecttype-openclosecontainer` - Example 14
+  - :ref:`objecttype-hilitecontainer` - Hover-highlight and context-menu wrapper
 
 **Navigation Objects:**
   - :ref:`objecttype-link` - Various examples
