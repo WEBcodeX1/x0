@@ -5,7 +5,7 @@
 <h1 align="center">x0 JavaScript Framework</h1>
 <p align="center"><em>Serverless in-browser RTTE for complex objects and clean OOP abstraction</em></p>
 
-<table align="center"><tr>
+<table align="center" border="0"><tr>
   <td><a href="https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql">
     <img src="https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql/badge.svg" alt="CodeQL">
   </a></td>
