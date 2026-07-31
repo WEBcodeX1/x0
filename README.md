@@ -5,23 +5,23 @@
 <h1 align="center">x0 JavaScript Framework</h1>
 <p align="center"><em>Serverless in-browser RTTE for complex objects and clean OOP abstraction</em></p>
 
-<div align="center">
-  <a href="https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql">
+<table align="center"><tr>
+  <td><a href="https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql">
     <img src="https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql/badge.svg" alt="CodeQL">
-  </a>
-  <a href="https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml">
+  </a></td>
+  <td><a href="https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml">
     <img src="https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml/badge.svg" alt="x0 Test Runner">
-  </a>
-  <a href="https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates">
+  </a></td>
+  <td><a href="https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates">
     <img src="https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates/badge.svg" alt="Dependabot">
-  </a>
-  <a href="https://github.com/WEBcodeX1/x0/blob/main/LICENSE">
+  </a></td>
+  <td><a href="https://github.com/WEBcodeX1/x0/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/WEBcodeX1/x0?style=flat" alt="License">
-  </a>
-  <a href="https://docs.webcodex.de/x0/v1.0/">
+  </a></td>
+  <td><a href="https://docs.webcodex.de/x0/v1.0/">
     <img src="https://img.shields.io/badge/docs-sphinx-blue" alt="Docs">
-  </a>
-</div>
+  </a></td>
+</tr></table>
 
 ---
 
