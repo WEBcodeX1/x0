@@ -1,40 +1,45 @@
 <p align="center">
   <img src="./image/x0-logo-github.png" alt="x0 Framework Logo" width="800"/>
 </p>
-
 <h1 align="center">x0 JavaScript Framework</h1>
-<p align="center"><em>Serverless in-browser RTTE for complex objects and clean OOP abstraction</em></p>
-
+<p align="center">
+  <em>Ultra-lightweight JavaScript In-Browser Real-Time Templating Engine - built on exceptionally strong OOP principles</em>
+</p>
 <div align="center">
-  <a href="https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql">
-    <img src="https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql/badge.svg" alt="CodeQL">
-  </a>
-  <a href="https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml">
-    <img src="https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml/badge.svg" alt="x0 Test Runner">
-  </a>
-  <a href="https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates">
-    <img src="https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates/badge.svg" alt="Dependabot">
-  </a>
-  <a href="https://github.com/WEBcodeX1/x0/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/WEBcodeX1/x0?style=flat" alt="License">
-  </a>
-  <a href="https://docs.webcodex.de/x0/v1.0/">
-    <img src="https://img.shields.io/badge/docs-sphinx-blue" alt="Docs">
-  </a>
+  [<img src="https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql/badge.svg" alt="CodeQL">](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql)
+  [<img src="https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml/badge.svg" alt="x0 Test Runner">](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml)
+  [<img src="https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates/badge.svg" alt="Dependabot">](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates)
+  [<img src="https://img.shields.io/github/license/WEBcodeX1/x0?style=flat" alt="License">](https://github.com/WEBcodeX1/x0/blob/main/LICENSE)
+  [<img src="https://img.shields.io/badge/docs-sphinx-blue" alt="Docs">](https://docs.webcodex.de/x0/v1.0/)
 </div>
 
 ---
 
-## :pushpin: Overview
+## :pushpin: x0 Framework - Overview
 
-The **x0 framework** is a **serverless in-browser RTTE (Real Time Templating Engine)** that lets you combine complex objects with a cleaner-than-clean OOP abstraction model and clean code principles.
+The x0 framework is an **ultra-lightweight**, **serverless** in-browser RTTE (Real-Time Templating Engine) designed to run **entirely independent** of backend or server-side code.
+Built on a **clean, object-oriented** programming (OOP) foundation, it **drastically minimizes code complexity** by replacing heavy imperative logic with a highly efficient declarative metadata concept.
 
-- **In-Browser RTTE**: Render and evolve object-driven interfaces directly in the browser
-- **Composable Object System**: Combine complex objects into reusable, structured application models
-- **Clean OOP Abstraction**: Build with chaining, metadata, and a consistently clean code style
-- **Serverless by Design**: Keep deployment lightweight without depending on a classic backend stack
-- **Real-Time Modifiable UI**: Update object structures and behavior while the application is running
-- **Multi-Language Ready**: Deliver the same object model across multiple display languages
+The framework can be statically loaded from any standard web server, comprising just 66 system files and 4 object metadata definition files with a core footprint of only 356 Kilobytes.
+It depends on `Bootstrap` and optionally utilizes `Font Awesome` for its UI components. Even with a minimalist setup of both libraries, extensive user metadata, and custom application code,
+the total deployment size remains under 4 Megabytes for a complete client/server architecture. Because the application renders completely within the client browser,
+it is perfectly suited for resource-constrained environments like embedded microcontroller web interfaces.
+
+An example of an x0-application-driven, browser-controlled multiplayer PONG game running on an ESP32-S3 microcontroller using the ESP-IDF framework (with embedded MicroPython) can be found here:
+https://github.com/WEBcodeX1/micropython-as
+
+## :pushpin: Key Features & Architecture
+
+* **Declarative Metadata Concept**: Uses modern declarative configurations to define application behavior, drastically reducing custom boilerplate code.
+* **Clean OOP Foundation:** Leverages object-oriented design patterns to minimize architectural complexity and keep the codebase maintainable.
+* **Serverless & Independent:** Runs entirely in the browser without depending on a classic backend stack.
+* **Ultra-Lightweight Core:** Consists of only 66 system files and 4 metadata files, totaling just 356 KB.
+* **Production Footprint < 4 MB:** Includes Bootstrap, Font Awesome, and comprehensive user application code within less than 4 Megabytes.
+* **Microcontroller Ready:** Ideal for low-resource embedded web interfaces due to full client-side rendering.
+* **Modern UI Foundations:** Built on top of Bootstrap with optional, flexible Font Awesome icon support.
+* **In-Browser RTTE:** Renders and evolves object-driven interfaces directly in the frontend in real time.
+* **Composable Object System:** Combines complex objects into reusable, structured application models using clean OOP abstractions.
+* **Multi-Language Ready:** Delivers and maps the same underlying object model across multiple display languages.
 
 ---
 
@@ -283,8 +288,6 @@ AGPL-3.0. See [./LICENSE](./LICENSE).
 - [https://www.devuan.org/](https://www.devuan.org/)
 - [https://github.com/sl1pm4t/k2tf](https://github.com/sl1pm4t/k2tf)
 - [https://github.com/WEBcodeX1/http-1.2](https://github.com/WEBcodeX1/http-1.2)
-
-
 
 ---
 
