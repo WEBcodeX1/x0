@@ -1,19 +1,14 @@
-<p align="center">
-  <img src="./image/x0-logo-github.png" alt="x0 Framework Logo" width="800"/>
-</p>
-<h1 align="center">x0 JavaScript Framework</h1>
-<p align="center">
-  <em>Ultra-lightweight JavaScript In-Browser Real-Time Templating Engine - built on exceptionally strong OOP principles</em>
-</p>
-<div align="center">
-  [![CodeQL](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql)
-  [![x0 Test Runner](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml)
-  [![Dependabot](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates)
-  [![License](https://img.shields.io/github/license/WEBcodeX1/x0?style=flat)](https://github.com/WEBcodeX1/x0/blob/main/LICENSE)
-  [![Docs](https://img.shields.io/badge/docs-sphinx-blue)](https://docs.webcodex.de/x0/v1.0/)
-</div>
+![x0 Framework Logo](./image/x0-logo-github.png)
+
+[![CodeQL](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql)
+[![x0 Test Runner](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml)
+[![Dependabot](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates)
+[![License](https://img.shields.io/github/license/WEBcodeX1/x0?style=flat)](https://github.com/WEBcodeX1/x0/blob/main/LICENSE)
+[![Docs](https://img.shields.io/badge/docs-sphinx-blue)](https://docs.webcodex.de/x0/v1.0/)
 
 ---
+
+Ultra-lightweight JavaScript In-Browser Real-Time Templating Engine - built on exceptionally strong OOP principles
 
 ## :pushpin: x0 Framework - Overview
 
