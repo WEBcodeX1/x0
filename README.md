@@ -1,5 +1,7 @@
 ![x0 Framework Logo](./image/x0-logo-github.png)
 
+Ultra-lightweight JavaScript In-Browser Real-Time Templating Engine - built on exceptionally strong OOP principles
+
 [![CodeQL](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql)
 [![x0 Test Runner](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml)
 [![Dependabot](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates)
@@ -7,8 +9,6 @@
 [![Docs](https://img.shields.io/badge/docs-sphinx-blue)](https://docs.webcodex.de/x0/v1.0/)
 
 ---
-
-Ultra-lightweight JavaScript In-Browser Real-Time Templating Engine - built on exceptionally strong OOP principles
 
 ## :pushpin: x0 Framework - Overview
 
