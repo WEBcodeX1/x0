@@ -6,11 +6,11 @@
   <em>Ultra-lightweight JavaScript In-Browser Real-Time Templating Engine - built on exceptionally strong OOP principles</em>
 </p>
 <div align="center">
-  [<img src="https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql/badge.svg" alt="CodeQL">](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql)
-  [<img src="https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml/badge.svg" alt="x0 Test Runner">](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml)
-  [<img src="https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates/badge.svg" alt="Dependabot">](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates)
-  [<img src="https://img.shields.io/github/license/WEBcodeX1/x0?style=flat" alt="License">](https://github.com/WEBcodeX1/x0/blob/main/LICENSE)
-  [<img src="https://img.shields.io/badge/docs-sphinx-blue" alt="Docs">](https://docs.webcodex.de/x0/v1.0/)
+  [![CodeQL](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/github-code-scanning/codeql)
+  [![x0 Test Runner](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/ci.yml)
+  [![Dependabot](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/WEBcodeX1/x0/actions/workflows/dependabot/dependabot-updates)
+  [![License](https://img.shields.io/github/license/WEBcodeX1/x0?style=flat)](https://github.com/WEBcodeX1/x0/blob/main/LICENSE)
+  [![Docs](https://img.shields.io/badge/docs-sphinx-blue)](https://docs.webcodex.de/x0/v1.0/)
 </div>
 
 ---
