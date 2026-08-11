@@ -50,6 +50,7 @@ HTMLTop = """<!DOCTYPE html>
   <script type="text/javascript" src="/sysIntervalHandler.js"></script>
   <script type="text/javascript" src="/sysFormfieldValidate.js"></script>
   <script type="text/javascript" src="/sysObjFormfieldItem.js"></script>
+  <script type="text/javascript" src="/sysObjLanguageSwitch.js"></script>
   <script type="text/javascript" src="/sysGlobalData.js"></script>
   <script type="text/javascript" src="/sysScreen.js"></script>
   <script type="text/javascript" src="/sysObjectLoader.js"></script>

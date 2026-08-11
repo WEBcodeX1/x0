@@ -641,6 +641,15 @@ Defined in ``sysObjSQLText.js``. Displays text content loaded from database sour
 
 **Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
 
+24.2.6. sysObjLanguageSwitch
+****************************
+
+Defined in ``sysObjLanguageSwitch.js``. Provides a pulldown selector and update button
+to switch ``sysFactory.EnvUserLanguage`` at runtime and refresh all ``sysObjSQLText``
+objects.
+
+**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+
 24.3. Form Component Classes
 ----------------------------
 

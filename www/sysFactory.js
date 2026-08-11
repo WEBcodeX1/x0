@@ -38,6 +38,7 @@ function sysFactory()
         "FormfieldCheckbox": sysFormfieldItemCheckbox,
         "FormfieldLabel": sysFormfieldItemLabel,
         "FormfieldHidden": sysFormfieldItemHidden,
+        "LanguageSwitch": sysObjLanguageSwitch,
         "DynRadioList": sysObjDynRadioList,
         "OpenCloseContainer": sysObjOpenClose,
         "TreeSimple": sysObjTreeSimple
@@ -371,11 +372,28 @@ sysFactory.prototype.getText = function(TextID)
         const TextObj = this.ObjText.getTextObjectByID(TextID);
         RetValue = TextObj[this.EnvUserLanguage];
     }
-    catch(err) {
-        RetValue = 'Missing Text with ID:' + TextID;
-        console.debug('Text not found for given TextID:' + TextID);
+        catch(err) {
+            RetValue = 'Missing Text with ID:' + TextID;
+            console.debug('Text not found for given TextID:' + TextID);
+        }
+        return RetValue;
     }
-    return RetValue;
+
+
+    //------------------------------------------------------------------------------
+    //- METHOD "updateAllSQLTextObjects"
+    //------------------------------------------------------------------------------
+
+    sysFactory.prototype.updateAllSQLTextObjects = function()
+    {
+        for (const ScreenID in this.Screens) {
+            const ScreenObj = this.Screens[ScreenID];
+            const SQLTextObjects = ScreenObj.HierarchyRootObject.getObjectsByType('SQLText');
+            for (const SQLTextObj of SQLTextObjects) {
+                SQLTextObj.update();
+                SQLTextObj.setDOMElementValue();
+            }
+        }
 }
 
 
