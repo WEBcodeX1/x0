@@ -1,0 +1,11 @@
+{
+	"Header1":
+	{
+		"Type": "Div",
+		"Attributes": {
+			"DOMType": "h1",
+			"Value": "x0 Static",
+			"Style": "border rounded p-3 fw-bold"
+		}
+	}
+}
