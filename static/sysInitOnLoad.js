@@ -78,7 +78,7 @@ function InitOk(XHR) {
 
     if (sysVarPreLoadScript !== undefined) {
         const InsertResult = JSON.parse(XHR.responseText);
-        for (Key in sysVarPreLoadVars) {
+        for (const Key in sysVarPreLoadVars) {
             sysFactory.ObjGlobalData[Key] = InsertResult[sysVarPreLoadVars[Key]];
         }
         try {
