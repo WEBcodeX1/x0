@@ -180,9 +180,8 @@ sysContextMenu.prototype.addItems = function()
 
 sysContextMenu.prototype.processItems = function()
 {
-    var i=1;
-    for (ItemObj of this.Items)
-    {
+    let i = 1;
+    for (const ItemObj of this.Items)
         var ItemDisplayObj = new sysObjSQLText();
         ItemDisplayObj.overrideDOMObjectID = true;
         ItemDisplayObj.ObjectID = this.ID + 'ItemDisplay' + i;

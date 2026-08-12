@@ -12,15 +12,12 @@ x0 Framework - Ultra-lightweight JavaScript In-Browser Real-Time Templating Engi
 
 ## Overview
 
-The x0 framework is an **ultra-lightweight**, **serverless** in-browser RTTE (Real-Time Templating Engine) designed to run **entirely independent** of backend or server-side code.
-Built on a **clean, object-oriented** programming (OOP) foundation, it **drastically minimizes code complexity** by replacing heavy imperative logic with a highly efficient declarative metadata concept.
+The x0 framework is an **ultra-lightweight**, **serverless** in-browser RTTE (Real-Time Templating Engine) designed to run **entirely independent** of backend or server-side code. Built on a **clean, object-oriented** programming (OOP) foundation, it **drastically minimizes code complexity** by replacing heavy imperative logic with a highly efficient declarative metadata concept.
 
-The framework can be statically loaded from any standard web server, comprising just 66 system and 4 object metadata definition files with a core footprint of only 356 Kilobytes.
-It depends on `Bootstrap` and optionally utilizes `Font Awesome` for its UI components. Even with a minimalist setup of both libraries, extensive user metadata, and custom application code,
-the total deployment size remains under 4 Megabytes for a complete client/server architecture. Because the application renders completely within the client browser,
-it is perfectly suited for resource-constrained environments like embedded microcontroller web interfaces.
+The framework can be statically loaded from any standard web server, comprising just 66 system and 4 object metadata definition files with a core footprint of only 356 Kilobytes. It depends on `Bootstrap` and optionally utilizes `Font Awesome` for its UI components. Even with a minimalist setup of both libraries, extensive user metadata, and custom application code, the total deployment size remains under 4 Megabytes for a complete client/server architecture. Because the application renders completely within the client browser, it is perfectly suited for resource-constrained environments like embedded microcontroller web interfaces.
 
 An example of an x0-application-driven, browser-controlled multiplayer PONG game running on an ESP32-S3 microcontroller using the ESP-IDF framework (with embedded MicroPython) can be found here:
+
 https://github.com/WEBcodeX1/micropython-as
 
 ## Key Features & Architecture

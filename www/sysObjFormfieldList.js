@@ -270,7 +270,7 @@ sysFormfieldList.prototype.validate = function()
         var ErrorDisplayText;
         var ErrorDetailDisplayText;
 
-        for (Key in this.FormfieldItems)
+        for (const Key in this.FormfieldItems)
         {
             const FormItem = this.FormfieldItems[Key];
             console.debug('::validate FormfieldID:%s', Key);
