@@ -18,8 +18,8 @@ programming (OOP) foundation, it **drastically minimizes code complexity** by re
 with a highly efficient declarative metadata concept.
 
 The framework can be statically loaded from any standard web server, comprising just 66 system and 4 object
-metadata definition files with a core footprint of only 356 Kilobytes. It depends on `Bootstrap` and optionally
-utilizes `Font Awesome` for its UI components. Even with a minimalist setup of both libraries, extensive user
+metadata definition files with a core footprint of only 356 Kilobytes. It depends on **Bootstrap** and optionally
+utilizes **Font Awesome** for its UI components. Even with a minimalist setup of both libraries, extensive user
 metadata, and custom application code, the total deployment size remains under 4 Megabytes for a complete
 Client/Server architecture. Because the application renders completely within the client browser, it is perfectly
 suited for resource-constrained environments like embedded microcontroller web interfaces.
