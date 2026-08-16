@@ -41,6 +41,7 @@ HTMLTop = """<!DOCTYPE html>
   <script type="text/javascript" src="/sysObjDiv.js"></script>
   <script type="text/javascript" src="/sysObjContextMenu.js"></script>
   <script type="text/javascript" src="/sysScreenOverlay.js"></script>
+  <script type="text/javascript" src="/sysButtonActionProcessor.js"></script>
   <script type="text/javascript" src="/sysObjButton.js"></script>
   <script type="text/javascript" src="/sysObjButtonInternal.js"></script>
   <script type="text/javascript" src="/sysObjButtonCallback.js"></script>

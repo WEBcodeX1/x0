@@ -36,8 +36,6 @@ sysObjButtonInternal.prototype.init = sysObjButton.prototype.init;
 sysObjButtonInternal.prototype.validateForm = sysObjButton.prototype.validateForm;
 sysObjButtonInternal.prototype.processActions = sysObjButton.prototype.processActions;
 
-sysObjButtonInternal.prototype.setDstScreenProperties = sysContextMenuItem.prototype.setDstScreenProperties;
-
 
 //------------------------------------------------------------------------------
 //- METHOD "addEventListenerClick"
