@@ -15,7 +15,7 @@ Ultra-lightweight JavaScript In-Browser Real-Time Templating Engine - built on e
 The **x0 framework** is an **ultra-lightweight**, **serverless** in-browser RTTE (Real-Time Templating Engine)
 designed to run **entirely independent** of backend or server-side code. Built on a **clean, object-oriented**
 programming (OOP) foundation, it **drastically minimizes code complexity** by replacing heavy imperative logic
-with a highly efficient declarative metadata concept.
+with a **highly efficient declarative metadata** concept.
 
 The framework can be statically loaded from any standard web server, comprising just 66 system and 4 object
 metadata definition files with a core footprint of only 356 Kilobytes. It depends on **Bootstrap** and optionally
