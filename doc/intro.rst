@@ -26,10 +26,6 @@ running on an **ESP32-S3** microcontroller using the ESP-IDF framework (with emb
 *MicroPython*) can be found at the
 `micropython-as <https://github.com/WEBcodeX1/micropython-as>`_ project.
 
-The *x0-system* is also prepared to integrate with the
-`NLAP (Native Lightweight Application Protocol) <https://github.com/WEBcodeX1/http-1.2>`_
-Python application server as a high-performance, Apache-independent backend.
-
 **Key Features**:
 
 **Declarative Metadata Concept**: Uses modern declarative configurations to define
@@ -235,5 +231,3 @@ For the current milestones, see: https://github.com/WEBcodeX1/x0/milestones.
     https://fontawesome.com/
 - micropython-as (x0-driven ESP32-S3 PONG game using MicroPython)
     https://github.com/WEBcodeX1/micropython-as
-- NLAP — Native Lightweight Application Protocol (FalconAS Python Application Server)
-    https://github.com/WEBcodeX1/http-1.2
