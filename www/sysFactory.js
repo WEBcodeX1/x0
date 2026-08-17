@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -27,6 +27,7 @@ function sysFactory()
         "FormfieldList": sysFormfieldList,
         "ServiceConnector": sysServiceConnector,
         "Div": sysObjDiv,
+        "DivUnique": sysObjDivUnique,
         "FileUpload": sysFileUpload,
         "ErrorContainer": sysErrorContainer,
         "Link": sysObjLink,
@@ -41,7 +42,9 @@ function sysFactory()
         "LanguageSwitch": sysObjLanguageSwitch,
         "DynRadioList": sysObjDynRadioList,
         "OpenCloseContainer": sysObjOpenClose,
-        "TreeSimple": sysObjTreeSimple
+        "TreeSimple": sysObjTreeSimple,
+        "ProgressBar": sysObjProgressBar,
+        "RangeSlider": sysObjRangeSlider
     };
 
     this.SetupClassesRT = {
@@ -324,6 +327,15 @@ sysFactory.prototype.getObjectContainingTabData = function(CheckObjectID)
 
 sysFactory.prototype.getGlobalVar = function(Key) {
     return (Key === undefined || Key == null) ? null : this.ObjGlobalData[Key];
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "setGlobalVar"
+//------------------------------------------------------------------------------
+
+sysFactory.prototype.setGlobalVar = function(Key, Value) {
+    this.ObjGlobalData[Key] = Value;
 }
 
 

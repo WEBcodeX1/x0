@@ -451,9 +451,242 @@ The setupObjectRefsRecursive method is a powerful utility for dynamically creati
 configuring hierarchical object structures in the *x0-framework*. By leveraging this method,
 developers can efficiently build complex UI components with minimal manual effort.
 
+
+.. _devoopmodel-classes-getobjectdata:
+
+24.1.6. sysBaseObject.getObjectData / setObjectData
+****************************************************
+
+These two wrapper methods provide the primary public API for reading and writing an object's
+internal data.  They forward to a per-object function-pointer (``RuntimeGetDataFunc`` /
+``RuntimeSetDataFunc``) so each object type can implement its own data model while exposing a
+uniform interface to callers.
+
+An optional ``recursive`` flag enables a full subtree traversal, collecting or dispatching
+data for every object in the hierarchy in a single call.
+
+24.1.6.1. Method Signatures
+############################
+
+.. code-block:: javascript
+
+    sysBaseObject.prototype.getObjectData = function(recursive)
+    sysBaseObject.prototype.setObjectData = function(Data, recursive)
+
+24.1.6.2. Parameters
+#####################
+
+.. table:: getObjectData parameters
+    :widths: 20 20 60
+
+    +---------------+----------+-------------------------------------------------------------------+
+    | **Parameter** | **Type** | **Description**                                                   |
+    +===============+==========+===================================================================+
+    | recursive     | Boolean  | Optional. ``true`` to walk the subtree recursively (see below).   |
+    |               |          | Omit or pass ``false`` for the standard single-object behaviour.  |
+    +---------------+----------+-------------------------------------------------------------------+
+
+.. table:: setObjectData parameters
+    :widths: 20 20 60
+
+    +---------------+---------+-------------------------------------------------------------------------+
+    | **Parameter** | **Type**| **Description**                                                         |
+    +===============+=========+=========================================================================+
+    | Data          | Any     | Data to write.  When ``recursive=true`` this must be a structured JSON  |
+    |               |         | object following the ``ObjectIDs`` schema (see below).                  |
+    +---------------+---------+-------------------------------------------------------------------------+
+    | recursive     | Boolean | Optional. ``true`` to dispatch data recursively across the subtree.     |
+    +---------------+---------+-------------------------------------------------------------------------+
+
+24.1.6.3. Non-recursive (single-object) usage
+##############################################
+
+When called without arguments (or with ``recursive=false``) the behaviour is identical to
+the previous API:
+
+.. code-block:: javascript
+
+    // Read a single object's value
+    var value = sysFactory.getObjectByID('MyProgressBar').getObjectData();
+
+    // Write a single object's value
+    sysFactory.getObjectByID('MyProgressBar').setObjectData(75);
+
+24.1.6.4. Recursive getter
+###########################
+
+Pass ``true`` to ``getObjectData`` to collect data from the entire subtree rooted at the
+called object.  The return value is a **flat map** ``{ ObjectID: value, … }`` containing
+one entry for every object that has a ``RuntimeGetDataFunc``.  Pure container objects
+(``Div``, etc.) that have no ``RuntimeGetDataFunc`` are silently skipped, but their children
+are still traversed.
+
+.. code-block:: javascript
+
+    // Collect data from all data-bearing objects under RootContainer
+    var allData = sysFactory.getObjectByID('RootContainer').getObjectData(true);
+    // => { MyList1: <listData>, MyForm1: <formData>, MyProgress1: 75, … }
+
+24.1.6.5. Recursive setter – ObjectIDs schema
+##############################################
+
+When ``recursive=true`` the ``Data`` argument must follow the ``ObjectIDs`` schema: a
+plain object whose keys map directly to ``ObjectID`` values in the live object tree.
+
+Three node forms are supported:
+
+1. **Nested container** – the value is another ``{ "ObjectIDs": { … } }`` object.  The
+   setter recurses into the matching object.
+
+2. **Direct value / array** – the value is an array, string, number, or plain data object
+   with no ``Action`` key.  ``RuntimeSetDataFunc`` is called directly.
+
+3. **Action directive** – the value is ``{ "Action": "set"|"append", "Data": <value> }``.
+   Use this to control per-node behaviour when set and append are both required in the same
+   call.  ``"append"`` calls ``RuntimeAppendDataFunc``; ``"set"`` (or omitting ``Action``)
+   calls ``RuntimeSetDataFunc``.
+
+.. code-block:: javascript
+
+    // Mixed set + append in one recursive call
+    sysFactory.getObjectByID('RootContainer').setObjectData(
+        {
+            "ObjectIDs":
+            {
+                "Container1":
+                {
+                    "ObjectIDs":
+                    {
+                        "MyList1": { "Action": "set",    "Data": [ /* rows */ ] },
+                        "MyList2": { "Action": "append", "Data": [ /* rows */ ] }
+                    }
+                },
+                "Container2":
+                {
+                    "ObjectIDs":
+                    {
+                        "MyProgress1": 90
+                    }
+                }
+            }
+        },
+        true
+    );
+
+Objects whose ``RuntimeSetDataFunc`` (or ``RuntimeAppendDataFunc``) is ``undefined`` are
+silently skipped.
+
+24.1.6.6. Backward compatibility
+##################################
+
+All existing callers of ``getObjectData()`` and ``setObjectData(data)`` pass no second
+argument and therefore continue to use the non-recursive, single-object path unchanged.
+
+
+.. _devoopmodel-classes-getobjectdatarecursive:
+
+24.1.7. sysBaseObject.getObjectDataRecursive / setObjectDataRecursive
+**********************************************************************
+
+These are the private helper methods that implement the recursive traversal.  They are
+called internally by ``getObjectData(true)`` and ``setObjectData(data, true)`` respectively.
+Direct use is possible but the wrapper methods are preferred.
+
+24.1.7.1. getObjectDataRecursive
+#################################
+
+Walks the ``ChildObjects`` tree depth-first.  For each node:
+
+- If the node has a ``RuntimeGetDataFunc``, its result is recorded under the node's
+  ``ObjectID`` and recursion stops at that branch (the object manages its own subtree).
+- If the node has no ``RuntimeGetDataFunc`` (pure container), it is skipped but its
+  children are still visited.
+
+Returns a flat ``{ ObjectID: value, … }`` map.
+
+.. code-block:: javascript
+
+    sysBaseObject.prototype.getObjectDataRecursive = function()
+    {
+        var Result = new Object();
+
+        if (typeof this.RuntimeGetDataFunc === 'function') {
+            Result[this.ObjectID] = this.RuntimeGetDataFunc();
+            return Result;
+        }
+
+        for (const ChildItem of this.ChildObjects) {
+            var ChildResult = ChildItem.getObjectDataRecursive();
+            for (var Key in ChildResult) {
+                Result[Key] = ChildResult[Key];
+            }
+        }
+
+        return Result;
+    }
+
+24.1.7.2. setObjectDataRecursive
+##################################
+
+Walks the ``ObjectIDs`` hierarchy in the supplied data object, resolving each key to a
+live object via ``getObjectByID()`` and dispatching set or append as described in
+`24.1.6.5`_.
+
+.. code-block:: javascript
+
+    sysBaseObject.prototype.setObjectDataRecursive = function(Data)
+    {
+        if (Data === undefined || Data === null) return;
+
+        var ObjectIDs = Data['ObjectIDs'];
+        if (ObjectIDs === undefined) return;
+
+        for (var ObjID in ObjectIDs) {
+
+            var ObjData   = ObjectIDs[ObjID];
+            var TargetObj = this.getObjectByID(ObjID);
+
+            if (TargetObj === undefined) continue;
+
+            if (ObjData !== null && typeof ObjData === 'object' &&
+                !Array.isArray(ObjData) && ObjData['Action'] !== undefined) {
+                // Action directive
+                var Action     = ObjData['Action'];
+                var ActionData = ObjData['Data'];
+                if (Action === 'append') {
+                    if (typeof TargetObj.RuntimeAppendDataFunc === 'function') {
+                        TargetObj.RuntimeAppendDataFunc(ActionData);
+                    }
+                } else {
+                    if (typeof TargetObj.RuntimeSetDataFunc === 'function') {
+                        TargetObj.RuntimeSetDataFunc(ActionData);
+                    }
+                }
+            } else if (ObjData !== null && typeof ObjData === 'object' &&
+                       !Array.isArray(ObjData) && ObjData['ObjectIDs'] !== undefined) {
+                // Nested container: recurse
+                TargetObj.setObjectDataRecursive(ObjData);
+            } else {
+                // Array or leaf value: default set
+                if (typeof TargetObj.RuntimeSetDataFunc === 'function') {
+                    TargetObj.RuntimeSetDataFunc(ObjData);
+                }
+            }
+        }
+    }
+
+24.1.7.3. Example scenarios
+#############################
+
+A complete set of runnable scenarios (10 examples covering flat get/set, recursive
+get/set, Action directives, and round-trip verification) is available in the
+repository at:
+
+``example/recursive_object_data/recursive_object_data_examples.js``
+
 .. _devoopmodel-classes-buttoncallback:
 
-24.1.6. sysObjButtonCallback
+24.1.8. sysObjButtonCallback
 *****************************
 
 The file ``sysObjButtonCallback.js`` defines a system object called ``sysObjButtonCallback``,
@@ -462,7 +695,7 @@ which extends the functionality of a button element with callback capabilities.
 This object is designed to create buttons with custom callbacks, making it easier to handle
 button-specific actions in a modular and object-oriented way.
 
-24.1.6.1. Key Features and Methods
+24.1.8.1. Key Features and Methods
 ###################################
 
     1. Constructor (``sysObjButtonCallback``):
@@ -487,12 +720,12 @@ button-specific actions in a modular and object-oriented way.
     4. EventListenerClick Method:
         Handles the click event by invoking the callback function (``CallbackFunction``) on the CallbackObject with the provided arguments (``CallbackArguments``).
 
-24.1.7. sysBaseDOMElement
+24.1.9. sysBaseDOMElement
 **************************
 
 Defined in ``sysBaseDOMElement.js``, which defines a base system object for handling DOM elements:
 
-24.1.7.1. Key Methods and Their Purpose
+24.1.9.1. Key Methods and Their Purpose
 ########################################
 
     1. createDOMElement:

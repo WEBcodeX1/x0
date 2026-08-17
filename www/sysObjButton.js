@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -17,20 +17,23 @@
 
 function sysObjButton()
 {
-    this.DOMType             = 'button'
-    this.DOMAttributes       = new Object();
+    this.DOMType             = 'button'                         //- DOM Type
+    this.DOMAttributes       = new Object();                    //- DOM Attributes
 
-    this.EventListeners      = new Object();
-    this.ChildObjects        = new Array();
+    this.overrideDOMObjectID = true;                            //- Override recursive ObjectID
+    this.ObjectID            = this.ID;                         //- Set unique ID
 
-    this.PostRequestData     = new sysRequestDataHandler();
+    this.EventListeners      = new Object();                    //- Event Listerners Object
+    this.ChildObjects        = new Array();                     //- Child Objects Array
 
-    this.CallURL             = null;
-    this.CallService         = false;
+    this.PostRequestData     = new sysRequestDataHandler();     //- POST Request Data Handler
 
-    this.FormValidate        = false;
+    this.CallURL             = null;                            //- Request URL
+    this.CallService         = false;                           //- Call Service Flag (true || false)
 
-    this.ValidateResultError = true;
+    this.FormValidate        = false;                           //- Form Validation Flag (true || false)
+
+    this.ValidateResultError = true;                            //- Validation Result (true || false)
 }
 
 //- inherit sysBaseObject
@@ -165,10 +168,6 @@ sysObjButton.prototype.EventListenerClick = function(Event)
 
         this.CallURL = Attributes.OnClick;
 
-        //console.debug('sysObjButton.EventListenerClick() JSONConfig:%o', this.JSONConfig);
-        //console.debug('sysObjButton.EventListenerClick() ScreenObject:%o', this.ScreenObject.ScreenID);
-        //console.debug('sysObjButton.EventListenerClick() ScreenObjects:%o', sysFactory.getObjectsByType(this.ScreenObject.ScreenID, 'FormfieldList'));
-
         this.PostRequestData.reset();
 
         this.ValidateResultError = true;
@@ -178,8 +177,8 @@ sysObjButton.prototype.EventListenerClick = function(Event)
         console.debug('::EventListenerClick Validate result:%s', this.ValidateResultError);
 
         if (this.ValidateResultError == false) {
-            this.processSourceObjects();
             this.processActions();
+            this.processSourceObjects();
             this.callService();
         }
     }
@@ -193,8 +192,11 @@ sysObjButton.prototype.EventListenerClick = function(Event)
 sysObjButton.prototype.callService = function()
 {
     if (this.CallURL !== undefined && this.CallURL != null) {
+        const Attributes = this.JSONConfig.Attributes;
+        var RequestMethod = (Attributes.RequestMethod != undefined && Attributes.RequestMethod == 'GET') ? 'GET': 'POST';
         this.addNotifyHandler();
         RPC = new sysCallXMLRPC(this.CallURL);
+        RPC.setRequestType(RequestMethod);
         RPC.Request(this);
     }
 }
@@ -337,79 +339,30 @@ sysObjButton.prototype.processActions = function()
 {
     const Attributes = this.JSONConfig.Attributes;
 
-    var Action;
-    try {
-        Action = Attributes.Action.toLowerCase();
-    }
-    catch(err) {
-        Action = null;
-    }
+    console.debug('::processActions Attributes:%o', Attributes);
 
-    console.debug('::processActions Attributes:%o Action:%s', Attributes, Action);
+    //- delegate action execution to shared processor
+    sysButtonActions.executeAction(Attributes);
 
-    if (Action != null) {
+    //- handle switchscreen with optional ResetAll
+    if (Attributes.Action !== undefined &&
+        Attributes.Action.toLowerCase() == 'switchscreen' &&
+        Attributes.DstScreenID !== undefined) {
 
-        var DstObject;
-        try {
-            DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
+        if (Attributes.ResetAll == true) {
+            const ScreenObj = sysFactory.getScreenByID(Attributes.DstScreenID);
+            ScreenObj.HierarchyRootObject.processReset();
         }
-        catch {
-            DstObject = undefined;
-        }
-
-        if (Action == 'append') {
-            const SrcObject = sysFactory.getObjectByID(Attributes.SrcDataObject);
-            const DstObject = sysFactory.getObjectByID(Attributes.DstDataObject);
-            DstObject.RuntimeAppendDataFunc(SrcObject.RuntimeGetDataFunc());
-        }
-
-        if (Action == 'enable') {
-            DstObject.VisibleState = 'visible';
-            DstObject.setDOMVisibleState();
-        }
-
-        if (Action == 'disable') {
-            DstObject.VisibleState = 'hidden';
-            DstObject.setDOMVisibleState();
-        }
-
-        if (Action == 'activate') {
-            DstObject.setActivated();
-        }
-
-        if (Action == 'deactivate') {
-            DstObject.setDeactivated();
-        }
-
-        console.debug('::EventListenerClick Config Attributes Action:%s', Action);
-
-        if (Action == 'reset') {
-            DstObject.reset();
-        }
-
-        if (Action == 'switchscreen') {
-            const ScreenObject = sysFactory.getScreenByID(Attributes.DstScreenID);
-            //console.debug(this.ParentRow.SetupData);
-            this.DstScreenID = Attributes.DstScreenID;
-        }
-
-        if (this.DstScreenID !== undefined && Action !== undefined) {
-            if (Attributes.ResetAll == true) {
-                //console.debug('ButtonInternalDBG ResetAll:%s', Attributes.ResetAll);
-                const ScreenObj = sysFactory.getScreenByID(this.DstScreenID);
-                ScreenObj.HierarchyRootObject.processReset();
-            }
-            //this.setDstScreenProperties();
-            sysFactory.switchScreen(this.DstScreenID);
-        }
-
-        if (Attributes.FireEvents !== undefined) {
-            sysFactory.Reactor.fireEvents(Attributes.FireEvents);
-        }
-
+        sysFactory.switchScreen(Attributes.DstScreenID);
     }
 
-    if (Attributes.CloseOverlay !== undefined && Attributes.CloseOverlay == true) {
+    //- fire events
+    if (Attributes.FireEvents !== undefined) {
+        sysFactory.Reactor.fireEvents(Attributes.FireEvents);
+    }
+
+    //- close overlay
+    if (Attributes.CloseOverlay == true) {
         try {
             sysFactory.OverlayObj.EventListenerClick();
         }
@@ -435,82 +388,20 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
     if (this.XMLRPCResultData.ErrorCode === undefined && this.XMLRPCResultData.error === undefined) {
 
         const ConfigAttributes = this.JSONConfig.Attributes;
-        const SwitchScreen = ConfigAttributes.SwitchScreen;
-        const SwitchTabContainer = ConfigAttributes.SwitchTabContainer;
-        const SwitchTabID = ConfigAttributes.SwitchTabID;
 
-        /*
-         * process on result actions
-         * 
-         * refactoring needed, make button, context menu and global logic generic
-        */
-
-        if (ConfigAttributes.OnResult !== undefined) {
-
-            console.debug('::ButtonAfterRPC ConfigAttributes:%o', ConfigAttributes.OnResult);
-
-            var ResultConfig = ConfigAttributes.OnResult;
-
-            if (Array.isArray(ResultConfig) == false) {
-                ResultConfig = [ResultConfig];
-            }
-
-            for (const Result of ResultConfig) {
-
-                console.debug('::ButtonAfterRPC ConfigAttributes new:%o', ConfigAttributes.OnResult);
-
-                const Action = ResultConfig.Action.toLowerCase();
-
-                if (Action !== undefined) {
-
-                    if (Action == 'enable') {
-                        const DstObject = sysFactory.getObjectByID(Result.DstObjectID);
-                        DstObject.VisibleState = 'visible';
-                        DstObject.setDOMVisibleState();
-                    }
-                    if (Action == 'disable') {
-                        const DstObject = sysFactory.getObjectByID(Result.DstObjectID);
-                        DstObject.VisibleState = 'hidden';
-                        DstObject.setDOMVisibleState();
-                    }
-                    if (Action == 'activate') {
-                        const DstObject = sysFactory.getObjectByID(Result.DstObjectID);
-                        DstObject.setActivated();
-                    }
-                    if (Action == 'deactivate') {
-                        const DstObject = sysFactory.getObjectByID(Result.DstObjectID);
-                        DstObject.setDeactivated();
-                    }
-                    if (Action == 'reset') {
-                        const DstObject = sysFactory.getObjectByID(Result.DstObjectID);
-                        DstObject.reset();
-                    }
-
-                    if (Action == 'tabswitch') {
-                        const TabContainerObj = sysFactory.getObjectByID(Result.TabContainer);
-                        console.debug('TabContainerObj:%o', TabContainerObj);
-                        TabContainerObj.switchTab(Result.Tab);
-                    }
-                }
-
-                //- global fire events
-                if (Result.FireEvents !== undefined) {
-                    sysFactory.Reactor.fireEvents(Result.FireEvents);
-                }
-            }
-        }
+        //- process on-result actions via shared processor
+        sysButtonActions.executeActions(ConfigAttributes.OnResult);
 
         //- switch screen
-        if (SwitchScreen !== undefined && SwitchScreen != false) {
-            console.debug('switchScreen:%s', SwitchScreen);
-            //- switch screen
+        if (ConfigAttributes.SwitchScreen !== undefined && ConfigAttributes.SwitchScreen != false) {
+            console.debug('switchScreen:%s', ConfigAttributes.SwitchScreen);
             sysFactory.switchScreen(ConfigAttributes.SwitchScreen);
         }
 
         //- switch screen tab
-        if (SwitchTabContainer !== undefined && SwitchTabID !== undefined) {
-            var TabObj = sysFactory.getObjectByID(SwitchTabContainer);
-            TabObj.TabContainerObject.switchTab(SwitchTabID);
+        if (ConfigAttributes.SwitchTabContainer !== undefined && ConfigAttributes.SwitchTabID !== undefined) {
+            var TabObj = sysFactory.getObjectByID(ConfigAttributes.SwitchTabContainer);
+            TabObj.TabContainerObject.switchTab(ConfigAttributes.SwitchTabID);
         }
 
         //- fire events

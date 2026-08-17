@@ -48,88 +48,17 @@ a:active {
 
 .sysContextMenuTable {
     position: absolute;
-    width: 200px;
+    width: 400px;
 }
 
-.sysTreeNodeRoot {
-}
-
-.sysTreeSelected {
+.sysTreeItemSelected {
     width: 4px;
-    height: 24px;
+    height: 36px;
     border-radius: 25px;
-    margin-right: 2px;
+    margin-right: 5px;
     float: left;
 }
 
-.sysTreeSelectedHilite {
+.sysTreeItemSelectedHilite {
     background: #202020;
-}
-
-.sysTreeItemContainer {
-    width: 150px;
-    height: 24px;
-    border-radius: 5px;
-    border-style: dotted;
-    border-width: thin;
-    border-color: #202020;
-    padding-left: 2px;
-    background: #848484;
-    float: right;
-}
-
-.sysTreeIcon {
-    float: left;
-}
-
-.sysTreeNodeText {
-    font-size: 14px;
-    padding-top: 0px;
-    padding-left: 2px;
-    float: left;
-}
-
-.sysTreeNodeTextHilite {
-    border-style: solid;
-    background: #202020;
-    color: #ffffff;
-}
-
-.sysTreeOpenClose {
-    padding-right: 2px;
-    float: right;
-}
-
-.sysTreeItemLink {
-    font-size: 14px;
-    text-decoration: underline dotted;
-    padding-top: 0px;
-    padding-left: 2px;
-    float: left;
-}
-
-.sysTreeItemIndent0 {
-    padding-left: 4px;
-}
-
-.sysTreeItemIndent1 {
-    padding-left: 10px;
-}
-
-.sysTreeItemIndent2 {
-    padding-left: 16px;
-}
-
-.sysTreeItemIndent3 {
-    padding-left: 22px;
-}
-
-.TreeOpenCloseContainerLeft {
-    width: 160px;
-    float: left;
-}
-
-.TreeOpenCloseContainerRight {
-    width: 160px;
-    float: right;
 }

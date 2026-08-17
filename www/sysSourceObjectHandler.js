@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -92,7 +92,8 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
                         continue;
 
                     case "GlobalVar":
-                        // implement on refactoring
+
+                        ObjectResultData[SrcObjectID] = sysFactory.getGlobalVar(SrcObjectID)
                         continue;
 
                 }

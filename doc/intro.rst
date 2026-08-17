@@ -6,33 +6,65 @@
 1.1. Introduction
 -----------------
 
-*x0* (**cross-object**) JavaScript Framework /krɒs ɒb.dʒɪkt/ is a modern tool
-for **efficiently building** powerful web-browser **real-time SPAs**
-(Single Page Applications).
+*x0* (**cross-object**) /krɒs ɒb.dʒɪkt/ JavaScript Framework is an
+**ultra-lightweight**, **serverless** in-browser RTTE (Real-Time Templating Engine)
+designed to run **entirely independent** of backend or server-side code. Built on a
+**clean, object-oriented** programming (OOP) foundation, it **drastically minimizes
+code complexity** by replacing heavy imperative logic with a **highly efficient
+declarative metadata** concept.
 
-**Zero Bootstrap JavaScript** Dependency: Integrates Bootstrap 5.3 CSS stylesheets
-without relying on Bootstrap's JavaScript, ensuring lightweight and fast applications.
+The framework can be statically loaded from any standard web server, comprising just
+66 system and 4 object metadata definition files with a core footprint of only
+**356 Kilobytes**. It depends on **Bootstrap** and optionally utilizes **Font Awesome**
+for its UI components. Even with a minimalist setup of both libraries, extensive user
+metadata, and custom application code, the total deployment size remains under
+**4 Megabytes** for a complete client / server architecture. Because the application
+renders completely within the client browser, it is perfectly suited for
+**resource-constrained** environments like embedded **microcontroller** web interfaces.
 
-**Responsive Design with CSS Grid**: Leverages Bootstrap's grid system for building
-device-independent, future-proof responsive applications.
+An example of an x0-application-driven, browser-controlled multiplayer PONG game
+running on an **ESP32-S3** microcontroller using the ESP-IDF framework (with embedded
+*MicroPython*) can be found at the
+`micropython-as <https://github.com/WEBcodeX1/micropython-as>`_ project.
 
-**Cross-Object Communication**: Facilitates seamless metadata exchange between
-*x0-objects* using JSON, enabling efficient internal and network-based communication.
+**Key Features**:
 
-**True DOM OOP Templating** (Object-Oriented Programming): Implements a strict 1:1
-mapping between JavaScript objects and DOM elements for robust and modular development.
+**Declarative Metadata Concept**: Uses modern declarative configurations to define
+application behavior, drastically reducing custom boilerplate code.
 
-**Integrated FontAwesome Icons**: Provides easy access to high-quality icons through
-FontAwesome 6 Free.
+**Clean OOP Foundation**: Leverages object-oriented design patterns to minimize
+architectural complexity and keep the codebase maintainable.
 
-**Streamlined Deployment**: Offers pre-built Docker images and Kubernetes support for
-quick and scalable deployment.
+**Serverless & Independent**: Runs entirely in the browser without depending on a
+classic backend stack.
+
+**Ultra-Lightweight Core**: Consists of only 66 system files and 4 metadata files,
+totaling just 356 KB.
+
+**Production Footprint < 4 MB**: Includes Bootstrap, Font Awesome, and comprehensive
+user application code within less than 4 Megabytes.
+
+**Microcontroller Ready**: Ideal for low-resource embedded web interfaces due to full
+client-side rendering.
+
+**Modern UI Foundations**: Built on top of Bootstrap 5.3 with optional, flexible
+Font Awesome icon support — without relying on Bootstrap's JavaScript.
+
+**In-Browser RTTE**: Renders and evolves object-driven interfaces directly in the
+frontend in real time.
+
+**Composable Object System**: Combines complex objects into reusable, structured
+application models using clean OOP abstractions.
+
+**Multi-Language Ready**: Delivers and maps the same underlying object model across
+multiple display languages.
 
 Intended Audience: The *x0-system* is designed for developers and organizations seeking
 to create advanced, **real-time Single Page Applications** (SPAs). It is particularly
 suited for teams prioritizing modular development, robust object-oriented principles,
 and efficient cross-object communication, while maintaining lightweight and responsive
-design principles.
+design principles. It is also well-suited for embedded and microcontroller web interface
+development where resource constraints demand minimal overhead.
 
 1.2. Abstract
 -------------
@@ -48,13 +80,19 @@ Docker and Kubernetes, the x0-system is tailored for modern web development need
 2. Core Features Overview
 =========================
 
-2.1. True DOM OOP Templating
-----------------------------
+2.1. OOP Templating
+-------------------
 
-The x0-system introduces a powerful feature called **True DOM OOP Templating**, which
-enables developers to build dynamic, reusable, and modular user interfaces based on
-Object-Oriented Programming (OOP) principles. This feature tightly integrates JavaScript
-objects with DOM elements, ensuring a seamless and systematic approach to UI development.
+At the heart of the *x0-system* lies a strict **binding of inheritable JavaScript
+Class Instances to a hierarchical DOM structure**. Each DOM node — down to the
+individual element — is owned by exactly one JavaScript class instance. Because
+x0 class instances are fully inheritable, developers can compose small, focused
+base classes into arbitrarily rich, **chained class-combinations** that map
+one-to-one onto nested DOM subtrees. The result is a hierarchy of clean, reusable,
+user-defined objects that — despite their internal complexity — remain clearly
+structured and easy to reason about. This **composable, class-driven binding** is
+what allows *x0* to replace heavy imperative DOM logic with a compact, declarative
+metadata description while still producing highly interactive, production-grade UIs.
 
 Key Characteristics:
 
@@ -194,7 +232,9 @@ For the current milestones, see: https://github.com/WEBcodeX1/x0/milestones.
 
 - SPA (Single-page application)
     https://developer.mozilla.org/en-US/docs/Glossary/SPA
-- Boostrap 5
+- Bootstrap 5
     https://getbootstrap.com/
 - Font Awesome
     https://fontawesome.com/
+- micropython-as (x0-driven ESP32-S3 PONG game using MicroPython)
+    https://github.com/WEBcodeX1/micropython-as

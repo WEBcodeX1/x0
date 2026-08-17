@@ -17,7 +17,7 @@
 
 function sysFormfieldItem()
 {
-    this.EventListeners = new Object();
+    this.EventListeners         = new Object();
 
     this.RuntimeGetDataFunc     = this.FormItemGetValue;
     this.RuntimeSetDataFunc     = this.FormItemSetValue;
@@ -368,13 +368,13 @@ sysFormfieldItem.prototype.reset = function()
 
 function sysFormfieldItemText()
 {
-    this.Index                    = null;
+    this.Index            = null;
 
-    this.Deactivated            = false;
-    this.Disabled                = false;
+    this.Deactivated      = false;
+    this.Disabled         = false;
 
-    this.ChildObjects            = new Array();
-    this.EventListeners            = new Object();
+    this.ChildObjects     = new Array();
+    this.EventListeners   = new Object();
 }
 
 sysFormfieldItemText.prototype = new sysFormfieldItem();
