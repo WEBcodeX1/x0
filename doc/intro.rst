@@ -6,11 +6,12 @@
 1.1. Introduction
 -----------------
 
-The **x0 framework** is an **ultra-lightweight**, **serverless** in-browser RTTE
-(Real-Time Templating Engine) designed to run **entirely independent** of backend
-or server-side code. Built on a **clean, object-oriented** programming (OOP)
-foundation, it **drastically minimizes code complexity** by replacing heavy imperative
-logic with a **highly efficient declarative metadata** concept.
+*x0* (**cross-object**) /krɒs ɒb.dʒɪkt/ JavaScript Framework is an
+**ultra-lightweight**, **serverless** in-browser RTTE (Real-Time Templating Engine)
+designed to run **entirely independent** of backend or server-side code. Built on a
+**clean, object-oriented** programming (OOP) foundation, it **drastically minimizes
+code complexity** by replacing heavy imperative logic with a **highly efficient
+declarative metadata** concept.
 
 The framework can be statically loaded from any standard web server, comprising just
 66 system and 4 object metadata definition files with a core footprint of only
@@ -79,13 +80,19 @@ Docker and Kubernetes, the x0-system is tailored for modern web development need
 2. Core Features Overview
 =========================
 
-2.1. True DOM OOP Templating
-----------------------------
+2.1. OOP Templating
+-------------------
 
-The x0-system introduces a powerful feature called **True DOM OOP Templating**, which
-enables developers to build dynamic, reusable, and modular user interfaces based on
-Object-Oriented Programming (OOP) principles. This feature tightly integrates JavaScript
-objects with DOM elements, ensuring a seamless and systematic approach to UI development.
+At the heart of the *x0-system* lies a strict **binding of inheritable JavaScript
+Class Instances to a hierarchical DOM structure**. Each DOM node — down to the
+individual element — is owned by exactly one JavaScript class instance. Because
+x0 class instances are fully inheritable, developers can compose small, focused
+base classes into arbitrarily rich, **chained class-combinations** that map
+one-to-one onto nested DOM subtrees. The result is a hierarchy of clean, reusable,
+user-defined objects that — despite their internal complexity — remain clearly
+structured and easy to reason about. This **composable, class-driven binding** is
+what allows *x0* to replace heavy imperative DOM logic with a compact, declarative
+metadata description while still producing highly interactive, production-grade UIs.
 
 Key Characteristics:
 
