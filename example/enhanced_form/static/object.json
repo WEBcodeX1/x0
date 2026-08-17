@@ -378,7 +378,7 @@
 		"Type": "List",
 		"Attributes": {
 			"Style": "border border-dark border-3 rounded-top rounded-bottom",
-			"HeaderRowStyle": "row m-1 mt-0 mb-0 fw-bold border-bottom",
+			"HeaderRowStyle": "row fw-bold fs-0 m-0 border-bottom",
 			"RowCount": 5,
 			"RowsSelectable": true,
 			"Navigation": true,
@@ -387,37 +387,37 @@
 				{
 					"ID": "RecordName",
 					"HeaderTextID": "TXT.HOSTINGNEWHOSTS.LIST.COL.RECNAME",
-					"HeaderStyle": "col-md-3 border-end"
+					"HeaderStyle": "col-md-3 p-3 border-end"
 				},
 				{
 					"ID": "RecordType",
 					"HeaderTextID": "TXT.HOSTINGNEWHOSTS.LIST.COL.RECTYPE",
-					"HeaderStyle": "col-md-2 border-end"
+					"HeaderStyle": "col-md-2 p-3 border-end"
 				},
 				{
 					"ID": "RecordValue",
 					"HeaderTextID": "TXT.HOSTINGNEWHOSTS.LIST.COL.RECVALUE",
-					"HeaderStyle": "col-md-4 border-end"
+					"HeaderStyle": "col-md-4 p-3 border-end"
 				},
 				{
 					"ID": "RecordTTL",
 					"HeaderTextID": "TXT.HOSTINGNEWHOSTS.LIST.COL.RECTTL",
-					"HeaderStyle": "col-md-2 border-end"
+					"HeaderStyle": "col-md-2 p-3 border-end"
 				},
 				{
 					"ID": "RecordPriority",
 					"HeaderTextID": "TXT.HOSTINGNEWHOSTS.LIST.COL.RECPRIO",
-					"HeaderStyle": "col-md-1"
+					"HeaderStyle": "col-md-1 p-3"
 				}
 			],
-			"RowStyle": "row m-1 mt-0 mb-0 border-bottom",
+			"RowStyle": "row m-0 border-bottom",
 			"RowAfterElements": 5,
 			"ColStyle": [
-				"col-md-3 border-end",
-				"col-md-2 border-end",
-				"col-md-4 border-end",
-				"col-md-2 border-end",
-				"col-md-1"
+				"col-md-3 p-3 border-end",
+				"col-md-2 p-3 border-end",
+				"col-md-4 p-3 border-end",
+				"col-md-2 p-3 border-end",
+				"col-md-1 p-3"
 			],
 			"ContextMenuItems": [
 				{

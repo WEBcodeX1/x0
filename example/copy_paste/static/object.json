@@ -55,7 +55,7 @@
 		"Attributes":
 		{
 			"Style": "border rounded-top rounded-bottom",
-			"HeaderRowStyle": "row fw-bold fs-2 m-2 border-bottom",
+			"HeaderRowStyle": "row fw-bold fs-0 m-0 border-bottom",
 			"RowCount": 10,
 			"Navigation": true,
 			"SrcDataObjects":
@@ -98,7 +98,7 @@
 					"InternalFunction": "get-data"
 				}
 			],
-			"RowStyle": "row m-2 border-bottom border-right",
+			"RowStyle": "row m-0 border-bottom border-right",
 			"RowAfterElements": 4,
 			"ColStyle": [
 				"col-md-3 p-3 border-end",
