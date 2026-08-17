@@ -156,7 +156,7 @@
 		"Attributes":
 		{
 			"Style": "border rounded-top rounded-bottom",
-			"HeaderRowStyle": "row fw-bold fs-2 m-2 border-bottom",
+			"HeaderRowStyle": "row fw-bold fs-0 m-0 border-bottom",
 			"RowCount": 12,
 			"Navigation": true,
 			"SrcDataObjects":
@@ -185,7 +185,7 @@
 					"HeaderStyle": "col-md-3 p-3 border-end"
 				}
 			],
-			"RowStyle": "row m-2 border-bottom border-right"
+			"RowStyle": "row m-0 border-bottom border-right"
 		}
 	},
 
@@ -195,7 +195,7 @@
 		"Attributes":
 		{
 			"Style": "border rounded-top rounded-bottom",
-			"HeaderRowStyle": "row fw-bold fs-2 m-2 border-bottom",
+			"HeaderRowStyle": "row fw-bold fs-0 m-0 border-bottom",
 			"RowCount": 12,
 			"Columns": [
 				{
@@ -209,7 +209,7 @@
 					"HeaderStyle": "col-md-3 p-3"
 				}
 			],
-			"RowStyle": "row m-2 border-bottom border-right",
+			"RowStyle": "row m-0 border-bottom border-right",
 			"RowAfterElements": 5,
 			"ColStyle": [
 				"dummy",

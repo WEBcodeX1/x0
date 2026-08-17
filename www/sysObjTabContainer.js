@@ -87,13 +87,16 @@ sysTab.prototype.setValidateStatus = function(Status)
 
 function sysTabContainer()
 {
-    this.ChildObjects                = new Array();                //- Child Objects
+    this.overrideDOMObjectID        = true;                     //- Override recursive ObjectID
+    this.ObjectID                   = this.ID;                  //- Set unique ID
 
-    this.Tabs                        = new Object();               //- Tab Objects
-    this.ChildObjects                = new Array();                //- Child Objects recursive
+    this.ChildObjects               = new Array();              //- Child Objects
 
-    this.ContentContainer            = new sysBaseObject();        //- Tab Content Container
-    this.TabsContainer               = new sysBaseObject();        //- Tabs Container
+    this.Tabs                       = new Object();             //- Tab Objects
+    this.ChildObjects               = new Array();              //- Child Objects recursive
+
+    this.ContentContainer           = new sysBaseObject();      //- Tab Content Container
+    this.TabsContainer              = new sysBaseObject();      //- Tabs Container
 }
 
 sysTabContainer.prototype = new sysBaseObject();

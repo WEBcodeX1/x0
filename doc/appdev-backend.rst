@@ -184,15 +184,20 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
 14.4. Global Data
 -----------------
 
-It is possible to store global data (var / value pairs) in the following global data spaces:
+The *x0-system* provides two independent key/value stores for sharing state across
+objects, screens, and backend calls:
 
-* Global Data
-* Screen Global Data
+* **Global Data** — application-wide key/value pairs accessible from any screen at
+  any time via ``sysFactory.getGlobalVar()`` / ``sysFactory.setGlobalVar()``.
+* **Screen Global Data** — per-screen key/value pairs that are populated automatically
+  after a screen-level data-load and are scoped to that specific screen object.
 
-14.4.1. Load Global Data
-************************
+14.4.1. Load Global Data at Init
+*********************************
 
-*x0-global-data* will be loaded by *x0-preload-script* at *x0-init*.
+*x0-global-data* is preloaded from a backend script at application startup
+(*x0-init*). Register the script and variable mappings in the ``system.config``
+table:
 
 .. code-block:: sql
 
@@ -201,21 +206,99 @@ It is possible to store global data (var / value pairs) in the following global 
 	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'preload_var', '["GlobalVar2"] = "ret_var2"');
 	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'preload_var', '["GlobalVar3"] = "ret_var3"');
 
-14.4.2. Pass Screen Global Data
-*******************************
+The mapping syntax ``["GlobalVarName"] = "backend_key"`` instructs *x0* to read
+the key ``backend_key`` from the backend JSON response and store it under the name
+``GlobalVarName`` in the global data store.
 
-To pass values from *x0-screen-global-data* to backend using *x0-source-data-objects* ...
+14.4.2. Read and Write Global Vars at Runtime
+*********************************************
+
+Once loaded (or at any point during the application lifecycle), global variables can
+be read and written directly via the ``sysFactory`` JavaScript API:
+
+.. code-block:: javascript
+
+	// read a global variable
+	var value = sysFactory.getGlobalVar('GlobalVar1');
+
+	// write / update a global variable
+	sysFactory.setGlobalVar('GlobalVar1', 'new_value');
+
+A global variable can also be set declaratively through a **Button** action, without
+writing any custom JavaScript:
+
+.. code-block:: javascript
+
+	"OnClick":
+	[
+		{
+			"Action": "setglobalvar",
+			"SetVar": "MyGlobalKey",
+			"SetValue": "my_value"
+		}
+	]
+
+14.4.3. Pass Global Vars to Backend (SrcDataObjects)
+*****************************************************
+
+Use the ``GlobalVar`` SrcDataObject type to include individual application-wide
+global variables in a backend request:
 
 .. code-block:: javascript
 
 	"SrcDataObjects":
 	{
-		"$ObjectID":
+		"MyGlobalKey":
+		{
+			"Type": "GlobalVar"
+		}
+	}
+
+The key ``MyGlobalKey`` is both the name under which the value is looked up in the
+global store and the key under which it is sent to the backend.
+
+14.4.4. Screen Global Data
+**************************
+
+Each *x0-screen* maintains its own private key/value store that is populated
+automatically when the screen's backend data-load completes
+(``triggerGlobalDataLoad``). The store is updated with the full JSON result
+returned by the backend service, so every top-level key in that response becomes
+a screen-level global variable.
+
+Read a screen global variable in JavaScript:
+
+.. code-block:: javascript
+
+	var screenObj = sysFactory.getScreenByID('Screen1');
+	var value = screenObj.getGlobalVar('MyScreenKey');
+
+Write a screen global variable:
+
+.. code-block:: javascript
+
+	var screenObj = sysFactory.getScreenByID('Screen1');
+	screenObj.setGlobalVar('MyScreenKey', 'my_value');
+
+14.4.5. Pass Screen Global Vars to Backend (SrcDataObjects)
+************************************************************
+
+Use the ``ScreenGlobalVar`` SrcDataObject type to forward a screen-level variable
+to the backend. Specify the source screen with ``ScreenID``:
+
+.. code-block:: javascript
+
+	"SrcDataObjects":
+	{
+		"MyScreenKey":
 		{
 			"Type": "ScreenGlobalVar",
 			"ScreenID": "Screen1"
 		}
 	}
+
+The value stored under ``MyScreenKey`` in ``Screen1``'s global store is sent to
+the backend under the same key name.
 
 .. _appdev-backend-notify:
 

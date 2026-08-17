@@ -28,7 +28,7 @@
 		"Attributes":
 		{
 			"Style": "border rounded-top rounded-bottom",
-			"HeaderRowStyle": "row m-1 fw-bold fs-2 border-bottom",
+			"HeaderRowStyle": "row fw-bold fs-0 m-0 border-bottom",
 			"RowCount": 5,
 			"RowsSelectable": false,
 			"Navigation": true,
@@ -46,13 +46,13 @@
 				{
 					"ID": "col1",
 					"HeaderTextID": "TXT.TABLE.EXAMPLE.DYNRADIO.HEADER.COL1",
-					"HeaderStyle": "col-md-4 border-end",
+					"HeaderStyle": "col-md-4 p-3 border-end",
 					"HeaderIconStyle": "fa-solid fa-radio"
 				},
 				{
 					"ID": "colradiolist",
 					"HeaderTextID": "TXT.TABLE.EXAMPLE.DYNRADIO.HEADER.COL2",
-					"HeaderStyle": "col-md-8",
+					"HeaderStyle": "col-md-8 p-3",
 					"HeaderIconStyle": "fa-solid fa-circle-dot",
 					"Attributes": {
 						"ObjectType": "DynRadioList",
@@ -60,11 +60,11 @@
 					}
 				}
 			],
-			"RowStyle": "row m-1 border-bottom",
+			"RowStyle": "row m-0 border-bottom",
 			"RowAfterElements": 2,
 			"ColStyle": [
-				"col-md-4 border-end",
-				"col-md-8"
+				"col-md-4 p-3 border-end",
+				"col-md-8 p-3"
 			]
 		}
 	}

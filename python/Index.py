@@ -41,6 +41,7 @@ HTMLTop = """<!DOCTYPE html>
   <script type="text/javascript" src="/sysObjDiv.js"></script>
   <script type="text/javascript" src="/sysObjContextMenu.js"></script>
   <script type="text/javascript" src="/sysScreenOverlay.js"></script>
+  <script type="text/javascript" src="/sysButtonActionProcessor.js"></script>
   <script type="text/javascript" src="/sysObjButton.js"></script>
   <script type="text/javascript" src="/sysObjButtonInternal.js"></script>
   <script type="text/javascript" src="/sysObjButtonCallback.js"></script>
@@ -50,6 +51,7 @@ HTMLTop = """<!DOCTYPE html>
   <script type="text/javascript" src="/sysIntervalHandler.js"></script>
   <script type="text/javascript" src="/sysFormfieldValidate.js"></script>
   <script type="text/javascript" src="/sysObjFormfieldItem.js"></script>
+  <script type="text/javascript" src="/sysObjLanguageSwitch.js"></script>
   <script type="text/javascript" src="/sysGlobalData.js"></script>
   <script type="text/javascript" src="/sysScreen.js"></script>
   <script type="text/javascript" src="/sysObjectLoader.js"></script>

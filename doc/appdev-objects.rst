@@ -19,6 +19,8 @@ Currently the following *x0-system-objects* are usable inside ``object.json``.
 * :ref:`objecttype-errorcontainer`
 * :ref:`objecttype-openclosecontainer`
 * :ref:`objecttype-treesimple`
+* :ref:`objecttype-progressbar`
+* :ref:`objecttype-rangeslider`
 
 For form-specific objects, see :ref:`appdevformobjects`. For practical examples and implementations, see the :ref:`examples section <object-examples-reference>` at the end of this document.
 
@@ -773,9 +775,148 @@ collapsibility:
 * Example #15 - Tree Simple: 
   ``http://x0-app.x0.localnet/python/Index.py?appid=example15``
 
-.. _object-examples-reference:
+10.13. DivUnique
+----------------
 
-10.13. Object Examples Reference
+The ``DivUnique`` *x0-object-type* is an extended ``Div`` that sets its DOM
+``ObjectID`` to a guaranteed-unique value derived from the object's own ``ID``
+(overriding the default recursive naming). This makes it safe to use multiple
+instances on the same screen without ID collisions. It supports the same
+``Style``, ``DOMType``, and ``TextID`` attributes as the standard ``Div`` and
+can act as a parent container for nested child objects.
+
+10.13.1. Object Attributes
+**************************
+
+.. table:: Object Type DivUnique Attributes
+	:widths: 30 20 100
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| DOMType             | String               | Container element tag, e.g. ``div``, ``span``   |
+	+---------------------+----------------------+-------------------------------------------------+
+	| Style               | CSS-String           | CSS Style Classes, space separated              |
+	+---------------------+----------------------+-------------------------------------------------+
+	| TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
+	+---------------------+----------------------+-------------------------------------------------+
+
+10.13.2. JSON Example
+*********************
+
+.. code-block:: javascript
+
+	"$ObjectID":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "container-fluid p-3"
+		}
+	}
+
+.. _objecttype-progressbar:
+
+10.14. ProgressBar
+------------------
+
+The ``ProgressBar`` *x0-object-type* renders a Bootstrap-styled horizontal
+progress indicator. It wraps an inner bar child object whose width is driven by
+a percentage value. The percentage can be read and written at runtime through
+the standard ``getObjectData()`` / ``setObjectData()`` API, making it easy to
+update from button actions or backend callbacks.
+
+10.14.1. Object Attributes
+**************************
+
+.. table:: Object Type ProgressBar Attributes
+	:widths: 30 20 100
+
+	+---------------------+----------------------+-------------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                       |
+	+=====================+======================+=======================================================+
+	| Style               | CSS-String           | Additional CSS classes applied to the inner bar       |
+	|                     |                      | (appended after ``progress-bar``). If omitted, the    |
+	|                     |                      | default striped/animated style is used.               |
+	+---------------------+----------------------+-------------------------------------------------------+
+
+10.14.2. Runtime API
+********************
+
+.. code-block:: javascript
+
+	// read current percentage (0-100)
+	var pct = sysFactory.getObjectByID('MyProgressBar').getObjectData();
+
+	// set percentage and re-render
+	sysFactory.getObjectByID('MyProgressBar').setObjectData(75);
+
+10.14.3. JSON Example
+*********************
+
+.. code-block:: javascript
+
+	"MyProgressBar":
+	{
+		"Type": "ProgressBar",
+		"Attributes": {
+			"Style": "bg-success"
+		}
+	}
+
+.. _objecttype-rangeslider:
+
+10.15. RangeSlider
+------------------
+
+The ``RangeSlider`` *x0-object-type* renders an HTML ``<input type="range">``
+element styled with Bootstrap's ``form-range`` class. It exposes ``Min`` and
+``Max`` configuration attributes and supports the standard
+``getObjectData()`` / ``setObjectData()`` API so its current value can be read
+from or written to by any other *x0-object* or button action.
+
+10.15.1. Object Attributes
+**************************
+
+.. table:: Object Type RangeSlider Attributes
+	:widths: 30 20 100
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| Min                 | Number               | Minimum slider value (HTML ``min`` attribute)   |
+	+---------------------+----------------------+-------------------------------------------------+
+	| Max                 | Number               | Maximum slider value (HTML ``max`` attribute)   |
+	+---------------------+----------------------+-------------------------------------------------+
+
+10.15.2. Runtime API
+********************
+
+.. code-block:: javascript
+
+	// read current slider value
+	var val = sysFactory.getObjectByID('MySlider').getObjectData();
+
+	// set slider value programmatically
+	sysFactory.getObjectByID('MySlider').setObjectData(50);
+
+10.15.3. JSON Example
+*********************
+
+.. code-block:: javascript
+
+	"MySlider":
+	{
+		"Type": "RangeSlider",
+		"Attributes": {
+			"Min": 0,
+			"Max": 100
+		}
+	}
+
+.. _object-examples-reference:
+.. _object-examples-reference-section:
+
+10.16. Object Examples Reference
 --------------------------------
 
 This section provides a comprehensive overview of examples demonstrating various *x0-system-objects* in action.
@@ -795,6 +936,7 @@ This section provides a comprehensive overview of examples demonstrating various
 
 **Container Objects:**
   - :ref:`objecttype-div` - Example 9
+  - DivUnique - See documentation
   - :ref:`objecttype-tabcontainer` - Examples 3, 8  
   - :ref:`objecttype-openclosecontainer` - Example 14
 
@@ -811,6 +953,8 @@ This section provides a comprehensive overview of examples demonstrating various
   - :ref:`objecttype-button` - Various examples
   - :ref:`objecttype-buttoninternal` - Various examples
   - :ref:`objecttype-fileupload` - Example 1
+  - :ref:`objecttype-progressbar` - See documentation
+  - :ref:`objecttype-rangeslider` - See documentation
 
 **External x0-skeleton Examples:**
 

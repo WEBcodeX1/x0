@@ -50,7 +50,7 @@ sysObjSQLText.prototype.init = function() {
         const IconStylePost = Attributes.IconStylePost;
 
         if (IconStylePost !== undefined) {
-            this.IconHTMLPost = '<i class="' + IconStylePost + '"></i> '
+            this.IconHTMLPost = '&nbsp;<i class="' + IconStylePost + '"></i>'
         };
 
         this.DOMStyle = Attributes.Style;

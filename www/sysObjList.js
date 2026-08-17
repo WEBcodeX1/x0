@@ -295,6 +295,9 @@ sysListRow.prototype.onDragStart = function(Event)
 
 function sysList()
 {
+    this.overrideDOMObjectID    = true;                                    //- Override setting recursive ObjectID
+    this.ObjectID               = this.ID;                                 //- Set Unique ID
+
     this.DisplayRows              = 10;                                    //- Display Row Count Default
 
     this.DataURL                  = null;                                  //- getServiceData XMLRPC URL

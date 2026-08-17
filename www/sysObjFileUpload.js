@@ -26,6 +26,7 @@ function sysFileUpload()
     this.RuntimeSetDataFunc   = this.UploadFinished;
 
     this.overrideDOMObjectID  = true;
+    this.ObjectID             = this.ID;
 }
 
 sysFileUpload.prototype = new sysBaseObject();
@@ -174,7 +175,7 @@ sysFileUpload.prototype.renderProgressBar = function()
     try {
         const ProgressBarElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressBar');
         const ProgressPercentageElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressPercentage');
-        ProgressBarElement.DOMStyleWidth = this.ProgressPercent + '%'
+        ProgressBarElement.DOMStyleWidth = this.ProgressPercent + '%';
         ProgressBarElement.setDOMElementStyleAttributes();
         ProgressPercentageElement.DOMValue = Math.round(this.ProgressPercent) + '%';
         ProgressPercentageElement.setDOMElementValue();

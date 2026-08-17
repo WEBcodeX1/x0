@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -21,7 +21,7 @@ function sysCallXMLRPC(URL, URLParams='')
 
     this.RPCType              = 'ASYNC';                   //- ASYNC | SYNC
 
-    this.RequestType          = 'POST';                    //- POST | GET
+    this.RequestType          = 'GET';                     //- POST | GET
     this.RequestCache         = false;                     //- Cache Request
 
     this.HTTPAuthBasic        = false;                     //- HTTP Basic Authentication
@@ -167,7 +167,7 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
 
         request.open(this.RequestType, RequestURL);
 
-        request.setRequestHeader('Upgrade-Insecure-Requests', 1);
+        //request.setRequestHeader('Upgrade-Insecure-Requests', 1);
         request.setRequestHeader('Cache-Control', 'max-age=0');
         request.setRequestHeader('Content-Type', HeaderContentType);
         request.setRequestHeader('Accept', HeaderAccept);

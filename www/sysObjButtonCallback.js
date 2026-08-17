@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -16,11 +16,15 @@
 //------------------------------------------------------------------------------
 
 function sysObjButtonCallback() {
-    this.DOMType        = 'button'
-    this.DOMAttributes  = new Object();
 
-    this.EventListeners = new Object();
-    this.ChildObjects   = new Array();
+    this.DOMType                = 'button'          //- DOM Type
+    this.DOMAttributes          = new Object();     //- DOM Attributes
+
+    this.overrideDOMObjectID    = true;             //- Override recursive ObjectID
+    this.ObjectID               = this.ID;          //- Set unique ID
+
+    this.EventListeners         = new Object();     //- Event Listerners Object
+    this.ChildObjects           = new Array();      //- Child Objects Array
 }
 
 //- inherit sysBaseObject

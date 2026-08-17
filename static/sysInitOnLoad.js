@@ -1,11 +1,11 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //- SYSTEM "InitOnLoad"                                                      -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- System Initialization                                                    -//
+//- Static System Initialization (Non-Database)                              -//
 //-                                                                          -//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -78,7 +78,7 @@ function InitOk(XHR) {
 
     if (sysVarPreLoadScript !== undefined) {
         const InsertResult = JSON.parse(XHR.responseText);
-        for (Key in sysVarPreLoadVars) {
+        for (const Key in sysVarPreLoadVars) {
             sysFactory.ObjGlobalData[Key] = InsertResult[sysVarPreLoadVars[Key]];
         }
         try {
@@ -116,8 +116,7 @@ function InitOk(XHR) {
     sysFactory.DataObject.setLoaderObj(sysObjLoader);
     sysFactory.DataSkeleton.setLoaderObj(sysObjLoader);
 
-    const TextDataURL = (typeof sysVarTextDataFile !== 'undefined') ? sysVarTextDataFile : '/python/getText.py';
-    sysFactory.ObjText.requestXMLRPCData(TextDataURL);
+    sysFactory.ObjText.requestXMLRPCData(sysVarAppSubdir + '/text-data.json');
     sysFactory.DataMenu.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigMenuFile);
     sysFactory.DataObject.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigObjectFile);
     sysFactory.DataSkeleton.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigSkeletonFile);
@@ -127,33 +126,33 @@ function InitOk(XHR) {
     //- Set System Vars
     //----------------------------------------------------------------------------
 
-    sysFactory.DisplayDefaultScreen           = sysVarDisplayDefaultScreen;
+    sysFactory.DisplayDefaultScreen = sysVarDisplayDefaultScreen;
 
-    sysFactory.SysDebugLevel                  = sysVarDebugLevel;
-    sysFactory.SysSessionID                   = 'SYS_SESSION';
-    sysFactory.SysUserID                      = UserID;
-    sysFactory.SysSessionValue                = UserSession;
-    sysFactory.MsgServerGetURL                = 'http://x0-msg-server.x0.localnet:8080/python/MsgHandler.py';
+    sysFactory.SysDebugLevel = sysVarDebugLevel;
+    sysFactory.SysSessionID = 'SYS_SESSION';
+    sysFactory.SysUserID = UserID;
+    sysFactory.SysSessionValue = UserSession;
+    sysFactory.MsgServerGetURL = 'http://x0-msg-server.x0.localnet:8080/python/MsgHandler.py';
 
-    sysFactory.ParentWindowURL                = sysVarParentWindowURL;
+    sysFactory.ParentWindowURL = sysVarParentWindowURL;
 
 
     //----------------------------------------------------------------------------
     //- Style Defaults
     //----------------------------------------------------------------------------
 
-    sysFactory.DefaultStyleScreen             = 'col-md-8 ms-auto me-auto';
-    sysFactory.DefaultStyleMenu               = 'menu-absolute-pos';
-    sysFactory.DefaultStyleScreenOverlay      = 'p-3 shadow-lg border bg-gradient bg-opacity-75 overlay-default';
-    sysFactory.DefaultStyleListNavLeft        = 'col-6 p-4 pl-0';
-    sysFactory.DefaultStyleListNavRight       = 'col-6 p-4 float-end text-end pr-0';
+    sysFactory.DefaultStyleScreen = 'col-md-11 ms-auto me-auto';
+    sysFactory.DefaultStyleMenu = 'menu-absolute-pos';
+    sysFactory.DefaultStyleScreenOverlay = 'p-3 shadow-lg border bg-gradient bg-opacity-75 overlay-default';
+    sysFactory.DefaultStyleListNavLeft = 'col-6 p-4 pl-0';
+    sysFactory.DefaultStyleListNavRight = 'col-6 p-4 float-end text-end pr-0';
 
 
     //----------------------------------------------------------------------------
     //- Display Language
     //----------------------------------------------------------------------------
 
-    sysFactory.EnvUserLanguage    = sysVarDisplayLanguage;
+    sysFactory.EnvUserLanguage = sysVarDisplayLanguage;
 
 
     //----------------------------------------------------------------------------
@@ -184,13 +183,6 @@ function InitOk(XHR) {
     //----------------------------------------------------------------------------
 
     sysFactory.Reactor = new sysReactor();
-
-
-    //----------------------------------------------------------------------------
-    //- Construct Global Drag and Drop Handler
-    //----------------------------------------------------------------------------
-
-    sysFactory.DragDropHandler = new sysDragDropHandler();
 
 
     //----------------------------------------------------------------------------

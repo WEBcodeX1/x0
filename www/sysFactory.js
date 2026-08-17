@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -27,6 +27,7 @@ function sysFactory()
         "FormfieldList": sysFormfieldList,
         "ServiceConnector": sysServiceConnector,
         "Div": sysObjDiv,
+        "DivUnique": sysObjDivUnique,
         "FileUpload": sysFileUpload,
         "ErrorContainer": sysErrorContainer,
         "Link": sysObjLink,
@@ -38,9 +39,12 @@ function sysFactory()
         "FormfieldCheckbox": sysFormfieldItemCheckbox,
         "FormfieldLabel": sysFormfieldItemLabel,
         "FormfieldHidden": sysFormfieldItemHidden,
+        "LanguageSwitch": sysObjLanguageSwitch,
         "DynRadioList": sysObjDynRadioList,
         "OpenCloseContainer": sysObjOpenClose,
-        "TreeSimple": sysObjTreeSimple
+        "TreeSimple": sysObjTreeSimple,
+        "ProgressBar": sysObjProgressBar,
+        "RangeSlider": sysObjRangeSlider
     };
 
     this.SetupClassesRT = {
@@ -327,6 +331,15 @@ sysFactory.prototype.getGlobalVar = function(Key) {
 
 
 //------------------------------------------------------------------------------
+//- METHOD "setGlobalVar"
+//------------------------------------------------------------------------------
+
+sysFactory.prototype.setGlobalVar = function(Key, Value) {
+    this.ObjGlobalData[Key] = Value;
+}
+
+
+//------------------------------------------------------------------------------
 //- Function "initOnChangeObjects"
 //------------------------------------------------------------------------------
 
@@ -371,11 +384,28 @@ sysFactory.prototype.getText = function(TextID)
         const TextObj = this.ObjText.getTextObjectByID(TextID);
         RetValue = TextObj[this.EnvUserLanguage];
     }
-    catch(err) {
-        RetValue = 'Missing Text with ID:' + TextID;
-        console.debug('Text not found for given TextID:' + TextID);
+        catch(err) {
+            RetValue = 'Missing Text with ID:' + TextID;
+            console.debug('Text not found for given TextID:' + TextID);
+        }
+        return RetValue;
     }
-    return RetValue;
+
+
+    //------------------------------------------------------------------------------
+    //- METHOD "updateAllSQLTextObjects"
+    //------------------------------------------------------------------------------
+
+    sysFactory.prototype.updateAllSQLTextObjects = function()
+    {
+        for (const ScreenID in this.Screens) {
+            const ScreenObj = this.Screens[ScreenID];
+            const SQLTextObjects = ScreenObj.HierarchyRootObject.getObjectsByType('SQLText');
+            for (const SQLTextObj of SQLTextObjects) {
+                SQLTextObj.update();
+                SQLTextObj.setDOMElementValue();
+            }
+        }
 }
 
 
