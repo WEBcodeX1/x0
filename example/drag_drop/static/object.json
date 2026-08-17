@@ -1,0 +1,327 @@
+{
+	"Link1":
+	{
+		"Type": "Link",
+		"Attributes": {
+			"Style": "btn btn-primary d-none",
+			"TextID": "TXT.DRAGDROP.LINK1",
+			"ScreenID": "Screen1"
+		}
+	},
+
+	"TabContainer1":
+	{
+		"Type": "TabContainer",
+		"Attributes":
+		{
+			"Tabs": [
+				{
+					"ID": "Tab1",
+					"Attributes":
+						{
+							"Default": true,
+							"TextID": "TXT.DRAGDROP.TAB1",
+							"Style": "col-md-5"
+						}
+				},
+				{
+					"ID": "Tab2",
+					"Attributes":
+						{
+							"TextID": "TXT.DRAGDROP.TAB2",
+							"Style": "col-md-7"
+						}
+				},
+				{
+					"ID": "Tab3",
+					"Attributes":
+						{
+							"TextID": "TXT.DRAGDROP.TAB3",
+							"Style": "col-md-5"
+						}
+				}
+			]
+		}
+	},
+
+	"SourceListConnector":
+	{
+		"Type": "ServiceConnector",
+		"Attributes":
+		{
+			"OnEvent":
+			{
+				"Events": [ "InitSystem" ],
+				"ServiceCall": "/python/IntegrationTestGetTableData2.py"
+			}
+		}
+	},
+
+	"SourceList":
+	{
+		"Type": "List",
+		"Attributes":
+		{
+			"Style": "border rounded-top rounded-bottom",
+			"HeaderRowStyle": "row fw-bold fs-6 m-1 border-bottom",
+			"RowCount": 10,
+			"DragSource": true,
+			"SrcDataObjects":
+			{
+				"Dummy":
+				{
+					"Type": "HardcodedValues",
+					"Values": {
+						"LimitRows": "10"
+					}
+				}
+			},
+			"Columns": [
+				{
+					"ID": "col1",
+					"HeaderTextID": "TXT.DRAGDROP.HEADER.COL1",
+					"HeaderStyle": "col-md-3 p-2 border-end"
+				},
+				{
+					"ID": "col2",
+					"HeaderTextID": "TXT.DRAGDROP.HEADER.COL2",
+					"HeaderStyle": "col-md-3 p-2 border-end"
+				},
+				{
+					"ID": "col3",
+					"HeaderTextID": "TXT.DRAGDROP.HEADER.COL3",
+					"HeaderStyle": "col-md-3 p-2 border-end"
+				},
+				{
+					"ID": "col4",
+					"HeaderTextID": "TXT.DRAGDROP.HEADER.COL4",
+					"HeaderStyle": "col-md-3 p-2"
+				}
+			],
+			"RowStyle": "row m-1 border-bottom",
+			"RowAfterElements": 4,
+			"ColStyle": [
+				"col-md-3 p-2 border-end",
+				"col-md-3 p-2 border-end",
+				"col-md-3 p-2 border-end",
+				"col-md-3 p-2"
+			]
+		}
+	},
+
+	"DestinationList":
+	{
+		"Type": "List",
+		"Attributes":
+		{
+			"Style": "border rounded-top rounded-bottom",
+			"HeaderRowStyle": "row fw-bold fs-6 m-1 border-bottom",
+			"RowCount": 20,
+			"DropTarget": true,
+			"DataMaxRows": 50,
+			"Columns": [
+				{
+					"ID": "col1",
+					"HeaderTextID": "TXT.DRAGDROP.HEADER.COL1",
+					"HeaderStyle": "col-md-3 p-2 border-end"
+				},
+				{
+					"ID": "col2",
+					"HeaderTextID": "TXT.DRAGDROP.HEADER.COL2",
+					"HeaderStyle": "col-md-3 p-2 border-end"
+				},
+				{
+					"ID": "col3",
+					"HeaderTextID": "TXT.DRAGDROP.HEADER.COL3",
+					"HeaderStyle": "col-md-3 p-2 border-end"
+				},
+				{
+					"ID": "col4",
+					"HeaderTextID": "TXT.DRAGDROP.HEADER.COL4",
+					"HeaderStyle": "col-md-3 p-2"
+				}
+			],
+			"RowStyle": "row m-1 border-bottom",
+			"RowAfterElements": 4,
+			"ColStyle": [
+				"col-md-3 p-2 border-end",
+				"col-md-3 p-2 border-end",
+				"col-md-3 p-2 border-end",
+				"col-md-3 p-2"
+			]
+		}
+	},
+
+	"DestinationForm": {
+		"Type": "FormfieldList",
+		"Attributes": {
+			"DropTarget": true,
+			"Sections": [
+				{
+					"ID": "Section1",
+					"Object": "FormSectionHeader",
+					"ObjectAttributes": {
+						"Style": "card card-line bg-body-tertiary border border-dark border-2 mb-3",
+						"SubStyle": "card-body mt-n6",
+						"HeaderIcon": "fa-solid fa-down-to-line",
+						"HeaderTextID": "TXT.DRAGDROP.FORM.HEADER",
+						"SubHeaderTextID": "TXT.DRAGDROP.FORM.SUBHEADER"
+					},
+					"Formfields": [
+						"col1Descr",
+						"col1",
+						"col2Descr",
+						"col2",
+						"col3Descr",
+						"col3",
+						"col4Descr",
+						"col4"
+					],
+					"RowStyle": "row",
+					"RowAfterElements": 4,
+					"ColStyle": "col-md-6",
+					"ColAfterElements": 2
+				}
+			]
+		}
+	},
+
+	"col1Descr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"TextID": "TXT.DRAGDROP.FORM.LABEL.COL1"
+		}
+	},
+
+	"col1": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "checkbox",
+			"Value": true,
+			"Style": "form-check"
+		}
+	},
+
+	"col2Descr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"TextID": "TXT.DRAGDROP.FORM.LABEL.COL2"
+		}
+	},
+
+	"col2": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "text",
+			"Disabled": true,
+			"Style": "form-control mb-1 p-1 w-100"
+		}
+	},
+
+	"col3Descr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"TextID": "TXT.DRAGDROP.FORM.LABEL.COL3"
+		}
+	},
+
+	"col3": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "pulldown",
+			"Style": "form-control mb-1 p-1 w-100",
+			"Options": [
+				{
+					"TextID": "TXT.DRAGDROP.PULLDOWN.OPT1",
+					"Value": "10"
+				},
+				{
+					"TextID": "TXT.DRAGDROP.PULLDOWN.OPT2",
+					"Value": "20",
+					"Default": true
+				},
+				{
+					"TextID": "TXT.DRAGDROP.PULLDOWN.OPT3",
+					"Value": "30"
+				}
+			]
+		}
+	},
+
+	"col4Descr": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "label",
+			"TextID": "TXT.DRAGDROP.FORM.LABEL.COL4"
+		}
+	},
+
+	"col4": {
+		"Type": "Formfield",
+		"Attributes": {
+			"Type": "textarea",
+			"Style": "form-control mb-1 p-1 w-100"
+		}
+	},
+
+	"DragDropTree":
+	{
+		"Type": "TreeSimple",
+		"Attributes":
+		{
+			"DragSource": true,
+			"DropTarget": true,
+			"TreeItems":
+			[
+				{
+					"Type": "Node",
+					"TextID": "TXT.DRAGDROP.TREE.NODE1",
+					"Children":
+					[
+						{
+							"Type": "Item",
+							"TextID": "TXT.DRAGDROP.TREE.ITEM1",
+							"Icon": "fa-solid fa-file",
+							"ScreenID": "Screen1"
+						},
+						{
+							"Type": "Item",
+							"TextID": "TXT.DRAGDROP.TREE.ITEM2",
+							"Icon": "fa-solid fa-file",
+							"ScreenID": "Screen1"
+						},
+						{
+							"Type": "Item",
+							"TextID": "TXT.DRAGDROP.TREE.ITEM3",
+							"Icon": "fa-solid fa-file",
+							"ScreenID": "Screen1"
+						}
+					]
+				},
+				{
+					"Type": "Node",
+					"TextID": "TXT.DRAGDROP.TREE.NODE2",
+					"Children":
+					[
+						{
+							"Type": "Item",
+							"TextID": "TXT.DRAGDROP.TREE.ITEM4",
+							"Icon": "fa-solid fa-file",
+							"ScreenID": "Screen1"
+						},
+						{
+							"Type": "Item",
+							"TextID": "TXT.DRAGDROP.TREE.ITEM5",
+							"Icon": "fa-solid fa-file",
+							"ScreenID": "Screen1"
+						}
+					]
+				}
+			]
+		}
+	}
+
+}

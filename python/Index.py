@@ -62,6 +62,7 @@ HTMLTop = """<!DOCTYPE html>
   <script type="text/javascript" src="/sysObjOpenCloseContainer.js"></script>
   <script type="text/javascript" src="/sysObjTreeSimple.js"></script>
   <script type="text/javascript" src="/sysGridGenerator.js"></script>
+  <script type="text/javascript" src="/sysDragDropHandler.js"></script>
   <script type="text/javascript" src="/sysFactory.js"></script>
   <script type="text/javascript" src="/sysAsyncNotify.js"></script>
   <script type="text/javascript" src="/sysAsyncNotifyIndicator.js"></script>
