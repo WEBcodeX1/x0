@@ -24,6 +24,7 @@ get started quickly.
 - [net_messages](https://github.com/WEBcodeX1/x0/tree/main/example/net_messages) - Network messaging between sessions
 - [object_instances](https://github.com/WEBcodeX1/x0/tree/main/example/object_instances) - Dynamic object instancing (experimental)
 - [open_close_container](https://github.com/WEBcodeX1/x0/tree/main/example/open_close_container) - Collapsible container sections
+- [object_editor](https://github.com/WEBcodeX1/x0/tree/main/example/object_editor) - In-browser object/screen editor with runtime drag & drop
 - [screen_overlay](https://github.com/WEBcodeX1/x0/tree/main/example/screen_overlay) - Modal overlay functionality
 - [recursive_object_data](https://github.com/WEBcodeX1/x0/tree/main/example/recursive_object_data) - Recursive object data get/set scenarios
 - [tree_simple](https://github.com/WEBcodeX1/x0/tree/main/example/tree_simple) - Hierarchical tree structures with navigation

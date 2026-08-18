@@ -1,0 +1,8 @@
+{
+  "ObjectEditor1": {
+    "Type": "ObjectEditor",
+    "Attributes": {
+      "Style": "container-fluid py-3"
+    }
+  }
+}

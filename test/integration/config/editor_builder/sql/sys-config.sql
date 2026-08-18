@@ -1,0 +1,11 @@
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_editor_builder', 'index_title', 'x0 Integration Test Object Editor');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_editor_builder', 'debug_level', '10');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_editor_builder', 'display_language', 'en');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_editor_builder', 'default_screen', 'Screen1');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_editor_builder', 'parent_window_url', 'null');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_editor_builder', 'subdir', '/test/editor_builder');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_editor_builder', 'config_file_menu', 'menu.json');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_editor_builder', 'config_file_object', 'object.json');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_editor_builder', 'config_file_skeleton', 'skeleton.json');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_editor_builder', 'template_file', 'test/editor_builder/sysObjObjectEditor.js');
+INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_editor_builder', 'setup_class', "['ObjectEditor']=sysObjObjectEditor");

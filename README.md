@@ -103,12 +103,12 @@ Full details in [WEB/codeX PKI Manager](https://www.webcodex.de/index.html?menu=
 
 # Examples
 
-Try 15 live examples (after local docker containers have been started):
+Try 16 live examples (after local docker containers have been started):
 
 ```
 http://x0-app.x0.localnet/python/Index.py?appid=example1
 ...
-http://x0-app.x0.localnet/python/Index.py?appid=example15
+http://x0-app.x0.localnet/python/Index.py?appid=example16
 ```
 
 Most examples now include a descriptive video: [./example/README.md](./example/README.md).
