@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:25.10
 MAINTAINER Claus Prüfer
 
 ARG DEBIAN_FRONTEND=noninteractive
