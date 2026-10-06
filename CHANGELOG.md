@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0-rc1] - 2026-10-06
+
+### Added
+- SQL-free static deployment option with Docker build and startup support
+- Drag-and-drop support for List, FormfieldList, and TreeSimple objects
+- Image, image selector, information paragraph, header/body container, and system settings objects
+- Function dispatcher for user-defined actions
+
+### Changed
+- Refactored object, form, list, tab, and event processing, including validation, notifications, and screen handling
+- Updated Docker and Debian packaging for local/offline builds and reorganized deployment configuration
+- Expanded static application metadata and refreshed example assets
+
+### Fixed
+- Corrected runtime handling across object creation, data updates, file uploads, and asynchronous notifications
+
+### Removed
+- Retired obsolete Link and IntervalHandler components and superseded examples and build assets
+
 ## [1.0.0] - 2025-09-07
 
 ### Added
@@ -166,7 +185,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **License**: AGPL-3.0
 - **Maintainer**: Claus Prüfer <pruefer@webcodex.de>
 
-[Unreleased]: https://github.com/WEBcodeX1/x0/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/WEBcodeX1/x0/compare/v1.1.0-rc1...HEAD
+[1.1.0-rc1]: https://github.com/WEBcodeX1/x0/compare/v1.0.0...v1.1.0-rc1
 [1.0.0]: https://github.com/WEBcodeX1/x0/compare/v1.0.0-rc1...v1.0.0
 [1.0.0-rc1]: https://github.com/WEBcodeX1/x0/compare/v0.99.0...v1.0.0-rc1
 [0.99.0]: https://github.com/WEBcodeX1/x0/compare/v0.98.0-rc...v0.99.0
