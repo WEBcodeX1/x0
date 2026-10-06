@@ -6,12 +6,10 @@
 21.1. Intro
 -----------
 
-The *x0-deployment* main goal is to get multiple production ready GKE
-(Google Kubernetes Engine) environments online with minimum effort.
-
-Why Kubernetes? It is the only current system worldwide guaranteeing
-native fail-safe operations including application load-balancing and
-auto-scaling.
+The deployment tooling supports local Docker environments and Kubernetes
+clusters, including Minikube and Google Kubernetes Engine. Kubernetes can
+provide replication, ingress-based load balancing, and autoscaling when these
+capabilities are configured for a deployment.
 
 Following, our proposed deployment workflow.
 
@@ -26,16 +24,16 @@ Following, our proposed deployment workflow.
 21.2. Standalone
 ----------------
 
-Standalone installation provides packages for Ubuntu 22.04.
+Standalone installation provides Debian packages for supported Ubuntu and
+Debian environments; see :ref:`installation` for build prerequisites.
 
-If you really like to run packages natively, install *x0-app* and *x0-db*
-.deb packages. Using the Docker environment is strongly recommended to avoid
-unnecessary effort.
+For a native installation, install the *x0-app* and *x0-db* packages. The
+Docker profiles are generally simpler to build and operate.
 
 .. code-block:: bash
 
-	dpkg -i x0-db_1.0_all.deb
-	dpkg -i x-app_1.0_all.deb
+	dpkg -i x0-db_*.deb
+	dpkg -i x0-app_*.deb
 
 .. _appdeployment-docker:
 
@@ -47,6 +45,13 @@ locally before more time-consuming Kubernetes administration tasks apply.
 
 A Minikube deployment also includes infrastructural / loadbalancing tests
 to ensure your application also behaves correctly on GKE.
+
+The repository provides two application profiles:
+
+* ``x0-app`` with ``x0-db`` provides the database-backed application server.
+* ``x0-static`` serves the bundled static application without a local database
+  or Python/WSGI server. See :ref:`appdev-static-deployment` for build steps
+  and metadata locations.
 
 .. _appdeployment-tests:
 

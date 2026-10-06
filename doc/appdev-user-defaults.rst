@@ -142,104 +142,35 @@ Configure group validation in FormfieldList objects:
 		}
 	}
 
-13.4. User Context Menu Processing
-**********************************
+13.4. Context Menu Functions
+****************************
 
-The ``UserContextMenu`` class allows custom processing of context menu interactions
-beyond the standard framework methods.
-
-13.4.1. UserContextMenu Class
------------------------------
-
-.. code-block:: javascript
-
-	function UserContextMenu() {
-	}
-
-	UserContextMenu.prototype.process = function(ContextMenuRef) {
-		console.debug('Processing custom context menu action:', ContextMenuRef);
-
-		const method = ContextMenuRef.Method;
-		const rowData = ContextMenuRef.RowData;
-
-		switch(method) {
-			case 'CustomExport':
-				this.handleCustomExport(rowData);
-				break;
-			case 'CustomNotification':
-				this.handleCustomNotification(rowData);
-				break;
-			default:
-				console.debug('Unknown custom context menu method:', method);
-		}
-	}
-
-	UserContextMenu.prototype.handleCustomExport = function(rowData) {
-		// Custom export logic
-		console.debug('Exporting data:', rowData);
-	}
-
-13.4.2. Context Menu Configuration
-----------------------------------
-
-Add custom context menu items in List configurations:
-
-.. code-block:: javascript
-
-	"MyList": {
-		"Type": "List",
-		"Attributes": {
-			"ContextMenuItems": [
-				{
-					"ID": "CustomExport",
-					"TextID": "TXT.EXPORT.CUSTOM",
-					"IconStyle": "fa-solid fa-file-export",
-					"InternalFunction": "CustomExport"
-				}
-			]
-		}
-	}
+Context-menu operations are dispatched by the built-in ``FunctionDispatcher``.
+Its supported function identifiers and configuration are documented in
+:ref:`appdevcontextmenu`. The previous ``UserContextMenu`` extension example is
+not part of the current runtime API.
 
 13.5. Implementation Example
 ****************************
 
-Complete example showing user functionality integration:
+User default and validation classes are defined in the application's
+``userFunctions.js`` file. The framework instantiates ``UserDefaults``,
+``UserValidate``, and ``UserValidateGroup`` during initialization.
 
 .. code-block:: javascript
 
-	// File: /www/static/userFunctions.js
+   function UserDefaults() {
+     this.DefaultStyleScreen = 'col-md-10 ms-auto me-auto custom-screen';
+   }
 
-	function UserDefaults() {
-		this.DefaultStyleScreen = 'col-md-10 ms-auto me-auto custom-screen';
-	}
+   function UserValidate() {
+     this.ValidateFunc = {
+       'businessEmail': this.validateBusinessEmail
+     };
+   }
 
-	function UserValidate() {
-		this.ValidateFunc = {
-			'businessEmail': this.validateBusinessEmail
-		};
-	}
-
-	UserValidate.prototype.validateBusinessEmail = function(Value, FormObj) {
-		const businessDomains = ['company.com', 'business.org'];
-		const domain = Value.split('@')[1];
-		return businessDomains.includes(domain);
-	}
-
-	function UserValidateGroup() {
-		this.ValidateFunc = {
-			'businessInfo': this.validateBusinessInfo
-		};
-	}
-
-	UserValidateGroup.prototype.validateBusinessInfo = function(FormfieldItems) {
-		// Custom business validation logic
-		return true;
-	}
-
-	function UserContextMenu() {
-	}
-
-	UserContextMenu.prototype.process = function(ContextMenuRef) {
-		// Custom context menu processing
-		console.debug('Custom context menu processing:', ContextMenuRef);
-	}
+   UserValidate.prototype.validateBusinessEmail = function(Value, FormObj) {
+     const businessDomains = ['company.com', 'business.org'];
+     const domain = Value.split('@')[1];
+     return businessDomains.includes(domain);
+   };

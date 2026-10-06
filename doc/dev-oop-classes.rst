@@ -527,6 +527,8 @@ are still traversed.
     var allData = sysFactory.getObjectByID('RootContainer').getObjectData(true);
     // => { MyList1: <listData>, MyForm1: <formData>, MyProgress1: 75, … }
 
+.. _recursive-object-data-setter:
+
 24.1.6.5. Recursive setter – ObjectIDs schema
 ##############################################
 
@@ -630,7 +632,7 @@ Returns a flat ``{ ObjectID: value, … }`` map.
 
 Walks the ``ObjectIDs`` hierarchy in the supplied data object, resolving each key to a
 live object via ``getObjectByID()`` and dispatching set or append as described in
-`24.1.6.5`_.
+:ref:`the recursive setter <recursive-object-data-setter>`.
 
 .. code-block:: javascript
 
@@ -678,11 +680,9 @@ live object via ``getObjectByID()`` and dispatching set or append as described i
 24.1.7.3. Example scenarios
 #############################
 
-A complete set of runnable scenarios (10 examples covering flat get/set, recursive
-get/set, Action directives, and round-trip verification) is available in the
-repository at:
-
-``example/recursive_object_data/recursive_object_data_examples.js``
+The former ``recursive_object_data`` example has been removed. Runtime object
+data can be read and written through the base-object APIs described above;
+current application demonstrations are listed in ``example/``.
 
 .. _devoopmodel-classes-buttoncallback:
 
@@ -860,21 +860,14 @@ Defined in ``sysObjTabContainer.js``. Implements tabbed interface functionality.
 - ``addTabs()``: Adds tabs to the container
 - ``getTabByTabID(TabID)``: Retrieves tab by ID
 
-24.2.4. sysObjLink
-******************
-
-Defined in ``sysObjLink.js``. Creates navigation links and clickable elements.
-
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
-
-24.2.5. sysObjSQLText
+24.2.4. sysObjSQLText
 *********************
 
 Defined in ``sysObjSQLText.js``. Displays text content loaded from database sources.
 
 **Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
 
-24.2.6. sysObjLanguageSwitch
+24.2.5. sysObjLanguageSwitch
 ****************************
 
 Defined in ``sysObjLanguageSwitch.js``. Provides a pulldown selector and update button

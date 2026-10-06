@@ -6,21 +6,18 @@
 1.1. Introduction
 -----------------
 
-*x0* (**cross-object**) /krɒs ɒb.dʒɪkt/ JavaScript Framework is an
-**ultra-lightweight**, **serverless** in-browser RTTE (Real-Time Templating Engine)
-designed to run **entirely independent** of backend or server-side code. Built on a
-**clean, object-oriented** programming (OOP) foundation, it **drastically minimizes
-code complexity** by replacing heavy imperative logic with a **highly efficient
-declarative metadata** concept.
+*x0* (**cross-object**) /krɒs ɒb.dʒɪkt/ is a JavaScript framework and
+real-time templating engine. It renders a declarative, JSON-defined object
+model in the browser and uses object-oriented abstractions to organize
+application behavior.
 
-The framework can be statically loaded from any standard web server, comprising just
-66 system and 4 object metadata definition files with a core footprint of only
-**356 Kilobytes**. It depends on **Bootstrap** and optionally utilizes **Font Awesome**
-for its UI components. Even with a minimalist setup of both libraries, extensive user
-metadata, and custom application code, the total deployment size remains under
-**4 Megabytes** for a complete client / server architecture. Because the application
-renders completely within the client browser, it is perfectly suited for
-**resource-constrained** environments like embedded **microcontroller** web interfaces.
+Applications can use the database-backed x0 application server or the
+database-independent static deployment profile. The static profile serves the
+runtime and application metadata through Apache; applications that require
+remote data or other services must provide those services separately. x0 uses
+Bootstrap for layout and styling and can use Font Awesome for icons. Its
+client-side rendering model is also suitable for resource-constrained and
+embedded web interfaces.
 
 An example of an x0-application-driven, browser-controlled multiplayer PONG game
 running on an **ESP32-S3** microcontroller using the ESP-IDF framework (with embedded
@@ -35,14 +32,11 @@ application behavior, drastically reducing custom boilerplate code.
 **Clean OOP Foundation**: Leverages object-oriented design patterns to minimize
 architectural complexity and keep the codebase maintainable.
 
-**Serverless & Independent**: Runs entirely in the browser without depending on a
-classic backend stack.
+**Deployment Flexibility**: Supports both database-backed applications and a
+static Apache deployment profile.
 
-**Ultra-Lightweight Core**: Consists of only 66 system files and 4 metadata files,
-totaling just 356 KB.
-
-**Production Footprint < 4 MB**: Includes Bootstrap, Font Awesome, and comprehensive
-user application code within less than 4 Megabytes.
+**Client-Side Rendering**: Renders the object model in the browser; applications
+can connect to separately provided services when required.
 
 **Microcontroller Ready**: Ideal for low-resource embedded web interfaces due to full
 client-side rendering.

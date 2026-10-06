@@ -18,8 +18,8 @@ For production-ready examples and advanced implementations, see the `x0-skeleton
 28.1. Example Structure
 ------------------------
 
-Each example should adhere to a well-defined structure to ensure consistency
-and ease of understanding. The structure includes the following components:
+Database-backed examples are located in ``example/<example_id>/``. A typical
+example contains the following components:
 
 28.1.1. App Configuration (Database)
 ************************************
@@ -40,7 +40,7 @@ Example SQL:
 	INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'config_file_object', 'object.json');
 	INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'config_file_skeleton', 'skeleton.json');
 
-Save this SQL script in: ``/examples/${example_app_id}/sql/01-sys-config.sql``.
+Save this SQL script in: ``example/${example_app_id}/sql/01-sys-config.sql``.
 
 28.1.2. App Configuration (Static Files)
 ****************************************
@@ -51,7 +51,7 @@ Include the following static JSON configuration files:
 - **skeleton.json**: Structures the application's UI layout.
 - **menu.json**: Provides navigation options.
 
-Place these files in: ``/examples/${example_app_id}/static/``.
+Place these files in: ``example/${example_app_id}/static/``.
 
 28.1.3. Database Data
 *********************
@@ -65,7 +65,7 @@ Example SQL:
     INSERT INTO example_table (id, name, description) VALUES (1, 'Sample Item', 'This is a sample entry.');
     INSERT INTO example_table (id, name, description) VALUES (2, 'Another Item', 'Another sample entry.');
 
-Save this SQL script in: ``/examples/${example_app_id}/sql/02-app-data.sql``.
+Save this SQL script in: ``example/${example_app_id}/sql/02-app-data.sql``.
 
 28.1.4. Backend Scripts
 ***********************
@@ -76,7 +76,12 @@ These scripts should:
 - Handle backend logic.
 - Return JSON data required by the frontend.
 
-Place the scripts in: ``/examples/example_app/python/``.
+Place the scripts in: ``example/${example_app_id}/python/``.
+
+The repository also contains a database-independent static deployment. Its
+metadata lives in ``static/meta/`` and includes the translated text resource
+``text-data.json``; unlike a database-backed example, it does not use example
+SQL configuration. See :ref:`appdev-static-deployment`.
 
 28.2. Example Processing
 -------------------------
@@ -118,7 +123,16 @@ the capabilities of the *x0-framework*.
 
 **Current Local Examples:**
 
-The `/example` directory contains numerous demonstrations of x0-framework features:
+The ``example/`` directory contains demonstrations of framework features,
+including:
+
+* ``copy_paste`` - Context-menu copy and paste between objects.
+* ``enhanced_form`` - Form configuration and validation.
+* ``list_objectdata_grid`` - Runtime data and grid behavior.
+* ``net_messages`` - Messaging between browser sessions.
+* ``object_instances`` - Object instancing (experimental).
+* ``screen_overlay`` - Screen overlay behavior.
+* ``tree_simple`` - Hierarchical navigation.
 
 **Form Examples:**
   - :ref:`Enhanced Form (Example 5) <enhanced-form-example>` - `http://x0-app.x0.localnet/python/Index.py?appid=example5 <http://x0-app.x0.localnet/python/Index.py?appid=example5>`_
