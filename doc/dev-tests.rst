@@ -8,103 +8,37 @@
 Tests are an essential component for ensuring the stability of newly designed
 *x0-system-objects* and the base system, especially after major system changes.
 
-The *x0-system* design enables you to locally simulate the entire *x0-infrastructure*
-using Docker images (including the ``x0-test`` image) in minimal time, thereby offloading
-valuable CPU resources. This approach ensures that only one developer executes a
-single infrastructure run, rather than multiplying the load by the number of developers,
-reducing strain on the Git CI system's server.
+The integration tests use Pytest and Selenium against the database-backed Docker
+environment. The repository also provides ``x0-test`` and ``x0-test-github``
+images for running the test suite in containers.
 
-As a developer, you are strongly encouraged to write sufficient tests and add them to the
-``/tests`` subdirectory. This chapter provides detailed instructions on how to do so.
+Tests are located in ``test/integration/`` and follow the
+``test_<group>.py`` naming convention. Application fixtures are under
+``test/integration/config/``; backend fixture scripts are under
+``test/integration/python/``.
 
 27.1. Test CI
 -------------
 
-On pushing to the ``current-release`` branch, current-release`s test-containers will
-be run and tests executed within.
-
-An authenticated maintainer must ensure to push the relevant images to ``ghcr.io/webcodex1/``
-before pushing to the ``current-release`` branch by:
-
-.. code-block:: bash
-
-	git branch current-release
-	git checkout current-release
-	git push --set-upstream origin current-release
-
-Once the tests pass, a snapshot of the branch will be created and named:
-
-``/releases/${release-tag}``.
+The ``.github/workflows/ci.yml`` workflow runs the ``x0-test-github`` image
+with the ``x0-app``, ``x0-db``, and Selenium services on pushes to
+``current-release``. The workflow invokes the packaged Pytest runner.
 
 27.2. Test Config
 -----------------
 
-A single test consists of the following components:
+A browser integration test uses the following components:
 
 - Test Application (x0-app)
 - Test Controller Client (Pytest / Selenium)
 
-Every test must include:
-
-- System Database Configuration
-- Application Metadata (object.json, skeleton.json, menu.json)
-
-Optional components for enhanced tests:
-
-- Additional Database Data
-- Backend Scripts Returning App JSON Data
-
-27.2.1. Test Identifier
-***********************
-
-Each test must have a unique identifier. It is treated as a standalone
-*x0-application* and is accessible like any other *x0-application* via:
-
-http://x0-app.x0.localnet/python/Index.py?appid=${test_id}
-
-27.2.2. System Database Config
-******************************
-
-The following database configuration must be generated, providing the
-test identifier and all test properties, including the test subdirectory:
-
-.. code-block:: sql
-
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'index_title', 'x0 Test - ${test_description}');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'debug_level', '10');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'display_language', 'en');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'default_screen', 'Screen1');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'parent_window_url', 'null');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'subdir', '/test/${test_subdir}');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'config_file_menu', 'menu.json');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'config_file_object', 'object.json');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'config_file_skeleton', 'skeleton.json');
-
-Save this configuration in:
-``./test/integration/config/${test_id}/sql/01-sys-config.sql``.
-
-27.2.3. App Metadata
-********************
-
-As with all *x0-applications*, the test requires valid ``object.json``, ``skeleton.json``,
-and ``menu.json`` files:
-
-* ``./test/integration/config/${test_id}/static/menu.json``
-* ``./test/integration/config/${test_id}/static/object.json``
-* ``./test/integration/config/${test_id}/static/skeleton.json``
-
-27.2.4. Test Global Data
-************************
-
-If a test requires backend (Python) scripts, they must be added to the global Python
-script directory: ``./test/integration/python/${script_name}.py``.
-
-27.2.5. Building the Test
-*************************
-
-After storing your test *x0-application* configuration in the correct locations,
-*x0-system* must be re-built. This happens automatically when you build all docker images.
-Refer to https://github.com/WEBcodeX1/x0/tree/main/docker for detailed instructions.
+The shared fixtures use the preconfigured ``test_base`` application and the
+metadata in ``test/integration/config/basic/``. For additional test
+applications, add their SQL and ``menu.json``, ``object.json``, and
+``skeleton.json`` files in ``test/integration/config/<fixture_id>/``. Put
+backend fixture scripts in ``test/integration/python/``. The containerized
+environment must be rebuilt when these files need to be copied into the
+relevant images.
 
 See :ref:`appdeployment-tests` how to start tests after building.
 
@@ -133,7 +67,16 @@ Use existing tests as references to guide your work.
 ****************************
 
 Pytest files must follow this naming convention:
-``./test/integration/test_${test_group}.py``.
+``test/integration/test_<group>.py``.
+
+Run tests from the repository's ``test/`` directory after starting the
+database-backed application and Selenium server:
+
+.. code-block:: bash
+
+   cd test
+   python3 ./run-selenium-server.py
+   pytest
 
 27.3.2. Selenium Configuration
 ******************************

@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -17,16 +17,19 @@
 
 function sysFileUpload()
 {
-    this.DOMType              = 'form';
-    this.DOMAttributes        = { 'enctype': 'multipart/form-data' };
-    this.EventListeners       = new Object();
-    this.ChildObjects         = new Array();
-    this.FileName             = null;
-    this.Status               = null;
-    this.RuntimeSetDataFunc   = this.UploadFinished;
+    this.ObjectType             = 'FileUpload';                             //- System Object Type
+    this.overrideDOMObjectID    = true;                                     //- Override setting recursive ObjectID
 
-    this.overrideDOMObjectID  = true;
-    this.ObjectID             = this.ID;
+    this.DOMType                = 'form';                                   //- Div Type
+    this.DOMAttributes          = { "enctype": "multipart/form-data" };     //- Set Form Encoding
+
+    this.FileName               = null;                                     //- Reset Filename
+    this.Status                 = 'init';                                   //- Set Upload Status
+
+    this.RuntimeGetDataFunc     = this.getD                                 //- Get Data Mechanism
+
+    this.EventListeners         = new Object();                             //- Event Listeners
+    this.ChildObjects           = new Array();                              //- Child Objects
 }
 
 sysFileUpload.prototype = new sysBaseObject();
@@ -42,72 +45,91 @@ sysFileUpload.prototype.init = function()
 
     this.DOMStyle = Attributes.Style;
 
-    //console.log('::init Attributes:%o', Attributes);
-
-    var SQLTextObj = new sysObjSQLText();
-    SQLTextObj.ObjectID = 'SQLText';
-    SQLTextObj.TextID = Attributes.TextID;
-
-    SQLTextObj.JSONConfig = {
-        "Attributes": {
-            "Style": Attributes.StyleDescription,
-            "IconStyle": "fa-solid fa-upload"
-        }
-    };
-
-    SQLTextObj.init();
-    this.addObject(SQLTextObj);
-
-    var FileSelectButtonHTML = '<input ';
-    FileSelectButtonHTML += 'type="file" ';
-    FileSelectButtonHTML += 'id="' + this.ObjectID + '_select" ';
+    let FileSelectButtonHTML = '<input type="file" ';
+    FileSelectButtonHTML += 'id="' + this.ObjectID + 'SelectButton" ';
     FileSelectButtonHTML += 'name="' + this.ObjectID + '_file" ';
     FileSelectButtonHTML += 'class="form-control">';
 
-    var FileSelectButton = new sysBaseObject();
-    FileSelectButton.ObjectID = this.ObjectID + 'FileButton';
-    FileSelectButton.DOMStyle = Attributes.StyleSelectButton;
-    FileSelectButton.DOMValue = FileSelectButtonHTML;
-    this.addObject(FileSelectButton);
+    let StartUploadButton = new sysObjButtonCallback();
+    StartUploadButton.overrideDOMObjectID = true;
+    StartUploadButton.setCallback(this);
 
-    var ProgressContainer = new sysBaseObject();
-    ProgressContainer.ObjectID = this.ObjectID + 'Progress';
-    ProgressContainer.DOMStyle = Attributes.StyleProgressContainer;
-    this.addObject(ProgressContainer);
+    this.ProgressBarObj = new sysObjProgressBar();
 
-    var ProgressBar = new sysBaseObject();
-    ProgressBar.ObjectID = this.ObjectID + 'ProgressBar';
-    ProgressBar.DOMStyle = Attributes.StyleProgressBar;
-    ProgressContainer.addObject(ProgressBar);
-
-    var ProgressPercentage = new sysBaseObject();
-    ProgressPercentage.ObjectID = this.ObjectID + 'ProgressPercentage';
-    ProgressPercentage.DOMStyle = Attributes.StyleProgressBarPercentage;
-    ProgressContainer.addObject(ProgressPercentage);
-
-    var UploadButton = new sysObjButtonInternal();
-    UploadButton.ObjectID = this.ObjectID + 'UploadButton';
-
-    UploadButton.JSONConfig = {
-        "Attributes": {
-            "FormButton": true,
-            "Style": 'w-100 ' + Attributes.StyleUploadButton,
-            "TextID": "SYSTEM.UPLOAD.BUTTON",
-            "Action": "upload"
+    //- setup recursive object structure
+    const ObjDefs = [
+        {
+            "id": "CtrRow",
+            "SysObject": new sysObjDiv(),
+            "JSONAttributes": {
+                "Style": "row m-0 p-0"
+            },
+            "ObjectDefs": [
+                {
+                    "id": "CtrColUpload",
+                    "SysObject": new sysObjDiv(),
+                    "JSONAttributes": {
+                        "Style": "col col-md-10 p-2 border border-2 border-right-dotted"
+                    },
+                    "ObjectDefs": [
+                        {
+                            "id": "BtnFileSelect",
+                            "SysObject": new sysObjDiv(),
+                            "JSONAttributes": {
+                                "Style": Attributes.StyleSelectButton,
+                                "Value": FileSelectButtonHTML
+                            }
+                        },
+                        {
+                            "id": this.ObjectID + "BtnStartUpload",
+                            "SysObject": StartUploadButton,
+                            "JSONAttributes": {
+                                "Style": "w-100 btn btn-primary",
+                                "FormButton": true,
+                                "TextID": "TXT.SYS.FILEUPLOAD.BUTTON"
+                            }
+                        },
+                        {
+                            "id": this.ObjectID + "ProgressBar",
+                            "SysObject": this.ProgressBarObj,
+                            "JSONAttributes": {
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": this.ObjectID + "CtrColUploadStatus",
+                    "SysObject": new sysObjDiv(),
+                    "JSONAttributes": {
+                        "Style": "col col-md-2 p-4 text-center"
+                    },
+                    "ObjectDefs": [
+                        {
+                            "id": this.ObjectID + "UploadStatus",
+                            "SysObject": new sysObjSQLText(),
+                            "JSONAttributes": {
+                                "TextID": "TXT.SYS.FILEUPLOAD.STATUS.WAITING",
+                                "Style": "h2 text-body",
+                                "IconStyle": "fa-solid fa-upload"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
-    };
+    ];
 
-    UploadButton.ScreenObject = this.ScreenObject;
-    UploadButton.init();
+    sysFactory.setupObjectRefsRecursive(ObjDefs, this);
+}
 
-    //- set callback function for upload button
-    var EventListenerObj = new Object();
-    EventListenerObj['Type'] = 'mousedown';
-    EventListenerObj['Element'] = this.startUpload.bind(this);
 
-    UploadButton.EventListeners['UploadButtonCallback'] = EventListenerObj;
+//------------------------------------------------------------------------------
+//- METHOD "processCallback"
+//------------------------------------------------------------------------------
 
-    this.addObject(UploadButton);
+sysFileUpload.prototype.processCallback = function(FunctionID, Arguments)
+{
+    this.startUpload();
 }
 
 
@@ -117,16 +139,57 @@ sysFileUpload.prototype.init = function()
 
 sysFileUpload.prototype.startUpload = function()
 {
-    const FileName = this.getObjectData();
-    if (FileName.length > 0) {
-        this.FormObject = new FormData(this.getDOMelement());
+    this.Status = 'uploading';
+    const FileName = this.getData();
+    const Attributes = this.JSONConfig.Attributes;
+
+    console.debug('::sysFileupload startUpload() FileName:%s this:%o', FileName, this);
+
+    if (FileName.length > 0)
+    {
+        this.FormObject = new FormData(this.getElement());
         this.FormObject.append("SessionID", sysFactory.SysSessionValue);
 
-        var XHR = new XMLHttpRequest();
+        let XHR = new XMLHttpRequest();
+        let ThisRef = this;
+
+        XHR.onreadystatechange = function() {
+            if (XHR.readyState === 4) {
+                console.debug('::FileUpload onReadyStateChange() status:%s', XHR.status);
+                ThisRef.Status = (XHR.status === 200) ? 'success' : 'failed';
+                ThisRef.updateUploadStatus();
+            }
+        }
+
         XHR.upload.addEventListener('progress', this.updateProgress.bind(this));
         XHR.upload.addEventListener('load', this.UploadFinished.bind(this));
-        XHR.open('POST', this.JSONConfig.Attributes.UploadScript);
+        XHR.open('POST', Attributes.UploadScript);
         XHR.send(this.FormObject);
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "updateUploadStatus"
+//------------------------------------------------------------------------------
+
+sysFileUpload.prototype.updateUploadStatus = function()
+{
+    const UploadStatusCtrObj = sysFactory.getObjectByID(
+        this.ObjectID + 'CtrColUploadStatus'
+    );
+
+    const UploadStatusObj = sysFactory.getObjectByID(
+        this.ObjectID + 'UploadStatus'
+    );
+
+    if (this.Status == 'success')
+    {
+
+    }
+    else if (this.Status == 'failed')
+    {
+
     }
 }
 
@@ -135,16 +198,11 @@ sysFileUpload.prototype.startUpload = function()
 //- METHOD "updateProgress"
 //------------------------------------------------------------------------------
 
-sysFileUpload.prototype.updateProgress = function(progress)
+sysFileUpload.prototype.updateProgress = function(Progress)
 {
-    try {
-        console.debug('::updateProgress progress:%o', progress);
-        this.ProgressPercent = Math.round(progress.loaded * 100 / progress.total);
-    }
-    catch(err) {
-        this.ProgressPercent = 0;
-    }
-    this.renderProgressBar();
+    this.ProgressBarObj.setData(
+        Math.round(Progress.loaded * 100 / Progress.total)
+    );
 }
 
 
@@ -154,44 +212,23 @@ sysFileUpload.prototype.updateProgress = function(progress)
 
 sysFileUpload.prototype.UploadFinished = function(progress)
 {
-    this.Status = 'uploaded';
-    this.ProgressPercent = 100;
-    this.renderProgressBar();
+    this.Status = 'finished';
+    this.ProgressBarObj.setData(100);
 
     const Attributes = this.JSONConfig.Attributes;
 
-    if (Attributes.ScreenDataLoad !== undefined) {
-        sysFactory.triggerScreenDataLoad(Attributes.ScreenDataLoad);
+    if (Attributes.FireEvents !== undefined) {
+        sysFactory.triggerScreenDataLoad(Attributes.FireEvents);
     }
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "renderProgressBar"
+//- METHOD "getData"
 //------------------------------------------------------------------------------
 
-sysFileUpload.prototype.renderProgressBar = function()
+sysFileUpload.prototype.getData = function()
 {
-    try {
-        const ProgressBarElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressBar');
-        const ProgressPercentageElement = sysFactory.getObjectByID(this.ObjectID + 'ProgressPercentage');
-        ProgressBarElement.DOMStyleWidth = this.ProgressPercent + '%';
-        ProgressBarElement.setDOMElementStyleAttributes();
-        ProgressPercentageElement.DOMValue = Math.round(this.ProgressPercent) + '%';
-        ProgressPercentageElement.setDOMElementValue();
-    }
-    catch(err) {
-        console.debug('FileUpload Progress Bar exception:%o', err);
-    }
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "getObjectData"
-//------------------------------------------------------------------------------
-
-sysFileUpload.prototype.getObjectData = function()
-{
-    const FileUploadElement = this.ObjectID + '_select';
+    const FileUploadElement = this.ObjectID + 'SelectButton';
     return document.getElementById(FileUploadElement).value;
 }

@@ -1,0 +1,14 @@
+[
+	{
+		"x0Logo":
+		{
+			"RefID": "sysMenu"
+		}
+	},
+	{
+		"MenuTree":
+		{
+			"RefID": "sysMenu"
+		}
+	}
+]

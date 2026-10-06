@@ -1,0 +1,2498 @@
+{
+	"MenuTree":
+	{
+		"Type": "TreeSimple",
+		"Attributes":
+		{
+			"Style": "border rounded border-1 border-success border-top-0",
+			"TreeItems":
+			[
+				{
+					"Type": "Node",
+					"TextID": "TXT.TREE.NODE.INTRO",
+					"ItemID": "NodeIntro",
+					"Children":
+					[
+						{
+							"Type": "Item",
+							"TextID": "TXT.TREE.ITEM.INTRO",
+							"Icon": "fa-solid fa-book",
+							"DstScreenID": "Introduction"
+						}
+					]
+				},
+				{
+					"Type": "Node",
+					"TextID": "TXT.TREE.NODE.EXAMPLES",
+					"ItemID": "NodeExamples",
+					"Children":
+					[
+						{
+							"Type": "Item",
+							"TextID": "TXT.TREE.ITEM.EXAMPLES_BASIC",
+							"Icon": "fa-solid fa-file",
+							"DstScreenID": "ExamplesBasic"
+						},
+						{
+							"Type": "Item",
+							"TextID": "TXT.TREE.ITEM.EXAMPLES_COPY_PASTE",
+							"Icon": "fa-solid fa-clipboard",
+							"DstScreenID": "ExamplesCopyPaste"
+						},
+						{
+							"Type": "Item",
+							"TextID": "TXT.TREE.ITEM.EXAMPLES_DRAG_AND_DROP",
+							"Icon": "fa-solid fa-grip-vertical",
+							"DstScreenID": "ExamplesDragDrop"
+						},
+						{
+							"Type": "Item",
+							"TextID": "TXT.TREE.ITEM.EXAMPLES_OVERLAY",
+							"Icon": "fa-solid fa-layer-group",
+							"DstScreenID": "ExamplesOverlay"
+						}
+					]
+				},
+				{
+					"Type": "Node",
+					"TextID": "TXT.TREE.NODE.SETTINGS",
+					"ItemID": "NodeSettings",
+					"Children":
+					[
+						{
+							"Type": "Item",
+							"TextID": "TXT.TREE.ITEM.SETTINGS_GLOBAL",
+							"Icon": "fa-solid fa-gear",
+							"DstScreenID": "SettingsGlobal"
+						},
+						{
+							"Type": "Item",
+							"TextID": "TXT.TREE.ITEM.SETTINGS_LANGUAGE",
+							"Icon": "fa-solid fa-language",
+							"DstScreenID": "SettingsLanguage"
+						}
+					]
+				}
+			]
+		}
+	},
+
+	"x0Logo":
+	{
+		"Type": "Image",
+		"Attributes": {
+			"Value": "/image/x0-logo.png",
+			"Style": "border rounded"
+		}
+	},
+
+	"IntroductionCardContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card"
+		}
+	},
+
+	"IntroductionHeaderContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-header"
+		}
+	},
+
+	"IntroductionHeaderContainerRow":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row p-0 m-0"
+		}
+	},
+
+	"IntroductionHeaderContainerColHeader":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-9"
+		}
+	},
+
+	"IntroductionHeaderContainerColIcon":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-3 p-0 pe-1 h1 fw-bold text-end text-primary-emphasis",
+			"Value": "<i class=\"fa-solid fa-book\">"
+		}
+	},
+
+	"IntroductionHeader":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "h1",
+			"TextID": "TXT.HEADER.INTRODUCTION",
+			"Style": "text-primary-emphasis"
+		}
+	},
+
+	"IntroductionBodyContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-body"
+		}
+	},
+
+	"IntroductionBodyInfo":
+	{
+		"Type": "InfoParagraph",
+		"Attributes": {
+			"Text": [
+				{ "ID": "TXT.INTRODUCTION.INFOPARAGRAPH.START", "Style": "h4 text-dark text-opacity-75 fw-bold", "IconStyle": "fa-solid fa-user-group" },
+				{ "ID": "TXT.INTRODUCTION.INFOPARAGRAPH.PARAGRAPH1", "Style": "pt-2 p-1 text-dark text-opacitiy-75", "IconStyle": "fa-solid fa-arrow-right" },
+				{ "ID": "TXT.INTRODUCTION.INFOPARAGRAPH.PARAGRAPH2", "Style": "pt-2 p-1 text-dark text-opacitiy-75", "IconStyle": "fa-solid fa-arrow-right" },
+				{ "ID": "TXT.INTRODUCTION.INFOPARAGRAPH.PARAGRAPH3", "Style": "pt-2 p-1 text-dark text-opacitiy-75", "IconStyle": "fa-solid fa-arrow-right" }
+			]
+		}
+	},
+
+	"IntroductionSpacerTop":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "container p-2 pt-3"
+		}
+	},
+
+	"IntroductionRow":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row"
+		}
+	},
+
+	"IntroductionColLeft":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-6"
+		}
+	},
+
+	"IntroductionColRight":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-6"
+		}
+	},
+
+	"IntroductionContainerLeft":
+	{
+		"Type": "HeaderBodyContainer"
+	},
+
+	"IntroductionContainerLeftHeaderRow":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row"
+		}
+	},
+
+	"IntroductionContainerLeftHeaderColText":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-9"
+		}
+	},
+
+	"IntroductionContainerLeftHeaderColIcon":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-3 h3 text-primary-emphasis text-end",
+			"Value": "<i class=\"fa-solid fa-arrow-left\">"
+		}
+	},
+
+	"IntroductionContainerLeftHeaderText":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "h4 text-primary-emphasis fw-bold",
+			"TextID": "TXT.INTRODUCTION.CONTAINER_LEFT.HEADER"
+		}
+	},
+
+	"IntroductionContainerLeftParagraphText":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "text-primary-emphasis",
+			"TextID": "TXT.INTRODUCTION.CONTAINER_RIGHT.PARAGRAPH"
+		}
+	},
+
+	"IntroductionContainerLeftHorizontalLine":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"DOMType": "hr"
+		}
+	},
+
+	"IntroductionContainerLeftBulletpointList":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"DOMType": "ul",
+			"Style": "text-primary-emphasis"
+		}
+	},
+
+	"IntroductionContainerLeftBulletpoint1":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "li",
+			"TextID": "TXT.INTRODUCTION.CONTAINER_RIGHT.LIST_ELEMENT1"
+		}
+	},
+
+	"IntroductionContainerLeftBulletpoint2":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "li",
+			"TextID": "TXT.INTRODUCTION.CONTAINER_RIGHT.LIST_ELEMENT2"
+		}
+	},
+
+	"IntroductionContainerRight":
+	{
+		"Type": "HeaderBodyContainer",
+		"Attributes": {
+			"HeaderStyle": "row m-0 p-3 border border-1 border-success rounded-top bg-success bg-opacity-50",
+			"BodyStyle": "row m-0 p-3 border border-1 border-success bg-success-subtle bg-opacity-25"
+		}
+	},
+
+	"IntroductionContainerRightHeaderRow":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row"
+		}
+	},
+
+	"IntroductionContainerRightHeaderColText":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-9"
+		}
+	},
+
+	"IntroductionContainerRightHeaderColIcon":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-3 h3 text-success-emphasis text-end",
+			"Value": "<i class=\"fa-solid fa-arrow-right\">"
+		}
+	},
+
+	"IntroductionContainerRightHeaderText":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "h4 text-success-emphasis fw-bold",
+			"TextID": "TXT.INTRODUCTION.CONTAINER_RIGHT.HEADER"
+		}
+	},
+
+	"IntroductionContainerRightParagraphText":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "text-success-emphasis",
+			"TextID": "TXT.INTRODUCTION.CONTAINER_RIGHT.PARAGRAPH"
+		}
+	},
+
+	"IntroductionContainerRightHorizontalLine":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"DOMType": "hr"
+		}
+	},
+
+	"IntroductionContainerRightBulletpointList":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"DOMType": "ul",
+			"Style": "text-success-emphasis"
+		}
+	},
+
+	"IntroductionContainerRightBulletpoint1":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "li",
+			"TextID": "TXT.INTRODUCTION.CONTAINER_RIGHT.LIST_ELEMENT1"
+		}
+	},
+
+	"IntroductionContainerRightBulletpoint2":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "li",
+			"TextID": "TXT.INTRODUCTION.CONTAINER_RIGHT.LIST_ELEMENT2"
+		}
+	},
+
+	"IntroductionContainerRightBulletpoint3":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "li",
+			"TextID": "TXT.INTRODUCTION.CONTAINER_RIGHT.LIST_ELEMENT3"
+		}
+	},
+
+	"ExamplesBasicCardContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card"
+		}
+	},
+
+	"ExamplesBasicHeaderContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-header"
+		}
+	},
+
+	"ExamplesBasicHeaderContainerRow":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row p-0 m-0"
+		}
+	},
+
+	"ExamplesBasicHeaderContainerColHeader":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-9"
+		}
+	},
+
+	"ExamplesBasicHeaderContainerColIcon":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-3 p-0 pe-1 h1 fw-bold text-end text-primary-emphasis",
+			"Value": "<i class=\"fa-solid fa-file\">"
+		}
+	},
+
+	"ExamplesBasicHeader":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "h1",
+			"Style": "text-primary-emphasis",
+			"TextID": "TXT.HEADER.EXAMPLES_BASIC"
+		}
+	},
+
+	"ExamplesBasicBodyContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-body"
+		}
+	},
+
+	"ExamplesBasicBodyInfo":
+	{
+		"Type": "InfoParagraph",
+		"Attributes": {
+			"Text": [
+				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.START", "Style": "text-dark text-opacity-75 fw-bold float-start" },
+				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH1", "Style": "text-dark text-opacitiy-50" }
+			]
+		}
+	},
+
+	"ExamplesBasicSpacerTop":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "container p-2"
+		}
+	},
+
+	"ExamplesBasicTabs":
+	{
+		"Type": "TabContainer",
+		"Attributes":
+		{
+			"Tabs": [
+				{
+					"ID": "TabExamplesBasicSimpleTemplateEditable",
+					"Attributes":
+					{
+						"Default": true,
+						"TextID": "TXT.TABCONTAINER.EXAMPLES_BASIC.TEMPLATE_EDITABLE",
+						"Style": "col-md-3",
+						"IconStyle": "fa-solid fa-edit"
+					}
+				},
+				{
+					"ID": "TabExamplesBasicProgressAndSliders",
+					"Attributes":
+					{
+						"TextID": "TXT.TABCONTAINER.EXAMPLES_BASIC.PROGRESS_AND_SLIDERS",
+						"Style": "col-md-3",
+						"IconStyle": "fa-solid fa-hourglass-half"
+					}
+				},
+				{
+					"ID": "TabExamplesCombinedObjects",
+					"Attributes":
+					{
+						"TextID": "TXT.TABCONTAINER.EXAMPLES_BASIC.COMBINED_OBJECTS",
+						"Style": "col-md-3",
+						"IconStyle": "fa-solid fa-link"
+					}
+				},
+				{
+					"ID": "TabExamplesEditableList",
+					"Attributes":
+					{
+						"TextID": "TXT.TABCONTAINER.EXAMPLES_BASIC.EDITABLE_LIST",
+						"Style": "col-md-3",
+						"IconStyle": "fa-solid fa-list"
+					}
+				}
+			]
+		}
+	},
+
+	"ExamplesBasicEditableTemplatesRow":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row m-0 p-0"
+		}
+	},
+
+	"ExamplesBasicEditableTemplatesColLeft":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-6 p-0"
+		}
+	},
+
+	"ExamplesBasicEditableTemplatesColRight":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-6 p-0"
+		}
+	},
+
+	"ExamplesBasicEditableTemplate1EditableItemHeader":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "h4",
+			"Style": "m-0 p-3 text-primary-emphasis border border-top-0",
+			"TextID": "TXT.HEADER.EXAMPLES_BASIC.EDITABLE_ITEM1"
+		}
+	},
+
+	"ExamplesBasicEditableTemplate1EditableItem":
+	{
+		"Type": "ExampleEditableItem",
+		"Attributes": {
+			"Editable": true,
+			"OrderChangeable": false
+		}
+	},
+
+	"ExamplesBasicEditableTemplate1AddItemButton": {
+		"Type": "Button",
+		"Attributes": {
+			"TextID": "TXT.BUTTON.EXAMPLE.TEMPLATE1.ADD_ITEM",
+			"Style": "btn btn-primary btn-lg w-100 mt-2 mb-2",
+			"IconStylePost": "fa-solid fa-arrow-down",
+			"Action": "append",
+			"SrcDataObject": "ExamplesBasicEditableTemplate1EditableItem",
+			"DstDataObject": "ExamplesBasicEditableTemplate1"
+		}
+	},
+
+	"ExamplesBasicEditableTemplate1":
+	{
+		"Type": "ExampleEditableItemContainer",
+		"Attributes": {
+			"Editable": true,
+			"HeaderTextID": "TXT.HEADER.EXAMPLES_BASIC_EDITABLE_TEMPLATE1_HEADER",
+			"HeaderStyle": "h3 text-primary-emphasis",
+			"HeaderIconStyle": "fa-solid fa-card-shopping"
+		}
+	},
+
+	"ExamplesBasicEditableTemplate2EditableItemHeader":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "h4",
+			"Style": "m-0 p-3 text-primary-emphasis border border-top-0 border-start-0",
+			"TextID": "TXT.HEADER.EXAMPLES_BASIC.EDITABLE_ITEM2"
+		}
+	},
+
+	"ExamplesBasicSlidersRow":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row m-0 p-0"
+		}
+	},
+
+	"ExamplesBasicSlidersColLeft":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-6 p-0"
+		}
+	},
+
+	"ExamplesBasicSlidersTimerControlledHeader":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "h4",
+			"Style": "m-0 p-3 text-primary-emphasis border border-top-0",
+			"TextID": "TXT.HEADER.EXAMPLES_BASIC.SLIDERS.TIMER_CONTROLLED"
+		}
+	},
+
+	"ExamplesBasicSlidersColRight":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-6 p-0"
+		}
+	},
+
+	"ExamplesBasicSlidersSlider1":
+	{
+		"Type": "TimedProgress"
+	},
+
+	"ExamplesBasicSlidersSlider2":
+	{
+		"Type": "TimedProgress"
+	},
+
+	"ExamplesBasicSlidersSlider3":
+	{
+		"Type": "TimedProgress"
+	},
+
+	"ExamplesBasicSlidersStepControlledHeader":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "h4",
+			"Style": "m-0 p-3 text-primary-emphasis border border-top-0 border-start-0",
+			"TextID": "TXT.HEADER.EXAMPLES_BASIC.SLIDERS.STEP_CONTROLLED"
+		}
+	},
+
+	"ExamplesBasicSlidersStepControlledWizard":
+	{
+		"Type": "ExampleWizard",
+		"Attributes": {
+		}
+	},
+
+	"PersonNameLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"TextStyle": "required",
+			"IconStyle": "fa-solid fa-key",
+			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.NAME"
+		}
+	},
+
+	"PersonName":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"ValidateRef": "NameGerman",
+			"ValidateErrorTextID": "TXT.VALIDATE.PERSON.GERMAN_NAME"
+		}
+	},
+
+	"PersonSurenameLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"TextStyle": "required",
+			"IconStyle": "fa-solid fa-key",
+			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.SURENAME"
+		}
+	},
+
+	"PersonSurename":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"ValidateRef": "NameGerman",
+			"ValidateErrorTextID": "TXT.VALIDATE.PERSON.GERMAN_NAME"
+		}
+	},
+
+	"PersonMailLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"TextStyle": "required",
+			"IconStyle": "fa-solid fa-key",
+			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.EMAIL"
+		}
+	},
+
+	"PersonMail":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"ValidateRef": "MailAddress"
+		}
+	},
+
+	"PersonAgeLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"TextStyle": "required",
+			"IconStyle": "fa-solid fa-key",
+			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.AGE"
+		}
+	},
+
+	"PersonAge":
+	{
+		"Type": "FormfieldPulldown",
+		"Attributes": {
+			"Style": "form-select m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"Options": [
+				{
+					"TextID": "TXT.EXAMPLE.WIZARD.PERSON_AGE.YOUNG",
+					"Value": "10"
+				},
+				{
+					"TextID": "TXT.EXAMPLE.WIZARD.PERSON_AGE.MIDDLE_AGE",
+					"Value": "20",
+					"Default": true
+				},
+				{
+					"TextID": "TXT.EXAMPLE.WIZARD.PERSON_AGE.OLD",
+					"Value": "30"
+				}
+			]
+		}
+	},
+
+	"PersonLoginNameLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"TextStyle": "required",
+			"IconStyle": "fa-solid fa-key",
+			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.LOGIN_NAME"
+		}
+	},
+
+	"PersonLoginName":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"ValidateRef": "UserName"
+		}
+	},
+
+	"PersonLoginPasswordLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"TextStyle": "required",
+			"IconStyle": "fa-solid fa-key",
+			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.LOGIN_PASSWORD"
+		}
+	},
+
+	"PersonLoginPassword":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"Type": "password",
+			"ValidateRef": "UserPass"
+		}
+	},
+
+	"PersonAddressStreetLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-key",
+			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.ADDRESS.STREET"
+		}
+	},
+
+	"PersonAddressStreet":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"ValidateRef": "DefaultString"
+		}
+	},
+
+	"PersonAddressStreetNrLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-key",
+			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.ADDRESS.STREET_NR"
+		}
+	},
+
+	"PersonAddressStreetNr":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis"
+		}
+	},
+
+	"PersonTelephoneNumberTypeLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-key",
+			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.PHONE_TYPE"
+		}
+	},
+
+	"PersonTelephoneNumberType":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+		}
+	},
+
+	"PersonTelephoneNumberLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-key",
+			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.PHONE_NUMBER"
+		}
+	},
+
+	"PersonTelephoneNumber":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis"
+		}
+	},
+
+	"PersonGroupMainLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-key",
+			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.GROUP"
+		}
+	},
+
+	"PersonGroupMain":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+		}
+	},
+
+	"ContractAcceptedLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-key",
+			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.ACCEPT.CONTRACT"
+		}
+	},
+
+	"ContractAccepted":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+		}
+	},
+
+	"PersonNameDisplay":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+		}
+	},
+
+	"PersonSurenameDisplay":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+		}
+	},
+
+	"PersonMailDisplay":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+		}
+	},
+
+	"PersonAgeDisplay":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+		}
+	},
+
+	"PersonAddressStreetDisplay":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+		}
+	},
+
+	"PersonAddressStreetNrDisplay":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+		}
+	},
+
+	"PersonTelephoneNumberDisplay":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+		}
+	},
+
+	"ExamplesBasicCobinedObjectsList":
+	{
+		"Type": "List",
+		"Attributes":
+		{
+			"HeaderRowStyle": "row fw-bold fs-0 m-0 border-bottom border-secondary",
+			"RowCount": 6,
+			"RowsSelectable": false,
+			"Navigation": true,
+			"Columns": [
+				{
+					"ID": "SequenceNr",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_BASIC.COMBINED_OBJECTS_LIST.HEADER.SEQUENCE_NUMBER",
+					"HeaderStyle": "col-md-1 p-3 border-end",
+					"IndexGenerator": true
+				},
+				{
+					"ID": "FlightDetails",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_BASIC.COMBINED_OBJECTS_LIST.HEADER.FLIGHT_DETAILS",
+					"HeaderStyle": "col-md-3 p-3 border-end",
+					"ObjectType": "ExampleFlightDetails",
+					"ObjectAttributes": {
+					}
+				},
+				{
+					"ID": "FlightStatus",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_BASIC.COMBINED_OBJECTS_LIST.HEADER.FLIGHT_STATE",
+					"HeaderStyle": "col-md-2 p-3 border-end",
+					"ObjectType": "ExampleFlightStatus",
+					"ObjectAttributes": {
+					}
+				},
+				{
+					"ID": "LuggageGroup",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_BASIC.COMBINED_OBJECTS_LIST.HEADER.LUGGAGE_GROUP",
+					"HeaderStyle": "col-md-3 p-3 border-end",
+					"ObjectType": "DynRadioList",
+					"ObjectAttributes": {
+						"ButtonTextDisabled": true
+					}
+				},
+				{
+					"ID": "LuggagePersonalGroup",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_BASIC.COMBINED_OBJECTS_LIST.HEADER.LUGGAGE_PERSONAL_GROUP",
+					"HeaderStyle": "col-md-3 p-3",
+					"ObjectType": "DynRadioList",
+					"ObjectAttributes": {
+						"ButtonTextDisabled": true
+					}
+				}
+			],
+			"RowStyle": "row m-0 border-bottom border-right",
+			"RowAfterElements": 5,
+			"ColStyle": [
+				"col-md-1 p-1 ps-3 border-end",
+				"col-md-3 p-2 ps-3 border-end",
+				"col-md-2 p-2 ps-2 border-end",
+				"col-md-3 p-2 pe-3 border-end",
+				"col-md-3 p-2 pe-3"
+			],
+			"Value": [
+				{ "FlightDetails": { "Icon": "icon-lufthansa.png", "Airline": "Lufthansa", "FlightNr": "LH245", "Airport": "FRA" }, "FlightStatus": { "Type": "Incoming",  "Time": "12:32", "Alert": "success" }, "LuggageGroup": {}, "LuggagePersonalGroup": {} },
+				{ "FlightDetails": { "Icon": "icon-aeroflot.png", "Airline": "Aeroflot", "FlightNr": "AR732", "Airport": "SVO" }, "FlightStatus": { "Type": "Landed",  "Time": "07:10", "Alert": "success" }, "LuggageGroup": {}, "LuggagePersonalGroup": {} },
+				{ "FlightDetails": { "Icon": "icon-airfrance.png", "Airline": "AIRFRANCE", "FlightNr": "AF9453", "Airport": "CDG" }, "FlightStatus": { "Type": "Delayed",  "Time": "09:47", "Alert": "warning" }, "LuggageGroup": {}, "LuggagePersonalGroup": {} },
+				{ "FlightDetails": { "Icon": "icon-easyjet.png", "Airline": "easyJet", "FlightNr": "LHE231", "Airport": "LHR" }, "FlightStatus": { "Type": "Canceled",  "Time": "18:21", "Alert": "danger" }, "LuggageGroup": {}, "LuggagePersonalGroup": {} },
+				{ "FlightDetails": { "Icon": "icon-lufthansa.png", "Airline": "Lufthansa", "FlightNr": "CPH924", "Airport": "CPH" }, "FlightStatus": { "Type": "Landed",  "Time": "23:10", "Alert": "success" }, "LuggageGroup": {}, "LuggagePersonalGroup": {} },
+				{ "FlightDetails": { "Icon": "icon-airfrance.png", "Airline": "AIRFRANCE", "FlightNr": "WAF711", "Airport": "WAW" }, "FlightStatus": { "Type": "Incoming",  "Time": "06:20", "Alert": "success" }, "LuggageGroup": {}, "LuggagePersonalGroup": {} }
+			]
+		}
+	},
+
+	"ExamplesBasicEditableList":
+	{
+		"Type": "List",
+		"Attributes":
+		{
+			"HeaderRowStyle": "row fw-bold fs-0 m-0 border-bottom border-secondary",
+			"RowCount": 8,
+			"RowsSelectable": false,
+			"Navigation": true,
+			"Columns": [
+				{
+					"ID": "WorkerName",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.WORKER_NAME",
+					"HeaderStyle": "col-md-2 p-3 border-end",
+					"ObjectInstanceOf": "WorkerName"
+				},
+				{
+					"ID": "WorkerSurename",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.WORKER_SURENAME",
+					"HeaderStyle": "col-md-2 p-3 border-end",
+					"ObjectInstanceOf": "WorkerSurename"
+				},
+				{
+					"ID": "TeamGroup",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_GROUP",
+					"HeaderStyle": "col-md-2 p-3 border-end",
+					"ObjectInstanceOf": "TeamGroup"
+				},
+				{
+					"ID": "TeamPercentageMin",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_PERCENTAGE_MIN",
+					"HeaderStyle": "col-md-3 p-3 border-end",
+					"ObjectType": "RangeSliderContainer",
+					"ObjectAttributes": {
+						"Min": 1,
+						"Max": 100,
+						"UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE"
+					}
+				},
+				{
+					"ID": "TeamPercentageMax",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_PERCENTAGE_MAX",
+					"HeaderStyle": "col-md-3 p-3",
+					"ObjectType": "RangeSliderContainer",
+					"ObjectAttributes": {
+						"Min": 1,
+						"Max": 100,
+						"UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE"
+					}
+				}
+			],
+			"HeaderContextMenuItems": [
+				{
+					"ID": "AppendData",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.APPEND_DATA",
+					"IconStyle": "fa-solid fa-paste",
+					"InternalFunction": "set-data"
+				}
+			],
+			"ContextMenuItems": [
+				{
+					"ID": "GetData",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.GET_DATA",
+					"IconStyle": "fa-solid fa-copy",
+					"InternalFunction": "get-data"
+				},
+				{
+					"ID": "SetData",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.SET_DATA",
+					"IconStyle": "fa-solid fa-paste",
+					"InternalFunction": "set-data"
+				},
+				{
+					"ID": "RemoveRow",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_ROW",
+					"IconStyle": "fa-solid fa-trash-can",
+					"InternalFunction": "remove"
+				}
+			],
+			"RowStyle": "row m-0 border-bottom border-right",
+			"RowAfterElements": 5,
+			"ColStyle": [
+				"col-md-2 p-2 pe-3 border-end",
+				"col-md-2 p-2 pe-3 border-end",
+				"col-md-2 p-2 pe-3 border-end",
+				"col-md-3 p-3 border-end",
+				"col-md-3 p-3"
+			],
+			"Value": [
+				{ "WorkerName": "Mayer", "WorkerSurename": "Herbert", "TeamGroup": 10, "TeamPercentageMin": 10, "TeamPercentageMax": 70 },
+				{ "WorkerName": "Simson", "WorkerSurename": "Wayne", "TeamGroup": 20, "TeamPercentageMin": 30, "TeamPercentageMax": 45 },
+				{ "WorkerName": "Schmidt", "WorkerSurename": "Melanie", "TeamGroup": 30, "TeamPercentageMin": 15, "TeamPercentageMax": 50 },
+				{ "WorkerName": "Müller", "WorkerSurename": "Gertrud", "TeamGroup": 30, "TeamPercentageMin": 40, "TeamPercentageMax": 50 },
+				{ "WorkerName": "Smith", "WorkerSurename": "Susan", "TeamGroup": 40, "TeamPercentageMin": 20, "TeamPercentageMax": 40 },
+				{ "WorkerName": "Schneider", "WorkerSurename": "Kurt", "TeamGroup": 20, "TeamPercentageMin": 20, "TeamPercentageMax": 70 },
+				{ "WorkerName": "Fischer", "WorkerSurename": "Margrit", "TeamGroup": 10, "TeamPercentageMin": 30, "TeamPercentageMax": 70 },
+				{ "WorkerName": "Jones", "WorkerSurename": "Lou", "TeamGroup": 10, "TeamPercentageMin": 15, "TeamPercentageMax": 56 },
+				{ "WorkerName": "Weber", "WorkerSurename": "Barbara", "TeamGroup": 30, "TeamPercentageMin": 60, "TeamPercentageMax": 80 },
+				{ "WorkerName": "Grant", "WorkerSurename": "Hugh", "TeamGroup": 40, "TeamPercentageMin": 55, "TeamPercentageMax": 70 },
+				{ "WorkerName": "Griffith", "WorkerSurename": "Melany", "TeamGroup": 10, "TeamPercentageMin": 25, "TeamPercentageMax": 50 }
+			]
+		}
+	},
+
+	"ExamplesBasicOverlayImageList":
+	{
+		"Type": "ImageSelector",
+		"Attributes": {
+			"RowCount": 3,
+			"Value": [
+				{ "ID": "UTF-Emoji-Clock", "Description": "Clock Icon", "Path": "/image/icon-emoji-clock.png" },
+				{ "ID": "UTF-Emoji-Truck", "Description": "Truck Icon", "Path": "/image/icon-emoji-truck.png" },
+				{ "ID": "UTF-Emoji-Package", "Description": "Package Icon", "Path": "/image/icon-emoji-package.png" },
+				{ "ID": "UTF-Emoji-Beer", "Description": "Beer Icon", "Path": "/image/icon-emoji-beer.png" },
+				{ "ID": "UTF-Emoji-Houses", "Description": "Houses Icon", "Path": "/image/icon-emoji-houses.png" },
+				{ "ID": "UTF-Emoji-School", "Description": "School Icon", "Path": "/image/icon-emoji-school.png" },
+				{ "ID": "UTF-Emoji-Tent", "Description": "Tent Icon", "Path": "/image/icon-emoji-tent.png" },
+				{ "ID": "UTF-Emoji-Train", "Description": "Train Icon", "Path": "/image/icon-emoji-train.png" },
+				{ "ID": "UTF-Emoji-Metro", "Description": "Metro Icon", "Path": "/image/icon-emoji-metro.png" },
+				{ "ID": "UTF-Emoji-Automobile", "Description": "Automobile Icon", "Path": "/image/icon-emoji-automobile.png" },
+				{ "ID": "UTF-Emoji-Bicycle", "Description": "Bicycle Icon", "Path": "/image/icon-emoji-bicycle.png" },
+				{ "ID": "UTF-Emoji-Helicopter", "Description": "Helicopter Icon", "Path": "/image/icon-emoji-helicopter.png" },
+				{ "ID": "UTF-Emoji-Rocket", "Description": "Rocket Icon", "Path": "/image/icon-emoji-rocket.png" },
+				{ "ID": "UTF-Emoji-Watch", "Description": "Watch Icon", "Path": "/image/icon-emoji-watch.png" },
+				{ "ID": "UTF-Emoji-Sun", "Description": "Sun Icon", "Path": "/image/icon-emoji-sun.png" },
+				{ "ID": "UTF-Emoji-Star", "Description": "Star Icon", "Path": "/image/icon-emoji-star.png" }
+			]
+		}
+	},
+
+	"ImageIDLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-key",
+			"TextID": "TXT.SYS.IMAGESELECTOR.IMAGE.ID"
+		}
+	},
+
+	"ImageID":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+		}
+	},
+
+	"ImageDescriptionLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-file-lines",
+			"TextID": "TXT.SYS.IMAGESELECTOR.IMAGE.DESCRIPTION"
+		}
+	},
+
+	"ImageDescription":
+	{
+		"Type": "FormfieldTextarea",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+		}
+	},
+
+	"ImageServerPathLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-folder-tree",
+			"TextID": "TXT.SYS.IMAGESELECTOR.IMAGE.PATH"
+		}
+	},
+
+	"ImageServerPath":
+	{
+		"Type": "FormfieldPulldown",
+		"Attributes": {
+			"Style": "form-select m-1 p-2 w-100 text-primary-emphasis",
+			"Options": [
+				{
+					"TextID": "TXT.EXAMPLE.IMAGESELECTOR.PATH_STATIC",
+					"Value": "50"
+				},
+				{
+					"TextID": "TXT.EXAMPLE.IMAGESELECTOR.PATH_IMAGES",
+					"Value": "80"
+				},
+				{
+					"TextID": "TXT.EXAMPLE.IMAGESELECTOR.PATH_STATIC_IMAGES",
+					"Value": "120",
+					"Default": true
+				}
+			]
+		}
+	},
+
+	"ImageFilenameLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-file-image",
+			"TextID": "TXT.SYS.IMAGESELECTOR.IMAGE.FILENAME"
+		}
+	},
+
+	"ImageFilename":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+		}
+	},
+
+	"ExamplesCopyPasteCardContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card text-bg-light mb-3"
+		}
+	},
+
+	"ExamplesCopyPasteHeader":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "h1",
+			"Style": "card-header text-primary-emphasis",
+			"TextID": "TXT.HEADER.EXAMPLES_COPY_PASTE"
+		}
+	},
+
+	"ExamplesCopyPasteBodyContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-body"
+		}
+	},
+
+	"ExamplesCopyPasteBodyInfo":
+	{
+		"Type": "InfoParagraph",
+		"Attributes": {
+			"Text": [
+				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.START", "Style": "text-dark text-opacity-75 fw-bold float-start" },
+				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH1", "Style": "text-dark text-opacitiy-50" }
+			]
+		}
+	},
+
+	"ExamplesCopyPasteSpacerTop":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "container p-2"
+		}
+	},
+
+	"ExamplesCopyPasteFormSource":
+	{
+		"Type": "FormfieldList",
+		"Attributes": {
+			"ObjectIDs": [
+				"WorkerNameLabel",
+				"WorkerName",
+				"WorkerSurenameLabel",
+				"WorkerSurename",
+				"TeamGroupLabel",
+				"TeamGroup",
+				"TeamPercentageMinLabel",
+				"TeamPercentageMin",
+				"TeamPercentageMaxLabel",
+				"TeamPercentageMax"
+			],
+			"Style": "border rounded border-top-0 rounded-top-0 p-2",
+			"RowStyle": "row m-0 p1",
+			"RowAfterElements": [ 4, 2 ],
+			"ColAfterElements": 2,
+			"ColStyle": [
+				"col-md-6",
+				"col-md-6",
+				"col-md-12"
+			],
+			"ContextMenuItems": [
+				{
+					"ID": "GetData",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.GET_DATA",
+					"IconStyle": "fa-solid fa-copy",
+					"InternalFunction": "get-data"
+				},
+				{
+					"ID": "SetData",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.SET_DATA",
+					"IconStyle": "fa-solid fa-paste",
+					"InternalFunction": "set-data"
+				}
+			]
+		}
+	},
+
+	"WorkerNameLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-id-card",
+			"TextID": "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_NAME"
+		}
+	},
+
+	"WorkerName":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control border-secondary m-1 p-2 w-100 text-primary-emphasis"
+		}
+	},
+
+	"WorkerSurenameLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-id-card",
+			"TextID": "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_SURENAME"
+		}
+	},
+
+	"WorkerSurename":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control border-secondary m-1 p-2 w-100 text-primary-emphasis"
+		}
+	},
+
+	"TeamGroupLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-users",
+			"TextID": "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_TEAM_GROUP"
+		}
+	},
+
+	"TeamGroup":
+	{
+		"Type": "FormfieldPulldown",
+		"Attributes": {
+			"Style": "form-select border-secondary m-1 p-2 w-100 text-primary-emphasis",
+			"Options": [
+				{
+					"TextID": "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_TELECOM",
+					"Value": "10"
+				},
+				{
+					"TextID": "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_HUMAN_RESSOURCES",
+					"Value": "20"
+				},
+				{
+					"TextID": "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_ACCOUNTING",
+					"Value": "30",
+					"Default": true
+				},
+				{
+					"TextID": "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_INSTALLATION",
+					"Value": "40"
+				}
+			]
+		}
+	},
+
+	"TeamPercentageMinLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-arrow-trend-down",
+			"TextID": "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_PERCENTAGE_MIN"
+		}
+	},
+
+	"TeamPercentageMin":
+	{
+		"Type": "RangeSliderContainer",
+		"Attributes": {
+			"Min": 1,
+			"Max": 100,
+			"Value": 50,
+			"UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE"
+		}
+	},
+
+	"TeamPercentageMaxLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-arrow-trend-up",
+			"TextID": "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_PERCENTAGE_MAX"
+		}
+	},
+
+	"TeamPercentageMax":
+	{
+		"Type": "RangeSliderContainer",
+		"Attributes": {
+			"Min": 1,
+			"Max": 100,
+			"Value": 50,
+			"UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE"
+		}
+	},
+
+	"ExamplesCopyPasteDestinationTabs":
+	{
+		"Type": "TabContainer",
+		"Attributes":
+		{
+			"Tabs": [
+				{
+					"ID": "TabExamplesCopyPasteDestinationFormList",
+					"Attributes":
+					{
+						"TextID": "TXT.TABCONTAINER.EXAMPLES_COPY_PASTE.DST_OBJECT_FORMLIST",
+						"Style": "col-md-6",
+						"IconStyle": "fa-solid fa-file-signature"
+					}
+				},
+				{
+					"ID": "TabExamplesCopyPasteDestinationList",
+					"Attributes":
+					{
+						"Default": true,
+						"TextID": "TXT.TABCONTAINER.EXAMPLES_COPY_PASTE.DST_OBJECT_LIST",
+						"Style": "col-md-6",
+						"IconStyle": "fa-solid fa-table"
+					}
+				}
+			]
+		}
+	},
+
+	"ExamplesCopyPasteDestinationFormListSpacer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "container p-2"
+		}
+	},
+
+	"ExamplesCopyPasteDestinationFormList":
+	{
+		"InstanceOf": "ExamplesCopyPasteFormSource"
+	},
+
+	"ExamplesCopyPasteDestinationListSpacer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "container p-2"
+		}
+	},
+
+	"ExamplesCopyPasteDestinationList":
+	{
+		"Type": "List",
+		"Attributes":
+		{
+			"HeaderRowStyle": "row fw-bold fs-0 m-0 border-bottom border-secondary",
+			"RowCount": 5,
+			"Navigation": true,
+			"Columns": [
+				{
+					"ID": "WorkerName",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.WORKER_NAME",
+					"HeaderStyle": "col-md-2 p-3 border-end"
+				},
+				{
+					"ID": "WorkerSurename",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.WORKER_SURENAME",
+					"HeaderStyle": "col-md-2 p-3 border-end"
+				},
+				{
+					"ID": "TeamGroup",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_GROUP",
+					"HeaderStyle": "col-md-3 p-3 border-end",
+					"ObjectInstanceOf": "TeamGroup"
+				},
+				{
+					"ID": "TeamPercentageMin",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_PERCENTAGE_MIN",
+					"HeaderStyle": "col-md-2 p-3 border-end",
+					"ObjectType": "ProgressBar",
+					"ObjectAttributes": {
+					}
+				},
+				{
+					"ID": "TeamPercentageMax",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_PERCENTAGE_MAX",
+					"HeaderStyle": "col-md-3 p-3",
+					"ObjectType": "ProgressBar",
+					"ObjectAttributes": {
+					}
+				}
+			],
+			"HeaderContextMenuItems": [
+				{
+					"ID": "AppendData",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.APPEND_DATA",
+					"IconStyle": "fa-solid fa-paste",
+					"InternalFunction": "set-data"
+				}
+			],
+			"ContextMenuItems": [
+				{
+					"ID": "GetData",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.GET_DATA",
+					"IconStyle": "fa-solid fa-copy",
+					"InternalFunction": "get-data"
+				},
+				{
+					"ID": "SetData",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.SET_DATA",
+					"IconStyle": "fa-solid fa-paste",
+					"InternalFunction": "set-data"
+				},
+				{
+					"ID": "RemoveRow",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_ROW",
+					"IconStyle": "fa-solid fa-trash-can",
+					"InternalFunction": "remove"
+				},
+				{
+					"ID": "RemoveSelectedRows",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_SELECTED_ROWS",
+					"IconStyle": "fa-solid fa-trash-can",
+					"InternalFunction": "remove-selected"
+				}
+			],
+			"RowStyle": "row m-0 border-bottom border-right",
+			"RowAfterElements": 5,
+			"ColStyle": [
+				"col-md-2 p-3 border-end",
+				"col-md-2 p-3 border-end",
+				"col-md-3 p-2 pe-3 border-end",
+				"col-md-2 p-3 border-end",
+				"col-md-3 p-3"
+			]
+		}
+	},
+
+	"ExamplesOverlayCardContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card text-bg-light mb-3"
+		}
+	},
+
+	"ExamplesOverlayHeader":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "h1",
+			"Style": "card-header",
+			"TextID": "TXT.HEADER.EXAMPLES_COPY_PASTE"
+		}
+	},
+
+	"ExamplesOverlayBodyContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-body"
+		}
+	},
+
+	"ExamplesOverlayBodyInfo":
+	{
+		"Type": "InfoParagraph",
+		"Attributes": {
+			"Text": [
+				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.START", "Style": "text-dark text-opacity-75 fw-bold float-start" },
+				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH1", "Style": "text-dark text-opacitiy-50" }
+			]
+		}
+	},
+
+	"ExamplesOverlaySpacerTop":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "container p-2"
+		}
+	},
+
+	"ExamplesOverlayRow":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row"
+		}
+	},
+
+	"ExamplesOverlayColFormlist":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-6"
+		}
+	},
+
+	"ExamplesOverlayColList":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-6"
+		}
+	},
+
+	"ExamplesOverlayFormlist":
+	{
+		"InstanceOf": "ExamplesCopyPasteFormSource",
+		"AttributesOverwrite": {
+			"ObjectIDs": [
+				"WorkerNameLabel",
+				"WorkerName",
+				"WorkerSurenameLabel",
+				"WorkerSurename",
+				"TeamGroupLabel",
+				"TeamGroup"
+			]
+		}
+	},
+
+	"ExamplesOverlayList":
+	{
+		"Type": "List",
+		"Attributes":
+		{
+			"HeaderRowStyle": "row fw-bold fs-0 m-0 border-bottom border-secondary",
+			"RowCount": 6,
+			"Navigation": true,
+			"Columns": [
+				{
+					"ID": "SequenceNr",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_OVERLAY.HEADER.SEQUENCE_NUMBER",
+					"HeaderStyle": "col-md-3 p-3 border-end",
+					"IndexGenerator": true
+				},
+				{
+					"ID": "WorkerName",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.WORKER_NAME",
+					"HeaderStyle": "col-md-3 p-3 border-end"
+				},
+				{
+					"ID": "WorkerSurename",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.WORKER_SURENAME",
+					"HeaderStyle": "col-md-3 p-3 border-end"
+				},
+				{
+					"ID": "TeamGroup",
+					"HeaderTextID": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_GROUP_ID",
+					"HeaderStyle": "col-md-3 p-3"
+				}
+			],
+			"HeaderContextMenuItems": [
+				{
+					"ID": "AppendData",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.APPEND_DATA",
+					"IconStyle": "fa-solid fa-paste",
+					"InternalFunction": "set-data"
+				}
+			],
+			"ContextMenuItems": [
+				{
+					"ID": "SetData",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.SET_DATA",
+					"IconStyle": "fa-solid fa-paste",
+					"InternalFunction": "set-data"
+				},
+				{
+					"ID": "EditData",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.EDIT_IN_OVERLAY",
+					"IconStyle": "fa-solid fa-edit",
+					"InternalFunction": "get-set-data",
+					"OverlayScreenID": "ExamplesOverlayEditData",
+					"DstObjectID": "ExamplesOverlayEditOverlayDataFormWorker"
+				},
+				{
+					"ID": "RemoveRow",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_ROW",
+					"IconStyle": "fa-solid fa-trash-can",
+					"InternalFunction": "remove"
+				},
+				{
+					"ID": "RemoveSelectedRows",
+					"TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_SELECTED_ROWS",
+					"IconStyle": "fa-solid fa-trash-can",
+					"InternalFunction": "remove-selected"
+				}
+			],
+			"RowStyle": "row m-0 border-bottom border-right",
+			"RowAfterElements": 4,
+			"ColStyle": [
+				"col-md-3 p-3 border-end",
+				"col-md-3 p-3 border-end",
+				"col-md-3 p-3 border-end",
+				"col-md-3 p-3"
+			]
+		}
+	},
+
+	"SettingsGlobalCardContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card text-bg-light mb-3"
+		}
+	},
+
+	"SettingsGlobalHeader":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "h1",
+			"Style": "card-header",
+			"TextID": "TXT.HEADER.SETTINGS_GLOBAL"
+		}
+	},
+
+	"SettingsGlobalBodyContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-body"
+		}
+	},
+
+	"SettingsGlobalBodyInfo":
+	{
+		"Type": "InfoParagraph",
+		"Attributes": {
+			"Text": [
+				{ "ID": "TXT.SYSTEMSETTINGS.INFOPARAGRAPH.START", "Style": "text-dark text-opacity-75 fw-bold float-start" },
+				{ "ID": "TXT.SYSTEMSETTINGS.INFOPARAGRAPH.PARAGRAPH1", "Style": "text-dark text-opacitiy-50" }
+			]
+		}
+	},
+
+	"SettingsGlobalSystemSettingsSpacerTop":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "container p-2"
+		}
+	},
+
+	"SettingsGlobalTabs":
+	{
+		"Type": "TabContainer",
+		"Attributes":
+		{
+			"Tabs": [
+				{
+					"ID": "TabSettingsSystem",
+					"Attributes":
+					{
+						"TextID": "TXT.TABCONTAINER.SETTINGS.SYSTEM",
+						"Style": "col-md-4",
+						"IconStyle": "fa-solid fa-globe"
+					}
+				},
+				{
+					"ID": "TabSettingsVideo",
+					"Attributes":
+					{
+						"Default": true,
+						"TextID": "TXT.TABCONTAINER.SETTINGS.VIDEO",
+						"Style": "col-md-4",
+						"IconStyle": "fa-solid fa-display"
+					}
+				},
+				{
+					"ID": "TabSettingsDefault",
+					"Attributes":
+					{
+						"TextID": "TXT.TABCONTAINER.SETTINGS.DEFAULT",
+						"Style": "col-md-4",
+						"IconStyle": "fa-solid fa-cube"
+					}
+				}
+			]
+		}
+	},
+
+	"SettingsGlobalSystemSettingsSpacerMiddle":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "container p-2"
+		}
+	},
+
+	"SettingsGlobalSystemSettingsOpenClose":
+	{
+		"Type": "OpenCloseContainer",
+		"Attributes": {
+			"StateOpen": true,
+			"TextID": "TXT.SYSTEMSETTINGS.BASICSETTINGS.SUBSECTION_HEADER",
+			"HeaderStyle": "card-header text-primary-emphasis",
+			"IconStyle": "fa-solid fa-sliders"
+		}
+	},
+
+	"SettingsGlobalSystemSettings":
+	{
+		"Type": "SystemSettingsContainer",
+		"Attributes": {
+			"Settings": [
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.THEME",
+					"IconStyle": "fa-solid fa-lightbulb",
+					"SettingsObject": {
+						"ObjectType": "FormfieldPulldown",
+						"Attributes": {
+							"Style": "form-select border-secondary mb-1 p-1 w-100",
+							"Options": [
+								{
+									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.THEME.DARK",
+									"Value": "10"
+								},
+								{
+									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.THEME.LIGHT",
+									"Value": "20",
+									"Default": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.DEBUGLEVEL",
+					"IconStyle": "fa-solid fa-search",
+					"SettingsObject": {
+						"ObjectType": "FormfieldPulldown",
+						"Attributes": {
+							"Style": "form-select border-secondary mb-1 p-1 w-100",
+							"Options": [
+								{
+									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.DEBUGLEVEL.INFO",
+									"Value": "10"
+								},
+								{
+									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.DEBUGLEVEL.WARNING",
+									"Value": "20",
+									"Default": true
+								},
+								{
+									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.DEBUGLEVEL.ERROR",
+									"Value": "30"
+								}
+							]
+						}
+					}
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.MESSAGE_SERVER_COMPONENT",
+					"IconStyle": "fa-solid fa-envelope",
+					"SettingsObject": {
+						"ObjectType": "FormfieldCheckbox",
+						"Attributes": {
+							"Style": "form-check border-secondary form-check-input mb-1 p-1 w-100",
+							"Value": true,
+							"OnChange": {
+								"EnableOnValues": [ true ],
+								"DisableOnValues": [ false ],
+								"ObjectID": "SettingsGlobalSystemSettingsMsgServer"
+							}
+						}
+					}
+				}
+			]
+		}
+	},
+
+	"SettingsGlobalSystemSettingsMsgServerOpenClose":
+	{
+		"Type": "OpenCloseContainer",
+		"Attributes": {
+			"StateOpen": true,
+			"TextID": "TXT.SYSTEMSETTINGS.MSGSERVER.SUBSECTION_HEADER",
+			"HeaderStyle": "card-header text-primary-emphasis",
+			"IconStyle": "fa-solid fa-server"
+		}
+	},
+
+	"SettingsGlobalSystemSettingsMsgServer":
+	{
+		"Type": "SystemSettingsContainer",
+		"Attributes": {
+			"Settings": [
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.MSGSERVER.REQUEST_METHOD",
+					"IconStyle": "fa-solid fa-repeat",
+					"SettingsObject": {
+						"ObjectType": "FormfieldPulldown",
+						"Attributes": {
+							"Style": "form-select border-secondary mb-1 p-1 w-100",
+							"Options": [
+								{
+									"TextID": "TXT.SYSTEMSETTINGS.MSGSERVER.PULLDOWN_OPT.REQUEST_METHOD.WEBSOCKETS",
+									"Value": "10"
+								},
+								{
+									"TextID": "TXT.SYSTEMSETTINGS.MSGSERVER.PULLDOWN_OPT.REQUEST_METHOD.LONGPOLLING",
+									"Value": "20",
+									"Default": true
+								}
+							]
+						}
+					}
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.MESSAGE_SERVER_X509",
+					"IconStyle": "fa-solid fa-key",
+					"SettingsObject": {
+						"ObjectType": "FormfieldCheckbox",
+						"Attributes": {
+							"Style": "form-check border-secondary form-check-input mb-1 p-1 w-100",
+							"Value": false
+						}
+					}
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.MESSAGE_SERVER_THROTTLE",
+					"IconStyle": "fa-solid fa-gauge-high",
+					"SettingsObject": {
+						"ObjectType": "RangeSliderContainer",
+						"Attributes": {
+							"Style": "row",
+							"Min": 1,
+							"Max": 4096,
+							"Value": 500,
+							"UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.SECOND"
+						}
+					}
+				}
+			]
+		}
+	},
+
+	"SettingsGlobalVideoSettingsSpacerTop":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "container p-2"
+		}
+	},
+
+	"SettingsGlobalVideoSettingsOpenClose":
+	{
+		"Type": "OpenCloseContainer",
+		"Attributes": {
+			"StateOpen": true,
+			"TextID": "TXT.SYSTEMSETTINGS.VIDEOSETTINGS.BASIC.SUBSECTION_HEADER",
+			"HeaderStyle": "card-header text-primary-emphasis",
+			"IconStyle": "fa-solid fa-sliders"
+		}
+	},
+
+	"SettingsGlobalVideoSettings":
+	{
+		"Type": "SystemSettingsContainer",
+		"Attributes": {
+			"Settings": [
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.VIDEO.BRIGHTNESS",
+					"IconStyle": "fa-solid fa-sun",
+					"SettingsObject": {
+						"ObjectType": "RangeSlider",
+						"Attributes": {
+							"Style": "w-100",
+							"Min": 1,
+							"Max": 100,
+							"Value": 90
+						}
+					}
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.VIDEO.SATURATION",
+					"IconStyle": "fa-solid fa-droplet",
+					"SettingsObject": {
+						"ObjectType": "RangeSlider",
+						"Attributes": {
+							"Style": "w-100",
+							"Min": 1,
+							"Max": 100,
+							"Value": 70
+						}
+					}
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.VIDEO.REFRESHRATE",
+					"IconStyle": "fa-solid fa-refresh",
+					"SettingsObject": {
+						"ObjectType": "FormfieldPulldown",
+						"Attributes": {
+							"Style": "form-select border-secondary mb-1 p-1 w-100",
+							"Options": [
+								{
+									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.REFRESHRATE.60HZ",
+									"Value": "60"
+								},
+								{
+									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.REFRESHRATE.120HZ",
+									"Value": "120",
+									"Default": true
+								},
+								{
+									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.REFRESHRATE.200HZ",
+									"Value": "200"
+								}
+							]
+						}
+					}
+				}
+			]
+		}
+	},
+
+	"SettingsGlobalVideoSettingsColorOpenClose":
+	{
+		"Type": "OpenCloseContainer",
+		"Attributes": {
+			"StateOpen": true,
+			"TextID": "TXT.SYSTEMSETTINGS.VIDEOSETTINGS.COLOR.SUBSECTION_HEADER",
+			"HeaderStyle": "card-header text-primary-emphasis",
+			"IconStyle": "fa-solid fa-palette"
+		}
+	},
+
+	"SettingsGlobalVideoSettingsColor":
+	{
+		"Type": "SystemSettingsContainer",
+		"Attributes": {
+			"Settings": [
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.VIDEO.COLOR_RED",
+					"Style": "text-danger",
+					"IconStyle": "fa-solid fa-palette",
+					"SettingsObject": {
+						"ObjectType": "RangeSlider",
+						"Attributes": {
+							"Style": "w-100",
+							"Min": 1,
+							"Max": 100,
+							"Value": 70
+						}
+					}
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.VIDEO.COLOR_GREEN",
+					"Style": "text-success",
+					"IconStyle": "fa-solid fa-palette",
+					"SettingsObject": {
+						"ObjectType": "RangeSlider",
+						"Attributes": {
+							"Style": "w-100",
+							"Min": 1,
+							"Max": 100,
+							"Value": 70
+						}
+					}
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.VIDEO.COLOR_BLUE",
+					"Style": "text-primary",
+					"IconStyle": "fa-solid fa-palette",
+					"SettingsObject": {
+						"ObjectType": "RangeSlider",
+						"Attributes": {
+							"Style": "w-100",
+							"Min": 1,
+							"Max": 100,
+							"Value": 70
+						}
+					}
+				}
+			]
+		}
+	},
+
+	"SettingsGlobalDefaultSettingsSpacerTop":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "container p-2"
+		}
+	},
+
+	"SettingsGlobalDefaultSettingsCSSOpenClose":
+	{
+		"Type": "OpenCloseContainer",
+		"Attributes": {
+			"StateOpen": true,
+			"TextID": "TXT.SYSTEMSETTINGS.DEFAULTSETTINGS.CSS.SUBSECTION_HEADER",
+			"HeaderStyle": "card-header text-primary-emphasis",
+			"IconStyle": "fa-solid fa-file-code"
+		}
+	},
+
+	"SettingsGlobalDefaultSettingsCSS":
+	{
+		"Type": "SystemSettingsContainerGrid",
+		"Attributes": {
+			"GridStyles": {
+				"SelectorRowStyle": "row border border-1 border-secondary border-opacity-50 rounded m-0 p-1 fw-bold bg-secondary bg-opacity-25"
+			},
+			"GridGenerator": {
+				"RowStyles": "row border border-start-0 border-top-0 border-end-0 m-1 p-2",
+				"ColAfterElements": 1,
+				"Variants": [
+					{
+						"ColStyles": [ "col col-md-3", "col col-md-6", "col col-md-3" ],
+						"RowAfterElements": 3
+					},
+					{
+						"ColStyles": [
+							"col col-md-2",
+							"col col-md-2",
+							"col col-md-2 border border-start-0 border-top-0 border-bottom-0",
+							"col col-md-2",
+							"col col-md-2",
+							"col col-md-2"
+						],
+						"RowAfterElements": 6
+					}
+				]
+			},
+			"Settings": [
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.DEFAULT.CSS_SCREEN",
+					"IconStyle": "fa-solid fa-display",
+					"SettingsObject": {
+						"ObjectType": "FormfieldText",
+						"Attributes": {
+							"Style": "form-control border-secondary mb-1 p-1 w-100",
+							"Value": "screen-absolute-pos"
+						}
+					}
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.DEFAULT.CSS_MENU",
+					"IconStyle": "fa-solid fa-list",
+					"SettingsObject": {
+						"ObjectType": "FormfieldText",
+						"Attributes": {
+							"Style": "form-control border-secondary mb-1 p-1 w-100",
+							"Value": "menu-absolute-pos"
+						}
+					}
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.DEFAULT.CSS_SCREEN_OVERLAY",
+					"IconStyle": "fa-solid fa-layer-group",
+					"SettingsObject": {
+						"ObjectType": "FormfieldText",
+						"Attributes": {
+							"Style": "form-control border-secondary mb-1 p-1 w-100",
+							"Value": "p-3 shadow-lg border bg-gradient bg-opacity-75 overlay-default"
+						}
+					}
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.DEFAULT.CSS_LISTNAV_LEFT",
+					"IconStyle": "fa-solid fa-arrow-left",
+					"SettingsObject": {
+						"ObjectType": "FormfieldText",
+						"Attributes": {
+							"Style": "form-control border-secondary mb-1 p-1 w-100",
+							"Value": "col-6 p-4 pl-0"
+						}
+					}
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.DEFAULT.CSS_LISTNAV_RIGHT",
+					"IconStyle": "fa-solid fa-arrow-right",
+					"SettingsObject": {
+						"ObjectType": "FormfieldText",
+						"Attributes": {
+							"Style": "form-control border-secondary mb-1 p-1 w-100",
+							"Value": "col-6 p-4 float-end text-end pr-0"
+						}
+					}
+				}
+			]
+		}
+	},
+
+	"SettingsGlobalDefaultSettingsTimeoutOpenClose":
+	{
+		"Type": "OpenCloseContainer",
+		"Attributes": {
+			"StateOpen": true,
+			"TextID": "TXT.SYSTEMSETTINGS.DEFAULTSETTINGS.TIMEOUT.SUBSECTION_HEADER",
+			"HeaderStyle": "card-header text-primary-emphasis",
+			"IconStyle": "fa-solid fa-stopwatch"
+		}
+	},
+
+	"SettingsGlobalDefaultSettingsTimeout":
+	{
+		"Type": "SystemSettingsContainerGrid",
+		"Attributes": {
+			"GridStyles": {
+				"SelectorRowStyle": "row border border-1 border-secondary border-opacity-50 rounded m-0 p-1 fw-bold bg-secondary bg-opacity-25"
+			},
+			"GridGenerator": {
+				"RowStyles": "row border border-start-0 border-top-0 border-end-0 m-1 p-2",
+				"ColAfterElements": 1,
+				"Variants": [
+					{
+						"ColStyles": [ "col col-md-3", "col col-md-6", "col col-md-3" ],
+						"RowAfterElements": 3
+					},
+					{
+						"ColStyles": [
+							"col col-md-2",
+							"col col-md-2",
+							"col col-md-2 border border-start-0 border-top-0 border-bottom-0",
+							"col col-md-2",
+							"col col-md-2",
+							"col col-md-2"
+						],
+						"RowAfterElements": 6
+					}
+				]
+			},
+			"Settings": [
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.TIMEOUT.INDICATOR_BACKEND_SERVICE",
+					"Style": "text-primary",
+					"IconStyle": "fa-solid fa-server",
+					"SettingsObject": {
+						"ObjectType": "RangeSlider",
+						"Attributes": {
+							"Style": "w-100",
+							"Min": 1,
+							"Max": 30,
+							"Value": 10
+						}
+					}
+				}
+			]
+		}
+	},
+
+	"SettingsGlobalSaveContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row"
+		}
+	},
+
+	"SettingsGlobalSaveSelectionContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-2"
+		}
+	},
+
+	"SettingsGlobalSaveButtonContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-10"
+		}
+	},
+
+	"SettingsGlobalSaveSelectionPulldown":
+	{
+		"Type": "FormfieldPulldown",
+		"Attributes": {
+			"Style": "form-select border-secondary mb-1 p-1 w-100 mt-3",
+			"Options": [
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.SAVE.SYSTEM",
+					"Value": "TabSettingsSystemContent"
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.SAVE.VIDEO",
+					"Value": "TabSettingsVideoContent"
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.SAVE.DEFAULT",
+					"Value": "TabSettingsDefaultContent"
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.SAVE.ALL",
+					"Value": "SettingsGlobalCardContainer",
+					"Default": true
+				}
+			]
+		}
+	},
+
+	"SettingsGlobalSaveSettingsButton": {
+		"Type": "Button",
+		"Attributes": {
+			"TextID": "TXT.BUTTON.SYSTEMSETTINGS.SAVE_SETTINGS",
+			"Style": "btn btn-primary btn-lg w-100 mt-3",
+			"IconStyle": "fa-solid fa-floppy-disk",
+			"OnClick": "/python/saveSettings.py",
+			"RequestMethod": "POST",
+			"Notify": {
+				"ID": "SaveSystemSettings",
+				"DisplayHeaderID": "TXT.NOTIFYMSG.SAVE_SYSTEMSETTINGS"
+			}
+		}
+	},
+
+	"SettingsLanguageCardContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card text-bg-light mb-3"
+		}
+	},
+
+	"SettingsLanguageHeader":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "h1",
+			"Style": "card-header",
+			"TextID": "TXT.HEADER.SETTINGS_LANGUAGE"
+		}
+	},
+
+	"SettingsLanguageBodyContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-body"
+		}
+	},
+
+	"SettingsLanguageBodyTitle":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"Style": "card-title h1",
+			"IconStyle": "fa-solid fa-language",
+			"TextID": "TXT.CARD.SETTINGS_LANGUAGE"
+		}
+	},
+
+	"SettingsLanguageBodyInfo":
+	{
+		"Type": "InfoParagraph",
+		"Attributes": {
+			"Text": [
+				{ "ID": "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.START", "Style": "text-dark text-opacity-75 fw-bold float-start" },
+				{ "ID": "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.PARAGRAPH1", "Style": "text-dark text-opacitiy-50" }
+			]
+		}
+	},
+
+	"SettingsLanguageSwitchSpacer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "container p-2"
+		}
+	},
+
+	"SettingsLanguageSwitch":
+	{
+		"Type": "LanguageSwitch",
+		"Attributes": {
+			"Style": "row border rounded m-0 p-3 fw-bold"
+		}
+	},
+
+	"ExamplesOverlayEditOverlayDataCardContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card text-bg-light mb-3"
+		}
+	},
+
+	"ExamplesOverlayEditOverlayDataHeaderContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-header"
+		}
+	},
+
+	"ExamplesOverlayEditOverlayDataHeaderContainerRow":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row p-1 me-1"
+		}
+	},
+
+	"ExamplesOverlayEditOverlayDataHeaderContainerColHeader":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-9"
+		}
+	},
+
+	"ExamplesOverlayEditOverlayDataHeaderContainerColIcon":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-3 h1 fw-bold text-end text-primary-emphasis",
+			"Value": "<i class=\"fa-solid fa-layer-group\">"
+		}
+	},
+
+	"ExamplesOverlayEditOverlayDataHeader":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "h1",
+			"TextID": "TXT.HEADER.EXAMPLE.OVERLAY",
+			"Style": "text-primary-emphasis"
+		}
+	},
+
+	"ExamplesOverlayEditOverlayDataBodyContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-body"
+		}
+	},
+
+	"ExamplesOverlayEditOverlayDataFormWorker":
+	{
+		"Type": "FormfieldList",
+		"Attributes": {
+			"ObjectIDs": [
+				"WorkerNameLabel",
+				"WorkerName",
+				"WorkerSurenameLabel",
+				"WorkerSurename",
+				"TeamGroupLabel",
+				"TeamGroup"
+			],
+			"RowStyle": [
+				"row mb-6"
+			],
+			"RowAfterElements": [ 4, 2 ],
+			"ColAfterElements": 2,
+			"ColStyle": [
+				"col-md-6 mb-4",
+				"col-md-6 mb-4",
+				"col-md-12 mb-6"
+			],
+			"Disable": true
+		}
+	},
+
+	"ExamplesOverlayEditOverlayDataFormWorkerDetail":
+	{
+		"Type": "FormfieldList",
+		"Attributes": {
+			"ObjectIDs": [
+			]
+		}
+	}
+}

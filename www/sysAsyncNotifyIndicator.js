@@ -1,11 +1,11 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //- SYSTEM OBJECT "AsyncNotifyIndicator"                                     -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Renders Notification Layer                                               -//
+//- Notification Layer Renderer                                              -//
 //-                                                                          -//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -15,8 +15,8 @@
 //- CONSTRUCTOR "sysObjAsyncNotifyIndicator"
 //------------------------------------------------------------------------------
 
-function sysObjAsyncNotifyIndicator() {
-
+function sysObjAsyncNotifyIndicator()
+{
     this.EventListeners   = new Object();
     this.ChildObjects     = new Array();
 
@@ -24,10 +24,9 @@ function sysObjAsyncNotifyIndicator() {
 
     this.ObjectID         = 'SYSGlobalAsyncNotifyIndicator';
 
-    this.zIndex           = 10;
+    this.zIndex           = 100;
 
     this.init();
-
 }
 
 sysObjAsyncNotifyIndicator.prototype = new sysBaseObject();

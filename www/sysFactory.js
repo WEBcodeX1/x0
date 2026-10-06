@@ -3,23 +3,29 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- System Object Factory                                                    -//
+//- System Object "sysFactory"                                               -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//
+//-                                                                          -//
+//-                                                                          -//
+//-                                                                          -//
+//-------1---------2---------3---------4---------5---------6---------7--------//
+
+
 //------------------------------------------------------------------------------
-//- Main
+//- CONSTRUCTOR "sysFactory"
 //------------------------------------------------------------------------------
 
 function sysFactory()
 {
-    this.OverlayObj         = new sysScreenOverlay(this);      //- Overlay Object Ref
-    this.Screens            = new Object();                    //- Screen Instances (Refs)
+    this.OverlayObj         = new sysScreenOverlay();           //- Overlay Object Ref
+    this.Screens            = new Object();                     //- Screen Instances
 
-    this.OverlayRefCount    = 0;
     this.ClipboardData      = null;
 
     this.SetupClasses = {
         "TabContainer": sysTabContainer,
+        "Image": sysObjImage,
+        "ImageSelector": sysObjImageSelector,
         "SQLText": sysObjSQLText,
         "Button": sysObjButton,
         "ButtonInternal": sysObjButtonInternal,
@@ -30,8 +36,6 @@ function sysFactory()
         "DivUnique": sysObjDivUnique,
         "FileUpload": sysFileUpload,
         "ErrorContainer": sysErrorContainer,
-        "Link": sysObjLink,
-        "LinkExternal": sysObjLinkExternal,
         "FormfieldText": sysFormfieldItemText,
         "FormfieldTextarea": sysFormfieldItemTextarea,
         "FormfieldPulldown": sysFormfieldItemPulldown,
@@ -40,16 +44,23 @@ function sysFactory()
         "FormfieldLabel": sysFormfieldItemLabel,
         "FormfieldHidden": sysFormfieldItemHidden,
         "LanguageSwitch": sysObjLanguageSwitch,
-        "DynRadioList": sysObjDynRadioList,
-        "OpenCloseContainer": sysObjOpenClose,
+        "OpenCloseContainer": sysObjOpenCloseContainer,
+        "SystemSettingsContainer": sysObjSystemSettingsContainer,
+        "SystemSettingsContainerGrid": sysObjSystemSettingsContainerGrid,
+        "HeaderBodyContainer": sysObjHeaderBodyContainer,
         "TreeSimple": sysObjTreeSimple,
         "ProgressBar": sysObjProgressBar,
-        "RangeSlider": sysObjRangeSlider
+        "RangeSlider": sysObjRangeSlider,
+        "RangeSliderContainer": sysObjRangeSliderContainer,
+        "InfoParagraph": sysObjInfoParagraph,
+        "DynRadioList": sysObjDynRadioList,
+        "TimedProgress": userObjTimedProgress,
+        "ExampleEditableItem": userObjExampleEditableItem,
+        "ExampleEditableItemContainer": userObjExampleEditableItemContainer,
+        "ExampleFlightDetails": userObjExampleFlightDetails,
+        "ExampleFlightStatus": userObjExampleFlightStatus,
+        "ExampleWizard": userObjExampleWizard
     };
-
-    this.SetupClassesRT = {
-        "FormSectionHeader": sysFormSectionHeader
-    }
 }
 
 
@@ -60,7 +71,7 @@ function sysFactory()
 sysFactory.prototype.init = function()
 {
     //- ------------------------------------------------------
-    //- loop on skeleton, create screen object, add to this.Screens
+    //- loop on skeleton, add screen objects to this.Screens
     //- ------------------------------------------------------
     //console.debug('Skeleton Data:%o', this.DataSkeleton);
 
@@ -76,41 +87,39 @@ sysFactory.prototype.init = function()
     //- ------------------------------------------------------
     //- Add all System Screens
     //- ------------------------------------------------------
-
     const SkeletonData = this.DataSkeleton.XMLRPCResultData;
 
-    for(SkeletonKey in SkeletonData) {
-
-        //- add screen object
-        ScreenObj = this.addScreen(
+    for(SkeletonKey in SkeletonData)
+    {
+        this.addScreen(
             SkeletonKey,
             SkeletonData[SkeletonKey]
         )
-
-        ScreenObj.setup();
     }
 
     //- ------------------------------------------------------
     //- Init (activate/deactivate) OnChange references
     //- ------------------------------------------------------
-    this.initOnChangeObjects();
+    //this.initOnChangeObjects();
+
+    //--------------------------------------------------------
+    //- Setup Menu "Screen"
+    //--------------------------------------------------------
+    this.MenuScreen = new sysScreen();
+
+    const DefaultStyle = sysFactory.DefaultStyleMenu;
+
+    this.MenuScreen.ScreenID = 'sysMenu';
+    this.MenuScreen.SkeletonData = this.DataMenu.XMLRPCResultData;
+    this.MenuScreen.setStyle(DefaultStyle);
+    this.MenuScreen.setup();
+
+    this.Screens[this.MenuScreen.ScreenID] = this.MenuScreen;
 
     //- ------------------------------------------------------
     //- Switch to Default Screen
     //- ------------------------------------------------------
     this.switchScreen(this.DisplayDefaultScreen);
-
-    //--------------------------------------------------------
-    //- Setup Menu "Screen"
-    //--------------------------------------------------------
-    var MenuScreen = new sysScreen();
-
-    const DefaultStyle = sysFactory.DefaultStyleMenu;
-
-    MenuScreen.ScreenID = 'sysMenu';
-    MenuScreen.SkeletonData = this.DataMenu.XMLRPCResultData;
-    MenuScreen.setStyle(DefaultStyle);
-    MenuScreen.setup();
 
     //- ------------------------------------------------------
     //- Raise InitSystem Event
@@ -146,9 +155,7 @@ sysFactory.prototype.addScreen = function(ScreenID, SkeletonData) {
     //console.debug('::addScreen add LinkObject:%o to ScreenObj:%o', LinkObj, ScreenObj);
 
     this.Screens[ScreenID] = ScreenObj;
-
-    return this.Screens[ScreenID];
-
+    ScreenObj.setup();
 }
 
 
@@ -167,18 +174,6 @@ sysFactory.prototype.getScreens = function() {
 
 sysFactory.prototype.getScreenByID = function(ScreenID) {
     return this.Screens[ScreenID];
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "getLastScreenObject"
-//------------------------------------------------------------------------------
-
-sysFactory.prototype.getLastScreenObject = function() {
-    for (ScreenID in this.Screens) {
-        ScreenObj = this.Screens[ScreenID];
-    }
-    return ScreenObj;
 }
 
 
@@ -204,7 +199,8 @@ sysFactory.prototype.getObjectByID = function(ObjectID) {
 
 sysFactory.prototype.getObjectsByAttribute = function(Attribute) {
     var ResultObjects = new Object();
-    for (ScreenID in this.Screens) {
+    for (ScreenID in this.Screens)
+    {
         ScreenObj = this.Screens[ScreenID];
         ResultObjects[ScreenID] = ScreenObj.HierarchyRootObject.getObjectsByAttribute(Attribute);
     }
@@ -220,8 +216,8 @@ sysFactory.prototype.switchScreen = function(ScreenID)
 {
     console.debug('::switchScreen ScreenID:%s Current ScreenID:%s', ScreenID, this.CurrentScreenID);
 
-    if (ScreenID !== undefined) {
-
+    if (ScreenID !== undefined)
+    {
         try {
             //- get screen object by screen id
             const ScreenObj = this.getScreenByID(ScreenID);
@@ -235,32 +231,11 @@ sysFactory.prototype.switchScreen = function(ScreenID)
             //- switch selected screen to foreground
             this.switchScreenToForeground(ScreenObj);
 
-            //- trigger global screen data load
-            this.triggerScreenDataLoad(ScreenID);
+            //- fire "SwitchScreen" event
+            this.Reactor.dispatchEvent('SwitchScreen',  ScreenID);
         }
         catch(err) {
             console.debug('::switchScreen err:%s', err);
-        }
-    }
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "triggerScreenDataLoad"
-//------------------------------------------------------------------------------
-
-sysFactory.prototype.triggerScreenDataLoad = function(ScreenID)
-{
-    if (ScreenID !== undefined) {
-        try {
-            //- get screen object by screen id
-            const ScreenObj = this.getScreenByID(ScreenID);
-
-            //- trigger global screen data load
-            ScreenObj.triggerGlobalDataLoad();
-        }
-        catch(err) {
-            console.debug('::triggerScreenDataLoad err:%s', err);
         }
     }
 }
@@ -272,10 +247,14 @@ sysFactory.prototype.triggerScreenDataLoad = function(ScreenID)
 
 sysFactory.prototype.switchScreensToBackground = function()
 {
-    for (ScreenKey in this.Screens) {
-        ScreenObj = this.Screens[ScreenKey];
-        ScreenObj.HierarchyRootObject.VisibleState = 'hidden';
-        ScreenObj.HierarchyRootObject.setDOMVisibleState();
+    for (ScreenKey in this.Screens)
+    {
+        //- exclude menu layer hiding
+        if (ScreenKey != this.MenuScreen.ScreenID) {
+            ScreenObj = this.Screens[ScreenKey];
+            ScreenObj.HierarchyRootObject.VisibleState = 'hidden';
+            ScreenObj.HierarchyRootObject.setDOMVisibleState();
+        }
     }    
 }
 
@@ -298,26 +277,9 @@ sysFactory.prototype.switchScreenToForeground = function(ScreenObj)
 sysFactory.prototype.getObjectsByType = function(ScreenID, Type)
 {
     console.debug('::getObjectsByType ScreenID:%s Type:%s', ScreenID, Type);
-    var DstScreenObject = sysFactory.getScreenByID(ScreenID);
-    var RootObj = DstScreenObject.HierarchyRootObject;
+    const ScreenObject = sysFactory.getScreenByID(ScreenID);
+    const RootObj = ScreenObject.HierarchyRootObject;
     return RootObj.getObjectsByType(Type);
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "getObjectContainingTabData"
-//------------------------------------------------------------------------------
-
-sysFactory.prototype.getObjectContainingTabData = function(CheckObjectID)
-{
-    for (ScreenID in this.Screens) {
-        var ScreenObj = this.Screens[ScreenID];
-        for (ObjectID in ScreenObj.SkeletonData) {
-            if (ObjectID == CheckObjectID) {
-                return ScreenObj.SkeletonData[ObjectID];
-            }
-        }
-    }
 }
 
 
@@ -345,10 +307,12 @@ sysFactory.prototype.setGlobalVar = function(Key, Value) {
 
 sysFactory.prototype.initOnChangeObjects = function()
 {
-    for (ScreenID in this.Screens) {
+    for (const ScreenID in this.Screens)
+    {
         const Formlists = this.getObjectsByType(ScreenID, 'FormfieldList');
         //console.debug('Formlists:%o', Formlists);
-        for (Key in Formlists) {
+        for (Key in Formlists)
+        {
             console.debug('Formlist Key:%s', Key);
             Formlists[Key].initOnChangeItems();
         }
@@ -384,28 +348,30 @@ sysFactory.prototype.getText = function(TextID)
         const TextObj = this.ObjText.getTextObjectByID(TextID);
         RetValue = TextObj[this.EnvUserLanguage];
     }
-        catch(err) {
-            RetValue = 'Missing Text with ID:' + TextID;
-            console.debug('Text not found for given TextID:' + TextID);
-        }
-        return RetValue;
+    catch(err) {
+        RetValue = 'Missing Text with ID:' + TextID;
+        console.debug('Text not found for given TextID:%s', TextID);
     }
+    return RetValue;
+}
 
 
-    //------------------------------------------------------------------------------
-    //- METHOD "updateAllSQLTextObjects"
-    //------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//- METHOD "updateLanguageObjectsGlobal"
+//------------------------------------------------------------------------------
 
-    sysFactory.prototype.updateAllSQLTextObjects = function()
+sysFactory.prototype.updateLanguageObjectsGlobal = function()
+{
+    for (const ScreenID in this.Screens)
     {
-        for (const ScreenID in this.Screens) {
-            const ScreenObj = this.Screens[ScreenID];
-            const SQLTextObjects = ScreenObj.HierarchyRootObject.getObjectsByType('SQLText');
-            for (const SQLTextObj of SQLTextObjects) {
-                SQLTextObj.update();
-                SQLTextObj.setDOMElementValue();
-            }
+        console.debug('updateSQLObjects ScreenID:%s', ScreenID);
+        const TextObjects = this.getObjectsByType(ScreenID, 'SQLText');
+        console.debug('updateSQLObjects TxtObjects:%o', TextObjects);
+        for (const TextObjID in TextObjects) {
+            const TextObj = TextObjects[TextObjID];
+            TextObj.update();
         }
+    }
 }
 
 
@@ -415,23 +381,29 @@ sysFactory.prototype.getText = function(TextID)
 
 sysFactory.prototype.setupObjectRefsRecursive = function(ObjDefs, RefObj)
 {
-    for (const ObjItem of ObjDefs) {
-
+    for (const ObjItem of ObjDefs)
+    {
         CurrentObject = ObjItem['SysObject'];
         CurrentObject.ObjectID = ObjItem['id']
         CurrentObject.JSONConfig = { "Attributes": ObjItem['JSONAttributes'] };
+
+        if (ObjItem['id'] !== undefined) {
+            CurrentObject.KeyID = ObjItem['KeyID'];
+        }
 
         try {
             CurrentObject.init();
         }
         catch(err) {
+            console.log('::sysFactory setupObjectRefsRecursive() err:%s', err);
         }
+
+        console.debug('::sysFactory setupObjectRefsRecursive() ObjectID:%s JSONConfig:%o', CurrentObject.ObjectID, CurrentObject.JSONConfig);
 
         RefObj.addObject(ObjItem['SysObject']);
 
         if (ObjItem['ObjectDefs'] !== undefined) {
             sysFactory.setupObjectRefsRecursive(ObjItem['ObjectDefs'], ObjItem['SysObject']);
         }
-
     }
 }

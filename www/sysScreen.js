@@ -1,12 +1,12 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- SYSTEM "Screen" Processing                                               -//
+//- SYSTEM Object "sysScreen"                                                -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Classes                                                                   //
-//- ::sysScreen                                                              -//
+//-                                                                          -//
+//-                                                                          -//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 
@@ -15,7 +15,7 @@
 //- CONSTRUCTOR "sysScreen"
 //------------------------------------------------------------------------------
 
-function sysScreen(IsOverlay)
+function sysScreen()
 {
     this.ScreenID                = null;                           //- ScreenID
     this.SkeletonData            = null;                           //- JSON Skeleton Data (configuration)
@@ -24,9 +24,7 @@ function sysScreen(IsOverlay)
 
     this.PostRequestData         = new sysRequestDataHandler();    //- Base Recursive Root Object
 
-    this.GlobalVars              = new Object();                   //- GLobal Variables
-
-    this.IsOverlay               = IsOverlay;                      //- Overlay Indicator
+    this.GlobalVars              = new Object();                   //- Global Variables
 
     this.setStyle();
 }
@@ -38,13 +36,7 @@ function sysScreen(IsOverlay)
 
 sysScreen.prototype.setStyle = function(Style)
 {
-    if (Style === undefined) {
-        const DefaultStyle = sysFactory.DefaultStyleScreen;
-        this.CSSStyle = (DefaultStyle !== undefined) ? DefaultStyle : 'sysScreenRoot col-10';
-    }
-    else {
-        this.CSSStyle = Style;
-    }
+    this.CSSStyle = (Style === undefined) ? sysFactory.DefaultStyleScreen : Style;
 }
 
 
@@ -65,19 +57,15 @@ sysScreen.prototype.updateStyle = function(Style)
 
 sysScreen.prototype.setup = function()
 {
-    //console.debug('::setup ScreenID:%s', this.ScreenID);
-
-    const iOv = this.IsOverlay;
-
-    this.HierarchyRootObject.ObjectID = (iOv !== true) ? this.ScreenID : this.ScreenID + '__overlay';
+    //- set object id, style
+    this.HierarchyRootObject.ObjectID = this.ScreenID;
     this.HierarchyRootObject.DOMStyle = this.CSSStyle;
 
+    //- recursive setup object hierarchy
     this.setupObject(this.ScreenID, this.HierarchyRootObject);
 
     //- connect ServiceConnector Objects
     this.HierarchyRootObject.connectServiceConnectorObjects();
-
-    //console.debug('HierarchyRoot:%o', this.HierarchyRootObject);
 
     //- render screen root object (recurse)
     this.HierarchyRootObject.renderObject();
@@ -88,7 +76,8 @@ sysScreen.prototype.setup = function()
     //- process event listeners
     this.HierarchyRootObject.processEventListener();
 
-    //console.debug('sysScreen.setup() RootObject:%o', this.RootObject);
+    //- debug output
+    console.debug('::sysScreen setup() ScreenID:%s RootObject:%o', this.ScreenID, this.HierarchyRootObject);
 }
 
 
@@ -99,52 +88,40 @@ sysScreen.prototype.setup = function()
 sysScreen.prototype.setupObject = function(ObjectID, HierarchyObject, HierarchyLevel=0)
 {
     const SkeletonData = this.getSkeletonObjectsByObjectRefId(ObjectID);
-    //console.debug('::setupObject ObjectID:%s SkeletonData:%o', ObjectID, SkeletonData);
+    console.debug('::setupObject ObjectID:%s SkeletonData:%o', ObjectID, SkeletonData);
 
-    for (const ObjectItem of SkeletonData) {
-        //const ObjectItem = SkeletonData[ObjectIndex];
+    for (const ObjectItem of SkeletonData)
+    {
         const Key = Object.keys(ObjectItem)[0];
         const SkeletonItem = ObjectItem[Key];
-        var JSONConfig = sysFactory.DataObject.XMLRPCResultData[Key];
+        let JSONConfig = sysFactory.DataObject.XMLRPCResultData[Key];
 
         //console.debug('::setupObject ParamObjectID:%s ProcessObjectKey:%s JSONConfig:%o', ObjectID, Key, JSONConfig);
 
         try {
-            if (JSONConfig !== undefined && JSONConfig.RefID !== undefined) {
-                var JSONConfigRef = sysFactory.DataObject.XMLRPCResultData[JSONConfig.RefID];
-                JSONConfig = sysMergeObjects(JSONConfig, JSONConfigRef);
-                this.processOverwriteAtttributes(JSONConfig);
-                this.processReplaceAtttributes(JSONConfig, JSONConfigRef);
+            if (JSONConfig !== undefined && JSONConfig.InstanceOf !== undefined) {
+                JSONConfig = this.configObjectInstance(JSONConfig);
             }
 
             //console.debug('::setupObject ProcessSkeletonObjectKey:%s SkeletonItem:%o JSONConfig:%o', Key, SkeletonItem, JSONConfig);
 
-            var AddHierarchyObject = new sysFactory.SetupClasses[JSONConfig.Type]();
+            let AddHierarchyObject = new sysFactory.SetupClasses[JSONConfig.Type]();
 
-            AddHierarchyObject.JSONConfig    = JSONConfig;
+            AddHierarchyObject.JSONConfig = JSONConfig;
 
-            AddHierarchyObject.ObjectID        = (this.IsOverlay != true) ? Key : Key + '__overlay';;
-            AddHierarchyObject.ObjectType    = JSONConfig.Type;
-            AddHierarchyObject.Level        = HierarchyLevel;
+            AddHierarchyObject.ObjectID = Key;
+            AddHierarchyObject.ObjectType = JSONConfig.Type;
+            AddHierarchyObject.Level = HierarchyLevel;
             AddHierarchyObject.ScreenObject = this;
 
-            AddHierarchyObject.ParentID        = SkeletonItem.ElementID === undefined ? SkeletonItem.RefID : SkeletonItem.ElementID;
+            AddHierarchyObject.ParentID = SkeletonItem.ElementID === undefined ? SkeletonItem.RefID : SkeletonItem.ElementID;
 
             console.debug('::setupObject ObjectID:%s ParentID:%s', Key, AddHierarchyObject.ParentID);
-
-            if (JSONConfig.InstancePrefix !== undefined && JSONConfig.RefID !== undefined) {
-                AddHierarchyObject.updateInstanceObjectNames();
-            }
-
-            if (this.IsOverlay === true) {
-                AddHierarchyObject.rewriteOverlayFormitemNames();
-            }
 
             AddHierarchyObject.init();
 
             if (SkeletonItem.ElementID !== undefined && SkeletonItem.ElementID != null) {
-                //var AddObject = this.HierarchyRootObject.getObjectByID(SkeletonItem.ElementID);
-                var AddObject = sysFactory.getObjectByID(SkeletonItem.ElementID);
+                let AddObject = sysFactory.getObjectByID(SkeletonItem.ElementID);
                 //console.debug('::setupObject AddObject:%o', AddObject);
                 AddObject.addObject(AddHierarchyObject);
             }
@@ -158,48 +135,7 @@ sysScreen.prototype.setupObject = function(ObjectID, HierarchyObject, HierarchyL
             HierarchyLevel -=1;
         }
         catch(err) {
-            console.debug('::setupObject ObjectID:%s err:%s', Key, err);
-        }
-    }
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "processOverwriteAtttributes"
-//------------------------------------------------------------------------------
-
-sysScreen.prototype.processOverwriteAtttributes = function(JSONConfig)
-{
-    const AttributesOverwrite = JSONConfig.AttributesOverwrite;
-    //console.debug('processOverwriteAtttributes JSONConfig:%o', JSONConfig);
-    if (AttributesOverwrite !== undefined) {
-        for (ConfigKey in AttributesOverwrite) {
-            const ConfigValue = AttributesOverwrite[ConfigKey];
-            //console.debug('::processOverwriteAtttributes ConfigKey:%s ConfigValue:%o', ConfigKey, ConfigValue);
-            JSONConfig.Attributes[ConfigKey] = ConfigValue;
-        }
-    }
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "processReplaceAtttributes"
-//------------------------------------------------------------------------------
-
-sysScreen.prototype.processReplaceAtttributes = function(JSONConfig, JSONConfigRef)
-{
-    const AttributesReplace = JSONConfig.AttributesReplace;
-    if (AttributesReplace !== undefined) {
-        for (const Config of AttributesReplace) {
-            const Source = Config.DataSrc;
-            //console.debug('::processReplaceAtttributes Config:%o Source:%o', Config, Source);
-            if (Source.length == 1) {
-                JSONConfig.Attributes[Source[0]] = Config.Data;
-            }
-            if (Source.length == 2) {
-                JSONConfig.Attributes[Source[0]][Source[1]] = Config.Data;
-            }
-            //console.debug('::processReplaceAtttributes replaced JSONConfig:%o', JSONConfig.Attributes);
+            console.log('::setupObject ObjectID:%s err:%s', Key, err);
         }
     }
 }
@@ -215,18 +151,18 @@ sysScreen.prototype.getSkeletonObjectsByObjectRefId = function(ObjectId)
 
     var SkeletonComplete = sysFactory.DataSkeleton.XMLRPCResultData;
 
-    //console.debug('SkeletonComplete:%o', SkeletonComplete);
-
     if (ObjectId == 'sysMenu') {
         SkeletonComplete['sysMenu'] = sysFactory.DataMenu.XMLRPCResultData;
     }
 
-    for (ScreenID in SkeletonComplete) {
+    console.debug('SkeletonComplete:%o', SkeletonComplete);
 
+    for (ScreenID in SkeletonComplete)
+    {
         const SkeletonScreen = SkeletonComplete[ScreenID];
 
-        for (ObjectIndex in SkeletonScreen) {
-
+        for (ObjectIndex in SkeletonScreen)
+        {
             const ObjectItem = SkeletonScreen[ObjectIndex];
             const ObjectKey = Object.keys(ObjectItem)[0];
             const ProcessObj = ObjectItem[ObjectKey];
@@ -238,41 +174,31 @@ sysScreen.prototype.getSkeletonObjectsByObjectRefId = function(ObjectId)
             }
         }
     }
-
     return RefObjects;
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "triggerGlobalDataLoad"
+//- METHOD "configObjectInstance"
 //------------------------------------------------------------------------------
 
-sysScreen.prototype.triggerGlobalDataLoad = function()
+sysScreen.prototype.configObjectInstance = function(JSONConfig)
 {
-    const Config = this.JSONConfig;
+    const JSONConfigRef = sysFactory.DataObject.XMLRPCResultData[JSONConfig.InstanceOf];
+    const AttributesOverwrite = JSONConfig.AttributesOverwrite;
 
-    console.debug('::triggerGlobalDataLoad JSONConfig:%o', Config);
+    console.debug('AttributesOverwrite:%o', AttributesOverwrite);
 
-    //- fire all tab related events, load all service connected object data
-    if (Config !== undefined && Config.TabContainersLoadAll !== undefined) {
-        for (const TabContainerID of this.TabContainersLoadAll) {
-            //console.debug('::triggerGlobalDataLoad Index:%s TabContainerID:%s', Index, TabContainerID);
-            const TabContainer = this.HierarchyRootObject.getObjectByID(TabContainerID);
-            //console.debug('::triggerGlobalDataLoad TabContainer:%o', TabContainer);
-            if (TabContainer !== undefined) {
-                TabContainer.loadAll();
+    if (AttributesOverwrite !== undefined) {
+        for (AttrOverwriteKey in AttributesOverwrite)
+        {
+            if (AttrOverwriteKey in JSONConfigRef.Attributes) {
+                JSONConfigRef.Attributes[AttrOverwriteKey] = AttributesOverwrite[AttrOverwriteKey];
+                console.debug('AttributesOverwrite:%o JSONConfigRef:%o', AttributesOverwrite, JSONConfigRef);
             }
         }
     }
-
-    //- request global screen data load (into screen global vars)
-    if (Config !== undefined && Config.OnScreenSwitch !== undefined) {
-        RPC = new sysCallXMLRPC(
-            Config.OnScreenSwitch.ScriptURL,
-            Config.OnScreenSwitch.ScriptParams
-        );
-        RPC.Request(this);
-    }
+    return sysMergeObjects(JSONConfig, JSONConfigRef);
 }
 
 
@@ -284,9 +210,6 @@ sysScreen.prototype.callbackXMLRPCAsync = function()
 {
     //- set global vars from backend result
     this.setGlobalVars(this.XMLRPCResultData);
-
-    //- call updateValue() function on all objects recursive
-    this.HierarchyRootObject.processUpdate();
 }
 
 

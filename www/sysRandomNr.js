@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -26,7 +26,8 @@ function sysRandomNr() {
 
 sysRandomNr.prototype.generate = function(size) {
 
-    for (var i=0; i<size; i++) {
+    for (var i=0; i<size; i++)
+    {
         var tmpNr = Math.random()*10;
         this.number += Math.round(tmpNr);
     }

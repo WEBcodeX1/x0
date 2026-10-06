@@ -32,14 +32,13 @@ The *x0-framework* features a modern, three-pane layout:
 7.1.1. Menu Area
 ~~~~~~~~~~~~~~~~
 
--  Holds menu-related *x0-objects*, primarily of type **link**.
+-  Holds navigation and action objects.
 -  Menu objects are loaded from ``menu.json`` into the ``sysMenu`` DIV
    on page load.
--  Clicking a menu link activates the related screen in the Screen Area.
+-  Selecting a menu object activates its configured action or screen.
 -  Positioning is CSS-driven (see: `Content Area
    Positioning <#content-area-positioning>`__).
--  Not just for links: any *x0-object* can be referenced for rich,
-   flexible menus.
+-  Any supported *x0-object* can be referenced in the menu hierarchy.
 
 7.1.2. Screen Area
 ~~~~~~~~~~~~~~~~~~
@@ -220,6 +219,12 @@ x0 uses a declarative, JSON-driven UI/config model:
 -  **object.json** – All UI objects, attributes, metadata
 -  **skeleton.json** – How objects/screens are structured and related
 -  **menu.json** – Menu objects and navigation hierarchy
+
+In the database-independent ``x0-static`` deployment, these files are
+provided directly under ``static/meta/`` as ``object.json``,
+``skeleton.json``, ``menu.json``, and ``text-data.json``. See
+:ref:`appdev-static-deployment` for the complete layout and deployment
+instructions.
 
 **Workflow:** 1. ``skeleton.json`` initializes the UI hierarchy. 2.
 ``object.json`` defines the objects, inserted dynamically. 3.

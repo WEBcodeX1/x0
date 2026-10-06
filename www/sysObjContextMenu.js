@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -19,7 +19,7 @@ function sysContextMenu()
 {
     this.ID                = null;                  //- Internal ID
 
-    this.ItemConfig        = null;                  //- OldStyle Config Behaviour
+    this.ItemConfig        = null;                  //- Context Menu Item Config
     this.Items             = new Array();           //- Content Menu Items Array
 
     this.pageX             = 0;                     //- Screen Coordinates X
@@ -42,7 +42,6 @@ sysContextMenu.prototype = new sysBaseObject();
 
 sysContextMenu.prototype.EventListenerClickClose = function(Event)
 {
-    //console.log('##### CONTEXT MENU EVENT LISTENER CLICK CLOSE #####');
     this.close();
 }
 
@@ -64,8 +63,8 @@ sysContextMenu.prototype.close = function(Event)
 
 sysContextMenu.prototype.removeRootElement = function(Event)
 {
-    var ContextMenuRootElementID = this.ID;
-    var ContextMenuRootObj = this.ScreenObject.HierarchyRootObject.getObjectByID(ContextMenuRootElementID);
+    let ContextMenuRootElementID = this.ID;
+    let ContextMenuRootObj = this.ScreenObject.HierarchyRootObject.getObjectByID(ContextMenuRootElementID);
 
     if (ContextMenuRootObj !== undefined) {
         ContextMenuRootObj.removeParent();
@@ -79,43 +78,24 @@ sysContextMenu.prototype.removeRootElement = function(Event)
 
 sysContextMenu.prototype.init = function()
 {
-    //------------------------------------------------------------------------------
     //- remove root object from DOM
-    //------------------------------------------------------------------------------
-
     this.removeRootElement();
 
-    //------------------------------------------------------------------------------
     //- set root object ObjectID
-    //------------------------------------------------------------------------------
-
     this.ObjectID = this.ID;
 
-    //------------------------------------------------------------------------------
     //- setup context menu header
-    //------------------------------------------------------------------------------
-
-    //console.debug('###### SET CONTEXT MENU ###### x:' + this.pageX + ' y:' + this.pageY);
-
     this.setupHeader();
 
-    //------------------------------------------------------------------------------
     //- add items, process
-    //------------------------------------------------------------------------------
-
     this.addItems();
     this.processItems();
 
-    //------------------------------------------------------------------------------
     //- add context menu root object to screen root object
-    //------------------------------------------------------------------------------
     this.addObject(this.ContainerObj);
     this.ScreenObject.HierarchyRootObject.addObject(this);
 
-    //------------------------------------------------------------------------------
     //- render, process event listener
-    //------------------------------------------------------------------------------
-
     this.renderObject();
     this.processEventListener();
     this.setDOMElementStyleAttributes();
@@ -128,46 +108,16 @@ sysContextMenu.prototype.init = function()
 
 sysContextMenu.prototype.addItems = function()
 {
-    var ItemConfig = this.ItemConfig;
+    let ItemConfigArray = this.ItemConfig;
 
-    for (ProcessItem of ItemConfig) {
+    for (ItemConfig of ItemConfigArray)
+    {
+        let ContextMenuItem                 = new sysContextMenuItem();
+        ContextMenuItem.ItemConfig          = ItemConfig;
+        ContextMenuItem.ParentObject        = this.ParentObject;
+        ContextMenuItem.ContextMenuObject   = this;
 
-        var ContextMenuItem = new sysContextMenuItem();
-
-        ContextMenuItem.ID = ProcessItem.ID;
-
-        ContextMenuItem.TextID = ProcessItem.TextID;
-        ContextMenuItem.IconStyle = ProcessItem.IconStyle;
-
-        ContextMenuItem.DstScreenID = ProcessItem.DstScreenID;
-        ContextMenuItem.DstObjectID = ProcessItem.DstObjectID;
-        ContextMenuItem.DstObjectIDs = ProcessItem.DstObjectIDs;
-        ContextMenuItem.DstScreenSrcObjFilter = ProcessItem.DstScreenSrcObjFilter;
-
-        ContextMenuItem.ScreenOverlayID  = ProcessItem.ScreenOverlayID;
-        ContextMenuItem.ScreenOverlaySetDataObjects = ProcessItem.ScreenOverlaySetDataObjects;
-
-        ContextMenuItem.ServiceURL = ProcessItem.ServiceURL;
-        ContextMenuItem.ServiceID = ProcessItem.ServiceID;
-        ContextMenuItem.ServiceKeyColumn = ProcessItem.ServiceKeyColumn;
-        ContextMenuItem.Notify = ProcessItem.Notify;
-
-        ContextMenuItem.UpdateSrcObject = ProcessItem.UpdateSrcObject;
-
-        ContextMenuItem.FireEvents = ProcessItem.FireEvents;
-
-        ContextMenuItem.InternalFunction = ProcessItem.InternalFunction;
-        ContextMenuItem.RowColumn = ProcessItem.RowColumn;
-        ContextMenuItem.DstObjectID = ProcessItem.DstObjectID;
-        ContextMenuItem.InternalRemoveItemBy = ProcessItem.InternalRemoveItemBy;
-        ContextMenuItem.ColumnDependend = ProcessItem.ColumnDependend;
-
-        ContextMenuItem.ResetAll = ProcessItem.ResetAll;
-
-        ContextMenuItem.ScreenObject = this.ScreenObject;
-        ContextMenuItem.ParentObject = this.ParentObject;
-
-        ContextMenuItem.ContextMenuObject = this;
+        console.debug('::CtxMenu addItems() Item:%o', ContextMenuItem);
 
         this.Items.push(ContextMenuItem);
     }
@@ -182,16 +132,19 @@ sysContextMenu.prototype.processItems = function()
 {
     let i = 1;
     for (const ItemObj of this.Items)
-        var ItemDisplayObj = new sysObjSQLText();
+    {
+        console.debug('::CtxMenu processItems() Item:%o', ItemObj);
+
+        let ItemDisplayObj = new sysObjSQLText();
         ItemDisplayObj.overrideDOMObjectID = true;
         ItemDisplayObj.ObjectID = this.ID + 'ItemDisplay' + i;
         ItemDisplayObj.DOMType = 'li';
-        ItemDisplayObj.TextID = ItemObj.TextID;
+        ItemDisplayObj.TextID = ItemObj.ItemConfig.TextID;
 
         ItemDisplayObj.JSONConfig = {
             "Attributes": {
                 "Style": 'list-group-item',
-                "IconStyle": ItemObj.IconStyle
+                "IconStyle": ItemObj.ItemConfig.IconStyle
             }
         };
 
@@ -201,7 +154,7 @@ sysContextMenu.prototype.processItems = function()
         ItemObj.DisplayObj = ItemDisplayObj;
 
         //- add click event listener
-        var EventListenerObj = new Object();
+        let EventListenerObj = new Object();
         EventListenerObj['Type'] = 'click';
         EventListenerObj['Element'] = ItemObj.EventListenerClick.bind(ItemObj);
 
@@ -218,9 +171,8 @@ sysContextMenu.prototype.processItems = function()
         EventMouseOut['Element'] = ItemObj.removeHilite.bind(ItemObj);
         ItemDisplayObj.EventListeners["MouseOut"] = EventMouseOut;
 
-
         this.ContainerObj.addObject(ItemDisplayObj);
-        i+=1;
+        ++i;
     }
 }
 
@@ -234,7 +186,7 @@ sysContextMenu.prototype.setupHeader = function()
     this.ContainerObj = new sysBaseObject();
     this.ContainerObj.overrideDOMObjectID = true;
     this.ContainerObj.ObjectID = this.ID + 'CMHeaderContainer';
-    this.ContainerObj.DOMStyle = 'sysContextMenuTable list-group';
+    this.ContainerObj.DOMStyle = 'context-menu list-group';
     this.ContainerObj.DOMType = 'ul';
     this.ContainerObj.DOMStyleTop = this.pageY.toString() + 'px';
     this.ContainerObj.DOMStyleLeft = this.pageX.toString() + 'px';
@@ -271,28 +223,8 @@ sysContextMenu.prototype.setupHeader = function()
 
 function sysContextMenuItem()
 {
-    this.PostRequestData    = new sysRequestDataHandler();
-
-    this.ID                 = null;                 //- Internal ID
-    this.TextID             = null;                 //- Display Text ID
-    this.IconStyle          = null;                 //- Display Icon Style
-
-    this.DstScreenID        = null;                 //- Service Destination Screen ID
-
-    this.ServiceURL         = null;                 //- Service Call URL
-    this.ServiceID          = null;                 //- Service ID
-    this.Notify             = null;                 //- Notify (true | false)
-
-    this.UpdateSrcObject    = false;                //- Update Source Object
-
-    this.ScreenObject       = null;                 //- Screen Object Reference
     this.ParentObject       = null;                 //- Parent Object Reference
-
     this.ContextMenuObject  = null;                 //- Context Menu Reference
-
-    this.FireEvents         = null;                 //- Reactor Event Array
-
-    this.InternalFunction   = null;                 //- Internal System Functionality
 
     this.HiLiteStyle        = 'bg-body-secondary';  //- Hilite CSS
 }
@@ -304,132 +236,31 @@ function sysContextMenuItem()
 
 sysContextMenuItem.prototype.EventListenerClick = function(Event)
 {
-    //console.log('##### CONTEXT MENU EVENT LISTENER CLICK #####');
-
-    this.PostRequestData.reset();
-
-    if (this.InternalFunction != null) {
-
-        console.log('Function:%s', this.InternalFunction);
-        const RowData = this.ContextMenuObject.RowData;
-
-        if (this.InternalFunction == 'get-data') {
-            sysFactory.ClipboardData = this.ParentObject.RuntimeGetDataFunc();
-            this.ContextMenuObject.close();
-        }
-
-        else if (this.InternalFunction == 'set-data') {
-            this.ParentObject.RuntimeSetDataFunc(sysFactory.ClipboardData);
-            this.ContextMenuObject.close();
-        }
-
-        else if (this.InternalFunction == 'remove') {
-            this.ParentObject.remove();
-            this.ContextMenuObject.close();
-        }
-
-        else if (this.InternalFunction == 'remove-selected') {
-            this.ParentObject.ParentObject.removeSelectedRows();
-            this.ContextMenuObject.close();
-        }
-
-        else if (this.InternalFunction == 'reset') {
-            this.ParentObject.reset();
-            this.ContextMenuObject.close();
-        }
-
-        else if (this.InternalFunction == 'copy') {
-            const DstObject = sysFactory.getObjectByID(this.DstObjectID);
-            //console.log('::ContextMenu copy ListObject:%o RowData:%o', ListObj, RowData);
-            DstObject.RuntimeAppendDataFunc(RowData);
-        }
-
-        else if (this.InternalFunction == 'setrowcolumn') {
-            try {
-                //console.log('setrowcolumn RowData:%o', RowData);
-                const DstObject = sysFactory.getObjectByID(this.DstObjectID);
-                DstObject.setValue(RowData[this.RowColumn]);
-                //console.log('setrowcolumn ConnectorObject:%o', DstObject);
-            }
-            catch(err) {
-                console.log('::EventListenerClick setrowcolumn err:%s', err);
-            }
-        }
-
-        else if (this.InternalFunction == 'openOverlay') {
-
-            sysFactory.OverlayObj.setupOverlay(
-                this.ScreenOverlayID,
-                {
-                    "SourceData": RowData,
-                    "DstObjects": this.ScreenOverlaySetDataObjects
-                }
-            );
-
-            this.ContextMenuObject.close();
-        }
-
-        try {
-            sysFactory.UserContextMenu.process(this);
-        }
-        catch(err) {
-            console.log('::ContextMenu process UserContextMenu error:%s', err);
-        }
-
+    //- dispatch function
+    const FunctionID = this.ItemConfig.InternalFunction;
+    if (FunctionID !== undefined && FunctionID != null)
+    {
+        console.debug('FunctionID:%s ItemConfig:%o ClipboardData:%o', FunctionID, this.ItemConfig, sysFactory.ClipboardData);
+        FunctionDispatcher.dispatchFunction(
+            FunctionID, this.ParentObject, this.ItemConfig
+        )
     }
 
-    if (this.ServiceURL != null) {
-
-        sysFactory.GlobalAsyncNotifyIndicator.addMsgItem(this.Notify);
-
-        var Item = new Object();
-        //Item['DBPrimaryKeyValue'] = this.DBPrimaryKeyValue;
-
-        if (this.ServiceKeyColumn !== undefined) {
-            Item[this.ServiceKeyColumn] =  this.ContextMenuObject.RowData[this.ServiceKeyColumn];
-        }
-
-        this.PostRequestData.merge(Item);
-
-        if (this.ServiceID != null) {
-            this.PostRequestData.addServiceProperty('BackendServiceID', this.ServiceID);
-        }
-
-        this.callService();
-
-    }
-
-    if (this.DstScreenID !== undefined && this.DstScreenID != null) {
-
-        const ScreenObj = sysFactory.getScreenByID(this.DstScreenID);
-
-        console.debug('contextMenu this:%o', this);
-
-        if (this.RowColumn !== undefined && ScreenObj !== undefined) {
-
-            console.debug('contextMenu RowObject:%o', this.ContextMenuObject.RowObject);
-            
-            const setValue = this.ContextMenuObject.RowObject.RowData[this.RowColumn];
-
-            console.debug('contextMenu setValue:%s', setValue);
-
-            ScreenObj.setGlobalVar(this.RowColumn, setValue);
-        }
-
+    //- open overlay
+    const OverlayScreenID = this.ItemConfig.OverlayScreenID;
+    if (OverlayScreenID !== undefined) {
+        sysFactory.OverlayObj.activateOverlay(OverlayScreenID);
         this.ContextMenuObject.close();
-
-        if (this.ResetAll === true) {
-            ScreenObj.HierarchyRootObject.processReset();
-        }
-
-        //- switch screen
-        sysFactory.switchScreen(this.DstScreenID);
-
     }
 
     //- fire events
-    sysFactory.Reactor.fireEvents(this.FireEvents);
+    const FireEvents = this.ItemConfig.FireEvents;
+    if (FireEvents !== undefined) {
+        sysFactory.Reactor.fireEvents(FireEvents);
+    }
 
+    //- close context menu
+    this.ContextMenuObject.close();
 }
 
 
@@ -450,43 +281,4 @@ sysContextMenuItem.prototype.setHilite = function()
 sysContextMenuItem.prototype.removeHilite = function()
 {
     this.DisplayObj.removeDOMElementStyle(this.HiLiteStyle);
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "callService"
-//------------------------------------------------------------------------------
-
-sysContextMenuItem.prototype.callService = function()
-{
-    if (this.ServiceURL != null && this.ServiceURL !== undefined) {
-        RPC = new sysCallXMLRPC(this.ServiceURL);
-        RPC.Request(this);
-    }
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "callbackXMLRPCAsync"
-//------------------------------------------------------------------------------
-
-sysContextMenuItem.prototype.callbackXMLRPCAsync = function()
-{
-    //console.log(this.XMLRPCResultData.error);
-
-    var MsgHandler = sysFactory.sysGlobalAsyncNotifyHandler;
-    var XMLRPCStatus = this.XMLRPCResultData.error;
-    var NotifyStatus = 'ERROR';
-
-    if (XMLRPCStatus === undefined) {
-        NotifyStatus = 'SUCCESS';
-    }
-
-    if (this.Notify.ID !== undefined) {
-        const IndicatorID = this.Notify.ID;
-        const Message = 'SYS__'+IndicatorID+'__'+NotifyStatus;
-        MsgHandler.processMsg(Message);
-    }
-
-    this.ContextMenuObject.close();
 }

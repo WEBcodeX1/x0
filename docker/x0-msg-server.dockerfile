@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 MAINTAINER Claus Prüfer
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -23,6 +23,6 @@ CMD /var/lib/msgserver/bin/docker-start-msg-server.sh
 
 EXPOSE 8080
 
-LABEL org.opencontainers.image.source=https://github.com/clauspruefer/x0
+LABEL org.opencontainers.image.source=https://github.com/WEBcodeX1/x0
 LABEL org.opencontainers.image.description="x0 docker container image - messaging server component"
 LABEL org.opencontainers.image.licenses=AGPL-3.0-or-later

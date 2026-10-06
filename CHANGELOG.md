@@ -1,172 +1,98 @@
 # Changelog
 
-All notable changes to the x0 JavaScript Framework project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+This document records significant changes to the x0 JavaScript Framework. It follows
+[Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and
+[Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.1.0-rc1] - 2026-10-06
+
+### Added
+- A database-independent static deployment profile, including a dedicated Docker image and startup script.
+- Runtime objects for image display and selection, informational text, header/body layout, and system settings.
+- A function dispatcher and example objects for editable items, flight data, timed progress, and wizard workflows.
+- Static metadata for the standalone deployment, together with a compact logo and additional example icons.
+
+### Changed
+- Reworked core runtime processing for object construction and updates, event dispatch, service requests, asynchronous notifications, and user-defined functions.
+- Revised form-field processing and validation, list and tree behavior, grid generation, pagination, tab navigation, screen management, and overlays.
+- Updated file-upload handling, global styles, application initialization, and static application metadata.
+- Revised Docker and Debian packaging, build and startup workflows, and local/offline package-mirror configuration; updated the bundled `pgdbpool` archive to 1.0.2.
+- Consolidated deployment configuration under `config/` and reorganized static application files under `static/meta/` and `static/system/`.
+
+### Removed
+- Removed the legacy Link, LinkExternal, IntervalHandler, and FormSectionHeader components.
+- Removed superseded drag-and-drop and recursive-object-data examples, the former static build script, and obsolete configuration and package files.
 
 ## [1.0.0] - 2025-09-07
 
 ### Added
-- Comprehensive CHANGELOG.md following Keep a Changelog format
-- Complete GitHub integration with issue templates, workflows, and documentation
+- A changelog following Keep a Changelog conventions.
+- GitHub issue templates, workflows, and supporting project documentation.
 
 ### Changed
-- Documentation improvements and standardization
-- Promoted from release candidate to stable release
+- Standardized project documentation and designated the release candidate as the stable release.
 
 ### Fixed
-- Final bug fixes and stabilization for stable release
+- Applied final stabilization fixes for the 1.0.0 release.
 
 ## [1.0.0-rc1] - 2025-04-18
 
 ### Added
-- Example "list_objectdata_grid" - List grid-functionality demonstration
-- Example "net_messages" - Object exchange via msg-server with real-time communication
-- Example "object_instances" - Object instancing examples
-- Example "copy_paste" - Object data get/set context-menu functionality
-- ContextMenu handling to FormfieldList x0-object-type
-- RuntimeSetDataFunc() for List "column" Objects
-
-### Fixed
-- Multiple generic bug fixes regarding JS array processing
-- sysObjFormfieldItem.js code cleanup (removed enclose__ object)
+- Examples for object-data grids, network messaging, object instances, and context-menu copy and paste.
+- Context-menu support for FormfieldList objects.
+- `RuntimeSetDataFunc()` support for List column objects.
 
 ### Changed
-- Improved object processing and state management
+- Improved object processing and state management.
+
+### Fixed
+- Corrected multiple defects in JavaScript array processing.
+- Removed the redundant `enclose__` object from `sysObjFormfieldItem.js`.
 
 ## [0.99.0] - 2025-03-20
 
 ### Added
-- Complete multilanguage support with real-time switching
-- Integration tests for local (non-docker) environments
-- Example "enhanced_form" with advanced form functionality
-- sysObjList "sections" processing 
-- FontAwesome icons for multiple Object types
-- sysRTFormSectionHeader.js for sysObjFormfieldList
-- sysRTPagination.js for sysObjList
-- Global Grid-Calculation generator for sysObjList and sysObjFormfieldList
-- System real-time functions (sysRT*)
-- Favicon.ico handling
+- Real-time language switching and local integration tests.
+- The `enhanced_form` example and List section processing.
+- Font Awesome icons for additional object types, form-section headers, and pagination.
+- Shared grid-calculation logic for List and FormfieldList objects.
+- System real-time functions and favicon handling.
 
 ### Changed
-- x0 base made 100% generic
-- sysObjList and pagination completely refactored (maintains 100% object state)
-- Complete CSS styles rework using Bootstrap 5 template conformance
-- Integrated current psycopg2 Python3 module
-- Corrected sysObjTabContainer base code
-- Updated copyright year in all .js files
-- Improved formfield validation system with group validation and regex fixes
+- Generalized the x0 base and refactored List and pagination processing while preserving object state.
+- Reworked CSS styles for Bootstrap 5 and updated the Python PostgreSQL integration.
+- Revised TabContainer processing and updated JavaScript copyright notices.
+- Improved form-field group validation and regular-expression handling.
 
 ### Fixed
-- Code duplication/object inheritance in sysObjFormfieldItem
-- Multiple unnecessary code removed from sysFormfieldOnChangeHandler
-- Integration tests corrected for new code base
+- Removed duplicated code and corrected object inheritance in `sysObjFormfieldItem`.
+- Removed redundant logic from form-field change handling.
+- Updated integration tests for the revised codebase.
 
 ### Removed
-- Overlay processing of Formfield Objects in sysObjFormfieldList (temporarily)
-- "Calculated" Formfield Objects (temporarily) 
-- Incomplete logic from sysObjButton and sysObjButtonInternal
+- Temporarily removed form-field overlays and calculated form fields from FormfieldList.
+- Removed incomplete logic from `sysObjButton` and `sysObjButtonInternal`.
 
 ## [0.98.0-rc] - 2023-06-20
 
 ### Added
-- Initial release of x0 JavaScript Framework
-- Core OOP JavaScript SPA framework architecture
-- True DOM OOP templating with 1:1 object-to-DOM mapping
-- Cross-object communication using JSON metadata
-- Bootstrap 5.3 CSS integration (without JavaScript dependencies)
-- Responsive design with CSS Grid support
-- FontAwesome 6 Free icon integration
-- Docker containerization support
-- Kubernetes deployment support
-- PostgreSQL database integration
-- Apache2/WSGI backend support
-- Multi-language text management system
-- Core x0-objects: List, Form, Button, TabContainer
-- Basic validation and event system
-- Initial documentation structure
+- The initial x0 JavaScript Framework release, including its object-oriented single-page application architecture and DOM-based templating model.
+- JSON-based metadata for cross-object communication and a multi-language text-management system.
+- Core List, Form, Button, and TabContainer objects, with basic validation and event processing.
+- Bootstrap 5.3 CSS integration, responsive CSS Grid layouts, and Font Awesome 6 Free icons.
+- Docker and Kubernetes deployment support, PostgreSQL integration, and an Apache2/WSGI backend.
+- Initial project documentation.
 
 ### Components
-- **x0-app**: Main application package with Python3 backend
-- **x0-db**: PostgreSQL database component
-- **x0-test**: Integration testing framework with Selenium
-- **x0-msg-server**: Python3-based messaging server
+- **x0-app**: Python 3 application package.
+- **x0-db**: PostgreSQL database component.
+- **x0-test**: Selenium-based integration test framework.
+- **x0-msg-server**: Python 3 messaging server.
 
-## Project Information
-
-### Current Features
-- **Zero Bootstrap JavaScript Dependency**: Uses Bootstrap 5.3 CSS without JavaScript
-- **Responsive Design**: Built with CSS Grid and Bootstrap responsive system
-- **Cross-Object Communication**: Seamless metadata exchange between x0-objects
-- **True DOM OOP Templating**: Strict 1:1 mapping between JavaScript objects and DOM elements
-- **Multi-language Support**: Real-time language switching without page reload
-- **Integrated Testing**: Selenium-based integration tests
-- **Container Ready**: Docker images and Kubernetes support
-- **Comprehensive Documentation**: Sphinx-based documentation with examples
-
-### Technical Stack
-- **Frontend**: JavaScript ES6+, Bootstrap 5.3 CSS, FontAwesome 6 Free
-- **Backend**: Python 3 with WSGI/Apache2 integration
-- **Database**: PostgreSQL with psycopg2 connector
-- **Messaging**: Custom Python3-based real-time messaging server
-- **Testing**: Selenium WebDriver integration tests
-- **Containerization**: Docker with multi-stage builds
-- **Orchestration**: Kubernetes deployment manifests
-- **Documentation**: Sphinx with reStructuredText
-
-### Architecture
-- **Single Page Application (SPA)**: Fast, desktop-like user experience
-- **Object-Oriented Design**: True OOP with abstraction and inheritance
-- **Event-Driven**: Comprehensive event system for object communication
-- **Modular Components**: Reusable, configurable x0-objects
-- **Metadata-Driven**: JSON-based configuration and object definitions
-- **Backend-Agnostic**: Clean separation between frontend and backend logic
-
-### Deployment Options
-- **Docker**: Multi-container setup with x0-app, x0-db, x0-test, and x0-msg-server
-- **Kubernetes**: Production-ready orchestration with configurable scaling
-- **Traditional**: Apache2/WSGI deployment on dedicated servers
-- **Development**: Local setup with integrated development tools
-
-### Getting Started
-1. **Quick Start**: Use Docker Compose for immediate setup
-2. **Documentation**: Visit [docs.webcodex.de/x0/v1.0/](https://docs.webcodex.de/x0/v1.0/) for comprehensive guides
-3. **Examples**: Explore 15 working examples in the `/example` directory
-4. **Development**: Follow the [CONTRIBUTING.md](CONTRIBUTING.md) guide for development setup
-
-### Examples Available
-- **add_object_table_column**: Adding object types as table columns
-- **basic_menu_screen**: Basic menu and navigation
-- **basic_tabcontainer**: Tab container functionality  
-- **bootstrap_rowspan**: Bootstrap grid layout examples
-- **copy_paste**: Context menu copy/paste functionality
-- **enhanced_form**: Advanced form features with validation
-- **list_detail_switch_screen**: List and detail view switching
-- **list_dyn_radio**: Dynamic radio button lists
-- **list_objectdata_grid**: Grid functionality for data display
-- **multi_tabcontainer**: Multiple tab container management
-- **net_messages**: Network messaging between browser sessions
-- **object_instances**: Object instancing and lifecycle management
-- **open_close_container**: Container expand/collapse functionality
-- **screen_overlay**: Overlay and modal functionality
-
-### Documentation
-- Complete Sphinx documentation available at [docs.webcodex.de/x0/v1.0/](https://docs.webcodex.de/x0/v1.0/)
-- Installation guide with Docker and Kubernetes setup
-- Application development guide with object modeling
-- Core development documentation for framework contributors
-- Testing and deployment guides
-
-### Links
-- **Repository**: [github.com/WEBcodeX1/x0](https://github.com/WEBcodeX1/x0)
-- **Documentation**: [docs.webcodex.de/x0/v1.0/](https://docs.webcodex.de/x0/v1.0/)
-- **License**: AGPL-3.0
-- **Maintainer**: Claus Prüfer <pruefer@webcodex.de>
-
-[Unreleased]: https://github.com/WEBcodeX1/x0/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/WEBcodeX1/x0/compare/v1.1.0-rc1...HEAD
+[1.1.0-rc1]: https://github.com/WEBcodeX1/x0/compare/v1.0.0...v1.1.0-rc1
 [1.0.0]: https://github.com/WEBcodeX1/x0/compare/v1.0.0-rc1...v1.0.0
 [1.0.0-rc1]: https://github.com/WEBcodeX1/x0/compare/v0.99.0...v1.0.0-rc1
 [0.99.0]: https://github.com/WEBcodeX1/x0/compare/v0.98.0-rc...v0.99.0

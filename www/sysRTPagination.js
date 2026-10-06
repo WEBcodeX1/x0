@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -31,7 +31,7 @@ sysPagination.prototype = new sysBaseObject();
 sysPagination.prototype.setPageCount = function()
 {
     const Parent = this.ParentObject;
-    this.PageCount = Math.ceil(Parent.RowItems.length / Parent.DisplayRows);
+    this.PageCount = Math.ceil(Parent.RowItems.length / Parent.RowCount);
 }
 
 
@@ -43,8 +43,8 @@ sysPagination.prototype.render = function()
 {
     this.ChildObjects = new Array();
 
-    this.DOMStyle = 'row allign-items-center m-1';
-    this.ObjectID = 'nav-row';
+    this.DOMStyle = 'row allign-items-center m-0 p-1';
+    this.ObjectID = this.ParentObject.ObjectID + 'PaginatioMainRow';
 
     this.setPageCount();
 
@@ -52,14 +52,14 @@ sysPagination.prototype.render = function()
         this.removeParent();
     }
 
-    var NavLeftButton = new sysObjButtonCallback();
+    let NavLeftButton = new sysObjButtonCallback();
     NavLeftButton.setCallback(this, 'navLeft');
 
-    var NavRightButton = new sysObjButtonCallback();
+    let NavRightButton = new sysObjButtonCallback();
     NavRightButton.setCallback(this, 'navRight');
 
     const ButtonLeftObjs = {
-        "id": "bt-left-ct",
+        "id": "BtLeftCt",
         "SysObject": new sysObjDiv(),
         "JSONAttributes": {
             "DOMType": "li",
@@ -67,7 +67,7 @@ sysPagination.prototype.render = function()
         },
         "ObjectDefs": [
             {
-                "id": "bt-left",
+                "id": this.ObjectID + "BtLeft",
                 "SysObject": NavLeftButton,
                 "JSONAttributes": {
                     "DOMType": "a",
@@ -80,7 +80,7 @@ sysPagination.prototype.render = function()
     };
 
     const ButtonRightObjs = {
-        "id": "bt-right-ct",
+        "id": "BtRightCt",
         "SysObject": new sysObjDiv(),
         "JSONAttributes": {
             "DOMType": "li",
@@ -88,7 +88,7 @@ sysPagination.prototype.render = function()
         },
         "ObjectDefs": [
             {
-                "id": "button-right",
+                "id": this.ObjectID + "BtRight",
                 "SysObject": NavRightButton,
                 "JSONAttributes": {
                     "DOMType": "a",
@@ -100,22 +100,23 @@ sysPagination.prototype.render = function()
         ]
     };
 
-    PageItems = [];
+    let PageItems = [];
 
     PageItems.push(ButtonLeftObjs);
 
-    for (let i=0; i<this.PageCount; i++) {
-
+    for (let i=0; i<this.PageCount; ++i)
+    {
         const NavIndex = (i+1);
-        var NavIndexButton = new sysObjButtonCallback();
+        let NavIndexButton = new sysObjButtonCallback();
         NavIndexButton.setCallback(this, 'navIndex', i);
 
-        console.log('i:%s current:%s', i, this.CurrentPage);
-        var NavHilite = '';
+        console.debug('this.CurrentPage:%s i:%s', i, this.CurrentPage);
+
+        let NavHilite = '';
         if (i == this.CurrentPage) { NavHilite = ' active'; }
 
-        var PageItemTpl =  {
-            "id": "bt-page-item-" + NavIndex,
+        let PageItemTpl =  {
+            "id": "BtPageItemCtr" + NavIndex,
             "SysObject": new sysObjDiv(),
             "JSONAttributes": {
                 "DOMType": "li",
@@ -123,7 +124,7 @@ sysPagination.prototype.render = function()
             },
             "ObjectDefs": [
                 {
-                    "id": "button-right",
+                    "id": this.ObjectID + "BtPageItem" + NavIndex,
                     "SysObject": NavIndexButton,
                     "JSONAttributes": {
                         "DOMType": "a",
@@ -140,16 +141,16 @@ sysPagination.prototype.render = function()
 
     PageItems.push(ButtonRightObjs);
 
-    ObjDef = [
+    let ObjDefs = [
         {
-            "id": "pages-sum-col",
+            "id": this.ObjectID + "PagesSumCol",
             "SysObject": new sysObjDiv(),
             "JSONAttributes": {
                 "Style": "col"
             },
             "ObjectDefs": [
                 {
-                    "id": "pages-sum-txt",
+                    "id": this.ObjectID + "PagesSumTxt",
                     "SysObject": new sysObjDiv(),
                     "JSONAttributes": {
                         "DOMType": "p",
@@ -160,14 +161,14 @@ sysPagination.prototype.render = function()
             ]
         },
         {
-            "id": "col-nav-ct",
+            "id": "ColNavCtr",
             "SysObject": new sysObjDiv(),
             "JSONAttributes": {
                 "Style": "col-auto"
             },
             "ObjectDefs": [
                 {
-                    "id": "col-nav-ct2",
+                    "id": this.ObjectID + "ColNavPaginationCtr",
                     "SysObject": new sysObjDiv(),
                     "JSONAttributes": {
                         "DOMType": "ul",
@@ -179,7 +180,7 @@ sysPagination.prototype.render = function()
         }
     ];
 
-    sysFactory.setupObjectRefsRecursive(ObjDef, this);
+    sysFactory.setupObjectRefsRecursive(ObjDefs, this);
     this.ParentObject.addObject(this);
 
     if (this.DOMParentID !== null) {
@@ -194,18 +195,20 @@ sysPagination.prototype.render = function()
 
 sysPagination.prototype.update = function()
 {
-    for (const RowItem of this.ParentObject.RowItems) {
+    for (const RowItem of this.ParentObject.RowItems)
+    {
         RowItem.VisibleState = 'hidden';
         RowItem.setDOMVisibleState();
     }
 
-    const RowCount = this.ParentObject.DisplayRows;
+    const RowCount = this.ParentObject.RowCount;
     const StartPos = ((this.CurrentPage+1)*RowCount)-RowCount;
     const EndPos = ((this.CurrentPage+1)*RowCount)-1;
 
     console.debug('RowCount:%s StartPos:%s EndPos:%s', RowCount, StartPos, EndPos);
 
-    for (let i=StartPos; i<=EndPos; i++) {
+    for (let i=StartPos; i<=EndPos; i++)
+    {
         try {
             const RowItem = this.ParentObject.RowItems[i];
             RowItem.VisibleState = 'visible';
@@ -223,11 +226,11 @@ sysPagination.prototype.update = function()
 //- METHOD "processCallback"
 //------------------------------------------------------------------------------
 
-sysPagination.prototype.processCallback = function(Function, Arguments)
+sysPagination.prototype.processCallback = function(FunctionID, Arguments)
 {
-    if (Function == 'navLeft') { this.navigateLeft(); }
-    if (Function == 'navRight') { this.navigateRight(); }
-    if (Function == 'navIndex') { this.navigateIndex(Arguments); }
+    if (FunctionID == 'navLeft') { this.navigateLeft(); }
+    if (FunctionID == 'navRight') { this.navigateRight(); }
+    if (FunctionID == 'navIndex') { this.navigateIndex(Arguments); }
 }
 
 

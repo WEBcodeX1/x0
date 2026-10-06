@@ -21,7 +21,8 @@ You can use **any Linux distribution** where Debian packages can be built native
 - Devuan 5
 
 .. tip::
-   Official *x0-system* Docker images are based on **Ubuntu 24.04**.
+   The database-backed service images use **Ubuntu 24.04**. The static
+   ``x0-static`` image currently uses **Ubuntu 26.04**.
 
 6.2. Dependencies
 -----------------
@@ -204,6 +205,17 @@ For restricted or frequent development environments, a local Ubuntu apt mirror c
 .. warning::
    Both ``UBUNTU_MIRROR_DNS`` and ``UBUNTU_MIRROR_IP`` must be set and your DNS must resolve correctly.
 
+Use the local-image startup script when starting images built from this
+checkout rather than images pulled from the container registry:
+
+.. code-block:: bash
+
+   cd ./docker
+   ./x0-start-containers-local.sh
+
+The standard ``x0-start-containers.sh`` script instead starts the published
+``ghcr.io/webcodex1/x0-app`` and ``x0-db`` images.
+
 6.8. System Verification
 ------------------------
 
@@ -269,3 +281,6 @@ For details, see: https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md
 ----
 
 Congratulations! Your *x0-system* is now ready for development, testing, or deployment.
+
+For the database-independent static profile, which does not use the Docker
+network described above, see :ref:`appdev-static-deployment`.

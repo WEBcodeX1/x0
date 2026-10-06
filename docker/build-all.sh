@@ -7,3 +7,4 @@
 ./build-x0-test.sh
 ./build-x0-test-github.sh
 ./build-x0-msg-server.sh
+./build-x0-static.sh

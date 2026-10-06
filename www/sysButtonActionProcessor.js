@@ -7,8 +7,11 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //- Single-responsibility dispatcher that maps action name strings to object -//
-//- method calls. Used by processActions() (pre-RPC) and                    -//
-//- callbackXMLRPCAsync() (post-RPC) so both paths share one code path.     -//
+//- method calls.                                                            -//
+//-                                                                          -//
+//- Used by:                                                                 -//
+//-  a) processActions() (pre-RPC)                                           -//
+//-  b) callbackXMLRPCAsync() (post-RPC)                                     -//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 
@@ -17,26 +20,28 @@
 //- CONSTRUCTOR "sysButtonActionProcessor"
 //------------------------------------------------------------------------------
 
-function sysButtonActionProcessor() {}
+function sysButtonActionProcessor()
+{
+}
 
 
 //------------------------------------------------------------------------------
 //- METHOD "executeAction"
 //------------------------------------------------------------------------------
 
-sysButtonActionProcessor.prototype.executeAction = function(ActionConf)
+sysButtonActionProcessor.prototype.executeAction = function(Attributes)
 {
-    const Action = (ActionConf.Action || '').toLowerCase();
+    const Action = (Attributes.Action || '').toLowerCase();
 
     if (!Action) return;
 
-    console.debug('::ButtonActionProcessor executeAction Action:%s Conf:%o', Action, ActionConf);
+    console.debug('::ButtonActionProcessor executeAction Action:%s Conf:%o', Action, Attributes);
 
     let DstObject;
     try {
-        DstObject = sysFactory.getObjectByID(ActionConf.DstObjectID);
+        DstObject = sysFactory.getObjectByID(Attributes.DstObjectID);
     }
-    catch(e) {
+    catch(err) {
         DstObject = undefined;
     }
 
@@ -44,23 +49,23 @@ sysButtonActionProcessor.prototype.executeAction = function(ActionConf)
 
         case 'set':
             try {
-                const SrcObj = sysFactory.getObjectByID(ActionConf.SrcDataObject);
-                const DstObj = sysFactory.getObjectByID(ActionConf.DstDataObject);
-                DstObj.RuntimeSetDataFunc(SrcObj.RuntimeGetDataFunc());
+                const SrcObj = sysFactory.getObjectByID(Attributes.SrcDataObject);
+                const DstObj = sysFactory.getObjectByID(Attributes.DstDataObject);
+                DstObj.setObjectData(SrcObj.getObjectData());
             }
-            catch(e) {
-                console.debug('::ButtonActionProcessor set error:%s', e);
+            catch(err) {
+                console.log('::ButtonActionProcessor set error:%s', err);
             }
             break;
 
         case 'append':
             try {
-                const SrcObj = sysFactory.getObjectByID(ActionConf.SrcDataObject);
-                const DstObj = sysFactory.getObjectByID(ActionConf.DstDataObject);
-                DstObj.RuntimeAppendDataFunc(SrcObj.RuntimeGetDataFunc());
+                const SrcObj = sysFactory.getObjectByID(Attributes.SrcDataObject);
+                const DstObj = sysFactory.getObjectByID(Attributes.DstDataObject);
+                DstObj.setObjectData(SrcObj.getObjectData());
             }
-            catch(e) {
-                console.debug('::ButtonActionProcessor append error:%s', e);
+            catch(err) {
+                console.log('::ButtonActionProcessor append error:%s', err);
             }
             break;
 
@@ -92,21 +97,29 @@ sysButtonActionProcessor.prototype.executeAction = function(ActionConf)
 
         case 'tabswitch':
             try {
-                const TabContainerObj = sysFactory.getObjectByID(ActionConf.TabContainer);
-                TabContainerObj.switchTab(ActionConf.Tab);
+                const TabContainerObj = sysFactory.getObjectByID(Attributes.TabContainer);
+                TabContainerObj.switchTab(Attributes.Tab);
             }
-            catch(e) {
-                console.debug('::ButtonActionProcessor tabswitch error:%s', e);
+            catch(err) {
+                console.log('::ButtonActionProcessor tabswitch error:%s', err);
             }
             break;
 
         case 'switchscreen':
-            //- handled by processActions (supports ResetAll); skip here
+            if (Attributes.ResetAll == true) {
+                const ScreenObj = sysFactory.getScreenByID(Attributes.DstScreenID);
+                ScreenObj.HierarchyRootObject.processReset();
+            }
+            sysFactory.switchScreen(Attributes.DstScreenID);
             break;
 
         case 'setglobalvar':
-            sysFactory.setGlobalVar(ActionConf.SetVar, ActionConf.SetValue);
-            console.debug('::ButtonActionProcessor setGlobal Var:%s Value:%s', ActionConf.SetVar, ActionConf.SetValue);
+            sysFactory.setGlobalVar(Attributes.SetVar, Attributes.SetValue);
+            console.debug('::ButtonActionProcessor setGlobal Var:%s Value:%s', Attributes.SetVar, Attributes.SetValue);
+            break;
+
+        case 'openoverlay':
+            sysFactory.OverlayObj.activateOverlay(Attributes.ScreenID);
             break;
 
         default:
@@ -122,18 +135,20 @@ sysButtonActionProcessor.prototype.executeAction = function(ActionConf)
 sysButtonActionProcessor.prototype.executeActions = function(ActionConf)
 {
     if (!ActionConf) return;
+
     const Actions = Array.isArray(ActionConf) ? ActionConf : [ActionConf];
-    for (const A of Actions) {
-        this.executeAction(A);
-        if (A.FireEvents !== undefined) {
-            sysFactory.Reactor.fireEvents(A.FireEvents);
+
+    for (const Action of Actions) {
+        this.executeAction(Action);
+        if (Action.FireEvents !== undefined) {
+            sysFactory.Reactor.fireEvents(Action.FireEvents);
         }
     }
 };
 
 
 //------------------------------------------------------------------------------
-//- SINGLETON "sysButtonActions"
+//- Setup Global "ActionProcessor" Access
 //------------------------------------------------------------------------------
 
-const sysButtonActions = new sysButtonActionProcessor();
+const ActionProcessor = new sysButtonActionProcessor();

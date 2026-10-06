@@ -15,7 +15,8 @@
 //- CONSTRUCTOR "sysSourceObjectHandler"
 //------------------------------------------------------------------------------
 
-function sysSourceObjectHandler() {
+function sysSourceObjectHandler()
+{
 }
 
 
@@ -24,8 +25,6 @@ function sysSourceObjectHandler() {
 //------------------------------------------------------------------------------
 
 sysSourceObjectHandler.prototype.processSourceObjects = function() {
-
-    //console.debug('::processSourceObjects Object:%s this.JSONConfig:%o', this.ObjectID, this.JSONConfig);
 
     const Attributes = this.JSONConfig.Attributes;
 
@@ -36,22 +35,19 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
 
     var ObjectResultData = new Object();
 
-    if (Array.isArray(SrcObjects) == true) {
-        for (const ObjectID of SrcObjects) {
-            console.debug('::processSourceObjects ObjectID:%s', ObjectID);
+    if (Array.isArray(SrcObjects) == true)
+    {
+        for (const ObjectID of SrcObjects)
+        {
             const ObjectRef = sysFactory.getObjectByID(ObjectID);
-            console.debug('::processSourceObjects Object:%o', ObjectRef);
-
-            //ObjectID = ObjectID.replace('__overlay', '');
-
             const ObjectRuntimeData = ObjectRef.getObjectData();
             ObjectResultData[ObjectID] = ObjectRuntimeData;
         }
     }
 
     else {
-        for (SrcObjectID in SrcObjects) {
-
+        for (SrcObjectID in SrcObjects)
+        {
             const SourceObject = SrcObjects[SrcObjectID];
             const ScreenID = SourceObject.ScreenID;
             const ScreenObj = (ScreenID != null && ScreenID !== undefined) ? sysFactory.getScreenByID(ScreenID): this.ScreenObject;
@@ -63,39 +59,29 @@ sysSourceObjectHandler.prototype.processSourceObjects = function() {
                 switch (SrcObjectType) {
 
                     case "SourceObject":
-
                         ObjectResultData['SourceObjectSelectedColumnId'] = SourceObject.FilterColumn;
                         ObjectResultData['SourceObjectSelectedColumnValue'] = ScreenObj.SourceObjectFilter[SourceObject.FilterColumn];
-
-                        continue;
+                        break;
 
                     case "HardcodedValues":
-
                         //console.debug('::processSourceObjects Values:%o', SourceObject.Values);
-
                         for (Key in SourceObject.Values) {
                             ObjectResultData[Key] = SourceObject.Values[Key];
                         }
-
-                        continue;
+                        break;
 
                     case "GlobalObject":
-
                         var SrcObject = ScreenObj.HierarchyRootObject.getObjectByID(SrcObjectID);
                         ObjectResultData[SrcObjectID] = SrcObject.getObjectData();
-            
-                        continue;
+                        break;
 
                     case "ScreenGlobalVar":
-
                         ObjectResultData[SrcObjectID] = ScreenObj.getGlobalVar(SrcObjectID);
-                        continue;
+                        break;
 
                     case "GlobalVar":
-
                         ObjectResultData[SrcObjectID] = sysFactory.getGlobalVar(SrcObjectID)
-                        continue;
-
+                        break;
                 }
             }
             catch(err) {

@@ -7,4 +7,4 @@ docker run -i \
 --log-driver=none \
 -a stdin -a stdout -a stderr \
 --name x0-static \
--p 8080:80 x0-static
+-p 80:80 x0-static

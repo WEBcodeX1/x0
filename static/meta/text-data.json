@@ -1,0 +1,1123 @@
+{
+    "0": {
+        "SysName": "ObjectLoaderRequestID",
+        "SysID": "Text"
+    },
+    "TXT.SYS.NOTIFYINDICATOR.PROCESS_DATA": {
+        "id": "TXT.SYS.NOTIFYINDICATOR.PROCESS_DATA",
+        "group": "loading-indicator",
+        "value_de": "Daten werden verarbeitet.",
+        "value_en": "Data is currently processed."
+    },
+    "TXT.SYS.NOTIFYINDICATOR.TITLE_CLOSE": {
+        "id": "TXT.SYS.NOTIFYINDICATOR.TITLE_CLOSE",
+        "group": "loading-indicator",
+        "value_de": "Mitteilung schliessen.",
+        "value_en": "Close."
+    },
+    "TXT.SYS.NOTIFYINDICATOR.SUCCESS": {
+        "id": "TXT.SYS.NOTIFYINDICATOR.SUCCESS",
+        "group": "loading-indicator",
+        "value_de": "Daten wurden erfolgreich prozessiert.",
+        "value_en": "Data has been processed successfuly."
+    },
+    "TXT.SYS.NOTIFYINDICATOR.ERROR": {
+        "id": "TXT.SYS.NOTIFYINDICATOR.ERROR",
+        "group": "loading-indicator",
+        "value_de": "Fehler bei der Datenprozessierung.",
+        "value_en": "An error occured while processing the data."
+    },
+    "TXT.SYS.NOTIFYINDICATOR.SYSTEMERROR": {
+        "id": "TXT.SYS.NOTIFYINDICATOR.SYSTEMERROR",
+        "group": "loading-indicator",
+        "value_de": "Ein Systemfehler ist aufgetreten.",
+        "value_en": "A system error has occured."
+    },
+    "TXT.SYS.NOTIFYINDICATOR.SYSSETTING_SAVE_SUCCESS": {
+        "id": "TXT.SYS.NOTIFYINDICATOR.SYSSETTING_SAVE_SUCCESS",
+        "group": "loading-indicator",
+        "value_de": "Systemeinstellung erfolgreich gespeichert.",
+        "value_en": "System setting successfully saved."
+    },
+    "TXT.SYS.CONTEXTMENU.DISPLAY": {
+        "id": "TXT.SYS.CONTEXTMENU.DISPLAY",
+        "group": "context-menu-header",
+        "value_de": "Context Menü",
+        "value_en": "Context Menu"
+    },
+    "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE": {
+        "id": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE",
+        "group": "context-menu-entry",
+        "value_de": "Entfernen",
+        "value_en": "Remove"
+    },
+    "TXT.SYS.CONTEXTMENU.MENUENTRY.GET_DATA": {
+        "id": "TXT.SYS.CONTEXTMENU.MENUENTRY.GET_DATA",
+        "group": "context-menu-entry",
+        "value_de": "Daten kopieren",
+        "value_en": "Copy data"
+    },
+    "TXT.SYS.CONTEXTMENU.MENUENTRY.SET_DATA": {
+        "id": "TXT.SYS.CONTEXTMENU.MENUENTRY.SET_DATA",
+        "group": "context-menu-entry",
+        "value_de": "Daten setzen",
+        "value_en": "Set data"
+    },
+    "TXT.SYS.CONTEXTMENU.MENUENTRY.APPEND_DATA": {
+        "id": "TXT.SYS.CONTEXTMENU.MENUENTRY.APPEND_DATA",
+        "group": "context-menu-entry",
+        "value_de": "Daten anhängen",
+        "value_en": "Append data"
+    },
+    "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_ROW": {
+        "id": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_ROW",
+        "group": "context-menu-entry",
+        "value_de": "Zeile entfernen",
+        "value_en": "Remove row"
+    },
+    "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_SELECTED_ROWS": {
+        "id": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_SELECTED_ROWS",
+        "group": "context-menu-entry",
+        "value_de": "Markierte Zeilen entfernen",
+        "value_en": "Remove selected rows"
+    },
+    "TXT.SYS.CONTEXTMENU.MENUENTRY.EDIT_IN_OVERLAY": {
+        "id": "TXT.SYS.CONTEXTMENU.MENUENTRY.EDIT_IN_OVERLAY",
+        "group": "context-menu-entry",
+        "value_de": "Editieren im Overlay",
+        "value_en": "Edit in Overlay"
+    },
+    "TXT.SYS.LANGUAGE-SWITCH-BUTTON": {
+        "id": "TXT.SYS.LANGUAGE-SWITCH-BUTTON",
+        "group": "button",
+        "value_de": "Sprache umstellen",
+        "value_en": "Set language"
+    },
+    "TXT.SYS.BUTTON.ADD": {
+        "id": "TXT.SYS.BUTTON.ADD",
+        "group": "button",
+        "value_de": "Hinzufügen",
+        "value_en": "Add"
+    },
+    "TXT.SYS.BUTTON.REMOVE": {
+        "id": "TXT.SYS.BUTTON.REMOVE",
+        "group": "button",
+        "value_de": "Entfernen",
+        "value_en": "Remove"
+    },
+    "TXT.SYS.BUTTON.NO_TEXT": {
+        "id": "TXT.SYS.BUTTON.ADD_NONE",
+        "group": "button",
+        "value_de": "",
+        "value_en": ""
+    },
+    "TXT.SYS.FILEUPLOAD.BUTTON": {
+        "id": "TXT.SYS.FILEUPLOAD.BUTTON",
+        "group": "button",
+        "value_de": "Upload Prozess starten",
+        "value_en": "Start Upload"
+    },
+    "TXT.SYS.FILEUPLOAD.STATUS.WAITING": {
+        "id": "TXT.SYS.FILEUPLOAD.STATUS.WAITING",
+        "group": "text",
+        "value_de": "Warten",
+        "value_en": "Waiting"
+    },
+    "TXT.SYS.FILEUPLOAD.STATUS.FAILED": {
+        "id": "TXT.SYS.FILEUPLOAD.STATUS.FAILED",
+        "group": "text",
+        "value_de": "Upload Fehler",
+        "value_en": "Upload Error"
+    },
+    "TXT.SYS.FILEUPLOAD.STATUS.SUCCESS": {
+        "id": "TXT.SYS.FILEUPLOAD.STATUS.SUCCESS",
+        "group": "text",
+        "value_de": "Upload erfolgreich",
+        "value_en": "Upload successful"
+    },
+    "TXT.SYS.IMAGESELECTOR.ROW.FILE.DESCRIPTION": {
+        "id": "TXT.SYS.IMAGESELECTOR.ROW.FILE.DESCRIPTION",
+        "group": "text",
+        "value_de": "1. Transfer Icon",
+        "value_en": "1. Transfer Icon"
+    },
+    "TXT.SYS.IMAGESELECTOR.ROW.FORM.DESCRIPTION": {
+        "id": "TXT.SYS.IMAGESELECTOR.ROW.FORM.DESCRIPTION",
+        "group": "text",
+        "value_de": "2. Bild Daten eingeben",
+        "value_en": "2. Set Image Properties"
+    },
+    "TXT.SYS.IMAGESELECTOR.ROW.FORMSEND.DESCRIPTION": {
+        "id": "TXT.SYS.IMAGESELECTOR.ROW.FORMSEND.DESCRIPTION",
+        "group": "text",
+        "value_de": "3. Daten speichern (Server)",
+        "value_en": "3. Save Data (Server)"
+    },
+    "TXT.SYS.IMAGESELECTOR.HEADER": {
+        "id": "TXT.SYS.IMAGESELECTOR.HEADER",
+        "group": "sys-header",
+        "value_de": "Bild Selektor",
+        "value_en": "Image Selector"
+    },
+    "TXT.SYS.IMAGESELECTOR.IMAGE.ID": {
+        "id": "TXT.SYS.IMAGESELECTOR.IMAGE.ID",
+        "group": "form-label",
+        "value_de": "Eindeutiger Identifikator",
+        "value_en": "Unique Identifier"
+    },
+    "TXT.SYS.IMAGESELECTOR.IMAGE.DESCRIPTION": {
+        "id": "TXT.SYS.IMAGESELECTOR.IMAGE.DESCRIPTION",
+        "group": "form-label",
+        "value_de": "Beschreibung",
+        "value_en": "Description"
+    },
+    "TXT.SYS.IMAGESELECTOR.IMAGE.PATH": {
+        "id": "TXT.SYS.IMAGESELECTOR.IMAGE.PATH",
+        "group": "form-label",
+        "value_de": "Server Pfad",
+        "value_en": "Server Path"
+    },
+    "TXT.SYS.IMAGESELECTOR.IMAGE.FILENAME": {
+        "id": "TXT.SYS.IMAGESELECTOR.IMAGE.FILENAME",
+        "group": "form-label",
+        "value_de": "Dateiname",
+        "value_en": "Filename"
+    },
+    "TXT.SYS.ERROR.FORMVALIDATE.DEFAULT": {
+        "id": "TXT.SYS.ERROR.FORMVALIDATE.DEFAULT",
+        "group": "form-validate",
+        "value_de": "Während der Formularvalidierung ist ein Fehler aufgetreten.",
+        "value_en": "An error occurred during form validation."
+    },
+    "TXT.SYS.ERROR.FORMVALIDATE.DATE-INTERNATIONAL-FORMAT": {
+        "id": "TXT.SYS.ERROR.FORMVALIDATE.DATE-INTERNATIONAL-FORMAT",
+        "group": "form-validate",
+        "value_de": "Ungültiges Datum-Format",
+        "value_en": "Invalid date format"
+    },
+    "TXT.SYS.ERROR.FORMVALIDATE.DATE-GLOBAL-INVALIDDATE": {
+        "id": "TXT.SYS.ERROR.FORMVALIDATE.DATE-GLOBAL-INVALIDDATE",
+        "group": "form-validate",
+        "value_de": "Ungültiges Datum",
+        "value_en": "Invalid Date"
+    },
+    "TXT.SYS.BUTTON.SYSSETTING.RESET": {
+        "id": "TXT.SYS.BUTTON.SYSSETTING.RESET",
+        "group": "sys-button",
+        "value_de": "Reset",
+        "value_en": "Reset"
+    },
+    "TXT.SYS.BUTTON.SYSSETTING.SAVE": {
+        "id": "TXT.SYS.BUTTON.SYSSETTING.SAVE",
+        "group": "sys-button",
+        "value_de": "Setzen",
+        "value_en": "Set"
+    },
+    "TXT.SYS.BUTTON.SYSSETTINGCONTAINER_GRID.SELECTGRID": {
+        "id": "TXT.SYS.BUTTON.SYSSETTINGCONTAINER_GRID.SELECTGRID",
+        "group": "description",
+        "value_de": "Grid / Spalten Ansicht anpassen",
+        "value_en": "Adjust Grid / Column View"
+    },
+    "TXT.SYS.BUTTON.SYSSETTINGCONTAINER_GRID.UPDATEGRID": {
+        "id": "TXT.SYS.BUTTON.SYSSETTINGCONTAINER_GRID.UPDATEGRID",
+        "group": "sys-button",
+        "value_de": "Aktualisiere Ansicht",
+        "value_en": "Update View"
+    },
+    "TXT.SYS.BUTTON.SELECT_ITEM": {
+        "id": "TXT.SYS.BUTTON.SELECT_ITEM",
+        "group": "sys-button",
+        "value_de": "Übernehmen",
+        "value_en": "Select"
+    },
+    "TXT.SYS.BUTTON.IMAGE_SAVE_SERVER_SETTINGS": {
+        "id": "TXT.SYS.BUTTON.IMAGE_SAVE_SERVER_SETTINGS",
+        "group": "sys-button",
+        "value_de": "Bild Daten speichern (Server)",
+        "value_en": "Save Image Data (Server)"
+    },
+    "TXT.NOTE.GLOBAL": {
+        "id": "TXT.NOTE.GLOBAL",
+        "group": "note",
+        "value_de": "Anmerkung:",
+        "value_en": "Note:"
+    },
+    "TXT.BUTTON.LEFT": {
+        "id": "TXT.BUTTON.LEFT",
+        "group": "nav-button",
+        "value_de": "Vorherige Seite",
+        "value_en": "Previous Page"
+    },
+    "TXT.BUTTON.RIGHT": {
+        "id": "TXT.BUTTON.RIGHT",
+        "group": "nav-button",
+        "value_de": "Nächste Seite",
+        "value_en": "Next Page"
+    },
+    "TXT.VALIDATE.ERROR.DATE": {
+        "id": "TXT.VALIDATE.ERROR.DATE",
+        "group": "form-validate",
+        "value_de": "Das angegebene Datum entspricht nicht dem erforderlichen Format („MM-TT-JJJJ“).",
+        "value_en": "The date provided is in the wrong format. The correct format is „MM-DD-YYYY“."
+    },
+    "TXT.VALIDATE.ERROR.TIME": {
+        "id": "TXT.VALIDATE.ERROR.TIME",
+        "group": "form-validate",
+        "value_de": "Die angegebene Uhrzeit entspricht nicht dem erforderlichen Format. Erlaubt sind Stunden von „00–23“, Minuten von „00–59“ und Sekunden von „00–59“.",
+        "value_en": "The specified time does not match the required format. Allowed values are hours from „00–23“, minutes from „00–59“, and seconds from „00–59“."
+    },
+    "TXT.VALIDATE.ERROR.TIME-HOUR": {
+        "id": "TXT.VALIDATE.ERROR.TIME-HOUR",
+        "group": "form-validate",
+        "value_de": "Fehlerhafte Stunde",
+        "value_en": "Wrong Hour Format"
+    },
+    "TXT.VALIDATE.ERROR.TIME-MINUTE": {
+        "id": "TXT.VALIDATE.ERROR.TIME-MINUTE",
+        "group": "form-validate",
+        "value_de": "Fehlerhafte Minute",
+        "value_en": "Wrong Minute Format"
+    },
+    "TXT.VALIDATE.ERROR.TIME-SECOND": {
+        "id": "TXT.VALIDATE.ERROR.TIME-SECOND",
+        "group": "form-validate",
+        "value_de": "Fehlerhafte Sekunde",
+        "value_en": "Wrong Second Format"
+    },
+    "TXT.TREE.NODE.INTRO": {
+        "id": "TXT.TREE.NODE.INTRO",
+        "group": "menu-tree",
+        "value_de": "Übersicht",
+        "value_en": "Overview"
+    },
+    "TXT.TREE.ITEM.INTRO": {
+        "id": "TXT.TREE.ITEM.INTRO",
+        "group": "menu-tree",
+        "value_de": "Einleitung",
+        "value_en": "Introduction"
+    },
+    "TXT.TREE.NODE.EXAMPLES": {
+        "id": "TXT.TREE.NODE.EXAMPLES",
+        "group": "menu-tree",
+        "value_de": "Beispiele",
+        "value_en": "Examples"
+    },
+    "TXT.TREE.NODE.SETTINGS": {
+        "id": "TXT.TREE.NODE.SETTINGS",
+        "group": "menu-tree",
+        "value_de": "Einstellungen",
+        "value_en": "Settings"
+    },
+    "TXT.TREE.ITEM.EXAMPLES_BASIC": {
+        "id": "TXT.TREE.ITEM.EXAMPLES_BASIC",
+        "group": "menu-tree",
+        "value_de": "Einfache Beispiele",
+        "value_en": "Basic Examples"
+    },
+    "TXT.TREE.ITEM.EXAMPLES_COPY_PASTE": {
+        "id": "TXT.TREE.ITEM.EXAMPLES_COPY_PASTE",
+        "group": "menu-tree",
+        "value_de": "Copy/Paste",
+        "value_en": "Copy/Paste"
+    },
+    "TXT.TREE.ITEM.EXAMPLES_DRAG_AND_DROP": {
+        "id": "TXT.TREE.ITEM.EXAMPLES_DRAG_AND_DROP",
+        "group": "menu-tree",
+        "value_de": "Drag&Drop",
+        "value_en": "Drag&Drop"
+    },
+    "TXT.TREE.ITEM.EXAMPLES_OVERLAY": {
+        "id": "TXT.TREE.ITEM.EXAMPLES_OVERLAY",
+        "group": "menu-tree",
+        "value_de": "Overlay",
+        "value_en": "Overlay"
+    },
+    "TXT.TREE.ITEM.SETTINGS_GLOBAL": {
+        "id": "TXT.TREE.ITEM.SETTINGS_GLOBAL",
+        "group": "menu-tree",
+        "value_de": "Globale Einstellungen",
+        "value_en": "Global Settings"
+    },
+    "TXT.TREE.ITEM.SETTINGS_LANGUAGE": {
+        "id": "TXT.TREE.ITEM.SETTINGS_LANGUAGE",
+        "group": "menu-tree",
+        "value_de": "Sprache umstellen",
+        "value_en": "Switch Language"
+    },
+    "TXT.EXAMPLE.IMAGESELECTOR.PATH_STATIC": {
+        "id": "TXT.EXAMPLE.IMAGESELECTOR.PATH_STATIC",
+        "group": "pulldown-item",
+        "value_de": "/static/",
+        "value_en": "/static/"
+    },
+    "TXT.EXAMPLE.IMAGESELECTOR.PATH_IMAGES": {
+        "id": "TXT.EXAMPLE.IMAGESELECTOR.PATH_IMAGES",
+        "group": "pulldown-item",
+        "value_de": "/images/",
+        "value_en": "/images/"
+    },
+    "TXT.EXAMPLE.IMAGESELECTOR.PATH_STATIC_IMAGES": {
+        "id": "TXT.EXAMPLE.IMAGESELECTOR.PATH_STATIC_IMAGES",
+        "group": "pulldown-item",
+        "value_de": "/static/images/",
+        "value_en": "/static/images/"
+    },
+    "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE": {
+        "id": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE",
+        "group": "text",
+        "value_de": "%",
+        "value_en": "%"
+    },
+    "TXT.EXAMPLE.RANGESLIDER.UNIT.SECOND": {
+        "id": "TXT.EXAMPLE.RANGESLIDER.UNIT.SECOND",
+        "group": "text",
+        "value_de": "Sek.",
+        "value_en": "Sec."
+    },
+    "TXT.EXAMPLE.TIMED_PROGRESS.INTERVAL": {
+        "id": "TXT.EXAMPLE.TIMED_PROGRESS.INTERVAL",
+        "group": "text",
+        "value_de": "Intervall (ms)",
+        "value_en": "Interval (ms)"
+    },
+    "TXT.EXAMPLE.TIMED_PROGRESS.ADD_VALUE": {
+        "id": "TXT.EXAMPLE.TIMED_PROGRESS.ADD_VALUE",
+        "group": "text",
+        "value_de": "Erhöhen %",
+        "value_en": "Increase-By %"
+    },
+    "TXT.EXAMPLE.TIMED_PROGRESS.START_UPDATE": {
+        "id": "TXT.EXAMPLE.TIMED_PROGRESS.START_UPDATE",
+        "group": "button",
+        "value_de": "go",
+        "value_en": "go"
+    },
+    "TXT.HEADER.EXAMPLES_BASIC": {
+        "id": "TXT.HEADER.EXAMPLES_BASIC",
+        "group": "header",
+        "value_de": "Einfache Beispiele",
+        "value_en": "Basic Examples"
+    },
+    "TXT.HEADER.EXAMPLES_BASIC.SLIDERS.TIMER_CONTROLLED": {
+        "id": "TXT.HEADER.EXAMPLES_BASIC.SLIDERS.TIMER_CONTROLLED",
+        "group": "header",
+        "value_de": "a) Timer gesteuerter Fortschritt",
+        "value_en": "a) Timer Controlled Progress"
+    },
+    "TXT.HEADER.EXAMPLES_BASIC.SLIDERS.STEP_CONTROLLED": {
+        "id": "TXT.HEADER.EXAMPLES_BASIC.SLIDERS.STEP_CONTROLLED",
+        "group": "header",
+        "value_de": "b) Schritt basierter Fortschritt",
+        "value_en": "b) Step Controlled Progress "
+    },
+    "TXT.HEADER.EXAMPLES_BASIC.EDITABLE_ITEM1": {
+        "id": "TXT.HEADER.EXAMPLES_BASIC.EDITABLE_ITEM1",
+        "group": "header",
+        "value_de": "a) Editierbare Bestell-Anmerkungen",
+        "value_en": "a) Editable Order Remark List"
+    },
+    "TXT.HEADER.EXAMPLES_BASIC.EDITABLE_ITEM2": {
+        "id": "TXT.HEADER.EXAMPLES_BASIC.EDITABLE_ITEM2",
+        "group": "header",
+        "value_de": "b) Editierbare Karte & Aufgabenlisten",
+        "value_en": "b) Editable Card & Tasklists"
+    },
+    "TXT.TABCONTAINER.EXAMPLES_BASIC.TEMPLATE_EDITABLE": {
+        "id": "TXT.TABCONTAINER.EXAMPLES_BASIC.TEMPLATE_EDITABLE",
+        "group": "tab",
+        "value_de": "Editierbare Templates",
+        "value_en": "Editable Templates"
+    },
+    "TXT.TABCONTAINER.EXAMPLES_BASIC.PROGRESS_AND_SLIDERS": {
+        "id": "TXT.TABCONTAINER.EXAMPLES_BASIC.PROGRESS_AND_SLIDERS",
+        "group": "tab",
+        "value_de": "Progress/Sliders",
+        "value_en": "Progress/Sliders"
+    },
+    "TXT.TABCONTAINER.EXAMPLES_BASIC.COMBINED_OBJECTS": {
+        "id": "TXT.TABCONTAINER.EXAMPLES_BASIC.COMBINED_OBJECTS",
+        "group": "tab",
+        "value_de": "Kombinierte Objekte",
+        "value_en": "Combined Objects"
+    },
+    "TXT.TABCONTAINER.EXAMPLES_BASIC.EDITABLE_LIST": {
+        "id": "TXT.TABCONTAINER.EXAMPLES_BASIC.EDITABLE_LIST",
+        "group": "tab",
+        "value_de": "Editierbare Liste",
+        "value_en": "Editable List"
+    },
+    "TXT.TABCONTAINER.EXAMPLES_BASIC.WIZARD.STEP1": {
+        "id": "TXT.TABCONTAINER.EXAMPLES_BASIC.WIZARD.STEP1",
+        "group": "tab",
+        "value_de": "1. Persönliche Angaben",
+        "value_en": "1. Personal Data"
+    },
+    "TXT.TABCONTAINER.EXAMPLES_BASIC.WIZARD.STEP2": {
+        "id": "TXT.TABCONTAINER.EXAMPLES_BASIC.WIZARD.STEP2",
+        "group": "tab",
+        "value_de": "2. Adress-Daten",
+        "value_en": "2. Location Data"
+    },
+    "TXT.TABCONTAINER.EXAMPLES_BASIC.WIZARD.STEP3": {
+        "id": "TXT.TABCONTAINER.EXAMPLES_BASIC.WIZARD.STEP3",
+        "group": "tab",
+        "value_de": "3. Angaben prüfen",
+        "value_en": "3. Check Data"
+    },
+    "TXT.HEADER.INTRODUCTION": {
+        "id": "TXT.HEADER.INTRODUCTION",
+        "group": "card-header",
+        "value_de": "Einführung",
+        "value_en": "Introduction"
+    },
+    "TXT.HEADER.EXAMPLES_BASIC_EDITABLE_TEMPLATE1_HEADER": {
+        "id": "TXT.HEADER.EXAMPLES_BASIC_EDITABLE_TEMPLATE1_HEADER",
+        "group": "header",
+        "value_de": "Template 1 - Bestellungs-Anmerkungen",
+        "value_en": "Template 1 - Order Remarks"
+    },
+    "TXT.HEADER.EXAMPLES_COPY_PASTE": {
+        "id": "TXT.HEADER.EXAMPLES_COPY_PASTE",
+        "group": "card-header",
+        "value_de": "Copy/Paste Beispiele",
+        "value_en": "Copy/Paste Examples"
+    },
+    "TXT.INTRODUCTION.INFOPARAGRAPH.START": {
+        "id": "TXT.INTRODUCTION.INFOPARAGRAPH.START",
+        "group": "infobox-text",
+        "value_de": "Willkommen Freunde",
+        "value_en": "Welcome friends"
+    },
+    "TXT.INTRODUCTION.INFOPARAGRAPH.PARAGRAPH1": {
+        "id": "TXT.INTRODUCTION.INFOPARAGRAPH.PARAGRAPH1",
+        "group": "infobox-text",
+        "value_de": "In den nachfolgenden ... wird das x0-Framework und seine Features ...",
+        "value_en": "The following demonstration will show what the <b>x0-Framework</b> is capable of. Here, on the introduction <b>x0-Screen</b>, it is demonstrated how easy it is using some very basic System-Objects (<b>sysObjInfoParagraph</b>, <b>sysObjHeaderBodyContainer</b> and <b>sysObjDiv</b>) in combination with the <b>x0-Skeleton</b> positioning system to setup two simple <i>Bootstrap 5.3</i> containers and combining <i>Fontawesome Icons</i> side by side."
+    },
+    "TXT.INTRODUCTION.INFOPARAGRAPH.PARAGRAPH2": {
+        "id": "TXT.INTRODUCTION.INFOPARAGRAPH.PARAGRAPH1",
+        "group": "infobox-text",
+        "value_de": "In den nachfolgenden ... wird das x0 Framework und seine Features ...",
+        "value_en": "You should also make use of your own <b>Programmed System Objects (JavaScript Classes)</b>; with a strict, clean OOP model (System Base Classes / Inheritance) they open up a new dimension of dynamic real-time object creation / combination / interaction - without contacting the backend at all."
+    },
+    "TXT.INTRODUCTION.INFOPARAGRAPH.PARAGRAPH3": {
+        "id": "TXT.INTRODUCTION.INFOPARAGRAPH.PARAGRAPH1",
+        "group": "infobox-text",
+        "value_de": "In den nachfolgenden ... wird das x0 Framework und seine Features ...",
+        "value_en": "Through its <b>100% generic OOP model</b>, also the data abstraction (recursive) for getting data from objects or setting complex (dependend / multi-dimensional) data (JSON format) will save you <b>a lot</b> of time regarding application service modeling / SOA; even better: any of your Class-based objects are runtime instantiatable, its runtime-data can be (recursively) copied and be used for object-cloning and / or targeted data mix-ins."
+    },
+    "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.START": {
+        "id": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.START",
+        "group": "infobox-text",
+        "value_de": "Beschreibung:",
+        "value_en": "Description:"
+    },
+    "TXT.INTRODUCTION.CONTAINER_RIGHT.HEADER": {
+        "id": "TXT.INTRODUCTION.CONTAINER_RIGHT.HEADER",
+        "group": "text",
+        "value_de": "x0-Framework auf der rechten Seite",
+        "value_en": "x0-Framework on the right"
+    },
+    "TXT.INTRODUCTION.CONTAINER_LEFT.HEADER": {
+        "id": "TXT.INTRODUCTION.CONTAINER_LEFT.HEADER",
+        "group": "text",
+        "value_de": "x0-Framework auf der linken Seite",
+        "value_en": "x0-Framework on the left"
+    },
+    "TXT.INTRODUCTION.CONTAINER_RIGHT.PARAGRAPH": {
+        "id": "TXT.INTRODUCTION.CONTAINER_RIGHT.PARAGRAPH",
+        "group": "text",
+        "value_de": "Das ist ein Dummy Paragraph Text um zu demonstrieren, wie dieser ...",
+        "value_en": "This is a dummy paragraph to show you how a paragraph text can look like in real world scenario."
+    },
+    "TXT.INTRODUCTION.CONTAINER_RIGHT.LIST_ELEMENT1": {
+        "id": "TXT.INTRODUCTION.CONTAINER_RIGHT.LIST_ELEMENT1",
+        "group": "text",
+        "value_de": "Das wichtigste zuerst: Element Nummer 1",
+        "value_en": "The important first: element number 1"
+    },
+    "TXT.INTRODUCTION.CONTAINER_RIGHT.LIST_ELEMENT2": {
+        "id": "TXT.INTRODUCTION.CONTAINER_RIGHT.LIST_ELEMENT2",
+        "group": "text",
+        "value_de": "Wir fügen Eintrag Nummer 2 zu der Liste hinzu",
+        "value_en": "We add entry number 2 to the list"
+    },
+    "TXT.INTRODUCTION.CONTAINER_RIGHT.LIST_ELEMENT3": {
+        "id": "TXT.INTRODUCTION.CONTAINER_RIGHT.LIST_ELEMENT3",
+        "group": "text",
+        "value_de": "Und zu allerletzt: Element Nummer 3",
+        "value_en": "And at last: we add element number 3"
+    },
+    "TXT.TABLE.EXAMPLES_BASIC.COMBINED_OBJECTS_LIST.HEADER.SEQUENCE_NUMBER": {
+        "id": "TXT.TABLE.EXAMPLES_BASIC.COMBINED_OBJECTS_LIST.HEADER.SEQUENCE_NUMBER",
+        "group": "table-header",
+        "value_de": "Position",
+        "value_en": "Position"
+    },
+    "TXT.TABLE.EXAMPLES_BASIC.COMBINED_OBJECTS_LIST.HEADER.FLIGHT_DETAILS": {
+        "id": "TXT.TABLE.EXAMPLES_BASIC.COMBINED_OBJECTS_LIST.HEADER.FLIGHT_DETAILS",
+        "group": "table-header",
+        "value_de": "Flug",
+        "value_en": "Flight"
+    },
+    "TXT.TABLE.EXAMPLES_BASIC.COMBINED_OBJECTS_LIST.HEADER.FLIGHT_STATE": {
+        "id": "TXT.TABLE.EXAMPLES_BASIC.COMBINED_OBJECTS_LIST.HEADER.FLIGHT_STATE",
+        "group": "table-header",
+        "value_de": "Status",
+        "value_en": "State"
+    },
+    "TXT.TABLE.EXAMPLES_BASIC.COMBINED_OBJECTS_LIST.HEADER.LUGGAGE_GROUP": {
+        "id": "TXT.TABLE.EXAMPLES_BASIC.COMBINED_OBJECTS_LIST.HEADER.LUGGAGE_GROUP",
+        "group": "table-header",
+        "value_de": "Gepäck",
+        "value_en": "Luggage"
+    },
+    "TXT.TABLE.EXAMPLES_BASIC.COMBINED_OBJECTS_LIST.HEADER.LUGGAGE_PERSONAL_GROUP": {
+        "id": "TXT.TABLE.EXAMPLES_BASIC.COMBINED_OBJECTS_LIST.HEADER.LUGGAGE_PERSONAL_GROUP",
+        "group": "table-header",
+        "value_de": "Persönliches Gepäck",
+        "value_en": "Personal Luggage"
+    },
+    "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH1": {
+        "id": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH1",
+        "group": "infobox-text",
+        "value_de": "Copy/Paste Beschreibung ...",
+        "value_en": "Copy/Paste description ..."
+    },
+    "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_NAME": {
+        "id": "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_NAME",
+        "group": "form-label",
+        "value_de": "Mitarbeiter Name",
+        "value_en": "Worker Name"
+    },
+    "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_SURENAME": {
+        "id": "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_SURENAME",
+        "group": "form-label",
+        "value_de": "Mitarbeiter Nachname",
+        "value_en": "Worker Surename"
+    },
+    "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_TEAM_GROUP": {
+        "id": "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_TEAM_GROUP",
+        "group": "form-label",
+        "value_de": "Projekt-Gruppe",
+        "value_en": "Project Group"
+    },
+    "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_PERCENTAGE_MIN": {
+        "id": "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_PERCENTAGE_MIN",
+        "group": "form-label",
+        "value_de": "Minimum Prozent Effizienz",
+        "value_en": "Minimal Efficiency Percentage"
+    },
+    "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_PERCENTAGE_MAX": {
+        "id": "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_PERCENTAGE_MAX",
+        "group": "form-label",
+        "value_de": "Maximum Prozent Effizienz",
+        "value_en": "Maximal Efficiency Percentage"
+    },
+    "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_TELECOM": {
+        "id": "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_TELECOM",
+        "group": "pulldown-option",
+        "value_de": "Telekommunikation",
+        "value_en": "Telecommunication"
+    },
+    "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_HUMAN_RESSOURCES": {
+        "id": "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_HUMAN_RESSOURCES",
+        "group": "pulldown-option",
+        "value_de": "Personalwesen",
+        "value_en": "Human Ressources"
+    },
+    "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_ACCOUNTING": {
+        "id": "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_HUMAN_RESSOURCES",
+        "group": "pulldown-option",
+        "value_de": "Buchhaltung",
+        "value_en": "Accounting"
+    },
+    "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_INSTALLATION": {
+        "id": "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_INSTALLATION",
+        "group": "pulldown-option",
+        "value_de": "Installation",
+        "value_en": "Installation"
+    },
+    "TXT.EXAMPLE.EDITABLE_ITEM.PLACEHOLDER.HEADER": {
+        "id": "TXT.EXAMPLE.EDITABLE_ITEM.PLACEHOLDER.HEADER",
+        "group": "form-placeholder",
+        "value_de": "Bestellanmerkung Überschrift",
+        "value_en": "Order-Remark Header Text"
+    },
+    "TXT.EXAMPLE.EDITABLE_ITEM.PLACEHOLDER.CONTENT": {
+        "id": "TXT.EXAMPLE.EDITABLE_ITEM.PLACEHOLDER.CONTENT",
+        "group": "form-placeholder",
+        "value_de": "Bestellanmerkung Beschreibung",
+        "value_en": "Order-Remark Description Text"
+    },
+    "TXT.BUTTON.EXAMPLE.TEMPLATE1.ADD_ITEM": {
+        "id": "TXT.BUTTON.EXAMPLE.TEMPLATE1.ADD_ITEM",
+        "group": "button",
+        "value_de": "Bestellungsanmerkung hinzufügen",
+        "value_en": "Add order remark"
+    },
+    "TXT.TABCONTAINER.EXAMPLES_COPY_PASTE.DST_OBJECT_FORMLIST": {
+        "id": "TXT.TABCONTAINER.EXAMPLES_COPY_PASTE.DST_OBJECT_FORMLIST",
+        "group": "tab",
+        "value_de": "Ziel Objekt Typ FormList",
+        "value_en": "Destination Object Type FormList"
+    },
+    "TXT.TABCONTAINER.EXAMPLES_COPY_PASTE.DST_OBJECT_LIST": {
+        "id": "TXT.TABCONTAINER.EXAMPLES_COPY_PASTE.DST_OBJECT_LIST",
+        "group": "tab",
+        "value_de": "Ziel Objekt Typ List",
+        "value_en": "Destination Object Type List"
+    },
+    "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.WORKER_NAME": {
+        "id": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.WORKER_NAME",
+        "group": "table-header",
+        "value_de": "Nachname",
+        "value_en": "Name"
+    },
+    "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.WORKER_SURENAME": {
+        "id": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.WORKER_SURENAME",
+        "group": "table-header",
+        "value_de": "Vorname",
+        "value_en": "Surename"
+    },
+    "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_GROUP": {
+        "id": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_GROUP",
+        "group": "table-header",
+        "value_de": "Gruppe",
+        "value_en": "Group"
+    },
+    "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_GROUP_ID": {
+        "id": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_GROUP_ID",
+        "group": "table-header",
+        "value_de": "GruppenID",
+        "value_en": "GroupID"
+    },
+    "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_PERCENTAGE_MIN": {
+        "id": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_PERCENTAGE_MIN",
+        "group": "table-header",
+        "value_de": "Min",
+        "value_en": "Min"
+    },
+    "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_PERCENTAGE_MAX": {
+        "id": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_PERCENTAGE_MAX",
+        "group": "table-header",
+        "value_de": "Max",
+        "value_en": "Max"
+    },
+    "TXT.TABLE.EXAMPLES_OVERLAY.HEADER.SEQUENCE_NUMBER": {
+        "id": "TXT.TABLE.EXAMPLES_OVERLAY.HEADER.SEQUENCE_NUMBER",
+        "group": "table-header",
+        "value_de": "Sequenz Nummer",
+        "value_en": "Sequence Number"
+    },
+    "TXT.HEADER.SETTINGS_GLOBAL": {
+        "id": "TXT.HEADER.SETTINGS_GLOBAL",
+        "group": "header",
+        "value_de": "x0-Framework - Einstellungen",
+        "value_en": "x0-Framework - Settings"
+    },
+    "TXT.CARD.SETTINGS_GLOBAL": {
+        "id": "TXT.CARD.SETTINGS_GLOBAL",
+        "group": "card-header",
+        "value_de": "Globale Einstellungen",
+        "value_en": "Global Settings"
+    },
+    "TXT.TABCONTAINER.SETTINGS.SYSTEM": {
+        "id": "TXT.TABCONTAINER.SETTINGS.SYSTEM",
+        "group": "tab",
+        "value_de": "System Einstellungen",
+        "value_en": "System Settings"
+    },
+    "TXT.TABCONTAINER.SETTINGS.VIDEO": {
+        "id": "TXT.TABCONTAINER.SETTINGS.VIDEO",
+        "group": "tab",
+        "value_de": "Video Einstellungen",
+        "value_en": "Video Settings"
+    },
+    "TXT.TABCONTAINER.SETTINGS.DEFAULT": {
+        "id": "TXT.TABCONTAINER.SETTINGS.DEFAULT",
+        "group": "tab",
+        "value_de": "Default Einstellungen",
+        "value_en": "Default Settings"
+    },
+    "TXT.HEADER.SETTINGS_LANGUAGE": {
+        "id": "TXT.HEADER.SETTINGS_LANGUAGE",
+        "group": "header",
+        "value_de": "x0-Framework - Sprache",
+        "value_en": "x0-Framework - Language"
+    },
+    "TXT.CARD.SETTINGS_LANGUAGE": {
+        "id": "TXT.CARD.SETTINGS_LANGUAGE",
+        "group": "card-header",
+        "value_de": "Sprach-Einstellungen",
+        "value_en": "Switch Language"
+    },
+    "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.START": {
+        "id": "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.START",
+        "group": "infobox-text",
+        "value_de": "Beschreibung:",
+        "value_en": "Description:"
+    },
+    "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.PARAGRAPH1": {
+        "id": "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.PARAGRAPH1",
+        "group": "infobox-text",
+        "value_de": "&nbsp;Mit ... kann die Sprache in real-time umgestellt werden ...",
+        "value_en": "&nbsp;Here you can switch between languages in real-time (current english and german)."
+    },
+    "TXT.SYSTEMSETTINGS.INFOPARAGRAPH.START": {
+        "id": "TXT.SYSTEMSETTINGS.INFOPARAGRAPH.START",
+        "group": "infobox-text",
+        "value_de": "Beschreibung:",
+        "value_en": "Description:"
+    },
+    "TXT.SYSTEMSETTINGS.INFOPARAGRAPH.PARAGRAPH1": {
+        "id": "TXT.SYSTEMSETTINGS.INFOPARAGRAPH.PARAGRAPH1",
+        "group": "infobox-text",
+        "value_de": "&nbsp;Das ist die Beschreibung der Systemsettings ...",
+        "value_en": "&nbsp;This is the description of the systemsettings ..."
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.THEME": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.THEME",
+        "group": "sys-setting",
+        "value_de": "Anzeige-Theme",
+        "value_en": "Display-Theme"
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.DEBUGLEVEL": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.DEBUGLEVEL",
+        "group": "sys-setting",
+        "value_de": "Debug Level",
+        "value_en": "Debuglevel"
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.DEBUGLEVEL.INFO": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.DEBUGLEVEL.INFO",
+        "group": "pulldown-option",
+        "value_de": "Info",
+        "value_en": "Info"
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.DEBUGLEVEL.WARNING": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.DEBUGLEVEL.WARNING",
+        "group": "pulldown-option",
+        "value_de": "Warnung",
+        "value_en": "Warning"
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.DEBUGLEVEL.ERROR": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.DEBUGLEVEL.ERROR",
+        "group": "pulldown-option",
+        "value_de": "Fehler",
+        "value_en": "Error"
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.THEME.DARK": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.THEME.DARK",
+        "group": "pulldown-option",
+        "value_de": "Dunkle Theme",
+        "value_en": "Dark Theme"
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.THEME.LIGHT": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.THEME.LIGHT",
+        "group": "pulldown-option",
+        "value_de": "Helle Theme",
+        "value_en": "Light Theme"
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.MESSAGE_SERVER_COMPONENT": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.MESSAGE_SERVER_COMPONENT",
+        "group": "sys-setting",
+        "value_de": "Messaging Server Komponente",
+        "value_en": "Messaging Server Component"
+    },
+    "TXT.SYSTEMSETTINGS.BASICSETTINGS.SUBSECTION_HEADER": {
+        "id": "TXT.SYSTEMSETTINGS.BASICSETTINGS.SUBSECTION_HEADER",
+        "group": "card-header",
+        "value_de": "Basis Einstellungen",
+        "value_en": "Basic Settings"
+    },
+    "TXT.SYSTEMSETTINGS.MSGSERVER.SUBSECTION_HEADER": {
+        "id": "TXT.SYSTEMSETTINGS.MSGSERVER.SUBSECTION_HEADER",
+        "group": "card-header",
+        "value_de": "Messaging Server Einstellungen",
+        "value_en": "Messaging Server Settings"
+    },
+    "TXT.SYSTEMSETTINGS.MSGSERVER.REQUEST_METHOD": {
+        "id": "TXT.SYSTEMSETTINGS.MSGSERVER.REQUEST_METHOD",
+        "group": "sys-setting",
+        "value_de": "Request Methode",
+        "value_en": "Request Method"
+    },
+    "TXT.SYSTEMSETTINGS.MSGSERVER.PULLDOWN_OPT.REQUEST_METHOD.WEBSOCKETS": {
+        "id": "TXT.SYSTEMSETTINGS.MSGSERVER.PULLDOWN_OPT.REQUEST_METHOD.WEBSOCKETS",
+        "group": "pulldown-option",
+        "value_de": "Websockets",
+        "value_en": "Websockets"
+    },
+    "TXT.SYSTEMSETTINGS.MSGSERVER.PULLDOWN_OPT.REQUEST_METHOD.LONGPOLLING": {
+        "id": "TXT.SYSTEMSETTINGS.MSGSERVER.PULLDOWN_OPT.REQUEST_METHOD.LONGPOLLING",
+        "group": "pulldown-option",
+        "value_de": "Longpolling",
+        "value_en": "Longpolling"
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.MESSAGE_SERVER_X509": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.MESSAGE_SERVER_X509",
+        "group": "sys-setting",
+        "value_de": "X.509 Authentifizierung",
+        "value_en": "X.509 Authentication"
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.MESSAGE_SERVER_THROTTLE": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.MESSAGE_SERVER_THROTTLE",
+        "group": "sys-setting",
+        "value_de": "Mitteilungen / Sekunde",
+        "value_en": "Messages / Second"
+    },
+    "TXT.SYSTEMSETTINGS.VIDEOSETTINGS.BASIC.SUBSECTION_HEADER": {
+        "id": "TXT.SYSTEMSETTINGS.VIDEOSETTINGS.BASIC.SUBSECTION_HEADER",
+        "group": "card-header",
+        "value_de": "Basis Video Einstellungen",
+        "value_en": "Basic Video Settings"
+    },
+    "TXT.SYSTEMSETTINGS.VIDEO.BRIGHTNESS": {
+        "id": "TXT.SYSTEMSETTINGS.VIDEO.BRIGHTNESS",
+        "group": "sys-setting",
+        "value_de": "Helligkeit",
+        "value_en": "Brightness"
+    },
+    "TXT.SYSTEMSETTINGS.VIDEO.SATURATION": {
+        "id": "TXT.SYSTEMSETTINGS.VIDEO.SATURATION",
+        "group": "sys-setting",
+        "value_de": "Farbsättigung",
+        "value_en": "Saturation"
+    },
+    "TXT.SYSTEMSETTINGS.VIDEO.REFRESHRATE": {
+        "id": "TXT.SYSTEMSETTINGS.VIDEO.REFRESHRATE",
+        "group": "sys-setting",
+        "value_de": "Bildwiederholungsrate (Hz)",
+        "value_en": "Video Refreshrate (Hz)"
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.REFRESHRATE.60HZ": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.REFRESHRATE.60HZ",
+        "group": "pulldown-option",
+        "value_de": "60Hz",
+        "value_en": "60Hz"
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.REFRESHRATE.120HZ": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.REFRESHRATE.120HZ",
+        "group": "pulldown-option",
+        "value_de": "120Hz",
+        "value_en": "120Hz"
+
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.REFRESHRATE.200HZ": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.REFRESHRATE.200HZ",
+        "group": "pulldown-option",
+        "value_de": "200Hz",
+        "value_en": "200Hz"
+    },
+    "TXT.SYSTEMSETTINGS.VIDEOSETTINGS.COLOR.SUBSECTION_HEADER": {
+        "id": "TXT.SYSTEMSETTINGS.VIDEOSETTINGS.COLOR.SUBSECTION_HEADER",
+        "group": "card-header",
+        "value_de": "Farb Einstellungen",
+        "value_en": "Color Settings"
+    },
+    "TXT.SYSTEMSETTINGS.VIDEO.COLOR_RED": {
+        "id": "TXT.SYSTEMSETTINGS.VIDEO.COLOR_RED",
+        "group": "sys-setting",
+        "value_de": "Rot",
+        "value_en": "Red"
+    },
+    "TXT.SYSTEMSETTINGS.VIDEO.COLOR_GREEN": {
+        "id": "TXT.SYSTEMSETTINGS.VIDEO.COLOR_GREEN",
+        "group": "sys-setting",
+        "value_de": "Grün",
+        "value_en": "Green"
+    },
+    "TXT.SYSTEMSETTINGS.VIDEO.COLOR_BLUE": {
+        "id": "TXT.SYSTEMSETTINGS.VIDEO.COLOR_BLUE",
+        "group": "sys-setting",
+        "value_de": "Blau",
+        "value_en": "Blue"
+    },
+    "TXT.SYSTEMSETTINGS.DEFAULTSETTINGS.CSS.SUBSECTION_HEADER": {
+        "id": "TXT.SYSTEMSETTINGS.DEFAULTSETTINGS.CSS.SUBSECTION_HEADER",
+        "group": "card-header",
+        "value_de": "Cascading Style Sheets (CSS) Default Werte",
+        "value_en": "Cascading Style Sheets (CSS) Default Values"
+    },
+    "TXT.SYSTEMSETTINGS.DEFAULT.CSS_SCREEN": {
+        "id": "TXT.SYSTEMSETTINGS.DEFAULT.CSS_SCREEN",
+        "group": "sys-setting",
+        "value_de": "Screen",
+        "value_en": "Screen"
+    },
+    "TXT.SYSTEMSETTINGS.DEFAULT.CSS_MENU": {
+        "id": "TXT.SYSTEMSETTINGS.DEFAULT.CSS_MENU",
+        "group": "sys-setting",
+        "value_de": "Menüleiste",
+        "value_en": "Menu"
+    },
+    "TXT.SYSTEMSETTINGS.DEFAULT.CSS_SCREEN_OVERLAY": {
+        "id": "TXT.SYSTEMSETTINGS.DEFAULT.CSS_SCREEN_OVERLAY",
+        "group": "sys-setting",
+        "value_de": "Screen Overlay",
+        "value_en": "Screen Overlay"
+    },
+    "TXT.SYSTEMSETTINGS.DEFAULT.CSS_LISTNAV_LEFT": {
+        "id": "TXT.SYSTEMSETTINGS.DEFAULT.CSS_LISTNAV_LEFT",
+        "group": "sys-setting",
+        "value_de": "Navigation Links",
+        "value_en": "Navigation Left"
+    },
+    "TXT.SYSTEMSETTINGS.DEFAULT.CSS_LISTNAV_RIGHT": {
+        "id": "TXT.SYSTEMSETTINGS.DEFAULT.CSS_LISTNAV_RIGHT",
+        "group": "sys-setting",
+        "value_de": "Navigation Rechts",
+        "value_en": "Navigation Right"
+    },
+    "TXT.SYSTEMSETTINGS.DEFAULTSETTINGS.TIMEOUT.SUBSECTION_HEADER": {
+        "id": "TXT.SYSTEMSETTINGS.DEFAULTSETTINGS.TIMEOUT.SUBSECTION_HEADER",
+        "group": "card-header",
+        "value_de": "Timeout Default Werte",
+        "value_en": "Timeout Default Values"
+    },
+    "TXT.SYSTEMSETTINGS.TIMEOUT.INDICATOR_BACKEND_SERVICE": {
+        "id": "TXT.SYSTEMSETTINGS.TIMEOUT.INDICATOR_BACKEND_SERVICE",
+        "group": "sys-setting",
+        "value_de": "Server Timeout",
+        "value_en": "Server Timeout"
+    },
+    "TXT.BUTTON.SYSTEMSETTINGS.SAVE_SETTINGS": {
+        "id": "TXT.BUTTON.SYSTEMSETTINGS.SAVE_SETTINGS",
+        "group": "button",
+        "value_de": "Systemeinstellungen speichern (Backend)",
+        "value_en": "Save System Settings (Backend)"
+    },
+    "TXT.NOTIFYMSG.SAVE_SYSTEMSETTINGS": {
+        "id": "TXT.NOTIFYMSG.SAVE_SYSTEMSETTINGS",
+        "group": "notify-indicator",
+        "value_de": "Systemeinstellungen speichern",
+        "value_en": "Save System Settings"
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.SAVE.SYSTEM": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.SAVE.SYSTEM",
+        "group": "pulldown-option",
+        "value_de": "Systemeinstellungen",
+        "value_en": "System Settings"
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.SAVE.VIDEO": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.SAVE.VIDEO",
+        "group": "pulldown-option",
+        "value_de": "Videoeinstellungen",
+        "value_en": "Video Settings"
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.SAVE.DEFAULT": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.SAVE.DEFAULT",
+        "group": "pulldown-option",
+        "value_de": "Defaulteinstellungen",
+        "value_en": "Default Settings"
+    },
+    "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.SAVE.ALL": {
+        "id": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.SAVE.ALL",
+        "group": "pulldown-option",
+        "value_de": "Alle Einstellungen",
+        "value_en": "All Settings"
+    },
+    "TXT.HEADER.EXAMPLE.OVERLAY": {
+        "id": "TXT.HEADER.EXAMPLE.OVERLAY",
+        "group": "header",
+        "value_de": "Beispiel Overlay - Mitarbeiter Daten bearbeiten",
+        "value_en": "Example Overlay - Edit Worker Data"
+    },
+    "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.NAME": {
+        "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.NAME",
+        "group": "form-label",
+        "value_de": "Vorname",
+        "value_en": "First name"
+    },
+    "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.SURENAME": {
+        "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.SURENAME",
+        "group": "form-label",
+        "value_de": "Nachname",
+        "value_en": "Surename"
+    },
+    "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.EMAIL": {
+        "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.EMAIL",
+        "group": "form-label",
+        "value_de": "E-Mail Adresse",
+        "value_en": "Mail address"
+    },
+    "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.AGE": {
+        "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.AGE",
+        "group": "form-label",
+        "value_de": "Alter",
+        "value_en": "Age"
+    },
+    "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.LOGIN_NAME": {
+        "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.LOGIN_NAME",
+        "group": "form-label",
+        "value_de": "Login Name",
+        "value_en": "Login name"
+    },
+    "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.LOGIN_PASSWORD": {
+        "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.LOGIN_PASSWORD",
+        "group": "form-label",
+        "value_de": "Login Passwort",
+        "value_en": "Login password"
+    },
+    "TXT.EXAMPLE.WIZARD.PERSON_AGE.YOUNG": {
+        "id": "TXT.EXAMPLE.WIZARD.PERSON_AGE.YOUNG",
+        "group": "pulldown-item",
+        "value_de": "18-32 Jahre",
+        "value_en": "18-32 Years"
+    },
+    "TXT.EXAMPLE.WIZARD.PERSON_AGE.MIDDLE_AGE": {
+        "id": "TXT.EXAMPLE.WIZARD.PERSON_AGE.MIDDLE_AGE",
+        "group": "pulldown-item",
+        "value_de": "33-60 Jahre",
+        "value_en": "33-60 Years"
+    },
+    "TXT.EXAMPLE.WIZARD.PERSON_AGE.OLD": {
+        "id": "TXT.EXAMPLE.WIZARD.PERSON_AGE.OLD",
+        "group": "pulldown-item",
+        "value_de": "60+ Jahre",
+        "value_en": "60+ Years"
+    },
+    "TXT.VALIDATE.PERSON.GERMAN_NAME": {
+        "id": "TXT.VALIDATE.PERSON.GERMAN_NAME",
+        "group": "validate-display",
+        "value_de": "In deutscher Name darf lediglich die Zeichen 'a-z, A-Z, äöüÄÖÜ.-' enthalten.",
+        "value_en": "A german name only should contain the following characters: 'a-z, A-Z, äöüÄÖÜ.-'."
+    },
+    "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.ADDRESS.STREET": {
+        "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.ADDRESS.STREET",
+        "group": "form-label",
+        "value_de": "Straße",
+        "value_en": "Street"
+    },
+    "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.ADDRESS.STREET_NR": {
+        "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.ADDRESS.STREET_NR",
+        "group": "form-label",
+        "value_de": "Nummer",
+        "value_en": "Number"
+    },
+    "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.PHONE_TYPE": {
+        "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.PHONE_TYPE",
+        "group": "form-label",
+        "value_de": "Vorwahl",
+        "value_en": "Phone Prefix"
+    },
+    "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.PHONE_NUMBER": {
+        "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.PHONE_NUMBER",
+        "group": "form-label",
+        "value_de": "Telefonnummer",
+        "value_en": "Phone Number"
+    },
+    "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.GROUP": {
+        "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.GROUP",
+        "group": "form-label",
+        "value_de": "Gruppe",
+        "value_en": "Group"
+    },
+    "TXT.FORMFIELD.EXAMPLE_WIZARD.ACCEPT.CONTRACT": {
+        "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.ACCEPT.CONTRACT",
+        "group": "form-label",
+        "value_de": "Vertrag akzeptieren",
+        "value_en": "Accept Contract"
+    }
+}
