@@ -116,36 +116,36 @@ function InitOk(XHR) {
     sysFactory.DataObject.setLoaderObj(sysObjLoader);
     sysFactory.DataSkeleton.setLoaderObj(sysObjLoader);
 
-    sysFactory.ObjText.requestXMLRPCData(sysVarAppSubdir + '/text-data.json');
-    sysFactory.DataMenu.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigMenuFile);
-    sysFactory.DataObject.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigObjectFile);
-    sysFactory.DataSkeleton.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigSkeletonFile);
+    sysFactory.ObjText.requestXMLRPCData(sysVarAppSubdir + 'static/text-data.json');
+    sysFactory.DataMenu.requestXMLRPCData(sysVarAppSubdir + 'static/' + sysVarConfigMenuFile);
+    sysFactory.DataObject.requestXMLRPCData(sysVarAppSubdir + 'static/' + sysVarConfigObjectFile);
+    sysFactory.DataSkeleton.requestXMLRPCData(sysVarAppSubdir + 'static/' + sysVarConfigSkeletonFile);
 
 
     //----------------------------------------------------------------------------
     //- Set System Vars
     //----------------------------------------------------------------------------
 
-    sysFactory.DisplayDefaultScreen = sysVarDisplayDefaultScreen;
+    sysFactory.DisplayDefaultScreen         = sysVarDisplayDefaultScreen;
 
-    sysFactory.SysDebugLevel = sysVarDebugLevel;
-    sysFactory.SysSessionID = 'SYS_SESSION';
-    sysFactory.SysUserID = UserID;
-    sysFactory.SysSessionValue = UserSession;
-    sysFactory.MsgServerGetURL = 'http://x0-msg-server.x0.localnet:8080/python/MsgHandler.py';
+    sysFactory.SysDebugLevel                = sysVarDebugLevel;
+    sysFactory.SysSessionID                 = 'SYS_SESSION';
+    sysFactory.SysUserID                    = UserID;
+    sysFactory.SysSessionValue              = UserSession;
+    sysFactory.MsgServerGetURL              = 'http://x0-msg-server.x0.localnet:8080/python/MsgHandler.py';
 
-    sysFactory.ParentWindowURL = sysVarParentWindowURL;
+    sysFactory.ParentWindowURL              = sysVarParentWindowURL;
 
 
     //----------------------------------------------------------------------------
     //- Style Defaults
     //----------------------------------------------------------------------------
 
-    sysFactory.DefaultStyleScreen = 'col-md-11 ms-auto me-auto';
-    sysFactory.DefaultStyleMenu = 'menu-absolute-pos';
-    sysFactory.DefaultStyleScreenOverlay = 'p-3 shadow-lg border bg-gradient bg-opacity-75 overlay-default';
-    sysFactory.DefaultStyleListNavLeft = 'col-6 p-4 pl-0';
-    sysFactory.DefaultStyleListNavRight = 'col-6 p-4 float-end text-end pr-0';
+    sysFactory.DefaultStyleScreen           = 'screen-absolute-pos';
+    sysFactory.DefaultStyleMenu             = 'menu-absolute-pos';
+    sysFactory.DefaultStyleScreenOverlay    = 'p-3 shadow-lg border bg-gradient bg-opacity-75 overlay-default';
+    sysFactory.DefaultStyleListNavLeft      = 'col-6 p-4 pl-0';
+    sysFactory.DefaultStyleListNavRight     = 'col-6 p-4 float-end text-end pr-0';
 
 
     //----------------------------------------------------------------------------
@@ -175,7 +175,6 @@ function InitOk(XHR) {
 
     sysFactory.UserValidate = new UserValidate();
     sysFactory.UserValidateGroup = new UserValidateGroup();
-    sysFactory.UserContextMenu = new UserContextMenu();
 
 
     //----------------------------------------------------------------------------
@@ -199,5 +198,4 @@ function InitOk(XHR) {
     sysFactory.sysGlobalAsyncNotifyHandler = new sysAsyncNotifyMsgHandler(
         sysVarMessageHandling
     );
-
 }
