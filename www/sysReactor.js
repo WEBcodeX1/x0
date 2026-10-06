@@ -76,7 +76,7 @@ sysReactor.prototype.dispatchEvent = function(EventID, EventSelector)
     {
         if (EventObj.ID == EventID && EventObj.EventSelector == EventSelector)
         {
-            EventObj,CallbackFunction();
+            EventObj.CallbackFunction();
         }
     }
 }
