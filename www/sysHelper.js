@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -15,7 +15,8 @@
 //- METHOD "sysMergeObjects"
 //------------------------------------------------------------------------------
 
-sysMergeObjects = function(Object1, Object2) {
+sysMergeObjects = function(Object1, Object2)
+{
     let o1 = Object.assign({}, Object1);
     let o2 = Object.assign({}, Object2);
     for (const Key in o2) {
@@ -35,4 +36,20 @@ sysMergeObjects = function(Object1, Object2) {
         }
     }
     return o1;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "sysConvertData2KeyValue"
+//------------------------------------------------------------------------------
+
+sysConvertData2KeyValue = function(Data)
+{
+    let Result = new Object();
+    for (const DataKey in Data)
+    {
+        const DataItem = Data[DataKey];
+        Result[DataItem.KeyID] = DataItem.ObjectValue;
+    }
+    return Result;
 }

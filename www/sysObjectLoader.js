@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -10,11 +10,10 @@
 //- Main
 //------------------------------------------------------------------------------
 
-function sysObjectLoader(FactoryObj) {
-
+function sysObjectLoader(FactoryObj)
+{
     this.Objects    = new Array();        //- Loader Objects
     this.Factory    = FactoryObj;         //- Factory Reference
-
 }
 
 
@@ -36,7 +35,8 @@ sysObjectLoader.prototype.checkLoaded = function()
 {
     LoadedCount = 0;
 
-    for (const Obj of this.Objects) {
+    for (const Obj of this.Objects)
+    {
         if (Obj.DataReadyState) {
             LoadedCount++;
         }

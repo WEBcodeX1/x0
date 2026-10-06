@@ -1,9 +1,9 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- SYSTEM OBJECT "OpenClose"                                                -//
+//- SYSTEM OBJECT "OpenCloseContainer"                                       -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-                                                                          -//
@@ -12,87 +12,87 @@
 
 
 //------------------------------------------------------------------------------
-//- CONSTRUCTOR "sysObjOpenClose"
+//- CONSTRUCTOR "sysObjOpenCloseContainer"
 //------------------------------------------------------------------------------
 
-function sysObjOpenClose()
+function sysObjOpenCloseContainer()
 {
-    this.overrideDOMObjectID    = true;            //- Override recursive ObjectID
-    this.ObjectID               = this.ID;         //- Set unique ID
-    this.ChildObjects           = new Array();     //- Child Objects
+    this.overrideDOMObjectID    = true;             //- Override recursive ObjectID
+    this.ChildObjects           = new Array();      //- Child Objects
 }
 
 //- inherit sysBaseObject
-sysObjOpenClose.prototype = new sysBaseObject();
+sysObjOpenCloseContainer.prototype = new sysBaseObject();
 
 
 //------------------------------------------------------------------------------
 //- METHOD "init"
 //------------------------------------------------------------------------------
 
-sysObjOpenClose.prototype.init = function()
+sysObjOpenCloseContainer.prototype.init = function()
 {
     const Attributes = this.JSONConfig.Attributes;
 
-    //- set css style attributes
-    if (Attributes.Style !== undefined) {
-        this.DOMStyle = Attributes.Style;
-    }
+    //- set/override default config attributes
+    this.StateOpen = (Attributes.StateOpen !== undefined) ? Attributes.StateOpen : true;
+    this.DOMStyle = (Attributes.Style !== undefined) ? Attributes.Style : 'card mb-3';
+
+    //- set header style
+    const HeaderStyle = (Attributes.HeaderStyle !== undefined) ? Attributes.HeaderStyle : 'card-header';
 
     //- define open/close button
     this.OpenCloseIcon = new sysBaseObject();
     this.OpenCloseIcon.EventListeners = new Object();
-    this.OpenCloseIcon.DOMStyle = 'col-sm-4 mb-3 mb-sm-0 text-end';
-    this.OpenCloseIcon.DOMValue = '<i class="fa-regular fa-square-caret-down"></i>';
-    this.OpenCloseIcon.StateOpen = true;
-    this.OpenCloseIcon.RootObject = this;
+    this.OpenCloseIcon.DOMType = 'h4';
+    this.OpenCloseIcon.DOMStyle = 'col-sm-4 mb-3 mb-sm-0 text-secondary text-end';
+    this.OpenCloseIcon.DOMValue = '<i class="fa-solid fa-angle-down"></i>';
 
+    //- setup open/close event listener
     let EventListenerObj = new Object();
     EventListenerObj['Type'] = 'mousedown';
-    EventListenerObj['Element'] = this.toggleVisibleState.bind(this.OpenCloseIcon);
+    EventListenerObj['Element'] = this.toggleVisibleState.bind(this);
     this.OpenCloseIcon.EventListeners["OpenClose"] = EventListenerObj;
 
     //- setup recursive object structure
-    ObjDefs = [
+    const ObjDefs = [
         {
-            "id": "card-ctn",
+            "id": "CtrCardHeader",
             "SysObject": new sysObjDiv(),
             "JSONAttributes": {
-                "Style": "card"
+                "Style": HeaderStyle
             },
             "ObjectDefs": [
                 {
-                    "id": "card-header-ctn",
+                    "id": "CardHeaderRow",
                     "SysObject": new sysObjDiv(),
                     "JSONAttributes": {
-                        "Style": "card-header"
+                        "Style": "row"
                     },
                     "ObjectDefs": [
                         {
-                            "id": "card-header-row",
-                            "SysObject": new sysObjDiv(),
+                            "id": this.ObjectID + "CardHeaderText",
+                            "SysObject": new sysObjSQLText(),
                             "JSONAttributes": {
-                                "Style": "row"
-                            },
-                            "ObjectDefs": [
-                                {
-                                    "id": "header-text",
-                                    "SysObject": new sysObjSQLText(),
-                                    "JSONAttributes": {
-                                        "Style": "col-sm-8 mb-3 mb-sm-0",
-                                        "TextID": Attributes.TextID,
-                                        "IconStyle": Attributes.IconStyle
-                                    }
-                                },
-                                {
-                                    "id": "open-close-button",
-                                    "SysObject": this.OpenCloseIcon
-                                }
-                            ]
+                                "Style": "col-sm-8 mb-3 mb-sm-0",
+                                "DOMType": "h5",
+                                "TextID": Attributes.TextID,
+                                "IconStyle": Attributes.IconStyle
+                            }
+                        },
+                        {
+                            "id": "OpenCloseButton",
+                            "SysObject": this.OpenCloseIcon
                         }
                     ]
                 }
             ]
+        },
+        {
+            "id": this.ObjectID + 'Content',
+            "SysObject": new sysObjDiv(),
+            "JSONAttributes": {
+                "Style": "card-body"
+            }
         }
     ];
 
@@ -104,38 +104,46 @@ sysObjOpenClose.prototype.init = function()
 //- METHOD "toggleVisibleState"
 //------------------------------------------------------------------------------
 
-sysObjOpenClose.prototype.toggleVisibleState = function()
+sysObjOpenCloseContainer.prototype.toggleVisibleState = function()
 {
     if (this.StateOpen === true) {
         this.StateOpen = false;
-        this.DOMValue = '<i class="fa-regular fa-square-caret-right"></i>';
-        this.setDOMElementValue();
-        this.RootObject.processChildObjects();
-        return;
+        this.OpenCloseIcon.DOMValue = '<i class="fa-solid fa-angle-up"></i>';
+        this.OpenCloseIcon.setDOMElementValue();
     }
     else if (this.StateOpen === false) {
         this.StateOpen = true;
-        this.DOMValue = '<i class="fa-regular fa-square-caret-down"></i>';
-        this.setDOMElementValue();
-        this.RootObject.processChildObjects();
+        this.OpenCloseIcon.DOMValue = '<i class="fa-solid fa-angle-down"></i>';
+        this.OpenCloseIcon.setDOMElementValue();
     }
+    this.updateState();
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "processChildObjects"
+//- METHOD "updateState"
 //------------------------------------------------------------------------------
 
-sysObjOpenClose.prototype.processChildObjects = function()
+sysObjOpenCloseContainer.prototype.updateState = function()
 {
-    for (let i=1; i<this.ChildObjects.length; ++i) {
-        const ChildObject = this.ChildObjects[i];
-        if (this.OpenCloseIcon.StateOpen === true) {
-            ChildObject.VisibleState = 'visible';
-        }
-        if (this.OpenCloseIcon.StateOpen === false) {
-            ChildObject.VisibleState = 'hidden';
-        }
-        ChildObject.setDOMVisibleState();
+    const ActivateObj = sysFactory.getObjectByID(this.ObjectID + 'Content');
+
+    if (this.StateOpen === true) {
+        ActivateObj.VisibleState = 'visible';
     }
+    if (this.StateOpen === false) {
+        ActivateObj.VisibleState = 'hidden';
+    }
+
+    ActivateObj.setDOMVisibleState();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "reset"
+//------------------------------------------------------------------------------
+
+sysObjOpenCloseContainer.prototype.reset = function()
+{
+    this.updateState();
 }

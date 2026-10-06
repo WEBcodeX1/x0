@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -10,12 +10,16 @@
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 
+
 //------------------------------------------------------------------------------
 //- CONSTRUCTOR "sysTab"
 //------------------------------------------------------------------------------
 
 function sysTab()
 {
+    this.ObjectType               = 'Tab'                            //- System Object Type
+    this.overrideDOMObjectID      = true;                            //- Override recursive ObjectID
+
     this.ObjectID                 = null;                            //- ObjectID
     this.TabID                    = null;                            //- TabID
 
@@ -32,13 +36,10 @@ function sysTab()
 
     this.TabContainer             = null;                            //- TabContainer Object
 
-    this.ValidateStatus           = null;                            //- Child Form Validate Status
-
     this.StyleActive              = null;                            //- Active Style
     this.StyleInactive            = null;                            //- Inactive Style
 
     this.EventListeners           = new Object();                    //- Event Listeners
-
     this.ChildObjects             = new Array();                     //- Child Objects
 
     this.PostRequestData          = new sysRequestDataHandler();     //- POST Request Data
@@ -52,9 +53,9 @@ sysTab.prototype = new sysBaseObject();
 //- METHOD "EventListenerClick"
 //------------------------------------------------------------------------------
 
-sysTab.prototype.EventListenerClick = function(Event)
+sysTab.prototype.EventListenerClick = function()
 {
-    //console.debug('::EventListenerClick sysTab TabID:' + this.TabID);
+    console.debug('::sysTab EventListenerClick() TabID:%s', this.TabID);
     this.TabContainer.switchTab(this.TabID);
 }
 
@@ -72,23 +73,13 @@ sysTab.prototype.fireEvents = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "setValidateStatus"
-//------------------------------------------------------------------------------
-
-sysTab.prototype.setValidateStatus = function(Status)
-{
-    this.ValidateStatus = Status;
-}
-
-
-//------------------------------------------------------------------------------
 //- CONSTRUCTOR "sysTabContainer"
 //------------------------------------------------------------------------------
 
 function sysTabContainer()
 {
+    this.ObjectType                 = 'TabContainer'            //- System Object Type
     this.overrideDOMObjectID        = true;                     //- Override recursive ObjectID
-    this.ObjectID                   = this.ID;                  //- Set unique ID
 
     this.ChildObjects               = new Array();              //- Child Objects
 
@@ -109,25 +100,26 @@ sysTabContainer.prototype = new sysBaseObject();
 sysTabContainer.prototype.init = function()
 {
     //- set tabs container object ids and css style
-    this.TabsContainer.ObjectID = this.ObjectID + 'TabsContainer';
+    this.TabsContainer.ObjectID = this.ObjectID + 'TabContainer';
+    this.TabsContainer.overrideDOMObjectID = true;
     this.TabsContainer.DOMType = 'ul';
     this.TabsContainer.DOMStyle = 'nav nav-tabs';
     this.addObject(this.TabsContainer);
 
     //- set content container object ids
-    this.ContentContainer.ObjectID = this.ObjectID + 'ContentContainer';
-    this.ContentContainer.ObjectShortID = this.ObjectID + 'Ctnt';
+    this.ContentContainer.ObjectID = this.ObjectID + 'Ctnt';
+    this.ContentContainer.overrideDOMObjectID = true;
     this.addObject(this.ContentContainer);
 
     //- set config object attributes
     this.ContainerAttributes = this.JSONConfig.Attributes;
 
-    //- connect tab container object for switching tabs from "outside"
+    //- container object for access from "outside"
     this.TabContainerObject = this;
 
     //console.debug('::init TabContainer ObjectUD:%s', this.ObjectID);
 
-    //- add tabs from configurtaion
+    //- add tabs
     this.addTabs();
 }
 
@@ -144,7 +136,7 @@ sysTabContainer.prototype.addTabs = function()
 
         TabID = TabItem.ID;
 
-        console.debug('TabID:%s', TabID);
+        console.debug('::sysTabContainer addTabs() TabID:%s', TabID);
 
         var TabElement = new sysTab();
         const TabAttributes = TabItem.Attributes;
@@ -170,7 +162,7 @@ sysTabContainer.prototype.addTabs = function()
 
         this.Tabs[TabID] = TabElement;
 
-        this.appendTabObject(TabElement);
+        this.appendTabObject(TabElement, TabItem.Attributes);
     }
 }
 
@@ -189,13 +181,21 @@ sysTabContainer.prototype.getTabByTabID = function(TabID)
 //- METHOD "appendTabObject"
 //------------------------------------------------------------------------------
 
-sysTabContainer.prototype.appendTabObject = function(TabElement)
+sysTabContainer.prototype.appendTabObject = function(TabElement, TabAttributes)
 {
     TabElement.SQLTextObj = new sysObjSQLText();
     TabElement.SQLTextObj.ObjectID = TabElement.TabID + 'Text';
-    TabElement.SQLTextObj.TextID = TabElement.TextID;
-    TabElement.SQLTextObj.DOMStyle = 'nav-link';
-    TabElement.SQLTextObj.DOMType = 'a';
+
+    TabElement.SQLTextObj.JSONConfig = {
+        "Attributes": {
+            "Style": 'nav-link',
+            "IconStyle": TabAttributes.IconStyle,
+            "DOMType": 'a',
+            "TextID": TabElement.TextID,
+
+        }
+    }
+
     TabElement.SQLTextObj.init();
 
     TabElement.addObject(TabElement.SQLTextObj);
@@ -239,13 +239,12 @@ sysTabContainer.prototype.switchTab = function(TabID)
 
         if (TabElement.TabID == TabID) {
 
-            //console.debug('Switching active tab:%s', this.ObjectID);
-            //console.debug('::switchTab TabKey:%s Active==True', TabKey);
+            console.debug('Switching active tab:%s', this.ObjectID);
 
             this.setGlobalCurrentTab(TabID, TabElement);
 
             TabElement.Active = true;
-            TabElement.SQLTextObj.DOMStyle = 'nav-link active';
+            TabElement.SQLTextObj.DOMStyle = 'nav-link active text-primary-emphasis';
             TabElement.SQLTextObj.setDOMElementStyle();
 
             TabElement.ContentObj.setActivated();
@@ -266,22 +265,6 @@ sysTabContainer.prototype.switchTab = function(TabID)
         }
     }
 
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "loadAll"
-//------------------------------------------------------------------------------
-
-sysTabContainer.prototype.loadAll = function()
-{
-    for (const TabID in this.Tabs) {
-        TabElement = this.Tabs[TabID];
-        TabElement.fireEvents();
-        /*
-        TabElement.processService();
-        */
-    }
 }
 
 
@@ -343,20 +326,4 @@ sysTabContainer.prototype.reset = function()
 {
     //console.debug('::reset');
     this.switchDefaultTab();
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "switchFirstTabContainingErrors"
-//------------------------------------------------------------------------------
-
-sysTabContainer.prototype.switchFirstTabContainingErrors = function()
-{
-    for (TabKey in this.Tabs) {
-        TabElement = this.Tabs[TabKey];
-        if (TabElement.ValidateStatus === false) {
-            this.switchTab(TabKey);
-            break;
-        }
-    }
 }

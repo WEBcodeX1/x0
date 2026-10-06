@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -10,12 +10,13 @@
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 
+
 //------------------------------------------------------------------------------
 //- CONSTRUCTOR "sysBase64"
 //------------------------------------------------------------------------------
 
-function sysBase64() {
-
+function sysBase64()
+{
     //- key string
     this.keyStr =    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdef" +
                      "ghijklmnopqrstuvwxyz0123456789+/" +
@@ -24,7 +25,6 @@ function sysBase64() {
     //- reset encoded/decoded strings
     this.encoded = null;
     this.decoded = null;
-
 }
 
 
@@ -41,8 +41,8 @@ sysBase64.prototype.encode = function(string)
 
     var i = 0;
 
-    do {
-
+    do
+    {
         chr1 = string.charCodeAt(i++);
         chr2 = string.charCodeAt(i++);
         chr3 = string.charCodeAt(i++);

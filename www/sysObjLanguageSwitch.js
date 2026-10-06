@@ -13,8 +13,9 @@
 
 function sysObjLanguageSwitch()
 {
-    this.EventListeners = new Object();
-    this.ChildObjects = new Array();
+    this.overrideDOMObjectID    = true;             //- Override setting recursive ObjectID
+    this.EventListeners         = new Object();     //- Event Listeners
+    this.ChildObjects           = new Array();      //- Child Objects
 }
 
 sysObjLanguageSwitch.prototype = new sysBaseObject();
@@ -26,80 +27,63 @@ sysObjLanguageSwitch.prototype = new sysBaseObject();
 
 sysObjLanguageSwitch.prototype.init = function()
 {
-    const Attributes = (this.JSONConfig !== undefined && this.JSONConfig.Attributes !== undefined)
-        ? this.JSONConfig.Attributes : new Object();
+    console.debug('sysObjLanguageSwitch init().');
 
-    this.DOMStyle = (Attributes.Style !== undefined) ? Attributes.Style : 'input-group';
+    const Attributes = this.JSONConfig.Attributes;
 
-    this.PulldownObjectID = (Attributes.PulldownObjectID !== undefined) ? Attributes.PulldownObjectID : 'language';
-    const ButtonObjectID = (Attributes.ButtonObjectID !== undefined) ? Attributes.ButtonObjectID : 'update';
+    const PulldownStyle = (Attributes.PulldownStyle !== undefined) ? Attributes.PulldownStyle : 'form-select w-100';
+    const ButtonStyle = (Attributes.ButtonStyle !== undefined) ? Attributes.ButtonStyle : 'btn btn-outline-primary w-100'
 
-    var PulldownAttributes = {
-        "Type": "pulldown",
-        "Style": (Attributes.PulldownStyle !== undefined) ? Attributes.PulldownStyle : 'form-select',
-        "Options": this.getLanguageOptions(Attributes)
-    };
+    this.DOMStyle = (Attributes.Style !== undefined) ? Attributes.Style : 'row';
 
-    if (Attributes.PulldownAttributes !== undefined) {
-        PulldownAttributes = Object.assign(PulldownAttributes, Attributes.PulldownAttributes);
-    }
+    this.PulldownObjectID = this.ObjectID + 'Pulldown';
+    this.ButtonObjectID = this.ObjectID + 'Button';
 
-    if (PulldownAttributes.Type === undefined) {
-        PulldownAttributes.Type = 'pulldown';
-    }
+    let UpdateButton = new sysObjButtonCallback();
+    UpdateButton.ObjectID = this.ButtonObjectID;
+    UpdateButton.overrideDOMObjectID = true;
+    UpdateButton.setCallback(this);
 
-    if (PulldownAttributes.Options === undefined) {
-        PulldownAttributes.Options = this.getLanguageOptions(Attributes);
-    }
-
-    var UpdateButton = new sysObjButtonCallback();
-    UpdateButton.setCallback(this, 'updateLanguage');
-
-    var ButtonAttributes = {
-        "DOMType": "button",
-        "Style": (Attributes.ButtonStyle !== undefined) ? Attributes.ButtonStyle : 'btn btn-outline-secondary'
-    };
-
-    if (Attributes.ButtonTextID !== undefined) {
-        ButtonAttributes.TextID = Attributes.ButtonTextID;
-    }
-
-    if (Attributes.ButtonAttributes !== undefined) {
-        ButtonAttributes = Object.assign(ButtonAttributes, Attributes.ButtonAttributes);
-    }
-
-    if (ButtonAttributes.DOMType === undefined) {
-        ButtonAttributes.DOMType = 'button';
-    }
-
-    if (ButtonAttributes.Style === undefined) {
-        ButtonAttributes.Style = 'btn btn-outline-secondary';
-    }
-
-    if (ButtonAttributes.TextID === undefined && ButtonAttributes.DOMValue === undefined) {
-        ButtonAttributes.DOMValue = 'Update';
-    }
-
-    var ObjDef = [
+    const ObjDefs = [
         {
-            "id": this.PulldownObjectID,
-            "SysObject": new sysFormfieldItemPulldown(),
-            "JSONAttributes": PulldownAttributes
+            "id": "CtrPulldown",
+            "SysObject": new sysObjDiv(),
+            "JSONAttributes": {
+                "Style": "col col-10"
+            },
+            "ObjectDefs": [
+                {
+                    "id": this.PulldownObjectID,
+                    "SysObject": new sysFormfieldItemPulldown(),
+                    "JSONAttributes": {
+                        "Style": PulldownStyle,
+                        "Options": this.getLanguageOptions()
+                    }
+                }
+            ]
         },
         {
-            "id": ButtonObjectID,
-            "SysObject": UpdateButton,
-            "JSONAttributes": ButtonAttributes
+            "id": "CtrButton",
+            "SysObject": new sysObjDiv(),
+            "JSONAttributes": {
+                "Style": "col col-2"
+            },
+            "ObjectDefs": [
+                {
+                    "id": this.ButtonObjectID,
+                    "SysObject": UpdateButton,
+                    "JSONAttributes": {
+                        "DOMType": "button",
+                        "Style": ButtonStyle,
+                        "IconStyle": "fa-solid fa-play",
+                        "TextID": "TXT.SYS.LANGUAGE-SWITCH-BUTTON"
+                    }
+                }
+            ]
         }
     ];
 
-    sysFactory.setupObjectRefsRecursive(ObjDef, this);
-
-    try {
-        this.getObjectByID(this.PulldownObjectID).setValue(sysFactory.EnvUserLanguage);
-    }
-    catch(err) {
-    }
+    sysFactory.setupObjectRefsRecursive(ObjDefs, this);
 }
 
 
@@ -107,39 +91,30 @@ sysObjLanguageSwitch.prototype.init = function()
 //- METHOD "getLanguageOptions"
 //------------------------------------------------------------------------------
 
-sysObjLanguageSwitch.prototype.getLanguageOptions = function(Attributes)
+sysObjLanguageSwitch.prototype.getLanguageOptions = function()
 {
-    var Options = new Array();
+    let Options = new Array();
 
-    if (Attributes.Options !== undefined) {
-        for (const OptionItem of Attributes.Options) {
-            Options.push(Object.assign({}, OptionItem));
-        }
-    }
-    else {
-        for (const Language of sysFactory.ObjText.Languages) {
-            Options.push({
-                "Display": Language.toUpperCase(),
-                "Value": Language
-            });
-        }
-    }
+    const TextObj = sysFactory.ObjText;
+    const DisplayLanguages = TextObj.PDLanguagesDisplay;
 
-    var HasDefault = false;
-    for (const OptionItem of Options) {
-        if (OptionItem.Default === true) {
-            HasDefault = true;
+    for (const Language of TextObj.Languages)
+    {
+        const DisplayValue = DisplayLanguages[Language][sysFactory.EnvUserLanguage];
+
+        let PDOption = {
+            "Display": DisplayValue,
+            "Value": Language
+        };
+
+        if (sysFactory.EnvUserLanguage == Language) {
+            PDOption['Default'] = true;
         }
+
+        Options.push(PDOption);
     }
 
-    if (HasDefault == false) {
-        for (const OptionItem of Options) {
-            if (OptionItem.Value == sysFactory.EnvUserLanguage) {
-                OptionItem.Default = true;
-            }
-        }
-    }
-
+    console.debug('LanguageSwitch: Options:%o', Options);
     return Options;
 }
 
@@ -148,25 +123,16 @@ sysObjLanguageSwitch.prototype.getLanguageOptions = function(Attributes)
 //- METHOD "processCallback"
 //------------------------------------------------------------------------------
 
-sysObjLanguageSwitch.prototype.processCallback = function(Function, Arguments)
+sysObjLanguageSwitch.prototype.processCallback = function(FunctionID, Arguments)
 {
-    if (Function == 'updateLanguage') {
-        this.updateLanguage();
-    }
-}
+    const PulldownObj = this.getObjectByID(this.PulldownObjectID);
 
+    //- update all system objects with SQLText type
+    sysFactory.EnvUserLanguage = PulldownObj.getValue();
+    sysFactory.updateLanguageObjectsGlobal();
 
-//------------------------------------------------------------------------------
-//- METHOD "updateLanguage"
-//------------------------------------------------------------------------------
-
-sysObjLanguageSwitch.prototype.updateLanguage = function()
-{
-    try {
-        const PulldownObj = this.getObjectByID(this.PulldownObjectID);
-        sysFactory.EnvUserLanguage = PulldownObj.getValue();
-        sysFactory.updateAllSQLTextObjects();
-    }
-    catch(err) {
-    }
+    //- re-render (updated) language switch pulldown
+    PulldownObj.JSONConfig.Attributes.Options = this.getLanguageOptions();
+    PulldownObj.init();
+    PulldownObj.rerenderObject();
 }

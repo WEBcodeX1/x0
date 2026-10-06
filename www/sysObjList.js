@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -17,26 +17,22 @@
 
 function sysListRow(ParentObject, RowIndex, RowData)
 {
-    this.EventListeners            = new Object();            //- Event Listeners
-    this.ChildObjects              = Array();                 //- Child Objects
+    this.ObjectType                 = 'ListRow'                 //- System Object Type
+    this.overrideDOMObjectID        = true;                     //- Set ObjectID not recursive
 
-    this.ParentObject              = ParentObject;            //- Parent Object
+    this.ParentObject               = ParentObject;             //- Parent Object
 
-    this.Index                     = RowIndex;                //- Row Index
-    this.Selected                  = false;                   //- Selected Row
+    this.Index                      = RowIndex;                 //- Row Index
+    this.Selected                   = false;                    //- Selected Row
+    this.RowData                    = RowData;                  //- Row Data Object
 
-    this.RowData                   = RowData;                 //- Row Data Object
+    this.ColItems                   = new Array();              //- Col Item Objects
 
-    this.ColItems                  = new Array();             //- Col Item Objects
-    this.DynUpdateObjects          = new Array();             //- Dynamic Object Update Array
+    this.RuntimeSetDataFunc         = this.setRowData;          //- Set Row RuntimeData
+    this.SetDataMechanism           = 'Plain'                   //- Set Data Non-Recursive
 
-    this.overrideDOMObjectID       = true;                    //- Set ObjectID not recursive
-
-    this.GetDataResult             = null;                    //- Reset GetDataResult
-    this.GetDataChildObjects       = new Array();             //- GetDataResult Child Objects Array
-
-    this.RuntimeGetDataFunc        = this.getRowData;         //- Get Runtime Data
-    this.RuntimeSetDataFunc        = undefined;               //- To be implemented
+    this.EventListeners             = new Object();             //- Event Listeners
+    this.ChildObjects               = Array();                  //- Child Objects
 
     this.ObjectID = 'TR_'+ ParentObject.ObjectID + '_' + RowIndex;
 }
@@ -50,24 +46,15 @@ sysListRow.prototype = new sysBaseObject();
 
 sysListRow.prototype.init = function()
 {
-    var EventListenerObj = new Object();
-    EventListenerObj['Type'] = 'mousedown';
-    EventListenerObj['Element'] = this.EventListenerRightClick.bind(this);
-    this.EventListeners['ContextMenuOpen'] = EventListenerObj;
+    let EventListenObjRightClick = new Object();
+    EventListenObjRightClick['Type'] = 'mousedown';
+    EventListenObjRightClick['Element'] = this.EventListenerRightClick.bind(this);
+    this.EventListeners['ContextMenuOpen'] = EventListenObjRightClick;
 
-    var EventListenerObj = new Object();
-    EventListenerObj['Type'] = 'mousedown';
-    EventListenerObj['Element'] = this.EventListenerSelect.bind(this);
-    this.EventListeners['RowSelect'] = EventListenerObj;
-
-    if (this.ParentObject.JSONConfig.Attributes.DragSource === true) {
-        this.DOMAttributes = { 'draggable': 'true' };
-
-        var EventListenerObj = new Object();
-        EventListenerObj['Type'] = 'dragstart';
-        EventListenerObj['Element'] = this.onDragStart.bind(this);
-        this.EventListeners['DragStart'] = EventListenerObj;
-    }
+    let EventListenObjRowSelect = new Object();
+    EventListenObjRowSelect['Type'] = 'mousedown';
+    EventListenObjRowSelect['Element'] = this.EventListenerSelect.bind(this);
+    this.EventListeners['RowSelect'] = EventListenObjRowSelect;
 }
 
 
@@ -77,24 +64,19 @@ sysListRow.prototype.init = function()
 
 sysListRow.prototype.EventListenerRightClick = function(Event)
 {
-    var ContextMenuItems = this.ParentObject.JSONConfig.Attributes.ContextMenuItems;
+    let ContextMenuItems = this.ParentObject.JSONConfig.Attributes.ContextMenuItems;
 
     //- check for right click on mousedown
-    if (Event.button == 2 && ContextMenuItems !== undefined) {
+    if (Event.button == 2 && ContextMenuItems !== undefined)
+    {
+        let ContextMenu = new sysContextMenu();
 
-        var ContextMenu = new sysContextMenu();
-
-        ContextMenu.ID             = 'CtMenu_' + this.ParentObject.ObjectID;
+        ContextMenu.ID             = 'CtMenu' + this.ParentObject.ObjectID;
         ContextMenu.ItemConfig     = ContextMenuItems;
         ContextMenu.ScreenObject   = this.ParentObject.ScreenObject;
         ContextMenu.ParentObject   = this;
         ContextMenu.pageX          = Event.pageX;
         ContextMenu.pageY          = Event.pageY;
-
-        ContextMenu.RowData        = this.RowData;
-        ContextMenu.RowDataIndex   = this.Index;
-
-        ContextMenu.RowObject      = this;
 
         ContextMenu.init();
     }
@@ -108,14 +90,14 @@ sysListRow.prototype.EventListenerRightClick = function(Event)
 sysListRow.prototype.EventListenerSelect = function(Event)
 {
     if (this.ParentObject.RowsSelectable == true && Event.button == 0) {
-        var processed = false;
+        let processed = false;
         if (this.Selected == true) {
-            this.removeDOMElementStyle('text-bg-secondary');
+            this.removeDOMElementStyle('bg-secondary bg-opacity-50');
             this.Selected = false;
             processed = true;
         }
         if (this.Selected == false && processed == false) {
-            this.addDOMElementStyle('text-bg-secondary');
+            this.addDOMElementStyle('bg-secondary bg-opacity-50');
             this.Selected = true;
         }
     }
@@ -129,90 +111,58 @@ sysListRow.prototype.EventListenerSelect = function(Event)
 sysListRow.prototype.addColumns = function()
 {
     const Attributes = this.ParentObject.JSONConfig.Attributes;
-    console.log('::addColumns ObjectID:%s Attributes:%o', this.ParentObject.ObjectID, Attributes);
+    console.debug('::addColumns ParentObjectID:%s Attributes:%o', this.ParentObject.ObjectID, Attributes);
 
-    for (const ColConfigItem of Attributes.Columns) {
+    for (const ColumnConfig of Attributes.Columns)
+    {
+        const ColumnID = ColumnConfig.ID;
 
-        const ColumnKey = ColConfigItem.ID;
-        var ColumnItem = new sysBaseObject();
+        let ColumnObj = undefined;
 
-        try {
-            ColumnItem.ObjectID = ColumnKey + this.Index;
-
-            const ColAttributes = ColConfigItem.Attributes;
-
-            if (ColAttributes !== undefined) {
-                var ColumnObj = new sysFactory.SetupClasses[ColAttributes.ObjectType]();
-
-                if (ColAttributes.ObjectID !== undefined) {
-                    ColumnObj.ObjectID = ColAttributes.ObjectID + this.Index;
-                }
-                else {
-                    ColumnObj.ObjectID = this.ParentObject.ObjectID + ColumnItem.ObjectID + this.Index;
-                }
-
-                ColumnObj.JSONConfig = {
-                    "Attributes": ColConfigItem.Attributes
-                };
-
-                ColumnObj.ScreenObject = this.ParentObject.ScreenObject;
-                ColumnObj.ParentObject = this.ParentObject;
-                ColumnObj.ParentRow = this;
-
-                ColumnObj.init();
-                ColumnItem.addObject(ColumnObj);
-
-                console.debug('ColAttributes:%o', ColAttributes);
-
-                if (ColAttributes.SetObjectData == true) {
-                    this.DynUpdateObjects.push(
-                        [ ColumnObj.ObjectID, this.RowData[ColumnKey] ]
-                    );
-                }
-            }
-            else if(ColConfigItem.IndexGenerator === true) {
-                const setValue = this.Index+1;
-                ColumnItem.DOMValue = setValue;
-                this.ParentObject.Data[this.Index][ColumnKey] = setValue;
-                this.RowData[ColumnKey] = setValue;
-            }
-            else {
-                ColumnItem.DOMValue = this.RowData[ColumnKey];
-            }
+        if (ColumnConfig.ObjectInstanceOf !== undefined) {
+            const RefObjectConfig = structuredClone(
+                sysFactory.DataObject.XMLRPCResultData[ColumnConfig.ObjectInstanceOf]
+            );
+            ColumnObj = new sysFactory.SetupClasses[RefObjectConfig.Type]();
+            ColumnObj.JSONConfig = {
+                "Attributes": RefObjectConfig.Attributes
+            };
         }
-        catch(err) {
-            ColumnItem.DOMValue = 'Error';
-            console.debug('::addColumns err:%s', err);
+        else if (ColumnConfig.ObjectType !== undefined) {
+            ColumnObj = new sysFactory.SetupClasses[ColumnConfig.ObjectType]();
+            ColumnObj.JSONConfig = {
+                "Attributes": ColumnConfig.ObjectAttributes
+            };
         }
-        console.log('::addColumns Push ColItem DOMValue:%o', ColumnItem);
+        else {
+            ColumnObj = new sysObjDivValue();
+            ColumnObj.JSONConfig = {
+                "Attributes": {}
+            };
+        }
 
-        ColumnItem.VisibleState = ColConfigItem.VisibleState;
+        let setValue = undefined;
 
-        this.ColItems.push(ColumnItem);
+        if (ColumnConfig.IndexGenerator === true) {
+            setValue = this.Index + 1;
+            console.debug('IndexGenerator this.Index:%s RuntimeData:%o', this.Index, this.ParentObject.RuntimeData);
+        }
+        else {
+            setValue = this.RowData[ColumnID];
+        }
+
+        //- add dynamic row data to runtime data matrix
+        this.ParentObject.RuntimeData[this.Index][ColumnID] = setValue;
+
+        ColumnObj.JSONConfig.Attributes['Value'] = setValue;
+
+        ColumnObj.ObjectID = this.ParentObject.ObjectID + ColumnID + this.Index;
+        ColumnObj.KeyID = ColumnID;
+        ColumnObj.init();
+
+        this.ColItems.push(ColumnObj);
+        console.debug('::addColumns Push Object:%o', ColumnObj);
     }
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "updateColumnsValues"
-//------------------------------------------------------------------------------
-
-sysListRow.prototype.updateColumnsValues = function()
-{
-    console.debug('this.DynUpdateObjects:%o', this.DynUpdateObjects);
-    for (const UpdateElement of this.DynUpdateObjects) {
-        sysFactory.getObjectByID(UpdateElement[0]).RuntimeSetDataFunc(UpdateElement[1]);
-    }
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "getRowData"
-//------------------------------------------------------------------------------
-
-sysListRow.prototype.getRowData = function()
-{
-    return this.RowData;
 }
 
 
@@ -222,13 +172,13 @@ sysListRow.prototype.getRowData = function()
 
 sysListRow.prototype.genGrid = function()
 {
-    var GridGenerator = new sysGridGenerator(this.ColItems);
+    let GridGenerator = new sysGridGenerator(this.ColItems);
 
     GridGenerator.init(
         this.ParentObject.JSONConfig.Attributes.RowStyle,
         this.ParentObject.JSONConfig.Attributes.ColStyle,
         this.ParentObject.JSONConfig.Attributes.RowAfterElements,
-        undefined
+        this.ParentObject.JSONConfig.Attributes.ColAfterElements
     );
 
     const RowItems = GridGenerator.generate();
@@ -248,13 +198,25 @@ sysListRow.prototype.genGrid = function()
 
 sysListRow.prototype.getColumnById = function(Column)
 {
-    for (const ColItem of this.ColItems) {
-        MatchId = 'Column' + Column + '_' + this.Index;
+    for (const ColItem of this.ColItems)
+    {
+        MatchId = Column + this.Index;
         //console.debug('MatchId:%s ColObjectID:%s', MatchId, ColItem.ObjectID);
         if (ColItem.ObjectID == MatchId) {
             return ColItem;
         }
     }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "setRowData"
+//------------------------------------------------------------------------------
+
+sysListRow.prototype.setRowData = function(Data)
+{
+    this.setObjectDataKeyValueRecursive(Data);
+    this.ParentObject.RuntimeData[this.Index] = this.ParentObject.convertObjectDataKeyValue(Data);
 }
 
 
@@ -269,23 +231,12 @@ sysListRow.prototype.remove = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "updateIndex"
+//- METHOD "removeSelected"
 //------------------------------------------------------------------------------
 
-sysListRow.prototype.updateIndex = function(UpdateIndex)
+sysListRow.prototype.removeSelected = function()
 {
-    this.Index = UpdateIndex;
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "onDragStart"
-//------------------------------------------------------------------------------
-
-sysListRow.prototype.onDragStart = function(Event)
-{
-    sysFactory.DragDropHandler.setDragSource(this, this.RowData);
-    Event.dataTransfer.effectAllowed = 'copy';
+    this.ParentObject.removeSelected();
 }
 
 
@@ -295,48 +246,70 @@ sysListRow.prototype.onDragStart = function(Event)
 
 function sysList()
 {
-    this.overrideDOMObjectID    = true;                                    //- Override setting recursive ObjectID
-    this.ObjectID               = this.ID;                                 //- Set Unique ID
+    this.ObjectType             = 'List'                                //- System Object Type
+    this.overrideDOMObjectID    = true;                                 //- Override setting recursive ObjectID
 
-    this.DisplayRows              = 10;                                    //- Display Row Count Default
+    this.RowCount               = 10;                                   //- Row Count (Pagination) Default
 
-    this.DataURL                  = null;                                  //- getServiceData XMLRPC URL
-    this.DataURLParams            = '';                                    //- getServiceData XMLRPC URL Params
+    this.DataURL                = null;                                 //- getServiceData XMLRPC URL
+    this.DataURLParams          = '';                                   //- getServiceData XMLRPC URL Params
 
-    this.RuntimeGetDataFunc       = this.getRuntimeData;                   //- Get Runtime Data
-    this.RuntimeSetDataFunc       = this.appendData;                       //- Set Runtime Data
-    this.RuntimeAppendDataFunc    = this.appendData;                       //- Append Runtime Data
+    this.RuntimeGetDataFunc     = this.getRuntimeData;                  //- Get Runtime Data
+    this.RuntimeSetDataFunc     = this.appendData;                      //- Set Runtime Data
+    this.GetDataMechanism       = 'Plain'                               //- Get Data Non-Recursive
+    this.SetDataMechanism       = 'Plain'                               //- Set Data Non-Recursive
 
-    this.PostRequestData          = new sysRequestDataHandler();           //- Request Data Handler
+    this.PostRequestData        = new sysRequestDataHandler();          //- Request Data Handler
 
-    this.ServiceData              = new Array();                           //- Data Array
-    this.RowItems                 = new Array();                           //- Row Objects Array
+    this.RuntimeData            = new Array();                          //- Data Array
+    this.RowItems               = new Array();                          //- Row Objects Array
 
-    this.NavPageIndex             = 0;                                     //- Selected Page/Navigation Index
-    this.UpdateCount              = 0;                                     //- Update Counter
+    this.NavPageIndex           = 0;                                    //- Selected Page/Navigation Index
+    this.UpdateCount            = 0;                                    //- Update Counter
 
-    this.Columns                  = new Array();                           //- Comlumns for fast query
+    this.Columns                = new Array();                          //- Comlumns for fast query
 
-    this.ChildObjects             = new Array();                           //- Child Objects
+    this.ChildObjects           = new Array();                          //- Child Objects
+    this.EventListeners         = new Object();                         //- Event Listeners
 
-    this.EventListeners           = new Object();                          //- Event Listeners
+    this.PaginationObject       = new sysPagination(this);              //- Pagination Processing
 
-    this.PaginationObject         = new sysPagination(this);               //- Pagination Processing
-
-    this.RowsSelectable           = true;                                  //- Multi Row Selection Default
-
-    this.GetDataResult            = null;                                  //- Reset GetDataResult
-    this.GetDataResultChildren    = new Array();                           //- GetDataResult Child Objects Array
+    this.RowsSelectable         = true;                                 //- Multi Row Selection Default
 }
 
 sysList.prototype = new sysBaseObject();
 
 
 //------------------------------------------------------------------------------
-//- METHOD "processSourceObjects"
+//- Overload single class methods
 //------------------------------------------------------------------------------
 
 sysList.prototype.processSourceObjects = sysSourceObjectHandler.prototype.processSourceObjects;
+
+
+//------------------------------------------------------------------------------
+//- METHOD "EventListenerRightClick"
+//------------------------------------------------------------------------------
+
+sysList.prototype.EventListenerRightClick = function(Event)
+{
+    let ContextMenuItems = this.JSONConfig.Attributes.HeaderContextMenuItems;
+
+    //- check for right click on mousedown
+    if (Event.button == 2 && ContextMenuItems !== undefined) {
+
+        let ContextMenu = new sysContextMenu();
+
+        ContextMenu.ID             = 'CtMenuHeader' + this.ObjectID;
+        ContextMenu.ItemConfig     = ContextMenuItems;
+        ContextMenu.ScreenObject   = this.ScreenObject;
+        ContextMenu.ParentObject   = this;
+        ContextMenu.pageX          = Event.pageX;
+        ContextMenu.pageY          = Event.pageY;
+
+        ContextMenu.init();
+    }
+}
 
 
 //------------------------------------------------------------------------------
@@ -377,17 +350,6 @@ sysList.prototype.update = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "reset"
-//------------------------------------------------------------------------------
-
-sysList.prototype.reset = function()
-{
-    this.resetData();
-    this.renderPage();
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "init"
 //------------------------------------------------------------------------------
 
@@ -396,34 +358,25 @@ sysList.prototype.init = function()
     //console.debug('::List init ObjectID:%s', this.ObjectID);
     const Attributes = this.JSONConfig.Attributes;
 
-    if (Attributes !== undefined && Attributes.RowCount != null) {
-        this.DisplayRows = Attributes.RowCount;
+    if (Attributes === undefined) {
+        Attributes = new Object();
     }
 
-    if (Attributes !== undefined && Attributes.RowsSelectable != null) {
+    if (Attributes.RowCount !== undefined) {
+        this.RowCount = Attributes.RowCount;
+    }
+
+    if (Attributes.RowsSelectable !== undefined) {
         this.RowsSelectable = Attributes.RowsSelectable;
+    }
+
+    if (Attributes.Value !== undefined) {
+        this.RuntimeData = Attributes.Value;
     }
 
     this.DOMStyle = Attributes.Style;
 
-    if (Attributes.DropTarget === true) {
-        var EventListenerObj = new Object();
-        EventListenerObj['Type'] = 'dragover';
-        EventListenerObj['Element'] = this.onDragOver.bind(this);
-        this.EventListeners['DragOver'] = EventListenerObj;
-
-        var EventListenerObj = new Object();
-        EventListenerObj['Type'] = 'dragleave';
-        EventListenerObj['Element'] = this.onDragLeave.bind(this);
-        this.EventListeners['DragLeave'] = EventListenerObj;
-
-        var EventListenerObj = new Object();
-        EventListenerObj['Type'] = 'drop';
-        EventListenerObj['Element'] = this.onDrop.bind(this);
-        this.EventListeners['Drop'] = EventListenerObj;
-    }
-
-    this.renderPage();
+    //this.renderPage();
 }
 
 
@@ -435,28 +388,38 @@ sysList.prototype.setupHeader = function()
 {
     const Columns = this.JSONConfig.Attributes.Columns;
 
-    var HeaderRowObj = new sysBaseObject();
-    HeaderRowObj.ObjectID = this.ObjectID+'HdrRow';
+    let HeaderRowObj = new sysBaseObject();
+    HeaderRowObj.ObjectID = this.ObjectID + 'HdrRow';
+    HeaderRowObj.overrideDOMObjectID = true;
     HeaderRowObj.DOMStyle = this.JSONConfig.Attributes.HeaderRowStyle;
+    HeaderRowObj.EventListeners = new Object();
+
     AddRootObject = HeaderRowObj;
 
     this.addObject(HeaderRowObj);
 
-    for (const ColItem of Columns) {
+    let EventListenerObj = new Object();
+    EventListenerObj['Type'] = 'mousedown';
+    EventListenerObj['Element'] = this.EventListenerRightClick.bind(this);
+    HeaderRowObj.EventListeners['ContextMenuOpen'] = EventListenerObj;
 
-        const ColumnKey = ColItem.ID;
-        var ColObj = new sysBaseObject();
+    for (const ColItem of Columns)
+    {
+        const ColumnID = ColItem.ID;
+        let ColObj = new sysBaseObject();
 
-        ColObj.ObjectID = this.ObjectID+'Hdr' + ColumnKey;
+        ColObj.ObjectID = this.ObjectID + ColumnID + 'HeaderCtr';
+        ColObj.overrideDOMObjectID = true;
 
         if (ColItem.HeaderStyle !== undefined) {
             ColObj.DOMStyle = ColItem.HeaderStyle;
         }
 
-        if (ColItem.HeaderTextID !== undefined) {
-
-            var ColDisplayObj = new sysObjSQLText();
-            ColDisplayObj.ObjectID = ColObj.ObjectID + '_txt';
+        if (ColItem.HeaderTextID !== undefined)
+        {
+            let ColDisplayObj = new sysObjSQLText();
+            ColDisplayObj.ObjectID = this.ObjectID + ColumnID + 'HeaderDisplayText';
+            ColDisplayObj.overrideDOMObjectID = true;
 
             ColDisplayObj.JSONConfig = {
                 "Attributes": {
@@ -470,10 +433,7 @@ sysList.prototype.setupHeader = function()
         }
 
         HeaderRowObj.addObject(ColObj);
-
-        ColObj.VisibleState = ColItem.VisibleState;
-
-        this.Columns.push(ColumnKey);
+        this.Columns.push(ColumnID);
     }
 }
 
@@ -484,8 +444,18 @@ sysList.prototype.setupHeader = function()
 
 sysList.prototype.resetData = function()
 {
-    this.ServiceData = [];
-    this.NavPageIndex    = 0;
+    this.RuntimeData = [];
+    this.NavPageIndex = 0;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "reset"
+//------------------------------------------------------------------------------
+
+sysList.prototype.reset = function()
+{
+    this.renderPage();
 }
 
 
@@ -495,11 +465,10 @@ sysList.prototype.resetData = function()
 
 sysList.prototype.setUpdateResult = function()
 {
-    for (ResultKey in this.XMLRPCResultData) {
-        this.ServiceData.push(this.XMLRPCResultData[ResultKey]);
+    for (const ResultKey in this.XMLRPCResultData) {
+        this.RuntimeData.push(this.XMLRPCResultData[ResultKey]);
     }
-
-    //console.debug('::setUpdateResult this.ServiceData:%o', this.ServiceData);
+    console.debug('::setUpdateResult this.RuntimeData:%o', this.RuntimeData);
 }
 
 
@@ -509,8 +478,8 @@ sysList.prototype.setUpdateResult = function()
 
 sysList.prototype.checkDouble = function(CheckValue)
 {
-    for (RowID in this.ServiceData) {
-        var RowData = this.ServiceData[RowID];
+    for (const RowData of this.RuntimeData)
+    {
         if (RowData[this.JSONConfig.Attributes.DoubleCheckColumn] == CheckValue) {
             return false;
         }
@@ -525,36 +494,42 @@ sysList.prototype.checkDouble = function(CheckValue)
 
 sysList.prototype.renderPage = function()
 {
-    console.log('::renderPage Result Data:%o Object:%o UpdateCount:%d', this.ServiceData, this, this.UpdateCount);
+    console.debug('::renderPage Result Data:%o Object:%o UpdateCount:%d', this.RuntimeData, this, this.UpdateCount);
 
     const Attributes = this.JSONConfig.Attributes;
 
-    if (this.UpdateCount > 0) {
-        this.removeParent();
-    }
+    //- remove from parent element on update
+    this.removeParent();
 
+    //- process list header columns
     if (Attributes.DisableHeader === undefined || Attributes.DisableHeader === false) {
         this.setupHeader();
     }
 
+    //- setup "virtual" / not direct-rendered rows for dynamic grid calculation
     this.RowItems = [];
 
-    for (RowID in this.ServiceData) {
-        var RowData = this.ServiceData[RowID];
+    let RowID = 0;
+    for (const RowData of this.RuntimeData)
+    {
         this.addRow(RowData, RowID);
+        ++RowID;
     }
 
+    //- finally render row setup data
     this.renderRows();
 
-    if (this.UpdateCount > 0) {
-        if (Attributes.Navigation !== undefined) {
-            this.PaginationObject.update();
-        }
-        //console.debug('############# renderObject() DOMObjectID:%s DOMParentID:%s ChildObjects:%o', this.DOMObjectID, this.DOMParentID, this.ChildObjects);
-        this.renderObject(this.DOMParentID);
+    //- process navigation / pages
+    if (Attributes.Navigation !== undefined) {
+        this.PaginationObject.update();
     }
 
-    this.updateDynObjectValues();
+    //- render everything into DOM
+    this.renderObject(this.DOMParentID);
+
+    for (RowObj of this.RowItems) {
+        RowObj.processReset();
+    }
 
     //- register event listeners
     this.processEventListener();
@@ -567,7 +542,7 @@ sysList.prototype.renderPage = function()
 
 sysList.prototype.addRow = function(RowData, Index)
 {
-    var RowObj = new sysListRow(this, Number(Index), RowData);
+    let RowObj = new sysListRow(this, Number(Index), RowData);
 
     RowObj.init();
     RowObj.addColumns();
@@ -584,28 +559,28 @@ sysList.prototype.removeRow = function(Index)
 {
     console.debug('Remove Row Index:%s', Index);
     this.RowItems.splice(Index, 1);
-    this.ServiceData.splice(Index, 1);
+    this.RuntimeData.splice(Index, 1);
     this.renderPage();
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "removeSelectedRows"
+//- METHOD "removeSelected"
 //------------------------------------------------------------------------------
 
-sysList.prototype.removeSelectedRows = function()
+sysList.prototype.removeSelected = function()
 {
-    var RemoveArray = new Array();
+    let RemoveArray = new Array();
     for (const Item of this.RowItems) {
         if (Item.Selected == true) {
             RemoveArray.push(Item.Index);
         }
     }
 
-    for (var i = RemoveArray.length-1; i>=0; i--) {
+    for (let i = RemoveArray.length-1; i>=0; i--) {
         console.debug('Remove Row selected Index:%s', RemoveArray[i]);
         this.RowItems.splice(RemoveArray[i], 1);
-        this.ServiceData.splice(RemoveArray[i], 1);
+        this.RuntimeData.splice(RemoveArray[i], 1);
     }
 
     this.renderPage();
@@ -625,25 +600,13 @@ sysList.prototype.renderRows = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "updateDynObjectValues"
-//------------------------------------------------------------------------------
-
-sysList.prototype.updateDynObjectValues = function()
-{
-    for (const Item of this.RowItems) {
-        Item.updateColumnsValues();
-    }
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "getColumnItems"
 //------------------------------------------------------------------------------
 
 sysList.prototype.getColumnItems = function(ColumnID)
 {
     //console.debug('::getColumnItems ColumnID:%s RowItems:%o', ColumnID, this.RowItems);
-    var ReturnItems = new Array();
+    let ReturnItems = new Array();
     for (const Row of this.RowItems) {
         const ColumnObject = Row.ObjectRef[ColumnID];
         //console.debug('::getColumnItems ColumnObject:%o', ColumnObject);
@@ -672,19 +635,38 @@ sysList.prototype.getRowByIndex = function(Index)
 sysList.prototype.updateRow = function(Index, Data)
 {
     console.debug('::updateRow Index:%s Data:%o', Index, Data);
-    this.ServiceData[(Index-1)] = Data;
     this.UpdateCount++;
     this.renderPage();
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "getObjectData"
+//- METHOD "getRuntimeData"
 //------------------------------------------------------------------------------
 
 sysList.prototype.getRuntimeData = function()
 {
-    return this.ServiceData;
+    return this.RuntimeData;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "convertObjectDataKeyValue"
+//------------------------------------------------------------------------------
+
+sysList.prototype.convertObjectDataKeyValue = function(Data)
+{
+    let AppendRowData = new Object();
+
+    //- only set data where data key exists in columnIDs
+    for (const DataKey in Data)
+    {
+        const DataItem = Data[DataKey];
+        if (this.Columns.includes(DataItem.KeyID)) {
+            AppendRowData[DataItem.KeyID] = DataItem.ObjectValue;
+        }
+    }
+    return AppendRowData;
 }
 
 
@@ -692,19 +674,23 @@ sysList.prototype.getRuntimeData = function()
 //- METHOD "appendData"
 //------------------------------------------------------------------------------
 
-sysList.prototype.appendData = function(DataObj)
+sysList.prototype.appendData = function(Data)
 {
-    console.debug('::appendData Data:%o', DataObj);
-
     const Attributes = this.JSONConfig.Attributes;
+
+    console.debug('::appendData Data:%o', Data);
 
     const ErrorObj = sysFactory.getObjectByID(this.JSONConfig.Attributes.ErrorContainer);
     if (ErrorObj !== undefined) {
         ErrorObj.reset();
     }
 
+    //- only set data where data key exists in columnIDs
+    let AppendRowData = this.convertObjectDataKeyValue(Data);
+    console.debug('::appendData AppendRowObj:%o', AppendRowData);
+
     const MaxRows = Attributes.DataMaxRows;
-    if (this.ServiceData.length >= MaxRows && ErrorObj !== undefined) {
+    if (this.RuntimeData.length >= MaxRows && ErrorObj !== undefined) {
         ErrorObj.displayError(sysFactory.getText('TXT.SYS.ERROR.TABLE.MAX-ROW-COUNT')) + MaxRows + '.';
         return;
     }
@@ -712,7 +698,7 @@ sysList.prototype.appendData = function(DataObj)
     const DoubleCheckColumn = Attributes.DoubleCheckColumn;
     const DisplayText = sysFactory.getText('TXT.SYS.ERROR.TABLE.DOUBLE-ENTRIES-NOTALLOWED') + DoubleCheckColumn + '.';
     if (DoubleCheckColumn !== undefined) {
-        if (this.checkDouble(DataObj[DoubleCheckColumn]) == false) {
+        if (this.checkDouble(AppendRowData[DoubleCheckColumn]) == false) {
             if (ErrorObj !== undefined) {
                 ErrorObj.displayError(DisplayText);
             }
@@ -725,7 +711,7 @@ sysList.prototype.appendData = function(DataObj)
         for (ColKey in ValidateRegex) {
             const ConfigObj = ValidateRegex[ColKey];
             const Regex = new RegExp(RegexTemplate[ConfigObj.RegexTemplate], 'g');
-            const Result = DataObj[ColKey].search(Regex);
+            const Result = AppendRowData[ColKey].search(Regex);
             //console.debug('::Regex Result:%s', Result);
             if (Result == -1) {
                 ErrorObj.displayError(ConfigObj.ErrorMsg);
@@ -735,65 +721,7 @@ sysList.prototype.appendData = function(DataObj)
     }
 
     this.UpdateCount++;
-    console.debug('::appendData this.ServiceData:%o', this.ServiceData);
-
-    var AppendRowObj = new Object();
-
-    for (const FormItemID in DataObj) {
-        const FormItemValue = DataObj[FormItemID];
-        if (this.Columns.includes(FormItemID)) {
-            AppendRowObj[FormItemID] = FormItemValue;
-        }
-    }
-
-    console.debug('::appendData AppendRowObj:%o', AppendRowObj);
-
-    this.ServiceData.push(AppendRowObj);
-    this.addRow(AppendRowObj, this.RowItems.length+1);
+    this.RuntimeData.push(AppendRowData);
+    console.debug('::appendData this.RuntimeData:%o', this.RuntimeData);
     this.renderPage();
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "onDragOver"
-//------------------------------------------------------------------------------
-
-sysList.prototype.onDragOver = function(Event)
-{
-    Event.preventDefault();
-    this.addDOMElementStyle('sysDragDropOver');
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "onDragLeave"
-//------------------------------------------------------------------------------
-
-sysList.prototype.onDragLeave = function(Event)
-{
-    const Element = this.getElement();
-    if (Element !== null && !Element.contains(Event.relatedTarget)) {
-        this.removeDOMElementStyle('sysDragDropOver');
-    }
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "onDrop"
-//------------------------------------------------------------------------------
-
-sysList.prototype.onDrop = function(Event)
-{
-    Event.preventDefault();
-    this.removeDOMElementStyle('sysDragDropOver');
-    const DragSourceObj = sysFactory.DragDropHandler.getDragSourceObject();
-    if (DragSourceObj !== null && DragSourceObj !== undefined) {
-        if (DragSourceObj.ParentObject !== this) {
-            const DragData = sysFactory.DragDropHandler.getDragData();
-            if (DragData !== null) {
-                this.RuntimeAppendDataFunc(DragData);
-            }
-        }
-    }
-    sysFactory.DragDropHandler.clearDragSource();
 }

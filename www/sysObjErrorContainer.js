@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -9,6 +9,7 @@
 //-                                                                          -//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
+
 
 //------------------------------------------------------------------------------
 //- CONSTRUCTOR "sysErrorContainer"
@@ -59,7 +60,7 @@ sysErrorContainer.prototype.displayError = function(ErrorMsg, ErrorDetailMsg)
         ErrorDisplayMsg = ErrorMsg + ' (' + ErrorDetailMsg + ').';
     }
 
-    this.DOMStyle = 'alert alert-danger';
+    this.DOMStyle = 'm-0 p-4 mt-2 mb-2 bg-danger bg-opacity-50 border border-4 rounded border-danger border-opacity-50 text-danger-emphasis';
     this.DOMValue = '<i class="fa-solid fa-triangle-exclamation fa-lg"></i> ' + ErrorDisplayMsg;
     this.setDOMElementStyle();
     this.setDOMElementValue();

@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -45,6 +45,22 @@ sysBaseDOMElement.prototype.setDOMAttribute = function(Attribute, Value)
     try {
         var divElement = document.getElementById(this.DOMObjectID);
         divElement.setAttribute(Attribute, Value);
+    }
+    catch(err) {
+        console.debug('::setDOMAttribute DOMObjectID:%s err:%s', this.DOMObjectID, err);
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "removeDOMAttribute"
+//------------------------------------------------------------------------------
+
+sysBaseDOMElement.prototype.removeDOMAttribute = function(Attribute)
+{
+    try {
+        var divElement = document.getElementById(this.DOMObjectID);
+        divElement.removeAttribute(Attribute);
     }
     catch(err) {
         console.debug('::setDOMAttribute DOMObjectID:%s err:%s', this.DOMObjectID, err);
@@ -349,7 +365,10 @@ sysBaseDOMElement.prototype.getDOMVisibleState = function()
 
 sysBaseDOMElement.prototype.enableDOMElement = function()
 {
-    document.getElementById(this.DOMObjectID).disabled = false;
+    const EnableDOMElement = document.getElementById(this.DOMObjectID);
+    EnableDOMElement.disabled = false;
+    const EnableObject = sysFactory.getObjectByID(this.ObjectID);
+    EnableObject.removeDOMAttribute('disabled');
 }
 
 
@@ -359,7 +378,10 @@ sysBaseDOMElement.prototype.enableDOMElement = function()
 
 sysBaseDOMElement.prototype.disableDOMElement = function()
 {
-    document.getElementById(this.DOMObjectID).disabled = true;
+    const DisableDOMElement = document.getElementById(this.DOMObjectID);
+    DisableDOMElement.disabled = true;
+    const DisableObject = sysFactory.getObjectByID(this.ObjectID);
+    DisableObject.setDOMAttribute('disabled', '');
 }
 
 
@@ -370,7 +392,7 @@ sysBaseDOMElement.prototype.disableDOMElement = function()
 sysBaseDOMElement.prototype.getDOMValue = function()
 {
     try {
-        const Element = this.getDOMelement();
+        const Element = this.getDOMElement();
         //console.debug('::getDOMValue Element:%o Element innerHTML:%s', Element, Element.innerHTML);
         return (Element == null) ? '': Element.innerHTML;
     }
@@ -400,10 +422,10 @@ sysBaseDOMElement.prototype.DOMaddEventListener = function(Type, Destination)
 
 
 //------------------------------------------------------------------------------
-//- METHOD "getDOMelement"
+//- METHOD "getDOMElement"
 //------------------------------------------------------------------------------
 
-sysBaseDOMElement.prototype.getDOMelement = function()
+sysBaseDOMElement.prototype.getDOMElement = function()
 {
     return this.getElement();
 }

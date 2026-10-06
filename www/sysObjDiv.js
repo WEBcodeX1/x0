@@ -17,6 +17,7 @@
 
 function sysObjDiv()
 {
+    this.ObjectType             = 'Div';            //- System Object Type
     this.ChildObjects           = new Array();      //- Child Objects
     this.EventListeners         = new Object();     //- Event Listeners
 }
@@ -35,32 +36,14 @@ sysObjDiv.prototype.init = function()
     {
         const Attributes = this.JSONConfig.Attributes;
 
-        //- set dom type if given
+        //- set DOM type if given
         this.DOMType = (Attributes.DOMType === undefined) ? 'div' : Attributes.DOMType;
 
-        //- set dom value if given
+        //- set DOM value if value in attributes, if not set empty
         this.DOMValue = (Attributes.Value === undefined) ? '' : Attributes.Value;
 
-        //- set dom style
+        //- set DOM style
         this.DOMStyle = Attributes.Style;
-    }
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "reset"
-//------------------------------------------------------------------------------
-
-sysObjDiv.prototype.reset = function()
-{
-    try {
-        const Attributes = this.JSONConfig.Attributes;
-        if (Attributes.Reset !== undefined) {
-            this.DOMValue = '';
-            this.setDOMElementValue();
-        }
-    }
-    catch(err) {
     }
 }
 
@@ -71,8 +54,8 @@ sysObjDiv.prototype.reset = function()
 
 function sysObjDivUnique()
 {
+    this.ObjectType             = 'DivUnique';      //- System Object Type
     this.overrideDOMObjectID    = true;             //- Override recursive ObjectID
-    this.ObjectID               = this.ID;          //- Set unique ID
 
     this.ChildObjects           = new Array();      //- Child Objects
     this.EventListeners         = new Object();     //- Event Listeners
@@ -81,4 +64,46 @@ function sysObjDivUnique()
 //- inherit sysObjDiv methods
 sysObjDivUnique.prototype = new sysBaseObject();
 sysObjDivUnique.prototype.init = sysObjDiv.prototype.init;
-sysObjDivUnique.prototype.reset = sysObjDiv.prototype.reset;
+
+
+//------------------------------------------------------------------------------
+//- CONSTRUCTOR "sysObjDivValue"
+//------------------------------------------------------------------------------
+
+function sysObjDivValue()
+{
+    this.ObjectType             = 'DivValue';       //- System Object Type
+    this.overrideDOMObjectID    = true;             //- Override recursive ObjectID
+
+    this.RuntimeSetDataFunc     = this.setValue;    //- Set RuntimeData Function
+    this.RuntimeGetDataFunc     = this.getValue;    //- Get RuntimeData Function
+
+    this.ChildObjects           = new Array();      //- Child Objects
+    this.EventListeners         = new Object();     //- Event Listeners
+}
+
+//- inherit sysObjDiv methods
+sysObjDivValue.prototype = new sysBaseObject();
+sysObjDivValue.prototype.init = sysObjDiv.prototype.init;
+
+
+//------------------------------------------------------------------------------
+//- METHOD "setValue"
+//------------------------------------------------------------------------------
+
+sysObjDivValue.prototype.setValue = function(Data)
+{
+    this.Value = Data;
+    this.DOMValue = Data;
+    this.setDOMElementValue();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "getValue"
+//------------------------------------------------------------------------------
+
+sysObjDivValue.prototype.getValue = function()
+{
+    return this.getDOMValue();
+}

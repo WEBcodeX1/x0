@@ -1,66 +1,108 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //- SYSTEM OBJECT "DragDropHandler"                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
-//-  Central coordinator for HTML5 drag-and-drop operations.                 -//
-//-  Tracks the currently dragged object and its data payload so that        -//
-//-  any registered drop-target can retrieve them on the "drop" event.       -//
+//-                                                                          -//
+//-                                                                          -//
+//-                                                                          -//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 
 
 //------------------------------------------------------------------------------
-//- CONSTRUCTOR "sysDragDropHandler"
+//- CONSTRUCTOR "sysDragDropSourceHandler"
 //------------------------------------------------------------------------------
 
-function sysDragDropHandler()
+function sysDragDropSourceHandler()
 {
-    this.DragSourceObject = null;   //- Currently dragged source object reference
-    this.DragSourceData   = null;   //- Currently dragged data payload
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "setDragSource"
+//- METHOD "setupDrag"
 //------------------------------------------------------------------------------
 
-sysDragDropHandler.prototype.setDragSource = function(SourceObject, SourceData)
+sysDragDropSourceHandler.prototype.setupDrag = function()
 {
-    this.DragSourceObject = SourceObject;
-    this.DragSourceData   = SourceData;
+    var DragStartEvent = new Object();
+    DragStartEvent['Type'] = 'dragstart';
+    DragStartEvent['Element'] = this.onDragStart.bind(this);
+    this.EventListeners['DragStart'] = DragStartEvent;
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "getDragData"
+//- METHOD "onDragStart"
 //------------------------------------------------------------------------------
 
-sysDragDropHandler.prototype.getDragData = function()
+sysDragDropSourceHandler.prototype.onDragStart = function(Event)
 {
-    return this.DragSourceData;
+    sysFactory.ClipboardData = this.getObjectData();
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "getDragSourceObject"
+//- CONSTRUCTOR "sysDragDropDestinationHandler"
 //------------------------------------------------------------------------------
 
-sysDragDropHandler.prototype.getDragSourceObject = function()
+function sysDragDropDestinationHandler()
 {
-    return this.DragSourceObject;
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "clearDragSource"
+//- METHOD "setupDrop"
 //------------------------------------------------------------------------------
 
-sysDragDropHandler.prototype.clearDragSource = function()
+sysDragDropDestinationHandler.prototype.setupDrop = function()
 {
-    this.DragSourceObject = null;
-    this.DragSourceData   = null;
+    var DragOverEvent = new Object();
+    DragOverEvent['Type'] = 'dragover';
+    DragOverEvent['Element'] = this.onDragOver.bind(this);
+    this.EventListeners['DragOver'] = DragOverEvent;
+
+    var DragLeaveEvent = new Object();
+    DragLeaveEvent['Type'] = 'dragleave';
+    DragLeaveEvent['Element'] = this.onDragLeave.bind(this);
+    this.EventListeners['DragLeave'] = DragLeaveEvent;
+
+    var DropEvent = new Object();
+    DropEvent['Type'] = 'drop';
+    DropEvent['Element'] = this.onDrop.bind(this);
+    this.EventListeners['Drop'] = DropEvent;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "onDragOver"
+//------------------------------------------------------------------------------
+
+sysDragDropDestinationHandler.prototype.onDragOver = function(Event)
+{
+    this.addDOMElementStyle('sysDragDropOver');
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "onDragLeave"
+//------------------------------------------------------------------------------
+
+sysDragDropDestinationHandler.prototype.onDragLeave = function(Event)
+{
+    this.removeDOMElementStyle('sysDragDropOver');
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "onDrop"
+//------------------------------------------------------------------------------
+
+sysDragDropDestinationHandler.prototype.onDrop = function(Event)
+{
+    this.setObjectData(sysFactory.ClipboardData, true);
+    this.removeDOMElementStyle('sysDragDropOver');
 }

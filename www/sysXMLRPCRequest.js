@@ -108,12 +108,12 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
                         RequestObject.XMLRPCResultData = ResultData;
                     }
                     console.debug('RequestObject:%o', RequestObject);
-                    
+
                     try {
                         RequestObject.callbackXMLRPCAsync();
                     }
                     catch(err) {
-                        console.debug('XMLRPC Callback Error:%s', err);
+                       console.debug('XMLRPC Callback Error:%s', err);
                     }
                 }
             }
@@ -167,7 +167,7 @@ sysCallXMLRPC.prototype.Request = function(RequestObject)
 
         request.open(this.RequestType, RequestURL);
 
-        //request.setRequestHeader('Upgrade-Insecure-Requests', 1);
+        request.setRequestHeader('Upgrade-Insecure-Requests', 1);
         request.setRequestHeader('Cache-Control', 'max-age=0');
         request.setRequestHeader('Content-Type', HeaderContentType);
         request.setRequestHeader('Accept', HeaderAccept);

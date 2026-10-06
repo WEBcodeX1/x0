@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -15,19 +15,22 @@
 //- CONSTRUCTOR "sysObjDynRadioListRow"
 //------------------------------------------------------------------------------
 
-function sysObjDynRadioListRow(ParentObject, CtxtMenu, ButtonRef, ButtonJSONAttr, SetRemoveCallback) {
+function sysObjDynRadioListRow(ParentObject, CtxtMenu, ButtonRef, ButtonJSONAttr, SetRemoveCallback)
+{
+    this.ObjectType             = 'DynRadioListRow';              //- System Object Type
+    this.overrideDOMObjectID    = true;                           //- Override setting recursive ObjectID
 
-    this.EventListeners      = new Object();                   //- Event Listeners
-    this.ChildObjects        = new Array();                    //- Child Objects
+    this.ParentObject           = ParentObject;                   //- Parent Object
 
-    this.ParentObject        = ParentObject;                   //- Parent Object
+    this.Index                  = this.ParentObject.RowIndex;     //- Row Index
+    this.CtxtMenuActive         = CtxtMenu;                       //- Active Context Menu
 
-    this.Index               = this.ParentObject.RowIndex;     //- Row Index
-    this.CtxtMenuActive      = CtxtMenu;                       //- Active Context Menu
+    this.ButtonRef              = ButtonRef;                      //- Button Object Ref
+    this.ButtonJSONAttr         = ButtonJSONAttr;                 //- Button JSON Config
+    this.SetRemoveCallback      = SetRemoveCallback;              //- Set Remove
 
-    this.ButtonRef           = ButtonRef;                      //- Button Object Ref
-    this.ButtonJSONAttr      = ButtonJSONAttr;                 //- Button JSON Config
-    this.SetRemoveCallback   = SetRemoveCallback;              //- Set Remove
+    this.EventListeners         = new Object();                   //- Event Listeners
+    this.ChildObjects           = new Array();                    //- Child Objects
 
     this.init();
 }
@@ -45,23 +48,23 @@ sysObjDynRadioListRow.prototype.EventListenerRightClick = function(Event)
     var ContextMenuItems = [
         {
             "ID": "Remove",
-            "TextID": "TXT.CONTEXTMENU.METHOD.REMOVE",
-            "IconStyle": "fa-solid fa-paste",
+            "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE",
+            "IconStyle": "fa-solid fa-trash-can",
             "InternalFunction": "remove"
         }
     ];
 
     //- check for right click on mousedown
-    if (Event.button == 2 && ContextMenuItems !== undefined) {
+    if (Event.button == 2 && ContextMenuItems !== undefined)
+    {
+        let ContextMenu = new sysContextMenu();
 
-        var ContextMenu = new sysContextMenu();
-
-        ContextMenu.ID             = 'CtMenu_' + this.ObjectID;
-        ContextMenu.ItemConfig     = ContextMenuItems;
-        ContextMenu.ScreenObject   = sysFactory.getScreenByID(sysFactory.CurrentScreenID);
-        ContextMenu.ParentObject   = this;
-        ContextMenu.pageX          = Event.pageX;
-        ContextMenu.pageY          = Event.pageY;
+        ContextMenu.ID              = 'CtMenu_' + this.ObjectID;
+        ContextMenu.ItemConfig      = ContextMenuItems;
+        ContextMenu.ScreenObject    = sysFactory.getScreenByID(sysFactory.CurrentScreenID);
+        ContextMenu.ParentObject    = this;
+        ContextMenu.pageX           = Event.pageX;
+        ContextMenu.pageY           = Event.pageY;
 
         ContextMenu.init();
     }
@@ -75,8 +78,8 @@ sysObjDynRadioListRow.prototype.EventListenerRightClick = function(Event)
 sysObjDynRadioListRow.prototype.init = function()
 {
     this.DOMStyle = 'row';
-    this.ObjectID = 'row-ctain' + this.ParentObject.ObjectID + this.Index;
-    this.RadioGroupID = 'row-ctain' + this.ParentObject.ObjectID;
+    this.ObjectID = 'CtrRow' + this.ParentObject.ObjectID + this.Index;
+    this.RadioGroupID = 'RadioGrp' + this.ParentObject.ObjectID;
 
     this.addObjects(this.ButtonRef, this.ButtonJSONAttr);
 
@@ -119,23 +122,23 @@ sysObjDynRadioListRow.prototype.remove = function()
 
 sysObjDynRadioListRow.prototype.addObjects = function(ButtonRef, ButtonJSONAttributes)
 {
-    ObjDefs = [
+    let ObjDefs = [
         {
-            "id": "col-ctnt" + this.Index,
+            "id": this.Index + "ColCtr",
             "SysObject": new sysObjDiv(),
             "JSONAttributes": {
                 "Style": "col-md-11"
             },
             "ObjectDefs": [
                 {
-                    "id": "base-ctain" + this.Index,
+                    "id": this.Index + "BaseCtr",
                     "SysObject": new sysObjDiv(),
                     "JSONAttributes": {
                         "Style": "input-group"
                     },
                     "ObjectDefs": [
                         {
-                            "id": "radio-ctain" + this.Index,
+                            "id": this.Index + "RadioCtr",
                             "SysObject": new sysObjDiv(),
                             "JSONAttributes": {
                                 "Style": "input-group-text",
@@ -143,7 +146,7 @@ sysObjDynRadioListRow.prototype.addObjects = function(ButtonRef, ButtonJSONAttri
                             }
                         },
                         {
-                            "id": "input-text" + this.ObjectID + this.Index,
+                            "id": this.ObjectID + this.Index + "InputText",
                             "SysObject": new sysFormfieldItemText(),
                             "JSONAttributes": {
                                 "Style": "form-control",
@@ -155,7 +158,7 @@ sysObjDynRadioListRow.prototype.addObjects = function(ButtonRef, ButtonJSONAttri
             ]
         },
         {
-            "id": "col-btn",
+            "id": this.ObjectID + this.Index + "ColBtn",
             "SysObject": ButtonRef,
             "JSONAttributes": ButtonJSONAttributes
         }
@@ -169,13 +172,15 @@ sysObjDynRadioListRow.prototype.addObjects = function(ButtonRef, ButtonJSONAttri
 //- CONSTRUCTOR "sysObjDynRadioList"
 //------------------------------------------------------------------------------
 
-function sysObjDynRadioList() {
+function sysObjDynRadioList()
+{
+    this.ObjectType        = 'DynRadioList';    //- System Object Type
 
-    this.EventListeners    = new Object();   //- Event Listeners
-    this.ChildObjects      = new Array();    //- Child Objects
+    this.EventListeners    = new Object();      //- Event Listeners
+    this.ChildObjects      = new Array();       //- Child Objects
 
-    this.RowItems          = new Array();    //- Row Objects Array
-    this.RowIndex          = 0;              //- Row Index
+    this.RowItems          = new Array();       //- Row Objects Array
+    this.RowIndex          = 0;                 //- Row Index
 }
 
 //- inherit sysBaseObject
@@ -186,23 +191,23 @@ sysObjDynRadioList.prototype = new sysBaseObject();
 //- METHOD "init"
 //------------------------------------------------------------------------------
 
-sysObjDynRadioList.prototype.init = function() {
-
+sysObjDynRadioList.prototype.init = function()
+{
     this.DOMType = 'div';
     this.DOMStyle = 'container-fluid';
 
-    if (this.JSONConfig !== undefined) {
-        const Attributes = this.JSONConfig.Attributes;
-    }
+    const Attributes = this.JSONConfig.Attributes;
 
-    var AddButton = new sysObjButtonCallback();
+    let AddButton = new sysObjButtonCallback();
     AddButton.setCallback(this, 'add');
+
+    const AddButtonTextID = (Attributes.ButtonTextDisabled === true) ? 'TXT.SYS.BUTTON.NO_TEXT' : 'TXT.SYS.BUTTON.ADD';
 
     AddButtonJSONAttributes = {
         "DOMType": "a",
         "Style": "col-md-1 btn btn-primary btn-sm",
         "IconStyle": "fa-solid fa-plus",
-        "TextID": "TXT.BUTTON.ADD"
+        "TextID": AddButtonTextID
     };
 
     this.addObject(
@@ -230,19 +235,23 @@ sysObjDynRadioList.prototype.processCallback = function(Function, Arguments)
 //- METHOD "add"
 //------------------------------------------------------------------------------
 
-sysObjDynRadioList.prototype.add = function() {
-
+sysObjDynRadioList.prototype.add = function()
+{
     console.debug('sysObjDynRadioList ::add this.DOMParentID:%s', this.DOMParentID);
+
+    const Attributes = this.JSONConfig.Attributes;
 
     this.RowIndex += 1;
 
-    var RemoveButton = new sysObjButtonCallback();
+    let RemoveButton = new sysObjButtonCallback();
+
+    const RemoveButtonTextID = (Attributes.ButtonTextDisabled === true) ? 'TXT.SYS.BUTTON.NO_TEXT' : 'TXT.SYS.BUTTON.REMOVE';
 
     RemoveButtonJSONAttributes = {
         "DOMType": "a",
         "Style": "col-md-1 btn btn-primary btn-sm",
         "IconStyle": "fa-solid fa-minus",
-        "TextID": "TXT.BUTTON.REMOVE"
+        "TextID": RemoveButtonTextID
     };
 
     this.addObject(
@@ -263,7 +272,7 @@ sysObjDynRadioList.prototype.add = function() {
 //- METHOD "remove"
 //------------------------------------------------------------------------------
 
-sysObjDynRadioList.prototype.remove = function(RowIndex) {
-    alert(RowIndex);
+sysObjDynRadioList.prototype.remove = function(RowIndex)
+{
     this.RowItems[RowIndex].remove();
 }
