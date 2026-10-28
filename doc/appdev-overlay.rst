@@ -12,13 +12,9 @@ a screen instance will be set up coexisting with the original source version.
 18.1. Example
 -------------
 
-See very limited example (screen only contains one single *x0-object*) at
-`Example 6 - Screen Overlay <http://x0-app.x0.localnet/python/Index.py?appid=example6>`_.
-
-For more comprehensive overlay examples, see:
-
-* Local repository `/example/screen_overlay` - Complete overlay implementation
-* Advanced overlay patterns in the :ref:`object-examples-reference`
+The current example is in ``example/screen_overlay`` (application ID
+``example6``). Its metadata and README show how the overlay screen is
+configured.
 
 19. Object Instancing
 =====================
@@ -29,7 +25,8 @@ with existing *x0-object* properties (enhanced templating functionality).
 .. image:: images/x0-object-instancing.png
   :alt: image - object instancing
 
-**Example:** `Object Instances (Example 11) <http://x0-app.x0.localnet/python/Index.py?appid=example11>`_ - Demonstrates dynamic object creation and instancing.
+**Example:** ``example/object_instances`` (application ID ``example11``)
+demonstrates dynamic object creation and instancing.
 
 .. warning::
 

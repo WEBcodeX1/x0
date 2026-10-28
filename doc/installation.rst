@@ -221,13 +221,10 @@ Then open http://x0-app.x0.localnet/python/Index.py in your browser to verify fu
 6.9. Examples
 -------------
 
-Find ready-to-run examples in the ``./examples`` directory. After starting the containers, access them via:
-
-- http://x0-app.x0.localnet/python/Index.py?appid=example1
-- http://x0-app.x0.localnet/python/Index.py?appid=example2
-- http://x0-app.x0.localnet/python/Index.py?appid=example3
-
-See :ref:`devexamples` for details on structure and adding your own examples.
+Ready-to-run examples are in ``./example/``. Each example's SQL setup defines
+its application ID and static metadata directory; see the example's README for
+its URL and setup instructions. See :ref:`devexamples` for the current example
+list and guidance on adding one.
 
 6.10. Testing & Continuous Integration
 --------------------------------------

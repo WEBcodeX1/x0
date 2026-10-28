@@ -27,6 +27,7 @@ x0 Framework Documentation
    appdev-overlay
    appdev-messaging
    appdev-deployment
+   appdev-static-deployment
 
 .. toctree::
    :maxdepth: 2
