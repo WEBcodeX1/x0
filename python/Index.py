@@ -39,6 +39,7 @@ HTMLTop = """<!DOCTYPE html>
   <script type="text/javascript" src="/sysObjDiv.js"></script>
   <script type="text/javascript" src="/sysObjImage.js"></script>
   <script type="text/javascript" src="/sysObjImageSelector.js"></script>
+  <script type="text/javascript" src="/sysObjBadgeSelector.js"></script>
   <script type="text/javascript" src="/sysObjContextMenu.js"></script>
   <script type="text/javascript" src="/sysScreenOverlay.js"></script>
   <script type="text/javascript" src="/sysButtonActionProcessor.js"></script>
@@ -77,6 +78,8 @@ HTMLTop = """<!DOCTYPE html>
   <script type="text/javascript" src="/userObjExampleTimedProgress.js"></script>
   <script type="text/javascript" src="/userObjExampleFlightData.js"></script>
   <script type="text/javascript" src="/userObjExampleWizard.js"></script>
+  <script type="text/javascript" src="/userObjExampleCardTasklists.js"></script>
+  <script type="text/javascript" src="/userObjExamplePeopleSelector.js"></script>
   {user_templates}
 """
 
