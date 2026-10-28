@@ -16,7 +16,7 @@
 //- CONSTRUCTOR "userObjExampleEditableItem"
 //------------------------------------------------------------------------------
 
-function userObjExampleEditableItem()
+function userObjExampleEditableItem(ContainerObjRef, ItemIndex)
 {
     this.ObjectType             = 'ExampleEditableItem';                    //- System Object Type
 
@@ -25,6 +25,10 @@ function userObjExampleEditableItem()
     this.EditMode               = false;                                    //- Switchable Edit Mode
     this.ChangeOrderMode        = false;                                    //- Switchable Change Order Mode
 
+    this.ContainerObjRef        = ContainerObjRef;                          //- Container Object Reference
+    this.ItemIndex              = ItemIndex;                                //- Item Position Index
+
+    this.EventListeners         = new Object();                             //- Event Listeners
     this.ChildObjects           = new Array();                              //- Child Objects
 }
 
@@ -51,164 +55,394 @@ userObjExampleEditableItem.prototype.init = function()
         this.DOMStyle = Attributes.Style;
     }
 
-    if (Attributes.Editable !== undefined) {
+    if (Attributes.Editable !== undefined && Attributes.Editable == true) {
         this.EditMode = true;
     };
 
-    if (Attributes.OrderChangeable !== undefined) {
+    if (Attributes.OrderChangeable !== undefined && Attributes.OrderChangeable == true) {
         this.ChangeOrderMode = true;
     };
 
     //- set default values
     this.ImagePath = (Attributes.ImagePath === undefined) ? '/image/icon-select-image.png' : Attributes.ImagePath;
-    this.HeaderText = (Attributes.HeaderText === undefined) ? 'Default Header Text' : Attributes.HeaderText;
-    this.ContentText = (Attributes.ContentText === undefined) ? 'Default Content Text' : Attributes.ContentText;
+    this.HeaderText = (Attributes.HeaderText === undefined) ? '' : Attributes.HeaderText;
+    this.ContentText = (Attributes.ContentText === undefined) ? '' : Attributes.ContentText;
 
-    //- setup upload button
-    let SelectImageButton = new sysObjButtonCallback();
-    SelectImageButton.overrideDOMObjectID = true;
-    SelectImageButton.setCallback(this);
+    //- setup image select button
+    this.SelectImageButton = new sysObjButtonCallback();
+    this.SelectImageButton.overrideDOMObjectID = true;
+    this.SelectImageButton.setCallback(this, 'selectImage');
 
-    //- set dynamic edit or display objects
-    ObjectsDisplay = [
-        {
-            "id": this.ObjectID + "HeaderText",
-            "SysObject": new sysObjDivValue(),
-            "KeyID": "HeaderText",
-            "JSONAttributes": {
-                "Value": this.HeaderText,
-                "Style": "fw-bold"
-            }
-        },
-        {
-            "id": this.ObjectID + "ContentText",
-            "SysObject": new sysObjDivValue(),
-            "KeyID": "ContentText",
-            "JSONAttributes": {
-                "Value": this.ContentText
-            }
-        }
-    ];
+    //- setup move up button
+    this.MoveUpButton = new sysObjButtonCallback();
+    this.MoveUpButton.overrideDOMObjectID = true;
+    this.MoveUpButton.setCallback(this, 'moveUp');
 
-    ObjectsEdit = [
-        {
-            "id": this.ObjectID + "HeaderText",
-            "SysObject": new sysFormfieldItemText(),
-            "KeyID": "HeaderText",
-            "JSONAttributes": {
-                "PlaceholderTextID": "TXT.EXAMPLE.EDITABLE_ITEM.PLACEHOLDER.HEADER",
-                "Style": "form-control mb-1 p-1 w-100 fw-bold"
-            }
-        },
-        {
-            "id": this.ObjectID + "ContentText",
-            "SysObject": new sysFormfieldItemTextarea(),
-            "KeyID": "ContentText",
-            "JSONAttributes": {
-                "PlaceholderTextID": "TXT.EXAMPLE.EDITABLE_ITEM.PLACEHOLDER.CONTENT",
-                "Style": "form-control mb-1 p-1 w-100"
-            }
-        }
-    ];
+    //- setup move down button
+    this.MoveDownButton = new sysObjButtonCallback();
+    this.MoveDownButton.overrideDOMObjectID = true;
+    this.MoveDownButton.setCallback(this, 'moveDown');
 
-    DisplayObjects = (this.EditMode === true) ? ObjectsEdit : ObjectsDisplay;
+    //- setup dynamic content
+    this.setupDynamicContent();
+
+    //- setup context menu
+    let EventListenerObj = new Object();
+    EventListenerObj['Type'] = 'mousedown';
+    EventListenerObj['Element'] = this.EventListenerRightClick.bind(this);
+    this.EventListeners['ContextMenuOpen'] = EventListenerObj;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "setupDynamicContent"
+//------------------------------------------------------------------------------
+
+userObjExampleEditableItem.prototype.setupDynamicContent = function()
+{
+    let UploadIconStylePS = 'ps-2';
+    let DisplayIconStylePS = 'ps-0';
+    let DescriptionStyleMD = 'col-md-10';
+
+    if (this.EditMode == true && this.ChangeOrderMode == true) {
+        UploadIconStylePS = 'ps-3';
+        DescriptionStyleMD = 'col-md-8';
+    }
+    else if (this.EditMode == false && this.ChangeOrderMode == false) {
+        DescriptionStyleMD = 'col-md-11';
+        DisplayIconStylePS = 'ps-2';
+    }
+
+    //- reset dynamic object references
+    let ObjDefs = [];
 
     //- reference image object
     this.ImgageObj = new sysObjImage();
 
-    //- setup recursive object structure
-    let ObjDefs = [
-        {
-            "id": "CtrColUploadIcon",
-            "SysObject": new sysObjDiv(),
-            "JSONAttributes": {
-                "Style": "col col-md-1 p-3"
-            },
-            "ObjectDefs": [
-                {
-                    "id": this.ObjectID + "UploadIcon",
-                    "SysObject": SelectImageButton,
-                    "JSONAttributes": {
-                        "Style": "btn m-0 p-0 text-center",
-                        "DOMValue": '<i class="fa-solid fa-upload text-primary-emphasis bg-primary bg-opacity-25 p-2 border border-5 border-primary-subtle rounded rounded-circle"></i>'
-                    }
+    const ColUploadIcon = {
+        "id": "CtrColUploadIcon",
+        "SysObject": new sysObjDiv(),
+        "JSONAttributes": {
+            "Style": "col col-md-1 p-3 pt-2 " + UploadIconStylePS
+        },
+        "ObjectDefs": [
+            {
+                "id": this.ObjectID + "UploadIcon",
+                "SysObject": this.SelectImageButton,
+                "JSONAttributes": {
+                    "Style": "btn m-0 p-0 text-center",
+                    "DOMValue": '<i class="fa-solid fa-upload text-primary-emphasis bg-primary bg-opacity-25 p-2 border border-5 border-primary-subtle rounded rounded-circle"></i>'
                 }
-            ]
+            }
+        ]
+    };
+
+    const ColSelectedIcon = {
+        "id": "CtrColImage",
+        "SysObject": new sysObjDiv(),
+        "JSONAttributes": {
+            "Style": "col col-md-1 p-3 pt-2 " + DisplayIconStylePS
         },
-        {
-            "id": "CtrColImage",
-            "SysObject": new sysObjDiv(),
-            "JSONAttributes": {
-                "Style": "col col-md-1 p-3"
-            },
-            "ObjectDefs": [
-                {
-                    "id": "CtrImage",
-                    "SysObject": new sysObjDiv(),
-                    "JSONAttributes": {
-                        "Style": "rounded rounded-circle p-0 example-item-container1-image text-center"
-                    },
-                    "ObjectDefs": [
-                        {
-                            "id": this.ObjectID + "Image",
-                            "SysObject": this.ImgageObj,
-                            "KeyID": "ImagePath",
-                            "JSONAttributes": {
-                                "Value": this.ImagePath,
-                                "Width": "40px",
-                                "Height": "40px"
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": "CtrColText",
-            "SysObject": new sysObjDiv(),
-            "JSONAttributes": {
-                "Style": "col col-md-9 p-2"
-            },
-            "ObjectDefs": DisplayObjects
-        },
-        {
-            "id": "CtrColMove",
-            "SysObject": new sysObjDiv(),
-            "JSONAttributes": {
-                "Style": "col col-md-1 p-3 text-center"
-            },
-            "ObjectDefs": [
-                {
-                    "id": this.ObjectID + "MoveUpIcon",
-                    "SysObject": new sysObjDivUnique(),
-                    "JSONAttributes": {
-                        "Value": '<i class="fa-solid fa-caret-up text-primary-emphasis bg-primary bg-opacity-25 p-2 border border-4 border-primary-subtle rounded"></i>'
-                    }
+        "ObjectDefs": [
+            {
+                "id": "CtrImage",
+                "SysObject": new sysObjDiv(),
+                "JSONAttributes": {
+                    "Style": "rounded rounded-circle p-0 example-item-container1-image text-center"
                 },
-                {
-                    "id": this.ObjectID + "MoveDownIcon",
-                    "SysObject": new sysObjDivUnique(),
-                    "JSONAttributes": {
-                        "Value": '<i class="fa-solid fa-caret-down text-primary-emphasis bg-primary bg-opacity-25 p-2 border border-4 border-primary-subtle rounded"></i>'
+                "ObjectDefs": [
+                    {
+                        "id": this.ObjectID + "Image",
+                        "SysObject": this.ImgageObj,
+                        "KeyID": "ImagePath",
+                        "JSONAttributes": {
+                            "Value": this.ImagePath,
+                            "Width": "40px",
+                            "Height": "40px"
+                        }
                     }
+                ]
+            }
+        ]
+    };
+
+    const ColTextDisplay = {
+        "id": "CtrColText",
+        "SysObject": new sysObjDiv(),
+        "JSONAttributes": {
+            "Style": "col p-2 " + DescriptionStyleMD
+        },
+        "ObjectDefs": [
+            {
+                "id": this.ObjectID + "HeaderText",
+                "SysObject": new sysObjDivValue(),
+                "KeyID": "HeaderText",
+                "JSONAttributes": {
+                    "Value": this.HeaderText,
+                    "Style": "fw-bold"
                 }
-            ]
-        }
-    ];
+            },
+            {
+                "id": this.ObjectID + "ContentText",
+                "SysObject": new sysObjDivValue(),
+                "KeyID": "ContentText",
+                "JSONAttributes": {
+                    "Value": this.ContentText
+                }
+            }
+        ]
+    };
+
+    const ColTextEdit = {
+        "id": "CtrColText",
+        "SysObject": new sysObjDiv(),
+        "JSONAttributes": {
+            "Style": "col p-2 " + DescriptionStyleMD
+        },
+        "ObjectDefs": [
+            {
+                "id": this.ObjectID + "HeaderText",
+                "SysObject": new sysFormfieldItemText(),
+                "KeyID": "HeaderText",
+                "JSONAttributes": {
+                    "PlaceholderTextID": "TXT.EXAMPLE.EDITABLE_ITEM.PLACEHOLDER.HEADER",
+                    "Style": "form-control mb-1 p-1 w-100 fw-bold",
+                    "Value": this.HeaderText
+                }
+            },
+            {
+                "id": this.ObjectID + "ContentText",
+                "SysObject": new sysFormfieldItemTextarea(),
+                "KeyID": "ContentText",
+                "JSONAttributes": {
+                    "PlaceholderTextID": "TXT.EXAMPLE.EDITABLE_ITEM.PLACEHOLDER.CONTENT",
+                    "Style": "form-control mb-1 p-1 w-100",
+                    "Value": this.ContentText
+                }
+            }
+        ]
+    };
+
+    const ColMove = {
+        "id": "CtrColMove",
+        "SysObject": new sysObjDiv(),
+        "JSONAttributes": {
+            "Style": "col col-md-2 p-3 text-center"
+        },
+        "ObjectDefs": [
+            {
+                "id": this.ObjectID + "MoveUpIcon",
+                "SysObject": this.MoveUpButton,
+                "JSONAttributes": {
+                    "Style": "btn p-0 m-0",
+                    "DOMValue": '<i class="fa-solid fa-caret-up text-primary-emphasis bg-primary bg-opacity-25 p-2 border border-4 border-primary-subtle rounded float-start"></i>'
+                }
+            },
+            {
+                "id": this.ObjectID + "MoveDownIcon",
+                "SysObject": this.MoveDownButton,
+                "JSONAttributes": {
+                    "Style": "btn p-0 m-0",
+                    "DOMValue": '<i class="fa-solid fa-caret-down text-primary-emphasis bg-primary bg-opacity-25 p-2 border border-4 border-primary-subtle rounded"></i>'
+                }
+            }
+        ]
+    };
+
+    if (this.EditMode == true && this.ChangeOrderMode == false) {
+        ObjDefs.push(ColUploadIcon);
+        ObjDefs.push(ColSelectedIcon);
+        ObjDefs.push(ColTextEdit);
+    }
+    else if (this.EditMode == true && this.ChangeOrderMode == true) {
+        ObjDefs.push(ColUploadIcon);
+        ObjDefs.push(ColSelectedIcon);
+        ObjDefs.push(ColTextEdit);
+        ObjDefs.push(ColMove);
+    }
+    else if (this.EditMode == false && this.ChangeOrderMode == false) {
+        ObjDefs.push(ColSelectedIcon);
+        ObjDefs.push(ColTextDisplay);
+    }
 
     sysFactory.setupObjectRefsRecursive(ObjDefs, this);
 }
 
 
 //------------------------------------------------------------------------------
-//- METHOD "processCallback"
+//- METHOD "EventListenerRightClick"
 //------------------------------------------------------------------------------
 
-userObjExampleEditableItem.prototype.processCallback = function()
+userObjExampleEditableItem.prototype.EventListenerRightClick = function(Event)
 {
-    sysFactory.OverlayObj.activateOverlay('ExamplesBasicOverlayImageSelector');
-    const ImgSelectorObj = sysFactory.getObjectByID('ExamplesBasicOverlayImageList');
-    ImgSelectorObj.setSrcObjectRef(this);
+    const ContextMenuItems = [
+        {
+            "ID": "EnableEditMode",
+            "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.EDIT_DATA",
+            "IconStyle": "fa-solid fa-edit",
+            "CallbackFunction": this.enableEditMode,
+            "CallbackObjRef": this
+        },
+        {
+            "ID": "RemoveItem",
+            "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_DATA",
+            "IconStyle": "fa-solid fa-trash",
+            "CallbackFunction": this.remove,
+            "CallbackObjRef": this
+        },
+        {
+            "ID": "DisableEditMode",
+            "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.SAVE_DATA",
+            "IconStyle": "fa-solid fa-floppy-disk",
+            "CallbackFunction": this.disableEditMode,
+            "CallbackObjRef": this
+        }
+    ];
+
+    //- check for right click on mousedown
+    if (Event.button == 2 && ContextMenuItems !== undefined)
+    {
+        let ContextMenu             = new sysContextMenu();
+
+        ContextMenu.ID              = 'CtMenu' + this.ObjectID;
+        ContextMenu.ItemConfig      = ContextMenuItems;
+        ContextMenu.ScreenObject    = this.ScreenObject;
+        ContextMenu.ParentObject    = this;
+        ContextMenu.pageX           = Event.pageX;
+        ContextMenu.pageY           = Event.pageY;
+
+        ContextMenu.init();
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "remove"
+//------------------------------------------------------------------------------
+
+userObjExampleEditableItem.prototype.remove = function(ObjRef)
+{
+    const ContainerObj = ObjRef.ContainerObjRef;
+    console.debug('::userObjExampleEditableItem remove() ContainerObj:%o', ContainerObj);
+    ContainerObj.ChildObjects.length = 0;
+    ContainerObj.RowItems.splice(ObjRef.ItemIndex, 1);
+    ContainerObj.redrawList();
+    ContainerObj.reindexItems();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "enableEditMode"
+//------------------------------------------------------------------------------
+
+userObjExampleEditableItem.prototype.enableEditMode = function(ObjRef)
+{
+    ObjRef.EditMode = true;
+    ObjRef.ChangeOrderMode = true;
+    ObjRef.updateEditStatus();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "disableEditMode"
+//------------------------------------------------------------------------------
+
+userObjExampleEditableItem.prototype.disableEditMode = function(ObjRef)
+{
+    const ResultData = ObjRef.getObjectData();
+    const KeyValueData = sysConvertSysData2KeyValue(ResultData);
+    console.debug('::userObjExampleEditableItem disableEditMode() Save Data:%o', KeyValueData);
+
+    ObjRef.ImagePath = KeyValueData.ImagePath;
+    ObjRef.HeaderText = KeyValueData.HeaderText;
+    ObjRef.ContentText = KeyValueData.ContentText;
+
+    ObjRef.EditMode = false;
+    ObjRef.ChangeOrderMode = false;
+    ObjRef.updateEditStatus();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "updateEditStatus"
+//------------------------------------------------------------------------------
+
+userObjExampleEditableItem.prototype.updateEditStatus = function()
+{
+    this.ChildObjects = new Array();
+    this.setupDynamicContent();
+    this.rerenderObject();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "ButtonCallback"
+//------------------------------------------------------------------------------
+
+userObjExampleEditableItem.prototype.ButtonCallback = function(FunctionID)
+{
+    if (FunctionID == 'selectImage')
+    {
+        sysFactory.OverlayObj.activateOverlay('ExamplesBasicOverlayImageSelector');
+        const ImgSelectorObj = sysFactory.getObjectByID('ExamplesBasicOverlayImageList');
+        ImgSelectorObj.setSrcObjectRef(this);
+    }
+    else if (FunctionID == 'moveUp')
+    {
+        this.moveItemUp();
+    }
+    else if (FunctionID == 'moveDown')
+    {
+        this.moveItemDown();
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "moveItemUp"
+//------------------------------------------------------------------------------
+
+userObjExampleEditableItem.prototype.moveItemUp = function()
+{
+    if (this.ItemIndex > 0)
+    {
+        const CurrentIndex = this.ItemIndex;
+        const SwapIndex = this.ItemIndex-1;
+        const ContainerObj = this.ContainerObjRef;
+        const RowItems = ContainerObj.RowItems;
+        const TmpValue = RowItems[CurrentIndex];
+
+        RowItems[CurrentIndex] = RowItems[SwapIndex];
+        RowItems[SwapIndex] = TmpValue;
+
+        ContainerObj.ChildObjects.length = 0;
+        ContainerObj.redrawList();
+        ContainerObj.reindexItems();
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "moveItemDown"
+//------------------------------------------------------------------------------
+
+userObjExampleEditableItem.prototype.moveItemDown = function()
+{
+    if (this.ItemIndex < this.ContainerObjRef.RowItems.length-1)
+    {
+        const CurrentIndex = this.ItemIndex;
+        const SwapIndex = this.ItemIndex+1;
+        const ContainerObj = this.ContainerObjRef;
+        const RowItems = ContainerObj.RowItems;
+
+        const TmpValue = RowItems[CurrentIndex];
+        RowItems[CurrentIndex] = RowItems[SwapIndex];
+        RowItems[SwapIndex] = TmpValue;
+
+        ContainerObj.ChildObjects.length = 0;
+        ContainerObj.redrawList();
+        ContainerObj.reindexItems();
+    }
 }
 
 
@@ -237,7 +471,7 @@ function userObjExampleEditableItemContainer()
     this.RuntimeSetDataFunc     = this.addItem;                     //- Add Item / Row
     this.RuntimeAppendDataFunc  = this.addItem;                     //- Add Item / Row
 
-    this.RowCount               = 6;                                //- Row Count Default (Pagination Rows Per Page)
+    this.RowCount               = 3;                                //- Row Count Default (Pagination Rows Per Page)
 
     this.RowItems               = new Array();                      //- Row Objects Container (Pagination)
     this.ChildObjects           = new Array();                      //- Child Objects
@@ -265,10 +499,6 @@ userObjExampleEditableItemContainer.prototype.init = function()
 
     //- set default values
     this.DOMStyle = (Attributes.Style !== undefined) ? Attributes.Style : 'example-item-container1 border rounded shadow';
-
-    if (Attributes.Editable !== undefined) {
-        this.EditMode = true;
-    };
 
     //- setup clickable edit icon button
     this.EditIconButton = new sysObjButtonCallback();
@@ -357,40 +587,71 @@ userObjExampleEditableItemContainer.prototype.addItem = function(Data)
     console.debug('::userObjExampleEditableItemContainer addItem() Data:%o', Data);
 
     //- convert to key/value
-    const ItemData = sysConvertData2KeyValue(Data);
+    const ItemData = sysConvertSysData2KeyValue(Data);
 
     //- reset child objects
     this.ChildObjects.length = 0;
 
-    //- new row item
-    let ItemObj = new userObjExampleEditableItem();
-    ItemObj.ObjectID = this.ObjectID + '_' + this.RowItems.length;
+    //- row index
+    const RowIndex = this.RowItems.length;
 
-    ItemObj.JSONConfig = {
-        "Attributes": {
-            "Style": "row m-0 p-0",
-            "ImagePath": ItemData.ImagePath,
-            "HeaderText": ItemData.HeaderText,
-            "ContentText": ItemData.ContentText
+    //- base container object
+    let BaseContainerObj = new sysObjDivUnique()
+    BaseContainerObj.ObjectID = 'BaseRowCtr' + this.ObjectID + '_' + RowIndex;
+    BaseContainerObj.init();
+
+    //- new item object
+    let ItemObj = new userObjExampleEditableItem(this, RowIndex);
+    ItemObj.ScreenObject = this.ScreenObject;
+    BaseContainerObj.ItemRef = ItemObj;
+
+    //- setup recursive object structure
+    let ObjDefs = [
+        {
+            "id": "CtrItem" + this.ObjectID + '_' + RowIndex,
+            "SysObject": new sysObjDivUnique(),
+            "JSONAttributes": {
+                "Style": ""
+            },
+            "ObjectDefs": [
+                {
+                    "id": this.ObjectID + '_' + RowIndex,
+                    "SysObject": ItemObj,
+                    "JSONAttributes": {
+                        "Style": "row m-0 p-0",
+                        "ImagePath": ItemData.ImagePath,
+                        "HeaderText": ItemData.HeaderText,
+                        "ContentText": ItemData.ContentText
+                    }
+                }
+            ]
+        },
+        {
+            "id": "CtrRowSeparator" + this.ObjectID + '_' + RowIndex,
+            "SysObject": new sysObjDivUnique(),
+            "JSONAttributes": {
+                "DOMType": "hr",
+                "Style": "example-item-container1-hrcolor m-2"
+            }
         }
-    };
+    ];
 
-    ItemObj.init();
+    sysFactory.setupObjectRefsRecursive(ObjDefs, BaseContainerObj);
 
-    this.RowItems.push(ItemObj);
+    //- push to navigation array
+    this.RowItems.push(BaseContainerObj);
 
-    let RowSeparatorObj = new sysObjDivUnique();
-    RowSeparatorObj.ObjectID = ItemObj.ObjectID + "RowSeparator";
-    RowSeparatorObj.JSONConfig = {
-        "Attributes": {
-            "DOMType": "hr",
-            "Style": "example-item-container1-hrcolor m-2"
-        }
-    };
-    RowSeparatorObj.init();
+    //- redraw list
+    this.redrawList();
+}
 
-    this.RowItems.push(RowSeparatorObj);
 
+//------------------------------------------------------------------------------
+//- METHOD "redrawList"
+//------------------------------------------------------------------------------
+
+userObjExampleEditableItemContainer.prototype.redrawList = function()
+{
     //- re-draw header
     this.renderHeader();
 
@@ -398,6 +659,7 @@ userObjExampleEditableItemContainer.prototype.addItem = function(Data)
     for (RowItem of this.RowItems)
     {
         this.addObject(RowItem);
+        RowItem.processEventListener();
     }
 
     //- update pagination
@@ -405,4 +667,62 @@ userObjExampleEditableItemContainer.prototype.addItem = function(Data)
 
     //- rerender
     this.rerenderObject();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "reindexItems"
+//------------------------------------------------------------------------------
+
+userObjExampleEditableItemContainer.prototype.reindexItems = function()
+{
+    let ReIndex = 0;
+    for (RowItem of this.RowItems)
+    {
+        console.debug('::userObjExampleEditableItemContainer reindexItems() Old:%s New:%s', RowItem.ItemRef.ItemIndex, ReIndex);
+        RowItem.ItemRef.ItemIndex = ReIndex;
+        ReIndex++;
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "ButtonCallback"
+//------------------------------------------------------------------------------
+
+userObjExampleEditableItemContainer.prototype.ButtonCallback = function()
+{
+    let EditFinished = false;
+    if (this.EditMode == false) {
+
+        //- re-draw items
+        let RowIndex = this.RowItems.length-1;
+        while (RowIndex >= 0)
+        {
+            const ItemID = this.ObjectID + '_' + RowIndex;
+            const ItemObj = sysFactory.getObjectByID(ItemID);
+
+            ItemObj.enableEditMode(ItemObj);
+
+            RowIndex--;
+        }
+        this.EditMode = true;
+        EditFinished = true;
+    }
+
+    if (this.EditMode == true && EditFinished == false) {
+
+        //- re-draw items
+        let RowIndex = this.RowItems.length-1;
+        while (RowIndex >= 0)
+        {
+            const ItemID = this.ObjectID + '_' + RowIndex;
+            const ItemObj = sysFactory.getObjectByID(ItemID);
+
+            ItemObj.disableEditMode(ItemObj);
+
+            RowIndex--;
+        }
+        this.EditMode = false;
+    }
 }

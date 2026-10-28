@@ -189,10 +189,10 @@ sysObjSystemSettingsContainerGrid.prototype.genGrid = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "processCallback"
+//- METHOD "ButtonCallback"
 //------------------------------------------------------------------------------
 
-sysObjSystemSettingsContainerGrid.prototype.processCallback = function(FunctionID, Arguments)
+sysObjSystemSettingsContainerGrid.prototype.ButtonCallback = function(FunctionID, Arguments)
 {
     const SelectorPD = this.getObjectByID(this.ObjectID + 'GridSelectorPulldown');
     this.selectedGridVariant = SelectorPD.RuntimeGetDataFunc();

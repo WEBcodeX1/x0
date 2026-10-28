@@ -331,13 +331,13 @@ sysFormfieldItem.prototype.clearStyle = function()
 
 function sysFormfieldItemText()
 {
-    this.ObjectType     = 'FormfieldText';
+    this.ObjectType             = 'FormfieldText';
 
-    this.Deactivated    = false;
+    this.Deactivated            = false;
 
-    this.DOMAttributes  = new Object();
-    this.ChildObjects   = new Array();
-    this.EventListeners = new Object();
+    this.DOMAttributes          = new Object();
+    this.ChildObjects           = new Array();
+    this.EventListeners         = new Object();
 }
 
 sysFormfieldItemText.prototype = new sysFormfieldItem();
@@ -458,11 +458,11 @@ sysFormfieldItemPulldown.prototype.generateOptions = function()
         const TextID = OptionAttributes.TextID;
         const Value = OptionAttributes.Value;
 
-        const Text = (OptionAttributes.Display) ? OptionAttributes.Display : sysFactory.getText(TextID);
+        const DisplayText = (OptionAttributes.Display) ? OptionAttributes.Display : sysFactory.getText(TextID);
 
         const Selected = (OptionAttributes.Default === true) ? 'selected' : '';
 
-        OptionHTML += '<option value="' + Value + '"' + Selected + '>' + Text + '</option>';
+        OptionHTML += '<option value="' + Value + '"' + Selected + '>' + DisplayText + '</option>';
     }
 
     this.DOMValue = OptionHTML;

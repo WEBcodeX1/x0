@@ -63,8 +63,7 @@ sysContextMenu.prototype.close = function(Event)
 
 sysContextMenu.prototype.removeRootElement = function(Event)
 {
-    let ContextMenuRootElementID = this.ID;
-    let ContextMenuRootObj = this.ScreenObject.HierarchyRootObject.getObjectByID(ContextMenuRootElementID);
+    let ContextMenuRootObj = this.ScreenObject.HierarchyRootObject.getObjectByID(this.ID);
 
     if (ContextMenuRootObj !== undefined) {
         ContextMenuRootObj.removeParent();
@@ -244,6 +243,14 @@ sysContextMenuItem.prototype.EventListenerClick = function(Event)
         FunctionDispatcher.dispatchFunction(
             FunctionID, this.ParentObject, this.ItemConfig
         )
+    }
+
+    //- process callback
+    const CallbackFunction = this.ItemConfig.CallbackFunction;
+    if (CallbackFunction !== undefined && CallbackFunction != null)
+    {
+        console.debug('CallbackFunctionID:%s ItemConfig:%o', FunctionID, this.ItemConfig);
+        CallbackFunction(this.ItemConfig.CallbackObjRef);
     }
 
     //- open overlay

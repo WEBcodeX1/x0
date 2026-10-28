@@ -124,10 +124,10 @@ sysFileUpload.prototype.init = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "processCallback"
+//- METHOD "ButtonCallback"
 //------------------------------------------------------------------------------
 
-sysFileUpload.prototype.processCallback = function(FunctionID, Arguments)
+sysFileUpload.prototype.ButtonCallback = function(FunctionID, Arguments)
 {
     this.startUpload();
 }

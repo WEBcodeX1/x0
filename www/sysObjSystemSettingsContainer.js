@@ -124,10 +124,10 @@ sysObjSystemSettingsContainerItem.prototype.init = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "processCallback"
+//- METHOD "ButtonCallback"
 //------------------------------------------------------------------------------
 
-sysObjSystemSettingsContainerItem.prototype.processCallback = function(FunctionID, Arguments)
+sysObjSystemSettingsContainerItem.prototype.ButtonCallback = function(FunctionID, Arguments)
 {
     const SettingObj = this.getObjectByID(this.ObjectID + "SettingObj");
 

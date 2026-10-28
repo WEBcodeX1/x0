@@ -24,12 +24,13 @@ function sysScreenOverlay() {
 //- METHOD "activateOverlay"
 //------------------------------------------------------------------------------
 
-sysScreenOverlay.prototype.activateOverlay = function(ScreenID)
+sysScreenOverlay.prototype.activateOverlay = function(ScreenID, OverrideStyle)
 {
     const ScreenObj = sysFactory.getScreenByID(ScreenID);
     const ScreenRootObj = ScreenObj.HierarchyRootObject;
 
-    ScreenRootObj.DOMStyle = this.OverlayStyle;
+    ScreenRootObj.DOMStyle = (OverrideStyle !== undefined) ? OverrideStyle : this.OverlayStyle;
+
     ScreenRootObj.setDOMElementStyle();
     ScreenRootObj.VisibleState = 'visible';
     ScreenRootObj.setDOMVisibleState();
@@ -50,4 +51,26 @@ sysScreenOverlay.prototype.closeOverlay = function(ScreenID)
     ScreenRootObj.removeDOMElementStyle(this.OverlayStyle);
     ScreenRootObj.VisibleState = 'hidden';
     ScreenRootObj.setDOMVisibleState();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "activateOverlayAtPosition"
+//------------------------------------------------------------------------------
+
+sysScreenOverlay.prototype.activateOverlayAtPosition = function(ScreenID, CoordX, CoordY, Width)
+{
+    const ScreenObj = sysFactory.getScreenByID(ScreenID);
+    const ScreenRootObj = ScreenObj.HierarchyRootObject;
+
+    ScreenRootObj.DOMStyleLeft = CoordX.toString() + 'px';
+    ScreenRootObj.DOMStyleTop = CoordY.toString() + 'px';
+
+    if (Width !== undefined) {
+        ScreenRootObj.DOMStyleWidth = Width + 'px';
+    }
+
+    ScreenRootObj.setDOMElementStyleAttributes();
+
+    this.activateOverlay(ScreenID, 'overlay-positioned m-0 p-0 shadow');
 }

@@ -413,8 +413,9 @@ sysBaseObject.prototype.setObjectData = function(Data)
 
 sysBaseObject.prototype.setObjectDataKeyValueRecursive = function(Data)
 {
-    console.debug('::setObjectDataKeyValue Data:%o this.KeyID:%s this.DOMValue:%s', Data, this.KeyID, this.ObjectID, this.DOMValue);
+    console.debug('::setObjectDataKeyValue Data:%o this.KeyID:"%s" ObjectType:%s ObjectID:%s RuntimeSet:%o', Data, this.KeyID, this.ObjectType, this.ObjectID, this.RuntimeSetDataFunc);
     const KeyIDValue = this.getKeyIDValueFromData(Data, this.KeyID);
+    console.debug('::setObjectDataKeyValue KeyIDValue:%s', KeyIDValue);
     if (KeyIDValue !== undefined && typeof this.RuntimeSetDataFunc === 'function') {
         this.RuntimeSetDataFunc(KeyIDValue);
     }

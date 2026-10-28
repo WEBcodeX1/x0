@@ -223,10 +223,10 @@ sysPagination.prototype.update = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "processCallback"
+//- METHOD "ButtonCallback"
 //------------------------------------------------------------------------------
 
-sysPagination.prototype.processCallback = function(FunctionID, Arguments)
+sysPagination.prototype.ButtonCallback = function(FunctionID, Arguments)
 {
     if (FunctionID == 'navLeft') { this.navigateLeft(); }
     if (FunctionID == 'navRight') { this.navigateRight(); }

@@ -203,12 +203,19 @@ sysTabContainer.prototype.appendTabObject = function(TabElement, TabAttributes)
     this.TabsContainer.addObject(TabElement);
     this.ContentContainer.addObject(TabElement.ContentObj);
 
-    var EventListenerObj = new Object();
+    //- only enable clickable tab when DisableClick != true
+    if (this.ContainerAttributes !== undefined)
+    {
+        if (this.ContainerAttributes.DisableClick === undefined)
+        {
+            var EventListenerObj = new Object();
 
-    EventListenerObj['Type'] = 'mousedown';
-    EventListenerObj['Element'] = TabElement.EventListenerClick.bind(TabElement);
+            EventListenerObj['Type'] = 'mousedown';
+            EventListenerObj['Element'] = TabElement.EventListenerClick.bind(TabElement);
 
-    TabElement.EventListeners["TabClick"] = EventListenerObj;
+            TabElement.EventListeners["TabClick"] = EventListenerObj;
+        }
+    }
 }
 
 

@@ -120,10 +120,10 @@ sysObjLanguageSwitch.prototype.getLanguageOptions = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "processCallback"
+//- METHOD "ButtonCallback"
 //------------------------------------------------------------------------------
 
-sysObjLanguageSwitch.prototype.processCallback = function(FunctionID, Arguments)
+sysObjLanguageSwitch.prototype.ButtonCallback = function(FunctionID, Arguments)
 {
     const PulldownObj = this.getObjectByID(this.PulldownObjectID);
 

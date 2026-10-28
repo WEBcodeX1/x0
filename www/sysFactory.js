@@ -26,6 +26,7 @@ function sysFactory()
         "TabContainer": sysTabContainer,
         "Image": sysObjImage,
         "ImageSelector": sysObjImageSelector,
+        "BadgeSelector": sysObjBadgeSelector,
         "SQLText": sysObjSQLText,
         "Button": sysObjButton,
         "ButtonInternal": sysObjButtonInternal,
@@ -59,7 +60,9 @@ function sysFactory()
         "ExampleEditableItemContainer": userObjExampleEditableItemContainer,
         "ExampleFlightDetails": userObjExampleFlightDetails,
         "ExampleFlightStatus": userObjExampleFlightStatus,
-        "ExampleWizard": userObjExampleWizard
+        "ExampleWizard": userObjExampleWizard,
+        "ExampleCardTasklist": userObjExampleCard,
+        "ExamplePeopleSelector": userObjExamplePeopleSelector
     };
 }
 
@@ -87,6 +90,7 @@ sysFactory.prototype.init = function()
     //- ------------------------------------------------------
     //- Add all System Screens
     //- ------------------------------------------------------
+
     const SkeletonData = this.DataSkeleton.XMLRPCResultData;
 
     for(SkeletonKey in SkeletonData)
@@ -97,14 +101,10 @@ sysFactory.prototype.init = function()
         )
     }
 
-    //- ------------------------------------------------------
-    //- Init (activate/deactivate) OnChange references
-    //- ------------------------------------------------------
-    //this.initOnChangeObjects();
-
     //--------------------------------------------------------
     //- Setup Menu "Screen"
     //--------------------------------------------------------
+
     this.MenuScreen = new sysScreen();
 
     const DefaultStyle = sysFactory.DefaultStyleMenu;
@@ -119,16 +119,19 @@ sysFactory.prototype.init = function()
     //- ------------------------------------------------------
     //- Switch to Default Screen
     //- ------------------------------------------------------
+
     this.switchScreen(this.DisplayDefaultScreen);
 
     //- ------------------------------------------------------
     //- Raise InitSystem Event
     //- ------------------------------------------------------
+
     this.Reactor.dispatchEvent('InitSystem');
 
     //- ------------------------------------------------------
     //- Start processing async Messages
     //- ------------------------------------------------------
+
     this.sysGlobalAsyncNotifyHandler.getMsg();
 }
 
@@ -298,25 +301,6 @@ sysFactory.prototype.getGlobalVar = function(Key) {
 
 sysFactory.prototype.setGlobalVar = function(Key, Value) {
     this.ObjGlobalData[Key] = Value;
-}
-
-
-//------------------------------------------------------------------------------
-//- Function "initOnChangeObjects"
-//------------------------------------------------------------------------------
-
-sysFactory.prototype.initOnChangeObjects = function()
-{
-    for (const ScreenID in this.Screens)
-    {
-        const Formlists = this.getObjectsByType(ScreenID, 'FormfieldList');
-        //console.debug('Formlists:%o', Formlists);
-        for (Key in Formlists)
-        {
-            console.debug('Formlist Key:%s', Key);
-            Formlists[Key].initOnChangeItems();
-        }
-    }
 }
 
 

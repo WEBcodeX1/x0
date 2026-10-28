@@ -17,11 +17,11 @@
 
 function userObjTimedProgress()
 {
-    this.ObjectType             = 'ExampleTimedProgress';                               //- System Object Type
+    this.ObjectType             = 'ExampleTimedProgress';       //- System Object Type
+    this.ChildObjects           = new Array();                  //- Child Objects
 
-    this.DOMStyle               = 'row m-0 p-0 align-items-center border border-top-0'  //- Default Bootstrap "row" DOMStyle
-
-    this.ChildObjects           = new Array();                                          //- Child Objects
+    //- Default Bootstrap "row" DOMStyle
+    this.DOMStyle               = 'row m-0 p-0 align-items-center border border-top-0 border-end-0';
 }
 
 //- inherit sysObjDivUnique
@@ -34,6 +34,9 @@ userObjTimedProgress.prototype = new sysObjDivUnique();
 
 userObjTimedProgress.prototype.init = function()
 {
+    //- attributes
+    let Attributes = this.JSONConfig.Attributes;
+
     //- define start progress button
     let ButtonStart = new sysObjButtonCallback();
     ButtonStart.ObjectID = this.ObjectID + 'BtnStartUpdate';
@@ -69,7 +72,8 @@ userObjTimedProgress.prototype.init = function()
                         "Placeholder": "100",
                         "Number": true,
                         "Min": 100,
-                        "Max": 5000
+                        "Max": 5000,
+                        "Value": (Attributes.Interval !== undefined) ? Attributes.Interval : undefined
                     }
                 }
             ]
@@ -98,8 +102,8 @@ userObjTimedProgress.prototype.init = function()
                         "Placeholder": "1",
                         "Number": true,
                         "Min": 1,
-                        "Max": 10
-
+                        "Max": 10,
+                        "Value": (Attributes.IncreaseBy !== undefined) ? Attributes.IncreaseBy : undefined
                     }
                 }
             ]
@@ -145,10 +149,10 @@ userObjTimedProgress.prototype.init = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "processCallback"
+//- METHOD "ButtonCallback"
 //------------------------------------------------------------------------------
 
-userObjTimedProgress.prototype.processCallback = function()
+userObjTimedProgress.prototype.ButtonCallback = function()
 {
     this.ProgressValue = 0;
     const IntervalObjID = this.ObjectID + 'FormInterval';
@@ -166,13 +170,23 @@ userObjTimedProgress.prototype.processCallback = function()
 
 userObjTimedProgress.prototype.updateProgress = function(RefObject)
 {
-    if (RefObject.ProgressValue < 100) {
+    if (RefObject.ProgressValue < 100)
+    {
         const AddValueObjID = RefObject.ObjectID + 'FormAddValue';
         const AddValue = Number(
             sysFactory.getObjectByID(AddValueObjID).RuntimeGetDataFunc()
         );
+
         RefObject.ProgressValue += AddValue;
+
+        if (RefObject.ProgressValue > 100) {
+            RefObject.ProgressValue = 100;
+        }
+
         RefObject.ProgressBarObj.RuntimeSetDataFunc(RefObject.ProgressValue);
-        setTimeout(RefObject.updateProgress, RefObject.ProgressInterval, RefObject);
+
+        if (RefObject.ProgressValue < 100) {
+            setTimeout(RefObject.updateProgress, RefObject.ProgressInterval, RefObject);
+        }
     }
 }

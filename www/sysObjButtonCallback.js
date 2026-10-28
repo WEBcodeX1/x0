@@ -53,5 +53,5 @@ sysObjButtonCallback.prototype.setCallback = function(CBObject, CBFunction, CBAr
 //------------------------------------------------------------------------------
 
 sysObjButtonCallback.prototype.EventListenerClick = function(Event) {
-    this.CallbackObject.processCallback(this.CallbackFunction, this.CallbackArguments);
+    this.CallbackObject.ButtonCallback(this.CallbackFunction, this.CallbackArguments, Event);
 }

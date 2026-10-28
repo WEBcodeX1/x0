@@ -39,7 +39,7 @@ function sysFormFieldValidate()
         'EuroWithCents':              '^[1-9][0-9]+,[0-9][0-9]$',
         'BarcodeZebra':               '^[0-9]{20,20}$',
         'NameGerman':                 '^[a-zA-ZäöüÄÖÜ\\.\\- ]+$',
-        'NameUnitedStates':           '^[a-zA-Z\\.\\-]+$'
+        'NameUnitedStates':           '^[a-zA-Z\\.\\- ]+$'
     };
 
     //- validate regex aliases

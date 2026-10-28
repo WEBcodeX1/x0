@@ -132,10 +132,10 @@ sysObjImageSelectorRow.prototype.init = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "processCallback"
+//- METHOD "ButtonCallback"
 //------------------------------------------------------------------------------
 
-sysObjImageSelectorRow.prototype.processCallback = function()
+sysObjImageSelectorRow.prototype.ButtonCallback = function()
 {
     this.ParentObject.SrcObjectRef.setImgData(this.Data);
     sysFactory.OverlayObj.closeOverlay('ExamplesBasicOverlayImageSelector');

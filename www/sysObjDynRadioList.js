@@ -97,10 +97,10 @@ sysObjDynRadioListRow.prototype.init = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "processCallback"
+//- METHOD "ButtonCallback"
 //------------------------------------------------------------------------------
 
-sysObjDynRadioListRow.prototype.processCallback = function(Function, Arguments)
+sysObjDynRadioListRow.prototype.ButtonCallback = function(Function, Arguments)
 {
     if (Function == 'remove') { this.remove(); }
 }
@@ -222,10 +222,10 @@ sysObjDynRadioList.prototype.init = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "processCallback"
+//- METHOD "ButtonCallback"
 //------------------------------------------------------------------------------
 
-sysObjDynRadioList.prototype.processCallback = function(Function, Arguments)
+sysObjDynRadioList.prototype.ButtonCallback = function(Function, Arguments)
 {
     if (Function == 'add') { this.add(); }
 }

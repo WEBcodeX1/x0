@@ -13,10 +13,10 @@
 
 function userObjExampleWizard()
 {
-    this.DOMStyle       = 'p-2 border border-start-0 border-top-0'      //- DOM Style
-    this.StepIndex      = 0;                                            //- Step Index
-    this.StepCount      = 3;                                            //- Step Count
-    this.ChildObjects   = new Array();                                  //- Child Objects
+    this.DOMStyle       = 'p-2 border border-top-0'     //- DOM Style
+    this.StepIndex      = 0;                            //- Step Index
+    this.StepCount      = 3;                            //- Step Count
+    this.ChildObjects   = new Array();                  //- Child Objects
 }
 
 userObjExampleWizard.prototype = new sysObjDivUnique();
@@ -63,6 +63,7 @@ userObjExampleWizard.prototype.init = function()
             "id": "ExamplesBasicWizardTabs",
             "SysObject": this.TabContainerObj,
             "JSONAttributes": {
+                "DisableClick": true,
                 "Tabs": [
                     {
                         "ID": this.Tabs[0],
@@ -176,6 +177,8 @@ userObjExampleWizard.prototype.init = function()
                     "PersonMail",
                     "PersonAgeLabel",
                     "PersonAge",
+                    "PersonGenderLabel",
+                    "PersonGender",
                     "PersonLoginNameLabel",
                     "PersonLoginName",
                     "PersonLoginPasswordLabel",
@@ -183,9 +186,17 @@ userObjExampleWizard.prototype.init = function()
                 ],
                 "Style": "border rounded border-top-0 rounded-top-0 p-2",
                 "RowStyle": "row m-0 p1",
-                "RowAfterElements": 4,
+                "RowAfterElements": [ 4, 4, 2, 4 ],
                 "ColAfterElements": 2,
-                "ColStyle": "col-md-6",
+                "ColStyle": [
+                    "col-md-6",
+                    "col-md-6",
+                    "col-md-6",
+                    "col-md-6",
+                    "col-md-12",
+                    "col-md-6",
+                    "col-md-6"
+                ],
                 "ErrorContainer": "ExamplesBasicWizardErrorContainer"
             }
         }
@@ -204,22 +215,28 @@ userObjExampleWizard.prototype.init = function()
                     "PersonAddressStreet",
                     "PersonAddressStreetNrLabel",
                     "PersonAddressStreetNr",
-                    "PersonTelephoneNumberTypeLabel",
-                    "PersonTelephoneNumberType",
+                    "PersonAddressZipcodeLabel",
+                    "PersonAddressZipcode",
+                    "PersonAddressCityLabel",
+                    "PersonAddressCity",
+                    "PersonTelephoneNumberPrefixLabel",
+                    "PersonTelephoneNumberPrefix",
                     "PersonTelephoneNumberLabel",
                     "PersonTelephoneNumber",
-                    "PersonGroupMainLabel",
-                    "PersonGroupMain",
                     "ContractAcceptedLabel",
                     "ContractAccepted"
                 ],
                 "Style": "border rounded border-top-0 rounded-top-0 p-2",
                 "RowStyle": "row m-0 p1",
-                "RowAfterElements": [ 4, 2 ],
+                "RowAfterElements": [ 4, 4, 4, 2 ],
                 "ColAfterElements": 2,
                 "ColStyle": [
+                    "col-md-9",
+                    "col-md-3",
                     "col-md-6",
                     "col-md-6",
+                    "col-md-3",
+                    "col-md-9",
                     "col-md-12"
                 ],
                 "ErrorContainer": "ExamplesBasicWizardErrorContainer"
@@ -236,24 +253,38 @@ userObjExampleWizard.prototype.init = function()
             "SysObject": new sysFormfieldList(),
             "JSONAttributes": {
                 "ObjectIDs": [
-                    "PersonNameDisplay",
-                    "PersonSurenameDisplay",
-                    "PersonMailDisplay",
-                    "PersonAgeDisplay",
-                    "PersonAddressStreetDisplay",
-                    "PersonAddressStreetNrDisplay",
-                    "PersonTelephoneNumberDisplay"
+                    "PersonNameLabel",
+                    "PersonNameCheck",
+                    "PersonSurenameLabel",
+                    "PersonSurenameCheck",
+                    "PersonMailLabel",
+                    "PersonMailCheck",
+                    "PersonAddressStreetLabel",
+                    "PersonAddressStreetCheck",
+                    "PersonAddressStreetNrLabel",
+                    "PersonAddressStreetNrCheck",
+                    "ContractAcceptedLabel",
+                    "ContractAcceptedCheck"
                 ],
                 "Style": "border rounded border-top-0 rounded-top-0 p-2",
                 "RowStyle": "row m-0 p1",
-                "RowAfterElements": [ 4, 2 ],
-                "ColAfterElements": 2,
+                "RowAfterElements": 2,
+                "ColAfterElements": 1,
                 "ColStyle": [
-                    "col-md-6",
-                    "col-md-6",
-                    "col-md-12"
+                    "col-md-4",
+                    "col-md-8"
                 ],
                 "ErrorContainer": "ExamplesBasicWizardErrorContainer"
+            }
+        },
+        {
+            "id": "ExamplesBasicWizardTab3SubmitButton",
+            "SysObject": new sysObjButton(),
+            "JSONAttributes": {
+                "Disabled": true,
+                "TextID": "TXT.BUTTON.EXAMPLE.WIZARD.SUBMIT_FINALLY",
+                "Style": "btn btn-primary btn-lg w-100 mt-2 mb-2",
+                "IconStylePost": "fa-solid fa-check"
             }
         }
     ];
@@ -267,15 +298,16 @@ userObjExampleWizard.prototype.init = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "processCallback"
+//- METHOD "ButtonCallback"
 //------------------------------------------------------------------------------
 
-userObjExampleWizard.prototype.processCallback = function(FunctionID, Arguments)
+userObjExampleWizard.prototype.ButtonCallback = function(FunctionID, Arguments)
 {
     //- validate form
     const ValidateFormID = this.ValidateForm[this.StepIndex];
     const Result = this.getObjectByID(ValidateFormID).validate();
 
+    //- successful validation
     if (Result == true)
     {
         //- navigate right / left
@@ -299,6 +331,36 @@ userObjExampleWizard.prototype.processCallback = function(FunctionID, Arguments)
         //- calculate progress percentage
         const PercentageCompleted = (100/this.StepCount)*(this.StepIndex+1);
         this.ProgressBarObj.RuntimeSetDataFunc(PercentageCompleted);
+    }
+
+    //- on last step, update check-data form
+    if (this.StepIndex == 2)
+    {
+        const SourceData1 = sysConvertSysData2KeyValue(
+            this.getObjectByID('ExamplesBasicWizardTab1Formlist').getObjectData()
+        );
+        const SourceData2 = sysConvertSysData2KeyValue(
+            this.getObjectByID('ExamplesBasicWizardTab2Formlist').getObjectData()
+        );
+        console.debug('::ExampleWizard s1:%o s2:%o', SourceData1, SourceData2);
+
+        const DstObject = this.getObjectByID('ExamplesBasicWizardTab3Formlist');
+        DstObject.setObjectData(
+            sysConvertSysDataArray2Object(
+                [
+                    { "KeyID": "PersonNameCheck", "ObjectValue": SourceData1.PersonName },
+                    { "KeyID": "PersonSurenameCheck", "ObjectValue": SourceData1.PersonSurename },
+                    { "KeyID": "PersonMailCheck", "ObjectValue": SourceData1.PersonMail },
+                    { "KeyID": "PersonAddressStreetCheck", "ObjectValue": SourceData2.PersonAddressStreet },
+                    { "KeyID": "PersonAddressStreetNrCheck", "ObjectValue": SourceData2.PersonAddressStreetNr },
+                    { "KeyID": "ContractAcceptedCheck", "ObjectValue": SourceData2.ContractAccepted }
+                ]
+            )
+        );
+
+        //- enable / disable submit button
+        const ButtonObject = this.getObjectByID('ExamplesBasicWizardTab3SubmitButton');
+        (SourceData2.ContractAccepted == 'Accepted') ? ButtonObject.enable() : ButtonObject.disable();
     }
 }
 

@@ -40,10 +40,10 @@ sysMergeObjects = function(Object1, Object2)
 
 
 //------------------------------------------------------------------------------
-//- METHOD "sysConvertData2KeyValue"
+//- METHOD "sysConvertSysData2KeyValue"
 //------------------------------------------------------------------------------
 
-sysConvertData2KeyValue = function(Data)
+sysConvertSysData2KeyValue = function(Data)
 {
     let Result = new Object();
     for (const DataKey in Data)
@@ -52,4 +52,19 @@ sysConvertData2KeyValue = function(Data)
         Result[DataItem.KeyID] = DataItem.ObjectValue;
     }
     return Result;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "sysConvertSysDataArray2Object"
+//------------------------------------------------------------------------------
+
+sysConvertSysDataArray2Object = function(Data)
+{
+    let ConvertedData = new Object();
+    for (const DataItem of Data)
+    {
+        ConvertedData[DataItem.KeyID] = DataItem;
+    }
+    return ConvertedData;
 }
