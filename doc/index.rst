@@ -3,8 +3,6 @@
 x0 Framework Documentation
 ==========================
 
-Documentation for the 1.1.0 release candidate.
-
 .. toctree::
    :maxdepth: 2
    :caption: Getting Started
@@ -29,7 +27,6 @@ Documentation for the 1.1.0 release candidate.
    appdev-overlay
    appdev-messaging
    appdev-deployment
-   appdev-static-deployment
 
 .. toctree::
    :maxdepth: 2

@@ -25,10 +25,11 @@ fired.
 15.2. Raising Events
 --------------------
 
-Buttons and internal buttons can raise configured events.
+The following *x0-object-types* support raising events.
 
 * Button
 * ButtonInternal
+* Link
 
 .. _appdevcontrolflow:
 
@@ -61,9 +62,18 @@ they are processed.
 
 .. _appdevcontrollink:
 
-16.3. Screen and Overlay Actions
---------------------------------
+16.3. Link
+----------
 
-Use button actions to change screens or open overlays. The legacy ``Link`` and
-``LinkExternal`` object types are not part of the current runtime object
-registry; use supported button actions for in-application control flow.
+* Set Screen CSS Style
+* Switch Screen
+* Open Screen Overlay
+* Fire Events
+
+.. _appdevcontrollinkext:
+
+16.4. LinkExternal
+------------------
+
+* Open External Link in current Browser Window
+* Open External Link in new Browser Tab
