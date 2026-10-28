@@ -4,7 +4,7 @@ body {
 }
 
 .required::before {
-    content: "*";
+    content: "* ";
     color: red;
 }
 
@@ -14,6 +14,10 @@ body {
     left: 0px;
     right: 0px;
     bottom: 0px;
+}
+
+.overlay-positioned {
+    position: absolute;
 }
 
 .menu-absolute-pos {
@@ -84,4 +88,11 @@ body {
 
 .example-item-container1-hrcolor {
     color: #111111;
+}
+
+.example-card-border {
+    background-color: #f2f2f2 !important;
+    border-style: solid !important;
+    border-width: 1px 2px 2px 1px !important;
+    border-color: #f1f1f3 #dddde6 #dddde6 #f1f1f3 !important;
 }
