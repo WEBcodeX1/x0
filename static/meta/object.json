@@ -41,6 +41,12 @@
 						},
 						{
 							"Type": "Item",
+							"TextID": "TXT.TREE.ITEM.EXAMPLES_EDITABLE_TEMPLATES",
+							"Icon": "fa-solid fa-edit",
+							"DstScreenID": "ExamplesEditableTemplates"
+						},
+						{
+							"Type": "Item",
 							"TextID": "TXT.TREE.ITEM.EXAMPLES_DRAG_AND_DROP",
 							"Icon": "fa-solid fa-grip-vertical",
 							"DstScreenID": "ExamplesDragDrop"
@@ -132,8 +138,8 @@
 		"Type": "SQLText",
 		"Attributes": {
 			"DOMType": "h1",
-			"TextID": "TXT.HEADER.INTRODUCTION",
-			"Style": "text-primary-emphasis"
+			"Style": "text-primary-emphasis",
+			"TextID": "TXT.HEADER.INTRODUCTION"
 		}
 	},
 
@@ -454,22 +460,13 @@
 		{
 			"Tabs": [
 				{
-					"ID": "TabExamplesBasicSimpleTemplateEditable",
-					"Attributes":
-					{
-						"Default": true,
-						"TextID": "TXT.TABCONTAINER.EXAMPLES_BASIC.TEMPLATE_EDITABLE",
-						"Style": "col-md-3",
-						"IconStyle": "fa-solid fa-edit"
-					}
-				},
-				{
 					"ID": "TabExamplesBasicProgressAndSliders",
 					"Attributes":
 					{
 						"TextID": "TXT.TABCONTAINER.EXAMPLES_BASIC.PROGRESS_AND_SLIDERS",
 						"Style": "col-md-3",
-						"IconStyle": "fa-solid fa-hourglass-half"
+						"IconStyle": "fa-solid fa-hourglass-half",
+						"Default": true
 					}
 				},
 				{
@@ -491,6 +488,84 @@
 					}
 				}
 			]
+		}
+	},
+
+	"ExamplesBasicEditableTemplatesCardContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card"
+		}
+	},
+
+	"ExamplesBasicEditableTemplatesHeaderContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-header"
+		}
+	},
+
+	"ExamplesBasicEditableTemplatesHeaderContainerRow":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row p-0 m-0"
+		}
+	},
+
+	"ExamplesBasicEditableTemplatesHeaderContainerColHeader":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-9"
+		}
+	},
+
+	"ExamplesBasicEditableTemplatesHeaderContainerColIcon":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-3 p-0 pe-1 h1 fw-bold text-end text-primary-emphasis",
+			"Value": "<i class=\"fa-solid fa-edit\">"
+		}
+	},
+
+	"ExamplesBasicEditableTemplatesHeader":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "h1",
+			"TextID": "TXT.HEADER.EXAMPLES_BASIC.EDITABLE_TEMPLATES",
+			"Style": "text-primary-emphasis"
+		}
+	},
+
+	"ExamplesBasicEditableTemplatesBodyContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-body"
+		}
+	},
+
+	"ExamplesBasicEditableTemplatesBodyInfo":
+	{
+		"Type": "InfoParagraph",
+		"Attributes": {
+			"Text": [
+				{ "ID": "TXT.EXAMPLES_BASIC.EDITABLE_TEMPLATES.INFOPARAGRAPH.START", "Style": "h4 text-dark text-opacity-75 fw-bold", "IconStyle": "fa-solid fa-edit" },
+				{ "ID": "TXT.EXAMPLES_BASIC.EDITABLE_TEMPLATES..PARAGRAPH1", "Style": "pt-2 p-1 text-dark text-opacitiy-75", "IconStyle": "fa-solid fa-arrow-right" }
+			]
+		}
+	},
+
+	"ExamplesBasicEditableTemplatesSpacerTop":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "container p-2 pt-3"
 		}
 	},
 
@@ -523,7 +598,7 @@
 		"Type": "SQLText",
 		"Attributes": {
 			"DOMType": "h4",
-			"Style": "m-0 p-3 text-primary-emphasis border border-top-0",
+			"Style": "m-0 p-3 text-primary-emphasis border",
 			"TextID": "TXT.HEADER.EXAMPLES_BASIC.EDITABLE_ITEM1"
 		}
 	},
@@ -541,7 +616,7 @@
 		"Type": "Button",
 		"Attributes": {
 			"TextID": "TXT.BUTTON.EXAMPLE.TEMPLATE1.ADD_ITEM",
-			"Style": "btn btn-primary btn-lg w-100 mt-2 mb-2",
+			"Style": "btn btn-primary w-100 mt-2 mb-2",
 			"IconStylePost": "fa-solid fa-arrow-down",
 			"Action": "append",
 			"SrcDataObject": "ExamplesBasicEditableTemplate1EditableItem",
@@ -553,21 +628,25 @@
 	{
 		"Type": "ExampleEditableItemContainer",
 		"Attributes": {
-			"Editable": true,
 			"HeaderTextID": "TXT.HEADER.EXAMPLES_BASIC_EDITABLE_TEMPLATE1_HEADER",
 			"HeaderStyle": "h3 text-primary-emphasis",
 			"HeaderIconStyle": "fa-solid fa-card-shopping"
 		}
 	},
 
-	"ExamplesBasicEditableTemplate2EditableItemHeader":
+	"ExamplesBasicEditableTemplate2CardTasklistsHeader":
 	{
 		"Type": "SQLText",
 		"Attributes": {
 			"DOMType": "h4",
-			"Style": "m-0 p-3 text-primary-emphasis border border-top-0 border-start-0",
+			"Style": "m-0 p-3 text-primary-emphasis border border-start-0",
 			"TextID": "TXT.HEADER.EXAMPLES_BASIC.EDITABLE_ITEM2"
 		}
+	},
+
+	"ExamplesBasicEditableTemplate2CardTasklists":
+	{
+		"Type": "ExampleCardTasklist"
 	},
 
 	"ExamplesBasicSlidersRow":
@@ -591,7 +670,7 @@
 		"Type": "SQLText",
 		"Attributes": {
 			"DOMType": "h4",
-			"Style": "m-0 p-3 text-primary-emphasis border border-top-0",
+			"Style": "m-0 p-3 text-primary-emphasis border border-top-0 border-end-0",
 			"TextID": "TXT.HEADER.EXAMPLES_BASIC.SLIDERS.TIMER_CONTROLLED"
 		}
 	},
@@ -606,17 +685,29 @@
 
 	"ExamplesBasicSlidersSlider1":
 	{
-		"Type": "TimedProgress"
+		"Type": "TimedProgress",
+		"Attributes": {
+			"Interval": 100,
+			"IncreaseBy": 1
+		}
 	},
 
 	"ExamplesBasicSlidersSlider2":
 	{
-		"Type": "TimedProgress"
+		"Type": "TimedProgress",
+		"Attributes": {
+			"Interval": 120,
+			"IncreaseBy": 2
+		}
 	},
 
 	"ExamplesBasicSlidersSlider3":
 	{
-		"Type": "TimedProgress"
+		"Type": "TimedProgress",
+		"Attributes": {
+			"Interval": 150,
+			"IncreaseBy": 5
+		}
 	},
 
 	"ExamplesBasicSlidersStepControlledHeader":
@@ -624,7 +715,7 @@
 		"Type": "SQLText",
 		"Attributes": {
 			"DOMType": "h4",
-			"Style": "m-0 p-3 text-primary-emphasis border border-top-0 border-start-0",
+			"Style": "m-0 p-3 text-primary-emphasis border border-top-0",
 			"TextID": "TXT.HEADER.EXAMPLES_BASIC.SLIDERS.STEP_CONTROLLED"
 		}
 	},
@@ -642,7 +733,7 @@
 		"Attributes": {
 			"Style": "p-1 w-100 text-primary-emphasis",
 			"TextStyle": "required",
-			"IconStyle": "fa-solid fa-key",
+			"IconStyle": "fa-solid fa-user",
 			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.NAME"
 		}
 	},
@@ -652,6 +743,7 @@
 		"Type": "FormfieldText",
 		"Attributes": {
 			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"Placeholder": "Michael",
 			"ValidateRef": "NameGerman",
 			"ValidateErrorTextID": "TXT.VALIDATE.PERSON.GERMAN_NAME"
 		}
@@ -663,7 +755,7 @@
 		"Attributes": {
 			"Style": "p-1 w-100 text-primary-emphasis",
 			"TextStyle": "required",
-			"IconStyle": "fa-solid fa-key",
+			"IconStyle": "fa-solid fa-user-tag",
 			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.SURENAME"
 		}
 	},
@@ -673,6 +765,7 @@
 		"Type": "FormfieldText",
 		"Attributes": {
 			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"Placeholder": "Meier",
 			"ValidateRef": "NameGerman",
 			"ValidateErrorTextID": "TXT.VALIDATE.PERSON.GERMAN_NAME"
 		}
@@ -684,7 +777,7 @@
 		"Attributes": {
 			"Style": "p-1 w-100 text-primary-emphasis",
 			"TextStyle": "required",
-			"IconStyle": "fa-solid fa-key",
+			"IconStyle": "fa-solid fa-envelope",
 			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.EMAIL"
 		}
 	},
@@ -694,6 +787,7 @@
 		"Type": "FormfieldText",
 		"Attributes": {
 			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"Placeholder": "michael@michael-meier.de",
 			"ValidateRef": "MailAddress"
 		}
 	},
@@ -703,8 +797,7 @@
 		"Type": "FormfieldLabel",
 		"Attributes": {
 			"Style": "p-1 w-100 text-primary-emphasis",
-			"TextStyle": "required",
-			"IconStyle": "fa-solid fa-key",
+			"IconStyle": "fa-solid fa-calendar-days",
 			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.AGE"
 		}
 	},
@@ -716,17 +809,21 @@
 			"Style": "form-select m-1 p-2 border-secondary w-100 text-primary-emphasis",
 			"Options": [
 				{
-					"TextID": "TXT.EXAMPLE.WIZARD.PERSON_AGE.YOUNG",
-					"Value": "10"
-				},
-				{
-					"TextID": "TXT.EXAMPLE.WIZARD.PERSON_AGE.MIDDLE_AGE",
-					"Value": "20",
+					"TextID": "TXT.EXAMPLE.WIZARD.PERSON_AGE.NOT_SELECTED",
+					"Value": 0,
 					"Default": true
 				},
 				{
+					"TextID": "TXT.EXAMPLE.WIZARD.PERSON_AGE.YOUNG",
+					"Value": 10
+				},
+				{
+					"TextID": "TXT.EXAMPLE.WIZARD.PERSON_AGE.MIDDLE_AGE",
+					"Value": 20
+				},
+				{
 					"TextID": "TXT.EXAMPLE.WIZARD.PERSON_AGE.OLD",
-					"Value": "30"
+					"Value": 30
 				}
 			]
 		}
@@ -738,7 +835,7 @@
 		"Attributes": {
 			"Style": "p-1 w-100 text-primary-emphasis",
 			"TextStyle": "required",
-			"IconStyle": "fa-solid fa-key",
+			"IconStyle": "fa-solid fa-user",
 			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.LOGIN_NAME"
 		}
 	},
@@ -748,6 +845,7 @@
 		"Type": "FormfieldText",
 		"Attributes": {
 			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"Placeholder": "micha747",
 			"ValidateRef": "UserName"
 		}
 	},
@@ -768,6 +866,7 @@
 		"Type": "FormfieldText",
 		"Attributes": {
 			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"Placeholder": "secretpass",
 			"Type": "password",
 			"ValidateRef": "UserPass"
 		}
@@ -778,7 +877,8 @@
 		"Type": "FormfieldLabel",
 		"Attributes": {
 			"Style": "p-1 w-100 text-primary-emphasis",
-			"IconStyle": "fa-solid fa-key",
+			"TextStyle": "required",
+			"IconStyle": "fa-solid fa-road",
 			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.ADDRESS.STREET"
 		}
 	},
@@ -797,7 +897,8 @@
 		"Type": "FormfieldLabel",
 		"Attributes": {
 			"Style": "p-1 w-100 text-primary-emphasis",
-			"IconStyle": "fa-solid fa-key",
+			"TextStyle": "required",
+			"IconStyle": "fa-solid fa-hashtag",
 			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.ADDRESS.STREET_NR"
 		}
 	},
@@ -806,25 +907,66 @@
 	{
 		"Type": "FormfieldText",
 		"Attributes": {
-			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis"
+			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"ValidateRef": "StreetNr"
 		}
 	},
 
-	"PersonTelephoneNumberTypeLabel":
+	"PersonAddressZipcodeLabel":
 	{
 		"Type": "FormfieldLabel",
 		"Attributes": {
 			"Style": "p-1 w-100 text-primary-emphasis",
-			"IconStyle": "fa-solid fa-key",
+			"TextStyle": "required",
+			"IconStyle": "fa-solid fa-map-pin",
+			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.ADDRESS.ZIPCODE"
+		}
+	},
+
+	"PersonAddressZipcode":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"ValidateRef": "ZipCodeGerman"
+		}
+	},
+
+	"PersonAddressCityLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"TextStyle": "required",
+			"IconStyle": "fa-solid fa-city",
+			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.ADDRESS.CITY"
+		}
+	},
+
+	"PersonAddressCity":
+	{
+		"Type": "FormfieldText",
+		"Attributes": {
+			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"ValidateRef": "DefaultString"
+		}
+	},
+
+	"PersonTelephoneNumberPrefixLabel":
+	{
+		"Type": "FormfieldLabel",
+		"Attributes": {
+			"Style": "p-1 w-100 text-primary-emphasis",
+			"IconStyle": "fa-solid fa-globe",
 			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.PHONE_TYPE"
 		}
 	},
 
-	"PersonTelephoneNumberType":
+	"PersonTelephoneNumberPrefix":
 	{
 		"Type": "FormfieldText",
 		"Attributes": {
-			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis"
 		}
 	},
 
@@ -833,7 +975,7 @@
 		"Type": "FormfieldLabel",
 		"Attributes": {
 			"Style": "p-1 w-100 text-primary-emphasis",
-			"IconStyle": "fa-solid fa-key",
+			"IconStyle": "fa-solid fa-phone",
 			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.PHONE_NUMBER"
 		}
 	},
@@ -846,21 +988,36 @@
 		}
 	},
 
-	"PersonGroupMainLabel":
+	"PersonGenderLabel":
 	{
 		"Type": "FormfieldLabel",
 		"Attributes": {
 			"Style": "p-1 w-100 text-primary-emphasis",
-			"IconStyle": "fa-solid fa-key",
-			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.GROUP"
+			"IconStyle": "fa-solid fa-venus-mars",
+			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.GENDER"
 		}
 	},
 
-	"PersonGroupMain":
+	"PersonGender":
 	{
-		"Type": "FormfieldText",
+		"Type": "FormfieldPulldown",
 		"Attributes": {
-			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+			"Style": "form-select m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"Options": [
+				{
+					"TextID": "TXT.EXAMPLE.WIZARD.PERSON_GENDER.NONE",
+					"Value": "none",
+					"Default": true
+				},
+				{
+					"TextID": "TXT.EXAMPLE.WIZARD.PERSON_GENDER.MALE",
+					"Value": "male"
+				},
+				{
+					"TextID": "TXT.EXAMPLE.WIZARD.PERSON_GENDER.FEMALE",
+					"Value": "female"
+				}
+			]
 		}
 	},
 
@@ -869,72 +1026,82 @@
 		"Type": "FormfieldLabel",
 		"Attributes": {
 			"Style": "p-1 w-100 text-primary-emphasis",
-			"IconStyle": "fa-solid fa-key",
+			"TextStyle": "required",
+			"IconStyle": "fa-solid fa-file-contract",
 			"TextID": "TXT.FORMFIELD.EXAMPLE_WIZARD.ACCEPT.CONTRACT"
 		}
 	},
 
 	"ContractAccepted":
 	{
-		"Type": "FormfieldText",
+		"Type": "FormfieldPulldown",
 		"Attributes": {
-			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+			"Style": "form-select m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"Options": [
+				{
+					"TextID": "TXT.EXAMPLE.WIZARD.CONTRACT.NOT_ACCEPTED",
+					"Value": "Not Accepted",
+					"Default": true
+				},
+				{
+					"TextID": "TXT.EXAMPLE.WIZARD.CONTRACT.ACCEPTED",
+					"Value": "Accepted"
+				}
+			]
 		}
 	},
 
-	"PersonNameDisplay":
+	"PersonNameCheck":
 	{
 		"Type": "FormfieldText",
 		"Attributes": {
-			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis",
+			"Disabled": true
 		}
 	},
 
-	"PersonSurenameDisplay":
+	"PersonSurenameCheck":
 	{
 		"Type": "FormfieldText",
 		"Attributes": {
-			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis",
+			"Disabled": true
 		}
 	},
 
-	"PersonMailDisplay":
+	"PersonMailCheck":
 	{
 		"Type": "FormfieldText",
 		"Attributes": {
-			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis",
+			"Disabled": true
 		}
 	},
 
-	"PersonAgeDisplay":
+	"PersonAddressStreetCheck":
 	{
 		"Type": "FormfieldText",
 		"Attributes": {
-			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis",
+			"Disabled": true
 		}
 	},
 
-	"PersonAddressStreetDisplay":
+	"PersonAddressStreetNrCheck":
 	{
 		"Type": "FormfieldText",
 		"Attributes": {
-			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis",
+			"Disabled": true
 		}
 	},
 
-	"PersonAddressStreetNrDisplay":
+	"ContractAcceptedCheck":
 	{
 		"Type": "FormfieldText",
 		"Attributes": {
-			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
-		}
-	},
-
-	"PersonTelephoneNumberDisplay":
-	{
-		"Type": "FormfieldText",
-		"Attributes": {
-			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis"
+			"Style": "form-control m-1 p-2 w-100 text-primary-emphasis",
+			"Disabled": true
 		}
 	},
 
@@ -1193,15 +1360,15 @@
 			"Options": [
 				{
 					"TextID": "TXT.EXAMPLE.IMAGESELECTOR.PATH_STATIC",
-					"Value": "50"
+					"Value": 50
 				},
 				{
 					"TextID": "TXT.EXAMPLE.IMAGESELECTOR.PATH_IMAGES",
-					"Value": "80"
+					"Value": 80
 				},
 				{
 					"TextID": "TXT.EXAMPLE.IMAGESELECTOR.PATH_STATIC_IMAGES",
-					"Value": "120",
+					"Value": 120,
 					"Default": true
 				}
 			]
@@ -1234,12 +1401,45 @@
 		}
 	},
 
+	"ExamplesCopyPasteHeaderContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-header"
+		}
+	},
+
+	"ExamplesCopyPasteHeaderContainerRow":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row p-0 m-0"
+		}
+	},
+
+	"ExamplesCopyPasteHeaderContainerColHeader":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-9"
+		}
+	},
+
+	"ExamplesCopyPasteHeaderContainerColIcon":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-3 p-0 pe-1 h1 fw-bold text-end text-primary-emphasis",
+			"Value": "<i class=\"fa-solid fa-clipboard\">"
+		}
+	},
+
 	"ExamplesCopyPasteHeader":
 	{
 		"Type": "SQLText",
 		"Attributes": {
 			"DOMType": "h1",
-			"Style": "card-header text-primary-emphasis",
+			"Style": "text-primary-emphasis",
 			"TextID": "TXT.HEADER.EXAMPLES_COPY_PASTE"
 		}
 	},
@@ -1268,6 +1468,15 @@
 		"Type": "DivUnique",
 		"Attributes": {
 			"Style": "container p-2"
+		}
+	},
+
+	"ExamplesCopyPasteFormSourceDescription":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"TextID": "TXT.HEADER.EXAMPLES.COPY_PASTE.SOURCE_FORM",
+			"Style": "m-0 p-2 ps-3 h4 border border-bottom-0 rounded text-primary-emphasis"
 		}
 	},
 
@@ -1367,20 +1576,20 @@
 			"Options": [
 				{
 					"TextID": "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_TELECOM",
-					"Value": "10"
+					"Value": 10
 				},
 				{
 					"TextID": "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_HUMAN_RESSOURCES",
-					"Value": "20"
+					"Value": 20
 				},
 				{
 					"TextID": "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_ACCOUNTING",
-					"Value": "30",
+					"Value": 30,
 					"Default": true
 				},
 				{
 					"TextID": "TXT.EXAMPLES.COPYPASTE.PULLDOWN_OPT.TEAM_INSTALLATION",
-					"Value": "40"
+					"Value": 40
 				}
 			]
 		}
@@ -1574,13 +1783,46 @@
 		}
 	},
 
+	"ExamplesOverlayHeaderContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-header"
+		}
+	},
+
+	"ExamplesOverlayHeaderContainerRow":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row p-0 m-0"
+		}
+	},
+
+	"ExamplesOverlayHeaderContainerColHeader":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-9"
+		}
+	},
+
+	"ExamplesOverlayHeaderContainerColIcon":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-3 p-0 pe-1 h1 fw-bold text-end text-primary-emphasis",
+			"Value": "<i class=\"fa-solid fa-layer-group\">"
+		}
+	},
+
 	"ExamplesOverlayHeader":
 	{
 		"Type": "SQLText",
 		"Attributes": {
 			"DOMType": "h1",
-			"Style": "card-header",
-			"TextID": "TXT.HEADER.EXAMPLES_COPY_PASTE"
+			"Style": "text-primary-emphasis",
+			"TextID": "TXT.HEADER.EXAMPLES_OVERLAY"
 		}
 	},
 
@@ -1624,6 +1866,16 @@
 		"Type": "DivUnique",
 		"Attributes": {
 			"Style": "col col-md-6"
+		}
+	},
+
+	"ExamplesOverlayFormlistPre":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "h3",
+			"Style": "p-1 ps-2 border border-bottom-0 text-primary-emphasis m-0 rounded-top",
+			"TextID": "TXT.EXAMPLES.OVERLAY.FORMLIST.DESCRIPTION"
 		}
 	},
 
@@ -1736,12 +1988,45 @@
 		}
 	},
 
+	"SettingsGlobalHeaderContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-header"
+		}
+	},
+
+	"SettingsGlobalHeaderContainerRow":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row p-0 m-0"
+		}
+	},
+
+	"SettingsGlobalHeaderContainerColHeader":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-9"
+		}
+	},
+
+	"SettingsGlobalHeaderContainerColIcon":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-3 p-0 pe-1 h1 fw-bold text-end text-primary-emphasis",
+			"Value": "<i class=\"fa-solid fa-gear\">"
+		}
+	},
+
 	"SettingsGlobalHeader":
 	{
 		"Type": "SQLText",
 		"Attributes": {
 			"DOMType": "h1",
-			"Style": "card-header",
+			"Style": "text-primary-emphasis",
 			"TextID": "TXT.HEADER.SETTINGS_GLOBAL"
 		}
 	},
@@ -1845,11 +2130,11 @@
 							"Options": [
 								{
 									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.THEME.DARK",
-									"Value": "10"
+									"Value": 10
 								},
 								{
 									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.THEME.LIGHT",
-									"Value": "20",
+									"Value": 20,
 									"Default": true
 								}
 							]
@@ -1866,16 +2151,16 @@
 							"Options": [
 								{
 									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.DEBUGLEVEL.INFO",
-									"Value": "10"
+									"Value": 10
 								},
 								{
 									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.DEBUGLEVEL.WARNING",
-									"Value": "20",
+									"Value": 20,
 									"Default": true
 								},
 								{
 									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.DEBUGLEVEL.ERROR",
-									"Value": "30"
+									"Value": 30
 								}
 							]
 						}
@@ -1927,11 +2212,11 @@
 							"Options": [
 								{
 									"TextID": "TXT.SYSTEMSETTINGS.MSGSERVER.PULLDOWN_OPT.REQUEST_METHOD.WEBSOCKETS",
-									"Value": "10"
+									"Value": 10
 								},
 								{
 									"TextID": "TXT.SYSTEMSETTINGS.MSGSERVER.PULLDOWN_OPT.REQUEST_METHOD.LONGPOLLING",
-									"Value": "20",
+									"Value": 20,
 									"Default": true
 								}
 							]
@@ -2027,16 +2312,16 @@
 							"Options": [
 								{
 									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.REFRESHRATE.60HZ",
-									"Value": "60"
+									"Value": 60
 								},
 								{
 									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.REFRESHRATE.120HZ",
-									"Value": "120",
+									"Value": 120,
 									"Default": true
 								},
 								{
 									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.REFRESHRATE.200HZ",
-									"Value": "200"
+									"Value": 200
 								}
 							]
 						}
@@ -2347,12 +2632,45 @@
 		}
 	},
 
+	"SettingsLanguageHeaderContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-header"
+		}
+	},
+
+	"SettingsLanguageHeaderContainerRow":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row p-0 m-0"
+		}
+	},
+
+	"SettingsLanguageHeaderContainerColHeader":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-9"
+		}
+	},
+
+	"SettingsLanguageHeaderContainerColIcon":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-3 p-0 pe-1 h1 fw-bold text-end text-primary-emphasis",
+			"Value": "<i class=\"fa-solid fa-language\">"
+		}
+	},
+
 	"SettingsLanguageHeader":
 	{
 		"Type": "SQLText",
 		"Attributes": {
 			"DOMType": "h1",
-			"Style": "card-header",
+			"Style": "text-primary-emphasis",
 			"TextID": "TXT.HEADER.SETTINGS_LANGUAGE"
 		}
 	},
@@ -2362,16 +2680,6 @@
 		"Type": "DivUnique",
 		"Attributes": {
 			"Style": "card-body"
-		}
-	},
-
-	"SettingsLanguageBodyTitle":
-	{
-		"Type": "SQLText",
-		"Attributes": {
-			"Style": "card-title h1",
-			"IconStyle": "fa-solid fa-language",
-			"TextID": "TXT.CARD.SETTINGS_LANGUAGE"
 		}
 	},
 
@@ -2494,5 +2802,16 @@
 			"ObjectIDs": [
 			]
 		}
+	},
+
+	"OverlayGlobalBadgesList":
+	{
+		"Type": "BadgeSelector"
+	},
+
+	"OverlayGlobalCollaboratorsList":
+	{
+		"Type": "ExamplePeopleSelector"
 	}
+
 }

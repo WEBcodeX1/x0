@@ -272,55 +272,6 @@
 			}
 		},
 		{
-			"ExamplesBasicEditableTemplatesRow":
-			{
-				"RefID": "ExamplesBasicTabs",
-				"ElementID": "TabExamplesBasicSimpleTemplateEditableContent"
-			}
-		},
-		{
-			"ExamplesBasicEditableTemplatesColLeft":
-			{
-				"RefID": "ExamplesBasicEditableTemplatesRow"
-			}
-		},
-		{
-			"ExamplesBasicEditableTemplatesColRight":
-			{
-				"RefID": "ExamplesBasicEditableTemplatesRow"
-			}
-		},
-		{
-			"ExamplesBasicEditableTemplate1EditableItemHeader":
-			{
-				"RefID": "ExamplesBasicEditableTemplatesColLeft"
-			}
-		},
-		{
-			"ExamplesBasicEditableTemplate1EditableItem":
-			{
-				"RefID": "ExamplesBasicEditableTemplatesColLeft"
-			}
-		},
-		{
-			"ExamplesBasicEditableTemplate1AddItemButton":
-			{
-				"RefID": "ExamplesBasicEditableTemplatesColLeft"
-			}
-		},
-		{
-			"ExamplesBasicEditableTemplate1":
-			{
-				"RefID": "ExamplesBasicEditableTemplatesColLeft"
-			}
-		},
-		{
-			"ExamplesBasicEditableTemplate2EditableItemHeader":
-			{
-				"RefID": "ExamplesBasicEditableTemplatesColRight"
-			}
-		},
-		{
 			"ExamplesBasicSlidersRow":
 			{
 				"RefID": "ExamplesBasicTabs",
@@ -400,9 +351,33 @@
 			}
 		},
 		{
-			"ExamplesCopyPasteHeader":
+			"ExamplesCopyPasteHeaderContainer":
 			{
 				"RefID": "ExamplesCopyPasteCardContainer"
+			}
+		},
+		{
+			"ExamplesCopyPasteHeaderContainerRow":
+			{
+				"RefID": "ExamplesCopyPasteHeaderContainer"
+			}
+		},
+		{
+			"ExamplesCopyPasteHeaderContainerColHeader":
+			{
+				"RefID": "ExamplesCopyPasteHeaderContainerRow"
+			}
+		},
+		{
+			"ExamplesCopyPasteHeaderContainerColIcon":
+			{
+				"RefID": "ExamplesCopyPasteHeaderContainerRow"
+			}
+		},
+		{
+			"ExamplesCopyPasteHeader":
+			{
+				"RefID": "ExamplesCopyPasteHeaderContainerColHeader"
 			}
 		},
 		{
@@ -419,6 +394,12 @@
 		},
 		{
 			"ExamplesCopyPasteSpacerTop":
+			{
+				"RefID": "ExamplesCopyPasteBodyContainer"
+			}
+		},
+		{
+			"ExamplesCopyPasteFormSourceDescription":
 			{
 				"RefID": "ExamplesCopyPasteBodyContainer"
 			}
@@ -464,6 +445,118 @@
 		}
 	],
 
+	"ExamplesEditableTemplates":
+	[
+		{
+			"ExamplesBasicEditableTemplatesCardContainer":
+			{
+				"RefID": "ExamplesEditableTemplates"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplatesHeaderContainer":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesCardContainer"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplatesHeaderContainerRow":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesHeaderContainer"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplatesHeaderContainerColHeader":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesHeaderContainerRow"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplatesHeaderContainerColIcon":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesHeaderContainerRow"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplatesHeader":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesHeaderContainerColHeader"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplatesBodyContainer":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesCardContainer"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplatesBodyInfo":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesBodyContainer"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplatesSpacerTop":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesBodyContainer"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplatesRow":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesBodyContainer"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplatesColLeft":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesRow"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplatesColRight":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesRow"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplate1EditableItemHeader":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesColLeft"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplate1EditableItem":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesColLeft"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplate1AddItemButton":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesColLeft"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplate1":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesColLeft"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplate2CardTasklistsHeader":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesColRight"
+			}
+		},
+		{
+			"ExamplesBasicEditableTemplate2CardTasklists":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesColRight"
+			}
+		}
+	],
+
 	"ExamplesDragDrop":
 	[
 	],
@@ -477,9 +570,33 @@
 			}
 		},
 		{
-			"ExamplesOverlayHeader":
+			"ExamplesOverlayHeaderContainer":
 			{
 				"RefID": "ExamplesOverlayCardContainer"
+			}
+		},
+		{
+			"ExamplesOverlayHeaderContainerRow":
+			{
+				"RefID": "ExamplesOverlayHeaderContainer"
+			}
+		},
+		{
+			"ExamplesOverlayHeaderContainerColHeader":
+			{
+				"RefID": "ExamplesOverlayHeaderContainerRow"
+			}
+		},
+		{
+			"ExamplesOverlayHeaderContainerColIcon":
+			{
+				"RefID": "ExamplesOverlayHeaderContainerRow"
+			}
+		},
+		{
+			"ExamplesOverlayHeader":
+			{
+				"RefID": "ExamplesOverlayHeaderContainerColHeader"
 			}
 		},
 		{
@@ -519,6 +636,12 @@
 			}
 		},
 		{
+			"ExamplesOverlayFormlistPre":
+			{
+				"RefID": "ExamplesOverlayColFormlist"
+			}
+		},
+		{
 			"ExamplesOverlayFormlist":
 			{
 				"RefID": "ExamplesOverlayColFormlist"
@@ -541,9 +664,33 @@
 			}
 		},
 		{
-			"SettingsGlobalHeader":
+			"SettingsGlobalHeaderContainer":
 			{
 				"RefID": "SettingsGlobalCardContainer"
+			}
+		},
+		{
+			"SettingsGlobalHeaderContainerRow":
+			{
+				"RefID": "SettingsGlobalHeaderContainer"
+			}
+		},
+		{
+			"SettingsGlobalHeaderContainerColHeader":
+			{
+				"RefID": "SettingsGlobalHeaderContainerRow"
+			}
+		},
+		{
+			"SettingsGlobalHeaderContainerColIcon":
+			{
+				"RefID": "SettingsGlobalHeaderContainerRow"
+			}
+		},
+		{
+			"SettingsGlobalHeader":
+			{
+				"RefID": "SettingsGlobalHeaderContainerColHeader"
 			}
 		},
 		{
@@ -716,21 +863,39 @@
 			}
 		},
 		{
-			"SettingsLanguageHeader":
+			"SettingsLanguageHeaderContainer":
 			{
 				"RefID": "SettingsLanguageCardContainer"
+			}
+		},
+		{
+			"SettingsLanguageHeaderContainerRow":
+			{
+				"RefID": "SettingsLanguageHeaderContainer"
+			}
+		},
+		{
+			"SettingsLanguageHeaderContainerColHeader":
+			{
+				"RefID": "SettingsLanguageHeaderContainerRow"
+			}
+		},
+		{
+			"SettingsLanguageHeaderContainerColIcon":
+			{
+				"RefID": "SettingsLanguageHeaderContainerRow"
+			}
+		},
+		{
+			"SettingsLanguageHeader":
+			{
+				"RefID": "SettingsLanguageHeaderContainerColHeader"
 			}
 		},
 		{
 			"SettingsLanguageBodyContainer":
 			{
 				"RefID": "SettingsLanguageCardContainer"
-			}
-		},
-		{
-			"SettingsLanguageBodyTitle":
-			{
-				"RefID": "SettingsLanguageBodyContainer"
 			}
 		},
 		{
@@ -819,5 +984,26 @@
 				"RefID": "ExamplesBasicOverlayImageSelector"
 			}
 		}
+	],
+
+	"OverlayBadgeSelector":
+	[
+		{
+			"OverlayGlobalBadgesList":
+			{
+				"RefID": "OverlayBadgeSelector"
+			}
+		}
+	],
+
+	"OverlayCollaboratorSelector":
+	[
+		{
+			"OverlayGlobalCollaboratorsList":
+			{
+				"RefID": "OverlayCollaboratorSelector"
+			}
+		}
 	]
+
 }

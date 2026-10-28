@@ -87,6 +87,24 @@
         "value_de": "Editieren im Overlay",
         "value_en": "Edit in Overlay"
     },
+    "TXT.SYS.CONTEXTMENU.MENUENTRY.EDIT_DATA": {
+        "id": "TXT.SYS.CONTEXTMENU.MENUENTRY.EDIT_DATA",
+        "group": "context-menu-entry",
+        "value_de": "Eintrag editieren",
+        "value_en": "Edit entry"
+    },
+    "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_DATA": {
+        "id": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_DATA",
+        "group": "context-menu-entry",
+        "value_de": "Eintrag entfernen",
+        "value_en": "Remove entry"
+    },
+    "TXT.SYS.CONTEXTMENU.MENUENTRY.SAVE_DATA": {
+        "id": "TXT.SYS.CONTEXTMENU.MENUENTRY.SAVE_DATA",
+        "group": "context-menu-entry",
+        "value_de": "Eintrag speichern",
+        "value_en": "Save entry"
+    },
     "TXT.SYS.LANGUAGE-SWITCH-BUTTON": {
         "id": "TXT.SYS.LANGUAGE-SWITCH-BUTTON",
         "group": "button",
@@ -183,6 +201,12 @@
         "value_de": "Dateiname",
         "value_en": "Filename"
     },
+    "TXT.SYS.BADGESELECTOR.HEADER": {
+        "id": "TXT.SYS.BADGESELECTOR.HEADER",
+        "group": "sys-header",
+        "value_de": "Badge-Selektor",
+        "value_en": "Badge-Selector"
+    },
     "TXT.SYS.ERROR.FORMVALIDATE.DEFAULT": {
         "id": "TXT.SYS.ERROR.FORMVALIDATE.DEFAULT",
         "group": "form-validate",
@@ -236,6 +260,42 @@
         "group": "sys-button",
         "value_de": "Bild Daten speichern (Server)",
         "value_en": "Save Image Data (Server)"
+    },
+    "TXT.SYS.BADGE.PRIMARY": {
+        "id": "TXT.SYS.BADGE.PRIMARY",
+        "group": "sys-badge",
+        "value_de": "Primär",
+        "value_en": "Primary"
+    },
+    "TXT.SYS.BADGE.SECONDARY": {
+        "id": "TXT.SYS.BADGE.SECONDARY",
+        "group": "sys-badge",
+        "value_de": "Sekundär",
+        "value_en": "Secondary"
+    },
+    "TXT.SYS.BADGE.SUCCESS": {
+        "id": "TXT.SYS.BADGE.SUCCESS",
+        "group": "sys-badge",
+        "value_de": "Erfolg",
+        "value_en": "Success"
+    },
+    "TXT.SYS.BADGE.INFO": {
+        "id": "TXT.SYS.BADGE.INFO",
+        "group": "sys-badge",
+        "value_de": "Informell",
+        "value_en": "Info"
+    },
+    "TXT.SYS.BADGE.WARNING": {
+        "id": "TXT.SYS.BADGE.WARNING",
+        "group": "sys-badge",
+        "value_de": "Warnung",
+        "value_en": "Warning"
+    },
+    "TXT.SYS.BADGE.DANGER": {
+        "id": "TXT.SYS.BADGE.DANGER",
+        "group": "sys-badge",
+        "value_de": "Gefahr",
+        "value_en": "Danger"
     },
     "TXT.NOTE.GLOBAL": {
         "id": "TXT.NOTE.GLOBAL",
@@ -327,6 +387,12 @@
         "value_de": "Drag&Drop",
         "value_en": "Drag&Drop"
     },
+    "TXT.TREE.ITEM.EXAMPLES_EDITABLE_TEMPLATES": {
+        "id": "TXT.TREE.ITEM.EXAMPLES_EDITABLE_TEMPLATES",
+        "group": "menu-tree",
+        "value_de": "Editierbare Templates",
+        "value_en": "Editable Templates"
+    },
     "TXT.TREE.ITEM.EXAMPLES_OVERLAY": {
         "id": "TXT.TREE.ITEM.EXAMPLES_OVERLAY",
         "group": "menu-tree",
@@ -398,6 +464,18 @@
         "group": "header",
         "value_de": "Einfache Beispiele",
         "value_en": "Basic Examples"
+    },
+    "TXT.HEADER.EXAMPLES_BASIC.EDITABLE_TEMPLATES": {
+        "id": "TXT.HEADER.EXAMPLES_BASIC.EDITABLE_TEMPLATES",
+        "group": "header",
+        "value_de": "Editierbare Templates",
+        "value_en": "Editable Templates"
+    },
+    "TXT.HEADER.EXAMPLES_OVERLAY": {
+        "id": "TXT.HEADER.EXAMPLES_OVERLAY",
+        "group": "header",
+        "value_de": "Overlay",
+        "value_en": "Overlay"
     },
     "TXT.HEADER.EXAMPLES_BASIC.SLIDERS.TIMER_CONTROLLED": {
         "id": "TXT.HEADER.EXAMPLES_BASIC.SLIDERS.TIMER_CONTROLLED",
@@ -474,8 +552,8 @@
     "TXT.HEADER.EXAMPLES_BASIC_EDITABLE_TEMPLATE1_HEADER": {
         "id": "TXT.HEADER.EXAMPLES_BASIC_EDITABLE_TEMPLATE1_HEADER",
         "group": "header",
-        "value_de": "Template 1 - Bestellungs-Anmerkungen",
-        "value_en": "Template 1 - Order Remarks"
+        "value_de": "Bestellungs-Anmerkungen",
+        "value_en": "Order Remarks"
     },
     "TXT.HEADER.EXAMPLES_COPY_PASTE": {
         "id": "TXT.HEADER.EXAMPLES_COPY_PASTE",
@@ -642,14 +720,14 @@
     "TXT.EXAMPLE.EDITABLE_ITEM.PLACEHOLDER.HEADER": {
         "id": "TXT.EXAMPLE.EDITABLE_ITEM.PLACEHOLDER.HEADER",
         "group": "form-placeholder",
-        "value_de": "Bestellanmerkung Überschrift",
-        "value_en": "Order-Remark Header Text"
+        "value_de": "Anmerkung Überschrift",
+        "value_en": "Remark Header"
     },
     "TXT.EXAMPLE.EDITABLE_ITEM.PLACEHOLDER.CONTENT": {
         "id": "TXT.EXAMPLE.EDITABLE_ITEM.PLACEHOLDER.CONTENT",
         "group": "form-placeholder",
-        "value_de": "Bestellanmerkung Beschreibung",
-        "value_en": "Order-Remark Description Text"
+        "value_de": "Anmerkung Beschreibung",
+        "value_en": "Remark Description"
     },
     "TXT.BUTTON.EXAMPLE.TEMPLATE1.ADD_ITEM": {
         "id": "TXT.BUTTON.EXAMPLE.TEMPLATE1.ADD_ITEM",
@@ -1060,6 +1138,12 @@
         "value_de": "Login Passwort",
         "value_en": "Login password"
     },
+    "TXT.EXAMPLE.WIZARD.PERSON_AGE.NOT_SELECTED": {
+        "id": "TXT.EXAMPLE.WIZARD.PERSON_AGE.NOT_SELECTED",
+        "group": "pulldown-item",
+        "value_de": "Nicht ausgewählt",
+        "value_en": "Not selected"
+    },
     "TXT.EXAMPLE.WIZARD.PERSON_AGE.YOUNG": {
         "id": "TXT.EXAMPLE.WIZARD.PERSON_AGE.YOUNG",
         "group": "pulldown-item",
@@ -1078,6 +1162,42 @@
         "value_de": "60+ Jahre",
         "value_en": "60+ Years"
     },
+    "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.GENDER": {
+        "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.GENDER",
+        "group": "form-label",
+        "value_de": "Geschlecht",
+        "value_en": "Gender"
+    },
+    "TXT.EXAMPLE.WIZARD.PERSON_GENDER.NONE": {
+        "id": "TXT.EXAMPLE.WIZARD.PERSON_GENDER.NONE",
+        "group": "pulldown-item",
+        "value_de": "Keine Geschlechtszuordnung",
+        "value_en": "No gender"
+    },
+    "TXT.EXAMPLE.WIZARD.PERSON_GENDER.MALE": {
+        "id": "TXT.EXAMPLE.WIZARD.PERSON_GENDER.MALE",
+        "group": "pulldown-item",
+        "value_de": "Männlich",
+        "value_en": "Male"
+    },
+    "TXT.EXAMPLE.WIZARD.PERSON_GENDER.FEMALE": {
+        "id": "TXT.EXAMPLE.WIZARD.PERSON_GENDER.FEMALE",
+        "group": "pulldown-item",
+        "value_de": "Weiblich",
+        "value_en": "Female"
+    },
+    "TXT.EXAMPLE.WIZARD.CONTRACT.NOT_ACCEPTED": {
+        "id": "TXT.EXAMPLE.WIZARD.CONTRACT.NOT_ACCEPTED",
+        "group": "pulldown-item",
+        "value_de": "Vertrag nicht akzeptiert",
+        "value_en": "Contract not accepted"
+    },
+    "TXT.EXAMPLE.WIZARD.CONTRACT.ACCEPTED": {
+        "id": "TXT.EXAMPLE.WIZARD.CONTRACT.ACCEPTED",
+        "group": "pulldown-item",
+        "value_de": "Vertrag akzeptiert",
+        "value_en": "Contract accepted"
+    },
     "TXT.VALIDATE.PERSON.GERMAN_NAME": {
         "id": "TXT.VALIDATE.PERSON.GERMAN_NAME",
         "group": "validate-display",
@@ -1095,6 +1215,18 @@
         "group": "form-label",
         "value_de": "Nummer",
         "value_en": "Number"
+    },
+    "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.ADDRESS.ZIPCODE": {
+        "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.ADDRESS.ZIPCODE",
+        "group": "form-label",
+        "value_de": "Postleitzahl",
+        "value_en": "Zipcode"
+    },
+    "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.ADDRESS.CITY": {
+        "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.ADDRESS.CITY",
+        "group": "form-label",
+        "value_de": "Stadt",
+        "value_en": "City"
     },
     "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.PHONE_TYPE": {
         "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.PHONE_TYPE",
@@ -1119,5 +1251,143 @@
         "group": "form-label",
         "value_de": "Vertrag akzeptieren",
         "value_en": "Accept Contract"
+    },
+    "TXT.BUTTON.EXAMPLE.WIZARD.SUBMIT_FINALLY": {
+        "id": "TXT.BUTTON.EXAMPLE.WIZARD.SUBMIT_FINALLY",
+        "group": "button",
+        "value_de": "Bestellung kostenpflichtig übermitteln",
+        "value_en": "Submit order (charges apply)"
+    },
+    "TXT.EXAMPLE.CARD_TASKLISTS.CARD.PROGRESS": {
+        "id": "TXT.EXAMPLE.CARD_TASKLISTS.CARD.PROGRESS",
+        "group": "text",
+        "value_de": "Fortschritt",
+        "value_en": "Progress"
+    },
+    "TXT.BUTTON.EXAMPLE.CARD_TASKLISTS.ADD_TASKLIST": {
+        "id": "TXT.BUTTON.EXAMPLE.CARD_TASKLISTS.ADD_TASKLIST",
+        "group": "button",
+        "value_de": "Taskliste",
+        "value_en": "Tasklist"
+    },
+    "TXT.BUTTON.EXAMPLE.CARD_TASKLISTS.ADD_TASK": {
+        "id": "TXT.BUTTON.EXAMPLE.CARD_TASKLISTS.ADD_TASK",
+        "group": "button",
+        "value_de": "Task",
+        "value_en": "Task"
+    },
+    "TXT.BUTTON.EXAMPLE.CARD_TASKLISTS.SAVE_DATA": {
+        "id": "TXT.BUTTON.EXAMPLE.CARD_TASKLISTS.SAVE_DATA",
+        "group": "button",
+        "value_de": "Speichern",
+        "value_en": "Save"
+    },
+    "TXT.EXAMPLE.CARD_TASKLISTS.PLACEHOLDER.CARD_NAME": {
+        "id": "TXT.EXAMPLE.CARD_TASKLISTS.PLACEHOLDER.CARD_NAME",
+        "group": "placeholder",
+        "value_de": "Karten Name",
+        "value_en": "Card Name"
+    },
+    "TXT.EXAMPLE.CARD_TASKLISTS.PLACEHOLDER.CARD_DESCRIPTION": {
+        "id": "TXT.EXAMPLE.CARD_TASKLISTS.PLACEHOLDER.CARD_DESCRIPTION",
+        "group": "placeholder",
+        "value_de": "Karten Beschreibung",
+        "value_en": "Card Description"
+    },
+    "TXT.EXAMPLE.CARD_TASKLISTS.TASK.PRIORITY.HIGHEST": {
+        "id": "TXT.EXAMPLE.CARD_TASKLISTS.TASK.PRIORITY.HIGHEST",
+        "group": "pulldown-option",
+        "value_de": "Höchste",
+        "value_en": "Highest"
+    },
+    "TXT.EXAMPLE.CARD_TASKLISTS.TASK.PRIORITY.HIGHER": {
+        "id": "TXT.EXAMPLE.CARD_TASKLISTS.TASK.PRIORITY.HIGHER",
+        "group": "pulldown-option",
+        "value_de": "Höher",
+        "value_en": "Higher"
+    },
+    "TXT.EXAMPLE.CARD_TASKLISTS.TASK.PRIORITY.HIGH": {
+        "id": "TXT.EXAMPLE.CARD_TASKLISTS.TASK.PRIORITY.HIGH",
+        "group": "pulldown-option",
+        "value_de": "Hoch",
+        "value_en": "High"
+    },
+    "TXT.EXAMPLE.CARD_TASKLISTS.TASK.PRIORITY.MID": {
+        "id": "TXT.EXAMPLE.CARD_TASKLISTS.TASK.PRIORITY.MID",
+        "group": "pulldown-option",
+        "value_de": "Mittel",
+        "value_en": "Mid"
+    },
+    "TXT.EXAMPLE.CARD_TASKLISTS.TASK.PRIORITY.LOW": {
+        "id": "TXT.EXAMPLE.CARD_TASKLISTS.TASK.PRIORITY.LOW",
+        "group": "pulldown-option",
+        "value_de": "Niedrig",
+        "value_en": "Low"
+    },
+    "TXT.EXAMPLE.CARD_TASKLISTS.TASK.PRIORITY.LOWER": {
+        "id": "TXT.EXAMPLE.CARD_TASKLISTS.TASK.PRIORITY.LOWER",
+        "group": "pulldown-option",
+        "value_de": "Niedriger",
+        "value_en": "Lower"
+    },
+    "TXT.EXAMPLE.CARD_TASKLISTS.TASK.PRIORITY.LOWEST": {
+        "id": "TXT.EXAMPLE.CARD_TASKLISTS.TASK.PRIORITY.LOWEST",
+        "group": "pulldown-option",
+        "value_de": "Niedrigste",
+        "value_en": "Lowest"
+    },
+    "TXT.EXAMPLE.CARD_TASKLISTS.TASKLIST.LABEL.NAME": {
+        "id": "TXT.EXAMPLE.CARD_TASKLISTS.TASKLIST.LABEL.NAME",
+        "group": "label",
+        "value_de": "Listenname",
+        "value_en": "List Name"
+    },
+    "TXT.SYS.BADGESELECTOR.SELECT_BADGES": {
+        "id": "TXT.SYS.BADGESELECTOR.SELECT_BADGES",
+        "group": "button",
+        "value_de": "Selektierte Badges übernehmen",
+        "value_en": "Use selected badges"
+    },
+    "TXT.EXAMPLE.PEOPLESELECTOR.HEADER": {
+        "id": "TXT.EXAMPLE.PEOPLESELECTOR.HEADER",
+        "group": "header",
+        "value_de": "Personen-Auswahl",
+        "value_en": "People-Selector"
+    },
+    "TXT.EXAMPLE.PEOPLESELECTOR.SELECT_PEOPLES": {
+        "id": "TXT.EXAMPLE.PEOPLESELECTOR.SELECT_PEOPLES",
+        "group": "button",
+        "value_de": "Auswahl übernehmen",
+        "value_en": "Use selected people"
+    },
+    "TXT.EXAMPLE.PEOPLE_SELECTOR.BUSH_MICHAEL": {
+        "id": "TXT.EXAMPLE.PEOPLE_SELECTOR.BUSH_MICHAEL",
+        "group": "text",
+        "value_de": "Anmerkung Michael Bush",
+        "value_en": "Remark Michael Bush"
+    },
+    "TXT.EXAMPLE.PEOPLE_SELECTOR.PRUEFER_CLAUS": {
+        "id": "TXT.EXAMPLE.PEOPLE_SELECTOR.PRUEFER_CLAUS",
+        "group": "text",
+        "value_de": "Anmerkung Claus Prüfer",
+        "value_en": "Remark Claus Prüfer"
+    },
+    "TXT.EXAMPLE.PEOPLE_SELECTOR.DR_KROEMER": {
+        "id": "TXT.EXAMPLE.PEOPLE_SELECTOR.DR_KROEMER",
+        "group": "text",
+        "value_de": "Anmerkung Dr. Krömer",
+        "value_en": "Remark Dr. Krömer"
+    },
+    "TXT.HEADER.EXAMPLES.COPY_PASTE.SOURCE_FORM": {
+        "id": "TXT.HEADER.EXAMPLES.COPY_PASTE.SOURCE_FORM",
+        "group": "header",
+        "value_de": "Quell ObjektTyp - FormfieldList",
+        "value_en": "Source ObjectType - FormfieldList"
+    },
+    "TXT.EXAMPLES.OVERLAY.FORMLIST.DESCRIPTION": {
+        "id": "TXT.EXAMPLES.OVERLAY.FORMLIST.DESCRIPTION",
+        "group": "header",
+        "value_de": "Quelldaten - kopieren mit Rechtsklick",
+        "value_en": "Source Data - copy by right-click"
     }
 }
