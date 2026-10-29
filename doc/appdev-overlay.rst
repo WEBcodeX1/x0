@@ -6,11 +6,18 @@
 ===========
 
 During ``sysFactory.prototype.init()`` (see :ref:`devoopmodel`), every screen
-declared in ``skeleton.json`` is instantiated up-front -- all screens are
-present in the DOM, but only one is visible at any time. *x0-overlay-mode*
-exploits this design: instead of being built on demand, a second,
-already-instantiated screen is raised above the active one, so opening or
-closing an overlay never costs an additional render pass or backend request.
+declared in ``skeleton.json`` is instantiated up-front — all screens are
+present in the DOM. When no overlay is active, only one single base screen is
+visible. *x0-overlay-mode* exploits this pre-instantiation design to allow
+multiple screens to be active and visible in parallel.
+
+When an overlay is triggered, a minimum of two screens become active
+simultaneously, as the overlay screen is raised above the active base screen.
+Furthermore, the architecture supports stacking: when invoking multiple
+overlays (for example, via a context menu), more than two layers (> 2) can be
+rendered and active in parallel. Because screens are pre-rendered in the DOM
+instead of being built on demand, managing these layers never costs an
+additional render pass or backend request.
 
 The engine lives in ``sysScreenOverlay`` (``/www/sysScreenOverlay.js``) and is
 exposed system-wide as the single ``sysFactory.OverlayObj`` instance,
@@ -85,6 +92,12 @@ interaction is complete, typically from a ``ButtonCallback``:
 (see ``/www/sysObjImageSelector.js``). The *x0-context-menu* engine closes
 its own menu immediately after dispatching ``OverlayScreenID`` (see
 :ref:`appdevcontextmenu`).
+
+.. note::
+
+	Additionally, developers must implement a close element including event handling;
+	otherwise, users will not be able to close the overlay screen without triggering
+	a specific action.
 
 18.4. Example (Static Reference Container)
 ------------------------------------------
