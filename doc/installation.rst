@@ -3,17 +3,19 @@
 6. Installation Guide
 =====================
 
-Welcome to the installation guide for the **x0-system**! Two installation paths
+Welcome to the installation guide for the **x0-system**. Two installation paths
 are available, depending on your goal: the zero-dependency :ref:`installation-quickstart`
 below, intended for evaluating the framework in minutes, and the
 :ref:`installation-full-system` further down this page, required for
 development work against a database-backed, production-equivalent environment.
 
 .. note::
-   If your goal is to develop *x0-applications* **only**, you **do not** need to install the full x0-base-system. See the :ref:`appdevconfig` documentation for instructions on building and configuring your app.
+   If your goal is to develop *x0-applications* **only**, you **do not** need to install the full x0-base-system.
+   See the :ref:`appdevconfig` documentation for instructions on building and configuring your app.
 
 .. important::
-   If you plan to create your own *x0-system-objects* for custom use in your applications, **installing the x0-system is mandatory**. Continue reading below.
+   If you plan to create your own *x0-system-objects* for custom use in your applications, **installing the x0-system is mandatory**.
+   Continue reading below.
 
 .. important::
    The database-backed *x0-system* is **multi-vhost-capable**: a single
