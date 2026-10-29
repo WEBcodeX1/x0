@@ -288,7 +288,7 @@ See :ref:`devoopmodel-classes` (24.3.6/24.3.7) for the underlying
 * DNSRecordValuePlusType
 
 17.5. Providing User Validation
----------------------------------
+-------------------------------
 
 Custom *x0-validation-functions* are integrated directly in ``userFunctions.js``,
 which ships with a dedicated ``UserValidate`` (single-field) and
@@ -321,8 +321,6 @@ participating form objects instead of a single value.
 Reference the resulting function name via ``ValidateRef`` (single-field) or
 ``FunctionRef`` (``GroupValidate``, see :ref:`appdevformobjects`, 11.1.2)
 exactly like any system-provided validation type.
-
-.. _form-examples-list:
 
 **Related Documentation:**
 
