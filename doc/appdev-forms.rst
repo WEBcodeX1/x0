@@ -105,6 +105,13 @@ rendered *x0-form-objects* -- without any custom JavaScript.
 	| FireEvents         | Fire Events on change to given Value                                 |
 	+--------------------+----------------------------------------------------------------------+
 
+.. note::
+
+	An ``EnableOnValues``/``DisableOnValues`` example that enables/disables a complete sub-section
+	hierarchy of child elements recursively can be found when running the *x0-static* docker application
+	under "Settings/GlobalSettings" -> "DefaultSettings" (Tab) -> "SystemSettings/BasicSettings" upon
+	enabling the Messaging Server Component checkbox (``FormfieldCheckbox`` *x0-system-object* type).
+
 17.3.1. EnableOnValues
 **********************
 
