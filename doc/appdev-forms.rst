@@ -100,8 +100,6 @@ rendered *x0-form-objects* -- without any custom JavaScript.
 	+--------------------+----------------------------------------------------------------------+
 	| DeactivateOnValues | Same like DisableOnValues but also set internal state to deactivated |
 	+--------------------+----------------------------------------------------------------------+
-	| UpdateFormLength   | Trigger a Destination Object length update, see 17.3.5               |
-	+--------------------+----------------------------------------------------------------------+
 	| FireEvents         | Fire Events on change to given Value                                 |
 	+--------------------+----------------------------------------------------------------------+
 
@@ -177,9 +175,9 @@ when MX record type is selected and disable when A or CNAME selected.
 17.3.3. ActivateOnValues
 ************************
 
-Valid for *x0-object-type* FormfieldPulldown.
+Valid for *x0-object-type* ``FormfieldPulldown``.
 
-Same as EnableOnValues with the difference that the internal object state
+Same as ``EnableOnValues`` with the difference that the internal object state
 is set to **activated**.
 
 Objects with deactivated state will be omitted from validation.
@@ -187,44 +185,10 @@ Objects with deactivated state will be omitted from validation.
 17.3.4. DeactivateOnValues
 **************************
 
-Same as DisableOnValues with the difference that the internal object state
+Same as ``DisableOnValues`` with the difference that the internal object state
 is set to **deactivated**.
 
-17.3.5. UpdateFormLength
-************************
-
-Valid for *x0-object-type* FormfieldText and FormfieldTextarea.
-
-Boolean flag triggering a remaining/current-length update on a destination
-object as the source field's value changes. Combined with the following
-sibling attributes:
-
-.. table:: UpdateFormLength Sibling Attributes
-	:widths: 25 15 60
-
-	+-----------------+---------------+----------------------------------------------------------+
-	| **Property**    | **Type**      | **Description**                                          |
-	+=================+===============+==========================================================+
-	| UpdateFormfield | String        | Destination ObjectID receiving the computed length       |
-	+-----------------+---------------+----------------------------------------------------------+
-	| MaxLength       | Integer       | Character budget the computed length is measured against |
-	+-----------------+---------------+----------------------------------------------------------+
-	| TextPreID       | TextID-String | TextID prepended to the computed remaining length        |
-	+-----------------+---------------+----------------------------------------------------------+
-	| TextPostID      | TextID-String | TextID appended to the computed remaining length         |
-	+-----------------+---------------+----------------------------------------------------------+
-
-.. code-block:: javascript
-
-	"OnChange": {
-		"UpdateFormLength": true,
-		"UpdateFormfield": "RemainingCharsLabel",
-		"MaxLength": 255,
-		"TextPreID": "TXT.FORM.CHARS-REMAINING.PRE",
-		"TextPostID": "TXT.FORM.CHARS-REMAINING.POST"
-	}
-
-17.3.6. FireEvents
+17.3.5. FireEvents
 ******************
 
 Globally fire (raise) Events on any objects state change.
@@ -237,7 +201,7 @@ Globally fire (raise) Events on any objects state change.
 
 See :ref:`appdeveventsystem` for the full event-system architecture.
 
-17.3.7. Chaining Events
+17.3.6. Chaining Events
 ***********************
 
 Multiple OnChange config can be specified if provided as **Array** type. 
