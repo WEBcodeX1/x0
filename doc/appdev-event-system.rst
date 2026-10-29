@@ -37,7 +37,7 @@ distinct categories:
   :alt: image - event system
 
 15.2. Core Engine Components
------------------------------
+----------------------------
 
 The event system is implemented across four cooperating engine source files, each with
 a single, well-defined responsibility:
@@ -66,7 +66,7 @@ a single, well-defined responsibility:
       backend call. See :ref:`devoopmodel` (section 23.8.2).
 
 15.3. Declarative Event Registration
---------------------------------------
+------------------------------------
 
 Any object registering with the reactor (directly, or via ``sysServiceConnector``,
 see 15.4) uses the same ``OnEvent`` attribute shape:
@@ -92,7 +92,7 @@ see 15.4) uses the same ``OnEvent`` attribute shape:
 	}
 
 15.3.1. Built-in System Events
-*******************************
+******************************
 
 Two *x0-system-events* are dispatched automatically by the engine and require no
 explicit "fire" configuration anywhere -- any object may register for them:
@@ -106,7 +106,7 @@ explicit "fire" configuration anywhere -- any object may register for them:
       becoming active.
 
 15.4. Backend-Related Events
--------------------------------
+----------------------------
 
 A ``ServiceConnector`` object defines **where** to get backend data from (``OnEvent.
 ServiceCall``) and **when** (``OnEvent.Events``). Once connected as the ``ParentObject``
@@ -120,7 +120,7 @@ Full configuration details, ``object.json``/``skeleton.json`` examples and the c
 ``SrcDataObjects`` schema are documented in :ref:`appdev-backend` (chapter 14).
 
 15.5. Non-Backend-Related (Internal) Events
------------------------------------------------
+-------------------------------------------
 
 Several *x0-object-types* can raise ("fire") one or more *x0-events* as a pure,
 zero-latency client-side side effect of their own processing, with no backend
