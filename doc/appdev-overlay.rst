@@ -17,7 +17,7 @@ exposed system-wide as the single ``sysFactory.OverlayObj`` instance,
 instantiated once in the ``sysFactory`` constructor (``/www/sysFactory.js``).
 
 18.1. The sysScreenOverlay Engine
-----------------------------------
+---------------------------------
 
 ``sysFactory.OverlayObj`` provides three methods that act directly on a
 target screen's ``HierarchyRootObject``, resolved via
@@ -38,13 +38,13 @@ target screen's ``HierarchyRootObject``, resolved via
   selectors (see 18.4).
 
 18.2. Triggering an Overlay
------------------------------
+---------------------------
 
 Two purely declarative trigger mechanisms are available -- neither requires
 custom JavaScript.
 
 18.2.1. Button Action
-**********************
+*********************
 
 Any ``Button``/``ButtonInternal`` object (see :ref:`systemobjects`) can
 declare the ``openoverlay`` action, dispatched by
@@ -60,7 +60,7 @@ declare the ``openoverlay`` action, dispatched by
 This resolves to ``sysFactory.OverlayObj.activateOverlay(Attributes.ScreenID)``.
 
 18.2.2. Context Menu Item
-**************************
+*************************
 
 Any *x0-context-menu* item (``List``, ``FormfieldList``, or a custom object,
 see :ref:`appdevcontextmenu`) can declare ``OverlayScreenID`` on its
@@ -68,7 +68,7 @@ see :ref:`appdevcontextmenu`) can declare ``OverlayScreenID`` on its
 (see :ref:`appdevcontextmenu`, 12.3.3).
 
 18.3. Closing an Overlay
---------------------------
+------------------------
 
 There is currently no declarative ``closeoverlay`` Button action; closing is
 performed programmatically by the hosting object once the user's
@@ -87,7 +87,7 @@ its own menu immediately after dispatching ``OverlayScreenID`` (see
 :ref:`appdevcontextmenu`).
 
 18.4. Example (Static Reference Container)
----------------------------------------------
+------------------------------------------
 
 The static reference container (:ref:`appdev-static-deployment`) demonstrates
 both trigger mechanisms:
@@ -116,7 +116,7 @@ referenced here: it predates the current engine, relies on the removed
 longer runs against the current codebase.
 
 19. Object Instancing
-======================
+=====================
 
 In addition to overlay-mode screens, ``object.json`` allows an entry to be
 declared as a runtime *instance* of another, already-defined object instead
@@ -125,7 +125,7 @@ of repeating its full definition. This is resolved by
 during ``setupObject()`` (see :ref:`devoopmodel`, 23.6.2/23.6.3).
 
 19.1. InstanceOf
-------------------
+----------------
 
 Declaring ``InstanceOf`` on an object resolves the referenced object's full
 configuration from ``sysFactory.DataObject.XMLRPCResultData`` and
@@ -147,7 +147,7 @@ recursively.
 ``ContextMenuItems``, without repeating a single attribute.
 
 19.2. AttributesOverwrite
-----------------------------
+-------------------------
 
 Declaring ``AttributesOverwrite`` alongside ``InstanceOf`` overrides
 individual keys of the referenced object's ``Attributes`` before the merge
