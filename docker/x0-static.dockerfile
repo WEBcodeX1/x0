@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 MAINTAINER Claus Prüfer
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -6,34 +6,30 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get -qq update -y && \
     apt-get -qq install -y apache2
 
-# Copy x0 JS source and static assets for the build step
-COPY www/ /build/www/
+# copy javascript core system
+COPY ./x0/www/ /var/www/vhosts/x0-static
 
-# Copy static deployment directory (contains index.html and data/ templates)
-COPY static/ /build/static/
+# copy static system data
+COPY ./x0/static/system/index.html /var/www/vhosts/x0-static/index.html
+COPY ./x0/static/system/sysInitOnLoad.js /var/www/vhosts/x0-static/sysInitOnLoad.js
 
-# Copy the build script
-COPY bin/build-static.sh /build/bin/build-static.sh
+# copy static meta data
+COPY ./x0/static/meta/* /var/www/vhosts/x0-static/static/
 
-# Run build: populate /build/static with JS files and web assets from /build/www
-RUN chmod +x /build/bin/build-static.sh && \
-    /build/bin/build-static.sh /build/static
+# copy x0 logo
+COPY ./x0/image/x0-logo-small.png /var/www/vhosts/x0-static/image/x0-logo.png
 
-# Deploy static files to the Apache document root
-RUN mkdir -p /var/www/vhosts/x0-static && \
-    cp -ra /build/static/. /var/www/vhosts/x0-static/
+# configure apache virtual host
+COPY ./x0/config/vhost-x0-static.conf /etc/apache2/sites-available/x0-static.conf
 
-# Configure Apache virtual host
-COPY conf/vhost-x0-static.conf /etc/apache2/sites-available/x0-static.conf
-
+# disable default vhost, enable x0 vhost
 RUN a2dissite 000-default.conf && \
-    a2ensite x0-static.conf && \
-    a2enmod headers allowmethods
+    a2ensite x0-static.conf
 
 CMD ["apache2ctl", "-D", "FOREGROUND"]
 
 EXPOSE 80
 
-LABEL org.opencontainers.image.source=https://github.com/clauspruefer/x0
+LABEL org.opencontainers.image.source=https://github.com/WEBcodeX1/x0
 LABEL org.opencontainers.image.description="x0 docker container image - static variant"
 LABEL org.opencontainers.image.licenses=AGPL-3.0-or-later

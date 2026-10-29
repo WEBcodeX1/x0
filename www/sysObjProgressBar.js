@@ -17,20 +17,24 @@
 
 function sysObjProgressBar()
 {
-    this.overrideDOMObjectID    = true;             //- Override setting recursive ObjectID
-    this.ObjectID               = this.ID;          //- Set Unique ID
+    this.ObjectType             = 'ProgressBar';                //- System Object Type
+    this.overrideDOMObjectID    = true;                         //- Override setting recursive ObjectID
 
-    this.DOMStyle               = 'progress';       //- Set CSS
+    this.DOMStyle               = 'progress';                   //- Default CSS
 
-    this.RuntimeGetDataFunc     = this.getData;     //- Get Data Function
-    this.RuntimeSetDataFunc     = this.setData;     //- Set Data Function
+    this.RuntimeGetDataFunc     = this.getData;                 //- Get Data Function
+    this.RuntimeSetDataFunc     = this.setData;                 //- Set Data Function
+    this.SetDataMechanism       = 'Plain';                      //- Set Data Mechanism
 
-    this.ChildObjects           = new Array();      //- Child Objects
+    this.DOMAttributes          = { "style": "height: 30px" };  //- Only Way Setting Height
+    this.ChildObjects           = new Array();                  //- Child Objects
 
-    this.ProgressPercent        = 0;                //- Progress Default Percentage
+    this.ProgressPercent        = 0;                            //- Progress Default Percentage
 }
 
 sysObjProgressBar.prototype = new sysBaseObject();
+
+sysObjProgressBar.prototype.reset = sysFormfieldItem.prototype.reset;
 
 
 //------------------------------------------------------------------------------
@@ -42,7 +46,7 @@ sysObjProgressBar.prototype.init = function()
     //- get object config
     const Attributes = this.JSONConfig.Attributes;
 
-    //- define open/close button
+    //- define progress bar root object
     this.ProgressBarObj = new sysBaseObject();
     this.ProgressBarObj.ObjectID = 'ProgressBar';
 
@@ -52,6 +56,16 @@ sysObjProgressBar.prototype.init = function()
     }
     else {
         this.ProgressBarObj.DOMStyle = 'progress-bar ' + Attributes.Style;
+    }
+
+    //- set progress bar percentage from attributes value
+    if (Attributes !== undefined && Attributes.Value !== undefined) {
+        this.ProgressPercent = Attributes.Value;
+    }
+
+    //- set height
+    if (Attributes.Height !== undefined) {
+        this.DOMAttributes['style'] = 'height: ' + Attributes.Height;
     }
 
     this.addObject(this.ProgressBarObj);
@@ -71,8 +85,18 @@ sysObjProgressBar.prototype.render = function()
         this.ProgressBarObj.setDOMElementValue();
     }
     catch(err) {
-        console.debug('ProgressBar exception:%o', err);
+        console.log('ProgressBar exception:%o', err);
     }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "reset"
+//------------------------------------------------------------------------------
+
+sysObjProgressBar.prototype.reset = function()
+{
+    this.render();
 }
 
 
@@ -93,5 +117,15 @@ sysObjProgressBar.prototype.getData = function()
 sysObjProgressBar.prototype.setData = function(PercentValue)
 {
     this.ProgressPercent = PercentValue;
+    this.render();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "displayValue"
+//------------------------------------------------------------------------------
+
+sysObjProgressBar.prototype.displayValue = function()
+{
     this.render();
 }

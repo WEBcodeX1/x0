@@ -17,23 +17,23 @@
 
 function sysObjButton()
 {
-    this.DOMType             = 'button'                         //- DOM Type
-    this.DOMAttributes       = new Object();                    //- DOM Attributes
+    this.ObjectType             = 'Button';                         //- System Object Type
+    this.overrideDOMObjectID    = true;                             //- Override recursive ObjectID
 
-    this.overrideDOMObjectID = true;                            //- Override recursive ObjectID
-    this.ObjectID            = this.ID;                         //- Set unique ID
+    this.DOMType                = 'button'                          //- DOM Type
+    this.DOMAttributes          = new Object();                     //- DOM Attributes
 
-    this.EventListeners      = new Object();                    //- Event Listerners Object
-    this.ChildObjects        = new Array();                     //- Child Objects Array
+    this.PostRequestData        = new sysRequestDataHandler();      //- POST Request Data Handler
 
-    this.PostRequestData     = new sysRequestDataHandler();     //- POST Request Data Handler
+    this.CallURL                = null;                             //- Request URL
+    this.CallService            = false;                            //- Call Service Flag (true || false)
 
-    this.CallURL             = null;                            //- Request URL
-    this.CallService         = false;                           //- Call Service Flag (true || false)
+    this.FormValidate           = false;                            //- Form Validation Flag (true || false)
 
-    this.FormValidate        = false;                           //- Form Validation Flag (true || false)
+    this.ValidateResultError    = true;                             //- Validation Result (true || false)
 
-    this.ValidateResultError = true;                            //- Validation Result (true || false)
+    this.EventListeners         = new Object();                     //- Event Listerners Object
+    this.ChildObjects           = new Array();                      //- Child Objects Array
 }
 
 //- inherit sysBaseObject
@@ -50,7 +50,7 @@ sysObjButton.prototype.processSourceObjects = sysSourceObjectHandler.prototype.p
 sysObjButton.prototype.init = function()
 {
     const Attributes = this.JSONConfig.Attributes;
-    var SQLTextDisabled = false;
+    let SQLTextDisabled = false;
 
     if (Attributes.DOMType !== undefined) {
         this.DOMType = Attributes.DOMType;
@@ -82,11 +82,12 @@ sysObjButton.prototype.init = function()
 
     console.debug('Button ConfigAttributes TextID:%s', Attributes.TextID);
 
-    if (SQLTextDisabled == false) {
+    if (SQLTextDisabled === false) {
 
         var SQLTextObj = new sysObjSQLText();
 
-        SQLTextObj.ObjectID = 'SQLText';
+        SQLTextObj.ObjectID = this.ObjectID + 'SQLText';
+        SQLTextObj.ObjectType = 'SQLText';
         SQLTextObj.TextID = Attributes.TextID;
 
         if (Attributes.IconStyle !== undefined) {
@@ -103,7 +104,6 @@ sysObjButton.prototype.init = function()
 
         SQLTextObj.init();
         this.addObject(SQLTextObj);
-
     }
 
     //console.debug('Button SQLText Object:%o', SQLTextObj);
@@ -118,7 +118,6 @@ sysObjButton.prototype.enable = function()
 {
     console.debug('Button enabling.');
     const Attributes = this.JSONConfig.Attributes;
-
     this.DOMStyle = Attributes.Style;
     this.setDOMElementStyle();
     this.Disabled = false;
@@ -132,6 +131,7 @@ sysObjButton.prototype.enable = function()
 sysObjButton.prototype.disable = function()
 {
     console.debug('Button disabling.');
+    const Attributes = this.JSONConfig.Attributes;
     this.DOMStyle = Attributes.Style + ' disabled';
     this.setDOMElementStyle();
     this.Disabled = true;
@@ -338,36 +338,14 @@ sysObjButton.prototype.validateForm = function()
 sysObjButton.prototype.processActions = function()
 {
     const Attributes = this.JSONConfig.Attributes;
-
     console.debug('::processActions Attributes:%o', Attributes);
 
-    //- delegate action execution to shared processor
-    sysButtonActions.executeAction(Attributes);
-
-    //- handle switchscreen with optional ResetAll
-    if (Attributes.Action !== undefined &&
-        Attributes.Action.toLowerCase() == 'switchscreen' &&
-        Attributes.DstScreenID !== undefined) {
-
-        if (Attributes.ResetAll == true) {
-            const ScreenObj = sysFactory.getScreenByID(Attributes.DstScreenID);
-            ScreenObj.HierarchyRootObject.processReset();
-        }
-        sysFactory.switchScreen(Attributes.DstScreenID);
-    }
+    //- delegate action execution
+    ActionProcessor.executeAction(Attributes);
 
     //- fire events
     if (Attributes.FireEvents !== undefined) {
         sysFactory.Reactor.fireEvents(Attributes.FireEvents);
-    }
-
-    //- close overlay
-    if (Attributes.CloseOverlay == true) {
-        try {
-            sysFactory.OverlayObj.EventListenerClick();
-        }
-        catch(err) {
-        }
     }
 }
 
@@ -384,33 +362,13 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
 
     console.debug('Error result:%o', this.XMLRPCResultData);
 
-    //- check error
-    if (this.XMLRPCResultData.ErrorCode === undefined && this.XMLRPCResultData.error === undefined) {
-
+    //- check backend error
+    if (this.XMLRPCResultData.ErrorCode === undefined && this.XMLRPCResultData.error === undefined)
+    {
         const ConfigAttributes = this.JSONConfig.Attributes;
 
-        //- process on-result actions via shared processor
-        sysButtonActions.executeActions(ConfigAttributes.OnResult);
-
-        //- switch screen
-        if (ConfigAttributes.SwitchScreen !== undefined && ConfigAttributes.SwitchScreen != false) {
-            console.debug('switchScreen:%s', ConfigAttributes.SwitchScreen);
-            sysFactory.switchScreen(ConfigAttributes.SwitchScreen);
-        }
-
-        //- switch screen tab
-        if (ConfigAttributes.SwitchTabContainer !== undefined && ConfigAttributes.SwitchTabID !== undefined) {
-            var TabObj = sysFactory.getObjectByID(ConfigAttributes.SwitchTabContainer);
-            TabObj.TabContainerObject.switchTab(ConfigAttributes.SwitchTabID);
-        }
-
-        //- fire events
-        if (ConfigAttributes.FireEvents != undefined) {
-            sysFactory.Reactor.fireEvents(ConfigAttributes.FireEvents);
-        }
-
-        //- fire net events
-        this.fireNetEvents();
+        //- process on-result actions
+        ActionProcessor.executeActions(ConfigAttributes.OnResult);
 
         //- set notify status
         NotifyStatus = 'SUCCESS';
@@ -430,30 +388,5 @@ sysObjButton.prototype.callbackXMLRPCAsync = function()
     }
     catch (err) {
         console.log('err:%s', err);
-    }
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "fireNetEvents"
-//------------------------------------------------------------------------------
-
-/*
- * a) should be included by prototype
- * b) destination session should be modified to destination user
- * c) configuration values should be read from global config
-*/
-
-sysObjButton.prototype.fireNetEvents = function()
-{
-    console.log('FireNetEvents config:%o', this.JSONConfig.Attributes.FireNetEvents);
-    var Events = this.JSONConfig.Attributes.FireNetEvents;
-    for (EventID in Events) {
-        DstSessionID = Events[EventID];
-        URL = '/python/MsgHandler.py';
-        URLParams = '&Type=SET&DestinationSession='+DstSessionID+'&Payload=SYS__NET_EVENT-'+EventID;
-        RPC = new sysCallXMLRPC(URL, URLParams);
-        RPC.setRequestType('GET');
-        RPC.Request();
     }
 }

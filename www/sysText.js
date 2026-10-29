@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -16,8 +16,20 @@
 
 function sysText()
 {
-    this.Languages = ['de', 'en'];
-    this.XMLRPCResultData = null;
+    this.Languages = ['de', 'en'];              //- Supported Languages
+    this.XMLRPCResultData = null;               //- XML RPC Result Data
+
+    this.PDLanguagesDisplay = {                 //- Language Seclector Pulldown Display
+        "en": {
+            "en": "English",
+            "de": "Englisch"
+
+        },
+        "de": {
+            "en": "German",
+            "de": "Deutsch"
+        }
+    }
 }
 
 
@@ -31,9 +43,9 @@ sysText.prototype = new sysXMLRPCBaseSyncLoader();
 //------------------------------------------------------------------------------
 //- METHOD "getTextObjectByID"
 //------------------------------------------------------------------------------
+
 sysText.prototype.getTextObjectByID = function(TextID)
 {
-
     var TextObj = new Object();
 
     var TextString = '';
@@ -51,15 +63,14 @@ sysText.prototype.getTextObjectByID = function(TextID)
         TextObj['en'] = this.XMLRPCResultData[TextID]['value_en'];
         return TextObj;
     }
-
 }
 
 
 //------------------------------------------------------------------------------
 //- METHOD "getTextBySystemLanguage"
 //------------------------------------------------------------------------------
+
 sysText.prototype.getTextBySystemLanguage = function(TextID)
 {
     return this.getTextObjectByID(TextID)[sysFactory.EnvUserLanguage];
 }
-

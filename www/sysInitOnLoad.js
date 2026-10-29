@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -9,6 +9,7 @@
 //-                                                                          -//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
+
 
 //------------------------------------------------------------------------------
 //- Set Global Namespace Variables
@@ -116,8 +117,7 @@ function InitOk(XHR) {
     sysFactory.DataObject.setLoaderObj(sysObjLoader);
     sysFactory.DataSkeleton.setLoaderObj(sysObjLoader);
 
-    const TextDataURL = (typeof sysVarTextDataFile !== 'undefined') ? sysVarTextDataFile : '/python/getText.py';
-    sysFactory.ObjText.requestXMLRPCData(TextDataURL);
+    sysFactory.ObjText.requestXMLRPCData('/python/getText.py');
     sysFactory.DataMenu.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigMenuFile);
     sysFactory.DataObject.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigObjectFile);
     sysFactory.DataSkeleton.requestXMLRPCData(sysVarAppSubdir + '/' + sysVarConfigSkeletonFile);
@@ -127,26 +127,26 @@ function InitOk(XHR) {
     //- Set System Vars
     //----------------------------------------------------------------------------
 
-    sysFactory.DisplayDefaultScreen           = sysVarDisplayDefaultScreen;
+    sysFactory.DisplayDefaultScreen         = sysVarDisplayDefaultScreen;
 
-    sysFactory.SysDebugLevel                  = sysVarDebugLevel;
-    sysFactory.SysSessionID                   = 'SYS_SESSION';
-    sysFactory.SysUserID                      = UserID;
-    sysFactory.SysSessionValue                = UserSession;
-    sysFactory.MsgServerGetURL                = 'http://x0-msg-server.x0.localnet:8080/python/MsgHandler.py';
+    sysFactory.SysDebugLevel                = sysVarDebugLevel;
+    sysFactory.SysSessionID                 = 'SYS_SESSION';
+    sysFactory.SysUserID                    = UserID;
+    sysFactory.SysSessionValue              = UserSession;
+    sysFactory.MsgServerGetURL              = 'http://x0-msg-server.x0.localnet:8080/python/MsgHandler.py';
 
-    sysFactory.ParentWindowURL                = sysVarParentWindowURL;
+    sysFactory.ParentWindowURL              = sysVarParentWindowURL;
 
 
     //----------------------------------------------------------------------------
     //- Style Defaults
     //----------------------------------------------------------------------------
 
-    sysFactory.DefaultStyleScreen             = 'col-md-8 ms-auto me-auto';
-    sysFactory.DefaultStyleMenu               = 'menu-absolute-pos';
-    sysFactory.DefaultStyleScreenOverlay      = 'p-3 shadow-lg border bg-gradient bg-opacity-75 overlay-default';
-    sysFactory.DefaultStyleListNavLeft        = 'col-6 p-4 pl-0';
-    sysFactory.DefaultStyleListNavRight       = 'col-6 p-4 float-end text-end pr-0';
+    sysFactory.DefaultStyleScreen           = 'screen-absolute-pos';
+    sysFactory.DefaultStyleMenu             = 'menu-absolute-pos';
+    sysFactory.DefaultStyleScreenOverlay    = 'p-3 shadow-lg border bg-gradient bg-opacity-75 overlay-default';
+    sysFactory.DefaultStyleListNavLeft      = 'col-6 p-4 pl-0';
+    sysFactory.DefaultStyleListNavRight     = 'col-6 p-4 float-end text-end pr-0';
 
 
     //----------------------------------------------------------------------------
@@ -176,7 +176,6 @@ function InitOk(XHR) {
 
     sysFactory.UserValidate = new UserValidate();
     sysFactory.UserValidateGroup = new UserValidateGroup();
-    sysFactory.UserContextMenu = new UserContextMenu();
 
 
     //----------------------------------------------------------------------------
@@ -184,13 +183,6 @@ function InitOk(XHR) {
     //----------------------------------------------------------------------------
 
     sysFactory.Reactor = new sysReactor();
-
-
-    //----------------------------------------------------------------------------
-    //- Construct Global Drag and Drop Handler
-    //----------------------------------------------------------------------------
-
-    sysFactory.DragDropHandler = new sysDragDropHandler();
 
 
     //----------------------------------------------------------------------------

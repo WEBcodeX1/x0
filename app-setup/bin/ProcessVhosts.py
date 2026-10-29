@@ -187,26 +187,6 @@ if __name__ == '__main__':
 
                     process_static_dir(vhost_www_path, x0_app_id)
 
-                    # process static
-                    #app_static_dir = '{}/static/{}'.format(vhost_www_path, x0_app_id)
-
-                    #cmd = 'mkdir -p {}'.format(app_static_dir)
-                    #p = subprocess.Popen(cmd.split())
-                    #p.communicate()
-
-                    # process static tpl data
-
-                    # process app data
-                    #src = '{}/www/static/{}'.format(dir_x0_app_install, x0_app_id)
-                    #shutil.copytree(src, app_static_dir, dirs_exist_ok=True)
-
-                    # if global css styles put in each app subdir
-                    #try:
-                    #    src = '{}/www/css'.format(dir_x0_app_install)
-                    #    shutil.copytree(src, app_static_dir, dirs_exist_ok=True)
-                    #except Exception as e:
-                    #    pass
-
                 # process www python
                 src = '{}/www/python'.format(dir_x0_app_install)
                 dst = '{}/python'.format(vhost_www_path)

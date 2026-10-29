@@ -20,13 +20,13 @@
 # -- Project information -----------------------------------------------------
 
 project = "x0 JavaScript Framework"
-copyright = "WEB/codeX / clickIT 2011 - 2025"
+copyright = "WEB/codeX / clickIT 2011 - 2026"
 author = "Claus Prüfer"
 
 # The short X.Y version
-version = '1.0'
+version = '1.1'
 # The full version, including alpha/beta/rc tags
-release = '1.0'
+release = '1.1.0-rc1'
 
 
 # -- General configuration ---------------------------------------------------

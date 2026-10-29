@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -17,11 +17,11 @@
 
 function sysObjButtonInternal()
 {
+    this.ObjectType             = 'ButtonInternal'              //- System Object Type
+    this.overrideDOMObjectID    = true;                         //- Override recursive ObjectID
+
     this.DOMType                = 'button'                      //- DOM Type
     this.DOMAttributes          = new Object();                 //- DOM Attributes
-
-    this.overrideDOMObjectID    = true;                         //- Override recursive ObjectID
-    this.ObjectID               = this.ID;                      //- Set unique ID
 
     this.EventListeners         = new Object();                 //- Event Listerners Object
     this.ChildObjects           = new Array();                  //- Child Objects Array
@@ -34,6 +34,7 @@ sysObjButtonInternal.prototype = new sysBaseObject();
 
 sysObjButtonInternal.prototype.init = sysObjButton.prototype.init;
 sysObjButtonInternal.prototype.validateForm = sysObjButton.prototype.validateForm;
+
 sysObjButtonInternal.prototype.processActions = sysObjButton.prototype.processActions;
 
 

@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -9,6 +9,11 @@
 //-                                                                          -//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
+
+
+//------------------------------------------------------------------------------
+//- CONSTRUCTOR "sysObjAsyncNotify"
+//------------------------------------------------------------------------------
 
 /*
  * Currently message handling is implemented by using "long polling".
@@ -36,9 +41,11 @@ sysAsyncNotifyMsgHandler.prototype.getMsg = function()
     );
 
     //- if message processing is activated
-    if (this.MsgProcessing === true) {
+    if (this.MsgProcessing === true)
+    {
         //- if session id exists, get next messages
-        if (sysFactory.SysSessionID !== undefined && sysFactory.SysSessionID != null) {
+        if (sysFactory.SysSessionID !== undefined && sysFactory.SysSessionID != null)
+        {
             this.PostRequestData = {
                 "session_src": sysFactory.SysSessionValue,
                 "type": 'GET'
@@ -83,7 +90,8 @@ sysAsyncNotifyMsgHandler.prototype.processMsg = function(Message)
     console.debug('::processMsg Message:%o', Message);
 
     //- incoming phone call
-    if (Message['msg-type'] == 'net-phone' && Message['phonenr-src'] !== undefined) {
+    if (Message['msg-type'] == 'net-phone' && Message['phonenr-src'] !== undefined)
+    {
         sysID = 'SYS__GLOBAL_MSG';
 
         ActionNotifyDef = {
@@ -101,7 +109,8 @@ sysAsyncNotifyMsgHandler.prototype.processMsg = function(Message)
     }
 
     //- check for net messages
-    if (Message['msg-type'] == 'net-message' && Message['txt-id'] !== undefined) {
+    if (Message['msg-type'] == 'net-message' && Message['txt-id'] !== undefined)
+    {
         sysID = 'SYS__GLOBAL_MSG';
 
         ActionNotifyDef = {
@@ -118,7 +127,8 @@ sysAsyncNotifyMsgHandler.prototype.processMsg = function(Message)
     }
 
     //- check for net method execution
-    if (Message['msg-type'] == 'net-message' && Message['method-id'] !== undefined) {
+    if (Message['msg-type'] == 'net-message' && Message['method-id'] !== undefined)
+    {
         sysID = 'SYS__GLOBAL_MSG';
 
         const MethodID = Message['method-id'];
@@ -127,7 +137,8 @@ sysAsyncNotifyMsgHandler.prototype.processMsg = function(Message)
 
         console.debug('::processMsg Method:%s DstObjID:%s Payload:%o', MethodID, DstObjectID, Payload);
 
-        if (MethodID == 'set-data') {
+        if (MethodID == 'set-data')
+        {
             const DstObject = sysFactory.getObjectByID(DstObjectID);
             console.debug('::processMsg DstObj:%o', DstObject);
             DstObject.RuntimeSetDataFunc(Payload);
@@ -143,7 +154,8 @@ sysAsyncNotifyMsgHandler.prototype.processMsg = function(Message)
         NotifyItem.setProcessStatus(1);
     }
 
-    if (Message['msg-type'] == 'sys-indicator') {
+    if (Message['msg-type'] == 'sys-indicator')
+    {
         const NotifyItem = sysFactory.GlobalAsyncNotifyIndicator.getMsgItemByName(Message['notify-id']);
         if (NotifyItem !== undefined && NotifyItem != null) {
             NotifyItem.processResult(Message['notify-status']);

@@ -67,15 +67,15 @@ if [ "$1" = "configure" ]; then
     cp ${BASEDIR}/config/apache2/apache2.conf /etc/apache2/apache2.conf
 
     # copy apache virtualhost config
-    cp ${BASEDIR}/conf/${VHOST_CONFIG_FILE} ${WEBSERVER_CONF_DIR}/sites-available/
-    cp ${BASEDIR}/conf/wsgi.conf ${WEBSERVER_CONF_DIR}/mods-available/
+    cp ${BASEDIR}/config/${VHOST_CONFIG_FILE} ${WEBSERVER_CONF_DIR}/sites-available/
+    cp ${BASEDIR}/config/wsgi.conf ${WEBSERVER_CONF_DIR}/mods-available/
 
     # activate apache vhost
     ln -s ${WEBSERVER_CONF_DIR}/sites-available/${VHOST_CONFIG_FILE} ${WEBSERVER_CONF_DIR}/sites-enabled/${VHOST_CONFIG_FILE} || echo "Apache vhost conf already exists."
 
     # install python-dbpool
     if [ "$(pip3 list | grep pgdbpool | cut -d ' ' -f1)" != "pgdbpool" ]; then
-        pip3 install --no-index --no-build-isolation ${BASEDIR}/bin/pgdbpool-0.99.tar.gz --break-system-packages
+        pip3 install --no-index --no-build-isolation ${BASEDIR}/bin/pgdbpool-1.0.2.tar.gz --break-system-packages
     fi
 
     # copy DB.py and DBMapping.py

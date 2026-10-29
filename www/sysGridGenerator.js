@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -17,16 +17,16 @@
 
 function sysGridGenerator(SourceObjects)
 {
-    this.SourceObjects      = SourceObjects;      //- Source Objects
+    this.SourceObjects      = SourceObjects.slice();    //- Source Objects
 
-    this.GenColObjects      = new Array();        //- Generator Processing Col Objects
-    this.GenRowObjects      = new Array();        //- Generator Processing Row Objects
+    this.GenColObjects      = new Array();              //- Generator Processing Col Objects
+    this.GenRowObjects      = new Array();              //- Generator Processing Row Objects
 
-    this.RowAfterElements   = null;               //- Enclose Row After Elements Count
-    this.ColAfterElements   = null;               //- Enclose Col After Elements Count
+    this.RowAfterElements   = null;                     //- Enclose Row After Elements Count
+    this.ColAfterElements   = null;                     //- Enclose Col After Elements Count
 
-    this.RowStyles          = null;               //- Row CSS Styles
-    this.ColStyles          = null;               //- Column CSS Styles
+    this.RowStyles          = null;                     //- Row CSS Styles
+    this.ColStyles          = null;                     //- Column CSS Styles
 }
 
 sysGridGenerator.prototype = new sysBaseObject();
@@ -54,6 +54,37 @@ sysGridGenerator.prototype.init = function(
     }
     else {
         this.ColAfterElements = (Array.isArray(ColAfterElements)) ? ColAfterElements : [ ColAfterElements ];
+    }
+
+    //- fill up "too less" objects
+    this.fillGap();
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "fillGap"
+//------------------------------------------------------------------------------
+
+sysGridGenerator.prototype.fillGap = function()
+{
+    try {
+        const x = this.RowAfterElements;
+        const y = this.SourceObjects.length;
+
+        console.debug('GridGen Mod check x:%s y:%s', x, y);
+
+        if (y % x != 0)
+        {
+            const MissingCount = x - (y % x);
+
+            for (let i=0; i<MissingCount; ++i) {
+                this.SourceObjects.push(new sysObjDiv());
+            }
+
+            console.debug('GridGen MissingCount:%s', MissingCount);
+        }
+    }
+    catch {
     }
 }
 

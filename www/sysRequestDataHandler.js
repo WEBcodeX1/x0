@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -15,7 +15,8 @@
 //- CONSTRUCTOR "sysRequestDataHandler"
 //------------------------------------------------------------------------------
 
-function sysRequestDataHandler() {
+function sysRequestDataHandler()
+{
     this.reset();
 }
 
@@ -24,7 +25,8 @@ function sysRequestDataHandler() {
 //- METHOD "reset"
 //------------------------------------------------------------------------------
 
-sysRequestDataHandler.prototype.reset = function() {
+sysRequestDataHandler.prototype.reset = function()
+{
     this.RequestData = new Object();
     this.ServiceData = new Object();
 }
@@ -34,7 +36,8 @@ sysRequestDataHandler.prototype.reset = function() {
 //- METHOD "addServiceProperty"
 //------------------------------------------------------------------------------
 
-sysRequestDataHandler.prototype.addServiceProperty = function(Key, Value) {
+sysRequestDataHandler.prototype.addServiceProperty = function(Key, Value)
+{
     this.ServiceData[Key] = Value;
 }
 
@@ -43,7 +46,8 @@ sysRequestDataHandler.prototype.addServiceProperty = function(Key, Value) {
 //- METHOD "add"
 //------------------------------------------------------------------------------
 
-sysRequestDataHandler.prototype.add = function(DataObject, Key) {
+sysRequestDataHandler.prototype.add = function(DataObject, Key)
+{
     this.RequestData[Key] = DataObject;
 }
 
@@ -52,7 +56,8 @@ sysRequestDataHandler.prototype.add = function(DataObject, Key) {
 //- METHOD "merge"
 //------------------------------------------------------------------------------
 
-sysRequestDataHandler.prototype.merge = function(DataObject) {
+sysRequestDataHandler.prototype.merge = function(DataObject)
+{
     for (DataKey in DataObject) {
         DataItem = DataObject[DataKey];
         this.RequestData[DataKey] = DataItem;
@@ -64,7 +69,8 @@ sysRequestDataHandler.prototype.merge = function(DataObject) {
 //- METHOD "removePrefix"
 //------------------------------------------------------------------------------
 
-sysRequestDataHandler.prototype.removePrefix = function(Prefix) {
+sysRequestDataHandler.prototype.removePrefix = function(Prefix)
+{
     for (DataKey in this.RequestData) {
         if (DataKey.includes(Prefix)) {
             const NewKey = DataKey.replace(Prefix, '');
@@ -79,7 +85,8 @@ sysRequestDataHandler.prototype.removePrefix = function(Prefix) {
 //- METHOD "transform"
 //------------------------------------------------------------------------------
 
-sysRequestDataHandler.prototype.transform = function(TransformData) {
+sysRequestDataHandler.prototype.transform = function(TransformData)
+{
     for (DataKey in TransformData) {
         const DataValue = TransformData[DataKey];
         for (Key in this.RequestData) {

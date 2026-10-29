@@ -16,12 +16,13 @@ As your user setup gpg key for signing the Debian Packages.
 gpg --full-generate-key
 ```
 
-:memo: The maintainer User-ID in `control` and `changelog` files must match your
-GPG User Name and E-Mail Address. It is advisable that your GIT metadata will also
-match this data.
+> [!NOTE]
+> The maintainer User-ID in `./control` and `./changelog` files must match your
+> **gpg** User Name and E-Mail Address. It is advisable that your personal **git** metadata
+> will also match this data.
 
 ```bash
-Maintainer: Claus Prüfer (CTO) <c.pruefer@click-it.online>
+Maintainer: Claus Prüfer <pruefer@webcodex.de>
 ```
 
 ## 3. Build Packages

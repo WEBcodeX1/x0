@@ -17,11 +17,11 @@
 
 function sysObjButtonCallback() {
 
+    this.ObjectType             = 'ButtonCallback'  //- System Object Type
+    this.overrideDOMObjectID    = true;             //- Override recursive ObjectID
+
     this.DOMType                = 'button'          //- DOM Type
     this.DOMAttributes          = new Object();     //- DOM Attributes
-
-    this.overrideDOMObjectID    = true;             //- Override recursive ObjectID
-    this.ObjectID               = this.ID;          //- Set unique ID
 
     this.EventListeners         = new Object();     //- Event Listerners Object
     this.ChildObjects           = new Array();      //- Child Objects Array
@@ -32,6 +32,8 @@ sysObjButtonCallback.prototype = new sysBaseObject();
 
 //- inherit Button methods
 sysObjButtonCallback.prototype.init = sysObjButton.prototype.init;
+sysObjButtonCallback.prototype.enable = sysObjButton.prototype.enable;
+sysObjButtonCallback.prototype.disable = sysObjButton.prototype.disable;
 sysObjButtonCallback.prototype.addEventListenerClick = sysObjButton.prototype.addEventListenerClick;
 
 
@@ -51,5 +53,5 @@ sysObjButtonCallback.prototype.setCallback = function(CBObject, CBFunction, CBAr
 //------------------------------------------------------------------------------
 
 sysObjButtonCallback.prototype.EventListenerClick = function(Event) {
-    this.CallbackObject.processCallback(this.CallbackFunction, this.CallbackArguments);
+    this.CallbackObject.ButtonCallback(this.CallbackFunction, this.CallbackArguments, Event);
 }

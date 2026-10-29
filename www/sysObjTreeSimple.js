@@ -1,5 +1,5 @@
 //-------1---------2---------3---------4---------5---------6---------7--------//
-//- Copyright WEB/codeX, clickIT 2011 - 2025                                 -//
+//- Copyright WEB/codeX, clickIT 2011 - 2026                                 -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
 //-                                                                          -//
 //-------1---------2---------3---------4---------5---------6---------7--------//
@@ -17,11 +17,10 @@
 
 function sysObjTreeSimple()
 {
+    this.ObjectType             = 'TreeSimple';                     //- System Object Type
+    this.overrideDOMObjectID    = true;                             //- Override recursive ID
     this.ChildObjects           = new Array();                      //- Child Objects
     this.LastSelectedItem       = null;                             //- Last Selected Objet Reference
-    this.DOMStyle               = 'list-group list-group-flush';    //- Bootstrap List Group CSS
-    this.overrideDOMObjectID    = true;                             //- Override recursive ID
-    this.ObjectID               = this.ID;                          //- Set Unique ID
 }
 
 //- inherit sysBaseObject
@@ -35,19 +34,28 @@ sysObjTreeSimple.prototype = new sysBaseObject();
 sysObjTreeSimple.prototype.init = function()
 {
     const Attributes = this.JSONConfig.Attributes;
-    console.debug('TreeSimple JSONConfig:%o', Attributes);
+    console.debug('TreeSimple JSONConfig.Attributes:%o', Attributes);
+
+    if (Attributes === undefined) {
+        Attributes = new Object();
+    }
+
+    //- Bootstrap List Group CSS
+    const BaseStyle = 'list-group list-group-flush';
+    this.DOMStyle = (Attributes.Style !== undefined) ? BaseStyle + ' ' + Attributes.Style : BaseStyle;
 
     this.IndentLevel = 0;
 
-    let i=0;
+    let RootIndex = 0;
     for (const RootItem of Attributes.TreeItems)
     {
         console.debug('TreeSimple RootItem:%o', RootItem);
-        let NodeItem = new sysObjTreeSimpleNode(this, this.IndentLevel);
+        let NodeItem = new sysObjTreeSimpleNode(this, this.IndentLevel, 'Root'+RootIndex);
 
         NodeItem.JSONConfig = {
             "Attributes": {
-                "ObjectID": i,
+                "ObjectID": this.ObjectID + "R" + RootIndex,
+                "RootIndex": RootIndex,
                 "TextID": RootItem.TextID
             }
         }
@@ -55,7 +63,7 @@ sysObjTreeSimple.prototype.init = function()
         NodeItem.init();
         this.addObject(NodeItem);
         this.addTreeItems(this, NodeItem, RootItem.Children);
-        ++i;
+        ++RootIndex;
     }
 }
 
@@ -68,20 +76,23 @@ sysObjTreeSimple.prototype.addTreeItems = function(RootObj, NodeItem, ChildItems
 {
     this.IndentLevel += 1;
 
-    let i=0;
+    let ItemIndex = 0;
     for (const ChildItem of ChildItems)
     {
         var TreeItem;
 
-        const ItemObjectID = NodeItem.JSONConfig.Attributes.ObjectID;
-        ChildItem['ObjectID'] = ItemObjectID+i;
+        const NodeItemAtrributes = NodeItem.JSONConfig.Attributes;
+        const ItemObjectID = NodeItemAtrributes.ObjectID;
+        const RootIndex = NodeItemAtrributes.RootIndex;
+
+        ChildItem['ObjectID'] = ItemObjectID+ItemIndex;
 
         if (ChildItem.Type == 'Item') {
-            TreeItem = new sysObjTreeSimpleItem(RootObj, this.IndentLevel);
+            TreeItem = new sysObjTreeSimpleItem(RootObj, this.IndentLevel, RootIndex+ItemIndex);
         }
 
         else if (ChildItem.Type == 'Node') {
-            TreeItem = new sysObjTreeSimpleNode(this.IndentLevel);
+            TreeItem = new sysObjTreeSimpleNode(RootObj, this.IndentLevel, RootIndex+ItemIndex);
         }
 
         TreeItem.JSONConfig = {
@@ -95,7 +106,7 @@ sysObjTreeSimple.prototype.addTreeItems = function(RootObj, NodeItem, ChildItems
             this.addTreeItems(RootObj, TreeItem, ChildItem.Children);
         }
 
-        ++i;
+        ++ItemIndex;
     }
 
     this.IndentLevel -= 1;
@@ -106,8 +117,9 @@ sysObjTreeSimple.prototype.addTreeItems = function(RootObj, NodeItem, ChildItems
 //- CONSTRUCTOR "sysObjTreeSimpleNode"
 //------------------------------------------------------------------------------
 
-function sysObjTreeSimpleNode(TreeRootObj, IndentLevel)
+function sysObjTreeSimpleNode(TreeRootObj, IndentLevel, ItemIndex)
 {
+    this.ItemIndex      = ItemIndex;            //- Unique Item Index
     this.ChildObjects   = new Array();          //- Child Objects
     this.DOMType        = 'li';                 //- Div Type
     this.DOMStyle       = 'list-group-item';    //- Bootstrap CSS Style
@@ -149,25 +161,9 @@ sysObjTreeSimpleNode.prototype.init = function()
     EventListenerObj['Element'] = this.toggleVisibleState.bind(this.OpenCloseIcon);
     this.OpenCloseIcon.EventListeners["OpenClose"] = EventListenerObj;
 
-    //- define node header div (visible area carrying drop-target listeners)
-    this.NodeHeaderDiv = new sysObjDiv();
-
-    if (this.TreeRootObj !== undefined && this.TreeRootObj.JSONConfig.Attributes.DropTarget === true) {
-        var DragOverEvent = new Object();
-        DragOverEvent['Type'] = 'dragover';
-        DragOverEvent['Element'] = this.onDragOver.bind(this);
-        this.NodeHeaderDiv.EventListeners['DragOver'] = DragOverEvent;
-
-        var DragLeaveEvent = new Object();
-        DragLeaveEvent['Type'] = 'dragleave';
-        DragLeaveEvent['Element'] = this.onDragLeave.bind(this);
-        this.NodeHeaderDiv.EventListeners['DragLeave'] = DragLeaveEvent;
-
-        var DropEvent = new Object();
-        DropEvent['Type'] = 'drop';
-        DropEvent['Element'] = this.onDrop.bind(this);
-        this.NodeHeaderDiv.EventListeners['Drop'] = DropEvent;
-    }
+    //- set unique node IDs
+    const NodeIconID = this.TreeRootObj.ObjectID + "NodeIcon" + this.ItemIndex;
+    const NodeTextID = this.TreeRootObj.ObjectID + "NodeText" + this.ItemIndex;
 
     //- setup recursive object structure
     const ObjDefs =  [
@@ -179,11 +175,11 @@ sysObjTreeSimpleNode.prototype.init = function()
             },
             "ObjectDefs": [
                 {
-                    "id": "NodeIcon",
+                    "id": NodeIconID,
                     "SysObject": this.OpenCloseIcon,
                 },
                 {
-                    "id": "NodeText",
+                    "id": NodeTextID,
                     "SysObject": new sysObjSQLText(),
                     "JSONAttributes": {
                         "Style": "col-xl-11",
@@ -225,63 +221,12 @@ sysObjTreeSimpleNode.prototype.toggleVisibleState = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "onDragOver"
-//------------------------------------------------------------------------------
-
-sysObjTreeSimpleNode.prototype.onDragOver = function(Event)
-{
-    Event.preventDefault();
-    Event.stopPropagation();
-    this.NodeHeaderDiv.addDOMElementStyle('sysDragDropOver');
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "onDragLeave"
-//------------------------------------------------------------------------------
-
-sysObjTreeSimpleNode.prototype.onDragLeave = function(Event)
-{
-    const Element = this.NodeHeaderDiv.getElement();
-    if (Element !== null && !Element.contains(Event.relatedTarget)) {
-        this.NodeHeaderDiv.removeDOMElementStyle('sysDragDropOver');
-    }
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "onDrop"
-//------------------------------------------------------------------------------
-
-sysObjTreeSimpleNode.prototype.onDrop = function(Event)
-{
-    Event.preventDefault();
-    Event.stopPropagation();
-    this.NodeHeaderDiv.removeDOMElementStyle('sysDragDropOver');
-
-    const DragSourceObj = sysFactory.DragDropHandler.getDragSourceObject();
-
-    if (DragSourceObj !== null && DragSourceObj !== undefined) {
-        if (DragSourceObj instanceof sysObjTreeSimpleItem) {
-            //- prevent dropping onto the same parent node
-            if (DragSourceObj.ParentObject !== this.ItemContainerObj) {
-                DragSourceObj.remove();
-                this.ItemContainerObj.addObject(DragSourceObj);
-                DragSourceObj.renderObject(this.ItemContainerObj.DOMObjectID);
-            }
-        }
-    }
-
-    sysFactory.DragDropHandler.clearDragSource();
-}
-
-
-//------------------------------------------------------------------------------
 //- CONSTRUCTOR "sysObjTreeSimpleItem"
 //------------------------------------------------------------------------------
 
-function sysObjTreeSimpleItem(TreeRootObj, IndentLevel)
+function sysObjTreeSimpleItem(TreeRootObj, IndentLevel, ItemIndex)
 {
+    this.ItemIndex          = ItemIndex;                //- Unique Item Index
     this.ChildObjects       = new Array();              //- Child Objects
     this.DOMType            = 'li';                     //- Div Type
     this.DOMStyle           = 'list-group-item';        //- Bootstrap CSS Style
@@ -302,8 +247,6 @@ sysObjTreeSimpleItem.prototype = new sysBaseObject();
 sysObjTreeSimpleItem.prototype.init = function()
 {
     const Attributes = this.JSONConfig.Attributes;
-    console.debug('TreeSimpleItem JSONConfig:%o', Attributes);
-
     this.ObjectID = Attributes.ObjectID;
 
     //- selected indicator object
@@ -315,7 +258,7 @@ sysObjTreeSimpleItem.prototype.init = function()
 
     let EventLinkClick = new Object();
     EventLinkClick['Type'] = 'mousedown';
-    EventLinkClick['Element'] = this.activateSelected.bind(this.SelectedIndicator);
+    EventLinkClick['Element'] = this.clickItem.bind(this.SelectedIndicator);
     this.LinkObj.EventListeners["LinkClick"] = EventLinkClick;
 
     //- mouseover / mouseout event handler
@@ -329,26 +272,21 @@ sysObjTreeSimpleItem.prototype.init = function()
     EventMouseOut['Element'] = this.removeHilite.bind(this);
     this.LinkObj.EventListeners["MouseOut"] = EventMouseOut;
 
-    if (this.TreeRootObj !== undefined && this.TreeRootObj.JSONConfig.Attributes.DragSource === true) {
-        this.ItemContainerObj.DOMAttributes = { 'draggable': 'true' };
-
-        var DragStartEvent = new Object();
-        DragStartEvent['Type'] = 'dragstart';
-        DragStartEvent['Element'] = this.onDragStart.bind(this);
-        this.ItemContainerObj.EventListeners['DragStart'] = DragStartEvent;
-    }
+    //- set unique item IDs
+    const ItemSelectedID = this.TreeRootObj.ObjectID + "ItemSelected" + this.ItemIndex;
+    const ItemDisplayID = this.TreeRootObj.ObjectID + "ItemDisplay" + this.ItemIndex;
 
     //- setup recursive object structure
     const ObjDefs =  [
         {
-            "id": "ItemSelected",
+            "id": ItemSelectedID,
             "SysObject": this.SelectedIndicator,
             "JSONAttributes": {
-                "Style": "sysTreeItemSelected"
+                "Style": "treeitem-selected"
             }
         },
         {
-            "id": "ItemDisplay",
+            "id": ItemDisplayID,
             "SysObject": this.LinkObj,
             "JSONAttributes": {
                 "IconStyle": Attributes.Icon,
@@ -382,30 +320,28 @@ sysObjTreeSimpleItem.prototype.removeHilite = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "activateSelected"
+//- METHOD "clickItem"
 //------------------------------------------------------------------------------
 
-sysObjTreeSimpleItem.prototype.activateSelected = function()
+sysObjTreeSimpleItem.prototype.clickItem = function()
 {
-    this.addDOMElementStyle('sysTreeItemSelectedHilite');
+    const Attributes = this.ParentObject.JSONConfig.Attributes;
+    const TreeHiliteStyle = 'treeitem-selected-hilite';
+
+    console.debug('TreeSimpleItem Attributes:{}', Attributes);
+
+    if (Attributes !== undefined && Attributes.DstScreenID !== undefined) {
+        sysFactory.switchScreen(Attributes.DstScreenID);
+    }
+
+    this.addDOMElementStyle(TreeHiliteStyle);
 
     try {
-        this.ParentObject.TreeRootObj.LastSelectedItem.removeDOMElementStyle('sysTreeItemSelectedHilite');
+        this.ParentObject.TreeRootObj.LastSelectedItem.removeDOMElementStyle(TreeHiliteStyle);
     }
     catch(err) {
-        console.debug('TreeSimple activateSelected error:%s', err);
+        console.debug('TreeSimple clickItem error:%s', err);
     }
 
     this.ParentObject.TreeRootObj.LastSelectedItem = this;
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "onDragStart"
-//------------------------------------------------------------------------------
-
-sysObjTreeSimpleItem.prototype.onDragStart = function(Event)
-{
-    sysFactory.DragDropHandler.setDragSource(this, this.JSONConfig.Attributes);
-    Event.dataTransfer.effectAllowed = 'move';
 }

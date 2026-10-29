@@ -1,17 +1,17 @@
-deb http://de.archive.ubuntu.com/ubuntu/ jammy main restricted
+deb http://archive.ubuntu.com/ubuntu/ resolute main restricted
 
-deb http://de.archive.ubuntu.com/ubuntu/ jammy-updates main restricted
+deb http://archive.ubuntu.com/ubuntu/ resolute-updates main restricted
 
-deb http://de.archive.ubuntu.com/ubuntu/ jammy universe
+deb http://archive.ubuntu.com/ubuntu/ resolute universe
 
-deb http://de.archive.ubuntu.com/ubuntu/ jammy-updates universe
+deb http://archive.ubuntu.com/ubuntu/ resolute-updates universe
 
-deb http://de.archive.ubuntu.com/ubuntu/ jammy multiverse
+deb http://archive.ubuntu.com/ubuntu/ resolute multiverse
 
-deb http://de.archive.ubuntu.com/ubuntu/ jammy-updates multiverse
+deb http://archive.ubuntu.com/ubuntu/ resolute-updates multiverse
 
-deb http://de.archive.ubuntu.com/ubuntu/ jammy-backports main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/ resolute-backports main restricted universe multiverse
 
-deb http://de.archive.ubuntu.com/ubuntu jammy-security main restricted
-deb http://de.archive.ubuntu.com/ubuntu jammy-security universe
-deb http://de.archive.ubuntu.com/ubuntu jammy-security multiverse
+deb http://archive.ubuntu.com/ubuntu resolute-security main restricted
+deb http://archive.ubuntu.com/ubuntu resolute-security universe
+deb http://archive.ubuntu.com/ubuntu resolute-security multiverse
