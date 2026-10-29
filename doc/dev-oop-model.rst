@@ -16,7 +16,7 @@ in-memory object graph rooted at a screen's ``HierarchyRootObject``.
 .. _devoopmodel_base:
 
 23.1. Base OOP Inheritance Model
----------------------------------
+--------------------------------
 
 The base model is composed of two layered classes plus three cooperating engine
 singletons:
@@ -56,7 +56,7 @@ These components are deliberately kept small and single-purpose; their combinati
 what the rest of this chapter calls the *base OOP inheritance model*.
 
 23.2. sysBaseDOMElement — DOM Binding Layer
---------------------------------------------
+-------------------------------------------
 
 Defined in ``sysBaseDOMElement.js``. This class is the structural layer that handles
 *all* direct DOM interaction and browser binding on behalf of a ``sysBaseObject``
@@ -64,17 +64,17 @@ instance; no other class in the framework talks to ``document`` directly outside
 handful of narrow exceptions inside subclasses.
 
 23.2.1. Purpose and Position in the Chain
-*******************************************
+*****************************************
 
 ``sysBaseDOMElement`` is a mixin-style base class: it carries no notion of children,
 parents, or object identity (``ObjectID``) — those are added one layer up by
 ``sysBaseObject``. Splitting DOM binding out of the hierarchy/lifecycle logic keeps each
 layer independently reasoned about: ``sysBaseDOMElement`` deals purely with "how does a
 single node look and behave in the DOM", while ``sysBaseObject`` deals purely with "how
-do nodes relate to each other and to application data".
+do nodes relate to each other".
 
 23.2.2. Constructor Properties
-*******************************
+******************************
 
     - ``DOMDivElement``: Reference to the live DOM node once created (despite the name,
       holds whatever element type ``DOMType`` specifies, not only ``div``).
@@ -86,7 +86,7 @@ these methods but are actually owned by ``sysBaseObject`` / concrete subclasses,
 they depend on the object's position in the hierarchy.)
 
 23.2.3. Element Lifecycle Methods
-***********************************
+*********************************
 
     - ``createDOMElement()``: Creates the DOM node via ``document.createElement(this.DOMType)``,
       assigns it the id ``this.DOMObjectID``, and stores the reference on ``this.DOMDivElement``.
@@ -101,7 +101,7 @@ they depend on the object's position in the hierarchy.)
       ``sysBaseObject.renderObject()`` uses to avoid re-creating nodes that already exist.
 
 23.2.4. Attribute, Style and Value Methods
-*********************************************
+******************************************
 
     - ``setDOMAttribute(Attribute, Value)`` / ``removeDOMAttribute(Attribute)``: Set/remove
       a single HTML attribute on the node.
@@ -124,7 +124,7 @@ they depend on the object's position in the hierarchy.)
       ``sysContextMenu``.
 
 23.2.5. Visibility and Enable/Disable Methods
-*************************************************
+*********************************************
 
     - ``setDOMVisibleState()``: Applies ``this.VisibleState`` (``'visible'`` or ``'hidden'``)
       to the node by removing or setting the inline ``display`` style.
@@ -132,12 +132,10 @@ they depend on the object's position in the hierarchy.)
       visibility and re-applies it.
     - ``getDOMVisibleState()``: Returns the node's current ``display`` style value.
     - ``enableDOMElement()`` / ``disableDOMElement()``: Toggle the DOM ``disabled``
-      property and the corresponding ``'disabled'`` HTML attribute (the latter via
-      ``sysFactory.getObjectByID(this.ObjectID)`` so the attribute change is itself
-      routed back through the object API rather than touching the DOM node twice).
+      property and the corresponding ``'disabled'`` HTML attribute.
 
 23.2.6. Value Retrieval and Event Binding
-*********************************************
+*****************************************
 
     - ``getDOMValue()``: Returns the node's current ``innerHTML``.
     - ``getDOMElement()`` / ``getElement()``: Resolve and return the live DOM node for
@@ -148,7 +146,7 @@ they depend on the object's position in the hierarchy.)
       every configured entry in an object's ``EventListeners``.
 
 23.3. sysBaseObject — Root Primitive Lifecycle and Object Abstraction
-------------------------------------------------------------------------
+---------------------------------------------------------------------
 
 Defined in ``sysBaseObject.js``. ``sysBaseObject`` is the root primitive from which every
 concrete *x0-system-object* is derived (``sysObjSomething.prototype = new sysBaseObject()``,
@@ -157,7 +155,7 @@ provided by ``sysBaseDOMElement`` into a recursive tree abstraction with its own
 lifecycle: construction, hierarchy assembly, rendering, data exchange, reset and removal.
 
 23.3.1. Constructor Properties
-*******************************
+******************************
 
     - ``DOMType``: Defaults to ``'div'``; overridden by subclasses that render as a
       different element (``'button'``, ``'img'``, ``'input'``, ``'form'``, …).
@@ -171,7 +169,7 @@ lifecycle: construction, hierarchy assembly, rendering, data exchange, reset and
       structure that makes the whole model recursive.
 
 23.3.2. Inheritance
-*********************
+*******************
 
 .. code-block:: javascript
 
@@ -184,7 +182,7 @@ unmodified, on every ``sysBaseObject`` instance and every object derived from it
 .. _devoopmodel-base-hierarchy:
 
 23.3.3. Hierarchy Construction and Recursive Rendering
-**********************************************************
+******************************************************
 
     - ``addObject(ChildObject)``: Sets ``ChildObject.ParentObject = this`` and pushes
       ``ChildObject`` onto ``this.ChildObjects``. This is the single primitive operation
@@ -225,7 +223,7 @@ tree — which is what makes high-frequency, real-time UI redrawing (live lists,
 notification indicators, dynamic radio lists) tractable without a virtual-DOM diffing layer.
 
 23.3.4. Traversal and Query Methods
-***************************************
+***********************************
 
     - ``getObjects()``: Recursively flattens the entire subtree into a single
       ``{ ObjectID: ObjectRef, … }`` map.
@@ -244,7 +242,7 @@ notification indicators, dynamic radio lists) tractable without a virtual-DOM di
       non-recursive).
 
 23.3.5. Activation State and Enable/Disable
-***********************************************
+*******************************************
 
     - ``setActivated()`` / ``setDeactivated()``: Set the ``Deactivated`` flag on the
       object itself (both intentionally operate non-recursively; the recursive descent
@@ -257,7 +255,7 @@ notification indicators, dynamic radio lists) tractable without a virtual-DOM di
       disabled even when their container is otherwise re-enabled.
 
 23.3.6. Runtime Data API
-****************************
+************************
 
     - ``getObjectData()`` / ``setObjectData(Data)``: The object's public, uniform
       read/write API, dispatching to either a direct, non-recursive function pointer
@@ -276,7 +274,7 @@ notification indicators, dynamic radio lists) tractable without a virtual-DOM di
       :ref:`devoopmodel-classes-getobjectdata` and :ref:`devoopmodel-classes-getobjectdatarecursive`.
 
 23.3.7. Removal Semantics
-*****************************
+*************************
 
     - ``remove()``: Detaches *only this object* from its parent's ``ChildObjects`` (via
       ``getChildIndexByChildItemID()`` + ``splice()``) and removes its own DOM node.
@@ -287,7 +285,7 @@ notification indicators, dynamic radio lists) tractable without a virtual-DOM di
       itself. Refer to :ref:`devoopmodel-classes-baseobj-removeparent`.
 
 23.3.8. Reset Lifecycle
-****************************
+***********************
 
     - ``reset()``: An intentionally empty template method on ``sysBaseObject`` itself —
       every concrete subclass that needs reset behaviour (form fields, open/close
@@ -298,7 +296,7 @@ notification indicators, dynamic radio lists) tractable without a virtual-DOM di
       ``sysScreen.setup()`` and ``rerenderObject()``.
 
 23.4. sysFactory — Object Factory and Application Registry
---------------------------------------------------------------
+----------------------------------------------------------
 
 Defined in ``sysFactory.js`` (singleton instance ``sysFactory``). Acts as the single,
 global entry point for object instantiation, screen management, global variables and
@@ -307,7 +305,7 @@ strings to the actual JavaScript constructors the engine is allowed to instantia
 metadata.
 
 23.4.1. SetupClasses Registry
-*********************************
+*****************************
 
 The constructor populates ``this.SetupClasses`` with one entry per instantiable system
 object type (e.g. ``"Button": sysObjButton``, ``"List": sysList``,
@@ -317,7 +315,7 @@ and the concrete constructor function invoked at setup time — see 23.6.2 for h
 ``sysScreen.setupObject()`` uses it.
 
 23.4.2. init()
-******************
+**************
 
 ``sysFactory.init()`` is the application bootstrap sequence:
 
@@ -333,7 +331,7 @@ and the concrete constructor function invoked at setup time — see 23.6.2 for h
     6. Starts the asynchronous notification poller (``this.sysGlobalAsyncNotifyHandler.getMsg()``).
 
 23.4.3. Screen and Object Registry Methods
-**********************************************
+******************************************
 
     - ``addScreen(ScreenID, SkeletonData)``: Creates a new ``sysScreen``, assigns its
       ``ScreenID``/``SkeletonData``/optional ``JSONConfig`` (from ``this.ScreenConfig``),
@@ -349,7 +347,7 @@ and the concrete constructor function invoked at setup time — see 23.6.2 for h
       own ``getObjectsByType()``.
 
 23.4.4. Screen Switching
-*****************************
+************************
 
     - ``switchScreen(ScreenID)``: Switches every non-menu screen to the background
       (``switchScreensToBackground()``), updates ``this.CurrentScreenID``, switches the
@@ -362,7 +360,7 @@ and the concrete constructor function invoked at setup time — see 23.6.2 for h
       style-only operation rather than a teardown/rebuild.
 
 23.4.5. Global Variables, Text and Error State
-****************************************************
+**********************************************
 
     - ``getGlobalVar(Key)`` / ``setGlobalVar(Key, Value)``: Read/write the
       application-wide global variable store (``this.ObjGlobalData``), distinct from a
@@ -376,7 +374,7 @@ and the concrete constructor function invoked at setup time — see 23.6.2 for h
       switching (``sysObjLanguageSwitch``).
 
 23.4.6. setupObjectRefsRecursive(ObjDefs, RefObj)
-*******************************************************
+*************************************************
 
 The programmatic (non-skeleton-driven) counterpart to ``sysScreen.setupObject()``: given
 an array of object definitions (each specifying ``id``, ``SysObject``, ``JSONAttributes``,
@@ -387,14 +385,14 @@ parent reference. This is the method used to build ad-hoc object hierarchies out
 the declarative skeleton/metadata pipeline (e.g. grid generation via ``sysGridGenerator``).
 
 23.5. sysReactor / sysEvent — Event Reactor
-----------------------------------------------
+-------------------------------------------
 
 Defined in ``sysReactor.js`` (singleton instance ``sysFactory.Reactor``). Implements the
 framework's internal publish/subscribe event system, decoupling the objects that trigger
 application-level events from the objects that must react to them.
 
 23.5.1. sysEvent
-*********************
+****************
 
 A lightweight data holder with three properties: ``ID`` (the event identifier),
 ``CallbackFunction`` (invoked on dispatch) and ``EventSelector`` (an optional
@@ -402,7 +400,7 @@ discriminator allowing several distinct registrations to share the same ``ID`` w
 still being addressed individually, e.g. one ``'SwitchScreen'`` event per ``ScreenID``).
 
 23.5.2. sysReactor Core Methods
-*************************************
+*******************************
 
     - ``registerEvent(Attributes, CallbackFunction)``: Reads ``Attributes.OnEvent.Events``
       — an array whose entries are either plain ``EventID`` strings or
@@ -416,7 +414,7 @@ still being addressed individually, e.g. one ``'SwitchScreen'`` event per ``Scre
       more events as a side effect of a user interaction.
 
 23.5.3. Role in the Model
-*******************************
+*************************
 
 The reactor is deliberately the *only* indirection between "something happened"
 (a button click, a tab switch, application startup) and "something should now fetch or
@@ -427,7 +425,7 @@ object graph itself acyclic and strictly hierarchical (parent/child only), while
 cross-cutting application behaviour is layered on top through the reactor.
 
 23.6. sysScreen — Screen Lifecycle and Hierarchy Assembly
---------------------------------------------------------------
+---------------------------------------------------------
 
 Defined in ``sysScreen.js``. A ``sysScreen`` instance owns exactly one
 ``sysBaseObject`` hierarchy (rooted at ``HierarchyRootObject``, a plain ``sysObjDiv``)
@@ -435,7 +433,7 @@ built from declarative JSON "skeleton" metadata, plus its own request-data conta
 local global-variable scope.
 
 23.6.1. Constructor Properties
-************************************
+******************************
 
     - ``ScreenID``: The screen's identifier, also used as ``HierarchyRootObject.ObjectID``.
     - ``SkeletonData``: The screen's raw hierarchy metadata (which object ids nest under
@@ -448,7 +446,7 @@ local global-variable scope.
       ``sysFactory``'s application-wide store (23.4.5).
 
 23.6.2. setup() and setupObject() — Dynamic Child Instantiation
-*********************************************************************
+***************************************************************
 
 ``setup()`` is the single entry point that turns a screen's metadata into a fully live,
 rendered object hierarchy:
@@ -486,7 +484,7 @@ concrete, pointer-based object graph that ``sysBaseObject``'s rendering and trav
 methods (23.3.3, 23.3.4) operate on at runtime.
 
 23.6.3. configObjectInstance(JSONConfig)
-**********************************************
+****************************************
 
 Resolves ``JSONConfig.InstanceOf`` against ``sysFactory.DataObject.XMLRPCResultData``,
 applies any ``AttributesOverwrite`` onto the referenced configuration's ``Attributes``,
@@ -496,7 +494,7 @@ object, but override these specific attributes" instead of repeating a full obje
 definition.
 
 23.6.4. Global Variables and Backend Callback
-****************************************************
+*********************************************
 
     - ``setGlobalVar(Key, Value)`` / ``getGlobalVar(Key)``: Read/write a single
       screen-local global variable.
@@ -508,7 +506,7 @@ definition.
       backend response (``setGlobalVars(this.XMLRPCResultData)``).
 
 23.6.5. Style Methods
-****************************
+*********************
 
     - ``setStyle(Style)``: Sets ``this.CSSStyle`` (defaulting to
       ``sysFactory.DefaultStyleScreen``), used once during construction/setup.
@@ -516,7 +514,7 @@ definition.
       at runtime (``HierarchyRootObject.DOMStyle = Style; HierarchyRootObject.setDOMElementStyle()``).
 
 23.7. sysScreenOverlay — Modal Overlay Management
-------------------------------------------------------
+-------------------------------------------------
 
 Defined in ``sysScreenOverlay.js`` (singleton instance ``sysFactory.OverlayObj``). Reuses
 an existing, already-instantiated ``sysScreen`` as a modal or positioned overlay, by
@@ -534,14 +532,14 @@ additional hierarchy.
       used for context-anchored overlays rather than screen-centered modals.
 
 23.8. sysServiceConnector and sysRequestDataHandler — Backend Data Binding
--------------------------------------------------------------------------------
+--------------------------------------------------------------------------
 
 Defined in ``sysServiceConnector.js`` and ``sysRequestDataHandler.js`` respectively.
 Together they form the bridge between the event reactor (23.5) and a data-bearing
 object's runtime data API (23.3.6).
 
 23.8.1. sysServiceConnector
-*********************************
+***************************
 
 Inherits from ``sysBaseObject`` (``ObjectType: 'ServiceConnector'``), but is always used
 as a thin, non-visual wrapper around exactly one data-bearing child object:
@@ -559,7 +557,7 @@ as a thin, non-visual wrapper around exactly one data-bearing child object:
       and triggers the connected child object's data retrieval.
 
 23.8.2. sysRequestDataHandler
-***********************************
+*****************************
 
 A small, dependency-free data container used wherever outgoing request data needs to be
 accumulated and shaped before a backend call — used as ``PostRequestData`` by
@@ -578,7 +576,7 @@ accumulated and shaped before a backend call — used as ``PostRequestData`` by
       ``{ oldKey: newKey }`` mapping.
 
 23.9. sysHelper — Shared Utility Functions
------------------------------------------------
+------------------------------------------
 
 Defined in ``sysHelper.js``. A small set of standalone, module-level functions (not
 attached to any prototype) used across the engine wherever plain-object data needs to be
@@ -596,7 +594,7 @@ merged or reshaped:
       entries into an object keyed by ``KeyID``.
 
 23.10. Relationships and Interactions
-------------------------------------------
+-------------------------------------
 
     1. Base Layer:
         ``sysBaseDOMElement`` provides single-node DOM binding; ``sysBaseObject`` builds the
@@ -628,45 +626,3 @@ merged or reshaped:
         runtime data API (``setObjectData()``, 23.3.6), and any resulting DOM changes
         are applied through the same rendering/reset primitives described in 23.3.3 and
         23.3.8 — the same mechanisms used for the initial screen build.
-
-23.11. Example Workflow
------------------------------
-
-Scenario: Creating and Managing a Screen with Dynamic, Service-Connected Objects
-
-    1. Factory Initialization:
-        ``sysFactory.addScreen()`` creates a ``sysScreen`` and immediately calls its
-        ``setup()``, which recursively instantiates, renders and resets the entire
-        declared hierarchy (23.6.2).
-
-    2. Service Connection:
-        Any ``ServiceConnector``-typed object in that hierarchy registers itself with
-        ``sysFactory.Reactor`` during the same ``setup()`` call, via
-        ``connectServiceConnectorObjects()``.
-
-    3. Event Registration and Dispatch:
-        A user interaction (e.g. a button click) calls ``processActions()``/``fireEvents()``,
-        which dispatches one or more events through the reactor.
-
-    4. Backend Round-Trip:
-        The matching ``sysServiceConnector.EventCallback()`` fires, issues the configured
-        backend call, and on response writes the result back into its connected object via
-        ``setObjectData()``.
-
-    5. Re-Render:
-        Any DOM changes implied by the new data are applied immediately through the
-        connected object's own render/update logic — no full-screen re-render is required,
-        since the pointer-based tree allows any single object to be targeted directly.
-
-23.12. Conclusion
------------------------
-
-The x0 framework's base OOP model — ``sysBaseDOMElement`` for DOM binding,
-``sysBaseObject`` for the recursive parent/child tree and lifecycle, ``sysFactory`` for
-object instantiation and screen management, ``sysReactor`` for decoupled event flow, and
-``sysScreen``/``sysScreenOverlay``/``sysServiceConnector`` for assembling and connecting
-screens to backend data — provides a small, consistently layered foundation. Because
-every relationship in this model is a direct object reference rather than an indirection
-through a lookup structure, the resulting object graph can be traversed, rendered,
-reset and queried efficiently and predictably, even under frequent, partial, real-time
-updates.
