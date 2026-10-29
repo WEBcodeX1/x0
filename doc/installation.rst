@@ -29,7 +29,7 @@ application.
 Despite this minimal footprint, the container bundles a fully operational
 Single Page Application (SPA) showcase exercising the most relevant core
 *x0-system-objects*, declarative JSON metadata structures, and the
-pointer-based, recursive runtime rendering engine described in
+rendering engine described in
 :ref:`devoopmodel`.
 
 .. code-block:: bash
