@@ -15,7 +15,6 @@ The FormfieldList *x0-object-type* is a container type providing the following
 functionality.
 
 * Providing HTML conform "<form>" container
-* Grouping multiple single *x0-form-object-types* together
 * Validating against *x0-system* provided JS Validation Functions
 * Validating against user provided JS Validation Functions
 * Multilanguage Error / Info Display 
@@ -250,26 +249,6 @@ To integrate your own user based *x0-validation-functions*, define them in
 	INSERT INTO system.config (app_id, config_group, "value") VALUES ('appid', 'user_function', '[3] = "FunctionNr4"');
 
 .. _form-examples-list:
-
-17.6. Form Examples Reference
------------------------------
-
-**Local Repository Examples:**
-
-* **Example 5 - Enhanced Form:** `http://x0-app.x0.localnet/python/Index.py?appid=example5 <http://x0-app.x0.localnet/python/Index.py?appid=example5>`_
-  
-  - Advanced form validation features
-  - Multiple form field types
-  - Error handling and user feedback
-  - Integration with backend services
-
-**External x0-skeleton Examples:**
-
-* **Forms with MicroESB:** `https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/01-forms-microesb <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/01-forms-microesb>`_
-  
-  - Complete form implementation with microservice abstraction layer
-  - Production-ready form handling
-  - Service integration patterns
 
 **Related Documentation:**
 
