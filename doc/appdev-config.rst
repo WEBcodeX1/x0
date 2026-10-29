@@ -3,19 +3,17 @@
 .. _appdevconfig:
 
 7. Basic Configuration
-=======================
+======================
 
 This section describes how an *x0-application* is configured: the browser
 content areas it is composed of, the database-backed configuration tables,
 the application server configuration file, and the declarative JSON metadata
 model used to define objects, screens and menus.
 
---------------
-
 .. _appdevconfig-contentareas:
 
 7.1. Browser Content Areas
----------------------------
+--------------------------
 
 Historically, an *x0-application* was described as a fixed, three-pane
 layout — a **Menu Area**, a **Screen Content Area** and a **Notification
@@ -74,7 +72,7 @@ navigation tree), with no dedicated "link" object involved at all.
    Screen Switch
 
 7.1.3. Notification Area
-*************************
+************************
 
 -  Displays asynchronous status messages raised by backend/web-service
    calls.
@@ -84,7 +82,7 @@ navigation tree), with no dedicated "link" object involved at all.
 .. _appdevconfig-statepreservation:
 
 7.1.4. Object State Preservation
-*********************************
+********************************
 
 Because inactive screens persist as invisible layers rather than being torn
 down, x0 guarantees **full state preservation**: switching screens or tabs,
@@ -93,12 +91,10 @@ or navigating via the Menu Area, never resets object state.
 -  Example #15 - Tree Simple demonstrates this behavior:
    ``https://download.webcodex.de/x0/video/x0-example-15-tree-simple.mkv``
 
---------------
-
 .. _appdevconfig-positioning:
 
 7.1.5. Area Positioning / CSS
--------------------------------
+-----------------------------
 
 -  Layout is implemented with the Bootstrap grid for responsive
    positioning, e.g. ``<body class="row">`` combined with ``col-md-x``
@@ -109,10 +105,8 @@ or navigating via the Menu Area, never resets object state.
    <https://getbootstrap.com/docs/5.3/layout/grid/>`__ for the underlying
    grid mechanics.
 
---------------
-
 7.2. Database Configuration
-----------------------------
+---------------------------
 
 Application configuration data is stored in the ``system.config`` and
 ``webui.text`` database tables.
@@ -123,7 +117,7 @@ Application configuration data is stored in the ``system.config`` and
 .. _appdevconfig-systemconfig:
 
 7.2.1. System Configuration
-****************************
+***************************
 
 The relevant ``system.config`` parameters are:
 
@@ -161,7 +155,7 @@ The relevant ``system.config`` parameters are:
    INSERT INTO system.config (config_group, "value") VALUES ('index_title', 'x0 Default App');
 
 7.2.2. Display Text
-********************
+*******************
 
 -  Multi-language text is stored in ``webui.text``.
 -  Text IDs defined there are referenced from the JSON configuration files.
@@ -172,18 +166,16 @@ The relevant ``system.config`` parameters are:
    VALUES ('TXT.TEXTID.1', 'group1', 'English Text #1', 'German Text #1');
 
 7.2.3. Application ID
-**********************
+*********************
 
 -  Appending ``?appid=example2`` to the application URL loads an
    alternative configuration set.
 -  Each ``app_id`` is backed by its own set of configuration rows.
 
---------------
-
 .. _appdevconfig-serverconfig:
 
 7.3. Application Server Config (``app-config.json``)
-------------------------------------------------------
+----------------------------------------------------
 
 ``/config/app-config.json`` defines database authentication, virtual hosts
 and the *x0-applications* served per vhost. The full property reference for
@@ -196,7 +188,7 @@ summarizes the parts relevant to day-to-day application development.
    in the standalone :ref:`installation-quickstart` container.
 
 7.3.1. Database Authentication
-*********************************
+******************************
 
 The following database users are created automatically during the Docker
 image build:
@@ -206,7 +198,7 @@ image build:
 -  ``replication`` (``repl_password``)
 
 7.3.2. Virtual Hosts
-***********************
+********************
 
 -  Apache virtual hosts are generated from the JSON configuration during
    the Docker build.
@@ -214,14 +206,14 @@ image build:
    :ref:`appdeployment-kubernetes`).
 
 7.3.3. x0-Applications
-*************************
+**********************
 
 -  A single vhost may serve multiple *x0-applications* in parallel (see
    the ``apps`` list below); this is available for any database-backed
    deployment, not only Kubernetes.
 
 7.3.4. Default Config Example
-********************************
+*****************************
 
 .. code-block:: json
 
@@ -241,12 +233,10 @@ image build:
      }
    }
 
---------------
-
 .. _appdevconfig-metadata:
 
 7.4. Application Metadata & Object Model
--------------------------------------------
+----------------------------------------
 
 x0 applications are defined through a declarative, JSON-driven metadata
 model consisting of three files:
@@ -264,7 +254,7 @@ model consisting of three files:
    mechanism as ``skeleton.json`` (see :ref:`appdevconfig-contentareas`).
 
 7.4.1. object.json
-*********************
+******************
 
 Each object is declared as:
 
@@ -280,7 +270,7 @@ Each object is declared as:
 -  ``$ObjectID`` is referenced from ``menu.json`` and ``skeleton.json``.
 
 7.4.2. skeleton.json
-***********************
+********************
 
 Defines which screen each object belongs to, e.g.:
 
@@ -293,21 +283,19 @@ Defines which screen each object belongs to, e.g.:
    }
 
 7.4.3. menu.json
-*******************
+****************
 
 Uses the same syntax as ``skeleton.json``, but the root ``RefID`` is always
 ``sysMenu`` (see :ref:`appdevconfig-contentareas`).
 
---------------
-
 7.5. Metadata ElementID
---------------------------
+-----------------------
 
 Object elements (e.g. tabs within a tab container) are referenced via the
 ``ElementID`` property in ``skeleton.json``.
 
 Example: Tab Container
-*************************
+**********************
 
 **object.json**
 
@@ -337,10 +325,8 @@ Example: Tab Container
      ]
    }
 
---------------
-
 7.6. Object Templates
--------------------------
+---------------------
 
 -  Custom object templates are registered via the ``template_file`` and
    ``setup_class`` configuration parameters in the database.
