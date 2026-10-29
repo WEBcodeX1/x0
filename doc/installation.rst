@@ -10,10 +10,22 @@ below, intended for evaluating the framework in minutes, and the
 development work against a database-backed, production-equivalent environment.
 
 .. note::
-   If your goal is to develop *x0-applications* **only**, you **do not** need to install the full x0-base-system. Instead, start by setting up your own repository using the `x0-skeleton <https://github.com/WEBcodeX1/x0-skeleton>`_ template. Then, see the :ref:`appdevconfig` documentation for instructions on building and configuring your app.
+   If your goal is to develop *x0-applications* **only**, you **do not** need to install the full x0-base-system. See the :ref:`appdevconfig` documentation for instructions on building and configuring your app.
 
 .. important::
    If you plan to create your own *x0-system-objects* for custom use in your applications, **installing the x0-system is mandatory**. Continue reading below.
+
+.. important::
+   The database-backed *x0-system* is **multi-vhost-capable**: a single
+   installation can serve **multiple independent x0 applications in
+   parallel**, each bound to its own virtual host, DNS name and
+   configuration.
+
+.. important::
+   In addition to Docker and standalone installation, the *x0-system* also
+   supports a fully automated **Kubernetes** deployment (GKE and Minikube),
+   including multi-vhost routing, load-balancing and fail-safe database
+   setup. See :ref:`appdeployment-kubernetes` below for details.
 
 .. _installation-quickstart:
 
