@@ -5,21 +5,24 @@
 17. Forms
 =========
 
-Form design is a central concern of modern web-application architecture.
-The *x0-system* addresses this through a highly flexible, object-oriented
-toolchain that covers layout, data binding, cross-field validation, and
-runtime reactivity.
+Form architecture within the *x0-system* utilizes a highly adaptable, object-oriented
+ecosystem structured around two primary developmental methodologies. These paradigms
+may be deployed in isolation or seamlessly coalesced within a hybrid implementation layer:
 
-The framework natively supports two development methodologies, which can
-be used independently or combined within the same application: first, a
-completely declarative metadata approach designed for simple, fast setups
-that eliminate imperative coding entirely; and second, a programmatic
-approach for integrating x0 form-system objects directly as code or
-deploying your own custom-derived system objects.
+* **Container-Driven Topologies (Declarative):** This methodology leverages monolithic
+  container abstractions, exemplified by the ``FormfieldList`` *x0-system-object* type,
+  which natively encapsulates structural grid-formatting matrices and automated group-validation
+  lifecycles directly at the metadata and configuration layer within ``object.json``.
 
-This hybrid capability allows developers to express complex form logic
-via metadata while maintaining the power to override or extend behaviors
-programmatically.
+* **Component-Driven Topologies (Programmatic):** This approach utilizes granular, standalone
+  *x0-system-object* types derived from ``sysObjFormfieldItem.js``. These primitive inputs are
+  engineered to operate either as autonomous entities or as tightly coupled child nodes embedded
+  within a parent container hierarchy.
+
+Both architectural frameworks remain fully interoperable; high-level structural components,
+including ``FormfieldList``, ``FormfieldText``, or any other ``FormfieldItem`` variation, can
+be dynamically instantiated at runtime, configured, and orchestrated programmatically inside
+a custom-engineered *x0-component*.
 
 17.1. FormfieldList
 -------------------
@@ -51,13 +54,10 @@ For the complete ``FormfieldList`` attribute reference, the individual
 	generic backend layer: a ``Button`` object's backend Service Execution
 	(see :ref:`appdevcontrolbutton`) or a ``FormfieldDynPulldown``'s
 	``ServiceID`` (see :ref:`appdevformobjects`, 11.7) dispatch the enclosing
-	form's data to any remote service endpoint, including microservice
-	abstraction layers such as
-	`python-micro-esb <https://github.com/clauspruefer/python-micro-esb>`_.
-	See :ref:`appdev-backend` for the complete backend integration model.
+	form's data to any remote service endpoint.
 
 17.2. Form Validation
-----------------------
+---------------------
 
 ``FormfieldList`` drives a two-tier *x0-form-validation* pipeline, triggered
 whenever its ``validate()`` method is invoked (typically as part of a
@@ -66,17 +66,19 @@ whenever its ``validate()`` method is invoked (typically as part of a
 * **Single-Field Validation**: every contained form element is validated
   individually against its own ``ValidateRef`` (System Provided or User Based,
   Regex or Function, see 17.4/17.5).
+
 * **Group Validation**: declaratively configured ``GroupValidate`` elements
   (see :ref:`appdevformobjects`, 11.1.2) additionally validate a related set
   of fields as a whole, independent of their individual ``ValidateRef``
   checks (e.g. "password and password-repeat must match").
+
 * **Error Container**: validation failures of either tier are surfaced
   through the ``ErrorContainer``-referenced :ref:`objecttype-errorcontainer`,
   which renders a localized (multilanguage) error message; the first failed
   field additionally receives the ``StyleValidateFailFirst`` CSS treatment.
 
 17.3. FormfieldOnchange Handler
---------------------------------
+-------------------------------
 
 The FormfieldOnChange Handler provides a declarative mechanism allowing a
 single form field's state change to reactively reconfigure other, already
