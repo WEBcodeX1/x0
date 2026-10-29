@@ -29,7 +29,6 @@ The following *x0-object-types* support raising events.
 
 * Button
 * ButtonInternal
-* Link
 
 .. _appdevcontrolflow:
 
