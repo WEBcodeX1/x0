@@ -17,7 +17,7 @@ declarative ``ItemConfig`` schema shared by all of them, and finally provide an
 implementation blueprint for wiring a context menu into a custom object.
 
 12.1. Out-of-the-Box Supported Objects
-***************************************
+**************************************
 
 .. table:: Out-of-the-Box Context Menu Support
 	:widths: 20 20 25 60
@@ -50,7 +50,7 @@ when the row is constructed with the internal ``CtxtMenuActive`` flag set to
 ``true``; it does not read an ``Attributes.ContextMenuItems`` JSON definition.
 
 12.2. Global Item Attributes
-*****************************
+****************************
 
 Every entry of an ``ItemConfig`` array (the value assigned to
 ``ContextMenuItems`` / ``HeaderContextMenuItems``) supports the following
@@ -69,7 +69,7 @@ display attributes, plus exactly one of the dispatch mechanisms documented in
 	+--------------+---------------+--------------------------------------------+
 
 12.3. Dispatch Mechanisms
-***************************
+*************************
 
 On click, ``sysContextMenuItem.prototype.EventListenerClick`` evaluates each of
 the following ``ItemConfig`` keys independently; an item may combine several of
@@ -77,7 +77,7 @@ them, and the menu is closed after processing regardless of which mechanism
 fired.
 
 12.3.1. InternalFunction
-#########################
+########################
 
 ``InternalFunction`` dispatches a named, built-in function against the
 context menu's ``ParentObject`` via the global ``FunctionDispatcher``
@@ -95,18 +95,12 @@ context menu's ``ParentObject`` via the global ``FunctionDispatcher``
 	+-----------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------+
 	| get-set-data    | ``DstObject.setObjectData(ObjectRef.getObjectData())`` | Copies data directly to ``DstObjectID``, no clipboard involved                             |
 	+-----------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------+
-	| remove          | ``ObjectRef.remove()``                                 | Removes the object, see :ref:`devoopmodel-classes-baseobj-remove`                          |
-	+-----------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------+
-	| remove-selected | ``ObjectRef.removeSelected()``                         | Removes all currently selected rows (``List``-level action)                                |
-	+-----------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------+
-	| reset           | ``ObjectRef.reset()``                                  | Resets the object to its initial state                                                     |
-	+-----------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------+
 
 ``get-set-data`` additionally requires a ``DstObjectID`` entry on the same
 ``ItemConfig`` item, resolved via ``sysFactory.getObjectByID()``.
 
 12.3.2. CallbackFunction / CallbackObjRef
-###########################################
+#########################################
 
 As an alternative (or in addition) to ``InternalFunction``, an item may supply
 a ``CallbackFunction`` -- an arbitrary function reference -- invoked as
@@ -116,14 +110,14 @@ that has no corresponding built-in function, such as toggling a custom edit
 mode (see 12.4 for a complete example).
 
 12.3.3. OverlayScreenID
-#########################
+#######################
 
 Setting ``OverlayScreenID`` to a valid ScreenID activates the referenced
 overlay screen via ``sysFactory.OverlayObj.activateOverlay()`` (see
 :ref:`appdevoverlay`) before the menu is closed.
 
 12.3.4. FireEvents
-#####################
+##################
 
 Setting ``FireEvents`` to an array of EventIDs fires the referenced
 *x0-system-events* via ``sysFactory.Reactor.fireEvents()`` (see
@@ -131,7 +125,7 @@ Setting ``FireEvents`` to an array of EventIDs fires the referenced
 unrelated *x0-system-objects* without a direct object reference.
 
 12.4. Developer Guide: Implementing a Context Menu on a Custom Object
-************************************************************************
+*********************************************************************
 
 Because every object added to a screen's hierarchy automatically receives a
 ``this.ScreenObject`` reference from ``sysScreen.prototype.setupObject`` prior
@@ -139,7 +133,8 @@ to ``init()`` being called, the two-phase pattern below works unmodified on
 any custom *x0-object-type*, independent of whether it is instantiated
 declaratively (via metadata) or programmatically.
 
-**Phase 1 -- Event Registration**
+12.4.1. Step1 - Event Registration
+##################################
 
 Register a ``mousedown`` listener under the reserved
 ``EventListeners['ContextMenuOpen']`` key, typically from the object's
@@ -156,7 +151,8 @@ Register a ``mousedown`` listener under the reserved
 	    this.EventListeners['ContextMenuOpen'] = EventListenObjRightClick;
 	}
 
-**Phase 2 -- Runtime Evaluation and Instantiation**
+12.4.2. Step2 - Runtime Instantiation
+#####################################
 
 Inside the bound handler, verify the click was a right-click
 (``Event.button == 2``) and that ``ContextMenuItems`` is actually defined,
