@@ -5,54 +5,58 @@
 12. Context Menu
 ================
 
-The runtime creates context menus for ``List`` rows and ``FormfieldList``
-objects when their ``ContextMenuItems`` attribute is configured. A ``List``
-can also define ``HeaderContextMenuItems`` for its header.
+A context menu (right mouse click) can be bound to any *x0-object-type*
+(if it was implemented by the *x0-developer*).
 
-Each item uses ``TextID`` and optional ``IconStyle`` for its display.
-``InternalFunction`` selects a built-in operation; optional
-``DstObjectID``, ``OverlayScreenID``, and ``FireEvents`` provide the
-destination or follow-up behavior. The old ``Method``-based menu API is not
-implemented.
+.. note::
 
-12.1. Built-in Functions
-------------------------
+    Currently only ``List`` and ``FormfieldList`` *x0-object-types* are supported,
+    this will change in future releases.
 
-The current ``InternalFunction`` values are:
+12.1. Global Attributes
+***********************
 
-* ``get-data``: copy the selected object's data to the runtime clipboard.
-* ``set-data``: set the selected object's data from the runtime clipboard.
-* ``get-set-data``: copy data to the object named by ``DstObjectID``.
-* ``remove``: remove the selected object.
-* ``remove-selected``: remove selected entries.
-* ``reset``: reset the selected object.
+.. table:: Context Menu Item Global Attributes
+	:widths: 30 20 100
 
-12.2. Example
--------------
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| Method              | Enum-String          | Implemented Context Menu Methods                |
+	+---------------------+----------------------+-------------------------------------------------+
+	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+	+---------------------+----------------------+-------------------------------------------------+
+	| IconStyle           | CSS-String           | CSS Style Classes, space separated              |
+	+---------------------+----------------------+-------------------------------------------------+
 
-.. code-block:: javascript
+12.2. Implemented Methods
+*************************
 
-   "Tasks": {
-     "Type": "List",
-     "Attributes": {
-       "ContextMenuItems": [
-         {
-           "ID": "Copy",
-           "TextID": "TXT.CONTEXTMENU.COPY",
-           "IconStyle": "fa-solid fa-copy",
-           "InternalFunction": "get-data"
-         },
-         {
-           "ID": "ShowDetails",
-           "TextID": "TXT.CONTEXTMENU.DETAILS",
-           "InternalFunction": "get-set-data",
-           "DstObjectID": "TaskDetails",
-           "OverlayScreenID": "TaskDetailsOverlay"
-         }
-       ]
-     }
-   }
+.. table:: Context Menu Methods
+	:widths: 30 20 100
 
-Context-menu items may also supply a runtime ``CallbackFunction`` and its
-``CallbackObjRef`` when the menu is constructed by JavaScript. No
-``UserContextMenu`` class or custom ``Method`` dispatcher is provided.
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Method**          | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| Edit                | Table-Row            | Switch Screen into Edit-Mode                    |
+	+---------------------+----------------------+-------------------------------------------------+
+	| RemoveSingle        | Table-Row            | Remove Single Table Row                         |
+	+---------------------+----------------------+-------------------------------------------------+
+	| RemoveSelected      | Array of Table-Rows  | Remove Selected Table Rows                      |
+	+---------------------+----------------------+-------------------------------------------------+
+
+12.3. Edit Attributes
+*********************
+
+.. table:: Context Menu Item "Edit" Attributes
+	:widths: 30 20 100
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Method**          | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| DstScreenID         | ScreenID-String      | Destination ScreenID Reference                  |
+	+---------------------+----------------------+-------------------------------------------------+
+	| RowColumn           | RowID-String         | Table Row Column Reference                      |
+	+---------------------+----------------------+-------------------------------------------------+
+	| FireEvents          |  Array               | Array of EventIDs                               |
+	+---------------------+----------------------+-------------------------------------------------+

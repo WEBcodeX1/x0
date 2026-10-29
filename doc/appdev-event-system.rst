@@ -14,8 +14,10 @@ Any *x0-system-object* is able to register to multiple *x0-events*.
 During x0-init (initial page load), the ``InitSystem`` *x0-system-event* is triggered /
 fired.
 
-Object references should be resolved through the object hierarchy rather than
-retained as DOM nodes, since runtime updates can replace rendered elements.
+.. note::
+
+    Some *x0-object-types*, e.g., the **List** object will be completely removed from
+    the DOM and re-rendered by invoking ``callbackXMLRPCAsync()`` method.
 
 .. image:: images/x0-event-system.png
   :alt: image - event system
@@ -27,6 +29,7 @@ The following *x0-object-types* support raising events.
 
 * Button
 * ButtonInternal
+* Link
 
 .. _appdevcontrolflow:
 
@@ -57,6 +60,20 @@ they are processed.
 * Execute Action **after** successful Form Validation 
 * Fire Events **after** successful Form Validation
 
-Navigation and overlay actions are available through the supported button
-action processor; ``Link`` and ``LinkExternal`` are not registered runtime
-object types.
+.. _appdevcontrollink:
+
+16.3. Link
+----------
+
+* Set Screen CSS Style
+* Switch Screen
+* Open Screen Overlay
+* Fire Events
+
+.. _appdevcontrollinkext:
+
+16.4. LinkExternal
+------------------
+
+* Open External Link in current Browser Window
+* Open External Link in new Browser Tab

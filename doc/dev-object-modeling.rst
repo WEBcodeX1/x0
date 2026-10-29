@@ -338,7 +338,7 @@ A core *x0-system-object* should be included in ``/python/Index.py`` as well.
 Check additional realtime processing code in the following system files:
 
 - ``sysRTPagination.js``
-- ``sysGridGenerator.js``
+- ``sysRTFormSectionHeader.js``
 
 26.13. Building an Object Like sysObjDynRadioList.js
 ----------------------------------------------------

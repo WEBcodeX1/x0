@@ -5,29 +5,24 @@
 10. System Objects
 ==================
 
-The object types below are registered in ``sysFactory.SetupClasses`` for the
-current runtime. Form controls are documented separately in
-:ref:`appdevformobjects`.
+Currently the following *x0-system-objects* are usable inside ``object.json``.
 
-* **Layout and text:** ``Div``, ``DivUnique``, ``HeaderBodyContainer``,
-  ``InfoParagraph``, ``SQLText``.
-* **Controls:** ``Button``, ``ButtonInternal``, ``FileUpload``, ``Image``,
-  ``ImageSelector``, ``BadgeSelector``, ``ProgressBar``, ``RangeSlider``,
-  ``RangeSliderContainer``.
-* **Containers and navigation:** ``TabContainer``, ``OpenCloseContainer``,
-  ``TreeSimple``, ``DynRadioList``, ``LanguageSwitch``.
-* **Data and services:** ``List``, ``ServiceConnector``, ``ErrorContainer``.
-* **Settings:** ``SystemSettingsContainer`` and
-  ``SystemSettingsContainerGrid``.
-* **Demonstration objects:** ``TimedProgress``, ``ExampleEditableItem``,
-  ``ExampleEditableItemContainer``, ``ExampleFlightDetails``,
-  ``ExampleFlightStatus``, ``ExampleWizard``, ``ExampleCardTasklist``, and
-  ``ExamplePeopleSelector``.
+* :ref:`objecttype-div`
+* :ref:`objecttype-sqltext`
+* :ref:`objecttype-button`
+* :ref:`objecttype-buttoninternal`
+* :ref:`objecttype-link`
+* :ref:`objecttype-linkexternal` 
+* :ref:`objecttype-list`
+* :ref:`objecttype-tabcontainer`
+* :ref:`objecttype-fileupload`
+* :ref:`objecttype-errorcontainer`
+* :ref:`objecttype-openclosecontainer`
+* :ref:`objecttype-treesimple`
+* :ref:`objecttype-progressbar`
+* :ref:`objecttype-rangeslider`
 
-``Link`` and ``LinkExternal`` are not registered object types. Use the
-supported button actions or ``TreeSimple`` for navigation and control flow.
-The low-level drag-and-drop handler is not wired into the registered objects.
-For practical examples, see :ref:`object-examples-reference`.
+For form-specific objects, see :ref:`appdevformobjects`. For practical examples and implementations, see the :ref:`examples section <object-examples-reference>` at the end of this document.
 
 .. _objecttype-div:
 
@@ -251,9 +246,82 @@ Details see :ref:`appdevcontrolbuttoninternal`.
 	| CloseOverlay        | Boolean              | Close Overlay On Click                          |
 	+---------------------+----------------------+-------------------------------------------------+
 
+.. _objecttype-link:
+
+10.5. Link
+----------
+
+The ``Link`` *x0-object-type* unlike the Button x0-object-type, is not form-oriented and is primarily
+used to manage internal control flow..
+
+10.5.1. Object Attributes
+*************************
+
+.. table:: Object Type Link Attributes
+	:widths: 30 20 80
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| Style               | CSS-String           | CSS Style Classes, space separated              |
+	+---------------------+----------------------+-------------------------------------------------+
+	| HiliteStyle         | CSS-String           | CSS Style Classes, space separated              |
+	+---------------------+----------------------+-------------------------------------------------+
+	| ScreenStyle         | CSS-String           | Update ScreenStyle for given ScreenID           |
+	+---------------------+----------------------+-------------------------------------------------+
+	| ScreenID            | ScreenID-String      | Switch Screen to Screen set in ScreenID         |
+	+---------------------+----------------------+-------------------------------------------------+
+	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+	+---------------------+----------------------+-------------------------------------------------+
+	| OverlayID           | ScreenID-String      | Open Screen set in ScreenID in Overlay          |
+	+---------------------+----------------------+-------------------------------------------------+
+	| OverlayAttributes   | String               | Overlay Attributes                              |
+	+---------------------+----------------------+-------------------------------------------------+
+	| FireEvents          | Array                | Array of EventIDs                               |
+	+---------------------+----------------------+-------------------------------------------------+
+
+.. _objecttype-linkexternal:
+
+10.6. LinkExternal
+------------------
+
+The ``LinkExternal`` *x0-object-type* manages the behavior for opening external URLs.
+
+10.6.1. Object Attributes
+*************************
+
+.. table:: Object Type LinkExternal Attributes
+	:widths: 30 20 80
+
+	+---------------------+----------------------+-------------------------------------------------+
+	| **Property**        | **Type**             | **Description**                                 |
+	+=====================+======================+=================================================+
+	| LinkDisplay         | String               | Display String                                  |
+	+---------------------+----------------------+-------------------------------------------------+
+	| LinkURL             | URL-String           | Link URL                                        |
+	+---------------------+----------------------+-------------------------------------------------+
+	| OpenInTab           | Boolean              | Open Link in new, additional Browser Tab        |
+	+---------------------+----------------------+-------------------------------------------------+
+
+10.6.2. JSON Example
+********************
+
+.. code-block:: javascript
+
+	"$ObjectID":
+	{
+		"Type": "LinkExternal",
+		"Attributes":
+		{
+			"LinkURL": "https://linkurl.com/test",
+			"LinkDisplay": "LinkDisplayText",
+			"OpenInTab": true
+		}
+	}
+
 .. _objecttype-list:
 
-10.5. List
+10.7. List
 ----------
 
 The ``List`` *x0-object-type* renders a table-like HTML structure using Bootstrap's Grid CSS,
@@ -262,7 +330,7 @@ avoiding the traditional ``<table><tr><td>`` HTML syntax for a more modern and f
 Additionally, it incorporates advanced features such as *x0-realtime-container*
 for dynamic updates and *x0-context-menu* for enhanced user interaction.
 
-10.5.1. Object Attributes
+10.7.1. Object Attributes
 *************************
 
 .. table:: Object Type List Attributes
@@ -283,10 +351,10 @@ for dynamic updates and *x0-context-menu* for enhanced user interaction.
 	+---------------------+----------------------+-------------------------------------------------+
 	| ErrorContainer      | ObjectID-String      | Error Container Object Reference                |
 	+---------------------+----------------------+-------------------------------------------------+
-	| ContextMenuItems    | Array of Items       | Context Menu Entries, see 10.5.4.               |
+	| ContextMenuItems    | Array of Items       | Context Menu Entries, see 10.7.4.               |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.5.2. Column Attributes
+10.7.2. Column Attributes
 *************************
 
 .. table:: Object Type List Column Attributes
@@ -302,7 +370,7 @@ for dynamic updates and *x0-context-menu* for enhanced user interaction.
 	| HeaderStyle         | CSS-String           | CSS Style Classes, space separated              |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.5.3. RT Attributes
+10.7.3. RT Attributes
 *********************
 
 .. table:: Object Type List Real Time Attributes
@@ -314,17 +382,17 @@ for dynamic updates and *x0-context-menu* for enhanced user interaction.
 	| DoubleCheckColumn   | String               | Check Column Value already exists on Row append |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.5.4. Grid Attributes
+10.7.4. Grid Attributes
 ***********************
 
 Global Grid Attributes can be applied, see :ref:`appdevgridsystem`.
 
-10.5.5. Context Menu
+10.7.5. Context Menu
 ********************
 
 Global Context Menu Attributes can be applied, see :ref:`appdevcontextmenu`.
 
-10.5.6. Backend JSON Schema
+10.7.6. Backend JSON Schema
 ***************************
 
 Backend services must return the following JSON to provide table cell data on
@@ -339,7 +407,7 @@ service execution.
 		{ "id": "4", "col1": "row4-1", "col2": "row4-2" }
 	]
 
-10.5.7. Runtime Features
+10.7.7. Runtime Features
 ************************
 
 The following runtime-features are supported.
@@ -347,16 +415,17 @@ The following runtime-features are supported.
 * RuntimeGetDataFunc()
 * RuntimeAppendDataFunc()
 
-10.5.8. Runnable Examples
-*************************
+10.7.8. Runnable Example
+************************
 
-* ``example/list_objectdata_grid`` (application ID ``example7``)
+* Example #1 - Basic Tab Container:
+  ``http://x0-app.x0.localnet/python/Index.py?appid=example1``
 * Example #4 - List Detail Switch Screen:
-  ``example/list_detail_switch_screen`` (application ID ``example4``)
+  ``http://x0-app.x0.localnet/python/Index.py?appid=example4``
 
 .. _objecttype-tabcontainer:
 
-10.6. TabContainer
+10.8. TabContainer
 ------------------
 
 The ``TabContainer`` *x0-object-type* offers a real-time switchable object container,
@@ -372,7 +441,7 @@ it preserves object states recursively, ensuring continuity and consistency acro
 	 ObjRef1   ObjRef3    ObjRef4
 	 ObjRef2              ObjRef5
 	              
-10.6.1. Object Attributes
+10.8.1. Object Attributes
 *************************
 
 .. table:: Object Type TabContainer Attributes
@@ -384,7 +453,7 @@ it preserves object states recursively, ensuring continuity and consistency acro
 	| Tabs                | Array of Elements    | Array of Tab Elements (Config)                  |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.6.2. Tab Attributes
+10.8.2. Tab Attributes
 **********************
 
 .. table:: Object Type TabAttributes
@@ -402,7 +471,7 @@ it preserves object states recursively, ensuring continuity and consistency acro
 	| Style               | CSS-String           | CSS Style Classes, space separated              |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.6.3. Runnable Example
+10.8.3. Runnable Example
 ************************
 
 * Example #3 - Basic Tab Container:
@@ -412,13 +481,13 @@ it preserves object states recursively, ensuring continuity and consistency acro
 
 .. _objecttype-fileupload:
 
-10.7. FileUpload
+10.9. FileUpload
 ----------------
 
 The ``FileUpload`` *x0-object-type* provides a file selection dialog along with a visually
 intuitive upload progress indicator.
 
-10.7.1. Object Attributes
+10.9.1. Object Attributes
 *************************
 
 .. table:: Object Type FileUpload Attributes
@@ -446,19 +515,25 @@ intuitive upload progress indicator.
 	| ScreenDataLoad             | ScreenID-String      | On Successful Upload trigger Data reload |
 	+----------------------------+----------------------+------------------------------------------+
 
+10.9.2. Runnable Example
+************************
+
+* Example #1 - Add Object Table Column:
+  ``http://x0-app.x0.localnet/python/Index.py?appid=example1``
+
 .. _objecttype-errorcontainer:
 
-10.8. ErrorContainer
+10.10. ErrorContainer
 ---------------------
 
 The ``ErrorContainer`` *x0-object-type* is designed to display informational and error messages.
 
-10.8.1. Object Attributes
+10.10.1. Object Attributes
 **************************
 
 None.
 
-10.8.2. JSON Example
+10.10.2. JSON Example
 *********************
 
 .. code-block:: javascript
@@ -474,7 +549,7 @@ None.
 
 .. _objecttype-openclosecontainer:
 
-10.9. OpenCloseContainer
+10.11. OpenCloseContainer
 -------------------------
 
 The ``OpenCloseContainer`` *x0-object-type* provides a collapsible content container 
@@ -482,7 +557,7 @@ with toggle functionality, allowing users to expand or collapse sections to mana
 screen real estate effectively. This component is particularly useful for organizing 
 large amounts of content in a compact, user-friendly manner.
 
-10.9.1. Object Attributes
+10.11.1. Object Attributes
 **************************
 
 .. table:: Object Type OpenCloseContainer Attributes
@@ -496,7 +571,7 @@ large amounts of content in a compact, user-friendly manner.
 	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.9.2. Features
+10.11.2. Features
 *****************
 
 - **Toggle Functionality**: Click to expand or collapse content sections
@@ -505,7 +580,7 @@ large amounts of content in a compact, user-friendly manner.
 - **Responsive Design**: Adapts to different screen sizes using Bootstrap styling
 - **Visual Indicators**: Uses FontAwesome caret icons to indicate state
 
-10.9.3. JSON Example
+10.11.3. JSON Example
 *********************
 
 .. code-block:: javascript
@@ -527,7 +602,7 @@ large amounts of content in a compact, user-friendly manner.
 		}
 	}
 
-10.9.4. Usage Examples
+10.11.4. Usage Examples
 ***********************
 
 This system object can be used for:
@@ -538,7 +613,7 @@ This system object can be used for:
 - Managing information hierarchy and screen space
 - Demonstrating modular UI construction
 
-10.9.5. Runnable Example
+10.11.5. Runnable Example
 *************************
 
 * Example #14 - Open Close Container: 
@@ -546,7 +621,7 @@ This system object can be used for:
 
 .. _objecttype-treesimple:
 
-10.10. TreeSimple
+10.12. TreeSimple
 -----------------
 
 The ``TreeSimple`` *x0-object-type* creates hierarchical tree structures with 
@@ -554,7 +629,7 @@ expandable/collapsible nodes, FontAwesome icons, and navigation capabilities. It
 supports both expandable nodes (containers) and interactive items (navigation elements) 
 with visual selection indicators and state management.
 
-10.10.1. Object Attributes
+10.12.1. Object Attributes
 **************************
 
 .. table:: Object Type TreeSimple Attributes
@@ -566,7 +641,7 @@ with visual selection indicators and state management.
 	| TreeItems           | Array of Elements    | Array of Tree Node and Item definitions         |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.10.2. Element Type Node
+10.12.2. Element Type Node
 **************************
 
 Expandable/collapsible containers that can contain other nodes or items:
@@ -586,7 +661,7 @@ Expandable/collapsible containers that can contain other nodes or items:
 	| Children            | Array of Elements    | Array of child Node and Item elements           |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.10.3. Element Type Item
+10.12.3. Element Type Item
 **************************
 
 Interactive navigation elements that trigger screen navigation:
@@ -606,7 +681,7 @@ Interactive navigation elements that trigger screen navigation:
 	| ScreenID            | ScreenID-String      | Target Screen for navigation                    |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.10.4. Features
+10.12.4. Features
 *****************
 
 - **Hierarchical Structure**: Support for nested nodes and items
@@ -616,7 +691,7 @@ Interactive navigation elements that trigger screen navigation:
 - **Visual Feedback**: Hover effects and selection indicators enhance user interaction
 - **State Management**: Tree state is preserved during navigation between screens
 
-10.10.5. JSON Example
+10.12.5. JSON Example
 *********************
 
 .. code-block:: javascript
@@ -668,7 +743,7 @@ Interactive navigation elements that trigger screen navigation:
 		}
 	}
 
-10.10.6. Usage Examples
+10.12.6. Usage Examples
 ***********************
 
 This system object can be used for:
@@ -679,7 +754,7 @@ This system object can be used for:
 - Demonstrating tree-based data organization in x0 applications
 - Creating multi-level category browsers
 
-10.10.7. Integration with OpenCloseContainer
+10.12.7. Integration with OpenCloseContainer
 ********************************************
 
 TreeSimple objects work well when wrapped in OpenCloseContainer for additional 
@@ -694,13 +769,13 @@ collapsibility:
 		}
 	}
 
-10.10.8. Runnable Example
+10.12.8. Runnable Example
 *************************
 
 * Example #15 - Tree Simple: 
   ``http://x0-app.x0.localnet/python/Index.py?appid=example15``
 
-10.11. DivUnique
+10.13. DivUnique
 ----------------
 
 The ``DivUnique`` *x0-object-type* is an extended ``Div`` that sets its DOM
@@ -710,7 +785,7 @@ instances on the same screen without ID collisions. It supports the same
 ``Style``, ``DOMType``, and ``TextID`` attributes as the standard ``Div`` and
 can act as a parent container for nested child objects.
 
-10.11.1. Object Attributes
+10.13.1. Object Attributes
 **************************
 
 .. table:: Object Type DivUnique Attributes
@@ -726,7 +801,7 @@ can act as a parent container for nested child objects.
 	| TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.11.2. JSON Example
+10.13.2. JSON Example
 *********************
 
 .. code-block:: javascript
@@ -741,7 +816,7 @@ can act as a parent container for nested child objects.
 
 .. _objecttype-progressbar:
 
-10.12. ProgressBar
+10.14. ProgressBar
 ------------------
 
 The ``ProgressBar`` *x0-object-type* renders a Bootstrap-styled horizontal
@@ -750,7 +825,7 @@ a percentage value. The percentage can be read and written at runtime through
 the standard ``getObjectData()`` / ``setObjectData()`` API, making it easy to
 update from button actions or backend callbacks.
 
-10.12.1. Object Attributes
+10.14.1. Object Attributes
 **************************
 
 .. table:: Object Type ProgressBar Attributes
@@ -764,7 +839,7 @@ update from button actions or backend callbacks.
 	|                     |                      | default striped/animated style is used.               |
 	+---------------------+----------------------+-------------------------------------------------------+
 
-10.12.2. Runtime API
+10.14.2. Runtime API
 ********************
 
 .. code-block:: javascript
@@ -775,7 +850,7 @@ update from button actions or backend callbacks.
 	// set percentage and re-render
 	sysFactory.getObjectByID('MyProgressBar').setObjectData(75);
 
-10.12.3. JSON Example
+10.14.3. JSON Example
 *********************
 
 .. code-block:: javascript
@@ -790,7 +865,7 @@ update from button actions or backend callbacks.
 
 .. _objecttype-rangeslider:
 
-10.13. RangeSlider
+10.15. RangeSlider
 ------------------
 
 The ``RangeSlider`` *x0-object-type* renders an HTML ``<input type="range">``
@@ -799,7 +874,7 @@ element styled with Bootstrap's ``form-range`` class. It exposes ``Min`` and
 ``getObjectData()`` / ``setObjectData()`` API so its current value can be read
 from or written to by any other *x0-object* or button action.
 
-10.13.1. Object Attributes
+10.15.1. Object Attributes
 **************************
 
 .. table:: Object Type RangeSlider Attributes
@@ -813,7 +888,7 @@ from or written to by any other *x0-object* or button action.
 	| Max                 | Number               | Maximum slider value (HTML ``max`` attribute)   |
 	+---------------------+----------------------+-------------------------------------------------+
 
-10.13.2. Runtime API
+10.15.2. Runtime API
 ********************
 
 .. code-block:: javascript
@@ -824,7 +899,7 @@ from or written to by any other *x0-object* or button action.
 	// set slider value programmatically
 	sysFactory.getObjectByID('MySlider').setObjectData(50);
 
-10.13.3. JSON Example
+10.15.3. JSON Example
 *********************
 
 .. code-block:: javascript
@@ -838,196 +913,66 @@ from or written to by any other *x0-object* or button action.
 		}
 	}
 
-.. _objecttype-rangeslidercontainer:
-
-10.14. RangeSliderContainer
----------------------------
-
-``RangeSliderContainer`` combines a range input with visible minimum, maximum,
-unit, and current-value labels. ``Min``, ``Max``, ``Value``, and ``UnitTextID``
-configure the display; the current value is available through the normal
-runtime data interface.
-
-.. code-block:: javascript
-
-   "Volume": {
-     "Type": "RangeSliderContainer",
-     "Attributes": {
-       "Min": 0,
-       "Max": 100,
-       "Value": 50,
-       "UnitTextID": "TXT.SETTINGS.PERCENT"
-     }
-   }
-
-.. _objecttype-image:
-
-10.15. Image
-------------
-
-``Image`` renders an ``<img>`` element. ``Value`` sets the source path;
-``Width``, ``Height``, and ``Style`` are optional. Runtime values can be read
-and changed with ``getObjectData()`` and ``setObjectData()``.
-
-.. code-block:: javascript
-
-   "Logo": {
-     "Type": "Image",
-     "Attributes": {
-       "Value": "/image/logo.png",
-       "Width": "160",
-       "Style": "border rounded"
-     }
-   }
-
-.. _objecttype-imageselector:
-
-10.16. ImageSelector
---------------------
-
-``ImageSelector`` displays image records with an image, identifier,
-description, path, and selection button. ``Value`` is an array of records with
-``ID``, ``Description``, and ``Path`` fields; ``RowCount`` controls the
-pagination page size. A source object can be connected with
-``setSrcObjectRef()`` and must handle the selected record.
-
-.. code-block:: javascript
-
-   "ImageChoices": {
-     "Type": "ImageSelector",
-     "Attributes": {
-       "RowCount": 3,
-       "Value": [
-         {
-           "ID": "Logo",
-           "Description": "Application logo",
-           "Path": "/image/logo.png"
-         }
-       ]
-     }
-   }
-
-.. _objecttype-headerbodycontainer:
-
-10.17. HeaderBodyContainer
---------------------------
-
-``HeaderBodyContainer`` creates header and body slots for child objects.
-``HeaderStyle`` and ``BodyStyle`` override their default CSS classes. For an
-object with ID ``Card``, the slots are ``CardHeader`` and ``CardContent`` and
-can be targeted through ``ElementID`` in ``skeleton.json``.
-
-.. code-block:: javascript
-
-   "Card": {
-     "Type": "HeaderBodyContainer",
-     "Attributes": {
-       "HeaderStyle": "row p-2 bg-primary text-white",
-       "BodyStyle": "row p-3 border"
-     }
-   }
-
-.. _objecttype-infoparagraph:
-
-10.18. InfoParagraph
---------------------
-
-``InfoParagraph`` renders translated text entries. Each item in ``Text`` has
-an ``ID`` referencing a text resource; ``Style`` and ``IconStyle`` are
-optional. The container's ``Style`` can also be overridden.
-
-.. code-block:: javascript
-
-   "Notice": {
-     "Type": "InfoParagraph",
-     "Attributes": {
-       "Style": "row p-3 bg-info-subtle",
-       "Text": [
-         {
-           "ID": "TXT.APP.NOTICE",
-           "Style": "fw-bold",
-           "IconStyle": "fa-solid fa-circle-info"
-         }
-       ]
-     }
-   }
-
-.. _objecttype-systemsettingscontainer:
-
-10.19. SystemSettingsContainer and SystemSettingsContainerGrid
----------------------------------------------------------------
-
-Both settings objects render labeled controls from a ``Settings`` array. Each
-entry supplies a ``TextID`` and a ``SettingsObject`` with an ``ObjectType`` and
-its ``Attributes``. The grid variant additionally requires ``GridStyles`` and
-``GridGenerator`` configuration; its variants define row and column patterns
-and can be selected at runtime.
-
-The Save control reads and writes the configured control's current value
-through its runtime data interface. It does not persist settings to a
-database or backend.
-
-.. code-block:: javascript
-
-   "DisplaySettings": {
-     "Type": "SystemSettingsContainer",
-     "Attributes": {
-       "Settings": [
-         {
-           "TextID": "TXT.SETTINGS.BRIGHTNESS",
-           "SettingsObject": {
-             "ObjectType": "RangeSlider",
-             "Attributes": {
-               "Min": 0,
-               "Max": 100,
-               "Value": 75
-             }
-           }
-         }
-       ]
-     }
-   }
-
-.. _objecttype-badgeselector:
-
-10.20. BadgeSelector
---------------------
-
-``BadgeSelector`` is a demonstration object that renders the built-in
-Bootstrap badge color choices with checkbox controls. It accepts an optional
-``Style`` attribute and provides a close control. The badge choices are
-currently defined by the runtime rather than supplied through metadata.
-
-.. _objecttype-examplecardtasklist:
-
-10.21. ExampleCardTasklist and ExamplePeopleSelector
-----------------------------------------------------
-
-These are demonstration objects registered for the static example:
-``ExampleCardTasklist`` builds cards containing task lists and tasks, while
-``ExamplePeopleSelector`` displays a fixed sample list of people. The card
-object exposes ``addTasklist()`` and its task-list children expose
-``addTask()``. Their button callbacks open the badge and collaborator
-selection overlays. The people selector's current selection callback is
-demonstrative and logs the selected data; applications should not treat it as
-a persistence API.
-
 .. _object-examples-reference:
 .. _object-examples-reference-section:
 
-10.22. Object Examples Reference
+10.16. Object Examples Reference
 --------------------------------
 
-Runnable database-backed example configurations are maintained under
-``example/``: ``add_object_table_column``, ``basic_menu_screen``,
-``basic_tabcontainer``, ``bootstrap_rowspan``, ``copy_paste``,
-``enhanced_form``, ``list_detail_switch_screen``, ``list_dyn_radio``,
-``list_objectdata_grid``, ``multi_tabcontainer``, ``net_messages``,
-``object_instances``, ``open_close_container``, ``screen_overlay``, and
-``tree_simple``.
+This section provides a comprehensive overview of examples demonstrating various *x0-system-objects* in action.
 
-The static deployment also includes a metadata demonstration of the image,
-settings, badge selector, task-list card, and people selector objects; see
-:ref:`appdev-static-deployment`.
+**Local Repository Examples (requires running x0-backend):**
 
-For guidance on adding an example, see :ref:`devexamples`.
+* **Example 1** - `Basic Objects <http://x0-app.x0.localnet/python/Index.py?appid=example1>`_: List, FileUpload
+* **Example 3** - `Tabcontainer <http://x0-app.x0.localnet/python/Index.py?appid=example3>`_: Basic tabbed interface
+* **Example 4** - `List with Data <http://x0-app.x0.localnet/python/Index.py?appid=example4>`_: Advanced list functionality
+* **Example 8** - `Advanced Tabcontainer <http://x0-app.x0.localnet/python/Index.py?appid=example8>`_: Multi-level tabs
+* **Example 9** - `Div Containers <http://x0-app.x0.localnet/python/Index.py?appid=example9>`_: Layout and styling
+* **Example 11** - `Object Instancing <http://x0-app.x0.localnet/python/Index.py?appid=example11>`_: Dynamic object creation ⚠️ *Experimental*
+* **Example 14** - `Open Close Container <http://x0-app.x0.localnet/python/Index.py?appid=example14>`_: Collapsible sections
+* **Example 15** - `Tree Simple <http://x0-app.x0.localnet/python/Index.py?appid=example15>`_: Hierarchical navigation
+
+**Object Type Categories:**
+
+**Container Objects:**
+  - :ref:`objecttype-div` - Example 9
+  - DivUnique - See documentation
+  - :ref:`objecttype-tabcontainer` - Examples 3, 8  
+  - :ref:`objecttype-openclosecontainer` - Example 14
+
+**Navigation Objects:**
+  - :ref:`objecttype-link` - Various examples
+  - :ref:`objecttype-linkexternal` - See documentation
+  - :ref:`objecttype-treesimple` - Example 15
+
+**Data Objects:**
+  - :ref:`objecttype-list` - Examples 1, 4
+  - :ref:`objecttype-sqltext` - Various examples
+
+**Interactive Objects:**
+  - :ref:`objecttype-button` - Various examples
+  - :ref:`objecttype-buttoninternal` - Various examples
+  - :ref:`objecttype-fileupload` - Example 1
+  - :ref:`objecttype-progressbar` - See documentation
+  - :ref:`objecttype-rangeslider` - See documentation
+
+**External x0-skeleton Examples:**
+
+* `Enhanced Form with MicroESB integration <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/01-forms-microesb>`_
+
+  - Advanced formfield object
+  - Small DNS management system
+  - Demonstrates advanced form validation processing
+  - Demonstrates https://github.com/clauspruefer/python-micro-esb integration
+
+* `List with Calculations <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/02-list-calculateable>`_
+
+  - Advanced list object with calculation capabilities
+  - Demonstrates dynamic data processing
+
+**Related Documentation:**
+
+* :ref:`appdevforms` - Form-specific objects
+* :ref:`appdevformobjects` - Detailed form object documentation  
+* :ref:`appdevoverlay` - Overlay mode and object instancing
+* :ref:`devexamples` - Guidelines for creating new examples

@@ -527,8 +527,6 @@ are still traversed.
     var allData = sysFactory.getObjectByID('RootContainer').getObjectData(true);
     // => { MyList1: <listData>, MyForm1: <formData>, MyProgress1: 75, … }
 
-.. _recursive-object-data-setter:
-
 24.1.6.5. Recursive setter – ObjectIDs schema
 ##############################################
 
@@ -632,7 +630,7 @@ Returns a flat ``{ ObjectID: value, … }`` map.
 
 Walks the ``ObjectIDs`` hierarchy in the supplied data object, resolving each key to a
 live object via ``getObjectByID()`` and dispatching set or append as described in
-:ref:`recursive setter <recursive-object-data-setter>`.
+`24.1.6.5`_.
 
 .. code-block:: javascript
 
@@ -676,6 +674,15 @@ live object via ``getObjectByID()`` and dispatching set or append as described i
             }
         }
     }
+
+24.1.7.3. Example scenarios
+#############################
+
+A complete set of runnable scenarios (10 examples covering flat get/set, recursive
+get/set, Action directives, and round-trip verification) is available in the
+repository at:
+
+``example/recursive_object_data/recursive_object_data_examples.js``
 
 .. _devoopmodel-classes-buttoncallback:
 
@@ -853,14 +860,21 @@ Defined in ``sysObjTabContainer.js``. Implements tabbed interface functionality.
 - ``addTabs()``: Adds tabs to the container
 - ``getTabByTabID(TabID)``: Retrieves tab by ID
 
-24.2.4. sysObjSQLText
+24.2.4. sysObjLink
+******************
+
+Defined in ``sysObjLink.js``. Creates navigation links and clickable elements.
+
+**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+
+24.2.5. sysObjSQLText
 *********************
 
 Defined in ``sysObjSQLText.js``. Displays text content loaded from database sources.
 
 **Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
 
-24.2.5. sysObjLanguageSwitch
+24.2.6. sysObjLanguageSwitch
 ****************************
 
 Defined in ``sysObjLanguageSwitch.js``. Provides a pulldown selector and update button
@@ -868,26 +882,6 @@ to switch ``sysFactory.EnvUserLanguage`` at runtime and refresh all ``sysObjSQLT
 objects.
 
 **Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
-
-24.2.6. sysObjBadgeSelector
-***************************
-
-Defined in ``sysObjBadgeSelector.js`` and registered as ``BadgeSelector``.
-The object renders the built-in badge options; its public instance methods are
-``init()``, ``ButtonCallback(FunctionID)``, and ``setSrcObjectRef(ObjectRef)``.
-
-24.2.7. Example task-list and people-selector classes
-*****************************************************
-
-The static example registers ``ExampleCardTasklist`` and
-``ExamplePeopleSelector`` in ``sysFactory.SetupClasses``.
-``userObjExampleCard`` creates task-list cards through ``addTasklist()``;
-``userObjExampleTasklist`` adds tasks through ``addTask()``. Their
-``ButtonCallback()`` methods dispatch the example's buttons.
-``userObjExamplePeopleSelector`` initializes the fixed sample list,
-implements ``ButtonCallback()``, and accepts a source object through
-``setSrcObjectRef(ObjectRef)``. These are demonstration APIs rather than a
-general-purpose data or persistence contract.
 
 24.3. Form Component Classes
 ----------------------------
