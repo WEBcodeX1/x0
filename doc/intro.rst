@@ -81,14 +81,28 @@ Docker and Kubernetes, the x0-system is tailored for modern web development need
 ----------------
 
 A central design objective of the *x0-system* is the empirical demonstration that a
-**declarative, metadata-driven** rendering architecture can outperform the perceived
-efficiency of conventional, imperatively assembled SPA stacks. Rather than relying on
-a build-time bundling step, the framework fetches and interprets its object metadata
+**declarative, metadata-driven** rendering architecture — built upon a sophisticated,
+pointer-based recursive object model with deterministic, recursive child-object
+handling for each class instance — can outperform the perceived efficiency of
+conventional, imperatively assembled SPA stacks. Specifically engineered for
+decoupled object references, deep object inheritance, and high-frequency runtime
+redrawing, this architecture contradicts the pervasive industry misconception that
+extensive sub-classing and deep inheritance hierarchies inherently degrade
+performance: because variables and data structures within modern JavaScript engines
+are managed via internal references, the model aligns naturally with Just-In-Time
+(JIT) compiler optimization pathways, allowing the framework to effortlessly process
+tens of thousands of concurrent real-time objects. Rather than relying on a
+build-time bundling step, the framework fetches and interprets its object metadata
 directly at runtime, allowing the **complete system to reach its final, interactive
-running state within the browser in approximately 150 milliseconds**. This figure
-encompasses the full boot sequence: the concurrent retrieval and processing of **57
-system files alongside 4 distinct metadata definition files**, which together
-constitute the minimal payload required to instantiate the running application.
+running state within the browser in approximately 150 milliseconds** — a figure that
+encompasses the concurrent retrieval and processing of **57 system files alongside 4
+distinct metadata definition files**. This scalability and efficiency are empirically
+validated by the current static demonstration, which concurrently manages
+approximately 1,400 lines of localized multi-language text definitions, 1,000 lines
+of declarative object skeleton (reference) metadata, and 3,000 lines of concrete
+declarative object definitions, while maintaining a highly compact runtime memory
+footprint of merely 10 Megabytes, inclusive of the Bootstrap and Font Awesome UI
+libraries.
 
 This benchmark was obtained under a representative, reproducible deployment
 configuration. On the server side, the application is hosted within a **containerized
@@ -113,26 +127,6 @@ provides a complete, production-ready implementation of the x0 system operating
 directly on a resource-constrained **ESP32-S3** microcontroller board — a deployment
 target that would be structurally infeasible for most contemporary SPA frameworks
 burdened by extensive runtime and tooling overhead.
-
-Beyond the boot-time metric, the x0 core engine incorporates advanced optimization
-micro-architectures specifically engineered for (a) decoupled object references and
-deep object inheritance, and (b) high-frequency runtime object redrawing and
-real-time updates. This efficiency is achieved via a sophisticated, pointer-based
-recursive object model, operating in tandem with deterministic, recursive
-child-object handling for each class instance inheriting from a distinct subset of
-subclasses. Contrary to the pervasive industry misconception that extensive
-sub-classing and deep inheritance hierarchies inherently degrade performance, the
-x0 architecture leverages these very paradigms to drastically maximize execution
-efficiency and throughput. Because variables and data structures within modern
-JavaScript engines are managed via internal references, this design perfectly aligns
-with Just-In-Time (JIT) compiler optimization pathways, allowing the framework to
-effortlessly process tens of thousands of concurrent real-time objects. This
-scalability is empirically validated by the current static demonstration:
-concurrently managing approximately 1,400 lines of localized multi-language text
-definitions, 1,000 lines of declarative object skeleton (reference) metadata, and
-3,000 lines of concrete declarative object definitions, the entire application
-maintains a highly compact runtime memory footprint of merely 10 Megabytes,
-inclusive of the Bootstrap and Font Awesome UI libraries.
 
 1.4. SPA - Single Page Application
 ----------------------------------
