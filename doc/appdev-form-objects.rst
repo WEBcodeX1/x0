@@ -60,7 +60,7 @@ instantiated recursively, consistent with the x0 pointer-based recursive object
 model described in :ref:`devoopmodel-classes`.
 
 11.1.2. GroupValidate Element Attributes
-*****************************************
+****************************************
 
 Each element of ``GroupValidate`` dispatches a named group-validation function
 (see :ref:`appdevforms`) against a set of related form fields, independent of
@@ -95,7 +95,7 @@ their individual ``ValidateRef`` checks.
 Global Grid Attributes can be applied, see :ref:`appdevgridsystem`.
 
 11.1.4. JSON Example
-*********************
+********************
 
 The following excerpt (taken from the ``ExamplesCopyPasteFormSource`` definition
 of the static reference container, see :ref:`appdev-static-deployment`) shows a
@@ -139,7 +139,7 @@ of the static reference container, see :ref:`appdev-static-deployment`) shows a
 .. _objecttype-formfieldcommon:
 
 11.2. Common Formfield Attributes
-----------------------------------
+---------------------------------
 
 The following attributes are evaluated by the shared ``sysFormfieldItem`` base
 class and therefore apply, where semantically meaningful, to every concrete
