@@ -266,7 +266,7 @@ Details see :ref:`appdevcontrolbuttoninternal`.
 .. _objecttype-image:
 
 10.5. Image
-------------
+-----------
 
 The ``Image`` *x0-object-type* renders an HTML ``<img>`` element. Unlike most other
 *x0-object-types*, its ``DOMType`` is fixed to ``img`` rather than being generic
@@ -292,7 +292,7 @@ through the standard ``getObjectData()`` / ``setObjectData()`` API.
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.5.2. Runtime API
-*********************
+*******************
 
 .. code-block:: javascript
 
@@ -303,7 +303,7 @@ through the standard ``getObjectData()`` / ``setObjectData()`` API.
 	sysFactory.getObjectByID('MyImage').setObjectData('/image/other.png');
 
 10.5.3. JSON Example
-*********************
+********************
 
 .. code-block:: javascript
 
@@ -319,7 +319,7 @@ through the standard ``getObjectData()`` / ``setObjectData()`` API.
 .. _objecttype-imageselector:
 
 10.6. ImageSelector
---------------------
+-------------------
 
 The ``ImageSelector`` *x0-object-type* renders a paginated, scrollable picker listing
 a set of images (ID, description and path per row), each with a "select" action. It
@@ -345,7 +345,7 @@ upload form for registering new images. Row pagination reuses the same mechanism
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.6.2. JSON Example
-*********************
+********************
 
 .. code-block:: javascript
 
@@ -361,7 +361,7 @@ upload form for registering new images. Row pagination reuses the same mechanism
 	}
 
 10.6.3. Runnable Example
-*************************
+************************
 
 * Example - Global Settings "Default Settings" overlay image picker, reachable via the
 	static reference container's Main Menu under "Settings/Global Settings".
@@ -369,7 +369,7 @@ upload form for registering new images. Row pagination reuses the same mechanism
 .. _objecttype-badgeselector:
 
 10.7. BadgeSelector
----------------------
+-------------------
 
 The ``BadgeSelector`` *x0-object-type* renders a fixed, non-configurable list of the
 six Bootstrap contextual badge colors (``primary``, ``secondary``, ``success``,
@@ -389,7 +389,7 @@ an overlay. It inherits :ref:`objecttype-divunique`.
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.7.2. JSON Example
-*********************
+********************
 
 .. code-block:: javascript
 
@@ -962,7 +962,7 @@ from or written to by any other *x0-object* or button action.
 .. _objecttype-rangeslidercontainer:
 
 10.17. RangeSliderContainer
------------------------------
+---------------------------
 
 The ``RangeSliderContainer`` *x0-object-type* wraps :ref:`objecttype-rangeslider` with
 Min/Max/Unit labels and a disabled, auto-updating text field reflecting the current
@@ -971,7 +971,7 @@ the standard ``getObjectData()`` / ``setObjectData()`` API, delegating both to t
 inner ``RangeSlider`` child.
 
 10.17.1. Object Attributes
-****************************
+**************************
 
 .. table:: Object Type RangeSliderContainer Attributes
 	:widths: 30 20 80
@@ -991,7 +991,7 @@ inner ``RangeSlider`` child.
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.17.2. JSON Example
-************************
+*********************
 
 .. code-block:: javascript
 
@@ -1009,7 +1009,7 @@ inner ``RangeSlider`` child.
 .. _objecttype-headerbodycontainer:
 
 10.18. HeaderBodyContainer
------------------------------
+--------------------------
 
 The ``HeaderBodyContainer`` *x0-object-type* sets up a two-row layout consisting of a
 styled header row and a body row, each exposing a nested ``Div`` for child objects.
@@ -1018,7 +1018,7 @@ Child objects are attached using ``ElementID`` in ``skeleton.json``, where the
 ``Content``.
 
 10.18.1. Object Attributes
-*****************************
+**************************
 
 .. table:: Object Type HeaderBodyContainer Attributes
 	:widths: 30 20 80
@@ -1032,7 +1032,7 @@ Child objects are attached using ``ElementID`` in ``skeleton.json``, where the
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.18.2. skeleton.json Example
-*********************************
+******************************
 
 .. code-block:: javascript
 
@@ -1040,7 +1040,7 @@ Child objects are attached using ``ElementID`` in ``skeleton.json``, where the
 	"IntroductionContainerLeftText":       { "RefID": "IntroductionContainerLeftContent" }
 
 10.18.3. JSON Example
-************************
+*********************
 
 .. code-block:: javascript
 
@@ -1056,7 +1056,7 @@ Child objects are attached using ``ElementID`` in ``skeleton.json``, where the
 .. _objecttype-systemsettingscontainer:
 
 10.19. SystemSettingsContainer
-----------------------------------
+------------------------------
 
 The ``SystemSettingsContainer`` *x0-object-type* renders a list of labeled settings
 rows, each pairing a ``TextID`` description with an arbitrary nested *x0-system-object*
@@ -1066,7 +1066,7 @@ rows, each pairing a ``TextID`` description with an arbitrary nested *x0-system-
 is the backing object for the static example's "Settings/Global Settings" screens.
 
 10.19.1. Object Attributes
-*****************************
+**************************
 
 .. table:: Object Type SystemSettingsContainer Attributes
 	:widths: 30 20 80
@@ -1078,7 +1078,7 @@ is the backing object for the static example's "Settings/Global Settings" screen
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.19.2. Setting Element Attributes
-***************************************
+***********************************
 
 .. table:: SystemSettingsContainer Setting Element Attributes
 	:widths: 30 20 80
@@ -1097,7 +1097,7 @@ is the backing object for the static example's "Settings/Global Settings" screen
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.19.3. JSON Example
-************************
+*********************
 
 .. code-block:: javascript
 
@@ -1119,7 +1119,7 @@ is the backing object for the static example's "Settings/Global Settings" screen
 	}
 
 10.19.4. Runnable Example
-****************************
+*************************
 
 * Reachable via the static reference container's Main Menu under
   "Settings/Global Settings", Tab "Default Settings".
@@ -1127,7 +1127,7 @@ is the backing object for the static example's "Settings/Global Settings" screen
 .. _objecttype-systemsettingscontainergrid:
 
 10.20. SystemSettingsContainerGrid
---------------------------------------
+----------------------------------
 
 The ``SystemSettingsContainerGrid`` *x0-object-type* extends
 :ref:`objecttype-systemsettingscontainer` with the Global Grid System
@@ -1139,7 +1139,7 @@ between a 3-column and a 6-column view), entirely client-side and without any ba
 request.
 
 10.20.1. Object Attributes
-*****************************
+**************************
 
 .. table:: Object Type SystemSettingsContainerGrid Attributes
 	:widths: 30 20 80
@@ -1156,7 +1156,7 @@ request.
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.20.2. Runnable Example
-****************************
+*************************
 
 * Reachable via the static reference container's Main Menu under
   "Settings/Global Settings", Tab "Default Settings", Subsection
@@ -1165,14 +1165,14 @@ request.
 .. _objecttype-infoparagraph:
 
 10.21. InfoParagraph
-------------------------
+--------------------
 
 The ``InfoParagraph`` *x0-object-type* renders a sequence of ``SQLText`` paragraphs
 inside a single styled container, commonly used as an introductory info box at the
 top of a screen or tab.
 
 10.21.1. Object Attributes
-*****************************
+**************************
 
 .. table:: Object Type InfoParagraph Attributes
 	:widths: 30 20 80
@@ -1186,7 +1186,7 @@ top of a screen or tab.
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.21.2. JSON Example
-************************
+*********************
 
 .. code-block:: javascript
 
@@ -1207,7 +1207,7 @@ top of a screen or tab.
 .. _objecttype-languageswitch:
 
 10.22. LanguageSwitch
---------------------------
+---------------------
 
 The ``LanguageSwitch`` *x0-object-type* renders a pulldown of the configured display
 languages (see :ref:`appdevconfig-systemconfig`) next to an activation button.
@@ -1216,7 +1216,7 @@ and re-renders every active ``SQLText`` object application-wide via
 ``sysFactory.updateLanguageObjectsGlobal()``, without a page reload.
 
 10.22.1. Object Attributes
-*****************************
+**************************
 
 .. table:: Object Type LanguageSwitch Attributes
 	:widths: 30 20 80
@@ -1232,7 +1232,7 @@ and re-renders every active ``SQLText`` object application-wide via
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.22.2. JSON Example
-************************
+*********************
 
 .. code-block:: javascript
 
@@ -1247,7 +1247,7 @@ and re-renders every active ``SQLText`` object application-wide via
 .. _objecttype-dynradiolist:
 
 10.23. DynRadioList
-------------------------
+-------------------
 
 The ``DynRadioList`` *x0-object-type* renders a dynamically growable list of radio
 button rows, each paired with a text input. Clicking the trailing "add" control
@@ -1255,7 +1255,7 @@ appends a new row with its own "remove" control; right-clicking a removable row 
 a context menu offering the same removal action (see :ref:`appdevcontextmenu`).
 
 10.23.1. Object Attributes
-*****************************
+**************************
 
 .. table:: Object Type DynRadioList Attributes
 	:widths: 30 20 80
@@ -1267,7 +1267,7 @@ a context menu offering the same removal action (see :ref:`appdevcontextmenu`).
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.23.2. JSON Example
-************************
+*********************
 
 .. code-block:: javascript
 
@@ -1282,7 +1282,7 @@ a context menu offering the same removal action (see :ref:`appdevcontextmenu`).
 .. _objecttype-serviceconnector:
 
 10.24. ServiceConnector
-----------------------------
+-----------------------
 
 The ``ServiceConnector`` *x0-object-type* binds a backend service call to a target
 *x0-system-object* (typically a ``List``), triggering the call whenever one of the
@@ -1290,7 +1290,7 @@ configured system events fires (e.g. ``InitSystem``). Its full event-registratio
 dispatch mechanics are documented in :ref:`devoopmodel` (section 23.8).
 
 10.24.1. Object Attributes
-*****************************
+**************************
 
 .. table:: Object Type ServiceConnector Attributes
 	:widths: 30 20 80
@@ -1306,7 +1306,7 @@ dispatch mechanics are documented in :ref:`devoopmodel` (section 23.8).
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.24.2. JSON Example
-************************
+*********************
 
 .. code-block:: javascript
 
@@ -1324,7 +1324,7 @@ dispatch mechanics are documented in :ref:`devoopmodel` (section 23.8).
 .. _objecttype-timedprogress:
 
 10.25. TimedProgress
----------------------
+--------------------
 
 The ``TimedProgress`` *x0-object-type* is a user-space demonstrator object
 (``/www/userObjExampleTimedProgress.js``) illustrating how the core
@@ -1336,7 +1336,7 @@ example objects located under ``/www/userObj*.js`` documented in this and the
 following sections.
 
 10.25.1. Object Attributes
-***************************
+**************************
 
 .. table:: Object Type TimedProgress Attributes
 	:widths: 30 20 80
@@ -1350,7 +1350,7 @@ following sections.
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.25.2. JSON Example
-***********************
+*********************
 
 .. code-block:: javascript
 
@@ -1366,7 +1366,7 @@ following sections.
 .. _objecttype-examplewizard:
 
 10.26. ExampleWizard
----------------------
+--------------------
 
 The ``ExampleWizard`` *x0-object-type* (``/www/userObjExampleWizard.js``)
 demonstrates a step-controlled, multi-tab wizard pattern built on top of
@@ -1376,14 +1376,14 @@ from ``sysObjDivUnique``, tracks the active step via an internal
 through its ``ValidateForm`` array before allowing forward navigation.
 
 10.26.1. Object Attributes
-***************************
+**************************
 
 This object type currently accepts no configurable ``Attributes`` beyond the
 common base properties; step tabs, navigation buttons and the validated
 formfield-list IDs per step are wired internally.
 
 10.26.2. JSON Example
-***********************
+*********************
 
 .. code-block:: javascript
 
@@ -1396,7 +1396,7 @@ formfield-list IDs per step are wired internally.
 .. _objecttype-exampleeditableitem:
 
 10.27. ExampleEditableItem
-----------------------------
+--------------------------
 
 The ``ExampleEditableItem`` *x0-object-type*
 (``/www/userObjExampleEditableItemContainer.js``) renders a single, optionally
@@ -1406,7 +1406,7 @@ inherits from ``sysObjDivUnique`` and supports a switchable edit mode as well
 as a switchable drag-reorder mode.
 
 10.27.1. Object Attributes
-***************************
+**************************
 
 .. table:: Object Type ExampleEditableItem Attributes
 	:widths: 30 20 80
@@ -1428,7 +1428,7 @@ as a switchable drag-reorder mode.
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.27.2. JSON Example
-***********************
+*********************
 
 .. code-block:: javascript
 
@@ -1444,7 +1444,7 @@ as a switchable drag-reorder mode.
 .. _objecttype-exampleeditableitemcontainer:
 
 10.28. ExampleEditableItemContainer
---------------------------------------
+-----------------------------------
 
 The ``ExampleEditableItemContainer`` *x0-object-type*
 (``/www/userObjExampleEditableItemContainer.js``) is the paginated container
@@ -1456,7 +1456,7 @@ internal ``addItem()`` method) so new rows can be pushed in at runtime exactly
 like :ref:`objecttype-list` rows.
 
 10.28.1. Object Attributes
-***************************
+**************************
 
 .. table:: Object Type ExampleEditableItemContainer Attributes
 	:widths: 30 20 80
@@ -1474,7 +1474,7 @@ like :ref:`objecttype-list` rows.
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.28.2. JSON Example
-***********************
+*********************
 
 .. code-block:: javascript
 
@@ -1491,7 +1491,7 @@ like :ref:`objecttype-list` rows.
 .. _objecttype-exampleflightdetails:
 
 10.29. ExampleFlightDetails
-------------------------------
+---------------------------
 
 The ``ExampleFlightDetails`` *x0-object-type*
 (``/www/userObjExampleFlightData.js``) renders a single, read-only flight
@@ -1501,7 +1501,7 @@ used as a repeated row inside a parent :ref:`objecttype-list` or
 :ref:`objecttype-div` layout.
 
 10.29.1. Object Attributes
-***************************
+**************************
 
 .. table:: Object Type ExampleFlightDetails Attributes
 	:widths: 30 20 80
@@ -1513,7 +1513,7 @@ used as a repeated row inside a parent :ref:`objecttype-list` or
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.29.2. JSON Example
-***********************
+*********************
 
 .. code-block:: javascript
 
@@ -1533,7 +1533,7 @@ used as a repeated row inside a parent :ref:`objecttype-list` or
 .. _objecttype-exampleflightstatus:
 
 10.30. ExampleFlightStatus
------------------------------
+--------------------------
 
 The ``ExampleFlightStatus`` *x0-object-type*
 (``/www/userObjExampleFlightData.js``) renders a status badge (colored
@@ -1544,7 +1544,7 @@ and derives both its border color and inner text color from the
 ``warning`` or ``danger``).
 
 10.30.1. Object Attributes
-***************************
+**************************
 
 .. table:: Object Type ExampleFlightStatus Attributes
 	:widths: 30 20 80
@@ -1556,7 +1556,7 @@ and derives both its border color and inner text color from the
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.30.2. JSON Example
-***********************
+*********************
 
 .. code-block:: javascript
 
@@ -1575,7 +1575,7 @@ and derives both its border color and inner text color from the
 .. _objecttype-examplecardtasklist:
 
 10.31. ExampleCardTasklist
------------------------------
+--------------------------
 
 The ``ExampleCardTasklist`` *x0-object-type*
 (``/www/userObjExampleCardTasklists.js``) implements a Kanban-style card with
@@ -1587,7 +1587,7 @@ addable tasklists/tasks. It inherits from ``sysObjDivUnique`` and composes
 ``saveData()`` callback-bound actions.
 
 10.31.1. Object Attributes
-***************************
+**************************
 
 .. table:: Object Type ExampleCardTasklist Attributes
 	:widths: 30 20 80
@@ -1599,7 +1599,7 @@ addable tasklists/tasks. It inherits from ``sysObjDivUnique`` and composes
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.31.2. JSON Example
-***********************
+*********************
 
 .. code-block:: javascript
 
@@ -1611,7 +1611,7 @@ addable tasklists/tasks. It inherits from ``sysObjDivUnique`` and composes
 .. _objecttype-examplepeopleselector:
 
 10.32. ExamplePeopleSelector
--------------------------------
+----------------------------
 
 The ``ExamplePeopleSelector`` *x0-object-type*
 (``/www/userObjExamplePeopleSelector.js``) renders a fixed, non-overridable
@@ -1621,7 +1621,7 @@ inherits from ``sysObjDivUnique`` and is typically instantiated inside a
 :ref:`screen overlay <appdevoverlay>`.
 
 10.32.1. Object Attributes
-***************************
+**************************
 
 .. table:: Object Type ExamplePeopleSelector Attributes
 	:widths: 30 20 80
@@ -1633,7 +1633,7 @@ inherits from ``sysObjDivUnique`` and is typically instantiated inside a
 	+---------------------+----------------------+-------------------------------------------------+
 
 10.32.2. JSON Example
-***********************
+*********************
 
 .. code-block:: javascript
 
@@ -1646,7 +1646,7 @@ inherits from ``sysObjDivUnique`` and is typically instantiated inside a
 .. _object-examples-reference-section:
 
 10.33. Object Examples Reference
-----------------------------------
+--------------------------------
 
 This section provides a comprehensive overview of where the *x0-system-objects*
 documented above can be inspected in a live, production-representative context.
@@ -1709,4 +1709,3 @@ current best practice; the static reference container (see
 * :ref:`appdevformobjects` - Detailed form object documentation
 * :ref:`appdevoverlay` - Overlay mode and object instancing
 * :ref:`appdevgridsystem` - Global Grid System and runtime grid restructuring
-
