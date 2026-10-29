@@ -27,7 +27,7 @@ fundamentals:
 - Adding Context Menu Functionality
 
 26.2. Base Classes / Inheritance
----------------------------------
+--------------------------------
 
 The *x0-framework* follows a strict object-oriented approach. All custom *x0-system-objects*
 must inherit from ``sysBaseObject`` in their prototypes.
@@ -100,7 +100,7 @@ To propagate changes to the DOM, render all child objects:
 .. _devobjectmodeling-recursivelinking:
 
 26.3.5. Recursive Object-Linking Hierarchy (setupObjectRefsRecursive)
-**********************************************************************
+*********************************************************************
 
 ``addObject()`` (26.3.3) establishes a single parent-child link. Production
 *x0-objects* virtually never build their internal DOM structure one call at a
@@ -246,7 +246,7 @@ Refer to :ref:`devobjectmodeling-childparent`.
 Always inherit ``sysBaseObject``; failing to do so will cause your object to malfunction.
 
 26.4.6. Inherit Additional Methods
-***********************************
+**********************************
 
 It's up to you how to intelligently prototype or decorate your object using existing
 or custom object code.
@@ -319,7 +319,7 @@ The following methods enable runtime data updates for *x0-objects*:
 - **RuntimeAppendData(data)**: Appends new data to the existing dataset.
 
 26.8. Object Realtime Updates
-------------------------------
+-----------------------------
 
 Once an object has been rendered (26.3.4), simply mutating its ``ChildObjects[]``
 array or ``JSONConfig.Attributes`` has **no visible effect** -- the DOM subtree
@@ -451,7 +451,7 @@ After object-modeling has been finished, it must be added to the *x0-system*.
 Two registration paths exist, depending on the deployment:
 
 26.11.1. Core / Static-Container Registration
-***********************************************
+*********************************************
 
 Core *x0-system-objects* are registered in ``sysFactory.js`` by adding them to
 ``sysFactory.SetupClasses``:
@@ -468,7 +468,7 @@ The corresponding ``.js`` file must additionally be included as a
 container).
 
 26.11.2. Database-Driven, Per-Application Registration
-**********************************************************
+******************************************************
 
 The database-backed, multi-vhost-capable deployment (see :ref:`appdevconfig`)
 registers custom objects per-application, without modifying ``Index.py`` or
