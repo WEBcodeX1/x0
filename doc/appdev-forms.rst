@@ -23,11 +23,6 @@ functionality.
 
 For detailed formfield object documentation, see :ref:`appdevformobjects`.
 
-**Local Examples:**
-
-* :ref:`Example 5 (Enhanced Form) <enhanced-form-example>` - Advanced form functionality with validation
-* See also the complete list of :ref:`form-related examples <form-examples-list>` in the local repository
-
 17.2. Form Validation
 ---------------------
 
@@ -39,14 +34,6 @@ The FormfieldList *x0-object-type* provides *x0-form-validation*.
 * System Provided Validation Functions (Single and Group Validation)
 * User Based Validation Functions (Single and Group Validation)
 * Regex Validation
-
-.. _enhanced-form-example:
-
-**Examples:**
-
-* **Local Example:** `Enhanced Form (Example 5) <http://x0-app.x0.localnet/python/Index.py?appid=example5>`_ - Demonstrates comprehensive form validation features
-* **External Example:** `Forms with MicroESB <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/01-forms-microesb>`_ - Complete implementation with microservice integration
-* See :ref:`form validation types <form-validation-types>` below for system-provided validation options
 
 17.3. FormfieldOnchange Handler
 -------------------------------
