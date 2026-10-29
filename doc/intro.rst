@@ -14,8 +14,8 @@ code complexity** by replacing heavy imperative logic with a **highly efficient
 declarative metadata** concept.
 
 The framework can be statically loaded from any standard web server, comprising just
-66 system and 4 object metadata definition files with a core footprint of only
-**356 Kilobytes**. It depends on **Bootstrap** and optionally utilizes **Font Awesome**
+57 system and 4 object metadata definition files with a core footprint of only
+**587 Kilobytes**. It depends on **Bootstrap** and optionally utilizes **Font Awesome**
 for its UI components. Even with a minimalist setup of both libraries, extensive user
 metadata, and custom application code, the total deployment size remains under
 **4 Megabytes** for a complete client / server architecture. Because the application
@@ -77,6 +77,12 @@ interactive web applications. With seamless integration of Bootstrap 5.3 (withou
 JavaScript dependencies), multi-language support, and deployment solutions like
 Docker and Kubernetes, the x0-system is tailored for modern web development needs.
 
+1.3. Performance
+----------------
+
+1.4. SPA - Single Page Application
+----------------------------------
+
 2. Core Features Overview
 =========================
 
@@ -97,7 +103,7 @@ metadata description while still producing highly interactive, production-grade 
 Key Characteristics:
 
     Strict 1:1 Mapping Between JavaScript Objects and DOM Elements
-        Each DOM element (e.g., a DIV) is directly associated with a single JavaScript object instance.
+        Each DOM element (one single DIV) is directly associated with a single JavaScript object instance.
         This association ensures that every DOM element has a corresponding object responsible for its
         behavior and data handling.
 
@@ -108,7 +114,7 @@ Key Characteristics:
 
     Real-Time Updates
         The templating system enables objects to update their associated DOM elements in real time.
-        For example, calling an object's update() method dynamically modifies the DOM to reflect changes
+        For example, calling an object's `update()` method dynamically modifies the DOM to reflect changes
         without requiring a page reload.
 
     Event Handling and Propagation
@@ -164,7 +170,7 @@ Key Features:
 
 *x0-system* is built in a **generic** way (using ECMA 6 and 7 standards),
 enabling it to run natively on all modern browsers, including Firefox, Chrome,
-Opera, and Safari.
+Opera, Safari **and** Konqueror (QtWebKit).
 
 3. Deployment and Integration
 =============================
