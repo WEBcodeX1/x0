@@ -8,11 +8,6 @@
 Designing Forms is an essential part when designing modern web-applications.
 *x0-system* provides multiple mechanisms for building complex forms easily.
 
-For complete form examples with microservice integration, see the `x0-skeleton repository examples <https://github.com/WEBcodeX1/x0-skeleton>`_, particularly:
-
-* `Forms with MicroESB <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/01-forms-microesb>`_ - Complete form implementation with microservice abstraction layer
-* Enhanced form functionality - See :ref:`Example 5 (Enhanced Form) <enhanced-form-example>` in the local examples
-
 17.1. FormfieldList
 -------------------
 
