@@ -250,7 +250,7 @@ Without table header the resulting output looks like the following.
 	+----------------+----------------+----------------+----------------+
 
 9.4. Runtime Flexibility and Dynamic Restructuring
-***************************************************
+**************************************************
 
 While the previous sections describe `sysGridGenerator` as the mechanism used to lay
 out a grid during the initial build of a screen, the grid system is **not** limited to
