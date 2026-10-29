@@ -1,13 +1,13 @@
-.. appdev-deployment
+.. appdev-kubernetes
 
-21. Deployment
-==============
+21. Kubernetes Deployment
+=========================
 
 21.1. Intro
 -----------
 
-The *x0-deployment* main goal is to get multiple production ready GKE
-(Google Kubernetes Engine) environments online with minimum effort.
+The *x0-kubernetes-deployment* main goal is to get multiple production ready
+GKE (Google Kubernetes Engine) environments online with minimum effort.
 
 Why Kubernetes? It is the only current system worldwide guaranteeing
 native fail-safe operations including application load-balancing and
@@ -18,70 +18,10 @@ Following, our proposed deployment workflow.
 * Run & Test Application in Docker Environment (x0-supported)
 * Deploy on Kubernetes Minikube (x0-supported)
 * Deploy to GKE Production Cluster (x0-supported)
-* Terraform Convert Metadata (x0-supported)
 * Takeover Lifecycle / DevOps Management by Terraform or similar
 
-.. _appdeployment-standalone:
-
-21.2. Standalone
-----------------
-
-Standalone installation provides packages for Ubuntu 22.04.
-
-If you really like to run packages natively, install *x0-app* and *x0-db*
-.deb packages. Using the Docker environment is strongly recommended to avoid
-unnecessary effort.
-
-.. code-block:: bash
-
-	dpkg -i x0-db_1.0_all.deb
-	dpkg -i x-app_1.0_all.deb
-
-.. _appdeployment-docker:
-
-21.3. Docker
-------------
-
-The *x0-docker-environment* is primarily intended to test your application
-locally before more time-consuming Kubernetes administration tasks apply.
-
-A Minikube deployment also includes infrastructural / loadbalancing tests
-to ensure your application also behaves correctly on GKE.
-
-.. _appdeployment-tests:
-
-21.4. Test Image / Container
-----------------------------
-
-To run tests transparently on any environment, the *x0-infrastructure* is
-completely dockerized.
-
-The following steps will run all system tests:
-
-* Start Application Containers (x0-app, x0-db)
-* Start Selenium Server Container
-* Start Test-Runner Container
-
-.. code-block:: bash
-
-	# start x0-app, x0-db containers
-	cd ./docker && ./x0-start-containers.sh
-
-	# start x0-app, x0-db containers
-	cd ../test
-	python3 ./run-selenium-server.py
-	sleep 10 && ./run-test-container.sh
-
-21.5. Docker on Windows
------------------------
-
-* Final built images / containers also **run** on Windows 11 (Docker Desktop)
-* Building on Windows 11 (Docker Desktop) is not possible
-
-.. _appdeployment-kubernetes:
-
-21.6. Kubernetes
-----------------
+21.2. Kubernetes Installer
+--------------------------
 
 The kubernetes installer will set up the following, depending on the
 configuration.
@@ -124,7 +64,7 @@ to check if your application runs on GKE is starting the setup for Minikube.
 	# run installer
 	python3 ./Setup.py
 
-21.6.1. Base Properties
+21.2.1. Base Properties
 ***********************
 
 Root properties.
@@ -148,7 +88,7 @@ Root properties.
 	| vhosts              | Object               | VHosts Object Declaration                       |
 	+---------------------+----------------------+-------------------------------------------------+
 
-21.6.2. Project Properties
+21.2.2. Project Properties
 **************************
 
 Project related properties.
@@ -166,7 +106,7 @@ Project related properties.
 	| git-repo            | Git-Repo String      | Git Repository (Docker Registry Ref)            |
 	+---------------------+----------------------+-------------------------------------------------+
 
-21.6.3. Installer Properties
+21.2.3. Installer Properties
 ****************************
 
 Installer related properties.
@@ -180,7 +120,7 @@ Installer related properties.
 	| type (installer)    | Enum InstallerString | "x0" or "debian-package" or "default"           |
 	+---------------------+----------------------+-------------------------------------------------+
 
-21.6.4. Database Properties
+21.2.4. Database Properties
 ***************************
 
 Database related properties.
@@ -200,7 +140,7 @@ Database related properties.
 	| repl_password       | DB-Password String   | Kubergres Replication Password                  |
 	+---------------------+----------------------+-------------------------------------------------+
 
-21.6.5. Environment Element
+21.2.5. Environment Element
 ***************************
 
 Environment Element related properties.
@@ -232,7 +172,7 @@ Environment Element related properties.
 	| $env.database.replicas                  | Integer              | Pods Replica Count                    |
 	+-----------------------------------------+----------------------+---------------------------------------+
 
-21.6.6. VirtualHost Element
+21.2.6. VirtualHost Element
 ***************************
 
 .. table:: Set up VirtualHost Element Properties
