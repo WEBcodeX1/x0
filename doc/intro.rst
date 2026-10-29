@@ -114,6 +114,26 @@ directly on a resource-constrained **ESP32-S3** microcontroller board — a depl
 target that would be structurally infeasible for most contemporary SPA frameworks
 burdened by extensive runtime and tooling overhead.
 
+Beyond the boot-time metric, the x0 core engine incorporates advanced optimization
+micro-architectures specifically engineered for (a) decoupled object references and
+deep object inheritance, and (b) high-frequency runtime object redrawing and
+real-time updates. This efficiency is achieved via a sophisticated, pointer-based
+recursive object model, operating in tandem with deterministic, recursive
+child-object handling for each class instance inheriting from a distinct subset of
+subclasses. Contrary to the pervasive industry misconception that extensive
+sub-classing and deep inheritance hierarchies inherently degrade performance, the
+x0 architecture leverages these very paradigms to drastically maximize execution
+efficiency and throughput. Because variables and data structures within modern
+JavaScript engines are managed via internal references, this design perfectly aligns
+with Just-In-Time (JIT) compiler optimization pathways, allowing the framework to
+effortlessly process tens of thousands of concurrent real-time objects. This
+scalability is empirically validated by the current static demonstration:
+concurrently managing approximately 1,400 lines of localized multi-language text
+definitions, 1,000 lines of declarative object skeleton (reference) metadata, and
+3,000 lines of concrete declarative object definitions, the entire application
+maintains a highly compact runtime memory footprint of merely 10 Megabytes,
+inclusive of the Bootstrap and Font Awesome UI libraries.
+
 1.4. SPA - Single Page Application
 ----------------------------------
 
@@ -147,7 +167,10 @@ that metadata-driven object templates can be altered and re-rendered at runtime 
 full fidelity, without recompilation, bundling, or reloading — a degree of clean,
 maintainable runtime extensibility that conventional SPA architectures struggle to
 provide without incurring exactly the complexity and overhead that the *x0-system*
-was designed to eliminate.
+was designed to eliminate. These **Realtime Modifiable Templates** can be directly
+inspected in a real-world setting by accessing the example static Docker container
+referenced above, where metadata changes are reflected in the running application
+without any intermediate build or deployment step.
 
 2. Core Features Overview
 =========================
