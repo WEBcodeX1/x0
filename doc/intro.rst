@@ -104,18 +104,15 @@ declarative object definitions, while maintaining a highly compact runtime memor
 footprint of merely 10 Megabytes, inclusive of the Bootstrap and Font Awesome UI
 libraries.
 
-This benchmark was obtained under a representative, reproducible deployment
-configuration. On the server side, the application is hosted within a **containerized
-runtime served inside a Linux Virtual Machine (VM)**, executed on a current
-**13th Generation Intel Core i9** processor. On the client side, measurements were
-performed externally — on the same physical hardware-machine — from a **Windows 11
-Professional** environment, using the **Mozilla Firefox** browser as the measuring
-agent. This separation of server and client execution contexts ensures that the
-measured timing reflects realistic network, parsing, and rendering overhead rather
-than an artificially optimized, single-process benchmark. The underlying static
-deployment configuration used for this measurement is defined within
-`/docker/x0-static.dockerfile`, which serves the live, authoritative metadata located
-under `/static/meta/*` directly to the client.
+To establish a baseline under unoptimized conditions, a preliminary benchmark was
+conducted using a standard CPU test configuration. On the server side, the application is
+hosted within a **containerized runtime served inside a Linux Virtual Machine (VM)**,
+executed on a current **13th Generation Intel Core i9** processor. On the client side,
+measurements were performed externally — on the same physical hardware-machine — from a
+**Windows 11 Professional** environment, using the **Mozilla Firefox** browser as the
+measuring agent. The underlying static deployment configuration used for this measurement
+is defined within `/docker/x0-static.dockerfile`, which serves the live, authoritative
+metadata located under `/static/meta/*` directly to the client.
 
 The practical relevance of this performance profile extends well beyond conventional
 browser-based deployments. Because the entire runtime footprint is deliberately kept
