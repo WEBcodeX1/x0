@@ -61,19 +61,3 @@ they are processed.
 * Fire Events **after** successful Form Validation
 
 .. _appdevcontrollink:
-
-16.3. Link
-----------
-
-* Set Screen CSS Style
-* Switch Screen
-* Open Screen Overlay
-* Fire Events
-
-.. _appdevcontrollinkext:
-
-16.4. LinkExternal
-------------------
-
-* Open External Link in current Browser Window
-* Open External Link in new Browser Tab
