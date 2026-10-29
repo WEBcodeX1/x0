@@ -10,11 +10,6 @@ within the *x0-framework*. These examples are critical for showcasing the
 framework's capabilities and providing developers with a reference for
 implementing features.
 
-For production-ready examples and advanced implementations, see the `x0-skeleton repository <https://github.com/WEBcodeX1/x0-skeleton>`_ which contains comprehensive examples including:
-
-* `Forms with MicroESB <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/01-forms-microesb>`_ - Complete form implementation with microservice integration
-* `List with Calculations <https://github.com/WEBcodeX1/x0-skeleton/tree/main/example/02-list-calculateable>`_ - Advanced list processing with dynamic calculations
-
 28.1. Example Structure
 ------------------------
 
