@@ -260,14 +260,6 @@ be invoked repeatedly at runtime, allowing an already rendered grid to be torn d
 rebuilt with different row/column styles, enclosure counts or source data at any point
 during the application's lifetime.
 
-This capability is particularly relevant in combination with **Runtime Pagination**
-(`www/sysRTPagination.js`, system object `sysPagination`). As the paginated view
-navigates between pages (`navigateLeft`, `navigateRight`, `navigateIndex`), the set of
-currently visible row items changes; the grid enclosing them is re-evaluated and
-re-rendered to reflect the new page's content, so grid layout and runtime pagination
-cooperate seamlessly as the underlying dataset view changes, instead of operating as two
-independent, unrelated features.
-
 .. note::
 
     **Empirical Proof: Component Swapping in the Static Reference Container.** This
