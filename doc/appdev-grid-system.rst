@@ -7,8 +7,13 @@
 
 The x0 grid system is implemented through the `sysGridGenerator` system object,
 which is responsible for generating a grid layout by processing source objects
-into structured rows and columns. Below is an explanation of its key components
-and functionality:
+into structured rows and columns. Rather than being a purely static layout
+mechanism confined to a screen's initial load, the grid system is designed for
+high-frequency runtime modification: it can be re-invoked at any time to
+restructure an already rendered grid in response to changing source data,
+enabling real-time UI re-rendering and fluid grid restructuring directly within
+the browser client (see "Runtime Flexibility and Dynamic Restructuring" below).
+Below is an explanation of its key components and functionality:
 
 - Key Components:
 
@@ -244,7 +249,42 @@ Without table header the resulting output looks like the following.
 	| Col3 (col-md2) | Col4 (col-md3) | Col5 (col-md3) | Col6 (col-md5) |
 	+----------------+----------------+----------------+----------------+
 
-9.4. Developer
+9.4. Runtime Flexibility and Dynamic Restructuring
+**************************************************
+
+While the previous sections describe `sysGridGenerator` as the mechanism used to lay
+out a grid during the initial build of a screen, the grid system is **not** limited to
+being a static, load-time-only layout tool. Because `sysGridGenerator.generate()` is a
+plain, side-effect-free method operating on an in-memory array of source objects, it can
+be invoked repeatedly at runtime, allowing an already rendered grid to be torn down and
+rebuilt with different row/column styles, enclosure counts or source data at any point
+during the application's lifetime.
+
+.. note::
+
+    **Empirical Proof: Component Swapping in the Static Reference Container.** This
+    dynamic restructuring is demonstrated by `sysObjSystemSettingsContainerGrid`, which
+    can be inspected live in the static reference container under Main Menu →
+    *Settings* / *Global Settings* → Tab: *Default Settings* → Subsection: *Adjust Grid
+    / Column View*.
+
+    The Subsection exposes a pulldown offering multiple pre-declared grid
+    ``Variants`` (see ``GridGenerator.Variants`` in the object's JSON metadata), each
+    defining its own complete set of ``ColStyles`` and ``RowAfterElements``. Selecting a
+    variant and confirming via the *Update View* button does not merely resize isolated
+    columns: ``ButtonCallback()`` clears the container's existing ``ChildObjects``,
+    instantiates a fresh `sysGridGenerator` with the newly selected variant's styles and
+    enclosure counts, and calls ``rerenderObject()`` on the container — replacing the
+    *entire* structural row/column layout, for example switching between a 3-column and
+    a 6-column view, in a single step.
+
+    Because this entire sequence — grid regeneration, DOM teardown and re-render — runs
+    exclusively inside the x0 core engine on the client, the layout metamorphosis
+    completes with zero added latency and **without issuing any network request or
+    contacting the backend server**: no XML-RPC call, no page reload, no server-side
+    template regeneration.
+
+9.5. Developer
 **************
 
 Any *x0-system-object* can make use of the global grid formatting routines in

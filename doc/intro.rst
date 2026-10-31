@@ -14,8 +14,8 @@ code complexity** by replacing heavy imperative logic with a **highly efficient
 declarative metadata** concept.
 
 The framework can be statically loaded from any standard web server, comprising just
-66 system and 4 object metadata definition files with a core footprint of only
-**356 Kilobytes**. It depends on **Bootstrap** and optionally utilizes **Font Awesome**
+57 system and 4 object metadata definition files with a core footprint of only
+**587 Kilobytes**. It depends on **Bootstrap** and optionally utilizes **Font Awesome**
 for its UI components. Even with a minimalist setup of both libraries, extensive user
 metadata, and custom application code, the total deployment size remains under
 **4 Megabytes** for a complete client / server architecture. Because the application
@@ -77,6 +77,92 @@ interactive web applications. With seamless integration of Bootstrap 5.3 (withou
 JavaScript dependencies), multi-language support, and deployment solutions like
 Docker and Kubernetes, the x0-system is tailored for modern web development needs.
 
+1.3. Performance
+----------------
+
+A central design objective of the *x0-system* is the empirical demonstration that a
+**declarative, metadata-driven** rendering architecture — built upon a sophisticated,
+pointer-based recursive object model with deterministic, recursive child-object
+handling for each class instance — can outperform the perceived efficiency of
+conventional, imperatively assembled SPA stacks. Specifically engineered for
+decoupled object references, deep object inheritance, and high-frequency runtime
+redrawing, this architecture contradicts the pervasive industry misconception that
+extensive sub-classing and deep inheritance hierarchies inherently degrade
+performance: because variables and data structures within modern JavaScript engines
+are managed via internal references, the model aligns naturally with Just-In-Time
+(JIT) compiler optimization pathways, allowing the framework to effortlessly process
+tens of thousands of concurrent real-time objects. Rather than relying on a
+build-time bundling step, the framework fetches and interprets its object metadata
+directly at runtime, allowing the **complete system to reach its final, interactive
+running state within the browser in approximately 150 milliseconds** — a figure that
+encompasses the concurrent retrieval and processing of **57 system files alongside 4
+distinct metadata definition files**. This scalability and efficiency are empirically
+validated by the current static demonstration, which concurrently manages
+approximately 1,400 lines of localized multi-language text definitions, 1,000 lines
+of declarative object skeleton (reference) metadata, and 3,000 lines of concrete
+declarative object definitions, while maintaining a highly compact runtime memory
+footprint of merely 10 Megabytes, inclusive of the Bootstrap and Font Awesome UI
+libraries.
+
+To establish a baseline under unoptimized conditions, a preliminary benchmark was
+conducted using a standard CPU test configuration. On the server side, the application is
+hosted within a **containerized runtime served inside a Linux Virtual Machine (VM)**,
+executed on a current **13th Generation Intel Core i9** processor. On the client side,
+measurements were performed externally — on the same physical hardware-machine — from a
+**Windows 11 Professional** environment, using the **Mozilla Firefox** browser as the
+measuring agent. The underlying static deployment configuration used for this measurement
+is defined within `/docker/x0-static.dockerfile`, which serves the live, authoritative
+metadata located under `/static/meta/*` directly to the client.
+
+The practical relevance of this performance profile extends well beyond conventional
+browser-based deployments. Because the entire runtime footprint is deliberately kept
+minimal and free of heavy framework dependencies, the *x0-system* is equally capable
+of operating on **resource-constrained embedded hardware**. This is empirically
+substantiated by the external
+`micropython-as <https://github.com/WEBcodeX1/micropython-as>`__ repository, which
+provides a complete, production-ready implementation of the x0 system operating
+directly on a resource-constrained **ESP32-S3** microcontroller board — a deployment
+target that would be structurally infeasible for most contemporary SPA frameworks
+burdened by extensive runtime and tooling overhead.
+
+1.4. SPA - Single Page Application
+----------------------------------
+
+The architectural history of the Single Page Application (SPA) paradigm has, in
+recent years, been subject to considerable critical reassessment. Within several
+architectural schools of thought, widespread SPA adoption is now viewed with
+skepticism, or has been outright abandoned, on the grounds that the paradigm
+inherently invites over-engineering: sprawling build pipelines, deeply nested
+state-management abstractions, and an expanding attack surface for client-side
+security vulnerabilities. The resulting codebases frequently exhibit low cohesion
+and tight, implicit coupling between presentation, state, and data-fetching
+concerns — a pattern that complicates long-term maintainability and invites
+regression as the application scales. Under this prevailing sentiment, architectural
+complexity is treated not as an incidental cost but as an *inherent*, unavoidable
+property of the SPA model itself.
+
+The *x0-system* directly contradicts this prevailing negative sentiment. Rather than
+accepting architectural complexity as a necessary consequence of in-browser,
+real-time interactivity, *x0* was conceived as a pioneering refutation of the
+"inherent complexity" theory. It achieves this by offering a highly elegant, clean,
+object-oriented (OOP) structural design, in which every DOM subtree is owned by a
+single, well-defined class instance, and in which composition — rather than ad-hoc
+state synchronization — is the primary mechanism for building complex interfaces.
+This design deliberately minimizes the surface area for both security vulnerabilities
+and uncontrolled code sprawl, replacing imperative glue code with a compact,
+declarative metadata description.
+
+The static example underlying the performance discussion above serves as empirical
+proof of this design paradigm. Its **Realtime Modifiable Templates** demonstrate
+that metadata-driven object templates can be altered and re-rendered at runtime with
+full fidelity, without recompilation, bundling, or reloading — a degree of clean,
+maintainable runtime extensibility that conventional SPA architectures struggle to
+provide without incurring exactly the complexity and overhead that the *x0-system*
+was designed to eliminate. These **Realtime Modifiable Templates** can be directly
+inspected in a real-world setting by accessing the example static Docker container
+referenced above, where metadata changes are reflected in the running application
+without any intermediate build or deployment step.
+
 2. Core Features Overview
 =========================
 
@@ -97,7 +183,7 @@ metadata description while still producing highly interactive, production-grade 
 Key Characteristics:
 
     Strict 1:1 Mapping Between JavaScript Objects and DOM Elements
-        Each DOM element (e.g., a DIV) is directly associated with a single JavaScript object instance.
+        Each DOM element (one single DIV) is directly associated with a single JavaScript object instance.
         This association ensures that every DOM element has a corresponding object responsible for its
         behavior and data handling.
 
@@ -108,7 +194,7 @@ Key Characteristics:
 
     Real-Time Updates
         The templating system enables objects to update their associated DOM elements in real time.
-        For example, calling an object's update() method dynamically modifies the DOM to reflect changes
+        For example, calling an object's `update()` method dynamically modifies the DOM to reflect changes
         without requiring a page reload.
 
     Event Handling and Propagation
@@ -164,7 +250,7 @@ Key Features:
 
 *x0-system* is built in a **generic** way (using ECMA 6 and 7 standards),
 enabling it to run natively on all modern browsers, including Firefox, Chrome,
-Opera, and Safari.
+Opera, Safari **and** Konqueror (QtWebKit).
 
 3. Deployment and Integration
 =============================
