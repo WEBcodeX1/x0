@@ -20,13 +20,12 @@ x0 Framework Documentation
    appdev-objects
    appdev-form-objects
    appdev-context-menu
-   appdev-user-defaults
    appdev-backend
    appdev-event-system
    appdev-forms
    appdev-overlay
    appdev-messaging
-   appdev-deployment
+   appdev-kubernetes
 
 .. toctree::
    :maxdepth: 2
