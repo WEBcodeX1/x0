@@ -1,23 +1,16 @@
 .. dev-best-practices
 
-.. _devporting:
+.. _devbestpractices:
 
 29. Development Best Practices
-===============================
+==============================
 
-This chapter consolidates the proven object-construction and runtime-update patterns
-that the framework's own reference implementation relies on. Every pattern below is
-extracted directly from the currently shipping ``/www/userObj*.js`` example objects
-(``ExampleFlightDetails``, ``ExampleEditableItemContainer``, ``ExampleCardTasklists``,
-``ExamplePeopleSelector``, ``ExampleTimedProgress``, ``ExampleWizard``) — treat them as
-the canonical blueprint for any new custom *x0-system-object*.
-
-Application porting (29.7) — converting existing, non-*x0* HTML/Bootstrap markup into
-the *x0-object* model — is a specialized application of these same principles, and is
-covered in detail further below.
+This chapter establishes the *core architectural* **standards**, object-construction patterns,
+and runtime-update strategies required to develop robust custom *x0-system-objects* within the
+framework ecosystem.
 
 29.1. Introduction
--------------------
+------------------
 
 Building a robust custom *x0-system-object* means getting four things right:
 
@@ -30,7 +23,7 @@ The following sections work through each of these in turn, grounded in real,
 currently-maintained engine code.
 
 29.2. Recommended Base Class: sysObjDivUnique
-----------------------------------------------
+---------------------------------------------
 
 **What it replaces:** historically, a custom container object inherited directly from
 ``sysBaseObject`` and, inside its own ``init()``, manually set
@@ -95,7 +88,7 @@ Refer to: :ref:`devoopmodel-classes` (24.2.2) for the full ``sysObjDiv`` /
 *x0-object-type*.
 
 29.3. Recursive Object Construction with setupObjectRefsRecursive()
----------------------------------------------------------------------
+-------------------------------------------------------------------
 
 Manually calling ``addObject()`` once per child node (see
 :ref:`devobjectmodeling-childparent`) does not scale once an object's internal structure
@@ -290,7 +283,7 @@ encountered last, which is rarely the one the caller intended.
 	targets.
 
 29.5. Real-Time Object Updates
---------------------------------
+------------------------------
 
 Once rendered, an object's DOM subtree does not automatically reflect later changes to
 its in-memory ``ChildObjects[]``/``JSONConfig`` state — ``rerenderObject()`` (see
@@ -299,7 +292,7 @@ must be called explicitly. The example objects demonstrate two complementary upd
 styles.
 
 29.5.1. Rebuild Pattern
-***************************
+***********************
 
 Used when an object's *entire* internal structure must be regenerated from scratch, for
 example when an editable item toggles between its display and edit representations:
@@ -365,7 +358,7 @@ reordered — avoiding the layout thrashing of removing/re-inserting individual 
 one at a time.
 
 29.5.2. Additive Pattern
-****************************
+************************
 
 Used when only a *new* node needs to be appended, with existing siblings left untouched:
 
@@ -401,7 +394,7 @@ actually created.
 	unnecessary teardown/recreation of every already-rendered node.
 
 29.6. Recent Architectural Evolution
-----------------------------------------
+------------------------------------
 
 The patterns documented above reflect the framework's 1.1.0-rc1 engine revision (see
 ``CHANGELOG.md``), which reworked core object construction and introduced the full set
@@ -617,5 +610,4 @@ For more information, see:
 - ``/www/userObj*.js`` for the complete, currently-maintained reference implementations.
 
 By following this guide, you can efficiently build new custom objects, update them in
-real time, and port existing web applications into the *x0-framework*, leveraging its
-powerful object-oriented and modular architecture.
+real time, and port existing web applications into the *x0-framework*.
