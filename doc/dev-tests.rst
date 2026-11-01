@@ -9,50 +9,49 @@ Tests are an essential component for ensuring the stability of newly designed
 *x0-system-objects* and the base system, especially after major system changes.
 
 The *x0-system* design enables you to locally simulate the entire *x0-infrastructure*
-using Docker images (including the ``x0-test`` image) in minimal time, thereby offloading
-valuable CPU resources. This approach ensures that only one developer executes a
-single infrastructure run, rather than multiplying the load by the number of developers,
-reducing strain on the Git CI system's server.
+using Docker images (including the ``x0-test`` image) in minimal time, thereby saving
+valuable CPU resources. This approach ensures that a single infrastructure run is
+executed locally per developer, rather than multiplying the load by the number of
+developers and straining the Git CI system's servers.
 
 As a developer, you are strongly encouraged to write sufficient tests and add them to the
 ``/tests`` subdirectory. This chapter provides detailed instructions on how to do so.
 
-27.1. Test CI
--------------
+27.1. Testing in the CI
+-----------------------
 
-On pushing to the ``current-release`` branch, current-release`s test-containers will
-be run and tests executed within.
+When pushing to the ``current-release`` branch, the test containers for ``current-release``
+will be run, and the tests will be executed within them.
 
-An authenticated maintainer must ensure to push the relevant images to ``ghcr.io/webcodex1/``
-before pushing to the ``current-release`` branch by:
+An authenticated maintainer must ensure that the relevant images are pushed to ``ghcr.io/webcodex1/``
+before pushing to the ``current-release`` branch. This can be done by running:
 
 .. code-block:: bash
 
-	git branch current-release
 	git checkout current-release
-	git push --set-upstream origin current-release
+	git push origin current-release
 
 Once the tests pass, a snapshot of the branch will be created and named:
 
 ``/releases/${release-tag}``.
 
-27.2. Test Config
------------------
+27.2. Test Configuration
+------------------------
 
 A single test consists of the following components:
 
-- Test Application (x0-app)
-- Test Controller Client (Pytest / Selenium)
+- A test application (x0-app)
+- A test controller client (Pytest / Selenium)
 
 Every test must include:
 
-- System Database Configuration
-- Application Metadata (object.json, skeleton.json, menu.json)
+- System database configuration
+- Application metadata (object.json, skeleton.json, menu.json)
 
 Optional components for enhanced tests:
 
-- Additional Database Data
-- Backend Scripts Returning App JSON Data
+- Additional database data
+- Backend scripts returning application JSON data
 
 27.2.1. Test Identifier
 ***********************
