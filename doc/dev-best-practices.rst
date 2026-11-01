@@ -54,40 +54,84 @@ principles and sub-chapters must be reviewed carefully.
 The subsequent sections analyze these structural prerequisites in depth, specifying the exact implementation
 semantics required by the framework's architectural infrastructure.
 
-29.2. Recommended Base Class: sysObjDivUnique
----------------------------------------------
+29.2. Custom Class Derivation and Skeleton Setup
+-------------------------------------------------
 
-**What it replaces:** historically, a custom container object inherited directly from
-``sysBaseObject`` and, inside its own ``init()``, manually set
-``this.overrideDOMObjectID = true`` whenever the object needed a stable DOM id (i.e. an
-id that is *not* prefixed by its parent's DOM id during recursive rendering — see
-:ref:`devoopmodel-classes` (24.1.2) for the rendering/prefixing mechanism itself).
+Every custom *x0-system-object* is built by choosing exactly one of three base-class
+derivation pathways, and then wiring a small, well-defined set of constructor properties
+that the execution engine (``renderObject()``, ``getObjects()``, ``getObjectData()`` /
+``setObjectData()``) relies on to render, address and update the instance. The choice of
+pathway is not stylistic — it directly determines how the object's DOM id is composed
+(see ``renderObject()``, :ref:`devoopmodel-classes` (24.1.2)) and therefore whether the
+object can later be looked up with ``sysFactory.getObjectByID()``.
 
-.. code-block:: javascript
+29.2.1. Pathway A: Direct ``sysBaseObject()`` Derivation
+***********************************************************
 
-    //- OUTDATED PATTERN - do not use for new objects
-    function userObjLegacyCard()
-    {
-        this.ChildObjects = new Array();
-    }
+Inheriting directly from ``sysBaseObject`` is the lowest-level pathway and is reserved
+for two distinct situations, both of which are incompatible with the generic ``Div``
+container classes:
 
-    //- inherit sysBaseObject directly ...
-    userObjLegacyCard.prototype = new sysBaseObject();
+1. **Non-``div`` leaf/value objects** — objects whose ``DOMType`` is a concrete HTML tag
+   other than ``div`` (an image, a form input, a table row), and which expose live
+   runtime data via ``RuntimeGetDataFunc``/``RuntimeSetDataFunc``. These objects
+   deliberately leave ``overrideDOMObjectID`` unset and rely on the engine's *default*
+   recursive prefixing; the caller is responsible for composing a globally unique
+   ``ObjectID`` from the already-unique parent id:
 
-    userObjLegacyCard.prototype.init = function()
-    {
-        //- ... and remember to manually flag it as non-prefixed
-        this.overrideDOMObjectID = true;
-        //- ... rest of init logic
-    }
+   .. code-block:: javascript
 
-This works, but the manual flag is an easy-to-forget, silently-failing step: omitting it
-does not raise an error, it simply leaves the object with a recursively prefixed DOM id,
-which breaks any code that expects to address it by its bare ``ObjectID``.
+       //- sysObjImage.js - leaf object, DOMType 'img', no overrideDOMObjectID
+       function sysObjImage()
+       {
+           this.ObjectType             = 'Image';
+           this.DOMType                = 'img';
+           this.DOMAttributes          = new Object();
 
-**What to use instead:** ``sysObjDivUnique`` (``/www/sysObjDiv.js``) already bakes
-``this.overrideDOMObjectID = true`` into its own constructor. Inheriting from it instead
-of ``sysBaseObject`` removes the manual step entirely:
+           this.RuntimeGetDataFunc     = this.getValue;
+           this.RuntimeSetDataFunc     = this.setValue;
+           this.SetDataMechanism       = 'Plain';
+       }
+       sysObjImage.prototype = new sysBaseObject();
+
+       //- caller composes a unique id from its own, already-unique ObjectID
+       //- (userObjExampleFlightData.js)
+       "id": this.ObjectID + "AirlineIcon",
+       "SysObject": new sysObjImage(),
+
+2. **Self-contained structural/control objects without a dedicated "Unique" sibling
+   class** — buttons, lists, formfield containers and similar non-``Div`` types that
+   must always be addressable by a bare ``ObjectID``, and therefore manually set
+   ``this.overrideDOMObjectID = true`` inside their own constructor:
+
+   .. code-block:: javascript
+
+       //- sysObjButton.js / sysObjList.js / sysObjFormfieldList.js
+       function sysObjButton()
+       {
+           this.overrideDOMObjectID    = true;     //- Override recursive ObjectID
+           //- ... remaining setup
+       }
+       sysObjButton.prototype = new sysBaseObject();
+
+   This manual flag is an easy-to-forget, silently-failing step: omitting it does not
+   raise an error, it simply leaves the object with a recursively prefixed DOM id, which
+   breaks any code that expects to address it by its bare ``ObjectID``. It remains
+   necessary and correct for these types precisely because no ``sysObjButtonUnique`` or
+   equivalent sibling class exists — unlike the ``Div`` family below.
+
+**Naming scheme:** composed uniqueness, either delegated to the caller (case 1) or
+self-declared via the manual flag (case 2). Use Pathway A only when the object's
+identity is inseparable from non-container DOM behavior; prefer Pathway B for anything
+that is primarily a structural container.
+
+29.2.2. Pathway B: ``sysObjDivUnique()`` — Recommended Default for Custom Containers
+*****************************************************************************************
+
+``sysObjDivUnique`` (``/www/sysObjDiv.js``) already bakes
+``this.overrideDOMObjectID = true`` into its own constructor, removing the manual,
+easy-to-forget step from Pathway A entirely whenever the custom object is, at its core, a
+``div``-style container:
 
 .. code-block:: javascript
 
@@ -104,20 +148,120 @@ of ``sysBaseObject`` removes the manual step entirely:
 Every single example object currently shipped under ``/www/userObj*.js`` follows this
 pattern without exception — none derive from ``sysBaseObject`` directly any longer.
 
+**Naming scheme:** because ``overrideDOMObjectID`` removes the recursive parent-prefix
+safety net, the rendered DOM id *is* the bare ``ObjectID`` — the instance's ``ObjectID``
+must still be explicitly composed to be unique across the whole screen hierarchy (for
+example ``'BaseRowCtr' + this.ObjectID + '_' + RowIndex``, see 29.3), exactly as it would
+for a Pathway A object with the manual flag set.
+
 .. note::
 
-	``sysObjDivUnique`` is purpose-built for ``div``-style container objects. Other
-	non-``Div`` base types without a dedicated "Unique" variant (for example
-	``sysObjButtonCallback``) still require the manual
-	``this.overrideDOMObjectID = true`` flag on the instance — this remains correct and
-	necessary for those types. The guidance above specifically targets custom container
-	objects, which should prefer ``sysObjDivUnique`` over ``sysObjDiv``/``sysBaseObject``
-	plus a manual flag.
+	The sibling class ``sysObjDivValue`` (also ``/www/sysObjDiv.js``) extends the same
+	``overrideDOMObjectID = true`` / unique-container pattern with a wired
+	``RuntimeSetDataFunc``/``RuntimeGetDataFunc`` pair (its own ``setValue``/``getValue``)
+	for cases where a uniquely addressable container must also expose a single runtime
+	value through 29.6.2's ``getObjectData()``/
+	``setObjectData()`` model.
 
 Refer to: :ref:`devoopmodel-classes` (24.2.2) for the full ``sysObjDiv`` /
 ``sysObjDivUnique`` / ``sysObjDivValue`` class reference, and
 :ref:`objecttype-divunique` for the declarative, JSON-configured ``DivUnique``
 *x0-object-type*.
+
+29.2.3. Pathway C: ``sysObjDiv()`` — Non-Unique Intermediary Layout Layer
+*****************************************************************************
+
+Unlike the two pathways above, ``sysObjDiv`` is, in practice, never subclassed by custom
+objects. Instead it is instantiated directly — ``new sysObjDiv()`` — inline as a generic,
+disposable structural wrapper, with ``overrideDOMObjectID`` left unset:
+
+.. code-block:: javascript
+
+    //- userObjExampleFlightData.js - plain structural wrapper, reused per row
+    "id": "ColCtrLeft",
+    "SysObject": new sysObjDiv(),
+    "JSONAttributes": { "Style": "col-md-2 m-0 p-0" },
+
+**Naming scheme:** short, generic, deliberately *non-unique* ids (``"ColCtrLeft"``,
+``"CtrRow"``, ``"RowSeparator"``) that are safely reused across every sibling instance in
+the hierarchy, because rendering derives the actual DOM id from the recursive parent
+prefix rather than from the bare ``ObjectID``. Use Pathway C exclusively for nodes that
+exist only to group siblings or apply a layout/grid class, and that are never queried via
+``sysFactory.getObjectByID()`` — see 29.4 for the full addressability rationale and the
+lookup-collision risk this pathway deliberately accepts.
+
+29.2.4. Mandatory and Optional Class Properties
+*****************************************************
+
+Regardless of pathway, a custom class's constructor wires the following properties into
+the inherited ``sysBaseObject``/``sysBaseDOMElement`` engine. Deviating from this schema
+either breaks rendering outright (mandatory properties) or silently disables a specific
+engine feature (optional properties).
+
+.. table:: Mandatory Properties
+	:widths: 20 80
+
+	+------------------------+-------------------------------------------------------------------------+
+	| **Property**           | **Role**                                                                |
+	+========================+=========================================================================+
+	| ``ObjectType``         | Declarative type tag read by ``getObjectsByType()``, the context-menu   |
+	|                        | dispatcher and JSON-schema validation; must be a stable, unique         |
+	|                        | string per class (e.g. ``'Image'``, ``'DivUnique'``).                   |
+	+------------------------+-------------------------------------------------------------------------+
+	| ``ChildObjects``       | Must be initialized to ``new Array()`` in the constructor.              |
+	|                        | ``addObject()``, ``renderObject()`` and ``getObjects()`` all iterate    |
+	|                        | this array directly; an unset ``ChildObjects`` breaks rendering and     |
+	|                        | traversal for the entire subtree rooted at the instance.                |
+	+------------------------+-------------------------------------------------------------------------+
+	| ``ObjectID``           | Assigned either by the class itself (process-wide singletons, e.g.      |
+	|                        | ``sysObjAsyncNotifyIndicator``'s hardcoded                              |
+	|                        | ``'SYSGlobalAsyncNotifyIndicator'``) or by                              |
+	|                        | ``sysFactory.setupObjectRefsRecursive()`` from the declarative          |
+	|                        | ``object.json``/``skeleton.json`` ``id`` field. Its required            |
+	|                        | uniqueness scope depends entirely on the derivation pathway chosen      |
+	|                        | above (29.2.1-29.2.3).                                                  |
+	+------------------------+-------------------------------------------------------------------------+
+
+.. table:: Conditionally Mandatory Properties
+	:widths: 20 80
+
+	+---------------------------+-----------------------------------------------------------------------+
+	| **Property**              | **Required when...**                                                  |
+	+===========================+=======================================================================+
+	| ``overrideDOMObjectID``   | The instance must be addressable by a bare, non-prefixed              |
+	|                           | ``ObjectID`` — set ``true`` manually for Pathway A (29.2.1, case 2)   |
+	|                           | or inherited from ``sysObjDivUnique``/``sysObjDivValue`` for Pathway  |
+	|                           | B. Left unset for Pathway C and for Pathway A leaf objects that rely  |
+	|                           | on default recursive prefixing.                                       |
+	+---------------------------+-----------------------------------------------------------------------+
+	| ``EventListeners``        | The object registers its own DOM event bindings (``mousedown``,       |
+	|                           | ``click``, ...). Must be ``new Object()`` keyed by a listener name;   |
+	|                           | ``processEventListener()`` guards against ``null``/``undefined`` and  |
+	|                           | simply skips objects that never set it.                               |
+	+---------------------------+-----------------------------------------------------------------------+
+	| ``KeyID``                 | The object participates in the ``KeyValue`` data-model dispatch       |
+	|                           | (29.6.2) — read by                                                    |
+	|                           | ``getKeyIDValueFromData()``/``setObjectDataKeyValueRecursive()`` to   |
+	|                           | match the instance against its corresponding ``Data`` entry.          |
+	+---------------------------+-----------------------------------------------------------------------+
+	| ``RuntimeGetDataFunc`` /  | The object exposes a single runtime value to the recursive data       |
+	| ``RuntimeSetDataFunc``    | model (``sysObjImage``'s ``getValue``/``setValue``, a Formfield's own |
+	|                           | accessor). Paired with ``GetDataMechanism``/``SetDataMechanism`` —    |
+	|                           | see 29.6.2 for the full ``Plain``/``KeyValue`` dispatch table.        |
+	+---------------------------+-----------------------------------------------------------------------+
+	| ``JSONConfig``            | Never set inside the constructor itself — assigned externally by      |
+	|                           | ``sysFactory.setupObjectRefsRecursive()`` (or ``sysScreen`` at        |
+	|                           | screen load) *before* ``init()`` runs. Custom ``init()``              |
+	|                           | implementations read declarative configuration exclusively through    |
+	|                           | ``this.JSONConfig.Attributes`` — see 29.6.1.                          |
+	+---------------------------+-----------------------------------------------------------------------+
+
+Purely presentational properties — ``DOMType`` (default ``'div'``, overridden only for
+non-``div`` leaf tags such as ``'img'``), ``DOMStyle``, ``DOMValue`` and
+``DOMAttributes`` — remain optional and default to ``null``/unset via
+``sysBaseDOMElement``. Conversely, ``ParentObject``, ``DOMObjectID`` and ``DOMParentID``
+must **never** be assigned manually in custom code: all three are populated recursively
+by ``addObject()``/``renderObject()`` at link- and render-time respectively.
 
 29.3. Recursive Object Construction with setupObjectRefsRecursive()
 -------------------------------------------------------------------
