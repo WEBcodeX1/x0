@@ -50,11 +50,6 @@ The build creates the local ``x0-static`` image, defined in
 ``x0-static`` container, publishing container port 80 on host port 80. Open
 ``http://localhost/`` in your browser — no further setup is required.
 
-.. tip::
-   For the full breakdown of bundled files, the ``static/meta/*`` metadata
-   layout, and how to customize the bundled application, see
-   :ref:`appdev-static-deployment`.
-
 If you need the database, backend services, or intend to build your own
 *x0-system-objects*, continue with the :ref:`installation-full-system`
 installation below.
