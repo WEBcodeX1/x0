@@ -57,5 +57,3 @@ semantics required by the framework's architectural infrastructure.
 29.2. Custom Class Derivation and Skeleton Setup
 ------------------------------------------------
 
-Every custom *x0-system-object* is built by choosing exactly one of three base-class
-derivation pathways.
