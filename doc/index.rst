@@ -27,7 +27,7 @@ x0 Framework Documentation
    appdev-messaging
    appdev-kubernetes
 
-.. toctree::
+ .. toctree::
    :maxdepth: 2
    :caption: Core Development
 
@@ -35,15 +35,14 @@ x0 Framework Documentation
    dev-oop-model
    dev-oop-classes
    dev-backend
-   dev-object-modeling
+   dev-best-practices
 
 .. toctree::
    :maxdepth: 2
-   :caption: Development Tools & Testing
+   :caption: Testing & Examples
 
    dev-tests
    dev-examples
-   dev-best-practices
 
 .. toctree::
    :maxdepth: 2
