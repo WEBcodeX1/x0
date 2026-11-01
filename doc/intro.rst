@@ -270,6 +270,7 @@ Opera, Safari **and** Konqueror (QtWebKit).
     docker pull ghcr.io/webcodex1/x0-app
     docker pull ghcr.io/webcodex1/x0-db
     docker pull ghcr.io/webcodex1/x0-test
+    docker pull ghcr.io/webcodex1/x0-static
 
 See :ref:`installation` for instructions on how to proceed.
 
