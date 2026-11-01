@@ -106,7 +106,7 @@ You can use **any Linux distribution** where Debian packages can be built native
 - [`micro-msg-server`](https://github.com/clauspruefer/micro-msg-server)
 
 6.2.3. System Installation
-***************************
+**************************
 
 .. highlight:: bash
 
@@ -128,7 +128,7 @@ First, install dependencies:
     sudo apt-get install -y python3-sphinx python3-sphinx-rtd-theme
 
 6.2.4. Step-by-Step Setup
-***************************
+*************************
 
 1. **Clone the x0 Repository**
 
@@ -201,7 +201,7 @@ First, install dependencies:
    The changelog is at ``./debian/changelog``.
 
 6.2.5. Docker Network Reference
-*********************************
+*******************************
 
 .. list-table:: Docker Containers / IP Addresses / DNS
    :widths: 30 15 55
@@ -227,7 +227,7 @@ First, install dependencies:
      - x0-msg-server.x0.localnet
 
 6.2.6. Docker Tips & Tricks
-*****************************
+***************************
 
 .. code-block:: bash
 
@@ -245,7 +245,7 @@ First, install dependencies:
     psql -U postgres -d x0
 
 6.2.7. Using a Local Ubuntu Mirror
-*************************************
+**********************************
 
 For restricted or frequent development environments, a local Ubuntu apt mirror can accelerate package downloads.
 
@@ -258,7 +258,7 @@ For restricted or frequent development environments, a local Ubuntu apt mirror c
    Both ``UBUNTU_MIRROR_DNS`` and ``UBUNTU_MIRROR_IP`` must be set and your DNS must resolve correctly.
 
 6.2.8. System Verification
-*****************************
+**************************
 
 Build everything and start the system:
 
@@ -272,7 +272,7 @@ Build everything and start the system:
 Then open http://x0-app.x0.localnet/python/Index.py in your browser to verify functionality.
 
 6.2.9. Examples
-*****************
+***************
 
 Find ready-to-run examples in the ``./examples`` directory. After starting the containers, access them via:
 
@@ -283,7 +283,7 @@ Find ready-to-run examples in the ``./examples`` directory. After starting the c
 See :ref:`devexamples` for details on structure and adding your own examples.
 
 6.2.10. Testing & Continuous Integration
-*******************************************
+****************************************
 
 Tests are in ``./test``. The system uses **pytest** and **Selenium Server** for network-based tests, including in GKE pods.
 
@@ -295,14 +295,14 @@ Run tests locally after containers are running:
     sleep 10 && pytest-3
 
 6.2.11. Kubernetes Deployment
-********************************
+*****************************
 
 x0 runs on GKE and Minikube with automated ingress, redundancy (Kubegres), and fail-safe DB setup.
 
 For details, see: https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md
 
 6.2.12. Running on Windows 11
-*********************************
+*****************************
 
 **x0-system** Docker containers can be run on Windows 11 Pro using Docker Desktop.
 
@@ -318,7 +318,3 @@ For details, see: https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md
     # Start containers
     cd ./docker
     ./x0-start-containers.sh
-
-----
-
-Congratulations! Your *x0-system* is now ready for development, testing, or deployment.
