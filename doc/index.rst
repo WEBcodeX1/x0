@@ -3,12 +3,16 @@
 x0 Framework Documentation
 ==========================
 
+.. _menu_getting_started:
+
 .. toctree::
    :maxdepth: 2
    :caption: Getting Started
 
    intro
    installation
+
+.. _menu_app_dev_guide:
 
 .. toctree::
    :maxdepth: 2
@@ -27,6 +31,8 @@ x0 Framework Documentation
    appdev-messaging
    appdev-kubernetes
 
+.. _menu_core_dev:
+
  .. toctree::
    :maxdepth: 2
    :caption: Core Development
@@ -37,12 +43,16 @@ x0 Framework Documentation
    dev-backend
    dev-best-practices
 
+.. _menu_testing_examples:
+
 .. toctree::
    :maxdepth: 2
    :caption: Testing & Examples
 
    dev-tests
    dev-examples
+
+.. _menu_extensions:
 
 .. toctree::
    :maxdepth: 2
