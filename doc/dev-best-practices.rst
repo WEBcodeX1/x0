@@ -38,7 +38,8 @@ principles and sub-chapters must be reviewed carefully.
    redraws highly effectively. Instead of re-rendering entire hierarchies, the engine optimizes
    updates for complex structures—such as a TaskContainer managing nested TaskLists and individual
    Tasks—by surgically detaching and updating only the specific object from its representative
-   parent DOM node.
+   parent DOM node. Furthermore, any properly constructed recursive object structure natively supports
+   runtime pagination via `sysRTPagination.js`.
 
 5. **Declarative Object Representation:** Each object must be supplied with structured JSON metadata utilizing
    `JSONConfig.Attributes` (which can be static, fetched via AJAX from the backend, or modified at runtime).
