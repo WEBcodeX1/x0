@@ -187,7 +187,7 @@ markup -- without any manual, repeated ``addObject()`` bookkeeping.
 	``setupObjectRefsRecursive()`` is exhaustively documented, including a full
 	line-by-line walkthrough, at :ref:`devoopmodel-classes` (24.1.5) and
 	:ref:`devoopmodel` (23.4.6). For converting existing, non-*x0* HTML/Bootstrap
-	markup into this structure, see :ref:`devporting` (29.2).
+	markup into this structure, see :ref:`devporting` (29.7.2).
 
 26.4. Object Constructors
 -------------------------
