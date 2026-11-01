@@ -54,70 +54,9 @@ principles and sub-chapters must be reviewed carefully.
 The subsequent sections analyze these structural prerequisites in depth, specifying the exact implementation
 semantics required by the framework's architectural infrastructure.
 
-29.2. Recommended Base Class: sysObjDivUnique
----------------------------------------------
+29.2. Deriving Class Skeleton
+-----------------------------
 
-**What it replaces:** historically, a custom container object inherited directly from
-``sysBaseObject`` and, inside its own ``init()``, manually set
-``this.overrideDOMObjectID = true`` whenever the object needed a stable DOM id (i.e. an
-id that is *not* prefixed by its parent's DOM id during recursive rendering — see
-:ref:`devoopmodel-classes` (24.1.2) for the rendering/prefixing mechanism itself).
-
-.. code-block:: javascript
-
-    //- OUTDATED PATTERN - do not use for new objects
-    function userObjLegacyCard()
-    {
-        this.ChildObjects = new Array();
-    }
-
-    //- inherit sysBaseObject directly ...
-    userObjLegacyCard.prototype = new sysBaseObject();
-
-    userObjLegacyCard.prototype.init = function()
-    {
-        //- ... and remember to manually flag it as non-prefixed
-        this.overrideDOMObjectID = true;
-        //- ... rest of init logic
-    }
-
-This works, but the manual flag is an easy-to-forget, silently-failing step: omitting it
-does not raise an error, it simply leaves the object with a recursively prefixed DOM id,
-which breaks any code that expects to address it by its bare ``ObjectID``.
-
-**What to use instead:** ``sysObjDivUnique`` (``/www/sysObjDiv.js``) already bakes
-``this.overrideDOMObjectID = true`` into its own constructor. Inheriting from it instead
-of ``sysBaseObject`` removes the manual step entirely:
-
-.. code-block:: javascript
-
-    //- CURRENT, RECOMMENDED PATTERN (userObjExampleFlightData.js)
-    function userObjExampleFlightDetails()
-    {
-        this.DOMStyle     = 'row m-0 p-0';
-        this.ChildObjects = new Array();
-    }
-
-    //- inherit sysObjDivUnique - overrideDOMObjectID is already true
-    userObjExampleFlightDetails.prototype = new sysObjDivUnique();
-
-Every single example object currently shipped under ``/www/userObj*.js`` follows this
-pattern without exception — none derive from ``sysBaseObject`` directly any longer.
-
-.. note::
-
-	``sysObjDivUnique`` is purpose-built for ``div``-style container objects. Other
-	non-``Div`` base types without a dedicated "Unique" variant (for example
-	``sysObjButtonCallback``) still require the manual
-	``this.overrideDOMObjectID = true`` flag on the instance — this remains correct and
-	necessary for those types. The guidance above specifically targets custom container
-	objects, which should prefer ``sysObjDivUnique`` over ``sysObjDiv``/``sysBaseObject``
-	plus a manual flag.
-
-Refer to: :ref:`devoopmodel-classes` (24.2.2) for the full ``sysObjDiv`` /
-``sysObjDivUnique`` / ``sysObjDivValue`` class reference, and
-:ref:`objecttype-divunique` for the declarative, JSON-configured ``DivUnique``
-*x0-object-type*.
 
 29.3. Recursive Object Construction with setupObjectRefsRecursive()
 -------------------------------------------------------------------
