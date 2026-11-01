@@ -11,6 +11,13 @@ The first chart shows an overall view of global systems inter-communication.
 .. image:: images/x0-architecture-overview.png
   :alt: image - architecture overview
 
+.. note::
+
+   With the introduction of the **static** containerized system (single container), developers
+   can completely circumvent the *x0-build-system* (multi-vhost system and database setup)
+   by only updating this single cached container. Details will be provided in the subsequent
+   developer chapters.
+
 22.1. Global Workflows
 ----------------------
 
