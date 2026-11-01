@@ -382,7 +382,8 @@ reordering operation swaps two entries in ``RowItems``:
 **What this does:** ``ChildObjects.length = 0`` discards every currently rendered row
 reference without touching the underlying data (``RowItems``, the actual row objects,
 survive untouched); ``redrawList()`` then re-adds them to ``ChildObjects`` in their new
-order and performs a single ``rerenderObject()`` at the end.
+order, delegates page-boundary visibility to ``this.PaginationObject.update()`` (29.5.3),
+and performs a single ``rerenderObject()`` at the end.
 
 **Why this is the effective pattern:** a single ``rerenderObject()`` call at the end
 tears down and rebuilds the DOM subtree exactly once, regardless of how many rows were
@@ -425,8 +426,158 @@ actually created.
 	children are appended and existing ones are structurally unaffected — it avoids the
 	unnecessary teardown/recreation of every already-rendered node.
 
-29.6. Recent Architectural Evolution
-------------------------------------
+29.5.3. Pagination Integration
+*******************************
+
+Any recursive object structure that exposes a ``RowItems[]`` array and a ``RowCount``
+property (29.1, point 4) is eligible to delegate page-boundary visibility to
+``sysPagination`` (``/www/sysRTPagination.js``), instantiated once per container as
+``this.PaginationObject = new sysPagination(this)``. ``sysObjList``, ``sysObjImageSelector``
+and ``userObjExampleEditableItemContainer`` (29.5.1) are the framework's current adopters
+of this mechanism.
+
+.. code-block:: javascript
+
+    //- sysPagination.prototype.update (www/sysRTPagination.js)
+    sysPagination.prototype.update = function()
+    {
+        for (const RowItem of this.ParentObject.RowItems)
+        {
+            RowItem.VisibleState = 'hidden';
+            RowItem.setDOMVisibleState();
+        }
+
+        const RowCount = this.ParentObject.RowCount;
+        const StartPos = ((this.CurrentPage+1)*RowCount)-RowCount;
+        const EndPos = ((this.CurrentPage+1)*RowCount)-1;
+
+        for (let i=StartPos; i<=EndPos; i++)
+        {
+            try {
+                const RowItem = this.ParentObject.RowItems[i];
+                RowItem.VisibleState = 'visible';
+                RowItem.setDOMVisibleState();
+            }
+            catch(err) {
+            }
+        }
+
+        this.render();
+    }
+
+**What this does:** rather than destroying and recreating off-page rows,
+``update()`` toggles each ``RowItem``'s ``VisibleState`` and re-renders only the
+navigation controls (``render()``) — the page-item buttons, the left/right navigation
+arrows, and the current-page/page-count indicator.
+
+**Why this is the effective pattern:** combined with the Rebuild Pattern (29.5.1), a
+container's ``RowItems`` remain a single, stable in-memory collection regardless of how
+many pages it spans; pagination is reduced to a pure visibility concern, layered
+transparently on top of the same ``redrawList()``/``rerenderObject()`` lifecycle already
+established for non-paginated containers.
+
+29.6. Declarative Object Representation & Data Model
+------------------------------------------------------
+
+Beyond base-class selection, naming, referencing and real-time updates (29.1, points
+1-4), two further structural prerequisites govern how an *x0-object* receives its
+configuration and exposes its runtime state: declarative attribute injection, and the
+recursive data model exposed through ``getObjectData()``/``setObjectData()``.
+
+29.6.1. Declarative Attributes via JSONConfig.Attributes
+***********************************************************
+
+Every *x0-object* instance is configured through a single ``this.JSONConfig.Attributes``
+object rather than through constructor arguments. This object is populated identically
+regardless of its origin — a static ``object.json`` definition, an AJAX-fetched backend
+response, or a runtime mutation — and is read by the object's own ``init()`` method:
+
+.. code-block:: javascript
+
+    //- sysObjImage.prototype.init (www/sysObjImage.js)
+    sysObjImage.prototype.init = function()
+    {
+        if (this.JSONConfig !== undefined)
+        {
+            const Attributes = this.JSONConfig.Attributes;
+
+            if (Attributes.Value !== undefined) {
+                this.DOMAttributes['src'] = Attributes.Value;
+            }
+            //- ... remaining attribute assignments
+        }
+    }
+
+Because ``init()`` only ever reads from ``this.JSONConfig.Attributes``, the object
+implementation itself remains entirely decoupled from *where* that configuration
+originated. Refer to :ref:`appdevconfig-metadata` (7.4) for the full ``object.json``
+(object definition) / ``skeleton.json`` (hierarchy and relation management) schema
+reference.
+
+29.6.2. Recursive Data Model: getObjectData() / setObjectData()
+*********************************************************************
+
+``sysBaseObject`` exposes a uniform, recursive data-access pair —
+``getObjectData()``/``setObjectData()`` — that lets a caller read or write an entire
+object subtree's runtime state without manually traversing ``ChildObjects``. Each object
+type opts into one of two dispatch mechanisms by declaring a ``SetDataMechanism`` (and,
+symmetrically, a ``GetDataMechanism``) in its constructor:
+
+.. table:: Data Mechanism Dispatch
+	:widths: 20 80
+
+	+---------------+----------------------------------------------------------------------+
+	| **Mechanism** | **Behavior**                                                         |
+	+===============+======================================================================+
+	| ``Plain``     | Delegates directly to the object's own ``RuntimeSetDataFunc``/       |
+	|               | ``RuntimeGetDataFunc`` (e.g. ``sysObjImage``'s ``setValue``). Used   |
+	|               | for leaf, single-value objects.                                      |
+	+---------------+----------------------------------------------------------------------+
+	| ``KeyValue``  | Recurses into ``ChildObjects``, matching each descendant's ``KeyID`` |
+	|               | against the corresponding entry of the supplied ``Data`` structure   |
+	|               | (``sysObjFormfieldList``, keyed by the declarative ``object.json``   |
+	|               | ``$ObjectID`` -- see :ref:`appdevformobjects`).                      |
+	+---------------+----------------------------------------------------------------------+
+
+.. code-block:: javascript
+
+    //- sysObjImage.js - single-value leaf object
+    this.RuntimeSetDataFunc     = this.setValue;
+    this.SetDataMechanism       = 'Plain';
+
+    //- sysObjFormfieldList.js - recursive container
+    this.SetDataMechanism       = 'KeyValue'
+
+``getObjectData()`` recursively walks every descendant exposing a ``RuntimeGetDataFunc``
+and assembles a flat result map, keyed by ``ObjectID``, where each entry records its
+``ObjectType``, ``ParentObject``, ``KeyID`` and current ``ObjectValue``:
+
+.. code-block:: javascript
+
+    //- sysBaseObject.prototype.getObjectDataRecursive (www/sysBaseObject.js)
+    getObjectDataRecursiveResultData[this.ObjectID] = {
+        "ObjectType": this.ObjectType,
+        "ParentObject": this.ParentObject,
+        "ParentDataObject": getObjectDataRecursiveParentDataObject,
+        "KeyID": this.KeyID,
+        "ObjectValue": this.RuntimeGetDataFunc()
+    }
+
+This result is structurally identical to what ``setObjectData()`` expects under the
+``KeyValue`` mechanism, which allows an entire subtree's state — such as the TaskContainer
+referenced in 29.1, point 6 — to be captured with a single ``getObjectData()`` call and
+subsequently re-applied, in full or in part, with a single ``setObjectData(Data)`` call.
+
+.. important::
+
+	This recursive data model is currently in **beta** (29.1, point 6) and has not
+	achieved full test coverage. Object types that do not explicitly declare a
+	``SetDataMechanism``/``GetDataMechanism`` in their constructor do not participate in
+	the ``Plain``/``KeyValue`` dispatch; verify the target object's source before relying
+	on ``getObjectData()``/``setObjectData()`` in new custom objects.
+
+29.7. Recent Architectural Evolution
+--------------------------------------
 
 The patterns documented above reflect the framework's 1.1.0-rc1 engine revision (see
 ``CHANGELOG.md``), which reworked core object construction and introduced the full set
@@ -443,7 +594,7 @@ each related engine subsystem, see:
 - :ref:`appdevoverlay` — the generic, ``object.json``/``skeleton.json``-driven overlay
   architecture.
 
-29.7. Application Porting
+29.8. Application Porting
 -----------------------------
 
 The remainder of this chapter explains how to port an existing web application,
@@ -451,7 +602,7 @@ particularly its DOM/HTML structure, into the *x0-framework*, applying the same
 principles established above. It focuses on transforming frameworks like Bootstrap into
 *x0-format* while leveraging the framework's object-oriented principles.
 
-29.7.1. Introduction
+29.8.1. Introduction
 ************************
 
 Porting a web application into *x0* involves converting static HTML and dynamically
@@ -468,23 +619,25 @@ Key processes include:
 
 For additional modeling references, see: :ref:`devobjectmodeling`.
 
-29.7.2. Modern Approach
+29.8.2. Modern Approach
 ***************************
 
 The *modern approach* to porting focuses on recursive object referencing and
 modularization, as introduced in 29.3. This method ensures scalability and
 maintainability by leveraging the ``sysFactory.setupObjectRefsRecursive()`` function.
 
-29.7.2.1. Recursive Referencing
+29.8.2.1. Recursive Referencing
 ###################################
 
-Using ``sysFactory.setupObjectRefsRecursive()`` allows you to:
+``sysFactory.setupObjectRefsRecursive()`` provides the following capabilities:
 
-- Define hierarchical object structures in JSON format.
-- Automatically initialize, configure, and render objects recursively.
-- Simplify the process of converting nested DOM elements into *x0-objects*.
+- Hierarchical object structures are defined declaratively, in JSON format.
+- Every object in the structure is automatically instantiated, configured and rendered
+  in a single recursive pass.
+- Nested DOM elements are converted into *x0-objects* without manual, per-node
+  bookkeeping.
 
-29.7.2.2. Example: Recursive Object Definition
+29.8.2.2. Example: Recursive Object Definition
 ###################################################
 
 The following example demonstrates how to structure a Bootstrap-formatted
@@ -528,17 +681,26 @@ component into a recursive *x0-object* hierarchy:
     sysFactory.setupObjectRefsRecursive(ObjDefs, this);
 
 This example converts a Bootstrap container, row, and column with a button
-into an *x0-object* hierarchy. Note that ``"container"``, ``"row"`` and ``"col"`` are
-intermediary layout layers (29.4.2); only ``"btn"`` would typically be composed as an
+into an *x0-object* hierarchy.
+
+**What this does:** three structural wrapper nodes (``"container"``, ``"row"``,
+``"col"``) enclose a single leaf ``sysObjButton`` instance, and the whole definition is
+handed to ``setupObjectRefsRecursive()`` in one call rather than four sequential
+``addObject()`` invocations.
+
+**Why this is the effective pattern:** ``"container"``, ``"row"`` and ``"col"`` are
+intermediary layout layers (29.4.2) by design — they are reused verbatim across
+every instance of this component and must never be targeted with
+``getObjectByID()``. Only ``"btn"`` would typically be composed as an
 instance-unique, addressable id in a production object.
 
-29.7.3. Simple Referencing
+29.8.3. Simple Referencing
 *******************************
 
 The *simple referencing* approach is ideal for small or isolated components.
 It does not require deep nesting or complex hierarchies.
 
-29.7.3.1. Example: Simple Object Initialization
+29.8.3.1. Example: Simple Object Initialization
 ####################################################
 
 Here is an example of defining and adding a single object without recursion:
@@ -556,19 +718,23 @@ Here is an example of defining and adding a single object without recursion:
 
     this.addObject(Btn);
 
-In this case, the button is directly added to ``this`` object.
-This method is straightforward but less flexible for scaling or reusing components.
+**What this does:** the button is added directly to ``this`` object, without an
+intervening ``ObjDefs`` structure or a recursive call.
 
-29.7.4. Combining Modern and Simple Approaches
+**Why this is the effective pattern:** for a single, isolated node, the overhead of a
+declarative ``ObjDefs`` structure outweighs its benefit; the trade-off is reduced
+flexibility when the component later needs to scale into a larger, nested hierarchy.
+
+29.8.4. Combining Modern and Simple Approaches
 ***************************************************
 
-In practice, you may need to combine modern and simple referencing techniques.
-For example:
+In practice, combining the modern and simple referencing techniques is frequently
+necessary:
 
 - Use recursive referencing for defining the application's primary structure.
 - Use simple referencing for dynamically adding or modifying objects at runtime.
 
-29.7.4.1. Example: Combined Approach
+29.8.4.1. Example: Combined Approach
 #########################################
 
 .. code-block:: javascript
@@ -603,35 +769,43 @@ For example:
 
     this.addObject(DynamicBtn);
 
-This approach maximizes the flexibility of the *x0-framework*,
-combining the strengths of both methods.
+**What this does:** the main structure (``"mainContainer"``/``"header"``) is
+established declaratively at initialization via ``setupObjectRefsRecursive()``, while
+``DynamicBtn`` is appended afterward, at runtime, via a direct ``addObject()`` call.
 
-29.7.5. Porting-Specific Best Practices
+**Why this is the effective pattern:** this combination maximizes the flexibility of
+the *x0-framework* — the static backbone of a screen is declared once, recursively,
+while individual nodes that are created conditionally or in response to runtime events
+are added incrementally, without re-declaring or re-processing the entire hierarchy.
+
+29.8.5. Porting-Specific Best Practices
 ********************************************
 
-Follow these additional best practices when porting applications into *x0*, on top of
-the general guidance in 29.2-29.5:
+Beyond the general guidance already established in 29.2-29.6, porting an existing
+application into the *x0-framework* imposes the following additional,
+porting-specific constraints:
 
-1. **Modularize Components**:
-   - Break down the application into reusable components, preferring ``sysObjDivUnique`` over ``sysBaseObject`` plus a manual override flag (29.2).
-   - Use JSON configurations to define attributes and styles.
+1. **Modularize Components:** The application must be decomposed into reusable
+   components, preferring ``sysObjDivUnique`` over ``sysBaseObject`` plus a manual
+   override flag (29.2), with attributes and styles supplied through JSON
+   configuration rather than inline markup.
 
-2. **Leverage Recursive Referencing**:
-   - Use ``sysFactory.setupObjectRefsRecursive()`` for defining complex hierarchies (29.3).
-   - Avoid hardcoding child object structures.
+2. **Leverage Recursive Referencing:** Complex hierarchies must be constructed via
+   ``sysFactory.setupObjectRefsRecursive()`` (29.3) rather than hardcoded, per-node
+   ``addObject()`` sequences.
 
-3. **Optimize Event Handling**:
-   - Use ``this.EventListeners[]`` for native DOM events.
-   - Define reusable callbacks for common interactions.
+3. **Optimize Event Handling:** Native DOM events must be registered through
+   ``this.EventListeners[]``, with reusable callbacks defined for recurring
+   interaction patterns rather than duplicated inline handlers.
 
-4. **Test Incrementally**:
-   - Test each component independently before integrating it into the application.
-   - Use the browser's developer tools for debugging DOM and JavaScript issues.
+4. **Test Incrementally:** Each component must be verified independently, using the
+   browser's developer tools to isolate DOM and JavaScript faults, before it is
+   integrated into the broader application.
 
-5. **Document Components**:
-   - Provide clear documentation for each reusable component, including its JSON configuration and expected behavior.
+5. **Document Components:** Each reusable component must be documented with its JSON
+   configuration schema and its expected runtime behavior.
 
-29.8. Additional Resources
+29.9. Additional Resources
 ------------------------------
 
 For more information, see:
@@ -641,5 +815,6 @@ For more information, see:
 - ``sysFactory.js`` for details on ``setupObjectRefsRecursive()``.
 - ``/www/userObj*.js`` for the complete, currently-maintained reference implementations.
 
-By following this guide, you can efficiently build new custom objects, update them in
-real time, and port existing web applications into the *x0-framework*.
+Adherence to this guide enables the efficient construction of new custom objects, their
+structured real-time update, and the principled porting of existing web applications
+into the *x0-framework*.

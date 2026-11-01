@@ -187,7 +187,7 @@ markup -- without any manual, repeated ``addObject()`` bookkeeping.
 	``setupObjectRefsRecursive()`` is exhaustively documented, including a full
 	line-by-line walkthrough, at :ref:`devoopmodel-classes` (24.1.5) and
 	:ref:`devoopmodel` (23.4.6). For converting existing, non-*x0* HTML/Bootstrap
-	markup into this structure, see :ref:`devporting` (29.7.2).
+	markup into this structure, see :ref:`devbestpractices` (29.8.2).
 
 26.4. Object Constructors
 -------------------------
@@ -306,7 +306,7 @@ structure and build it in a single, recursive call via
 ``sysFactory.setupObjectRefsRecursive()`` -- see :ref:`devobjectmodeling-recursivelinking`
 (26.3.5).
 
-Refer to: :ref:`devporting` for detailed instructions on porting existing,
+Refer to: :ref:`devbestpractices` for detailed instructions on porting existing,
 non-*x0* HTML/Bootstrap markup into this structure.
 
 26.7. Modifying Runtime Data
@@ -760,6 +760,6 @@ your application's specific requirements.
 
 * :ref:`devoopmodel_base` - Core sysBaseObject/sysBaseDOMElement model
 * :ref:`devoopmodel-classes` - Full class/method reference (renderObject, rerenderObject, setupObjectRefsRecursive)
-* :ref:`devporting` - Porting non-*x0* HTML/Bootstrap markup into recursive object hierarchies
+* :ref:`devbestpractices` - Porting non-*x0* HTML/Bootstrap markup into recursive object hierarchies
 * :ref:`appdevcontextmenu` - Context-menu implementation blueprint
 * :ref:`appdevconfig` - ``object.json``/``skeleton.json`` and database-driven object registration
