@@ -3,19 +3,13 @@
 6. Installation Guide
 =====================
 
-Welcome to the installation guide for the **x0-system**. Two installation paths
-are available, depending on your goal: the zero-dependency :ref:`installation-quickstart`
-below, intended for evaluating the framework in minutes, and the
-:ref:`installation-full-system` further down this page, required for
-development work against a database-backed, production-equivalent environment.
+This guide provides instructions for setting up the **x0-system**. It is divided
+into a minimal setup for evaluation and a full system deployment that includes the
+database, the application server, and optionally a lightweight messaging server.
 
-.. note::
-   If your goal is to develop *x0-applications* **only**, you **do not** need to install the full x0-base-system.
-   See the :ref:`appdevconfig` documentation for instructions on building and configuring your app.
-
-.. important::
-   If you plan to create your own *x0-system-objects* for custom use in your applications, **installing the x0-system is mandatory**.
-   Continue reading below.
+Since version 1.1, the **x0-system** ships with a minimal, static dockerized environment.
+Although its primary purpose is to showcase the capabilities of the framework, it is
+also ideally suited for rapid x0-application development without overhead.
 
 .. important::
    The database-backed *x0-system* is **multi-vhost-capable**: a single
@@ -29,10 +23,10 @@ development work against a database-backed, production-equivalent environment.
    including multi-vhost routing, load-balancing and fail-safe database
    setup. See :ref:`appdeployment-kubernetes` below for details.
 
-.. _installation-quickstart:
+.. _installation-minimal:
 
-6.1. Quick Start: The x0-static Container
-------------------------------------------
+6.1. Static, Minimal Setup
+--------------------------
 
 The simplest, fastest way to evaluate the *x0-framework* is the ``x0-static``
 Docker container. It is a **single, self-contained container** that requires
@@ -43,8 +37,7 @@ application.
 Despite this minimal footprint, the container bundles a fully operational
 Single Page Application (SPA) showcase exercising the most relevant core
 *x0-system-objects*, declarative JSON metadata structures, and the
-rendering engine described in
-:ref:`devoopmodel`.
+rendering engine described in :ref:`devoopmodel`.
 
 .. code-block:: bash
 
@@ -69,14 +62,14 @@ installation below.
 .. _installation-full-system:
 
 6.2. Full System Installation
-------------------------------
+-----------------------------
 
 The following sections cover the complete, database-backed *x0-system*
 installation — required for backend development, running the full test
 suite, or Kubernetes deployment.
 
 6.2.1. Supported Environments
-*******************************
+*****************************
 
 You can use **any Linux distribution** where Debian packages can be built natively (``debuild``):
 
