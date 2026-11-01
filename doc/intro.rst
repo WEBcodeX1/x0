@@ -198,8 +198,8 @@ Key Characteristics:
 
     Real-Time Updates
         The templating system enables objects to update their associated DOM elements in real time.
-        For example, calling an object's `update()` method dynamically modifies the DOM to reflect changes
-        without requiring a page reload.
+        For example, calling an object's `rerenderObject()` method dynamically modifies the DOM to reflect
+        changes without requiring a page reload.
 
     Event Handling and Propagation
         Objects manage their own event listeners and callbacks, ensuring encapsulated and modular event
