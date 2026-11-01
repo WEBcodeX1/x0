@@ -27,7 +27,8 @@ running on an **ESP32-S3** microcontroller using the ESP-IDF framework (with emb
 *MicroPython*) can be found at the
 `micropython-as <https://github.com/WEBcodeX1/micropython-as>`_ project.
 
-**Key Features**:
+1.2. Key Features
+-----------------
 
 **Declarative Metadata Concept**: Uses modern declarative configurations to define
 application behavior, drastically reducing custom boilerplate code.
@@ -38,8 +39,8 @@ architectural complexity and keep the codebase maintainable.
 **Serverless & Independent**: Runs entirely in the browser without depending on a
 classic backend stack.
 
-**Ultra-Lightweight Core**: Consists of only 66 system files and 4 metadata files,
-totaling just 356 KB.
+**Ultra-Lightweight Core**: Consists of only 57 system files and 4 metadata files,
+totaling just 587 KB.
 
 **Production Footprint < 4 MB**: Includes Bootstrap, Font Awesome, and comprehensive
 user application code within less than 4 Megabytes.
@@ -66,7 +67,7 @@ and efficient cross-object communication, while maintaining lightweight and resp
 design principles. It is also well-suited for embedded and microcontroller web interface
 development where resource constraints demand minimal overhead.
 
-1.2. Abstract
+1.3. Abstract
 -------------
 
 The x0-system is a cutting-edge JavaScript framework designed to simplify the
@@ -77,32 +78,35 @@ interactive web applications. With seamless integration of Bootstrap 5.3 (withou
 JavaScript dependencies), multi-language support, and deployment solutions like
 Docker and Kubernetes, the x0-system is tailored for modern web development needs.
 
-1.3. Performance
+1.4. Performance
 ----------------
 
 A central design objective of the *x0-system* is the empirical demonstration that a
 **declarative, metadata-driven** rendering architecture — built upon a sophisticated,
 pointer-based recursive object model with deterministic, recursive child-object
 handling for each class instance — can outperform the perceived efficiency of
-conventional, imperatively assembled SPA stacks. Specifically engineered for
-decoupled object references, deep object inheritance, and high-frequency runtime
-redrawing, this architecture contradicts the pervasive industry misconception that
-extensive sub-classing and deep inheritance hierarchies inherently degrade
-performance: because variables and data structures within modern JavaScript engines
-are managed via internal references, the model aligns naturally with Just-In-Time
-(JIT) compiler optimization pathways, allowing the framework to effortlessly process
-tens of thousands of concurrent real-time objects. Rather than relying on a
-build-time bundling step, the framework fetches and interprets its object metadata
-directly at runtime, allowing the **complete system to reach its final, interactive
-running state within the browser in approximately 150 milliseconds** — a figure that
-encompasses the concurrent retrieval and processing of **57 system files alongside 4
-distinct metadata definition files**. This scalability and efficiency are empirically
-validated by the current static demonstration, which concurrently manages
-approximately 1,400 lines of localized multi-language text definitions, 1,000 lines
-of declarative object skeleton (reference) metadata, and 3,000 lines of concrete
-declarative object definitions, while maintaining a highly compact runtime memory
-footprint of merely 10 Megabytes, inclusive of the Bootstrap and Font Awesome UI
-libraries.
+conventional, imperatively assembled SPA stacks.
+
+Specifically engineered for decoupled object references, deep object inheritance,
+and high-frequency runtime redrawing, this architecture contradicts the pervasive
+industry misconception that extensive sub-classing and deep inheritance hierarchies
+inherently degrade performance: because variables and data structures within modern
+JavaScript engines are managed via internal references, the model aligns naturally
+with Just-In-Time (JIT) compiler optimization pathways, allowing the framework to
+effortlessly process tens of thousands of concurrent real-time objects.
+
+Rather than relying on a build-time bundling step, the framework fetches and interprets
+its object metadata directly at runtime, allowing the **complete system to reach its
+final, interactive running state within the browser in approximately 150 milliseconds**
+— a figure that encompasses the concurrent retrieval and processing of **57 system files
+alongside 4 distinct metadata definition files**.
+
+This scalability and efficiency are empirically validated by the current static
+demonstration, which concurrently manages approximately 1,400 lines of localized
+multi-language text definitions, 1,000 lines of declarative object skeleton (reference)
+metadata, and 3,000 lines of concrete declarative object definitions, while maintaining
+a highly compact runtime memory footprint of merely 10 Megabytes, inclusive of the
+Bootstrap and Font Awesome UI libraries.
 
 To establish a baseline under unoptimized conditions, a preliminary benchmark was
 conducted using a standard CPU test configuration. On the server side, the application is
@@ -125,7 +129,7 @@ directly on a resource-constrained **ESP32-S3** microcontroller board — a depl
 target that would be structurally infeasible for most contemporary SPA frameworks
 burdened by extensive runtime and tooling overhead.
 
-1.4. SPA - Single Page Application
+1.5. SPA - Single Page Application
 ----------------------------------
 
 The architectural history of the Single Page Application (SPA) paradigm has, in
