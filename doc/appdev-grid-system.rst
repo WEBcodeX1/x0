@@ -265,11 +265,11 @@ completes with zero added latency and **without issuing any network request or
 contacting the backend server**: no XML-RPC call, no page reload, no server-side
 template regeneration.
 
-9.5. Integration
-****************
+9.5. Systems Integration
+************************
 
-Any *x0-system-object* can make use of the global grid formatting routines in
-case an Array of Elements exists as input data.
+Any *x0-system-object* (including hierarchical ones) can make use of the global grid
+formatting routines provided that an array of elements is passed as input data.
 
-Checkout the developer documentation how to implement grid formating into your
-custom designed *x0-objects*.
+Check out the developer documentation to learn how to implement grid formatting
+into your custom-designed *x0-objects*.
