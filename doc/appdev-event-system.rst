@@ -37,8 +37,8 @@ properties of the event-producer (direct ``JSONConfig``) from those of the event
 
 The following chapters document exactly how to complete this:
 
-a) **Declarative Configuration** and
-b) how the **Programmatic Implementation** works.
+a) **Declarative Configuration** (for backend related receiver) and
+b) how the **Programmatic Implementation** (in custom setup *x0-objects*) works.
 
 15.3. Backend-Related Receiver
 ------------------------------
@@ -71,10 +71,11 @@ First we need to define the service properties inside ``object.json`` of type ``
       }
    },
 
-15.3.2. Producer Config
+15.3.2. Receiver Config
 -----------------------
 
-First we need to define the service properties inside ``object.json`` of type ``ServiceConnector``.
+Afterwards a system supported object type must be added to ``object.json``, only after the next step
+has been carried out, the objects are referenced and work.
 
 .. code-block:: javascript
 
@@ -86,44 +87,42 @@ First we need to define the service properties inside ``object.json`` of type ``
       }
    },
 
-
 15.3.3. Object Relation
 -----------------------
 
-
+15.3.4. Callback Data Schema
+----------------------------
 
 15.4. System Producer Types
 ---------------------------
 
-15.5. System Producer Types
----------------------------
+The following by FireEvents
 
-.. table::
-   :widths: 20 95 35
+- Button
+- ButtonInternal
+- Tab
+- FormfieldOnChange
+- ContextMenu
 
-   +-------------------+-------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------+
-   | **Source**        |                                                                                                             | **Reference**                              |
-   +===================+=====================================================================================================================================+============================================+
-   | Button            | Attributes.FireEvents, after successful Form Validation (and per-Action FireEvents in OnResult, after successful Service Execution) | see 16.1, :ref:`objecttype-button`         |
-   +-------------------+-------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------+
-   | ButtonInternal    | Attributes.FireEvents, after successful Form Validation                                                                             | see 16.2, :ref:`objecttype-buttoninternal` |
-   +-------------------+-------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------+
-   | Tab               | Tab-level FireEvents, on tab switch                                                                                                 | :ref:`objecttype-tabcontainer`             |
-   +-------------------+-------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------+
-   | FormfieldOnChange | OnChange.FireEvents, on matching form value change                                                                                  | :ref:`appdevforms` (17.3.6)                |
-   +-------------------+-------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------+
-   | NotifyIndicator   | Notify.OnSuccess.FireEvents, on successful async backend notification                                                               | :ref:`appdev-backend-notify`               |
-   +-------------------+-------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------+
-   | ContextMenu       | ItemConfig.FireEvents, on context menu item click                                                                                   | :ref:`appdevcontextmenu`                   |
-   +-------------------+-------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------+
+15.5. Built-in System Events
+----------------------------
+
+Two *x0-system-events* are dispatched automatically by the engine and require no
+explicit "fire" configuration anywhere -- any object may register for them:
+
+    - ``InitSystem``: dispatched exactly once by ``sysFactory.init()`` after every
+      screen has been built and the default screen has been switched to, signalling
+      that the application has reached its final running state.
+
+    - ``SwitchScreen``: dispatched by ``sysFactory.switchScreen(ScreenID)`` every time
+      the active screen changes, using the destination ``ScreenID`` as the
+      ``EventSelector`` -- allowing a registration to react only to a specific screen
+      becoming active.
 
 
-15.2.1. System Registration
----------------------------
 
-Any *x0-system-object* supporting (documented later on) firing events can be configured via its
-declarative JSON in ``object.json``.
-
+15.2.2. Programmatic Registration
+---------------------------------
 Following a button configuration:
 
 .. code-block:: javascript
@@ -139,41 +138,6 @@ Following a button configuration:
      ]
    }
 
-
-
-.. table:: Declarative Event Registration Schema (OnEvent)
-   :widths: 16 14 90
-
-   +---------------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | **Property**  | **Type** | **Description**                                                                                                                                      |
-   +===============+==========+======================================================================================================================================================+
-   | Events        | Array    | Entries are either plain ``EventID`` strings or ``{ EventID, EventSelector }`` objects                                                               |
-   +---------------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | EventID       | String   | Identifier matched against the ID of a dispatched event                                                                                              |
-   +---------------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | EventSelector | String   | Optional discriminator; several registrations may share one ``EventID`` while reacting only to a specific selector value (e.g. one per ``ScreenID``) |
-   +---------------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------+
-
-
-15.2.2. Programmatic Registration
----------------------------------
-
-15.3.1. Built-in System Events
-******************************
-
-Two *x0-system-events* are dispatched automatically by the engine and require no
-explicit "fire" configuration anywhere -- any object may register for them:
-
-    - ``InitSystem``: dispatched exactly once by ``sysFactory.init()`` after every
-      screen has been built and the default screen has been switched to, signalling
-      that the application has reached its final running state.
-    - ``SwitchScreen``: dispatched by ``sysFactory.switchScreen(ScreenID)`` every time
-      the active screen changes, using the destination ``ScreenID`` as the
-      ``EventSelector`` -- allowing a registration to react only to a specific screen
-      becoming active.
-
-15.4. Backend-Related Events
-----------------------------
 
 .. _appdevcontrolflow:
 
