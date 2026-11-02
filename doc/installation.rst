@@ -44,7 +44,7 @@ immediately via ``http://localhost`` with no further setup required.
    ./x0-start-static.sh
 
 The build creates the local ``x0-static`` image, defined in
-``/docker/x0-static.dockerfile``; the startup script runs it as the
+``/docker/x0-static.dockerfile``. The startup script runs it as the
 ``x0-static`` container, publishing container port 80 on host port 80. Open
 ``http://localhost/`` in your browser — no further setup is required.
 
