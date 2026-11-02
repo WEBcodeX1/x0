@@ -24,7 +24,10 @@ generically and transparently processes the following subtypes:
 15.2. Generic Implementation
 ----------------------------
 
-An event exchange *always* involves an a) *x0-event-producer* and a b) *x0-event-receiver* object.
+An event exchange *always* involves an
+
+- **x0-event-producer** object and
+- **x0-event-receiver** object.
 
 Regardless of the processing type, events are handled transparently. The sole exception
 applies to the backend-related method on the receiver object type: here, a ``ServiceConnector``
@@ -32,10 +35,12 @@ configuration must be **bound** (referenced in ``skeleton.json``) to a pre-exist
 object definition inside ``object.json``. This design explicitly separates the configuration
 properties of the event-producer (direct ``JSONConfig``) from those of the event-receiver.
 
-The following chapters document exactly how to complete this a) declarative configuration
-and b) how the programmatic implementation works.
+The following chapters document exactly how to complete this:
 
-15.3. Backend-Related Receiver
+a) **Declarative Configuration** and
+b) how the **Programmatic Implementation** works.
+
+15.3. Backend-Related Producer
 ------------------------------
 
 A backend configuration must always contain the ``ServiceCall`` property, which specifies
@@ -48,6 +53,10 @@ producer type; however, any *x0-producer-type* can be used (see 15.4.).
 
 15.3.1. ServiceConnector Config
 -------------------------------
+
+First we need to define the service properties inside ``object.json`` of type ``ServiceConnector``.
+
+.. code-block:: javascript
 
    "ConnectorObjectID":
    {
@@ -65,13 +74,17 @@ producer type; however, any *x0-producer-type* can be used (see 15.4.).
 15.3.2. Producer Config
 -----------------------
 
+First we need to define the service properties inside ``object.json`` of type ``ServiceConnector``.
+
+.. code-block:: javascript
+
    "ProducerObjectID":
    {
       "Type": "FormfieldList",
       "Attributes":
       {
       }
-   }
+   },
 
 
 15.3.3. Object Relation
