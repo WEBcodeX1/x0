@@ -5,55 +5,20 @@
 9. Grid System
 ==============
 
-The x0 grid system is implemented through the `sysGridGenerator` system object,
+The **x0-grid-system** is implemented through the `sysGridGenerator` system object,
 which is responsible for generating a grid layout by processing source objects
-into structured rows and columns. Rather than being a purely static layout
+into structured *rows* and *columns*. Rather than being a purely static layout
 mechanism confined to a screen's initial load, the grid system is designed for
 high-frequency runtime modification: it can be re-invoked at any time to
 restructure an already rendered grid in response to changing source data,
 enabling real-time UI re-rendering and fluid grid restructuring directly within
-the browser client (see "Runtime Flexibility and Dynamic Restructuring" below).
-Below is an explanation of its key components and functionality:
+the browser client (see "Dynamic Restructuring" below).
 
-- Key Components:
+9.1. Key Characteristics
+************************
 
-    1. Source Objects:
-        The grid generator takes an array of source objects as input, which are processed into grid elements.
 
-    2. Row and Column Styles:
-        Customizable row and column styles (`RowStyles` and `ColStyles`) allow you to define the CSS styling for each grid element.
-
-    3. Row and Column Enclosures:
-        Rows and columns are enclosed in containers (`sysObjDiv` objects) for structured layout.
-        The number of elements after which rows and columns are enclosed can be customized using `RowAfterElements` and `ColAfterElements`.
-
-    4. Generators for Indices and Styles:
-        The system uses generators (`RowIndexGenerator`, `ColIndexGenerator`, `RowStyleGenerator`, `ColStyleGenerator`) to dynamically determine the next row/column indices and styles.
-
-    5. Dynamic Grid Creation:
-        - The `generate` method processes the source objects:
-            Groups objects into columns based on `ColAfterElements`.
-            Groups columns into rows based on `RowAfterElements`.
-        - Each grid element is assigned a unique identifier for DOM manipulation.
-
-    6. Integration with Other System Objects:
-        The grid system interacts with other x0 system objects, such as `sysObjDiv`, to create and manage the grid structure dynamically.
-
-- Workflow:
-
-    * Initialization:
-        The `sysGridGenerator` object is initialized with row/column styles and enclosure settings.
-
-    * Grid Generation:
-        - The generate method iterates over the source objects:
-            Groups objects into columns.
-            Groups columns into rows.
-        - The generated rows are returned as an array of `sysObjDiv` objects, each representing a grid row.
-
-    * Styling and Customization:
-        Rows and columns are styled dynamically using the provided CSS styles or default styles.
-
-9.1. Supported Object Types
+9.2. Supported Object Types
 ***************************
 
 Currently the following *x0-object-types* are supporting the *x0-grid* feature:
@@ -71,7 +36,7 @@ Currently the following *x0-object-types* are supporting the *x0-grid* feature:
 
 	You should be familiar with Bootstrap Grid system before continue reading.
 
-9.2. Global JSON Metadata
+9.3. Global JSON Metadata
 *************************
 
 If an *x0-object* supports *x0-global-grid-system* formatting the following
@@ -94,7 +59,7 @@ properties can be set inside the objects "Attribute" representation.
 	|                   |                      | Optional, Default 1                                   |
 	+-------------------+----------------------+-------------------------------------------------------+
 
-9.2.1. Input Data
+9.3.1. Input Data
 -----------------
 
 The *x0-grid-system* processing requires an **Array of Elements** as input data.
@@ -103,7 +68,7 @@ The *x0-grid-system* processing requires an **Array of Elements** as input data.
 
 	[ el1, el2, el3, el4, el5, el6 ... ]
 
-9.2.2. RowStyle / RowAfterElements
+9.3.2. RowStyle / RowAfterElements
 ----------------------------------
 
 ``RowAfterElements`` is definable as a single string or an Array of Strings.
@@ -174,7 +139,7 @@ Modifying ``"RowStyle": [ "row fw-bold", "row" ]`` renders:
 		<el6></el6>
 	</div>
 
-9.2.3. ColStyle / ColAfterElements
+9.3.3. ColStyle / ColAfterElements
 ----------------------------------
 
 ColAfterElements processing is likewise RowAfterElements processing,
@@ -219,7 +184,7 @@ of a **row** container div.
 		</div>
 	</div>
 
-9.3. Example List
+9.4. Example List
 *****************
 
 .. code-block:: javascript
@@ -249,8 +214,8 @@ Without table header the resulting output looks like the following.
 	| Col3 (col-md2) | Col4 (col-md3) | Col5 (col-md3) | Col6 (col-md5) |
 	+----------------+----------------+----------------+----------------+
 
-9.4. Runtime Flexibility and Dynamic Restructuring
-**************************************************
+9.5. Dynamic Restructuring
+**************************
 
 While the previous sections describe `sysGridGenerator` as the mechanism used to lay
 out a grid during the initial build of a screen, the grid system is **not** limited to
