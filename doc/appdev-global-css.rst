@@ -5,22 +5,22 @@
 8. Global CSS Styling
 =====================
 
-The x0 framework seamlessly integrates with Bootstrap 5.3 CSS while providing 
+The *x0-framework* seamlessly integrates with **Bootstrap 5.3** CSS while providing
 flexibility for custom styling through global CSS cascading style sheets. This 
-section explains how to efficiently combine Bootstrap CSS with custom styles and 
-leverage them in x0 JSON metadata configurations.
+section explains how to efficiently **combine** Bootstrap CSS with **custom styles**
+and leverage them in *x0-metadata* (JSON) configurations.
 
 8.1. Bootstrap CSS Integration
 ******************************
 
-The x0 framework comes with Bootstrap 5.3 CSS pre-integrated, allowing you to use 
+The *x0-framework* comes with **Bootstrap 5.3** CSS pre-integrated, allowing you to use
 Bootstrap classes directly in your x0 object configurations through the ``Style`` 
 attribute in ``object.json`` files.
 
 8.1.1. Using Bootstrap Classes in JSON Metadata
 -----------------------------------------------
 
-Bootstrap CSS classes can be applied to any x0-system-object that supports the 
+Bootstrap CSS classes can be applied to any *x0-system-object* that supports the
 ``Style`` attribute:
 
 .. code-block:: javascript
@@ -64,13 +64,13 @@ Common Bootstrap classes that work well with x0:
 8.2. x0 Grid and Bootstrap Grid Integration
 *******************************************
 
-The x0 Grid System works harmoniously with Bootstrap's grid classes to create 
+The *x0-grid-system* works harmoniously with Bootstrap's grid classes to create
 powerful, responsive layouts.
 
 8.2.1. Combining x0 Grid with Bootstrap Classes
 -----------------------------------------------
 
-When using x0 Grid properties like ``RowStyle`` and ``ColStyle``, you can directly 
+When using *x0-grid* properties like ``RowStyle`` and ``ColStyle``, you can directly
 apply Bootstrap grid classes:
 
 .. code-block:: javascript
@@ -85,6 +85,7 @@ apply Bootstrap grid classes:
 	}
 
 This creates a responsive layout where:
+
 - Each row gets Bootstrap's ``row`` class with bottom margin
 - Columns use Bootstrap's responsive grid (50%, 25%, 25% on medium screens)
 - Layout adapts automatically to different screen sizes
@@ -92,7 +93,7 @@ This creates a responsive layout where:
 8.2.2. Advanced Grid Combinations
 ---------------------------------
 
-Complex layouts can be achieved by mixing x0 Grid properties with Bootstrap utilities:
+Complex layouts can be achieved by mixing *x0-grid* properties with Bootstrap utilities:
 
 .. code-block:: javascript
 
@@ -170,7 +171,7 @@ Mix custom classes with Bootstrap classes in your JSON configurations:
 
 1. **Bootstrap First**: Use Bootstrap classes for layout, spacing, and common UI patterns
 2. **Custom Enhancement**: Add custom CSS for brand-specific styling and unique components
-3. **Consistent Naming**: Use clear, descriptive class names in globalstyles.css
+3. **Consistent Naming**: Use clear, descriptive class names in ``globalstyles.css``
 4. **Responsive Design**: Leverage Bootstrap's responsive utilities with custom styles
 
 8.4.2. Example Integration Pattern
