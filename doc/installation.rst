@@ -34,10 +34,8 @@ Docker container. It is a **single, self-contained container** that requires
 multi-container network configuration** — Apache alone serves the entire
 application.
 
-Despite this minimal footprint, the container bundles a fully operational
-Single Page Application (SPA) showcase exercising the most relevant core
-*x0-system-objects*, declarative JSON metadata structures, and the
-rendering engine described in :ref:`devoopmodel`.
+The container bundles a fully operational example showcase that you can run
+immediately via ``http://localhost`` with no further setup required.
 
 .. code-block:: bash
 
@@ -46,7 +44,7 @@ rendering engine described in :ref:`devoopmodel`.
    ./x0-start-static.sh
 
 The build creates the local ``x0-static`` image, defined in
-``docker/x0-static.dockerfile``; the startup script runs it as the
+``/docker/x0-static.dockerfile``; the startup script runs it as the
 ``x0-static`` container, publishing container port 80 on host port 80. Open
 ``http://localhost/`` in your browser — no further setup is required.
 
