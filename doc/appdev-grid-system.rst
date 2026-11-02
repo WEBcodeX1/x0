@@ -26,15 +26,9 @@ Currently the following *x0-object-types* are supporting the *x0-grid* feature:
 * List
 * FormfieldList
 
-.. note::
-
-	The *x0-global-grid-system* does not provide rowspan formating, this can be
-	done otherwise by **directly referencing** or **designing own** *x0-system-objects*,
-	see example #9 or :ref:`devobjectmodeling`.
-
 .. warning::
 
-	You should be familiar with Bootstrap Grid system before continue reading.
+   You should be familiar with Bootstrap CSS / Grid system before continue reading.
 
 9.3. Global JSON Metadata
 *************************
