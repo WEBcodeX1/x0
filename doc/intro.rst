@@ -27,8 +27,8 @@ running on an **ESP32-S3** microcontroller using the ESP-IDF framework (with emb
 *MicroPython*) can be found at the
 `micropython-as <https://github.com/WEBcodeX1/micropython-as>`_ project.
 
-1.2. Key Features
------------------
+1.2. Key Components
+-------------------
 
 **Declarative Metadata Concept**: Uses modern declarative configurations to define
 application behavior, drastically reducing custom boilerplate code.
