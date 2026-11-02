@@ -9,8 +9,9 @@
 ----------------------
 
 The ``sysXMLRPCRequest.js`` file in the *x0-framework* implements the core functionality
-for handling XML-RPC (Remote Procedure Call) requests, supporting both synchronous and
-asynchronous operations. Below is an overview of its concept:
+for handling XML-RPC (Remote Procedure Call) requests, supporting only asynchronous operation.
+
+Below is an overview of its concept:
 
 25.1.1. Key Concepts
 ********************
