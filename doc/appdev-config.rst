@@ -5,10 +5,10 @@
 7. Basic Configuration
 ======================
 
-This section describes how an *x0-application* is configured: the browser
-content areas it is composed of, the database-backed configuration tables,
-the application server configuration file, and the declarative JSON metadata
-model used to define objects, screens and menus.
+This section describes how an *x0-application* is configured: the
+**browser content areas** it is composed of, the **database-backed configuration**
+tables, the **application server configuration** file, and the declarative
+**JSON metadata model** used to define *x0-objects*, *x0-screens* and menus.
 
 .. _appdevconfig-contentareas:
 
@@ -19,11 +19,10 @@ Historically, an *x0-application* was described as a fixed, three-pane
 layout — a **Menu Area**, a **Screen Content Area** and a **Notification
 Area** — each bound to a conventionally named, statically positioned DOM
 container. The current engine no longer imposes this constraint: all three
-areas are created dynamically at runtime by :ref:`devoopmodel_base`
-(``sysBaseDOMElement``/``sysBaseObject``) rather than being hard-coded into
-the page markup, and each is positioned independently via CSS. In
-combination with custom stylesheets and core *x0* features, any of these
-regions can therefore be placed anywhere within the viewport, resized,
+areas are created dynamically at runtime rather than being hard-coded into
+the page markup, and each is positioned **independently** via **CSS**. In
+combination with custom stylesheets and core *x0-features*, any of these
+regions can therefore be placed **anywhere** within the viewport, resized,
 hidden, or repurposed without touching the engine itself.
 
 .. figure:: images/x0-browser-content-areas.png
