@@ -40,7 +40,7 @@ The following chapters document exactly how to complete this:
 a) **Declarative Configuration** and
 b) how the **Programmatic Implementation** works.
 
-15.3. Backend-Related Producer
+15.3. Backend-Related Receiver
 ------------------------------
 
 A backend configuration must always contain the ``ServiceCall`` property, which specifies
