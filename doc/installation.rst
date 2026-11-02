@@ -66,13 +66,9 @@ suite, or Kubernetes deployment.
 
 You can use **any Linux distribution** where Debian packages can be built natively (``debuild``):
 
-- Ubuntu 22.04 / 24.04
+- Ubuntu 24.04 / 26.04
 - Debian 12
 - Devuan 5
-
-.. tip::
-   Official *x0-system* Docker images are based on **Ubuntu 26.04** (the
-   ``x0-test`` image uses **Ubuntu 24.04**); see ``docker/*.dockerfile``.
 
 6.2.2. Dependencies
 *******************
