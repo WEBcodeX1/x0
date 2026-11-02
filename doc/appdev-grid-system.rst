@@ -17,6 +17,27 @@ the browser client (see "Dynamic Restructuring" :ref:`dynamic-restructuring` bel
 9.1. Key Characteristics
 ************************
 
+The **x0-grid-system** can be used to render layouts like the one shown in the
+following diagram:
+
+.. code-block:: javascript
+
+	+---------------------------------+---------------------------------+
+	| Col1                            | Col2                            |
+	+---------------------------------+---------------------------------+
+	| Col3                                                              |
+	+---------------------------------+----------------+----------------+
+	| Col4                            | Col5           | Col6           |
+	+----------------+----------------+----------------+----------------+
+	| Col7           | Col8           | Col9           | Col10          |
+	+----------------+----------------+----------------+----------------+
+
+To achieve this easily, the system uses an internal generator that wraps
+CSS styles around existing *x0-objects*.
+
+You can utilize Bootstrap grid utility classes, other advanced Bootstrap styles,
+or custom styles defined in ``globalstyles.css``. Also note that these styles—not
+just grid layouts—can be altered at runtime to provide awesome results.
 
 9.2. Supported Object Types
 ***************************
@@ -141,9 +162,8 @@ with the difference of generating a **column** container div instead
 of a **row** container div.
 
 .. note::
-
-    Note that ColAfterElements default value is ``[1]``, so the container
-	div including CSS will be set for each processed element.
+   Note that ColAfterElements default value is ``[1]``, so the container
+   div including CSS will be set for each processed element.
 
 
 .. code-block:: javascript
@@ -221,35 +241,35 @@ be invoked repeatedly at runtime, allowing an already rendered grid to be torn d
 rebuilt with different row/column styles, enclosure counts or source data at any point
 during the application's lifetime.
 
-.. note::
+9.5.1. Empirical Proof
+----------------------
 
-    **Empirical Proof: Component Swapping in the Static Reference Container.** This
-    dynamic restructuring is demonstrated by `sysObjSystemSettingsContainerGrid`, which
-    can be inspected live in the static reference container under Main Menu →
-    *Settings* / *Global Settings* → Tab: *Default Settings* → Subsection: *Adjust Grid
-    / Column View*.
+This dynamic restructuring is demonstrated by `sysObjSystemSettingsContainerGrid`,
+which can be inspected live in the static reference container under Main Menu →
+*Settings* / *Global Settings* → Tab: *Default Settings* → Subsection: *Adjust Grid
+/ Column View*.
 
-    The Subsection exposes a pulldown offering multiple pre-declared grid
-    ``Variants`` (see ``GridGenerator.Variants`` in the object's JSON metadata), each
-    defining its own complete set of ``ColStyles`` and ``RowAfterElements``. Selecting a
-    variant and confirming via the *Update View* button does not merely resize isolated
-    columns: ``ButtonCallback()`` clears the container's existing ``ChildObjects``,
-    instantiates a fresh `sysGridGenerator` with the newly selected variant's styles and
-    enclosure counts, and calls ``rerenderObject()`` on the container — replacing the
-    *entire* structural row/column layout, for example switching between a 3-column and
-    a 6-column view, in a single step.
+The Subsection exposes a pulldown offering multiple pre-declared grid
+``Variants`` (see ``GridGenerator.Variants`` in the object's JSON metadata), each
+defining its own complete set of ``ColStyles`` and ``RowAfterElements``. Selecting a
+variant and confirming via the *Update View* button does not merely resize isolated
+columns: ``ButtonCallback()`` clears the container's existing ``ChildObjects``,
+instantiates a fresh `sysGridGenerator` with the newly selected variant's styles and
+enclosure counts, and calls ``rerenderObject()`` on the container — replacing the
+*entire* structural row/column layout, for example switching between a 3-column and
+a 6-column view, in a single step.
 
-    Because this entire sequence — grid regeneration, DOM teardown and re-render — runs
-    exclusively inside the x0 core engine on the client, the layout metamorphosis
-    completes with zero added latency and **without issuing any network request or
-    contacting the backend server**: no XML-RPC call, no page reload, no server-side
-    template regeneration.
+Because this entire sequence — grid regeneration, DOM teardown and re-render — runs
+exclusively inside the *x0-core-engine* on the client, the layout metamorphosis
+completes with zero added latency and **without issuing any network request or
+contacting the backend server**: no XML-RPC call, no page reload, no server-side
+template regeneration.
 
-9.5. Developer
-**************
+9.5. Integration
+****************
 
 Any *x0-system-object* can make use of the global grid formatting routines in
 case an Array of Elements exists as input data.
 
 Checkout the developer documentation how to implement grid formating into your
-self designed *x0-objects*.
+custom designed *x0-objects*.
