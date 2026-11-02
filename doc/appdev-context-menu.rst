@@ -5,25 +5,30 @@
 12. Context Menu
 ================
 
-The *x0 Context Menu* engine (``sysContextMenu`` / ``sysContextMenuItem``,
-``www/sysObjContextMenu.js``) is fully decoupled from any specific
-*x0-object-type*. It is not a feature bolted onto a fixed set of widgets, but a
-generic, reusable component: **any** *x0-system-object* -- including a custom
-user-defined class deriving from ``sysBaseObject`` -- can register a
-``mousedown`` listener and instantiate a ``sysContextMenu`` to present a
-right-click menu bound to itself. The sections below first list the
-*x0-object-types* that ship with this capability out-of-the-box, document the
-declarative ``ItemConfig`` schema shared by all of them, and finally provide an
-implementation blueprint for wiring a context menu into a custom object.
+An *x0-context-menu* is a flexible, configurable building block designed to model highly
+efficient workflows. Instead of being bound only to specific, static, pre-existing
+*x0-system-objects*, it can also be bound to custom-made objects, with the logic easily
+defined via declarative JSON configurations.
 
-12.1. Out-of-the-Box Supported Objects
-**************************************
+What makes the *x0-infrastructure* so special is its smart OOP model, which allows callback
+functions to be bound directly to an *x0-object-instance* or to global system functions.
+For example, it can utilize the *x0-clipboard*, which operates on real objects rather
+than *flat*, disconnected copy/paste metadata.
 
-.. table:: Out-of-the-Box Context Menu Support
+This enables complex copy/paste operations that other systems can only dream of,
+especially since operating systems like Windows or Linux handle clipboard data with a very
+limited (and often insecure) approach. The *x0-context-menu* is built for next-generation
+applications—object-oriented and easily extensible.
+
+12.1. Supported System Objects
+******************************
+
+
+.. table:: Context Menu Support
 	:widths: 20 20 25 60
 
 	+-----------------+------------------------+---------------------------------+---------------------------------------------------------------------------------------------------------------+
-	| **Object Type** | **Attribute**          | **ParentObject** / Scope        | **Notes**                                                                                                     |
+	| **Object Type** | **Attribute**          | **Scope**                       | **Notes**                                                                                                     |
 	+=================+========================+=================================+===============================================================================================================+
 	| List            | ContextMenuItems       | Row (``sysListRow``)            | Declarative, per-row actions, see :ref:`objecttype-list`                                                      |
 	+-----------------+------------------------+---------------------------------+---------------------------------------------------------------------------------------------------------------+
@@ -49,7 +54,7 @@ declarative pattern described below: its single "Remove" item is hardcoded in
 when the row is constructed with the internal ``CtxtMenuActive`` flag set to
 ``true``; it does not read an ``Attributes.ContextMenuItems`` JSON definition.
 
-12.2. Global Item Attributes
+12.3. Global Item Attributes
 ****************************
 
 Every entry of an ``ItemConfig`` array (the value assigned to
