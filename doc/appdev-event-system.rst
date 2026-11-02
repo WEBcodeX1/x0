@@ -23,15 +23,17 @@ distinct categories:
 
 * **Backend-Related Events** (15.4): an event registration triggers a remote service
   call, bridging the event system to the backend via a ``ServiceConnector``.
+
 * **Non-Backend-Related (Internal) Events** (15.5): an event registration triggers a
   purely client-side reaction -- no network request is ever involved, and the full
   round-trip executes synchronously within the browser.
 
 .. note::
 
-    Some *x0-object-types*, e.g., the **List** object, will be completely removed from
-    the DOM and re-rendered by invoking ``callbackXMLRPCAsync()`` method when its
-    backing data is reloaded as a reaction to a dispatched event.
+   For some *x0-object-types*, such as the List object, only the corresponding
+   DOM element is completely removed and re-rendered. This process is triggered
+   by invoking the ``callbackXMLRPCAsync()`` method when the backing data is reloaded
+   in response to a dispatched event.
 
 .. image:: images/x0-event-system.png
   :alt: image - event system
@@ -48,18 +50,21 @@ a single, well-defined responsibility:
       component responsible for matching a dispatched ``EventID``/``EventSelector``
       pair against those registrations and invoking the associated callback. See
       :ref:`devoopmodel` (section 23.5) for the full method-level reference.
+
     - ``sysServiceConnector.js`` (``sysServiceConnector``): manages the synchronization
       between the event system and an external backend resource. A ``ServiceConnector``
       registers itself with the reactor for one or more *x0-events* and, once a
       matching event is dispatched, bridges to the backend API by triggering its
       connected child object's data retrieval. See :ref:`devoopmodel` (section 23.8.1)
       and :ref:`appdev-backend` (14.2).
+
     - ``sysSourceObjectHandler.js`` (``sysSourceObjectHandler``, mixed into
       ``sysServiceConnector``, ``sysObjButton`` and ``sysObjList`` via
       ``processSourceObjects()``): evaluates a ``SrcDataObjects`` declaration, resolves
       every referenced *x0-system-object* or global variable, and maps the resulting
       payload onto the outgoing request. See :ref:`appdev-backend` (14.3/14.4) for the
       full declarative schema.
+
     - ``sysRequestDataHandler.js`` (``sysRequestDataHandler``): a small, dependency-free
       data container (``RequestData`` / ``ServiceData``) that accumulates and reshapes
       the payload assembled by ``sysSourceObjectHandler`` before it is handed to the
