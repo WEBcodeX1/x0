@@ -8,6 +8,8 @@
 15.1. Intro
 -----------
 
+*x0-events* are internally handled by the **x0::Reactor** component. This mechanism
+generically and transparently processes the following subtypes:
 
 * **Backend-Related Event Processing:** an event registration triggers a remote service
   call, bridging the event system to the backend via a ``ServiceConnector``.
@@ -19,12 +21,19 @@
 .. image:: images/x0-event-system.png
   :alt: image - event system
 
-15.2. Generic Concept
----------------------
+15.2. Generic Implementation
+----------------------------
 
-These two methodologies—a) backend-related and b) internal processing—have been implemented
-in a generic way, ensuring they are processed transparently regardless of the chosen
-processing method.
+Regardless of the processing type, events are handled transparently, with the sole
+exception that a ``ServiceConnector`` must be **bound** (referenced in ``skeleton.json``)
+to a pre-existing object definition inside ``object.json``.
+
+The following chapters document exactly how to complete this a) declarative configuration
+and b) how the programmatic implementation works.
+
+15.3. Backend-Related Event Processing
+--------------------------------------
+
 
 15.5. Declarative Configurable Objects
 --------------------------------------
@@ -67,7 +76,7 @@ Following a button configuration:
    "OnEvent":
    {
      "Events": [
-       "Event1",
+       "CustomEventName",
        {
          "EventID": "SwitchScreen",
          "EventSelector": "Screen1"
@@ -111,14 +120,12 @@ explicit "fire" configuration anywhere -- any object may register for them:
 15.4. Backend-Related Events
 ----------------------------
 
-
 .. _appdevcontrolflow:
 
 16. Control Flow Items
 ======================
 
-The next sub-chapters describe the logical control-flow and in which order
-they are processed.
+The next sub-chapters describe the logical control-flow and in which order they are processed.
 
 .. _appdevcontrolbutton:
 
