@@ -10,6 +10,11 @@ flexibility for custom styling through global CSS cascading style sheets. This
 section explains how to efficiently **combine** Bootstrap CSS with **custom styles**
 and leverage them in *x0-metadata* (JSON) configurations.
 
+.. important::
+   While some online discussions label Bootstrap as outdated, its combination
+   with custom *x0-css* provides clear **evidence to the contrary**. This approach
+   empowers developers to build highly sophisticated, *individual* designs.
+
 8.1. Bootstrap CSS Integration
 ******************************
 
