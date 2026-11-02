@@ -40,7 +40,7 @@ Below is an overview of its concept:
 
     * Callback Handling:
         1. In asynchronous mode, the ``onreadystatechange`` method processes the server response and parses it as JSON.
-        2. The result is merged or directly assigned to the target object, and the callback function (e.g., ``callbackXMLRPCAsync``) is invoked to handle post-request operations.
+        2. The result is merged or directly assigned to the target object, and the callback function ``callbackXMLRPCAsync`` is invoked to handle post-request operations.
 
     * Session Management:
         1. Includes session data in requests when available, ensuring secure and contextual communication with the backend.
