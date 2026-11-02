@@ -12,7 +12,7 @@ mechanism confined to a screen's initial load, the grid system is designed for
 high-frequency runtime modification: it can be re-invoked at any time to
 restructure an already rendered grid in response to changing source data,
 enabling real-time UI re-rendering and fluid grid restructuring directly within
-the browser client (see "Dynamic Restructuring" below).
+the browser client (see "Dynamic Restructuring" :ref:`dynamic-restructuring` below).
 
 9.1. Key Characteristics
 ************************
@@ -213,6 +213,8 @@ Without table header the resulting output looks like the following.
 	+----------------+----------------+----------------+----------------+
 	| Col3 (col-md2) | Col4 (col-md3) | Col5 (col-md3) | Col6 (col-md5) |
 	+----------------+----------------+----------------+----------------+
+
+.. _dynamic-restructuring:
 
 9.5. Dynamic Restructuring
 **************************
