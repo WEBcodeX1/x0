@@ -2,8 +2,8 @@
 
 .. _appdevgridsystem:
 
-9. Grid System
-==============
+10. Grid System
+===============
 
 The **x0-grid-system** is implemented through the `sysGridGenerator` system object,
 which is responsible for generating a grid layout by processing source objects
@@ -14,8 +14,8 @@ restructure an already rendered grid in response to changing source data,
 enabling real-time UI re-rendering and fluid grid restructuring directly within
 the browser client (see "Dynamic Restructuring" :ref:`dynamic-restructuring` below).
 
-9.1. Key Characteristics
-************************
+10.1. Key Characteristics
+*************************
 
 The **x0-grid-system** can be used to render layouts like the one shown in the
 following diagram:
@@ -39,8 +39,8 @@ You can utilize Bootstrap grid utility classes, other advanced Bootstrap styles,
 or custom styles defined in ``globalstyles.css``. Also note that these styles—not
 just grid layouts—can be altered at runtime to provide awesome results.
 
-9.2. Supported Object Types
-***************************
+10.2. Supported Object Types
+****************************
 
 Currently the following *x0-object-types* are supporting the *x0-grid* feature:
 
@@ -51,8 +51,8 @@ Currently the following *x0-object-types* are supporting the *x0-grid* feature:
 
    You should be familiar with Bootstrap CSS / Grid system before continue reading.
 
-9.3. Global JSON Metadata
-*************************
+10.3. Global JSON Metadata
+**************************
 
 If an *x0-object* supports *x0-global-grid-system* formatting the following
 properties can be set inside the objects "Attribute" representation.
@@ -74,8 +74,8 @@ properties can be set inside the objects "Attribute" representation.
 	|                   |                      | Optional, Default 1                                   |
 	+-------------------+----------------------+-------------------------------------------------------+
 
-9.3.1. Input Data
------------------
+10.3.1. Input Data
+------------------
 
 The *x0-grid-system* processing requires an **Array of Elements** as input data.
 
@@ -83,8 +83,8 @@ The *x0-grid-system* processing requires an **Array of Elements** as input data.
 
 	[ el1, el2, el3, el4, el5, el6 ... ]
 
-9.3.2. RowStyle / RowAfterElements
-----------------------------------
+10.3.2. RowStyle / RowAfterElements
+-----------------------------------
 
 ``RowAfterElements`` is definable as a single string or an Array of Strings.
 
@@ -154,8 +154,8 @@ Modifying ``"RowStyle": [ "row fw-bold", "row" ]`` renders:
 		<el6></el6>
 	</div>
 
-9.3.3. ColStyle / ColAfterElements
-----------------------------------
+10.3.3. ColStyle / ColAfterElements
+-----------------------------------
 
 ColAfterElements processing is likewise RowAfterElements processing,
 with the difference of generating a **column** container div instead
@@ -198,8 +198,8 @@ of a **row** container div.
 		</div>
 	</div>
 
-9.4. Example List
-*****************
+10.4. Example List
+******************
 
 .. code-block:: javascript
 
@@ -230,8 +230,8 @@ Without table header the resulting output looks like the following.
 
 .. _dynamic-restructuring:
 
-9.5. Dynamic Restructuring
-**************************
+10.5. Dynamic Restructuring
+***************************
 
 While the previous sections describe `sysGridGenerator` as the mechanism used to lay
 out a grid during the initial build of a screen, the grid system is **not** limited to
@@ -241,8 +241,8 @@ be invoked repeatedly at runtime, allowing an already rendered grid to be torn d
 rebuilt with different row/column styles, enclosure counts or source data at any point
 during the application's lifetime.
 
-9.5.1. Empirical Proof
-----------------------
+10.5.1. Empirical Proof
+-----------------------
 
 This dynamic restructuring is demonstrated by `sysObjSystemSettingsContainerGrid`,
 which can be inspected live in the static reference container under Main Menu →
@@ -265,8 +265,8 @@ completes with zero added latency and **without issuing any network request or
 contacting the backend server**: no XML-RPC call, no page reload, no server-side
 template regeneration.
 
-9.5. Systems Integration
-************************
+10.5. Systems Integration
+*************************
 
 Any *x0-system-object* (including hierarchical ones) can make use of the global grid
 formatting routines provided that an array of elements is passed as input data.
