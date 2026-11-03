@@ -121,33 +121,31 @@ Application configuration data is stored in the ``system.config`` and
 The relevant ``system.config`` parameters are:
 
 .. table:: System Configuration Parameters
-   :widths: 25 20 55
+   :widths: 25 10 65
 
-   +-----------------------+----------------+---------------------------------+
-   | **Parameter**         | **Type**       | **Description**                 |
-   +=======================+================+=================================+
-   | index_title           | String         | Page title                      |
-   +-----------------------+----------------+---------------------------------+
-   | debug_level           | Integer        | Client-side debug log level     |
-   +-----------------------+----------------+---------------------------------+
-   | display_language      | ``en`` / ``de``| Default UI language             |
-   +-----------------------+----------------+---------------------------------+
-   | default_screen        | String         | Screen ID shown on page load    |
-   +-----------------------+----------------+---------------------------------+
-   | parent_window_url     | String (URL)   | Parent (e.g. WordPress) plugin  |
-   |                       |                | URL                             |
-   +-----------------------+----------------+---------------------------------+
-   | subdir                | String (Path)  | Static backend path             |
-   +-----------------------+----------------+---------------------------------+
-   | message_handler       | Boolean        | Enable (``true``) message       |
-   |                       |                | handling                        |
-   +-----------------------+----------------+---------------------------------+
-   | config_file_menu      | String         | Menu config filename            |
-   +-----------------------+----------------+---------------------------------+
-   | config_file_object    | String         | Object config filename          |
-   +-----------------------+----------------+---------------------------------+
-   | config_file_skeleton  | String         | Skeleton config filename        |
-   +-----------------------+----------------+---------------------------------+
+   +-----------------------+----------------+-----------------------------------------+
+   | **Parameter**         | **Type**       | **Description**                         |
+   +=======================+================+=========================================+
+   | index_title           | String         | Page title                              |
+   +-----------------------+----------------+-----------------------------------------+
+   | debug_level           | Integer        | Client-side debug log level             |
+   +-----------------------+----------------+-----------------------------------------+
+   | display_language      | ``en`` / ``de``| Default UI language                     |
+   +-----------------------+----------------+-----------------------------------------+
+   | default_screen        | String         | Screen ID shown on page load            |
+   +-----------------------+----------------+-----------------------------------------+
+   | parent_window_url     | String (URL)   | Parent (e.g. WordPress) plugin  URL     |
+   +-----------------------+----------------+-----------------------------------------+
+   | subdir                | String (Path)  | Static backend path                     |
+   +-----------------------+----------------+-----------------------------------------+
+   | message_handler       | Boolean        | Enable (``true``) message handling      |
+   +-----------------------+----------------+-----------------------------------------+
+   | config_file_menu      | String         | Menu config filename                    |
+   +-----------------------+----------------+-----------------------------------------+
+   | config_file_object    | String         | Object config filename                  |
+   +-----------------------+----------------+-----------------------------------------+
+   | config_file_skeleton  | String         | Skeleton config filename                |
+   +-----------------------+----------------+-----------------------------------------+
 
 .. code-block:: sql
 
@@ -178,7 +176,7 @@ The relevant ``system.config`` parameters are:
 
 The ``config/app-config.json`` file defines database authentication, virtual hosts,
 and the *x0-applications* served per vhost. While the full property reference for
-this file is documented in :ref:`appdeployment-kubernetes`, this section summarizes
+this file is documented in :ref:`appdev-kubernetes`, this section summarizes
 the parts relevant to day-to-day application development.
 
 .. important::
