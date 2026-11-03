@@ -59,28 +59,28 @@ It generates a DOM layer with a configurable CSS class attribute.
 *************************
 
 .. table:: Object Type Div Attributes
-	:widths: 30 20 100
+   :widths: 30 20 100
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.1.2. JSON Example
 ********************
 
 .. code-block:: javascript
 
-	"$ObjectID":
-	{
-		"Type": "Div",
-		"Attributes": {
-			"Style": "css1 css2 css3"
-		}
-	}
+   "$ObjectID":
+   {
+      "Type": "Div",
+      "Attributes": {
+         "Style": "css1 css2 css3"
+      }
+   }
 
 .. _objecttype-sqltext:
 
@@ -94,35 +94,35 @@ The ``SQLText`` *x0-object-type* renders a multilingual text retrieved from the 
 *************************
 
 .. table:: Object Type SQLText Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
-	| IconStyle           | CSS-String           | Fontawesome Icon CSS for Prepend Icon           |
-	+---------------------+----------------------+-------------------------------------------------+
-	| IconStylePost       | CSS-String           | Fontawesome Icon CSS for Append Icon            |
-	+---------------------+----------------------+-------------------------------------------------+
-	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
+   | IconStyle           | CSS-String           | Fontawesome Icon CSS for Prepend Icon           |
+   +---------------------+----------------------+-------------------------------------------------+
+   | IconStylePost       | CSS-String           | Fontawesome Icon CSS for Append Icon            |
+   +---------------------+----------------------+-------------------------------------------------+
+   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.2.2. JSON Example
 ********************
 
 .. code-block:: javascript
 
-	"$ObjectID":
-	{
-		"Type": "SQLText",
-		"Attributes": {
-			"Style": "css1 css2",
-			"TextID": "TXT.TEST.NR1"
-		}
-	}
+   "$ObjectID":
+   {
+      "Type": "SQLText",
+      "Attributes": {
+         "Style": "css1 css2",
+         "TextID": "TXT.TEST.NR1"
+      }
+   }
 
 .. _objecttype-button:
 
@@ -137,85 +137,85 @@ Details see :ref:`appdevcontrolbutton`.
 *************************
 
 .. table:: Object Type Button Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
-	+---------------------+----------------------+-------------------------------------------------+
-	| DOMValue            | String               | Set Hardcoded Display Value                     |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
-	| IconStyle           | CSS-String           | Fontawesome Icon CSS for Prepend Icon           |
-	+---------------------+----------------------+-------------------------------------------------+
-	| IconStylePost       | CSS-String           | Fontawesome Icon CSS for Append Icon            |
-	+---------------------+----------------------+-------------------------------------------------+
-	| FormButton          | Boolean              | Treat Button as HTML form input type "button"   |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Disabled            | Boolean              | Disable Functionality Initially                 |
-	+---------------------+----------------------+-------------------------------------------------+
-	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
-	+---------------------+----------------------+-------------------------------------------------+
-	| OnClick             | URL-String           | Backend Service URL                             |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Action              | Action-String        | Single Action before Service Exec, see 11.3.2.  |
-	+---------------------+----------------------+-------------------------------------------------+
-	| DstObjectID         | ObjectID-String      | Destination ObjectID Reference                  |
-	+---------------------+----------------------+-------------------------------------------------+
-	| DstScreenID         | ScreenID-String      | Destination ScreenID Reference                  |
-	+---------------------+----------------------+-------------------------------------------------+
-	| FireEvents          | Array of EventIDs    | Array of EventIDs                               |
-	+---------------------+----------------------+-------------------------------------------------+
-	| CloseOverlay        | Boolean              | Close Overlay On Click                          |
-	+---------------------+----------------------+-------------------------------------------------+
-	| OnResult            | Array of Actions     | Actions after Service Execution, see 11.3.3.    |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
+   +---------------------+----------------------+-------------------------------------------------+
+   | DOMValue            | String               | Set Hardcoded Display Value                     |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
+   | IconStyle           | CSS-String           | Fontawesome Icon CSS for Prepend Icon           |
+   +---------------------+----------------------+-------------------------------------------------+
+   | IconStylePost       | CSS-String           | Fontawesome Icon CSS for Append Icon            |
+   +---------------------+----------------------+-------------------------------------------------+
+   | FormButton          | Boolean              | Treat Button as HTML form input type "button"   |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Disabled            | Boolean              | Disable Functionality Initially                 |
+   +---------------------+----------------------+-------------------------------------------------+
+   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   +---------------------+----------------------+-------------------------------------------------+
+   | OnClick             | URL-String           | Backend Service URL                             |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Action              | Action-String        | Single Action before Service Exec, see 11.3.2.  |
+   +---------------------+----------------------+-------------------------------------------------+
+   | DstObjectID         | ObjectID-String      | Destination ObjectID Reference                  |
+   +---------------------+----------------------+-------------------------------------------------+
+   | DstScreenID         | ScreenID-String      | Destination ScreenID Reference                  |
+   +---------------------+----------------------+-------------------------------------------------+
+   | FireEvents          | Array of EventIDs    | Array of EventIDs                               |
+   +---------------------+----------------------+-------------------------------------------------+
+   | CloseOverlay        | Boolean              | Close Overlay On Click                          |
+   +---------------------+----------------------+-------------------------------------------------+
+   | OnResult            | Array of Actions     | Actions after Service Execution, see 11.3.3.    |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.3.2. Actions
 ***************
 
 .. table:: Button Actions
-	:widths: 30 70
+   :widths: 30 70
 
-	+---------------------+------------------------------------------------------------------------+
-	| **Action**          | **Description**                                                        |
-	+=====================+========================================================================+
-	| enable              | Set DOM Visible State "visible"                                        |
-	+---------------------+------------------------------------------------------------------------+
-	| disable             | Set DOM Visible State "hidden"                                         |
-	+---------------------+------------------------------------------------------------------------+
-	| activate            | Set Internal State to "active" (processing validation)                 |
-	+---------------------+------------------------------------------------------------------------+
-	| deactivate          | Set Internal State to "inactive" (omitting from validation)            |
-	+---------------------+------------------------------------------------------------------------+
-	| reset               | Call Objects reset() Method                                            |
-	+---------------------+------------------------------------------------------------------------+
-	| switchscreen        | Switch Screen to Value in DstScreenID                                  |
-	+---------------------+------------------------------------------------------------------------+
+   +---------------------+------------------------------------------------------------------------+
+   | **Action**          | **Description**                                                        |
+   +=====================+========================================================================+
+   | enable              | Set DOM Visible State "visible"                                        |
+   +---------------------+------------------------------------------------------------------------+
+   | disable             | Set DOM Visible State "hidden"                                         |
+   +---------------------+------------------------------------------------------------------------+
+   | activate            | Set Internal State to "active" (processing validation)                 |
+   +---------------------+------------------------------------------------------------------------+
+   | deactivate          | Set Internal State to "inactive" (omitting from validation)            |
+   +---------------------+------------------------------------------------------------------------+
+   | reset               | Call Objects reset() Method                                            |
+   +---------------------+------------------------------------------------------------------------+
+   | switchscreen        | Switch Screen to Value in DstScreenID                                  |
+   +---------------------+------------------------------------------------------------------------+
 
 11.3.3. OnResult Actions
 ************************
 
 .. table:: Button OnResult Actions
-	:widths: 30 70
+   :widths: 30 70
 
-	+---------------------+------------------------------------------------------------------------+
-	| **Action**          | **Description**                                                        |
-	+=====================+========================================================================+
-	| enable              | Set DOM Visible State "visible"                                        |
-	+---------------------+------------------------------------------------------------------------+
-	| disable             | Set DOM Visible State "hidden"                                         |
-	+---------------------+------------------------------------------------------------------------+
-	| activate            | Set Internal State to "active" (processing validation)                 |
-	+---------------------+------------------------------------------------------------------------+
-	| deactivate          | Set Internal State to "inactive" (omitting from validation)            |
-	+---------------------+------------------------------------------------------------------------+
-	| reset               | Call Objects reset() Method                                            |
-	+---------------------+------------------------------------------------------------------------+
-	| tabswitch           | Switch to TabContainers Tab                                            |
-	+---------------------+------------------------------------------------------------------------+
+   +---------------------+------------------------------------------------------------------------+
+   | **Action**          | **Description**                                                        |
+   +=====================+========================================================================+
+   | enable              | Set DOM Visible State "visible"                                        |
+   +---------------------+------------------------------------------------------------------------+
+   | disable             | Set DOM Visible State "hidden"                                         |
+   +---------------------+------------------------------------------------------------------------+
+   | activate            | Set Internal State to "active" (processing validation)                 |
+   +---------------------+------------------------------------------------------------------------+
+   | deactivate          | Set Internal State to "inactive" (omitting from validation)            |
+   +---------------------+------------------------------------------------------------------------+
+   | reset               | Call Objects reset() Method                                            |
+   +---------------------+------------------------------------------------------------------------+
+   | tabswitch           | Switch to TabContainers Tab                                            |
+   +---------------------+------------------------------------------------------------------------+
 
 .. _objecttype-buttoninternal:
 
@@ -231,37 +231,37 @@ Details see :ref:`appdevcontrolbuttoninternal`.
 *************************
 
 .. table:: Object Type ButtonInternal Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
-	+---------------------+----------------------+-------------------------------------------------+
-	| DOMValue            | String               | Set Hardcoded Display Value                     |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
-	| IconStyle           | CSS-String           | Fontawesome Icon CSS for Prepend Icon           |
-	+---------------------+----------------------+-------------------------------------------------+
-	| IconStylePost       | CSS-String           | Fontawesome Icon CSS for Append Icon            |
-	+---------------------+----------------------+-------------------------------------------------+
-	| FormButton          | Boolean              | Treat Button as HTML form input type "button"   |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Disabled            | Boolean              | Disable Functionality                           |
-	+---------------------+----------------------+-------------------------------------------------+
-	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Action              | Action-String        | Single Action before Service Exec, see 11.3.2.  |
-	+---------------------+----------------------+-------------------------------------------------+
-	| DstObjectID         | ObjectID-String      | Destination ObjectID Reference                  |
-	+---------------------+----------------------+-------------------------------------------------+
-	| DstScreenID         | ScreenID-String      | Destination ScreenID Reference                  |
-	+---------------------+----------------------+-------------------------------------------------+
-	| FireEvents          | Array                | Array of EventIDs                               |
-	+---------------------+----------------------+-------------------------------------------------+
-	| CloseOverlay        | Boolean              | Close Overlay On Click                          |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
+   +---------------------+----------------------+-------------------------------------------------+
+   | DOMValue            | String               | Set Hardcoded Display Value                     |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
+   | IconStyle           | CSS-String           | Fontawesome Icon CSS for Prepend Icon           |
+   +---------------------+----------------------+-------------------------------------------------+
+   | IconStylePost       | CSS-String           | Fontawesome Icon CSS for Append Icon            |
+   +---------------------+----------------------+-------------------------------------------------+
+   | FormButton          | Boolean              | Treat Button as HTML form input type "button"   |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Disabled            | Boolean              | Disable Functionality                           |
+   +---------------------+----------------------+-------------------------------------------------+
+   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Action              | Action-String        | Single Action before Service Exec, see 11.3.2.  |
+   +---------------------+----------------------+-------------------------------------------------+
+   | DstObjectID         | ObjectID-String      | Destination ObjectID Reference                  |
+   +---------------------+----------------------+-------------------------------------------------+
+   | DstScreenID         | ScreenID-String      | Destination ScreenID Reference                  |
+   +---------------------+----------------------+-------------------------------------------------+
+   | FireEvents          | Array                | Array of EventIDs                               |
+   +---------------------+----------------------+-------------------------------------------------+
+   | CloseOverlay        | Boolean              | Close Overlay On Click                          |
+   +---------------------+----------------------+-------------------------------------------------+
 
 .. _objecttype-image:
 
@@ -277,44 +277,44 @@ through the standard ``getObjectData()`` / ``setObjectData()`` API.
 *************************
 
 .. table:: Object Type Image Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Value               | URL-String           | Image ``src`` path                              |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Width               | String               | Image ``width`` attribute, e.g. ``80px``        |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Height              | String               | Image ``height`` attribute, e.g. ``80px``       |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Value               | URL-String           | Image ``src`` path                              |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Width               | String               | Image ``width`` attribute, e.g. ``80px``        |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Height              | String               | Image ``height`` attribute, e.g. ``80px``       |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.5.2. Runtime API
 *******************
 
 .. code-block:: javascript
 
-	// read current image source
-	var src = sysFactory.getObjectByID('MyImage').getObjectData();
+   // read current image source
+   var src = sysFactory.getObjectByID('MyImage').getObjectData();
 
-	// swap the image source and re-render
-	sysFactory.getObjectByID('MyImage').setObjectData('/image/other.png');
+   // swap the image source and re-render
+   sysFactory.getObjectByID('MyImage').setObjectData('/image/other.png');
 
 11.5.3. JSON Example
 ********************
 
 .. code-block:: javascript
 
-	"$ObjectID":
-	{
-		"Type": "Image",
-		"Attributes": {
-			"Value": "/image/x0-logo.png",
-			"Style": "border rounded"
-		}
-	}
+   "$ObjectID":
+   {
+      "Type": "Image",
+      "Attributes": {
+         "Value": "/image/x0-logo.png",
+         "Style": "border rounded"
+      }
+   }
 
 .. _objecttype-imageselector:
 
@@ -332,39 +332,39 @@ upload form for registering new images. Row pagination reuses the same mechanism
 *************************
 
 .. table:: Object Type ImageSelector Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
-	| RowCount            | Integer              | Rows displayed per pagination page (default 5)  |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Value               | Array of Elements    | Array of ``{ID, Description, Path}`` image rows |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
+   | RowCount            | Integer              | Rows displayed per pagination page (default 5)  |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Value               | Array of Elements    | Array of ``{ID, Description, Path}`` image rows |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.6.2. JSON Example
 ********************
 
 .. code-block:: javascript
 
-	"ExamplesBasicOverlayImageList":
-	{
-		"Type": "ImageSelector",
-		"Attributes": {
-			"RowCount": 3,
-			"Value": [
-				{ "ID": "UTF-Emoji-Clock", "Description": "Clock Icon", "Path": "/image/icon-emoji-clock.png" }
-			]
-		}
-	}
+   "ExamplesBasicOverlayImageList":
+   {
+      "Type": "ImageSelector",
+      "Attributes": {
+         "RowCount": 3,
+         "Value": [
+            { "ID": "UTF-Emoji-Clock", "Description": "Clock Icon", "Path": "/image/icon-emoji-clock.png" }
+         ]
+      }
+   }
 
 11.6.3. Runnable Example
 ************************
 
 * Example - Global Settings "Default Settings" overlay image picker, reachable via the
-	static reference container's Main Menu under "Settings/Global Settings".
+   static reference container's Main Menu under "Settings/Global Settings".
 
 .. _objecttype-badgeselector:
 
@@ -380,23 +380,23 @@ an overlay. It inherits :ref:`objecttype-divunique`.
 *************************
 
 .. table:: Object Type BadgeSelector Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.7.2. JSON Example
 ********************
 
 .. code-block:: javascript
 
-	"OverlayGlobalBadgesList":
-	{
-		"Type": "BadgeSelector"
-	}
+   "OverlayGlobalBadgesList":
+   {
+      "Type": "BadgeSelector"
+   }
 
 .. _objecttype-list:
 
@@ -413,53 +413,53 @@ for dynamic updates and *x0-context-menu* for enhanced user interaction.
 *************************
 
 .. table:: Object Type List Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
-	| HeaderRowStyle      | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
-	| RowCount            | Integer              | Table Row Count                                 |
-	+---------------------+----------------------+-------------------------------------------------+
-	| RowSelectable       | Boolean              | Row / Multirow / Context Menu selectable        |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Navigation          | Boolean              | Pagination / Navigation enabled                 |
-	+---------------------+----------------------+-------------------------------------------------+
-	| ErrorContainer      | ObjectID-String      | Error Container Object Reference                |
-	+---------------------+----------------------+-------------------------------------------------+
-	| ContextMenuItems    | Array of Items       | Context Menu Entries, see 11.8.4.               |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
+   | HeaderRowStyle      | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
+   | RowCount            | Integer              | Table Row Count                                 |
+   +---------------------+----------------------+-------------------------------------------------+
+   | RowSelectable       | Boolean              | Row / Multirow / Context Menu selectable        |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Navigation          | Boolean              | Pagination / Navigation enabled                 |
+   +---------------------+----------------------+-------------------------------------------------+
+   | ErrorContainer      | ObjectID-String      | Error Container Object Reference                |
+   +---------------------+----------------------+-------------------------------------------------+
+   | ContextMenuItems    | Array of Items       | Context Menu Entries, see 11.8.4.               |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.8.2. Column Attributes
 *************************
 
 .. table:: Object Type List Column Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| ID                  | ID-String            | Column ID, also DB Column Reference             |
-	+---------------------+----------------------+-------------------------------------------------+
-	| HeaderTextID        | TextID-String        | TextID referenced in "webui.text" DB Table      |
-	+---------------------+----------------------+-------------------------------------------------+
-	| HeaderStyle         | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | ID                  | ID-String            | Column ID, also DB Column Reference             |
+   +---------------------+----------------------+-------------------------------------------------+
+   | HeaderTextID        | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   +---------------------+----------------------+-------------------------------------------------+
+   | HeaderStyle         | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.8.3. RT Attributes
 *********************
 
 .. table:: Object Type List Real Time Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| DoubleCheckColumn   | String               | Check Column Value already exists on Row append |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | DoubleCheckColumn   | String               | Check Column Value already exists on Row append |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.8.4. Grid Attributes
 ***********************
@@ -479,12 +479,12 @@ service execution.
 
 .. code-block:: javascript
 
-	[
-		{ "id": "1", "col1": "row1-1", "col2": "row1-2" },
-		{ "id": "2", "col1": "row2-1", "col2": "row2-2" },
-		{ "id": "3", "col1": "row3-1", "col2": "row3-2" },
-		{ "id": "4", "col1": "row4-1", "col2": "row4-2" }
-	]
+   [
+      { "id": "1", "col1": "row1-1", "col2": "row1-2" },
+      { "id": "2", "col1": "row2-1", "col2": "row2-2" },
+      { "id": "3", "col1": "row3-1", "col2": "row3-2" },
+      { "id": "4", "col1": "row4-1", "col2": "row4-2" }
+   ]
 
 11.8.7. Runtime Features
 ************************
@@ -505,42 +505,42 @@ it preserves object states recursively, ensuring continuity and consistency acro
 
 .. code-block:: bash
 
-	+---------+---------+---------+
-	| Tab1    | Tab2    | Tab3    |
-	+---------+---------+---------+
-	    |         |         |
-	 ObjRef1   ObjRef3    ObjRef4
-	 ObjRef2              ObjRef5
-	              
+   +---------+---------+---------+
+   | Tab1    | Tab2    | Tab3    |
+   +---------+---------+---------+
+       |         |         |
+    ObjRef1   ObjRef3    ObjRef4
+    ObjRef2              ObjRef5
+
 11.9.1. Object Attributes
 *************************
 
 .. table:: Object Type TabContainer Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Tabs                | Array of Elements    | Array of Tab Elements (Config)                  |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Tabs                | Array of Elements    | Array of Tab Elements (Config)                  |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.9.2. Tab Attributes
 **********************
 
 .. table:: Object Type TabAttributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| ID                  | Array of Elements    | Tab Identifier                                  |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Default             | Boolean              | Default "selected" Tab                          |
-	+---------------------+----------------------+-------------------------------------------------+
-	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | ID                  | Array of Elements    | Tab Identifier                                  |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Default             | Boolean              | Default "selected" Tab                          |
+   +---------------------+----------------------+-------------------------------------------------+
+   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
 
 .. _objecttype-fileupload:
 
@@ -554,29 +554,29 @@ intuitive upload progress indicator.
 **************************
 
 .. table:: Object Type FileUpload Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+----------------------------+----------------------+------------------------------------------+
-	| **Property**               | **Type**             | **Description**                          |
-	+============================+======================+==========================================+
-	| Style                      | CSS-String           | CSS Style Classes, space separated       |
-	+----------------------------+----------------------+------------------------------------------+
-	| StyleDescription           | CSS-String           | CSS Style Classes, space separated       |
-	+----------------------------+----------------------+------------------------------------------+
-	| StyleSelectButton          | CSS-String           | CSS Style Classes, space separated       |
-	+----------------------------+----------------------+------------------------------------------+
-	| StyleProgressContainer     | CSS-String           | CSS Style Classes, space separated       |
-	+----------------------------+----------------------+------------------------------------------+
-	| StyleProgressBar           | CSS-String           | CSS Style Classes, space separated       |
-	+----------------------------+----------------------+------------------------------------------+
-	| StyleProgressBarPercentage | CSS-String           | CSS Style Classes, space separated       |
-	+----------------------------+----------------------+------------------------------------------+
-	| StyleUploadButton          | CSS-String           | CSS Style Classes, space separated       |
-	+----------------------------+----------------------+------------------------------------------+
-	| UploadScript               | URL-String           | POST Upload URL                          |
-	+----------------------------+----------------------+------------------------------------------+
-	| ScreenDataLoad             | ScreenID-String      | On Successful Upload trigger Data reload |
-	+----------------------------+----------------------+------------------------------------------+
+   +----------------------------+----------------------+------------------------------------------+
+   | **Property**               | **Type**             | **Description**                          |
+   +============================+======================+==========================================+
+   | Style                      | CSS-String           | CSS Style Classes, space separated       |
+   +----------------------------+----------------------+------------------------------------------+
+   | StyleDescription           | CSS-String           | CSS Style Classes, space separated       |
+   +----------------------------+----------------------+------------------------------------------+
+   | StyleSelectButton          | CSS-String           | CSS Style Classes, space separated       |
+   +----------------------------+----------------------+------------------------------------------+
+   | StyleProgressContainer     | CSS-String           | CSS Style Classes, space separated       |
+   +----------------------------+----------------------+------------------------------------------+
+   | StyleProgressBar           | CSS-String           | CSS Style Classes, space separated       |
+   +----------------------------+----------------------+------------------------------------------+
+   | StyleProgressBarPercentage | CSS-String           | CSS Style Classes, space separated       |
+   +----------------------------+----------------------+------------------------------------------+
+   | StyleUploadButton          | CSS-String           | CSS Style Classes, space separated       |
+   +----------------------------+----------------------+------------------------------------------+
+   | UploadScript               | URL-String           | POST Upload URL                          |
+   +----------------------------+----------------------+------------------------------------------+
+   | ScreenDataLoad             | ScreenID-String      | On Successful Upload trigger Data reload |
+   +----------------------------+----------------------+------------------------------------------+
 
 .. _objecttype-errorcontainer:
 
@@ -595,13 +595,13 @@ None.
 
 .. code-block:: javascript
 
-	"$ObjectID":
-	{
-		"Type": "ErrorContainer",
-		"Attributes":
-		{
-		}
-	}
+   "$ObjectID":
+   {
+      "Type": "ErrorContainer",
+      "Attributes":
+      {
+      }
+   }
 
 .. _objecttype-openclosecontainer:
 
@@ -617,15 +617,15 @@ large amounts of content in a compact, user-friendly manner.
 **************************
 
 .. table:: Object Type OpenCloseContainer Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
-	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
+   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.12.2. Features
 *****************
@@ -641,22 +641,22 @@ large amounts of content in a compact, user-friendly manner.
 
 .. code-block:: javascript
 
-	"OpenCloseElement1": {
-		"Type": "OpenCloseContainer",
-		"Attributes": {
-			"TextID": "TXT.OPENCLOSE1-HEADER"
-		}
-	}
+   "OpenCloseElement1": {
+      "Type": "OpenCloseContainer",
+      "Attributes": {
+         "TextID": "TXT.OPENCLOSE1-HEADER"
+      }
+   }
 
 .. code-block:: javascript
 
-	"OpenCloseElement2": {
-		"Type": "OpenCloseContainer",
-		"Attributes": {
-			"Style": "mb-4",
-			"TextID": "TXT.SECTION.ADVANCED.SETTINGS"
-		}
-	}
+   "OpenCloseElement2": {
+      "Type": "OpenCloseContainer",
+      "Attributes": {
+         "Style": "mb-4",
+         "TextID": "TXT.SECTION.ADVANCED.SETTINGS"
+      }
+   }
 
 11.12.4. Usage Examples
 ***********************
@@ -683,13 +683,13 @@ with visual selection indicators and state management.
 **************************
 
 .. table:: Object Type TreeSimple Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| TreeItems           | Array of Elements    | Array of Tree Node and Item definitions         |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | TreeItems           | Array of Elements    | Array of Tree Node and Item definitions         |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.13.2. Element Type Node
 **************************
@@ -697,19 +697,19 @@ with visual selection indicators and state management.
 Expandable/collapsible containers that can contain other nodes or items:
 
 .. table:: Tree Node Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Type                | Constant String      | Fixed String 'Node'                             |
-	+---------------------+----------------------+-------------------------------------------------+
-	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Icon                | CSS-String           | FontAwesome Icon CSS Classes                    |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Children            | Array of Elements    | Array of child Node and Item elements           |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Type                | Constant String      | Fixed String 'Node'                             |
+   +---------------------+----------------------+-------------------------------------------------+
+   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Icon                | CSS-String           | FontAwesome Icon CSS Classes                    |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Children            | Array of Elements    | Array of child Node and Item elements           |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.13.3. Element Type Item
 **************************
@@ -717,19 +717,19 @@ Expandable/collapsible containers that can contain other nodes or items:
 Interactive navigation elements that trigger screen navigation:
 
 .. table:: Tree Item Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Type                | Constant String      | Fixed String 'Item'                             |
-	+---------------------+----------------------+-------------------------------------------------+
-	| TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Icon                | CSS-String           | FontAwesome Icon CSS Classes                    |
-	+---------------------+----------------------+-------------------------------------------------+
-	| ScreenID            | ScreenID-String      | Target Screen for navigation                    |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Type                | Constant String      | Fixed String 'Item'                             |
+   +---------------------+----------------------+-------------------------------------------------+
+   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Icon                | CSS-String           | FontAwesome Icon CSS Classes                    |
+   +---------------------+----------------------+-------------------------------------------------+
+   | ScreenID            | ScreenID-String      | Target Screen for navigation                    |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.13.4. Features
 *****************
@@ -746,52 +746,52 @@ Interactive navigation elements that trigger screen navigation:
 
 .. code-block:: javascript
 
-	"TreeSimpleElement1": {
-		"Type": "TreeSimple",
-		"Attributes": {
-			"TreeItems": [
-				{
-					"Type": "Node",
-					"TextID": "TXT.NODE1",
-					"Icon": "fa-solid fa-hexagon-nodes",
-					"Children": [
-						{
-							"Type": "Item",
-							"TextID": "TXT.ITEM1",
-							"Icon": "fa-solid fa-code-branch",
-							"ScreenID": "Screen1"
-						},
-						{
-							"Type": "Item",
-							"TextID": "TXT.ITEM2",
-							"Icon": "fa-solid fa-lightbulb",
-							"ScreenID": "Screen2"
-						}
-					]
-				},
-				{
-					"Type": "Node",
-					"TextID": "TXT.NODE2",
-					"Icon": "fa-solid fa-folder",
-					"Children": [
-						{
-							"Type": "Node",
-							"TextID": "TXT.SUBNODE1",
-							"Icon": "fa-solid fa-folder-open",
-							"Children": [
-								{
-									"Type": "Item",
-									"TextID": "TXT.SUBITEM1",
-									"Icon": "fa-solid fa-file",
-									"ScreenID": "Screen3"
-								}
-							]
-						}
-					]
-				}
-			]
-		}
-	}
+   "TreeSimpleElement1": {
+      "Type": "TreeSimple",
+      "Attributes": {
+         "TreeItems": [
+            {
+               "Type": "Node",
+               "TextID": "TXT.NODE1",
+               "Icon": "fa-solid fa-hexagon-nodes",
+               "Children": [
+                  {
+                     "Type": "Item",
+                     "TextID": "TXT.ITEM1",
+                     "Icon": "fa-solid fa-code-branch",
+                     "ScreenID": "Screen1"
+                  },
+                  {
+                     "Type": "Item",
+                     "TextID": "TXT.ITEM2",
+                     "Icon": "fa-solid fa-lightbulb",
+                     "ScreenID": "Screen2"
+                  }
+               ]
+            },
+            {
+               "Type": "Node",
+               "TextID": "TXT.NODE2",
+               "Icon": "fa-solid fa-folder",
+               "Children": [
+                  {
+                     "Type": "Node",
+                     "TextID": "TXT.SUBNODE1",
+                     "Icon": "fa-solid fa-folder-open",
+                     "Children": [
+                        {
+                           "Type": "Item",
+                           "TextID": "TXT.SUBITEM1",
+                           "Icon": "fa-solid fa-file",
+                           "ScreenID": "Screen3"
+                        }
+                     ]
+                  }
+               ]
+            }
+         ]
+      }
+   }
 
 11.13.6. Usage Examples
 ***********************
@@ -812,12 +812,12 @@ collapsibility:
 
 .. code-block:: javascript
 
-	"TreeContainer": {
-		"Type": "OpenCloseContainer",
-		"Attributes": {
-			"TextID": "TXT.NAVIGATION.TREE"
-		}
-	}
+   "TreeContainer": {
+      "Type": "OpenCloseContainer",
+      "Attributes": {
+         "TextID": "TXT.NAVIGATION.TREE"
+      }
+   }
 
 .. _objecttype-divunique:
 
@@ -835,30 +835,30 @@ can act as a parent container for nested child objects.
 **************************
 
 .. table:: Object Type DivUnique Attributes
-	:widths: 30 20 100
+   :widths: 30 20 100
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| DOMType             | String               | Container element tag, e.g. ``div``, ``span``   |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
-	| TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | DOMType             | String               | Container element tag, e.g. ``div``, ``span``   |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
+   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.14.2. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"$ObjectID":
-	{
-		"Type": "DivUnique",
-		"Attributes": {
-			"Style": "container-fluid p-3"
-		}
-	}
+   "$ObjectID":
+   {
+      "Type": "DivUnique",
+      "Attributes": {
+         "Style": "container-fluid p-3"
+      }
+   }
 
 .. _objecttype-progressbar:
 
@@ -875,39 +875,39 @@ update from button actions or backend callbacks.
 **************************
 
 .. table:: Object Type ProgressBar Attributes
-	:widths: 30 20 100
+   :widths: 30 20 100
 
-	+---------------------+----------------------+-------------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                       |
-	+=====================+======================+=======================================================+
-	| Style               | CSS-String           | Additional CSS classes applied to the inner bar       |
-	|                     |                      | (appended after ``progress-bar``). If omitted, the    |
-	|                     |                      | default striped/animated style is used.               |
-	+---------------------+----------------------+-------------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                       |
+   +=====================+======================+=======================================================+
+   | Style               | CSS-String           | Additional CSS classes applied to the inner bar       |
+   |                     |                      | (appended after ``progress-bar``). If omitted, the    |
+   |                     |                      | default striped/animated style is used.               |
+   +---------------------+----------------------+-------------------------------------------------------+
 
 11.15.2. Runtime API
 ********************
 
 .. code-block:: javascript
 
-	// read current percentage (0-100)
-	var pct = sysFactory.getObjectByID('MyProgressBar').getObjectData();
+   // read current percentage (0-100)
+   var pct = sysFactory.getObjectByID('MyProgressBar').getObjectData();
 
-	// set percentage and re-render
-	sysFactory.getObjectByID('MyProgressBar').setObjectData(75);
+   // set percentage and re-render
+   sysFactory.getObjectByID('MyProgressBar').setObjectData(75);
 
 11.15.3. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"MyProgressBar":
-	{
-		"Type": "ProgressBar",
-		"Attributes": {
-			"Style": "bg-success"
-		}
-	}
+   "MyProgressBar":
+   {
+      "Type": "ProgressBar",
+      "Attributes": {
+         "Style": "bg-success"
+      }
+   }
 
 .. _objecttype-rangeslider:
 
@@ -924,40 +924,40 @@ from or written to by any other *x0-object* or button action.
 **************************
 
 .. table:: Object Type RangeSlider Attributes
-	:widths: 30 20 100
+   :widths: 30 20 100
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Min                 | Number               | Minimum slider value (HTML ``min`` attribute)   |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Max                 | Number               | Maximum slider value (HTML ``max`` attribute)   |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Min                 | Number               | Minimum slider value (HTML ``min`` attribute)   |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Max                 | Number               | Maximum slider value (HTML ``max`` attribute)   |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.16.2. Runtime API
 ********************
 
 .. code-block:: javascript
 
-	// read current slider value
-	var val = sysFactory.getObjectByID('MySlider').getObjectData();
+   // read current slider value
+   var val = sysFactory.getObjectByID('MySlider').getObjectData();
 
-	// set slider value programmatically
-	sysFactory.getObjectByID('MySlider').setObjectData(50);
+   // set slider value programmatically
+   sysFactory.getObjectByID('MySlider').setObjectData(50);
 
 11.16.3. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"MySlider":
-	{
-		"Type": "RangeSlider",
-		"Attributes": {
-			"Min": 0,
-			"Max": 100
-		}
-	}
+   "MySlider":
+   {
+      "Type": "RangeSlider",
+      "Attributes": {
+         "Min": 0,
+         "Max": 100
+      }
+   }
 
 .. _objecttype-rangeslidercontainer:
 
@@ -974,37 +974,37 @@ inner ``RangeSlider`` child.
 **************************
 
 .. table:: Object Type RangeSliderContainer Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Min                 | Number               | Minimum slider value (HTML ``min`` attribute)   |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Max                 | Number               | Maximum slider value (HTML ``max`` attribute)   |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Value               | Number               | Initial slider value                            |
-	+---------------------+----------------------+-------------------------------------------------+
-	| UnitTextID          | TextID-String        | TextID for the Min/Max unit label               |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Min                 | Number               | Minimum slider value (HTML ``min`` attribute)   |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Max                 | Number               | Maximum slider value (HTML ``max`` attribute)   |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Value               | Number               | Initial slider value                            |
+   +---------------------+----------------------+-------------------------------------------------+
+   | UnitTextID          | TextID-String        | TextID for the Min/Max unit label               |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.17.2. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"TeamPercentageMin":
-	{
-		"Type": "RangeSliderContainer",
-		"Attributes": {
-			"Min": 1,
-			"Max": 100,
-			"Value": 50,
-			"UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE"
-		}
-	}
+   "TeamPercentageMin":
+   {
+      "Type": "RangeSliderContainer",
+      "Attributes": {
+         "Min": 1,
+         "Max": 100,
+         "Value": 50,
+         "UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE"
+      }
+   }
 
 .. _objecttype-headerbodycontainer:
 
@@ -1021,37 +1021,37 @@ Child objects are attached using ``ElementID`` in ``skeleton.json``, where the
 **************************
 
 .. table:: Object Type HeaderBodyContainer Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| HeaderStyle         | CSS-String           | CSS Style Classes for the header row            |
-	+---------------------+----------------------+-------------------------------------------------+
-	| BodyStyle           | CSS-String           | CSS Style Classes for the body row              |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | HeaderStyle         | CSS-String           | CSS Style Classes for the header row            |
+   +---------------------+----------------------+-------------------------------------------------+
+   | BodyStyle           | CSS-String           | CSS Style Classes for the body row              |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.18.2. skeleton.json Example
 ******************************
 
 .. code-block:: javascript
 
-	"IntroductionContainerLeftHeaderText": { "RefID": "IntroductionContainerLeftHeader" },
-	"IntroductionContainerLeftText":       { "RefID": "IntroductionContainerLeftContent" }
+   "IntroductionContainerLeftHeaderText": { "RefID": "IntroductionContainerLeftHeader" },
+   "IntroductionContainerLeftText":       { "RefID": "IntroductionContainerLeftContent" }
 
 11.18.3. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"IntroductionContainerRight":
-	{
-		"Type": "HeaderBodyContainer",
-		"Attributes": {
-			"HeaderStyle": "row m-0 p-3 border border-1 border-success rounded-top bg-success bg-opacity-50",
-			"BodyStyle": "row m-0 p-3 border border-1 border-success bg-success-subtle bg-opacity-25"
-		}
-	}
+   "IntroductionContainerRight":
+   {
+      "Type": "HeaderBodyContainer",
+      "Attributes": {
+         "HeaderStyle": "row m-0 p-3 border border-1 border-success rounded-top bg-success bg-opacity-50",
+         "BodyStyle": "row m-0 p-3 border border-1 border-success bg-success-subtle bg-opacity-25"
+      }
+   }
 
 .. _objecttype-systemsettingscontainer:
 
@@ -1069,54 +1069,54 @@ is the backing object for the static example's "Settings/Global Settings" screen
 **************************
 
 .. table:: Object Type SystemSettingsContainer Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Settings            | Array of Elements    | Array of Setting rows, see 11.19.2.             |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Settings            | Array of Elements    | Array of Setting rows, see 11.19.2.             |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.19.2. Setting Element Attributes
 ***********************************
 
 .. table:: SystemSettingsContainer Setting Element Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| TextID              | TextID-String        | Row description, referenced in ``webui.text``   |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Style               | CSS-String           | CSS Style Classes applied to the description    |
-	+---------------------+----------------------+-------------------------------------------------+
-	| IconStyle           | CSS-String           | Fontawesome Icon CSS for the description        |
-	+---------------------+----------------------+-------------------------------------------------+
-	| SettingsObject      | Object               | ``{ObjectType, Attributes}``, nested object     |
-	|                     |                      | instantiated from ``sysFactory.SetupClasses``   |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | TextID              | TextID-String        | Row description, referenced in ``webui.text``   |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Style               | CSS-String           | CSS Style Classes applied to the description    |
+   +---------------------+----------------------+-------------------------------------------------+
+   | IconStyle           | CSS-String           | Fontawesome Icon CSS for the description        |
+   +---------------------+----------------------+-------------------------------------------------+
+   | SettingsObject      | Object               | ``{ObjectType, Attributes}``, nested object     |
+   |                     |                      | instantiated from ``sysFactory.SetupClasses``   |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.19.3. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"SettingsGlobalVideoSettings":
-	{
-		"Type": "SystemSettingsContainer",
-		"Attributes": {
-			"Settings": [
-				{
-					"TextID": "TXT.SYSTEMSETTINGS.VIDEO.BRIGHTNESS",
-					"IconStyle": "fa-solid fa-sun",
-					"SettingsObject": {
-						"ObjectType": "RangeSlider",
-						"Attributes": { "Style": "w-100", "Min": 1, "Max": 100, "Value": 90 }
-					}
-				}
-			]
-		}
-	}
+   "SettingsGlobalVideoSettings":
+   {
+      "Type": "SystemSettingsContainer",
+      "Attributes": {
+         "Settings": [
+            {
+               "TextID": "TXT.SYSTEMSETTINGS.VIDEO.BRIGHTNESS",
+               "IconStyle": "fa-solid fa-sun",
+               "SettingsObject": {
+                  "ObjectType": "RangeSlider",
+                  "Attributes": { "Style": "w-100", "Min": 1, "Max": 100, "Value": 90 }
+               }
+            }
+         ]
+      }
+   }
 
 11.19.4. Runnable Example
 *************************
@@ -1142,18 +1142,18 @@ request.
 **************************
 
 .. table:: Object Type SystemSettingsContainerGrid Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Settings            | Array of Elements    | Same schema as 11.19.2.                         |
-	+---------------------+----------------------+-------------------------------------------------+
-	| GridStyles          | Object               | ``{SelectorRowStyle}``, variant selector style  |
-	+---------------------+----------------------+-------------------------------------------------+
-	| GridGenerator       | Object               | ``sysGridGenerator`` config, see                |
-	|                     |                      | :ref:`appdevgridsystem`                         |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Settings            | Array of Elements    | Same schema as 11.19.2.                         |
+   +---------------------+----------------------+-------------------------------------------------+
+   | GridStyles          | Object               | ``{SelectorRowStyle}``, variant selector style  |
+   +---------------------+----------------------+-------------------------------------------------+
+   | GridGenerator       | Object               | ``sysGridGenerator`` config, see                |
+   |                     |                      | :ref:`appdevgridsystem`                         |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.20.2. Runnable Example
 *************************
@@ -1175,34 +1175,34 @@ top of a screen or tab.
 **************************
 
 .. table:: Object Type InfoParagraph Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Style               | CSS-String           | CSS Style Classes applied to the container      |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Text                | Array of Elements    | Array of ``{ID, Style, IconStyle}`` paragraphs  |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Style               | CSS-String           | CSS Style Classes applied to the container      |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Text                | Array of Elements    | Array of ``{ID, Style, IconStyle}`` paragraphs  |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.21.2. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"IntroductionBodyInfo":
-	{
-		"Type": "InfoParagraph",
-		"Attributes": {
-			"Text": [
-				{
-					"ID": "TXT.INTRODUCTION.INFOPARAGRAPH.START",
-					"Style": "h4 text-dark text-opacity-75 fw-bold",
-					"IconStyle": "fa-solid fa-user-group"
-				}
-			]
-		}
-	}
+   "IntroductionBodyInfo":
+   {
+      "Type": "InfoParagraph",
+      "Attributes": {
+         "Text": [
+            {
+               "ID": "TXT.INTRODUCTION.INFOPARAGRAPH.START",
+               "Style": "h4 text-dark text-opacity-75 fw-bold",
+               "IconStyle": "fa-solid fa-user-group"
+            }
+         ]
+      }
+   }
 
 .. _objecttype-languageswitch:
 
@@ -1219,30 +1219,30 @@ and re-renders every active ``SQLText`` object application-wide via
 **************************
 
 .. table:: Object Type LanguageSwitch Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Style               | CSS-String           | CSS Style Classes applied to the row container  |
-	+---------------------+----------------------+-------------------------------------------------+
-	| PulldownStyle       | CSS-String           | CSS Style Classes for the language pulldown     |
-	+---------------------+----------------------+-------------------------------------------------+
-	| ButtonStyle         | CSS-String           | CSS Style Classes for the activation button     |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Style               | CSS-String           | CSS Style Classes applied to the row container  |
+   +---------------------+----------------------+-------------------------------------------------+
+   | PulldownStyle       | CSS-String           | CSS Style Classes for the language pulldown     |
+   +---------------------+----------------------+-------------------------------------------------+
+   | ButtonStyle         | CSS-String           | CSS Style Classes for the activation button     |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.22.2. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"SettingsLanguageSwitch":
-	{
-		"Type": "LanguageSwitch",
-		"Attributes": {
-			"Style": "row border rounded m-0 p-3 fw-bold"
-		}
-	}
+   "SettingsLanguageSwitch":
+   {
+      "Type": "LanguageSwitch",
+      "Attributes": {
+         "Style": "row border rounded m-0 p-3 fw-bold"
+      }
+   }
 
 .. _objecttype-dynradiolist:
 
@@ -1258,26 +1258,26 @@ a context menu offering the same removal action (see :ref:`appdevcontextmenu`).
 **************************
 
 .. table:: Object Type DynRadioList Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| ButtonTextDisabled  | Boolean              | Hide add/remove button text, icon-only display  |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | ButtonTextDisabled  | Boolean              | Hide add/remove button text, icon-only display  |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.23.2. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"$ObjectID":
-	{
-		"Type": "DynRadioList",
-		"Attributes": {
-			"ButtonTextDisabled": false
-		}
-	}
+   "$ObjectID":
+   {
+      "Type": "DynRadioList",
+      "Attributes": {
+         "ButtonTextDisabled": false
+      }
+   }
 
 .. _objecttype-serviceconnector:
 
@@ -1293,33 +1293,33 @@ dispatch mechanics are documented in :ref:`devoopmodel` (section 23.8).
 **************************
 
 .. table:: Object Type ServiceConnector Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| OnEvent.Events      | Array of EventIDs    | EventIDs triggering the service call            |
-	+---------------------+----------------------+-------------------------------------------------+
-	| OnEvent.ServiceCall | URL-String           | Backend Service URL                             |
-	+---------------------+----------------------+-------------------------------------------------+
-	| OnEvent.ServiceID   | String               | Optional Backend Service Identifier             |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | OnEvent.Events      | Array of EventIDs    | EventIDs triggering the service call            |
+   +---------------------+----------------------+-------------------------------------------------+
+   | OnEvent.ServiceCall | URL-String           | Backend Service URL                             |
+   +---------------------+----------------------+-------------------------------------------------+
+   | OnEvent.ServiceID   | String               | Optional Backend Service Identifier             |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.24.2. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"$ObjectID":
-	{
-		"Type": "ServiceConnector",
-		"Attributes": {
-			"OnEvent": {
-				"Events": [ "InitSystem" ],
-				"ServiceCall": "/python/IntegrationTestGetTableData.py"
-			}
-		}
-	}
+   "$ObjectID":
+   {
+      "Type": "ServiceConnector",
+      "Attributes": {
+         "OnEvent": {
+            "Events": [ "InitSystem" ],
+            "ServiceCall": "/python/IntegrationTestGetTableData.py"
+         }
+      }
+   }
 
 .. _objecttype-timedprogress:
 
@@ -1339,29 +1339,29 @@ following sections.
 **************************
 
 .. table:: Object Type TimedProgress Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Interval            | Integer (ms)         | Auto-increment timer interval, in milliseconds  |
-	+---------------------+----------------------+-------------------------------------------------+
-	| IncreaseBy          | Integer              | Percentage increment applied on every interval  |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Interval            | Integer (ms)         | Auto-increment timer interval, in milliseconds  |
+   +---------------------+----------------------+-------------------------------------------------+
+   | IncreaseBy          | Integer              | Percentage increment applied on every interval  |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.25.2. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"ExamplesBasicSlidersSlider1":
-	{
-		"Type": "TimedProgress",
-		"Attributes": {
-			"Interval": 100,
-			"IncreaseBy": 1
-		}
-	}
+   "ExamplesBasicSlidersSlider1":
+   {
+      "Type": "TimedProgress",
+      "Attributes": {
+         "Interval": 100,
+         "IncreaseBy": 1
+      }
+   }
 
 .. _objecttype-examplewizard:
 
@@ -1387,11 +1387,11 @@ formfield-list IDs per step are wired internally.
 
 .. code-block:: javascript
 
-	"ExamplesBasicSlidersStepControlledWizard":
-	{
-		"Type": "ExampleWizard",
-		"Attributes": {}
-	}
+   "ExamplesBasicSlidersStepControlledWizard":
+   {
+      "Type": "ExampleWizard",
+      "Attributes": {}
+   }
 
 .. _objecttype-exampleeditableitem:
 
@@ -1409,37 +1409,37 @@ as a switchable drag-reorder mode.
 **************************
 
 .. table:: Object Type ExampleEditableItem Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
-	| Editable            | Boolean              | Enables in-place edit mode for this item        |
-	+---------------------+----------------------+-------------------------------------------------+
-	| OrderChangeable     | Boolean              | Enables drag-based reordering of this item      |
-	+---------------------+----------------------+-------------------------------------------------+
-	| ImagePath           | URL-String           | Item image, defaults to a placeholder icon      |
-	+---------------------+----------------------+-------------------------------------------------+
-	| HeaderText          | String               | Item header/title text                          |
-	+---------------------+----------------------+-------------------------------------------------+
-	| ContentText         | String               | Item body/description text                      |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Editable            | Boolean              | Enables in-place edit mode for this item        |
+   +---------------------+----------------------+-------------------------------------------------+
+   | OrderChangeable     | Boolean              | Enables drag-based reordering of this item      |
+   +---------------------+----------------------+-------------------------------------------------+
+   | ImagePath           | URL-String           | Item image, defaults to a placeholder icon      |
+   +---------------------+----------------------+-------------------------------------------------+
+   | HeaderText          | String               | Item header/title text                          |
+   +---------------------+----------------------+-------------------------------------------------+
+   | ContentText         | String               | Item body/description text                      |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.27.2. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"ExamplesBasicEditableTemplate1EditableItem":
-	{
-		"Type": "ExampleEditableItem",
-		"Attributes": {
-			"Editable": true,
-			"OrderChangeable": false
-		}
-	}
+   "ExamplesBasicEditableTemplate1EditableItem":
+   {
+      "Type": "ExampleEditableItem",
+      "Attributes": {
+         "Editable": true,
+         "OrderChangeable": false
+      }
+   }
 
 .. _objecttype-exampleeditableitemcontainer:
 
@@ -1459,34 +1459,34 @@ like :ref:`objecttype-list` rows.
 **************************
 
 .. table:: Object Type ExampleEditableItemContainer Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
-	| HeaderTextID        | TextID-String        | TextID referenced in "webui.text" DB Table      |
-	+---------------------+----------------------+-------------------------------------------------+
-	| HeaderStyle         | CSS-String           | CSS Style Classes for the header text           |
-	+---------------------+----------------------+-------------------------------------------------+
-	| HeaderIconStyle     | CSS-String           | FontAwesome icon style for the header           |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
+   | HeaderTextID        | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   +---------------------+----------------------+-------------------------------------------------+
+   | HeaderStyle         | CSS-String           | CSS Style Classes for the header text           |
+   +---------------------+----------------------+-------------------------------------------------+
+   | HeaderIconStyle     | CSS-String           | FontAwesome icon style for the header           |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.28.2. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"ExamplesBasicEditableTemplate1":
-	{
-		"Type": "ExampleEditableItemContainer",
-		"Attributes": {
-			"HeaderTextID": "TXT.HEADER.EXAMPLES_BASIC_EDITABLE_TEMPLATE1_HEADER",
-			"HeaderStyle": "h3 text-primary-emphasis",
-			"HeaderIconStyle": "fa-solid fa-card-shopping"
-		}
-	}
+   "ExamplesBasicEditableTemplate1":
+   {
+      "Type": "ExampleEditableItemContainer",
+      "Attributes": {
+         "HeaderTextID": "TXT.HEADER.EXAMPLES_BASIC_EDITABLE_TEMPLATE1_HEADER",
+         "HeaderStyle": "h3 text-primary-emphasis",
+         "HeaderIconStyle": "fa-solid fa-card-shopping"
+      }
+   }
 
 .. _objecttype-exampleflightdetails:
 
@@ -1504,31 +1504,31 @@ used as a repeated row inside a parent :ref:`objecttype-list` or
 **************************
 
 .. table:: Object Type ExampleFlightDetails Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Value               | Object               | ``{Icon, Airline, FlightNr, Airport}``          |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Value               | Object               | ``{Icon, Airline, FlightNr, Airport}``          |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.29.2. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"MyFlightDetails":
-	{
-		"Type": "ExampleFlightDetails",
-		"Attributes": {
-			"Value": {
-				"Icon": "icon-airline-lufthansa.png",
-				"Airline": "Lufthansa",
-				"FlightNr": "LH441",
-				"Airport": "FRA"
-			}
-		}
-	}
+   "MyFlightDetails":
+   {
+      "Type": "ExampleFlightDetails",
+      "Attributes": {
+         "Value": {
+            "Icon": "icon-airline-lufthansa.png",
+            "Airline": "Lufthansa",
+            "FlightNr": "LH441",
+            "Airport": "FRA"
+         }
+      }
+   }
 
 .. _objecttype-exampleflightstatus:
 
@@ -1547,30 +1547,30 @@ and derives both its border color and inner text color from the
 **************************
 
 .. table:: Object Type ExampleFlightStatus Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Value               | Object               | ``{Alert, Type, Time}``                         |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Value               | Object               | ``{Alert, Type, Time}``                         |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.30.2. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"MyFlightStatus":
-	{
-		"Type": "ExampleFlightStatus",
-		"Attributes": {
-			"Value": {
-				"Alert": "success",
-				"Type": "On Time",
-				"Time": "14:35"
-			}
-		}
-	}
+   "MyFlightStatus":
+   {
+      "Type": "ExampleFlightStatus",
+      "Attributes": {
+         "Value": {
+            "Alert": "success",
+            "Type": "On Time",
+            "Time": "14:35"
+         }
+      }
+   }
 
 .. _objecttype-examplecardtasklist:
 
@@ -1590,23 +1590,23 @@ addable tasklists/tasks. It inherits from ``sysObjDivUnique`` and composes
 **************************
 
 .. table:: Object Type ExampleCardTasklist Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.31.2. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"ExamplesBasicEditableTemplate2CardTasklists":
-	{
-		"Type": "ExampleCardTasklist"
-	}
+   "ExamplesBasicEditableTemplate2CardTasklists":
+   {
+      "Type": "ExampleCardTasklist"
+   }
 
 .. _objecttype-examplepeopleselector:
 
@@ -1624,23 +1624,23 @@ inherits from ``sysObjDivUnique`` and is typically instantiated inside a
 **************************
 
 .. table:: Object Type ExamplePeopleSelector Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+----------------------+-------------------------------------------------+
-	| **Property**        | **Type**             | **Description**                                 |
-	+=====================+======================+=================================================+
-	| Style               | CSS-String           | CSS Style Classes, space separated              |
-	+---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.32.2. JSON Example
 *********************
 
 .. code-block:: javascript
 
-	"OverlayGlobalCollaboratorsList":
-	{
-		"Type": "ExamplePeopleSelector"
-	}
+   "OverlayGlobalCollaboratorsList":
+   {
+      "Type": "ExamplePeopleSelector"
+   }
 
 .. _object-examples-reference:
 .. _object-examples-reference-section:
