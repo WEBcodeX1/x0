@@ -90,7 +90,12 @@ has been carried out, the objects are referenced and work.
 15.3.3. Object Relation
 -----------------------
 
-15.3.4. Callback Data Schema
+Now, the step of referencing the objects in ``skeleton.json`` finally
+
+15.3.4. Summary
+---------------
+
+15.3.5. Callback Data Schema
 ----------------------------
 
 15.4. System Producer Types
@@ -121,8 +126,9 @@ explicit "fire" configuration anywhere -- any object may register for them:
 
 
 
-15.2.2. Programmatic Registration
----------------------------------
+15.6. Programmatic Registration
+-------------------------------
+
 Following a button configuration:
 
 .. code-block:: javascript
@@ -141,10 +147,11 @@ Following a button configuration:
 
 .. _appdevcontrolflow:
 
-16. Control Flow Items
-======================
+16. FireEvent Control Flows
+===========================
 
-The next sub-chapters describe the logical control-flow and in which order they are processed.
+The following sub-chapters describe the logical control flow of the different object
+types and the order in which they are processed.
 
 .. _appdevcontrolbutton:
 
