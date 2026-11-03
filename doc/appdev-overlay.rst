@@ -19,38 +19,13 @@ rendered and active in parallel. Because screens are pre-rendered in the DOM
 instead of being built on demand, managing these layers never costs an
 additional render pass or backend request.
 
-The engine lives in ``sysScreenOverlay`` (``/www/sysScreenOverlay.js``) and is
-exposed system-wide as the single ``sysFactory.OverlayObj`` instance,
-instantiated once in the ``sysFactory`` constructor (``/www/sysFactory.js``).
-
-18.1. The sysScreenOverlay Engine
----------------------------------
-
-``sysFactory.OverlayObj`` provides three methods that act directly on a
-target screen's ``HierarchyRootObject``, resolved via
-``sysFactory.getScreenByID(ScreenID)``:
-
-* ``activateOverlay(ScreenID, OverrideStyle)`` -- applies the overlay CSS
-  class (``overlay-screen p-5 bg-secondary bg-opacity-75 shadow`` by
-  default, or ``OverrideStyle`` if supplied), sets ``VisibleState`` to
-  ``visible`` and raises ``DOMStyleZIndex`` to ``300`` so the overlay
-  renders above the regular screen stack.
-* ``closeOverlay(ScreenID)`` -- removes the overlay style class and sets
-  ``VisibleState`` back to ``hidden``.
-* ``activateOverlayAtPosition(ScreenID, CoordX, CoordY, Width)`` --
-  absolutely positions the overlay screen at the given pixel coordinates
-  (optionally constraining its width), then delegates to
-  ``activateOverlay()`` with the ``overlay-positioned m-0 p-0 shadow``
-  style. Used for context-anchored pop-ups such as badge or collaborator
-  selectors (see 18.4).
-
-18.2. Triggering an Overlay
+18.1. Triggering an Overlay
 ---------------------------
 
 Two purely declarative trigger mechanisms are available -- neither requires
 custom JavaScript.
 
-18.2.1. Button Action
+18.1.1. Button Action
 *********************
 
 Any ``Button``/``ButtonInternal`` object (see :ref:`systemobjects`) can
@@ -66,7 +41,7 @@ declare the ``openoverlay`` action, dispatched by
 
 This resolves to ``sysFactory.OverlayObj.activateOverlay(Attributes.ScreenID)``.
 
-18.2.2. Context Menu Item
+18.1.2. Context Menu Item
 *************************
 
 Any *x0-context-menu* item (``List``, ``FormfieldList``, or a custom object,
