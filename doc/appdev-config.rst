@@ -176,10 +176,10 @@ The relevant ``system.config`` parameters are:
 8.3. Server Configuration
 -------------------------
 
-``/config/app-config.json`` defines database authentication, virtual hosts
-and the *x0-applications* served per vhost. The full property reference for
-this file is documented in :ref:`appdeployment-kubernetes`; this section
-summarizes the parts relevant to day-to-day application development.
+The ``config/app-config.json`` file defines database authentication, virtual hosts,
+and the *x0-applications* served per vhost. While the full property reference for
+this file is documented in :ref:`appdeployment-kubernetes`, this section summarizes
+the parts relevant to day-to-day application development.
 
 .. important::
    Multi-virtual-host and multi-environment support requires a properly
