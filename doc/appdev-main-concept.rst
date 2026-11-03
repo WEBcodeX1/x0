@@ -6,7 +6,7 @@
 ===============
 
 The main concept behind the *x0-system* is a simple, declarative approach, where
-**three** core JSON arrays describe the entire object ecosystem from which a complete
+**three** core JSON structures describe the entire object ecosystem from which a complete
 *x0-application* is statically rendered.
 
 A single object definition inside this ecosystem (the object skeleton) utilizes
@@ -16,7 +16,7 @@ describes exactly one class instance configuration, which the system then uses f
 instantiation.
 
 Through the integration of so-called ``ServiceConnectors`` (which will be discussed later),
-this ecosystem can be fed with external data either at load-time or dynamically at run-time.
+this ecosystem can be fed with external data either at **load-time** or dynamically at **run-time**.
 
 7.1. Shadow DOM
 ---------------
@@ -46,10 +46,15 @@ the following files:
 -  **skeleton.json** — Defines how objects relate to one another and establishes screen references.
 -  **menu.json** — Contains a subset of *skeleton.json* specific to the "menu" screen, managing navigation structures.
 
-7.2.1. object.json
-******************
+Optionally, in the *x0-static* (completely serverless) system variant, multilingual text data
+must also be defined on a file basis:
 
-Each object in ``object.json`` is declared as:
+- **text-data.json** — Defines the multilingual text data utilized inside ``Text`` objects.
+
+7.2.1. Object Definition
+************************
+
+Each object in ``object.json`` is declared as follows:
 
 .. code-block:: json
 
@@ -60,29 +65,80 @@ Each object in ``object.json`` is declared as:
      }
    }
 
--  ``$ObjectID`` is referenced from ``menu.json`` *or* ``skeleton.json``.
+-  Each individual object declaration must be assigned a unique ID via ``$ObjectID``.
+-  Each object declaration maps 1:1 to a single *x0-object* instance.
+-  The ``Attributes`` property must contain the metadata required for the specific *x0-object* type (see :ref:`systemobjects`).
+-  The ``$ObjectID`` is referenced from within ``skeleton.json`` *or* ``menu.json``.
 
-8.1.2. skeleton.json
-********************
+7.2.2. Skeleton Definition
+**************************
 
-Defines which screen each object belongs to, e.g.:
+Definitions inside ``skeleton.json`` serve multiple purposes:
+
+- Defining multiple *x0-screens* via a unique ``$ScreenID`` key in the root dictionary
+- Relating *x0-objects* to a defined screen / ``$ScreenID``
+- Cross-referencing *x0-objects* among themselves
+
+7.2.3. Screen Reference
+***********************
+
+To reference objects to a given *x0-screen* (e.g., with its ``$ScreenID`` set to ``Screen1``), **exactly one**
+object must be referenced by its ``RefID``.
 
 .. code-block:: json
 
    {
      "Screen1": [
-       { "Object1": { "RefID": "Screen1" } }
+       {
+         "Object1": {
+           "RefID": "Screen1"
+         }
+       }
      ]
    }
 
-7.4.3. menu.json
+- If a *x0-object* is **not connected** or connected to a **non-existent** screen, it will be ignored.
+- If multiple *x0-objects* are connected, the system's behavior is undefined.
+
+7.2.4. Object Reference
+***********************
+
+To reference objects among themselves inside ``skeleton.json``, the ``RefID``
+of the child object must point to the parent object.
+
+.. code-block:: json
+
+   {
+     "Screen1": [
+       {
+         "Object1": {
+           "RefID": "Screen1"
+         }
+       },
+       {
+         "Object2": {
+           "RefID": "Object1"
+         }
+       }
+     ]
+   }
+
+When configured this way, the resulting chain of objects forms a **plain** object
+**reference** without any logical consequences. However, consider the following:
+
+.. note::
+   Some *x0-object* **types** (e.g., ``ServiceConnector``) can be interposed
+   **within** this chained structure to extend the model with logical behavior
+   (which is defined inside the object's declarative configuration in ``object.json``).
+
+7.2.5. menu.json
 ****************
 
 Uses the same syntax as ``skeleton.json``, but the root ``RefID`` is always
 ``sysMenu`` (see :ref:`appdevconfig-contentareas`).
 
-7.5. Metadata ElementID
------------------------
+7.2.6 Skeleton ElementID
+************************
 
 Object elements (e.g. tabs within a tab container) are referenced via the
 ``ElementID`` property in ``skeleton.json``.
