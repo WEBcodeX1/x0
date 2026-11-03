@@ -2,7 +2,7 @@
 
 .. _appdevglobalcss:
 
-8. Global CSS Styling
+9. Global CSS Styling
 =====================
 
 The *x0-framework* seamlessly integrates with **Bootstrap 5.3** CSS while providing
@@ -15,14 +15,14 @@ and leverage them in *x0-metadata* (JSON) configurations.
    with custom *x0-css* provides clear **evidence to the contrary**. This approach
    empowers developers to build highly sophisticated, *individual* designs.
 
-8.1. Bootstrap CSS Integration
+9.1. Bootstrap CSS Integration
 ******************************
 
 The *x0-framework* comes with **Bootstrap 5.3** CSS pre-integrated, allowing you to use
 Bootstrap classes directly in your x0 object configurations through the ``Style`` 
 attribute in ``object.json`` files.
 
-8.1.1. Using Bootstrap Classes in JSON Metadata
+9.1.1. Using Bootstrap Classes in JSON Metadata
 -----------------------------------------------
 
 Bootstrap CSS classes can be applied to any *x0-system-object* that supports the
@@ -66,13 +66,13 @@ Common Bootstrap classes that work well with x0:
 	| Utilities         | rounded, shadow, float-start, text-center              |
 	+-------------------+--------------------------------------------------------+
 
-8.2. x0 Grid and Bootstrap Grid Integration
+9.2. x0 Grid and Bootstrap Grid Integration
 *******************************************
 
 The *x0-grid-system* works harmoniously with Bootstrap's grid classes to create
 powerful, responsive layouts.
 
-8.2.1. Combining x0 Grid with Bootstrap Classes
+9.2.1. Combining x0 Grid with Bootstrap Classes
 -----------------------------------------------
 
 When using *x0-grid* properties like ``RowStyle`` and ``ColStyle``, you can directly
@@ -95,7 +95,7 @@ This creates a responsive layout where:
 - Columns use Bootstrap's responsive grid (50%, 25%, 25% on medium screens)
 - Layout adapts automatically to different screen sizes
 
-8.2.2. Advanced Grid Combinations
+9.2.2. Advanced Grid Combinations
 ---------------------------------
 
 Complex layouts can be achieved by mixing *x0-grid* properties with Bootstrap utilities:
@@ -111,13 +111,13 @@ Complex layouts can be achieved by mixing *x0-grid* properties with Bootstrap ut
 		}
 	}
 
-8.3. Custom CSS Integration
+9.3. Custom CSS Integration
 ***************************
 
 For project-specific styling, x0 provides the ``/www/static/globalstyles.css`` file 
 where you can define custom CSS classes that complement Bootstrap styling.
 
-8.3.1. Using globalstyles.css
+9.3.1. Using globalstyles.css
 -----------------------------
 
 Custom styles in ``globalstyles.css`` can be applied alongside Bootstrap classes:
@@ -147,7 +147,7 @@ Custom styles in ``globalstyles.css`` can be applied alongside Bootstrap classes
 		background-color: #dc3545;
 	}
 
-8.3.2. Combining Custom and Bootstrap Classes
+9.3.2. Combining Custom and Bootstrap Classes
 ---------------------------------------------
 
 Mix custom classes with Bootstrap classes in your JSON configurations:
@@ -168,10 +168,10 @@ Mix custom classes with Bootstrap classes in your JSON configurations:
 		}
 	}
 
-8.4. CSS Best Practices with x0
+9.4. CSS Best Practices with x0
 *******************************
 
-8.4.1. Recommended Approach
+9.4.1. Recommended Approach
 ---------------------------
 
 1. **Bootstrap First**: Use Bootstrap classes for layout, spacing, and common UI patterns
@@ -179,7 +179,7 @@ Mix custom classes with Bootstrap classes in your JSON configurations:
 3. **Consistent Naming**: Use clear, descriptive class names in ``globalstyles.css``
 4. **Responsive Design**: Leverage Bootstrap's responsive utilities with custom styles
 
-8.4.2. Example Integration Pattern
+9.4.2. Example Integration Pattern
 ----------------------------------
 
 .. code-block:: javascript
