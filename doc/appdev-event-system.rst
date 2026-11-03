@@ -147,8 +147,8 @@ Following a button configuration:
 
 .. _appdevcontrolflow:
 
-16. FireEvent Control Flows
-===========================
+16. Event Control Flows
+=======================
 
 The following sub-chapters describe the logical control flow of the different object
 types and the order in which they are processed.
