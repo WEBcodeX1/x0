@@ -228,7 +228,11 @@ relevant ``Tab`` elements:
 7.3. Custom Extensions
 ----------------------
 
-Building custom extensions (your own programmed classes) requires strict adherence
-to the system's OOP model. The system developer section of the documentation
-describes both a) how to build and b) how to integrate these classes into the
-*x0-core*.
+Building **custom** *x0-extensions* (your own custom-coded classes) requires strict
+adherence to the system's OOP model. The developer section of this documentation
+describes both:
+
+- **How to build** these classes
+- **How to integrate** them into the *x0-core*
+
+Please ensure you are familiar with :ref:`devbestpractices` before you begin.
