@@ -49,7 +49,7 @@ the following files:
 Optionally, in the *x0-static* (completely serverless) system variant, multilingual text data
 must also be defined on a file basis:
 
-- **text-data.json** — Defines the multilingual text data for use with ``Text`` objects.
+- **text-data.json** — Defines the multilingual text data for use with *x0-objects* of type ``Text``.
 
 7.2.1. Object Definition
 ************************
@@ -98,7 +98,7 @@ object must be referenced by its ``RefID``.
    }
 
 - If a *x0-object* is **not connected** or connected to a **non-existent** screen, it will be ignored.
-- If multiple *x0-objects* are connected, the system's behavior is undefined.
+- If **multiple** *x0-objects* are connected, the system's behavior is undefined.
 
 7.2.4. Object Reference
 ***********************
@@ -131,22 +131,43 @@ When configured this way, the resulting chain of objects forms a **plain** objec
    **within** this chained structure to extend the model with logical behavior
    (which is defined inside the object's declarative configuration in ``object.json``).
 
-7.2.5. menu.json
-****************
+7.2.5. Menu Integration
+***********************
 
-Uses the same syntax as ``skeleton.json``, but the root ``RefID`` is always
-``sysMenu`` (see :ref:`appdevconfig-contentareas`).
+Building a menu structure is as easy as referencing objects inside ``skeleton.json``.
 
-7.2.6 Skeleton ElementID
-************************
+To see how x0 content areas are set up, refer to :ref:`appdevconfig-contentareas`.
+Any *x0-object* type can be used inside the menu content area.
 
-Object elements (e.g. tabs within a tab container) are referenced via the
-``ElementID`` property in ``skeleton.json``.
+The only difference in ``menu.json`` is that the menu content area uses a statically defined
+``$ScreenID`` named ``sysMenu``. Therefore, screen-referencing objects must always use
+``"RefID": "sysMenu"``.
 
-Example: Tab Container
-**********************
+.. code-block:: json
 
-**object.json**
+  [
+    {
+      "x0Logo":
+      {
+        "RefID": "sysMenu"
+      }
+    },
+    {
+      "MenuTree":
+      {
+         "RefID": "sysMenu"
+      }
+    }
+  ]
+
+7.2.6. Skeleton ElementID
+*************************
+
+When a *x0-object* serves as a container that yields multiple referenceable objects
+(e.g., a ``TabContainer``), the ``ElementID`` must be provided in addition to a valid ``RefID``.
+
+Example configuration in ``object.json`` for a *x0-object* of type ``TabContainer`` and
+two ``RangeSlider`` objects ready to be connected to the tab container's tabs:
 
 .. code-block:: json
 
@@ -155,29 +176,59 @@ Example: Tab Container
        "Type": "TabContainer",
        "Attributes": {
          "Tabs": [
-           { "ID": "Tab1", "Default": true, "TextID": "TXT.BASIC-TABCONTAINER.TAB1", "Style": "col-md-4" },
-           { "ID": "Tab2", "TextID": "TXT.BASIC-TABCONTAINER.TAB2", "Style": "col-md-8" }
+           { "ID": "Tab1", "Default": true, "TextID": "TXT.BASIC-TABCONTAINER.TAB1", "Style": "col-md-6" },
+           { "ID": "Tab2", "TextID": "TXT.BASIC-TABCONTAINER.TAB2", "Style": "col-md-6" }
          ]
+       }
+     },
+     "Object1": {
+       "Type": "RangeSlider",
+       "Attributes": {
+         "Min": 0,
+         "Max": 100
+       }
+     },
+     "Object2": {
+       "Type": "RangeSlider",
+       "Attributes": {
+         "Min": 0,
+         "Max": 100
        }
      }
    }
 
-**skeleton.json**
+The following configuration in ``skeleton.json`` uses the ``ElementID`` to finally
+connect a) the ``TabContainer`` to ``Screen1`` and b) ``Object1`` and ``Object2`` to the
+relevant ``Tab`` elements:
 
 .. code-block:: json
 
    {
      "Screen1": [
-       { "TabContainer1": { "RefID": "Screen1" } },
-       { "Text1": { "RefID": "TabContainer1", "ElementID": "Tab1" } },
-       { "Text2": { "RefID": "TabContainer1", "ElementID": "Tab2" } }
+       {
+         "TabContainer1": {
+           "RefID": "Screen1"
+         }
+       },
+       {
+         "Object1": {
+           "RefID": "TabContainer1",
+           "ElementID": "Tab1"
+         }
+       },
+       {
+         "Object2": {
+           "RefID": "TabContainer1",
+           "ElementID": "Tab2"
+         }
+       }
      ]
    }
 
-7.6. Object Templates
----------------------
+7.3. Custom Extensions
+----------------------
 
--  Custom object templates are registered via the ``template_file`` and
-   ``setup_class`` configuration parameters in the database.
--  ``.js`` template files are placed under ``/static``.
--  See :ref:`devobjectmodeling` for the underlying object model.
+Building custom extensions (your own programmed classes) requires strict adherence
+to the system's OOP model. The system developer section of the documentation
+describes both a) how to build and b) how to integrate these classes into the
+*x0-core*.
