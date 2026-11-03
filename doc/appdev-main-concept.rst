@@ -49,7 +49,7 @@ the following files:
 Optionally, in the *x0-static* (completely serverless) system variant, multilingual text data
 must also be defined on a file basis:
 
-- **text-data.json** — Defines the multilingual text data utilized inside ``Text`` objects.
+- **text-data.json** — Defines the multilingual text data for use with ``Text`` objects.
 
 7.2.1. Object Definition
 ************************
