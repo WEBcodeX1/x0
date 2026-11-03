@@ -18,6 +18,7 @@ x0 Framework Documentation
    :maxdepth: 2
    :caption: Application Development Guide
 
+   appdev-main-concept
    appdev-config
    appdev-global-css
    appdev-grid-system
