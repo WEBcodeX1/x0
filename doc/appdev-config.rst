@@ -173,8 +173,8 @@ The relevant ``system.config`` parameters are:
 
 .. _appdevconfig-serverconfig:
 
-8.3. Application Server Config (``app-config.json``)
-----------------------------------------------------
+8.3. Server Configuration
+-------------------------
 
 ``/config/app-config.json`` defines database authentication, virtual hosts
 and the *x0-applications* served per vhost. The full property reference for
