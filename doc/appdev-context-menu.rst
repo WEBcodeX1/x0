@@ -19,18 +19,66 @@ especially since operating systems like Windows or Linux handle clipboard data w
 limited (and often insecure) approach. The *x0-context-menu* is built for next-generation
 applications—object-oriented and easily extensible.
 
-13.1. Supported System Objects
-------------------------------
+13.1. Declarative Config
+------------------------
 
-The following listed *x0-system-objects* support native context menu configuration via its
-related JSONConfig.Attributes in ``object.json``:
+The following out-of-the-box, predefined *x0-objects* support the activation and control
+of context-menu behavior via **static declarative** configuration in ``object.json``.
+
+This configuration is **generic**; all subsequent object types use the same structure. The
+only difference is the specific **position** where the configuration must be placed.
+
+13.1.1. Generic Config
+**********************
+
+The following properties are mandatory for any context menu item setup.
+
+.. table:: Global Context Menu Property Definition
+   :widths: 20 20 60
+
+   +---------------+--------------------------+---------------------------------------------------------------------------------+
+   | Property      | Type                     | Description                                                                     |
+   +===============+==========================+=================================================================================+
+   | ID            | Unique String Identifier | Unique context menu item identifier.                                            |
+   +---------------+--------------------------+---------------------------------------------------------------------------------+
+   | TextID        | Valid system TextID      | Display TextID with multi-language support.                                     |
+   +---------------+--------------------------+---------------------------------------------------------------------------------+
+   | IconStyle     | Font Awesome Icon CSS    | Display icon (CSS style).                                                       |
+   +---------------+--------------------------+---------------------------------------------------------------------------------+
+
+A generic example configuration for three context menu items looks like this:
+
+.. code-block:: javascript
+
+   const contextMenuItems = [
+     {
+       "ID": "EnableEditMode",
+       "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.EDIT_DATA",
+       "IconStyle": "fa-solid fa-edit"
+     },
+     {
+       "ID": "RemoveItem",
+       "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_DATA",
+       "IconStyle": "fa-solid fa-trash"
+     },
+     {
+       "ID": "DisableEditMode",
+       "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.SAVE_DATA",
+       "IconStyle": "fa-solid fa-floppy-disk"
+     }
+   ];
+
+13.1.2. Supported Object Types
+******************************
 
 - List (Header)
 - List (Row)
 - FormfieldList
 - DynRadioList
 
-13.1.1. List Header
+A context-menus programmatic
+
+13.1.3. List Header
 *******************
 
 13.1.2. List Row
@@ -56,17 +104,17 @@ context menu's ``ParentObject`` via the global ``FunctionDispatcher``
 (``/www/sysFunctionDispatcher.js``).
 
 .. table:: Implemented InternalFunction Values
-	:widths: 16 55 70
+  :widths: 16 55 70
 
-	+-----------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------+
-	| **Value**       | **Dispatched Call**                                    | **Description**                                                                            |
-	+=================+========================================================+============================================================================================+
-	| get-data        | ``ObjectRef.getObjectData()``                          | Reads data into ``sysFactory.ClipboardData``, see :ref:`devoopmodel-classes-getobjectdata` |
-	+-----------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------+
-	| set-data        | ``ObjectRef.setObjectData(ClipboardData)``             | Writes ``sysFactory.ClipboardData`` back into the object                                   |
-	+-----------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------+
-	| get-set-data    | ``DstObject.setObjectData(ObjectRef.getObjectData())`` | Copies data directly to ``DstObjectID``, no clipboard involved                             |
-	+-----------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------+
+  +-----------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------+
+  | **Value**       | **Dispatched Call**                                    | **Description**                                                                            |
+  +=================+========================================================+============================================================================================+
+  | get-data        | ``ObjectRef.getObjectData()``                          | Reads data into ``sysFactory.ClipboardData``, see :ref:`devoopmodel-classes-getobjectdata` |
+  +-----------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------+
+  | set-data        | ``ObjectRef.setObjectData(ClipboardData)``             | Writes ``sysFactory.ClipboardData`` back into the object                                   |
+  +-----------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------+
+  | get-set-data    | ``DstObject.setObjectData(ObjectRef.getObjectData())`` | Copies data directly to ``DstObjectID``, no clipboard involved                             |
+  +-----------------+--------------------------------------------------------+--------------------------------------------------------------------------------------------+
 
 ``get-set-data`` additionally requires a ``DstObjectID`` entry on the same
 ``ItemConfig`` item, resolved via ``sysFactory.getObjectByID()``.
@@ -97,9 +145,8 @@ Setting ``FireEvents`` to an array of EventIDs fires the referenced
 :ref:`appdeveventsystem`), allowing a context menu action to notify arbitrary,
 unrelated *x0-system-objects* without a direct object reference.
 
-13.5. Declarative Config
-------------------------
 
-13.6. Programmatic Integration
+13.5. Programmatic Integration
 ------------------------------
 
+Programmatic
