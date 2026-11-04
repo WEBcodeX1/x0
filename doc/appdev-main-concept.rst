@@ -37,10 +37,26 @@ inheritance mechanism, which references inherited data memory only once. Consequ
 instantiating 10,000 object structures results in an exceptionally low memory and
 performance footprint.
 
-7.2. Metadata & Object Model
+7.2. Data Abstraction
+---------------------
+
+The smart data abstraction model of the *x0-system* allows for direct communication with
+modern NoSQL systems (for both input and output data flows).
+
+For **input data** (backend to x0-system), the x0-system acts as an Object-Data Mapper (ODM),
+directly transforming structured JSON into well-structured, nested UI elements (JSON-to-class mapping).
+Conversely, hierarchical **output data** can be passed directly to a JSON backend like MongoDB.
+
+This eliminates expensive middleware processing and data transformation pipelines, keeping
+your infrastructure clean and well-structured.
+
+.. important::
+   A 100% generic approach is currently in development and will be shipped with x0 version 1.2.
+
+7.3. Metadata & Object Model
 ----------------------------
 
-**One** *x0-application* is defined through a declarative, JSON-driven metadata model inside
+A **single** *x0-application* is defined through a declarative, JSON-driven metadata model inside
 the following files:
 
 -  **object.json** — Defines all *x0-system-objects*, including their attributes and metadata.
@@ -52,7 +68,7 @@ must also be defined on a file basis:
 
 - **text-data.json** — Defines the multilingual text data for use with *x0-objects* of type ``Text``.
 
-7.2.1. Object Definition
+7.3.1. Object Definition
 ************************
 
 Each object in ``object.json`` is declared as follows:
@@ -71,7 +87,7 @@ Each object in ``object.json`` is declared as follows:
 -  The ``Attributes`` property must contain the metadata required for the specific *x0-object* type (see :ref:`systemobjects`).
 -  The ``$ObjectID`` is referenced from within ``skeleton.json`` *or* ``menu.json``.
 
-7.2.2. Skeleton Definition
+7.3.2. Skeleton Definition
 **************************
 
 Definitions inside ``skeleton.json`` serve multiple purposes:
@@ -80,7 +96,7 @@ Definitions inside ``skeleton.json`` serve multiple purposes:
 - Relating *x0-objects* to a defined screen / ``$ScreenID``
 - Cross-referencing *x0-objects* among themselves
 
-7.2.3. Screen Reference
+7.3.3. Screen Reference
 ***********************
 
 To reference objects to a given *x0-screen* (e.g., with its ``$ScreenID`` set to ``Screen1``), **exactly one**
@@ -101,7 +117,7 @@ object must be referenced by its ``RefID``.
 - If a *x0-object* is **not connected** or connected to a **non-existent** screen, it will be ignored.
 - If **multiple** *x0-objects* are connected, the system's behavior is undefined.
 
-7.2.4. Object Reference
+7.3.4. Object Reference
 ***********************
 
 To reference objects among themselves inside ``skeleton.json``, the ``RefID``
@@ -132,7 +148,7 @@ When configured this way, the resulting chain of objects forms a **plain** objec
    **within** this chained structure to extend the model with logical behavior
    (which is defined inside the object's declarative configuration in ``object.json``).
 
-7.2.5. Menu Integration
+7.3.5. Menu Integration
 ***********************
 
 Building a menu structure is as easy as referencing objects inside ``skeleton.json``.
@@ -161,7 +177,7 @@ The only difference in ``menu.json`` is that the menu content area uses a static
     }
   ]
 
-7.2.6. Skeleton ElementID
+7.3.6. Skeleton ElementID
 *************************
 
 When a *x0-object* serves as a container that yields multiple referenceable objects
@@ -226,7 +242,7 @@ relevant ``Tab`` elements:
      ]
    }
 
-7.3. Custom Extensions
+7.4. Custom Extensions
 ----------------------
 
 Building **custom** *x0-extensions* (your own custom-coded classes) requires strict
