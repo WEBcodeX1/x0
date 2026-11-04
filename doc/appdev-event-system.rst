@@ -46,7 +46,8 @@ b) how the **Programmatic Implementation** (in custom setup *x0-objects*) works.
 A backend configuration must always contain the ``ServiceCall`` property, which specifies
 the service URL. The network request is executed by the *x0-system-call* ``sysCallXMLRPC()``.
 The **request-type** is always **POST**, and the HTTP request POST payload can additionally be
-configured to contain dynamic JSON system data.
+configured using the internyl x0 ``SourceDataObjects`` mechanism to smartly enhance the JSON
+structures sent to backend systems.
 
 The following example demonstrates a working setup using a ``FormfieldList`` object as the
 producer type; however, any *x0-producer-type* can be used (see 15.4.).
@@ -147,8 +148,101 @@ Following a button configuration:
 
 .. _appdevcontrolflow:
 
-16. Event Control Flows
-=======================
+
+
+
+14.3. Source Data Objects
+-------------------------
+
+*x0-source-data-objects* feature is a very smart way to control **which** data will be
+sent to the backend.
+
+Just reference multiple *x0-system-objects* and its realtime data will be sent to
+the backend service.
+
+The following sub-chapters describe how to use SrcDataObjects JSON format in detail.
+
+.. note::
+
+    *x0-source-data-objects* are not only usable in combination with
+   service connector, also buttons support the feature.
+
+14.3.1. Global Objects Array
+****************************
+
+.. code-block:: javascript
+
+   "SrcDataObjects":
+   [
+      "ObjectID1",
+      "ObjectID2",
+      "ObjectID3"
+   ]
+
+14.3.2. Hardcoded Values
+************************
+
+.. code-block:: javascript
+
+   "SrcDataObjects":
+   {
+      "Dummy":
+      {
+         "Type": "HardcodedValues",
+         "Values": {
+            "LimitRows": 20
+         }
+      }
+   }
+
+14.3.3. Global Object
+*********************
+
+.. code-block:: javascript
+
+   "SrcDataObjects":
+   {
+      "$ObjectID":
+      {
+         "Type": "GlobalObject"
+      }
+   }
+
+14.3.4. Chaining Object Types
+*****************************
+
+.. code-block:: javascript
+
+   "SrcDataObjects":
+   {
+      "$ObjectID":
+      {
+         "Type": "GlobalObject"
+      },
+      "Dummy":
+      {
+         "Type": "HardcodedValues",
+         "Values": {
+            "LimitRows": 10
+         }
+      }
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+16. Actions
+===========
+
+*x0-actions*
 
 The following sub-chapters describe the logical control flow of the different object
 types and the order in which they are processed.
