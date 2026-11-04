@@ -11,12 +11,12 @@ The main concept behind the *x0-system* is a simple, declarative approach, where
 
 Object definitions inside this ecosystem utilize predefined *x0-system-classes*
 (JavaScript classes) that follow a strict, system-defined OOP model. When properly
-configured, a single JSON object declaration inside **1.** `object.json` describes exactly
+configured, a single JSON object declaration inside **1.** ``object.json`` describes exactly
 one class instance configuration, which the system then uses for instantiation, while
-**2.** `skeleton.json` defines general object relations, and **3.** `menu.json` defines
+**2.** ``skeleton.json`` defines general object relations, and **3.** ``menu.json`` defines
 relations specific to menu purposes.
 
-Through the integration of so-called `ServiceConnectors` (which will be discussed later),
+Through the integration of so-called ``ServiceConnectors`` (which will be discussed later),
 this ecosystem can be fed with external data either at **load-time** or dynamically at **run-time**.
 
 7.1. Shadow DOM
