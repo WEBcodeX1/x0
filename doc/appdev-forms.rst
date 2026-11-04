@@ -5,31 +5,27 @@
 17. Forms
 =========
 
-Form architecture within the *x0-system* utilizes a highly adaptable, object-oriented
-ecosystem structured around two primary developmental methodologies. These paradigms
-may be deployed in isolation or seamlessly coalesced within a hybrid implementation layer:
+Form layout in todays web-applications is extreme important, the x0-ecosystem includes
+multiple methods to produce awesome user experiences.
 
-* **Container-Driven Topologies (Declarative):** This methodology leverages monolithic
-  container abstractions, exemplified by the ``FormfieldList`` *x0-system-object* type,
-  which natively encapsulates structural grid-formatting matrices and automated group-validation
-  lifecycles directly at the metadata and configuration layer within ``object.json``.
+* **Declarative (Container-Driven):** This approach uses dedicated container objects,
+  such as the ``FormfieldList`` *x0-system-object* type. It handles structural layout
+  grids and automated group validation directly through configuration within ``object.json``.
 
-* **Component-Driven Topologies (Programmatic):** This approach utilizes granular, standalone
-  *x0-system-object* types derived from ``sysObjFormfieldItem.js``. These primitive inputs are
-  engineered to operate either as autonomous entities or as tightly coupled child nodes embedded
-  within a parent container hierarchy.
+* **Programmatic (Component-Driven):** This approach uses granular, standalone
+  *x0-system-object* types derived from ``sysObjFormfieldItem.js``. These input fields
+  can operate either as autonomous entities or as child nodes embedded within a parent
+  container hierarchy.
 
-Both architectural frameworks remain fully interoperable; high-level structural components,
-including ``FormfieldList``, ``FormfieldText``, or any other ``FormfieldItem`` variation, can
-be dynamically instantiated at runtime, configured, and orchestrated programmatically inside
-a custom-engineered *x0-component*.
+What exactly does that mean? In which situation
+
 
 17.1. FormfieldList
 -------------------
 
-The ``FormfieldList`` *x0-object-type* is the central container of the forms
-subsystem. It fulfils a dual role, acting simultaneously as a *x0-form*
-management facility and as a generic *x0-object-container*:
+The ``FormfieldList`` *x0-object-type* is a *x0-container*.
+It fulfils a dual role, acting simultaneously as a *x0-form* management
+facility and as a generic *x0-object-container*:
 
 * Renders a HTML5 conformant ``<form>`` element as its enclosing DOM node.
 * Groups an arbitrary, declaratively referenced set of *x0-form-object-types*
