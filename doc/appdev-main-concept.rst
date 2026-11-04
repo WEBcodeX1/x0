@@ -9,13 +9,14 @@ The main concept behind the *x0-system* is a simple, declarative approach, where
 **three** core JSON structures describe the entire object ecosystem from which a complete
 *x0-application* is statically rendered.
 
-A single object definition inside this ecosystem (the object skeleton) utilizes
-pre-existing *x0-system-classes* (JavaScript classes) that follow a strict, system-defined
-OOP model. When properly configured, a single JSON object declaration inside ``object.json``
-describes exactly one class instance configuration, which the system then uses for
-instantiation.
+Object definitions inside this ecosystem utilize predefined *x0-system-classes*
+(JavaScript classes) that follow a strict, system-defined OOP model. When properly
+configured, a single JSON object declaration inside **1.** `object.json` describes exactly
+one class instance configuration, which the system then uses for instantiation, while
+**2.** `skeleton.json` defines general object relations, and **3.** `menu.json` defines
+relations specific to menu purposes.
 
-Through the integration of so-called ``ServiceConnectors`` (which will be discussed later),
+Through the integration of so-called `ServiceConnectors` (which will be discussed later),
 this ecosystem can be fed with external data either at **load-time** or dynamically at **run-time**.
 
 7.1. Shadow DOM
@@ -236,3 +237,12 @@ describes both:
 - **How to integrate** them into the *x0-core*
 
 Please ensure you are familiar with :ref:`devbestpractices` before you begin.
+
+.. tip::
+   The *x0-system* only unlocks its **full potential** when building own custom user-defined
+   extensions (*x0-user-objects*). This innovative, OOP-based templating is extremely powerful,
+   especially for complex, nested, and interdependent elements.
+
+.. important::
+   This methodology makes it possible to build flexible, extensible, templatable,
+   and highly maintainable ecosystems in large-scale environments.
