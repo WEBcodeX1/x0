@@ -234,18 +234,18 @@ Without table header the resulting output looks like the following.
 ***************************
 
 While the previous sections describe `sysGridGenerator` as the mechanism used to lay
-out a grid during the initial build of a screen, the grid system is **not** limited to
-being a static, load-time-only layout tool. Because `sysGridGenerator.generate()` is a
-plain, side-effect-free method operating on an in-memory array of source objects, it can
-be invoked repeatedly at runtime, allowing an already rendered grid to be torn down and
-rebuilt with different row/column styles, enclosure counts or source data at any point
-during the application's lifetime.
+out a grid during the initial build of a screen, the grid system is **not** limited
+to being a static, load-time-only layout tool. Because `sysGridGenerator.generate()`
+is a plain method operating on an in-memory array of source objects, it can be invoked
+repeatedly at runtime, allowing an already rendered grid to be torn down and rebuilt with
+different row/column styles, enclosure counts or source data at any point during the
+application's lifetime.
 
 10.5.1. Empirical Proof
 -----------------------
 
 This dynamic restructuring is demonstrated by `sysObjSystemSettingsContainerGrid`,
-which can be inspected live in the static reference container under Main Menu →
+which can be inspected live in the **static reference container** under Main Menu →
 *Settings* / *Global Settings* → Tab: *Default Settings* → Subsection: *Adjust Grid
 / Column View*.
 
