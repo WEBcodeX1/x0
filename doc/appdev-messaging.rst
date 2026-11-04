@@ -35,35 +35,36 @@ that handles message routing, session management, and delivery between connected
 The messaging system consists of three main components:
 
 20.2.1. Client-Side Components
-##############################
+******************************
 
 * **sysAsyncNotifyMsgHandler**: JavaScript client that manages message polling and processing
 * **sysXMLRPCRequest**: Handles HTTP communication with the messaging server
 * **Session Management**: Tracks user sessions and message routing
 
 20.2.2. Messaging Server
-########################
+************************
 
 * **MsgHandler.py**: WSGI application handling HTTP requests from clients
 * **MessagingServer.py**: Core message processing and routing logic
 * **Unix Socket Communication**: Internal communication between components
 
 20.2.3. Communication Flow
-##########################
+**************************
 
 .. code-block:: text
 
-    Client A                 Messaging Server            Client B
-       |                          |                         |
-       |-- POST message data ---->|                         |
-       |                          |-- store message ------->|
-       |<-- confirmation ---------|                         |
-       |                          |<-- GET polling request--|
-       |                          |-- return messages ----->|
-       |                          |-- delete messages ----->|
+    Client A                 Messaging Server               Client B
+       |                            |                            |
+       |-- POST message data ------>|                            |
+       |                            |<-- GET polling request ----|
+       |                            |--- return message(s) ----->|
+       |                            |                            |
+       |                            |<-- POST message data ------|
+       |--- GET polling request --->|                            |
+       |<-- return message(s) ------|                            |
 
 20.2.4. Technical Implementation
-################################
+********************************
 
 The system uses HTTP long-polling with a 10-second timeout for real-time communication.
 Messages are temporarily stored in memory and delivered to destination sessions through
@@ -78,14 +79,14 @@ continuous polling requests.
 -----------------------------
 
 20.3.1. Prerequisites
-#####################
+*********************
 
 * Docker environment
 * *x0-app* container running
 * Network connectivity between containers
 
 20.3.2. Server Installation
-###########################
+***************************
 
 Download and start the messaging server:
 
@@ -102,7 +103,7 @@ Download and start the messaging server:
     ./x0-start-msg-server.sh
 
 20.3.3. Network Configuration
-#############################
+*****************************
 
 Configure DNS resolution for the messaging server:
 
@@ -120,7 +121,7 @@ Configure DNS resolution for the messaging server:
 -------------------
 
 20.4.1. Server Configuration
-############################
+****************************
 
 The messaging server configuration is defined in the Docker container:
 
@@ -137,8 +138,11 @@ The messaging server configuration is defined in the Docker container:
         }
     }
 
-20.4.2. Client Configuration
-############################
+20.4.2. Server CORS
+*******************
+
+20.4.3. Client Configuration
+****************************
 
 Configure the messaging client in your *x0-application*:
 
@@ -154,14 +158,14 @@ Configure the messaging client in your *x0-application*:
 ----------------------------
 
 20.5.1. Basic Usage
-###################
+*******************
 
 The messaging system is demonstrated in Example #10:
 
 **URL:** http://x0-app.x0.localnet/python/Index.py?appid=example10
 
 20.5.2. Testing Procedure
-#########################
+*************************
 
 1. Open the example URL in two separate browser tabs
 2. Reload both tabs until different User IDs are displayed
@@ -171,7 +175,7 @@ The messaging system is demonstrated in Example #10:
 6. Observe real-time data transfer and notification display
 
 20.5.3. Current Implementation Status
-#####################################
+*************************************
 
 .. note::
 
