@@ -41,8 +41,8 @@ inside your custom *x0-objects*.
    menus: **one** on the **source object** with a **get-data** item configuration, and **another**
    on the **destination object** with a **set-data** item configuration.
 
-13.2. Global Config
--------------------
+13.2. Global Declaration
+------------------------
 
 The following properties are mandatory for any context menu item setup.
 
