@@ -11,10 +11,10 @@
 *x0-events* are handled internally by the **x0::Reactor** component (``sysReactor.js``).
 This mechanism processes the following subtypes in a generic way:
 
-* **Backend-Related Event Processing:** An event execution triggers a remote service
+- **Backend-Related Event Processing:** An event execution triggers a remote service
   call, bridging the event system to the backend via a ``ServiceConnector``.
 
-* **Internal Event Processing:** An event execution triggers a
+- **Internal Event Processing:** An event execution triggers a
   purely client-side reaction without any network request.
 
 .. image:: images/x0-event-system.png
@@ -158,8 +158,8 @@ producer object triggers the **CustomEvent2** event (e.g., via a button click).
       ]
    }
 
-15.3.5. Callback Data Schema
-----------------------------
+15.3.5. Callback Data
+---------------------
 
 Currently, it remains unclear how a) the data from the backend must be structured,
 and b) how this data will be mapped to individual form fields inside the FormfieldList
@@ -181,17 +181,39 @@ rerendered. However, if it receives a single-row update, only the existing DOM c
 values are updated. Consequently, a ``FormfieldList`` typically only needs to update
 the existing DOM without triggering a full redraw.
 
+Valid ``FormfieldList`` schema:
+
+.. code-block:: javascript
+
+   { "FormField1": "Value1", "FormField2": "Value2", "FormField3": "Value3" }
+
+Valid ``List`` (multiple rows) schema:
+
+.. code-block:: javascript
+
+   [
+      { "RowColumn1": "Value1", "RowColumn2": "Value2", "RowColumn3": "Value3" },
+      { "RowColumn1": "Value4", "RowColumn2": "Value5", "RowColumn3": "Value6" },
+      { "RowColumn1": "Value7", "RowColumn2": "Value8", "RowColumn3": "Value9" }
+   ]
+
+.. important::
+   Currently, most object types handle data within their callback routines using hardcoded
+   logic after it is fetched from backend services. The recommended approach is to process
+   this data transparently using ``setObjectData()``. A generic handler for this mechanism
+   is scheduled for the x0 release, version 1.2.
+
 15.4. System Producer Types
 ---------------------------
 
 The following *x0-object-types* can trigger events. For detailed information on
 their configuration, please refer to the documentation under :ref:`systemobjects`.
 
-- Button
-- ButtonInternal
-- Tab
-- FormfieldOnChange
-- ContextMenu
+- ``Button``
+- ``ButtonInternal``
+- ``Tab``
+- ``FormfieldOnChange``
+- ``ContextMenu``
 
 15.5. Built-in System Events
 ----------------------------
@@ -199,34 +221,105 @@ their configuration, please refer to the documentation under :ref:`systemobjects
 Two *x0-system-events* are dispatched automatically by the engine and require no
 explicit "fire" configuration anywhere -- any object may register for them:
 
-    - ``InitSystem``: dispatched exactly once by ``sysFactory.init()`` after every
-      screen has been built and the default screen has been switched to, signalling
-      that the application has reached its final running state.
+- ``InitSystem``: dispatched exactly once by ``sysFactory.init()`` after every
+  screen has been built and the default screen has been switched to, signalling
+  that the application has reached its final running state.
 
-    - ``SwitchScreen``: dispatched by ``sysFactory.switchScreen(ScreenID)`` every time
-      the active screen changes, using the destination ``ScreenID`` as the
-      ``EventSelector`` -- allowing a registration to react only to a specific screen
-      becoming active.
+- ``SwitchScreen``: dispatched by ``sysFactory.switchScreen(ScreenID)`` every time
+  the active screen changes, using the destination ``ScreenID`` as the
+  ``EventSelector`` -- allowing a registration to react only to a specific screen
+  becoming active.
 
 .. _appdevcontrolflow:
 
-14.3. Source Data Objects
+15.6. Source Data Objects
 -------------------------
 
-*x0-source-data-objects* feature is a very smart way to control **which** data will be
-sent to the backend.
+The *x0-source-data-objects* **x0::sysSourceObjectHandler** component
+(``sysSourceObjectHandler.js``) provides an efficient way to control which
+data is **additionally appended** to a backend service request. Specifically,
+it attaches this data to the **root** JSON metadata sent via asynchronous
+POST requests.
 
-Just reference multiple *x0-system-objects* and its realtime data will be sent to
-the backend service.
+Injecting data from a ``Formfield`` or ``FormfieldList`` is particularly useful
+for filtering. For example, you can pass a ``DateFrom`` and a ``DateTo`` form
+input value to filter the backend dataset between two specific dates.
 
-The following sub-chapters describe how to use SrcDataObjects JSON format in detail.
+The Source Data Objects mechanism is not limited to system objects; various other
+data sources can be used. These options are detailed in the following
+sub-chapters:
 
-.. note::
-   *x0-source-data-objects* are not only usable in combination with
-   service connector, also buttons support the feature.
+- Single System Objects
+- Multiple System Objects
+- Hardcoded Values
+- Global Variables
+- Global Screen Variables
 
-14.3.1. Global Objects Array
-****************************
+The configuration must be declaratively defined in the root of an object's
+``Attributes`` section. It will only be processed if it is correctly paired with
+a corresponding ``ServiceConnector`` setup.
+
+The following example shows a ``FormfieldList`` configuration with a single referenced
+object and three hardcoded values: "LimitRows", "DateFrom", and "DateTo":
+
+.. code-block:: javascript
+
+   "ReceiverObjectID":
+   {
+      "Type": "FormfieldList",
+      "Attributes":
+      {
+         "ObjectIDs": [
+            "FormfieldLabel1",
+            "Formfield1"
+         ],
+         "Style": "border rounded p-2",
+         "RowStyle": "row m-0 p1",
+         "RowAfterElements": 2,
+         "ColAfterElements": 1,
+         "ColStyle": [
+            "col-md-6",
+            "col-md-6"
+         ],
+         "SrcDataObjects":
+         {
+            "RefObject1":
+            {
+               "Type": "GlobalObject"
+            },
+            "Dummy":
+            {
+               "Type": "HardcodedValues",
+               "Values": {
+                  "LimitRows": 10,
+                  "DateFrom": "2024-01-12",
+                  "DateTo": "2025-01-12"
+               }
+            }
+         }
+      }
+   }
+
+15.6.1. Single Object
+*********************
+
+Use the ``GlobalObject`` SrcDataObject type to include hardcoded values in
+a backend request:
+
+.. code-block:: javascript
+
+   "SrcDataObjects":
+   {
+      "RefObject1":
+      {
+          "Type": "GlobalObject"
+      }
+   }
+
+15.6.2. Multiple Objects
+************************
+
+Reference multiple *x0-objects* easily by only applying an array of object ids:
 
 .. code-block:: javascript
 
@@ -237,8 +330,11 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
       "ObjectID3"
    ]
 
-14.3.2. Hardcoded Values
+15.6.3. Hardcoded Values
 ************************
+
+Use the ``HardcodedValues`` SrcDataObject type to include hardcoded values in
+a backend request:
 
 .. code-block:: javascript
 
@@ -253,8 +349,8 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
       }
    }
 
-14.3.3. GlobalVar
-*****************
+15.6.4. Global Variables
+************************
 
 Use the ``GlobalVar`` SrcDataObject type to include individual application-wide
 global variables in a backend request:
@@ -269,11 +365,8 @@ global variables in a backend request:
       }
    }
 
-The key ``MyGlobalKey`` is both the name under which the value is looked up in the
-global store and the key under which it is sent to the backend.
-
-14.3.4. ScreenGlobalVar
-***********************
+15.6.5. Global Screen Variables
+*******************************
 
 Use the ``ScreenGlobalVar`` SrcDataObject type to forward a screen-level variable
 to the backend. Specify the source screen with ``ScreenID``:
@@ -286,29 +379,6 @@ to the backend. Specify the source screen with ``ScreenID``:
       {
          "Type": "ScreenGlobalVar",
          "ScreenID": "Screen1"
-      }
-   }
-
-The value stored under ``MyScreenKey`` in ``Screen1``'s global store is sent to
-the backend under the same key name.
-
-14.3.5. Chaining Object Types
-*****************************
-
-.. code-block:: javascript
-
-   "SrcDataObjects":
-   {
-      "$ObjectID":
-      {
-         "Type": "GlobalObject"
-      },
-      "Dummy":
-      {
-         "Type": "HardcodedValues",
-         "Values": {
-            "LimitRows": 10
-         }
       }
    }
 
