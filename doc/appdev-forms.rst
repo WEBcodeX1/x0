@@ -7,16 +7,16 @@
 
 Providing forms for today's modern cloud applications is no longer the
 static process it was years ago. If your application does not supply real-time,
-modifiable forms—including content-based, reloading dynamic sub-content and specifically
-highlighted areas upon user errors—the user experience will be rated poorly. Many frameworks
+modifiable forms—including content-based, dynamically reloading sub-content and specifically
+highlighting areas upon user errors—the user experience will be rated poorly. Many frameworks
 remain far too data-centric (such as SAP), making them look like tax forms from 1992.
 Conversely, modern frameworks that rely too heavily on raw CSS and HTML5 often provide
 a poor data-driven model, which is also undesirable.
 
 The *x0-framework* combines these two worlds, providing an ultra-flexible, OOP-based
-form design suited for:
+design model with two distinct development approaches:
 
-- **Application Configuration:** Provides a **declarative-only** way to use pre-shipped,
+- **Declarative Configuration:** Provides a **declarative-only** way to use pre-shipped,
   form-optimized *x0-objects*, such as the ``FormfieldList`` *x0-object-type*. It handles
   structural layout grids and automated group validation directly through declarative
   configuration without any programming, all while maintaining complete flexibility.
@@ -25,6 +25,10 @@ form design suited for:
   *x0-system-objects*. Any declarative, pre-shipped object can also be used programmatically.
   For example, a single ``Formfield`` can be placed into other container objects, or multiple
   ``FormfieldList`` instances can be combined to create powerful, hierarchical UI elements.
+
+The following documentation focuses on approach 1 (**Declarative Configuration**). If you are
+interested in approach 2 (**Programmatic Development**) , please refer to the system developer
+documentation starting at :ref:`devarchitecture`.
 
 17.1. FormfieldList
 -------------------
