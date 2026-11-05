@@ -41,11 +41,11 @@ performance footprint.
 ---------------------
 
 The smart data abstraction model of the *x0-system* allows for direct communication with
-modern NoSQL systems (for both input and output data flows).
+modern NoSQL systems (for both **input** and **output** data flows).
 
 For **input data** (backend to x0-system), the x0-system acts as an Object-Data Mapper (ODM),
 directly transforming structured JSON into well-structured, nested UI elements (JSON-to-class mapping).
-Conversely, hierarchical **output data** can be passed directly to a JSON backend like MongoDB.
+Conversely, hierarchical **output data** can be passed unmodified to a JSON backend like MongoDB.
 
 This eliminates expensive middleware processing and data transformation pipelines, keeping
 your infrastructure clean and well-structured.
