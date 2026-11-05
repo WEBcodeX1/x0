@@ -8,7 +8,8 @@
 14.1 Introduction
 -----------------
 
-This chapter is about the global components the x0-system provides.
+This chapter covers the global architecture components provided by the *x0-system*.
+It outlines the following global sub-points:
 
 - Global Data Storage
 - Notify Indication
