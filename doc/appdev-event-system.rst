@@ -74,43 +74,118 @@ First we need to define the service properties inside ``object.json`` of type ``
       {
          "OnEvent":
          {
-            "Events": [ "InitSystem" ],
+            "Events": [ "InitSystem", "CustomEvent2" ],
             "ServiceCall": "/python/BackendService.py"
          }
       }
-   },
+   }
 
 15.3.2. Receiver Config
 -----------------------
 
-Afterwards a system supported object type must be added to ``object.json``, only after the next step
-has been carried out, the objects are referenced and work.
+Afterwards, a system-supported object type must be added to ``object.json``. Note
+that the configuration of two form fields has also been included to demonstrate a correct
+``FormfieldList`` setup.
+
+.. important::
+   Please note: The ``FormfieldList`` object will only receive data once these objects
+   are **connected** inside ``skeleton.json``, which is described in the next step (15.3.3).
 
 .. code-block:: javascript
 
-   "ProducerObjectID":
+   "ReceiverObjectID":
    {
       "Type": "FormfieldList",
       "Attributes":
       {
+         "ObjectIDs": [
+            "FormfieldLabel1",
+            "Formfield1"
+         ],
+         "Style": "border rounded p-2",
+         "RowStyle": "row m-0 p1",
+         "RowAfterElements": 2,
+         "ColAfterElements": 1,
+         "ColStyle": [
+            "col-md-6",
+            "col-md-6"
+         ]
       }
    },
+
+   "FormfieldLabel1":
+   {
+      "Type": "FormfieldLabel",
+      "Attributes": {
+         "Style": "p-1 w-100 text-primary-emphasis",
+         "IconStyle": "fa-solid fa-id-card",
+         "TextID": "TXT.FORMLABEL1"
+      }
+   },
+
+   "Formfield1":
+   {
+      "Type": "FormfieldText",
+      "Attributes": {
+         "Style": "form-control border-secondary m-1 p-2 w-100 text-primary-emphasis"
+      }
+   }
 
 15.3.3. Object Relation
 -----------------------
 
-Now, the step of referencing the objects in ``skeleton.json`` finally
+Finally, with the following setup in ``skeleton.json``, the receiver object receives
+data during system initialization / page load (the **InitSystem** event) **and** when another
+producer object triggers the **CustomEvent2** event (e.g., via a button click).
 
-15.3.4. Summary
----------------
+.. code-block:: javascript
+
+   {
+      "Screen1":
+      [
+         {
+            "ConnectorObjectID":
+            {
+               "RefID": "Screen1"
+            }
+         },
+         {
+            "ReceiverObjectID":
+            {
+               "RefID": "ConnectorObjectID"
+            }
+         }
+      ]
+   }
 
 15.3.5. Callback Data Schema
 ----------------------------
 
+Currently, it remains unclear how a) the data from the backend must be structured,
+and b) how this data will be mapped to individual form fields inside the FormfieldList
+or other *x0-object-types*.
+
+In detail, when a *x0-event* is received and the object is connected to the
+corresponding ``ServiceConnector``, an asynchronous ``sysXMLRPCRequest.js`` call is
+triggered. Upon successful data retrieval, the object instance's static method
+``callbackXMLRPCAsync()`` is invoked with the JSON data resulting from this service call.
+
+This JSON data must conform to the object's internal data schema. To provide a generic
+approach for most *x0-object-types*, this structure is a key/value-based object
+(for the ``FormfieldList`` type) or an array of multiple key/value-based objects
+(for the ``List`` type).
+
+Furthermore, the choice of the redraw algorithm is handled by the object itself. For
+example, when a ``List`` receives a list of updated rows, the entire object is
+rerendered. However, if it receives a single-row update, only the existing DOM column
+values are updated. Consequently, a ``FormfieldList`` typically only needs to update
+the existing DOM without triggering a full redraw.
+
 15.4. System Producer Types
 ---------------------------
 
-The following *x0-object-types* offer the possibility to fire events:
+The following *x0-object-types* can trigger events. For detailed information on
+their configuration, please refer to the documentation under :ref:`systemobjects`.
 
 - Button
 - ButtonInternal
@@ -132,9 +207,6 @@ explicit "fire" configuration anywhere -- any object may register for them:
       the active screen changes, using the destination ``ScreenID`` as the
       ``EventSelector`` -- allowing a registration to react only to a specific screen
       becoming active.
-
-
-
 
 .. _appdevcontrolflow:
 
