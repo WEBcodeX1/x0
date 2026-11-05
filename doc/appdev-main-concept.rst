@@ -275,5 +275,5 @@ Please ensure you are familiar with :ref:`devbestpractices` before you begin.
    especially for complex, nested, and interdependent elements.
 
 .. important::
-   This methodology makes it possible to build flexible, extensible, templatable,
-   and highly maintainable ecosystems in large-scale environments.
+   This methodology also makes it possible to integrate the *x0-system* as a highly maintainable
+   ecosystem in large-scale environments.
