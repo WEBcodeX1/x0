@@ -42,9 +42,6 @@ configurable DNS host / domain based Virtual Hosts and *x0-applications*.
 
 The kubernetes installer is located at ``/kubernetes/setup/Setup.py``.
 
-Regardless of developing *x0-base* or your own app (*x0-skeleton*), the first step
-to check if your application runs on GKE is starting the setup for Minikube.
-
 .. code-block:: javascript
 
 	{
