@@ -393,7 +393,34 @@ to the backend. Specify the source screen with ``ScreenID``:
 
 .. warning::
    They are a legacy feature and are planned to be merged into the generic
-   event system in x0 version 1.2.
+   function dispatcher / event system in x0 version 1.2.
+
+.. table:: Actions References
+   :widths: 10 30 60
+
+   +-----------------+----------------------------------+-----------------------------------------------------+
+   | Value           | Dispatched Internal Function     | Attributes                                          |
+   +=================+==================================+=====================================================+
+   | set             | ``setObjectData()``              | Using ``SrcDataObject`` and ``DstDataObject``.      |
+   +-----------------+----------------------------------+-----------------------------------------------------+
+   | enable          | ``setDOMVisibleState()``         | Using ``DstObjectID``.                              |
+   +-----------------+----------------------------------+-----------------------------------------------------+
+   | disable         | ``setDOMVisibleState()``         | Using ``DstObjectID``.                              |
+   +-----------------+----------------------------------+-----------------------------------------------------+
+   | activate        | ``setActivated()``               | Using ``DstObjectID``.                              |
+   +-----------------+----------------------------------+-----------------------------------------------------+
+   | deactivate      | ``setDeactivated()``             | Using ``DstObjectID``.                              |
+   +-----------------+----------------------------------+-----------------------------------------------------+
+   | reset           | ``reset()``                      | Using ``DstObjectID``.                              |
+   +-----------------+----------------------------------+-----------------------------------------------------+
+   | tabswitch       | ``switchTab()``                  | Using ``Tab`` and ``TabContainer``.                 |
+   +-----------------+----------------------------------+-----------------------------------------------------+
+   | switchscreen    | ``switchScreen()``               | Using ``DstScreenID``.                              |
+   +-----------------+----------------------------------+-----------------------------------------------------+
+   | setglobalvar    | ``setGlobalVar()``               | Using ``SetVar`` and ``SetValue``.                  |
+   +-----------------+----------------------------------+-----------------------------------------------------+
+   | openoverlay     | ``activateOverlay()``            | Using ``ScreenID``.                                 |
+   +-----------------+----------------------------------+-----------------------------------------------------+
 
 The following sub-chapters describe the logical control flow of the different object
 types and the order in which they are processed.
