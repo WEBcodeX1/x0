@@ -2,21 +2,20 @@
 
 .. _appdeveventsystem:
 
-15. Event-System
+15. Event System
 ================
 
-15.1. Intro
------------
+15.1. Introduction
+------------------
 
-*x0-events* are internally handled by the **x0::Reactor** component. This mechanism
-generically and transparently processes the following subtypes:
+*x0-events* are handled internally by the **x0::Reactor** component (``sysReactor.js``).
+This mechanism processes the following subtypes in a generic way:
 
-* **Backend-Related Event Processing:** an event registration triggers a remote service
+* **Backend-Related Event Processing:** An event execution triggers a remote service
   call, bridging the event system to the backend via a ``ServiceConnector``.
 
-* **Internal Event Processing:** an event registration triggers a
-  purely client-side reaction -- no network request is ever involved, and the full
-  round-trip executes synchronously within the browser.
+* **Internal Event Processing:** An event execution triggers a
+  purely client-side reaction without any network request.
 
 .. image:: images/x0-event-system.png
   :alt: image - event system
@@ -26,31 +25,40 @@ generically and transparently processes the following subtypes:
 
 An event exchange *always* involves an
 
-- **x0-event-producer** object and
+- **x0-event-producer** and
 - **x0-event-receiver** object.
 
 Regardless of the processing type, events are handled transparently. The sole exception
 applies to the backend-related method on the receiver object type: here, a ``ServiceConnector``
 configuration must be **bound** (referenced in ``skeleton.json``) to a pre-existing
 object definition inside ``object.json``. This design explicitly separates the configuration
-properties of the event-producer (direct ``JSONConfig``) from those of the event-receiver.
+properties of the event producer (direct ``JSONConfig``) from those of the event receiver.
 
-The following chapters document exactly how to complete this:
+The following chapters document the **Declarative Configuration** (for backend-related
+receivers). The **Programmatic Implementation** (for custom-setup *x0-objects*) can be
+found in the system developer's guide (see: ).
 
-a) **Declarative Configuration** (for backend related receiver) and
-b) how the **Programmatic Implementation** (in custom setup *x0-objects*) works.
+.. important::
+   The illustration above shows the *x0-object-type* ``List`` with the name **List1**,
+   which has two connected events: **InitSystem** and **BtnClick**. Whenever either event
+   is triggered, the list is populated (updated) with data from the **Backend.py** service
+   call.
 
-15.3. Backend-Related Receiver
-------------------------------
+15.3. Backend Data
+------------------
 
-A backend configuration must always contain the ``ServiceCall`` property, which specifies
-the service URL. The network request is executed by the *x0-system-call* ``sysCallXMLRPC()``.
-The **request-type** is always **POST**, and the HTTP request POST payload can additionally be
-configured using the internyl x0 ``SourceDataObjects`` mechanism to smartly enhance the JSON
-structures sent to backend systems.
+To populate an *x0-object* with data from an asynchronous backend service call, a
+special *x0-object* of type ``ServiceConnector`` is used.
+
+In addition to the ``Events`` array, a backend configuration must always contain the
+``ServiceCall`` property, which specifies the service URL. The network request is executed
+by the *x0-system-call* ``sysCallXMLRPC()``. The **request type** here is always **POST**,
+and the HTTP POST payload can be configured using the internal x0 ``SourceDataObjects``
+mechanism to smartly append structures (e.g., to provide filtering parameters) to the
+backend service calls.
 
 The following example demonstrates a working setup using a ``FormfieldList`` object as the
-producer type; however, any *x0-producer-type* can be used (see 15.4.).
+receiver type; however, any *x0-producer-type* can trigger events for it (see 15.4).
 
 15.3.1. ServiceConnector Config
 -------------------------------
@@ -102,7 +110,7 @@ Now, the step of referencing the objects in ``skeleton.json`` finally
 15.4. System Producer Types
 ---------------------------
 
-The following by FireEvents
+The following *x0-object-types* offer the possibility to fire events:
 
 - Button
 - ButtonInternal
@@ -127,29 +135,8 @@ explicit "fire" configuration anywhere -- any object may register for them:
 
 
 
-15.6. Programmatic Registration
--------------------------------
-
-Following a button configuration:
-
-.. code-block:: javascript
-
-   "OnEvent":
-   {
-     "Events": [
-       "CustomEventName",
-       {
-         "EventID": "SwitchScreen",
-         "EventSelector": "Screen1"
-       }
-     ]
-   }
-
 
 .. _appdevcontrolflow:
-
-
-
 
 14.3. Source Data Objects
 -------------------------
@@ -163,8 +150,7 @@ the backend service.
 The following sub-chapters describe how to use SrcDataObjects JSON format in detail.
 
 .. note::
-
-    *x0-source-data-objects* are not only usable in combination with
+   *x0-source-data-objects* are not only usable in combination with
    service connector, also buttons support the feature.
 
 14.3.1. Global Objects Array
@@ -195,20 +181,46 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
       }
    }
 
-14.3.3. Global Object
-*********************
+14.3.3. GlobalVar
+*****************
+
+Use the ``GlobalVar`` SrcDataObject type to include individual application-wide
+global variables in a backend request:
 
 .. code-block:: javascript
 
    "SrcDataObjects":
    {
-      "$ObjectID":
+      "MyGlobalKey":
       {
-         "Type": "GlobalObject"
+         "Type": "GlobalVar"
       }
    }
 
-14.3.4. Chaining Object Types
+The key ``MyGlobalKey`` is both the name under which the value is looked up in the
+global store and the key under which it is sent to the backend.
+
+14.3.4. ScreenGlobalVar
+***********************
+
+Use the ``ScreenGlobalVar`` SrcDataObject type to forward a screen-level variable
+to the backend. Specify the source screen with ``ScreenID``:
+
+.. code-block:: javascript
+
+   "SrcDataObjects":
+   {
+      "MyScreenKey":
+      {
+         "Type": "ScreenGlobalVar",
+         "ScreenID": "Screen1"
+      }
+   }
+
+The value stored under ``MyScreenKey`` in ``Screen1``'s global store is sent to
+the backend under the same key name.
+
+14.3.5. Chaining Object Types
 *****************************
 
 .. code-block:: javascript
@@ -228,26 +240,21 @@ The following sub-chapters describe how to use SrcDataObjects JSON format in det
       }
    }
 
-
-
-
-
-
-
-
-
-
-
+.. _appdevactions:
 
 16. Actions
 ===========
 
-*x0-actions*
+*x0-actions* are only valid for *x0-object-types* of the **button** kind.
+
+.. warning::
+   They are a legacy feature and are planned to be merged into the generic
+   event system in x0 version 1.2.
 
 The following sub-chapters describe the logical control flow of the different object
 types and the order in which they are processed.
 
-.. _appdevcontrolbutton:
+.. _appdevactionbutton:
 
 16.1. Button
 ------------
@@ -258,7 +265,7 @@ types and the order in which they are processed.
 * Execute OnResult Actions *after* **successful** Service Execution
 * Fire Events *after* **successful** Service Execution
 
-.. _appdevcontrolbuttoninternal:
+.. _appdevactionbuttoninternal:
 
 16.2. ButtonInternal
 --------------------
