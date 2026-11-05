@@ -14,6 +14,7 @@ This chapter is about the global components the x0-system provides.
 - Notify Indication
 - Get/Set Data Abstraction
 - Realtime Pagination System
+- Drag & Drop Integration
 
 14.2. Global Data Storage
 -------------------------
@@ -124,3 +125,8 @@ shown in the following example.
 -------------------------
 
 ## Add complete chapter including subchapters / describe the generic realtime pagination concept including examples / remark that also hierarical objects can be paginated
+
+14.6. Drag & Drop
+-----------------
+
+## Add a remark that drag&drop is prepared but finaly needs a 100% generic ``getObjectData()`` /  ``setObjectData()`` abstraction to work correctly, which hopefully will be provided in system version 1.2.
