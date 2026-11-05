@@ -37,23 +37,23 @@ More info at :ref:`appdevforms`.
 *************************
 
 .. table:: Object Type FormfieldList Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+------------------+-------------------+--------------------------------------------------+
-	| **Property**     | **Type**          | **Description**                                  |
-	+==================+===================+==================================================+
-	| ObjectIDs        | Array of Strings  | Formfield (or other form-capable) ObjectIDs      |
-	+------------------+-------------------+--------------------------------------------------+
-	| Style            | CSS-String        | CSS Style Classes, space separated               |
-	+------------------+-------------------+--------------------------------------------------+
-	| ErrorContainer   | String            | ObjectID of an :ref:`objecttype-errorcontainer`  |
-	+------------------+-------------------+--------------------------------------------------+
-	| ContextMenuItems | Array of Elements | Context Menu Items, see :ref:`appdevcontextmenu` |
-	+------------------+-------------------+--------------------------------------------------+
-	| GroupValidate    | Array of Elements | Array of Group Validate Elements, see 12.1.2     |
-	+------------------+-------------------+--------------------------------------------------+
-	| Disable          | Boolean           | Disables all contained Formfields on reset()     |
-	+------------------+-------------------+--------------------------------------------------+
+   +------------------+-------------------+--------------------------------------------------+
+   | **Property**     | **Type**          | **Description**                                  |
+   +==================+===================+==================================================+
+   | ObjectIDs        | Array of Strings  | Formfield (or other form-capable) ObjectIDs      |
+   +------------------+-------------------+--------------------------------------------------+
+   | Style            | CSS-String        | CSS Style Classes, space separated               |
+   +------------------+-------------------+--------------------------------------------------+
+   | ErrorContainer   | String            | ObjectID of an :ref:`objecttype-errorcontainer`  |
+   +------------------+-------------------+--------------------------------------------------+
+   | ContextMenuItems | Array of Elements | Context Menu Items, see :ref:`appdevcontextmenu` |
+   +------------------+-------------------+--------------------------------------------------+
+   | GroupValidate    | Array of Elements | Array of Group Validate Elements, see 12.1.2     |
+   +------------------+-------------------+--------------------------------------------------+
+   | Disable          | Boolean           | Disables all contained Formfields on reset()     |
+   +------------------+-------------------+--------------------------------------------------+
 
 ``ObjectIDs`` entries resolve against pre-defined object metadata and are
 instantiated recursively, consistent with the x0 pointer-based recursive object
@@ -67,27 +67,27 @@ Each element of ``GroupValidate`` dispatches a named group-validation function
 their individual ``ValidateRef`` checks.
 
 .. table:: FormfieldList GroupValidate Element Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+---------------------+------------------+---------------------------------------------+
-	| **Property**        | **Type**         | **Description**                             |
-	+=====================+==================+=============================================+
-	| FunctionRef         | String           | Name of the system Group Validate function  |
-	+---------------------+------------------+---------------------------------------------+
-	| ObjectIDs           | Array of Strings | ObjectIDs validated together by FunctionRef |
-	+---------------------+------------------+---------------------------------------------+
-	| ValidateErrorTextID | TextID-String    | TextID referenced in "webui.text" DB Table  |
-	+---------------------+------------------+---------------------------------------------+
+   +---------------------+------------------+---------------------------------------------+
+   | **Property**        | **Type**         | **Description**                             |
+   +=====================+==================+=============================================+
+   | FunctionRef         | String           | Name of the system Group Validate function  |
+   +---------------------+------------------+---------------------------------------------+
+   | ObjectIDs           | Array of Strings | ObjectIDs validated together by FunctionRef |
+   +---------------------+------------------+---------------------------------------------+
+   | ValidateErrorTextID | TextID-String    | TextID referenced in "webui.text" DB Table  |
+   +---------------------+------------------+---------------------------------------------+
 
 .. code-block:: javascript
 
-	"GroupValidate": [
-		{
-			"FunctionRef": "CheckItemsMatch",
-			"ObjectIDs": [ "PasswordNew", "PasswordRepeat" ],
-			"ValidateErrorTextID": "TXT.VALIDATE.PASSWORD-MISMATCH"
-		}
-	]
+   "GroupValidate": [
+      {
+         "FunctionRef": "CheckItemsMatch",
+         "ObjectIDs": [ "PasswordNew", "PasswordRepeat" ],
+         "ValidateErrorTextID": "TXT.VALIDATE.PASSWORD-MISMATCH"
+      }
+   ]
 
 12.1.3. Grid Attributes
 ***********************
@@ -104,37 +104,37 @@ of the static reference container, see :ref:`appdev-static-deployment`) shows a
 
 .. code-block:: javascript
 
-	"WorkerForm": {
-		"Type": "FormfieldList",
-		"Attributes": {
-			"ObjectIDs": [
-				"WorkerNameLabel", "WorkerName",
-				"WorkerSurenameLabel", "WorkerSurename",
-				"TeamGroupLabel", "TeamGroup",
-				"TeamPercentageMinLabel", "TeamPercentageMin",
-				"TeamPercentageMaxLabel", "TeamPercentageMax"
-			],
-			"ErrorContainer": "WorkerFormErrorContainer"
-		}
-	},
+   "WorkerForm": {
+      "Type": "FormfieldList",
+      "Attributes": {
+         "ObjectIDs": [
+            "WorkerNameLabel", "WorkerName",
+            "WorkerSurenameLabel", "WorkerSurename",
+            "TeamGroupLabel", "TeamGroup",
+            "TeamPercentageMinLabel", "TeamPercentageMin",
+            "TeamPercentageMaxLabel", "TeamPercentageMax"
+         ],
+         "ErrorContainer": "WorkerFormErrorContainer"
+      }
+   },
 
-	"WorkerName": {
-		"Type": "FormfieldText",
-		"Attributes": {
-			"Style": "form-control border-secondary m-1 p-2 w-100"
-		}
-	},
+   "WorkerName": {
+      "Type": "FormfieldText",
+      "Attributes": {
+         "Style": "form-control border-secondary m-1 p-2 w-100"
+      }
+   },
 
-	"TeamGroup": {
-		"Type": "FormfieldPulldown",
-		"Attributes": {
-			"Style": "form-select border-secondary m-1 p-2 w-100",
-			"Options": [
-				{ "TextID": "TXT.TEAM.TELECOM", "Value": 10 },
-				{ "TextID": "TXT.TEAM.ACCOUNTING", "Value": 30, "Default": true }
-			]
-		}
-	}
+   "TeamGroup": {
+      "Type": "FormfieldPulldown",
+      "Attributes": {
+         "Style": "form-select border-secondary m-1 p-2 w-100",
+         "Options": [
+            { "TextID": "TXT.TEAM.TELECOM", "Value": 10 },
+            { "TextID": "TXT.TEAM.ACCOUNTING", "Value": 30, "Default": true }
+         ]
+      }
+   }
 
 .. _objecttype-formfieldcommon:
 
@@ -147,42 +147,42 @@ Formfield *x0-object-type* documented below (:ref:`objecttype-formfieldlabel`
 is exempt from validation and runtime data handling).
 
 .. table:: Common Formfield Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+------------------------+----------------+------------------------------------------------------------------------+
-	| **Property**           | **Type**       | **Description**                                                        |
-	+========================+================+========================================================================+
-	| Style                  | CSS-String     | CSS Style Classes, space separated                                     |
-	+------------------------+----------------+------------------------------------------------------------------------+
-	| OnChange               | Object / Array | On-change handler config, see :ref:`appdevforms`                       |
-	+------------------------+----------------+------------------------------------------------------------------------+
-	| ValidateRef            | String         | Named Validate Function / Regex, see :ref:`appdevforms`                |
-	+------------------------+----------------+------------------------------------------------------------------------+
-	| ValidateNullable       | Boolean        | Skip validation when the field value is empty                          |
-	+------------------------+----------------+------------------------------------------------------------------------+
-	| ValidateErrorTextID    | TextID-String  | TextID referenced in "webui.text" DB Table                             |
-	+------------------------+----------------+------------------------------------------------------------------------+
-	| StyleValidateOk        | CSS-String     | CSS Style applied on success (default: Bootstrap success border)       |
-	+------------------------+----------------+------------------------------------------------------------------------+
-	| StyleValidateFail      | CSS-String     | CSS Style applied on failure (default: Bootstrap danger border)        |
-	+------------------------+----------------+------------------------------------------------------------------------+
-	| StyleValidateFailFirst | CSS-String     | Additional CSS applied to the first failed field (default: 'border-4') |
-	+------------------------+----------------+------------------------------------------------------------------------+
-	| GlobalVar              | String         | Global variable key restored into this field on reset()                |
-	+------------------------+----------------+------------------------------------------------------------------------+
-	| DBColumn               | String         | Database Column Reference                                              |
-	+------------------------+----------------+------------------------------------------------------------------------+
+   +------------------------+----------------+------------------------------------------------------------------------+
+   | **Property**           | **Type**       | **Description**                                                        |
+   +========================+================+========================================================================+
+   | Style                  | CSS-String     | CSS Style Classes, space separated                                     |
+   +------------------------+----------------+------------------------------------------------------------------------+
+   | OnChange               | Object / Array | On-change handler config, see :ref:`appdevforms`                       |
+   +------------------------+----------------+------------------------------------------------------------------------+
+   | ValidateRef            | String         | Named Validate Function / Regex, see :ref:`appdevforms`                |
+   +------------------------+----------------+------------------------------------------------------------------------+
+   | ValidateNullable       | Boolean        | Skip validation when the field value is empty                          |
+   +------------------------+----------------+------------------------------------------------------------------------+
+   | ValidateErrorTextID    | TextID-String  | TextID referenced in "webui.text" DB Table                             |
+   +------------------------+----------------+------------------------------------------------------------------------+
+   | StyleValidateOk        | CSS-String     | CSS Style applied on success (default: Bootstrap success border)       |
+   +------------------------+----------------+------------------------------------------------------------------------+
+   | StyleValidateFail      | CSS-String     | CSS Style applied on failure (default: Bootstrap danger border)        |
+   +------------------------+----------------+------------------------------------------------------------------------+
+   | StyleValidateFailFirst | CSS-String     | Additional CSS applied to the first failed field (default: 'border-4') |
+   +------------------------+----------------+------------------------------------------------------------------------+
+   | GlobalVar              | String         | Global variable key restored into this field on reset()                |
+   +------------------------+----------------+------------------------------------------------------------------------+
+   | DBColumn               | String         | Database Column Reference                                              |
+   +------------------------+----------------+------------------------------------------------------------------------+
 
 .. note::
 
-	``Attributes.Type`` additionally accepts an optional string overriding the
-	rendered HTML5 input ``type`` attribute (e.g. ``"password"``, ``"email"``,
-	``"tel"`` for :ref:`objecttype-formfieldtext`). For
-	:ref:`objecttype-formfieldpulldown`, :ref:`objecttype-formfielddynpulldown`
-	and :ref:`objecttype-formfieldlabel`, setting ``Type`` to the matching
-	constant string (``'pulldown'``, ``'dynpulldown'``, ``'label'``) is an
-	additional, mostly redundant safety net excluding the field from automatic
-	``FormfieldList`` validation regardless of ``ValidateRef``.
+   ``Attributes.Type`` additionally accepts an optional string overriding the
+   rendered HTML5 input ``type`` attribute (e.g. ``"password"``, ``"email"``,
+   ``"tel"`` for :ref:`objecttype-formfieldtext`). For
+   :ref:`objecttype-formfieldpulldown`, :ref:`objecttype-formfielddynpulldown`
+   and :ref:`objecttype-formfieldlabel`, setting ``Type`` to the matching
+   constant string (``'pulldown'``, ``'dynpulldown'``, ``'label'``) is an
+   additional, mostly redundant safety net excluding the field from automatic
+   ``FormfieldList`` validation regardless of ``ValidateRef``.
 
 .. _objecttype-formfieldtext:
 
@@ -196,31 +196,31 @@ to ``type="text"``. See :ref:`objecttype-formfieldcommon` for inherited attribut
 *************************
 
 .. table:: Object Type FormfieldText Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+-------------------+---------------+----------------------------------------------------------------------------------------+
-	| **Property**      | **Type**      | **Description**                                                                        |
-	+===================+===============+========================================================================================+
-	| Type              | String        | Overrides the HTML5 "type" attribute, e.g. 'password', 'email', 'tel' (default 'text') |
-	+-------------------+---------------+----------------------------------------------------------------------------------------+
-	| TextID            | TextID-String | TextID referenced in "webui.text" DB Table                                             |
-	+-------------------+---------------+----------------------------------------------------------------------------------------+
-	| Placeholder       | String        | Placeholder                                                                            |
-	+-------------------+---------------+----------------------------------------------------------------------------------------+
-	| PlaceholderTextID | TextID-String | Placeholder, TextID referenced in "webui.text" DB Table                                |
-	+-------------------+---------------+----------------------------------------------------------------------------------------+
-	| MaxLength         | Integer       | Maximum Length Character Count                                                         |
-	+-------------------+---------------+----------------------------------------------------------------------------------------+
-	| Number            | Boolean       | Switches the HTML5 input "type" to 'number'                                            |
-	+-------------------+---------------+----------------------------------------------------------------------------------------+
-	| Disabled          | Boolean       | Set HTML Form "disabled" Property                                                      |
-	+-------------------+---------------+----------------------------------------------------------------------------------------+
-	| ReadOnly          | Boolean       | Set HTML Form "readonly" Property                                                      |
-	+-------------------+---------------+----------------------------------------------------------------------------------------+
-	| Min               | Integer       | Minimum Number Value                                                                   |
-	+-------------------+---------------+----------------------------------------------------------------------------------------+
-	| Max               | Integer       | Maximum Number Value                                                                   |
-	+-------------------+---------------+----------------------------------------------------------------------------------------+
+   +-------------------+---------------+----------------------------------------------------------------------------------------+
+   | **Property**      | **Type**      | **Description**                                                                        |
+   +===================+===============+========================================================================================+
+   | Type              | String        | Overrides the HTML5 "type" attribute, e.g. 'password', 'email', 'tel' (default 'text') |
+   +-------------------+---------------+----------------------------------------------------------------------------------------+
+   | TextID            | TextID-String | TextID referenced in "webui.text" DB Table                                             |
+   +-------------------+---------------+----------------------------------------------------------------------------------------+
+   | Placeholder       | String        | Placeholder                                                                            |
+   +-------------------+---------------+----------------------------------------------------------------------------------------+
+   | PlaceholderTextID | TextID-String | Placeholder, TextID referenced in "webui.text" DB Table                                |
+   +-------------------+---------------+----------------------------------------------------------------------------------------+
+   | MaxLength         | Integer       | Maximum Length Character Count                                                         |
+   +-------------------+---------------+----------------------------------------------------------------------------------------+
+   | Number            | Boolean       | Switches the HTML5 input "type" to 'number'                                            |
+   +-------------------+---------------+----------------------------------------------------------------------------------------+
+   | Disabled          | Boolean       | Set HTML Form "disabled" Property                                                      |
+   +-------------------+---------------+----------------------------------------------------------------------------------------+
+   | ReadOnly          | Boolean       | Set HTML Form "readonly" Property                                                      |
+   +-------------------+---------------+----------------------------------------------------------------------------------------+
+   | Min               | Integer       | Minimum Number Value                                                                   |
+   +-------------------+---------------+----------------------------------------------------------------------------------------+
+   | Max               | Integer       | Maximum Number Value                                                                   |
+   +-------------------+---------------+----------------------------------------------------------------------------------------+
 
 .. _objecttype-formfieldlabel:
 
@@ -236,19 +236,19 @@ recursive child-object model (:ref:`devoopmodel-classes`).
 *************************
 
 .. table:: Object Type FormfieldLabel Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+--------------+---------------+-------------------------------------------------------------------------------------------+
-	| **Property** | **Type**      | **Description**                                                                           |
-	+==============+===============+===========================================================================================+
-	| Style        | CSS-String    | CSS Style Classes applied to the ``<label>`` element                                      |
-	+--------------+---------------+-------------------------------------------------------------------------------------------+
-	| TextStyle    | CSS-String    | CSS Style Classes passed to the child :ref:`objecttype-sqltext` element                   |
-	+--------------+---------------+-------------------------------------------------------------------------------------------+
-	| IconStyle    | CSS-String    | Fontawesome Icon CSS Classes passed to the child :ref:`objecttype-sqltext` element        |
-	+--------------+---------------+-------------------------------------------------------------------------------------------+
-	| TextID       | TextID-String | TextID referenced in "webui.text" DB Table, passed to the child :ref:`objecttype-sqltext` |
-	+--------------+---------------+-------------------------------------------------------------------------------------------+
+   +--------------+---------------+-------------------------------------------------------------------------------------------+
+   | **Property** | **Type**      | **Description**                                                                           |
+   +==============+===============+===========================================================================================+
+   | Style        | CSS-String    | CSS Style Classes applied to the ``<label>`` element                                      |
+   +--------------+---------------+-------------------------------------------------------------------------------------------+
+   | TextStyle    | CSS-String    | CSS Style Classes passed to the child :ref:`objecttype-sqltext` element                   |
+   +--------------+---------------+-------------------------------------------------------------------------------------------+
+   | IconStyle    | CSS-String    | Fontawesome Icon CSS Classes passed to the child :ref:`objecttype-sqltext` element        |
+   +--------------+---------------+-------------------------------------------------------------------------------------------+
+   | TextID       | TextID-String | TextID referenced in "webui.text" DB Table, passed to the child :ref:`objecttype-sqltext` |
+   +--------------+---------------+-------------------------------------------------------------------------------------------+
 
 .. _objecttype-formfieldtextarea:
 
@@ -262,25 +262,25 @@ form inputs. See :ref:`objecttype-formfieldcommon` for inherited attributes.
 *************************
 
 .. table:: Object Type FormfieldTextarea Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+-------------------+---------------+---------------------------------------------------------+
-	| **Property**      | **Type**      | **Description**                                         |
-	+===================+===============+=========================================================+
-	| TextID            | TextID-String | TextID referenced in "webui.text" DB Table              |
-	+-------------------+---------------+---------------------------------------------------------+
-	| Placeholder       | String        | Placeholder                                             |
-	+-------------------+---------------+---------------------------------------------------------+
-	| PlaceholderTextID | TextID-String | Placeholder, TextID referenced in "webui.text" DB Table |
-	+-------------------+---------------+---------------------------------------------------------+
-	| Rows              | Integer       | HTML "rows" Attribute                                   |
-	+-------------------+---------------+---------------------------------------------------------+
-	| MaxLength         | Integer       | Maximum Length Character Count                          |
-	+-------------------+---------------+---------------------------------------------------------+
-	| Disabled          | Boolean       | Set HTML Form "disabled" Property                       |
-	+-------------------+---------------+---------------------------------------------------------+
-	| ReadOnly          | Boolean       | Set HTML Form "readonly" Property                       |
-	+-------------------+---------------+---------------------------------------------------------+
+   +-------------------+---------------+---------------------------------------------------------+
+   | **Property**      | **Type**      | **Description**                                         |
+   +===================+===============+=========================================================+
+   | TextID            | TextID-String | TextID referenced in "webui.text" DB Table              |
+   +-------------------+---------------+---------------------------------------------------------+
+   | Placeholder       | String        | Placeholder                                             |
+   +-------------------+---------------+---------------------------------------------------------+
+   | PlaceholderTextID | TextID-String | Placeholder, TextID referenced in "webui.text" DB Table |
+   +-------------------+---------------+---------------------------------------------------------+
+   | Rows              | Integer       | HTML "rows" Attribute                                   |
+   +-------------------+---------------+---------------------------------------------------------+
+   | MaxLength         | Integer       | Maximum Length Character Count                          |
+   +-------------------+---------------+---------------------------------------------------------+
+   | Disabled          | Boolean       | Set HTML Form "disabled" Property                       |
+   +-------------------+---------------+---------------------------------------------------------+
+   | ReadOnly          | Boolean       | Set HTML Form "readonly" Property                       |
+   +-------------------+---------------+---------------------------------------------------------+
 
 .. _objecttype-formfieldpulldown:
 
@@ -294,37 +294,37 @@ predefined options. See :ref:`objecttype-formfieldcommon` for inherited attribut
 *************************
 
 .. table:: Object Type FormfieldPulldown Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+------------------+-------------------+---------------------------------------------------------+
-	| **Property**     | **Type**          | **Description**                                         |
-	+==================+===================+=========================================================+
-	| Options          | Array of Elements | Array of Option Elements, see 12.6.2                    |
-	+------------------+-------------------+---------------------------------------------------------+
-	| AddNoneItem      | Boolean           | Prepend an empty "none selected" Option Element         |
-	+------------------+-------------------+---------------------------------------------------------+
-	| AddNoneItemValue | String            | Value of the prepended "none" Option (default ``null``) |
-	+------------------+-------------------+---------------------------------------------------------+
-	| AddNoneItemTxtID | TextID-String     | TextID of the prepended "none" Option                   |
-	+------------------+-------------------+---------------------------------------------------------+
+   +------------------+-------------------+---------------------------------------------------------+
+   | **Property**     | **Type**          | **Description**                                         |
+   +==================+===================+=========================================================+
+   | Options          | Array of Elements | Array of Option Elements, see 12.6.2                    |
+   +------------------+-------------------+---------------------------------------------------------+
+   | AddNoneItem      | Boolean           | Prepend an empty "none selected" Option Element         |
+   +------------------+-------------------+---------------------------------------------------------+
+   | AddNoneItemValue | String            | Value of the prepended "none" Option (default ``null``) |
+   +------------------+-------------------+---------------------------------------------------------+
+   | AddNoneItemTxtID | TextID-String     | TextID of the prepended "none" Option                   |
+   +------------------+-------------------+---------------------------------------------------------+
 
 12.6.2. Options Element
 ***********************
 
 .. table:: FormfieldPulldown Options Element
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+--------------+---------------+--------------------------------------------+
-	| **Property** | **Type**      | **Description**                            |
-	+==============+===============+============================================+
-	| TextID       | TextID-String | TextID referenced in "webui.text" DB Table |
-	+--------------+---------------+--------------------------------------------+
-	| Value        | String        | Hardcoded Value                            |
-	+--------------+---------------+--------------------------------------------+
-	| Default      | Boolean       | Default Selected Option                    |
-	+--------------+---------------+--------------------------------------------+
-	| Display      | String        | Hardcoded Display Text, overrides TextID   |
-	+--------------+---------------+--------------------------------------------+
+   +--------------+---------------+--------------------------------------------+
+   | **Property** | **Type**      | **Description**                            |
+   +==============+===============+============================================+
+   | TextID       | TextID-String | TextID referenced in "webui.text" DB Table |
+   +--------------+---------------+--------------------------------------------+
+   | Value        | String        | Hardcoded Value                            |
+   +--------------+---------------+--------------------------------------------+
+   | Default      | Boolean       | Default Selected Option                    |
+   +--------------+---------------+--------------------------------------------+
+   | Display      | String        | Hardcoded Display Text, overrides TextID   |
+   +--------------+---------------+--------------------------------------------+
 
 .. _objecttype-formfielddynpulldown:
 
@@ -337,29 +337,29 @@ server-side content. See :ref:`objecttype-formfieldcommon` for inherited attribu
 
 .. note::
 
-	``FormfieldDynPulldown`` always issues its own ``sysCallXMLRPC`` request against
-	``ServiceURL``, independent of the generic ``sysServiceConnector`` mechanism (see
-	:ref:`devoopmodel-classes`). When ``ServiceID`` is additionally specified, the
-	field also builds ``PostRequestData`` via ``sysRequestDataHandler`` /
-	``processSourceObjects()`` (``sysSourceObjectHandler``) to source POST parameters
-	from other form objects before dispatching the request, enabling cascading
-	pulldowns (e.g. selecting a country populates a dependent city pulldown).
+   ``FormfieldDynPulldown`` always issues its own ``sysCallXMLRPC`` request against
+   ``ServiceURL``, independent of the generic ``sysServiceConnector`` mechanism (see
+   :ref:`devoopmodel-classes`). When ``ServiceID`` is additionally specified, the
+   field also builds ``PostRequestData`` via ``sysRequestDataHandler`` /
+   ``processSourceObjects()`` (``sysSourceObjectHandler``) to source POST parameters
+   from other form objects before dispatching the request, enabling cascading
+   pulldowns (e.g. selecting a country populates a dependent city pulldown).
 
 12.7.1. Object Attributes
 *************************
 
 .. table:: Object Type FormfieldDynPulldown Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+----------------+-------------------+---------------------------------------------------------------------------+
-	| **Property**   | **Type**          | **Description**                                                           |
-	+================+===================+===========================================================================+
-	| ServiceURL     | URL-String        | Backend Service URL, requested via XML-RPC                                |
-	+----------------+-------------------+---------------------------------------------------------------------------+
-	| ServiceID      | String            | Optional backend service identifier, sources POST data from other objects |
-	+----------------+-------------------+---------------------------------------------------------------------------+
-	| UpdateOnEvents | Array of EventIDs | Re-fetches Options when any Event fires                                   |
-	+----------------+-------------------+---------------------------------------------------------------------------+
+   +----------------+-------------------+---------------------------------------------------------------------------+
+   | **Property**   | **Type**          | **Description**                                                           |
+   +================+===================+===========================================================================+
+   | ServiceURL     | URL-String        | Backend Service URL, requested via XML-RPC                                |
+   +----------------+-------------------+---------------------------------------------------------------------------+
+   | ServiceID      | String            | Optional backend service identifier, sources POST data from other objects |
+   +----------------+-------------------+---------------------------------------------------------------------------+
+   | UpdateOnEvents | Array of EventIDs | Re-fetches Options when any Event fires                                   |
+   +----------------+-------------------+---------------------------------------------------------------------------+
 
 .. _objecttype-formfieldcheckbox:
 
@@ -373,13 +373,13 @@ The ``FormfieldCheckbox`` *x0-object-type* renders an HTML ``<input>`` element o
 *************************
 
 .. table:: Object Type FormfieldCheckbox Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+--------------+----------+---------------------------------------------+
-	| **Property** | **Type** | **Description**                             |
-	+==============+==========+=============================================+
-	| Value        | Boolean  | Initial checked state (``true`` == checked) |
-	+--------------+----------+---------------------------------------------+
+   +--------------+----------+---------------------------------------------+
+   | **Property** | **Type** | **Description**                             |
+   +==============+==========+=============================================+
+   | Value        | Boolean  | Initial checked state (``true`` == checked) |
+   +--------------+----------+---------------------------------------------+
 
 .. _objecttype-formfieldhidden:
 
@@ -394,10 +394,10 @@ The ``FormfieldHidden`` *x0-object-type* renders a non-visible HTML ``<input>`` 
 *************************
 
 .. table:: Object Type FormfieldHidden Attributes
-	:widths: 30 20 80
+   :widths: 30 20 80
 
-	+--------------+----------+-----------------+
-	| **Property** | **Type** | **Description** |
-	+==============+==========+=================+
-	| Value        | String   | Hardcoded Value |
-	+--------------+----------+-----------------+
+   +--------------+----------+-----------------+
+   | **Property** | **Type** | **Description** |
+   +==============+==========+=================+
+   | Value        | String   | Hardcoded Value |
+   +--------------+----------+-----------------+
