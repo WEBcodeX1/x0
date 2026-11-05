@@ -58,7 +58,7 @@ mechanism to smartly append structures (e.g., to provide filtering parameters) t
 backend service calls.
 
 The following example demonstrates a working setup using a ``FormfieldList`` object as the
-receiver type; however, any *x0-producer-type* can trigger events for it (see 15.4).
+receiver type; however, any *x0-producer-type* can trigger events for it (see :ref:`eventproducertypes`).
 
 15.3.1. ServiceConnector Config
 -------------------------------
@@ -202,6 +202,8 @@ Valid ``List`` (multiple rows) schema:
    logic after it is fetched from backend services. The recommended approach is to process
    this data transparently using ``setObjectData()``. A generic handler for this mechanism
    is scheduled for the x0 release, version 1.2.
+
+.. _eventproducertypes:
 
 15.4. System Producer Types
 ---------------------------
