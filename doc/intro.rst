@@ -115,8 +115,8 @@ executed on a current **13th Generation Intel Core i9** processor. On the client
 measurements were performed externally — on the same physical hardware-machine — from a
 **Windows 11 Professional** environment, using the **Mozilla Firefox** browser as the
 measuring agent. The underlying static deployment configuration used for this measurement
-is defined within `/docker/x0-static.dockerfile`, which serves the live, authoritative
-metadata located under `/static/meta/*` directly to the client.
+is defined within ``/docker/x0-static.dockerfile``, which serves the live, authoritative
+metadata located under ``/static/meta/*`` directly to the client.
 
 The practical relevance of this performance profile extends well beyond conventional
 browser-based deployments. Because the entire runtime footprint is deliberately kept
@@ -198,7 +198,7 @@ Key Characteristics:
 
     Real-Time Updates
         The templating system enables objects to update their associated DOM elements in real time.
-        For example, calling an object's `rerenderObject()` method dynamically modifies the DOM to reflect
+        For example, calling an object's ``rerenderObject()`` method dynamically modifies the DOM to reflect
         changes without requiring a page reload.
 
     Event Handling and Propagation
