@@ -33,57 +33,35 @@ documentation starting at :ref:`devarchitecture`.
 17.1. FormfieldList
 -------------------
 
-The ``FormfieldList`` *x0-object-type* is a *x0-container*.
-It fulfils a dual role, acting simultaneously as a *x0-form* management
-facility and as a generic *x0-object-container*:
+A ``FormfieldList`` is a container object that allows you to structure and group
+multiple ``Formfield`` items. It provides core functionality such as single validation,
+group validation, professional grid layouts, and error handling.
 
-* Renders a HTML5 conformant ``<form>`` element as its enclosing DOM node.
-* Groups an arbitrary, declaratively referenced set of *x0-form-object-types*
-  (``Formfield*``, :ref:`objecttype-rangeslider`/:ref:`objecttype-rangeslidercontainer`)
-  into a single addressable, cohesive unit.
-* Lays out its contained form objects via the generic :ref:`appdevgridsystem`,
-  enabling responsive, Bootstrap-conformant multi-column arrangements.
-* Validates each contained field against system-provided JS Validation
-  Functions (17.4) as well as user-provided JS Validation Functions (17.5).
-* Performs cross-field Group Validation (17.2) in addition to per-field
-  validation.
-* Renders localized, multilanguage error and info feedback via a referenced
-  :ref:`objecttype-errorcontainer`.
-
-For the complete ``FormfieldList`` attribute reference, the individual
-``Formfield*`` object types and their shared attributes, see
+Each individual ``Formfield`` item has its own configuration, which is specified here:
 :ref:`appdevformobjects`.
 
-.. note::
+Additionally, the *x0-object-types* ``RangeSlider`` and ``RangeSliderContainer`` can
+officially be used; see :ref:`objecttype-rangeslider` and :ref:`objecttype-rangeslidercontainer`.
 
-   Beyond local JS validation, forms integrate transparently with the
-   generic backend layer: a ``Button`` object's backend Service Execution
-   (see :ref:`appdevcontrolbutton`) or a ``FormfieldDynPulldown``'s
-   ``ServiceID`` (see :ref:`appdevformobjects`, 11.7) dispatch the enclosing
-   form's data to any remote service endpoint.
+Theoretically, **any** *x0-object-type* can be referenced inside a ``FormfieldList``, but
+doing so may break the layout or lead to unexpected behavior.
 
-17.2. Form Validation
+17.2. Connecting Objects
+------------------------
+
+17.3. Grid Layout
+-----------------
+
+17.4. Form Validation
 ---------------------
 
-``FormfieldList`` drives a two-tier *x0-form-validation* pipeline, triggered
-whenever its ``validate()`` method is invoked (typically as part of a
-``Button``'s pre-service control-flow, see :ref:`appdevcontrolbutton`):
+- **Single-Field Validation**: .
 
-* **Single-Field Validation**: every contained form element is validated
-  individually against its own ``ValidateRef`` (System Provided or User Based,
-  Regex or Function, see 17.4/17.5).
+- **Group Validation**: .
 
-* **Group Validation**: declaratively configured ``GroupValidate`` elements
-  (see :ref:`appdevformobjects`, 11.1.2) additionally validate a related set
-  of fields as a whole, independent of their individual ``ValidateRef``
-  checks (e.g. "password and password-repeat must match").
+* **Error Container**: .
 
-* **Error Container**: validation failures of either tier are surfaced
-  through the ``ErrorContainer``-referenced :ref:`objecttype-errorcontainer`,
-  which renders a localized (multilanguage) error message; the first failed
-  field additionally receives the ``StyleValidateFailFirst`` CSS treatment.
-
-17.3. FormfieldOnchange Handler
+17.5. FormfieldOnchange Handler
 -------------------------------
 
 The FormfieldOnChange Handler provides a declarative mechanism allowing a
@@ -110,13 +88,12 @@ rendered *x0-form-objects* -- without any custom JavaScript.
    +--------------------+----------------------------------------------------------------------+
 
 .. note::
-
    An ``EnableOnValues``/``DisableOnValues`` example that enables/disables a complete sub-section
    hierarchy of child elements recursively can be found when running the *x0-static* docker application
    under "Settings/GlobalSettings" -> "DefaultSettings" (Tab) -> "SystemSettings/BasicSettings" upon
    enabling the Messaging Server Component checkbox (``FormfieldCheckbox`` *x0-system-object* type).
 
-17.3.1. EnableOnValues
+17.5.1. EnableOnValues
 **********************
 
 Valid for *x0-object-type* FormfieldPulldown.
@@ -129,7 +106,7 @@ attribute to work properly.
 
 Example see DisableOnValues.
 
-17.3.2. DisableOnValues
+17.5.2. DisableOnValues
 ***********************
 
 Valid for *x0-object-type* FormfieldPulldown.
@@ -178,7 +155,7 @@ when MX record type is selected and disable when A or CNAME selected.
       }
    }
 
-17.3.3. ActivateOnValues
+17.5.3. ActivateOnValues
 ************************
 
 Valid for *x0-object-type* ``FormfieldPulldown``.
@@ -188,13 +165,13 @@ is set to **activated**.
 
 Objects with deactivated state will be omitted from validation.
 
-17.3.4. DeactivateOnValues
+17.5.4. DeactivateOnValues
 **************************
 
 Same as ``DisableOnValues`` with the difference that the internal object state
 is set to **deactivated**.
 
-17.3.5. FireEvents
+17.5.5. FireEvents
 ******************
 
 Globally fire (raise) Events on any objects state change.
@@ -207,7 +184,7 @@ Globally fire (raise) Events on any objects state change.
 
 See :ref:`appdeveventsystem` for the full event-system architecture.
 
-17.3.6. Chaining Events
+17.5.6. Chaining Events
 ***********************
 
 Multiple OnChange config can be specified if provided as **Array** type. 
@@ -232,7 +209,7 @@ Multiple OnChange config can be specified if provided as **Array** type.
 
 .. _form-validation-types:
 
-17.4. System Validation Types
+17.6. System Validation Types
 -----------------------------
 
 Referenced by name via a form element's ``ValidateRef`` attribute (see
@@ -240,7 +217,7 @@ Referenced by name via a form element's ``ValidateRef`` attribute (see
 See :ref:`devoopmodel-classes` (24.3.6/24.3.7) for the underlying
 ``sysFormFieldValidate``/``sysFormFieldValidateGroup`` method reference.
 
-17.4.1. Regex
+17.6.1. Regex
 *************
 
 * DefaultString
@@ -265,7 +242,7 @@ See :ref:`devoopmodel-classes` (24.3.6/24.3.7) for the underlying
 * NameGerman
 * NameUnitedStates
 
-17.4.2. Functions
+17.6.2. Functions
 *****************
 
 * Float
@@ -279,7 +256,7 @@ See :ref:`devoopmodel-classes` (24.3.6/24.3.7) for the underlying
 * DateInternational
 * DateGerman
 
-17.4.3. Group Functions
+17.6.3. Group Functions
 ***********************
 
 * CheckDiffer
@@ -293,8 +270,8 @@ See :ref:`devoopmodel-classes` (24.3.6/24.3.7) for the underlying
 * MinOneItemNotNull
 * DNSRecordValuePlusType
 
-17.5. Providing User Validation
--------------------------------
+17.7. User Validation
+---------------------
 
 Custom *x0-validation-functions* are integrated directly in ``userFunctions.js``,
 which ships with a dedicated ``UserValidate`` (single-field) and
@@ -327,11 +304,3 @@ participating form objects instead of a single value.
 Reference the resulting function name via ``ValidateRef`` (single-field) or
 ``FunctionRef`` (``GroupValidate``, see :ref:`appdevformobjects`, 11.1.2)
 exactly like any system-provided validation type.
-
-**Related Documentation:**
-
-* :ref:`appdevformobjects` - Detailed formfield object documentation
-* :ref:`appdevgridsystem` - Form-object layout via the Grid System
-* :ref:`appdev-backend` - Backend / Service Connector integration
-* :ref:`appdevoverlay` - Overlay mode forms
-* :ref:`devexamples` - Guidelines for creating new examples
