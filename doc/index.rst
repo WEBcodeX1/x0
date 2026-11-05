@@ -25,7 +25,7 @@ x0 Framework Documentation
    appdev-objects
    appdev-form-objects
    appdev-context-menu
-   appdev-globals
+   appdev-global-components
    appdev-event-system
    appdev-forms
    appdev-overlay
