@@ -1,6 +1,6 @@
 .. appdev-main-concept
 
-.. _appdevmainconcept:
+.. _appdevmain:
 
 7. Application Development
 ==========================
@@ -14,6 +14,8 @@ The programmatic part (developing custom *x0-objects* to build sophisticated
 UI elements / templates) is covered in the systems-developer section starting at
 :ref:`devarchitecture` and briefly here under 7.5. "Custom Extensions"
 :ref:`appdevcustomextensions`.
+
+.. _appdevmainconcept:
 
 7.1. Main Concept
 -----------------
@@ -275,5 +277,5 @@ Please ensure you are familiar with :ref:`devbestpractices` before you begin.
    especially for complex, nested, and interdependent elements.
 
 .. important::
-   This methodology also makes it possible to integrate the *x0-system* as a highly maintainable
-   ecosystem in large-scale environments.
+   This methodology also makes it possible to integrate the *x0-system* as a **highly maintainable**
+   ecosystem in **large-scale environments**.
