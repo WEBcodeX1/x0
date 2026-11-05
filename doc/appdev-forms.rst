@@ -5,20 +5,26 @@
 17. Forms
 =========
 
-Form layout in todays web-applications is extreme important, the x0-ecosystem includes
-multiple methods to produce awesome user experiences.
+Providing forms for today's modern cloud applications is no longer the
+static process it was years ago. If your application does not supply real-time,
+modifiable forms—including content-based, reloading dynamic sub-content and specifically
+highlighted areas upon user errors—the user experience will be rated poorly. Many frameworks
+remain far too data-centric (such as SAP), making them look like tax forms from 1992.
+Conversely, modern frameworks that rely too heavily on raw CSS and HTML5 often provide
+a poor data-driven model, which is also undesirable.
 
-* **Declarative (Container-Driven):** This approach uses dedicated container objects,
-  such as the ``FormfieldList`` *x0-system-object* type. It handles structural layout
-  grids and automated group validation directly through configuration within ``object.json``.
+The *x0-framework* combines these two worlds, providing an ultra-flexible, OOP-based
+form design suited for:
 
-* **Programmatic (Component-Driven):** This approach uses granular, standalone
-  *x0-system-object* types derived from ``sysObjFormfieldItem.js``. These input fields
-  can operate either as autonomous entities or as child nodes embedded within a parent
-  container hierarchy.
+- **Application Configuration:** Provides a **declarative-only** way to use pre-shipped,
+  form-optimized *x0-objects*, such as the ``FormfieldList`` *x0-object-type*. It handles
+  structural layout grids and automated group validation directly through declarative
+  configuration without any programming, all while maintaining complete flexibility.
 
-What exactly does that mean? In which situation
-
+- **Programmatic Development:** Gives developers the ultimate flexibility to build custom
+  *x0-system-objects*. Any declarative, pre-shipped object can also be used programmatically.
+  For example, a single ``Formfield`` can be placed into other container objects, or multiple
+  ``FormfieldList`` instances can be combined to create powerful, hierarchical UI elements.
 
 17.1. FormfieldList
 -------------------
@@ -46,11 +52,11 @@ For the complete ``FormfieldList`` attribute reference, the individual
 
 .. note::
 
-	Beyond local JS validation, forms integrate transparently with the
-	generic backend layer: a ``Button`` object's backend Service Execution
-	(see :ref:`appdevcontrolbutton`) or a ``FormfieldDynPulldown``'s
-	``ServiceID`` (see :ref:`appdevformobjects`, 11.7) dispatch the enclosing
-	form's data to any remote service endpoint.
+   Beyond local JS validation, forms integrate transparently with the
+   generic backend layer: a ``Button`` object's backend Service Execution
+   (see :ref:`appdevcontrolbutton`) or a ``FormfieldDynPulldown``'s
+   ``ServiceID`` (see :ref:`appdevformobjects`, 11.7) dispatch the enclosing
+   form's data to any remote service endpoint.
 
 17.2. Form Validation
 ---------------------
@@ -81,30 +87,30 @@ single form field's state change to reactively reconfigure other, already
 rendered *x0-form-objects* -- without any custom JavaScript.
 
 .. table:: FormfieldOnchange OnChange Attributes
-	:widths: 30 70
+   :widths: 30 70
 
-	+--------------------+----------------------------------------------------------------------+
-	| **Property**       | **Description**                                                      |
-	+====================+======================================================================+
-	| ObjectID           | Destination ObjectID                                                 |
-	+--------------------+----------------------------------------------------------------------+
-	| EnableOnValues     | Enable (set visible) DestinationObject on change to given Values     |
-	+--------------------+----------------------------------------------------------------------+
-	| DisableOnValues    | Disable (set invisible) DestinationObject on change to given Values  |
-	+--------------------+----------------------------------------------------------------------+
-	| ActivateOnValues   | Same like EnableOnValues but also set internal state to activated    |
-	+--------------------+----------------------------------------------------------------------+
-	| DeactivateOnValues | Same like DisableOnValues but also set internal state to deactivated |
-	+--------------------+----------------------------------------------------------------------+
-	| FireEvents         | Fire Events on change to given Value                                 |
-	+--------------------+----------------------------------------------------------------------+
+   +--------------------+----------------------------------------------------------------------+
+   | **Property**       | **Description**                                                      |
+   +====================+======================================================================+
+   | ObjectID           | Destination ObjectID                                                 |
+   +--------------------+----------------------------------------------------------------------+
+   | EnableOnValues     | Enable (set visible) DestinationObject on change to given Values     |
+   +--------------------+----------------------------------------------------------------------+
+   | DisableOnValues    | Disable (set invisible) DestinationObject on change to given Values  |
+   +--------------------+----------------------------------------------------------------------+
+   | ActivateOnValues   | Same like EnableOnValues but also set internal state to activated    |
+   +--------------------+----------------------------------------------------------------------+
+   | DeactivateOnValues | Same like DisableOnValues but also set internal state to deactivated |
+   +--------------------+----------------------------------------------------------------------+
+   | FireEvents         | Fire Events on change to given Value                                 |
+   +--------------------+----------------------------------------------------------------------+
 
 .. note::
 
-	An ``EnableOnValues``/``DisableOnValues`` example that enables/disables a complete sub-section
-	hierarchy of child elements recursively can be found when running the *x0-static* docker application
-	under "Settings/GlobalSettings" -> "DefaultSettings" (Tab) -> "SystemSettings/BasicSettings" upon
-	enabling the Messaging Server Component checkbox (``FormfieldCheckbox`` *x0-system-object* type).
+   An ``EnableOnValues``/``DisableOnValues`` example that enables/disables a complete sub-section
+   hierarchy of child elements recursively can be found when running the *x0-static* docker application
+   under "Settings/GlobalSettings" -> "DefaultSettings" (Tab) -> "SystemSettings/BasicSettings" upon
+   enabling the Messaging Server Component checkbox (``FormfieldCheckbox`` *x0-system-object* type).
 
 17.3.1. EnableOnValues
 **********************
@@ -135,38 +141,38 @@ when MX record type is selected and disable when A or CNAME selected.
 
 .. code-block:: javascript
 
-	"RecordType": {
-		"Type": "Formfield",
-		"Attributes": {
-			"Type": "pulldown",
-			"Style": "form-select w-100",
-			"Options": [
-				{
-					"TextID": "TXT.PULLDOWN.RECORD-TYPE.A",
-					"Value": "A",
-					"Default": true
-				},
-				{
-					"TextID": "TXT.PULLDOWN.RECORD-TYPE.CNAME",
-					"Value": "CNAME"
-				},
-				{
-					"TextID": "TXT.PULLDOWN.RECORD-TYPE.MX",
-					"Value": "MX"
-				}
-			],
-			"OnChange": {
-				"ObjectID": "RecordPriority",
-				"EnableOnValues": [
-					"MX"
-				],
-				"DisableOnValues": [
-					"A",
-					"CNAME"
-				]
-			}
-		}
-	}
+   "RecordType": {
+      "Type": "Formfield",
+      "Attributes": {
+         "Type": "pulldown",
+         "Style": "form-select w-100",
+         "Options": [
+            {
+               "TextID": "TXT.PULLDOWN.RECORD-TYPE.A",
+               "Value": "A",
+               "Default": true
+            },
+            {
+               "TextID": "TXT.PULLDOWN.RECORD-TYPE.CNAME",
+               "Value": "CNAME"
+            },
+            {
+               "TextID": "TXT.PULLDOWN.RECORD-TYPE.MX",
+               "Value": "MX"
+            }
+         ],
+         "OnChange": {
+            "ObjectID": "RecordPriority",
+            "EnableOnValues": [
+               "MX"
+            ],
+            "DisableOnValues": [
+               "A",
+               "CNAME"
+            ]
+         }
+      }
+   }
 
 17.3.3. ActivateOnValues
 ************************
@@ -191,9 +197,9 @@ Globally fire (raise) Events on any objects state change.
 
 .. code-block:: javascript
 
-	"OnChange": {
-		"FireEvents": [ "EventID1", "EventID2" ]
-	}
+   "OnChange": {
+      "FireEvents": [ "EventID1", "EventID2" ]
+   }
 
 See :ref:`appdeveventsystem` for the full event-system architecture.
 
@@ -204,21 +210,21 @@ Multiple OnChange config can be specified if provided as **Array** type.
 
 .. code-block:: javascript
 
-	"OnChange": [
-		{
-			"ObjectID": "RecordPriority",
-			"EnableOnValues": [
-				"MX"
-			],
-			"DisableOnValues": [
-				"A",
-				"CNAME"
-			]
-		},
-		{
-			"FireEvents": [ "EventID1", "EventID2" ]
-		}
-	]
+   "OnChange": [
+      {
+         "ObjectID": "RecordPriority",
+         "EnableOnValues": [
+            "MX"
+         ],
+         "DisableOnValues": [
+            "A",
+            "CNAME"
+         ]
+      },
+      {
+         "FireEvents": [ "EventID1", "EventID2" ]
+      }
+   ]
 
 .. _form-validation-types:
 
@@ -297,18 +303,18 @@ pair to ``UserValidate``'s ``ValidateFunc`` object:
 
 .. code-block:: javascript
 
-	function UserValidate()
-	{
-	    this.ValidateFunc = {
-	        'CustomFunctionName': this.CustomFunctionName
-	    };
-	}
+   function UserValidate()
+   {
+       this.ValidateFunc = {
+           'CustomFunctionName': this.CustomFunctionName
+       };
+   }
 
-	UserValidate.prototype.CustomFunctionName = function(Value, FormObj)
-	{
-	    //- return true == Error, false == Ok
-	    return false;
-	}
+   UserValidate.prototype.CustomFunctionName = function(Value, FormObj)
+   {
+       //- return true == Error, false == Ok
+       return false;
+   }
 
 Group validation functions follow the same pattern against
 ``UserValidateGroup``'s ``ValidateFunc`` object, receiving the array of
