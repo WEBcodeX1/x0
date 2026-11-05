@@ -41,7 +41,6 @@ x0 Framework Documentation
    dev-architecture
    dev-oop-model
    dev-oop-classes
-   dev-backend
    dev-best-practices
 
 .. _menu_testing_examples:
