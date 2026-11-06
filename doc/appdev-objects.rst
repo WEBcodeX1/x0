@@ -59,7 +59,7 @@ It generates a DOM layer with a configurable CSS class attribute.
 *************************
 
 .. table:: Object Type Div Attributes
-   :widths: 30 20 100
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -98,7 +98,7 @@ file for **NoSQL** operations.
 *************************
 
 .. table:: Object Type Text Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -141,7 +141,7 @@ Details see :ref:`appdevcontrolbutton`.
 *************************
 
 .. table:: Object Type Button Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -235,7 +235,7 @@ Details see :ref:`appdevcontrolbuttoninternal`.
 *************************
 
 .. table:: Object Type ButtonInternal Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -281,7 +281,7 @@ through the standard ``getObjectData()`` / ``setObjectData()`` API.
 *************************
 
 .. table:: Object Type Image Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -336,7 +336,7 @@ upload form for registering new images. Row pagination reuses the same mechanism
 *************************
 
 .. table:: Object Type ImageSelector Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -384,7 +384,7 @@ an overlay. It inherits :ref:`objecttype-divunique`.
 *************************
 
 .. table:: Object Type BadgeSelector Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -417,7 +417,7 @@ for dynamic updates and *x0-context-menu* for enhanced user interaction.
 *************************
 
 .. table:: Object Type List Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -441,7 +441,7 @@ for dynamic updates and *x0-context-menu* for enhanced user interaction.
 *************************
 
 .. table:: Object Type List Column Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -457,7 +457,7 @@ for dynamic updates and *x0-context-menu* for enhanced user interaction.
 *********************
 
 .. table:: Object Type List Real Time Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -520,7 +520,7 @@ it preserves object states recursively, ensuring continuity and consistency acro
 *************************
 
 .. table:: Object Type TabContainer Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -532,7 +532,7 @@ it preserves object states recursively, ensuring continuity and consistency acro
 **********************
 
 .. table:: Object Type TabAttributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -558,7 +558,7 @@ intuitive upload progress indicator.
 **************************
 
 .. table:: Object Type FileUpload Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +----------------------------+----------------------+------------------------------------------+
    | **Property**               | **Type**             | **Description**                          |
@@ -621,7 +621,7 @@ large amounts of content in a compact, user-friendly manner.
 **************************
 
 .. table:: Object Type OpenCloseContainer Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -687,7 +687,7 @@ with visual selection indicators and state management.
 **************************
 
 .. table:: Object Type TreeSimple Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -701,7 +701,7 @@ with visual selection indicators and state management.
 Expandable/collapsible containers that can contain other nodes or items:
 
 .. table:: Tree Node Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -721,7 +721,7 @@ Expandable/collapsible containers that can contain other nodes or items:
 Interactive navigation elements that trigger screen navigation:
 
 .. table:: Tree Item Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -839,7 +839,7 @@ can act as a parent container for nested child objects.
 **************************
 
 .. table:: Object Type DivUnique Attributes
-   :widths: 30 20 100
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -879,7 +879,7 @@ update from button actions or backend callbacks.
 **************************
 
 .. table:: Object Type ProgressBar Attributes
-   :widths: 30 20 100
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                       |
@@ -928,7 +928,7 @@ from or written to by any other *x0-object* or button action.
 **************************
 
 .. table:: Object Type RangeSlider Attributes
-   :widths: 30 20 100
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -978,7 +978,7 @@ inner ``RangeSlider`` child.
 **************************
 
 .. table:: Object Type RangeSliderContainer Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1025,7 +1025,7 @@ Child objects are attached using ``ElementID`` in ``skeleton.json``, where the
 **************************
 
 .. table:: Object Type HeaderBodyContainer Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1073,7 +1073,7 @@ is the backing object for the static example's "Settings/Global Settings" screen
 **************************
 
 .. table:: Object Type SystemSettingsContainer Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1085,7 +1085,7 @@ is the backing object for the static example's "Settings/Global Settings" screen
 ***********************************
 
 .. table:: SystemSettingsContainer Setting Element Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1146,7 +1146,7 @@ request.
 **************************
 
 .. table:: Object Type SystemSettingsContainerGrid Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1179,7 +1179,7 @@ top of a screen or tab.
 **************************
 
 .. table:: Object Type InfoParagraph Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1223,7 +1223,7 @@ and re-renders every active ``SQLText`` object application-wide via
 **************************
 
 .. table:: Object Type LanguageSwitch Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1262,7 +1262,7 @@ a context menu offering the same removal action (see :ref:`appdevcontextmenu`).
 **************************
 
 .. table:: Object Type DynRadioList Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1297,7 +1297,7 @@ dispatch mechanics are documented in :ref:`devoopmodel` (section 23.8).
 **************************
 
 .. table:: Object Type ServiceConnector Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1343,7 +1343,7 @@ following sections.
 **************************
 
 .. table:: Object Type TimedProgress Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1413,7 +1413,7 @@ as a switchable drag-reorder mode.
 **************************
 
 .. table:: Object Type ExampleEditableItem Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1463,7 +1463,7 @@ like :ref:`objecttype-list` rows.
 **************************
 
 .. table:: Object Type ExampleEditableItemContainer Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1508,7 +1508,7 @@ used as a repeated row inside a parent :ref:`objecttype-list` or
 **************************
 
 .. table:: Object Type ExampleFlightDetails Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1551,7 +1551,7 @@ and derives both its border color and inner text color from the
 **************************
 
 .. table:: Object Type ExampleFlightStatus Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1594,7 +1594,7 @@ addable tasklists/tasks. It inherits from ``sysObjDivUnique`` and composes
 **************************
 
 .. table:: Object Type ExampleCardTasklist Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1628,7 +1628,7 @@ inherits from ``sysObjDivUnique`` and is typically instantiated inside a
 **************************
 
 .. table:: Object Type ExamplePeopleSelector Attributes
-   :widths: 30 20 80
+   :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
