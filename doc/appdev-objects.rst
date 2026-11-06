@@ -1646,18 +1646,16 @@ inherits from ``sysObjDivUnique`` and is typically instantiated inside a
       "Type": "ExamplePeopleSelector"
    }
 
-.. _object-examples-reference:
-.. _object-examples-reference-section:
+.. _object-examples:
 
 11.33. Object Examples Reference
 --------------------------------
 
-This section provides a comprehensive overview of where the *x0-system-objects*
-documented above can be inspected in a live, production-representative context.
-The legacy ``/example`` directory application set is intentionally **not**
-referenced here, as its object definitions are outdated and do not reflect
-current best practice; the static reference container (see
-:ref:`appdev-static-deployment`) is the canonical, up-to-date demonstrator.
+Examples can be found under ``/examples/``, including detailed descriptions.
+
+.. note::
+   Additionally, the *x0-static* component (which runs inside the static Docker container)
+   includes various examples demonstrating its full potential; see :ref:`installation-minimal`.
 
 **Object Type Categories:**
 
@@ -1694,8 +1692,8 @@ current best practice; the static reference container (see
   - :ref:`objecttype-errorcontainer`
   - :ref:`objecttype-languageswitch`
   - :ref:`objecttype-serviceconnector`
-  - :ref:`objecttype-systemsettingscontainer` - Settings/Global Settings
-  - :ref:`objecttype-systemsettingscontainergrid` - Settings/Global Settings, "Adjust Grid / Column View"
+  - :ref:`objecttype-systemsettingscontainer`
+  - :ref:`objecttype-systemsettingscontainergrid`
 
 **User-Defined Example Objects (/www/userObj\*.js):**
   - :ref:`objecttype-timedprogress`
@@ -1706,10 +1704,3 @@ current best practice; the static reference container (see
   - :ref:`objecttype-exampleflightstatus`
   - :ref:`objecttype-examplecardtasklist`
   - :ref:`objecttype-examplepeopleselector`
-
-**Related Documentation:**
-
-* :ref:`appdevforms` - Form-specific objects
-* :ref:`appdevformobjects` - Detailed form object documentation
-* :ref:`appdevoverlay` - Overlay mode and object instancing
-* :ref:`appdevgridsystem` - Global Grid System and runtime grid restructuring
