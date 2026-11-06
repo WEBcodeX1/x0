@@ -162,7 +162,7 @@ shown in the following example.
 14.5. Object Data Abstraction
 -----------------------------
 
-## Add complete chapter including subchapters / describe the generic ``getObjectData()`` /  ``setObjectData()`` concept in detail,
+## Add complete chapter including subchapters / describe the generic ``getObjectData()`` /  ``setObjectData()`` concept in detail.
 
 14.6. Realtime Pagination
 -------------------------
