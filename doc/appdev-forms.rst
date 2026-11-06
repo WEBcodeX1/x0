@@ -110,10 +110,12 @@ the system with custom, programmatic validation routines.
 
 .. code-block:: javascript
 
-   "GroupValidate": [
+   "GroupValidate":
+   [
       {
          "FunctionRef": "CheckItemsMatch",
-         "ObjectIDs": [
+         "ObjectIDs":
+         [
             "PasswordNew",
             "PasswordRepeat"
          ],
@@ -129,15 +131,15 @@ without complex configurations, as shown below:
 
 .. code-block:: javascript
 
-	+---------------------------------+---------------------------------+
-	| FormItem1 (label)               | FormItem2                       |
-	+---------------------------------+---------------------------------+
-	| FormItem3 (label)                                                 |
-	+---------------------------------+----------------+----------------+
-	| FormItem4                       | FormItem5      | FormItem6      |
-	+----------------+----------------+----------------+----------------+
-	| FormItem7      | FormItem8      | FormItem9      | FormItem10     |
-	+----------------+----------------+----------------+----------------+
+   +---------------------------------+---------------------------------+
+   | FormItem1 (label)               | FormItem2                       |
+   +---------------------------------+---------------------------------+
+   | FormItem3 (label)                                                 |
+   +---------------------------------+----------------+----------------+
+   | FormItem4                       | FormItem5      | FormItem6      |
+   +----------------+----------------+----------------+----------------+
+   | FormItem7      | FormItem8      | FormItem9      | FormItem10     |
+   +----------------+----------------+----------------+----------------+
 
 For a detailed explanation of how the *x0-grid* system works, see :ref:`appdevgridsystem`.
 
@@ -160,8 +162,8 @@ and calls the object instance's render routines, which ultimately output the det
    specific ``Style`` needs to be applied. Connecting it within ``skeleton.json`` is sufficient,
    as its logic is **always** controlled externally by other objects.
 
-17.1.6. Backend Data In
-***********************
+17.1.6. Backend Input
+*********************
 
 To populate a ``FormfieldList`` object instance with data from the backend, the global,
 generic *x0-component* ``ServiceConnector`` (see :ref:`appdevserviceconnector`) is used.
@@ -199,8 +201,8 @@ Two items will be updated with the values "data1" and "data2". The ``Formfield``
 Two items will be updated with the values "data2" and "data3". The ``Formfield`` item "FormID1" remains empty,
 and the incoming data key "FormID4" will be ignored.
 
-17.1.7. Backend Data Out
-************************
+17.1.7. Backend Output
+**********************
 
 17.1.8. Context Menu
 ********************
@@ -216,63 +218,87 @@ other, already rendered *x0-form-objects* without any custom JavaScript.
 .. table:: FormfieldOnchange OnChange Attributes
    :widths: 25 75
 
-   +--------------------+--------------------------------------------------------------------------+
-   | **Property**       | **Description**                                                          |
-   +====================+==========================================================================+
-   | ObjectID           | Destination ObjectID.                                                    |
-   +--------------------+--------------------------------------------------------------------------+
-   | EnableOnValues     | Enable (recursive) DstObject when Src SelectedValue in given Values.     |
-   +--------------------+--------------------------------------------------------------------------+
-   | DisableOnValues    | Disable (recursive) DstObject when Src SelectedValue in given Values.    |
-   +--------------------+--------------------------------------------------------------------------+
-   | ActivateOnValues   | Activate (visible) DstObject when Src SelectedValue in given Values.     |
-   +--------------------+--------------------------------------------------------------------------+
-   | DeactivateOnValues | Deactivate (invisible) DstObject when Src SelectedValue in given Values. |
-   +--------------------+--------------------------------------------------------------------------+
-   | FireEvents         | Fire Events on change to given Value                                     |
-   +--------------------+--------------------------------------------------------------------------+
+   +----------------------+--------------------------------------------------------------------+
+   | **Property**         | **Description**                                                    |
+   +======================+====================================================================+
+   | ObjectID             | Destination ObjectID.                                              |
+   +----------------------+--------------------------------------------------------------------+
+   | EnableOnValues       | Recursive **enable** DstObject on matching Values.                 |
+   +----------------------+--------------------------------------------------------------------+
+   | DisableOnValues      | Recursive **disable** DstObject on matching Values.                |
+   +----------------------+--------------------------------------------------------------------+
+   | ActivateOnValues     | Recursive set DstObject active and visible on matching Values.     |
+   +----------------------+--------------------------------------------------------------------+
+   | DeactivateOnValues   | Recursive set DstObject inactive and invisible on matching Values. |
+   +----------------------+--------------------------------------------------------------------+
+   | FireEvents           | Fire Events globally on change.                                    |
+   +----------------------+--------------------------------------------------------------------+
 
-.. important::
-   An ``EnableOnValues``/``DisableOnValues`` example that enables/disables a complete sub-section
-   hierarchy of child elements recursively can be found when running the *x0-static* docker application
-   under "Settings/GlobalSettings" -> "DefaultSettings" (Tab) -> "SystemSettings/BasicSettings" upon
-   enabling the Messaging Server Component checkbox (``FormfieldCheckbox`` *x0-system-object* type).
+**Configurations Scope:**
+
+.. code-block:: javascript
+
+   "TestObject":
+   {
+      "ObjectType": "FormfieldText",
+      "Attributes":
+      {
+         "OnChange": { <<-scope->> }
+      }
+   }
 
 17.2.1. EnableOnValues
 **********************
 
-Valid for *x0-object-type* FormfieldPulldown.
+This configuration (used exclusively in combination with ``DisableOnValues``) allows you to
+enable or disable a destination object—or an entire hierarchy of nested objects—dependent
+on the **current value** triggered by the ``OnChange`` event of the source object.
 
-Enable *x0-object* with ``ObjectID`` (set visible) when selected pulldown **value**
-matches the given value in EnableOnValues Array.
+The following example demonstrates this behavior using a ``Checkbox`` *x0-object-type*:
 
-``EnableOnValues`` must be specified in combination with ``DisableOnValues``
-attribute to work properly.
+.. code-block:: javascript
 
-Example see DisableOnValues.
+   "CheckboxObject":
+   {
+      "ObjectType": "FormfieldCheckbox",
+      "Attributes":
+      {
+         "Style": "form-check form-check-input mb-1 p-1 w-100",
+         "Value": true,
+         "OnChange":
+         {
+            "EnableOnValues": [ true ],
+            "DisableOnValues": [ false ],
+            "ObjectID": "DestinationObjectID"
+         }
+      }
+   }
+
+Since the only valid states for a checkbox are **true** and **false**, this configuration
+enables the object with the ID "DestinationObjectID" recursively when the checkbox is checked,
+and disables "DestinationObjectID" recursively when it is unchecked.
 
 17.2.2. DisableOnValues
 ***********************
 
-Valid for *x0-object-type* FormfieldPulldown.
+This configuration (used exclusively in combination with ``EnableOnValues``) allows
+you to revert a destination object from its changed state, which is not possible when
+``DisableOnValues`` is configured alone.
 
-Disable *x0-object* with ``ObjectID`` (set invisible) when selected pulldown
-**value** matches the given value in DisableOnValues Array.
-
-``DisableOnValues`` must be specified in combination with ``EnableOnValues``
-attribute to work properly.
-
-The following example will enable destination object **RecordPriority**
-when MX record type is selected and disable when A or CNAME selected.
+The following example demonstrates this behavior using a ``FormfieldPulldown`` *x0-object-type*:
+the **RecordPriority** destination object is only *enabled* for editing when the pulldown value
+**MX** is selected. Changing the value back to **A** or **CNAME** will disable it again.
 
 .. code-block:: javascript
 
-   "RecordType": {
-      "Type": "Formfield",
-      "Attributes": {
-         "Type": "pulldown",
+   "RecordType":
+   {
+      "Type": "FormfieldPulldown",
+      "Attributes":
+      {
          "Style": "form-select w-100",
-         "Options": [
+         "Options":
+         [
             {
                "TextID": "TXT.PULLDOWN.RECORD-TYPE.A",
                "Value": "A",
@@ -287,15 +313,11 @@ when MX record type is selected and disable when A or CNAME selected.
                "Value": "MX"
             }
          ],
-         "OnChange": {
+         "OnChange":
+         {
             "ObjectID": "RecordPriority",
-            "EnableOnValues": [
-               "MX"
-            ],
-            "DisableOnValues": [
-               "A",
-               "CNAME"
-            ]
+            "EnableOnValues": [ "MX"],
+            "DisableOnValues": [ "A", "CNAME" ]
          }
       }
    }
@@ -303,23 +325,33 @@ when MX record type is selected and disable when A or CNAME selected.
 17.2.3. ActivateOnValues
 ************************
 
-Valid for *x0-object-type* ``FormfieldPulldown``.
+This configuration shares the exact same syntax as ``EnableOnValues`` but serves
+a different purpose. When triggered, the following settings **are both** applied
+to the destination object:
 
-Same as ``EnableOnValues`` with the difference that the internal object state
-is set to **activated**.
+- **Internal State:** The internal object state ``this.Deactivated = false`` (activated) is set recursively, starting from the root of the destination object.
+- **Visibility State:** The object's visibility state is set to **visible**. While this state change is not executed recursively by the internal handler, the browser automatically applies the visibility inheritance recursively to all nested DOM elements.
 
-Objects with deactivated state will be omitted from validation.
+.. important::
+   **Use Case:** Multi-step wizards (tabs) containing dynamic content based on a pulldown
+   selection must preserve their state. Simply toggling the visibility state of the pulldown
+   object is insufficient, because steps that are already inactive are also invisible and
+   **thus cannot be distinguished**.
 
 17.2.4. DeactivateOnValues
 **************************
 
-Same as ``DisableOnValues`` with the difference that the internal object state
-is set to **deactivated**.
+This configuration shares the exact same syntax as ``DisableOnValues`` but serves
+a different purpose. When triggered, the following settings **are both** applied
+to the destination object:
+
+- **Internal State:** The internal object state ``this.Deactivated = true`` (deactivated) is set recursively, starting from the root of the destination object.
+- **Visibility State:** The object's visibility state is set to **hidden**. While this state change is not executed recursively by the internal handler, the browser automatically applies the visibility inheritance recursively to all nested DOM elements.
 
 17.2.5. FireEvents
 ******************
 
-Globally fire (raise) Events on any objects state change.
+Globally fire (raise) *x0-events* on any objects state change.
 
 .. code-block:: javascript
 
@@ -332,7 +364,7 @@ See :ref:`appdeveventsystem` for the full event-system architecture.
 17.2.6. Chaining Events
 ***********************
 
-Multiple OnChange config can be specified if provided as **Array** type. 
+Multiple OnChange configuration can be specified if provided as **Array** type.
 
 .. code-block:: javascript
 
