@@ -87,9 +87,9 @@ It generates a DOM layer with a configurable CSS class attribute.
 11.2. Text
 ----------
 
-The ``Text`` *x0-object-type* renders a multilingual text retrieved from the *x0-system-db*
-``webui.text`` table. Alternatively, the **static** *x0-component* uses the file ``/static/meta/text-data.json``
-in **NoSQL** manner.
+The ``Text`` *x0-object-type* renders multilingual text retrieved from the *x0-system-db*
+``webui.text`` table. Alternatively, the **static** *x0-component* uses the ``/static/meta/text-data.json``
+file for **NoSQL** operations.
 
 .. important::
    For backward compatibility, the ``Text`` object type is also referenceable as ``SQLText``.
