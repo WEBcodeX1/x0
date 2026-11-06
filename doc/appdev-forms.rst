@@ -30,6 +30,8 @@ The following documentation focuses on approach 1 (**Declarative Configuration**
 interested in approach 2 (**Programmatic Development**) , please refer to the system developer
 documentation starting at :ref:`devarchitecture`.
 
+.. _formfield-list:
+
 17.1. FormfieldList
 -------------------
 
@@ -40,60 +42,157 @@ group validation, professional grid layouts, and error handling.
 Each individual ``Formfield`` item has its own configuration, which is specified here:
 :ref:`appdevformobjects`.
 
-Additionally, the *x0-object-types* ``RangeSlider`` and ``RangeSliderContainer`` can
-officially be used; see :ref:`objecttype-rangeslider` and :ref:`objecttype-rangeslidercontainer`.
+Additionally, these *x0-object-types* are officially supported:
 
-Theoretically, **any** *x0-object-type* can be referenced inside a ``FormfieldList``, but
-doing so may break the layout or lead to unexpected behavior.
+- :ref:`objecttype-rangeslider`
+- :ref:`objecttype-rangeslidercontainer`
+- :ref:`objecttype-dynradiolist`
 
-17.2. Connecting Objects
-------------------------
+.. warning::
+   Theoretically, **any** *x0-object-type* can be referenced inside a ``FormfieldList``, but
+   doing so may break the layout or lead to unexpected behavior.
 
-17.3. Grid Layout
------------------
+17.1.1. Object Attributes
+*************************
 
-17.4. Form Validation
----------------------
+.. table:: FormfieldList Attributes
+   :widths: 15 15 70
 
-- **Single-Field Validation**: .
+   +------------------+-------------------+--------------------------------------------------+
+   | **Property**     | **Type**          | **Description**                                  |
+   +==================+===================+==================================================+
+   | ObjectIDs        | Array of Strings  | Formfield (or other form-capable) ObjectIDs      |
+   +------------------+-------------------+--------------------------------------------------+
+   | Style            | CSS-String        | CSS Style Classes, space separated               |
+   +------------------+-------------------+--------------------------------------------------+
+   | ErrorContainer   | String            | ObjectID of an :ref:`objecttype-errorcontainer`  |
+   +------------------+-------------------+--------------------------------------------------+
+   | ContextMenuItems | Array of Elements | Context Menu Items, see :ref:`appdevcontextmenu` |
+   +------------------+-------------------+--------------------------------------------------+
+   | GroupValidate    | Array of Elements | Array of Group Validate Elements                 |
+   +------------------+-------------------+--------------------------------------------------+
+   | Disable          | Boolean           | Disables all contained Formfields on ``reset()`` |
+   +------------------+-------------------+--------------------------------------------------+
 
-- **Group Validation**: .
+17.1.2. Validation
+******************
 
-* **Error Container**: .
+17.1.3. Group Validation
+************************
 
-17.5. FormfieldOnchange Handler
+Unlike validating a single ``Formfield`` item, specifying ``GroupValidate``
+allows multiple items to be validated against each other.
+
+The ``FunctionRef`` property allows developers to reference a validation function
+defined in ``sysFormfieldValidate.js``. This file contains multiple pre-shipped validation
+scenarios. See :ref:`form-validation-types` for details, which also describes how to extend
+the system with custom, programmatic validation routines.
+
+.. table:: GroupValidate Element Attributes
+   :widths: 15 15 70
+
+   +---------------------+------------------+------------------------------------------------+
+   | **Property**        | **Type**         | **Description**                                |
+   +=====================+==================+================================================+
+   | FunctionRef         | String           | Name of the system Group Validate function     |
+   +---------------------+------------------+------------------------------------------------+
+   | ObjectIDs           | Array of Strings | ObjectIDs validated together by FunctionRef    |
+   +---------------------+------------------+------------------------------------------------+
+   | ValidateErrorTextID | TextID-String    | TextID referenced in "webui.text" DB Table     |
+   +---------------------+------------------+------------------------------------------------+
+
+.. code-block:: javascript
+
+   "GroupValidate": [
+      {
+         "FunctionRef": "CheckItemsMatch",
+         "ObjectIDs": [
+            "PasswordNew",
+            "PasswordRepeat"
+         ],
+         "ValidateErrorTextID": "TXT.VALIDATE.PASSWORD-MISMATCH"
+      }
+   ]
+
+17.1.4. Grid Integration
+************************
+
+The declarative **Form** approach also allows you to apply professional layouts
+without complex configurations, as shown below:
+
+.. code-block:: javascript
+
+	+---------------------------------+---------------------------------+
+	| FormItem1 (label)               | FormItem2                       |
+	+---------------------------------+---------------------------------+
+	| FormItem3 (label)                                                 |
+	+---------------------------------+----------------+----------------+
+	| FormItem4                       | FormItem5      | FormItem6      |
+	+----------------+----------------+----------------+----------------+
+	| FormItem7      | FormItem8      | FormItem9      | FormItem10     |
+	+----------------+----------------+----------------+----------------+
+
+For a detailed explanation of how the *x0-grid* system works, see :ref:`appdevgridsystem`.
+
+17.1.5. ErrorContainer
+**********************
+
+When validating a ``FormfieldList``, the ``ErrorContainer`` (:ref:`objecttype-errorcontainer`)
+*x0-object-type* handles rendering error information upon validation failure.
+Like any other *x0-object*, it supports multilingual display text and is **not**
+**bound** directly to the referencing ``FormfieldList``.
+
+Positioning the ``ErrorContainer`` is achieved via ``object.json`` and ``skeleton.json``,
+just like any other *x0-object*. The *x0-shadow-dom* enables this behavior: on validation
+failure, the *x0-system* references the bound ``ErrorContainer`` using
+``sysFactory.getObjectByID(ErrorContainerID)`` and calls the object instance's render routines,
+which ultimately output the detailed error information (according to the current display language).
+
+.. important::
+   By default, the ``ErrorContainer`` should be configured without any attributes, unless a
+   specific ``Style`` needs to be applied. Connecting it within ``skeleton.json`` is sufficient,
+   as its logic is **always** controlled externally by other objects.
+
+17.1.6. Context Menu
+********************
+
+17.1.7. Backend Services
+************************
+
+
+17.2. FormfieldOnchange Handler
 -------------------------------
 
-The FormfieldOnChange Handler provides a declarative mechanism allowing a
-single form field's state change to reactively reconfigure other, already
-rendered *x0-form-objects* -- without any custom JavaScript.
+The **x0::FormfieldOnChange** Handler component (``sysFormfieldOnChangeHandler.js``) provides
+a declarative mechanism allowing a single form field's state change to reactively reconfigure
+other, already rendered *x0-form-objects* without any custom JavaScript.
 
 .. table:: FormfieldOnchange OnChange Attributes
-   :widths: 30 70
+   :widths: 25 75
 
-   +--------------------+----------------------------------------------------------------------+
-   | **Property**       | **Description**                                                      |
-   +====================+======================================================================+
-   | ObjectID           | Destination ObjectID                                                 |
-   +--------------------+----------------------------------------------------------------------+
-   | EnableOnValues     | Enable (set visible) DestinationObject on change to given Values     |
-   +--------------------+----------------------------------------------------------------------+
-   | DisableOnValues    | Disable (set invisible) DestinationObject on change to given Values  |
-   +--------------------+----------------------------------------------------------------------+
-   | ActivateOnValues   | Same like EnableOnValues but also set internal state to activated    |
-   +--------------------+----------------------------------------------------------------------+
-   | DeactivateOnValues | Same like DisableOnValues but also set internal state to deactivated |
-   +--------------------+----------------------------------------------------------------------+
-   | FireEvents         | Fire Events on change to given Value                                 |
-   +--------------------+----------------------------------------------------------------------+
+   +--------------------+------------------------------------------------------------------------+
+   | **Property**       | **Description**                                                        |
+   +====================+========================================================================+
+   | ObjectID           | Destination ObjectID.                                                  |
+   +--------------------+------------------------------------------------------------------------+
+   | EnableOnValues     | Enable (set visible) DestinationObject on change to given Values.      |
+   +--------------------+------------------------------------------------------------------------+
+   | DisableOnValues    | Disable (set invisible) DestinationObject on change to given Values.   |
+   +--------------------+------------------------------------------------------------------------+
+   | ActivateOnValues   | Same like EnableOnValues but also set internal state to activated.     |
+   +--------------------+------------------------------------------------------------------------+
+   | DeactivateOnValues | Same like DisableOnValues but also set internal state to deactivated.  |
+   +--------------------+------------------------------------------------------------------------+
+   | FireEvents         | Fire Events on change to given Value                                   |
+   +--------------------+------------------------------------------------------------------------+
 
-.. note::
+.. important::
    An ``EnableOnValues``/``DisableOnValues`` example that enables/disables a complete sub-section
    hierarchy of child elements recursively can be found when running the *x0-static* docker application
    under "Settings/GlobalSettings" -> "DefaultSettings" (Tab) -> "SystemSettings/BasicSettings" upon
    enabling the Messaging Server Component checkbox (``FormfieldCheckbox`` *x0-system-object* type).
 
-17.5.1. EnableOnValues
+17.2.1. EnableOnValues
 **********************
 
 Valid for *x0-object-type* FormfieldPulldown.
@@ -106,7 +205,7 @@ attribute to work properly.
 
 Example see DisableOnValues.
 
-17.5.2. DisableOnValues
+17.2.2. DisableOnValues
 ***********************
 
 Valid for *x0-object-type* FormfieldPulldown.
@@ -155,7 +254,7 @@ when MX record type is selected and disable when A or CNAME selected.
       }
    }
 
-17.5.3. ActivateOnValues
+17.2.3. ActivateOnValues
 ************************
 
 Valid for *x0-object-type* ``FormfieldPulldown``.
@@ -165,13 +264,13 @@ is set to **activated**.
 
 Objects with deactivated state will be omitted from validation.
 
-17.5.4. DeactivateOnValues
+17.2.4. DeactivateOnValues
 **************************
 
 Same as ``DisableOnValues`` with the difference that the internal object state
 is set to **deactivated**.
 
-17.5.5. FireEvents
+17.2.5. FireEvents
 ******************
 
 Globally fire (raise) Events on any objects state change.
@@ -184,7 +283,7 @@ Globally fire (raise) Events on any objects state change.
 
 See :ref:`appdeveventsystem` for the full event-system architecture.
 
-17.5.6. Chaining Events
+17.2.6. Chaining Events
 ***********************
 
 Multiple OnChange config can be specified if provided as **Array** type. 
@@ -209,7 +308,7 @@ Multiple OnChange config can be specified if provided as **Array** type.
 
 .. _form-validation-types:
 
-17.6. System Validation Types
+17.3. System Validation Types
 -----------------------------
 
 Referenced by name via a form element's ``ValidateRef`` attribute (see
@@ -217,7 +316,7 @@ Referenced by name via a form element's ``ValidateRef`` attribute (see
 See :ref:`devoopmodel-classes` (24.3.6/24.3.7) for the underlying
 ``sysFormFieldValidate``/``sysFormFieldValidateGroup`` method reference.
 
-17.6.1. Regex
+17.3.1. Regex
 *************
 
 * DefaultString
@@ -242,7 +341,7 @@ See :ref:`devoopmodel-classes` (24.3.6/24.3.7) for the underlying
 * NameGerman
 * NameUnitedStates
 
-17.6.2. Functions
+17.3.2. Functions
 *****************
 
 * Float
@@ -256,7 +355,7 @@ See :ref:`devoopmodel-classes` (24.3.6/24.3.7) for the underlying
 * DateInternational
 * DateGerman
 
-17.6.3. Group Functions
+17.3.3. Group Functions
 ***********************
 
 * CheckDiffer
@@ -270,7 +369,7 @@ See :ref:`devoopmodel-classes` (24.3.6/24.3.7) for the underlying
 * MinOneItemNotNull
 * DNSRecordValuePlusType
 
-17.7. User Validation
+17.4. User Validation
 ---------------------
 
 Custom *x0-validation-functions* are integrated directly in ``userFunctions.js``,
