@@ -21,7 +21,14 @@ It outlines the following global sub-points:
 14.2. Global Data Storage
 -------------------------
 
-## Improve / add overall description (add hidden-field, direct DOM reference)
+The *x0-global-data* concept officially supersedes the legacy practice of storing or
+passing global data to the backend via hidden form fields. Instead of embedding
+auxiliary state directly inside the DOM through invisible, unmanaged input elements,
+*x0* exposes a dedicated, declarative key/value store that is natively integrated into
+the object model. When combined with the ``SrcDataObjects`` (*SourceDataObjects*)
+mechanism (see :ref:`appdeveventsystem`), global data — or screen-scoped global data —
+can be selectively included in the payload of any backend service call, without
+requiring a corresponding, hidden *x0-formfield* to carry the value.
 
 - **Global Data** — application-wide key/value pairs accessible from any screen at
   any time via ``sysFactory.getGlobalVar()`` / ``sysFactory.setGlobalVar()``.
