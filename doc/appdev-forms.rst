@@ -216,21 +216,21 @@ other, already rendered *x0-form-objects* without any custom JavaScript.
 .. table:: FormfieldOnchange OnChange Attributes
    :widths: 25 75
 
-   +--------------------+------------------------------------------------------------------------+
-   | **Property**       | **Description**                                                        |
-   +====================+========================================================================+
-   | ObjectID           | Destination ObjectID.                                                  |
-   +--------------------+------------------------------------------------------------------------+
-   | EnableOnValues     | Enable (set visible) DestinationObject on change to given Values.      |
-   +--------------------+------------------------------------------------------------------------+
-   | DisableOnValues    | Disable (set invisible) DestinationObject on change to given Values.   |
-   +--------------------+------------------------------------------------------------------------+
-   | ActivateOnValues   | Same like EnableOnValues but also set internal state to activated.     |
-   +--------------------+------------------------------------------------------------------------+
-   | DeactivateOnValues | Same like DisableOnValues but also set internal state to deactivated.  |
-   +--------------------+------------------------------------------------------------------------+
-   | FireEvents         | Fire Events on change to given Value                                   |
-   +--------------------+------------------------------------------------------------------------+
+   +--------------------+--------------------------------------------------------------------------+
+   | **Property**       | **Description**                                                          |
+   +====================+==========================================================================+
+   | ObjectID           | Destination ObjectID.                                                    |
+   +--------------------+--------------------------------------------------------------------------+
+   | EnableOnValues     | Enable (recursive) DstObject when Src SelectedValue in given Values.     |
+   +--------------------+--------------------------------------------------------------------------+
+   | DisableOnValues    | Disable (recursive) DstObject when Src SelectedValue in given Values.    |
+   +--------------------+--------------------------------------------------------------------------+
+   | ActivateOnValues   | Activate (visible) DstObject when Src SelectedValue in given Values.     |
+   +--------------------+--------------------------------------------------------------------------+
+   | DeactivateOnValues | Deactivate (invisible) DstObject when Src SelectedValue in given Values. |
+   +--------------------+--------------------------------------------------------------------------+
+   | FireEvents         | Fire Events on change to given Value                                     |
+   +--------------------+--------------------------------------------------------------------------+
 
 .. important::
    An ``EnableOnValues``/``DisableOnValues`` example that enables/disables a complete sub-section
