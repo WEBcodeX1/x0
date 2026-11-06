@@ -8,7 +8,7 @@
 Currently the following *x0-system-objects* are usable inside ``object.json``.
 
 * :ref:`objecttype-div`
-* :ref:`objecttype-sqltext`
+* :ref:`objecttype-text`
 * :ref:`objecttype-button`
 * :ref:`objecttype-buttoninternal`
 * :ref:`objecttype-image`
@@ -82,18 +82,22 @@ It generates a DOM layer with a configurable CSS class attribute.
       }
    }
 
-.. _objecttype-sqltext:
+.. _objecttype-text:
 
-11.2. SQLText
--------------
+11.2. Text
+----------
 
-The ``SQLText`` *x0-object-type* renders a multilingual text retrieved from the *x0-system-db*
-``webui.text`` table.
+The ``Text`` *x0-object-type* renders a multilingual text retrieved from the *x0-system-db*
+``webui.text`` table. Alternatively, the **static** *x0-component* uses the file ``/static/meta/text-data.json``
+in **NoSQL** manner.
+
+.. important::
+   For backward compatibility, the ``Text`` object type is also referenceable as ``SQLText``.
 
 11.2.1. Object Attributes
 *************************
 
-.. table:: Object Type SQLText Attributes
+.. table:: Object Type Text Attributes
    :widths: 30 20 80
 
    +---------------------+----------------------+-------------------------------------------------+
