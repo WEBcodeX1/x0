@@ -77,6 +77,13 @@ Additionally, these *x0-object-types* are officially supported:
 17.1.2. Validation
 ******************
 
+By declaratively setting a ``Formfield`` item's ``ValidateRef`` with a valid validation regex or
+function reference (see :ref:`form-validation-types`), the item is **ready** for validation.
+
+Triggering the validation process ultimately happens when a ``Button`` or ``ButtonInternal``
+*x0-object-type* (:ref:`objecttype-button` or :ref:`objecttype-buttoninternal`) has been
+configured to do so. See :ref:`appdevactions` for details on the logical control flow behavior.
+
 17.1.3. Group Validation
 ************************
 
@@ -142,22 +149,61 @@ When validating a ``FormfieldList``, the ``ErrorContainer`` (:ref:`objecttype-er
 Like any other *x0-object*, it supports multilingual display text and is **not**
 **bound** directly to the referencing ``FormfieldList``.
 
-Positioning the ``ErrorContainer`` is achieved via ``object.json`` and ``skeleton.json``,
-just like any other *x0-object*. The *x0-shadow-dom* enables this behavior: on validation
-failure, the *x0-system* references the bound ``ErrorContainer`` using
-``sysFactory.getObjectByID(ErrorContainerID)`` and calls the object instance's render routines,
-which ultimately output the detailed error information (according to the current display language).
+Positioning (layout) the ``ErrorContainer`` is achieved via ``object.json`` and ``skeleton.json``,
+just like any other *x0-object-type*. The *x0-shadow-dom* enables this behavior: on validation failure,
+the *x0-system* references the bound ``ErrorContainer`` using ``sysFactory.getObjectByID(ErrorContainerID)``
+and calls the object instance's render routines, which ultimately output the detailed error information
+(according to the current display language).
 
 .. important::
    By default, the ``ErrorContainer`` should be configured without any attributes, unless a
    specific ``Style`` needs to be applied. Connecting it within ``skeleton.json`` is sufficient,
    as its logic is **always** controlled externally by other objects.
 
-17.1.6. Context Menu
-********************
+17.1.6. Backend Data In
+***********************
 
-17.1.7. Backend Services
+To populate a ``FormfieldList`` object instance with data from the backend, the global,
+generic *x0-component* ``ServiceConnector`` (see :ref:`appdevserviceconnector`) is used.
+Once configured correctly and after the corresponding event triggers the backend
+service, the data arrives at the internal XML-RPC receiving mechanism of the ``FormfieldList``.
+
+The data mapping depends heavily on the incoming schema. Even if there is a structural
+mismatch (such as missing or extra fields), the data will still be correctly correlated
+to the matching ``Formfield`` items inside the ``FormfieldList``, provided the keys match.
+
+Upon object instantiation, the ``FormfieldList`` *x0-object-type* automatically maps its
+internal ``KeyID`` to the given ``FormfieldID`` for each item. This ``KeyID`` serves as the primary
+key for the ``Formfield`` when incoming input data is processed for a list of ``Formfield`` items.
+
+Based on this rule, if three items with the IDs "FormID1", "FormID2", and "FormID3"
+are mapped to the ``FormfieldList``, the following examples explain the behavior in detail:
+
+.. code-block:: javascript
+
+   {
+      "FormID1": "data1",
+      "FormID2": "data2"
+   }
+
+Two items will be updated with the values "data1" and "data2". The ``Formfield`` item "FormID3" remains empty.
+
+.. code-block:: javascript
+
+   {
+      "FormID2": "data2",
+      "FormID3": "data3",
+      "FormID4": "data4"
+   }
+
+Two items will be updated with the values "data2" and "data3". The ``Formfield`` item "FormID1" remains empty,
+and the incoming data key "FormID4" will be ignored.
+
+17.1.7. Backend Data Out
 ************************
+
+17.1.8. Context Menu
+********************
 
 
 17.2. FormfieldOnchange Handler
@@ -312,9 +358,7 @@ Multiple OnChange config can be specified if provided as **Array** type.
 -----------------------------
 
 Referenced by name via a form element's ``ValidateRef`` attribute (see
-:ref:`appdevformobjects`, 11.2), implemented in ``sysFormfieldValidate.js``.
-See :ref:`devoopmodel-classes` (24.3.6/24.3.7) for the underlying
-``sysFormFieldValidate``/``sysFormFieldValidateGroup`` method reference.
+:ref:`appdevformobjects`), implemented in ``sysFormfieldValidate.js``.
 
 17.3.1. Regex
 *************
@@ -369,14 +413,12 @@ See :ref:`devoopmodel-classes` (24.3.6/24.3.7) for the underlying
 * MinOneItemNotNull
 * DNSRecordValuePlusType
 
-17.4. User Validation
----------------------
+17.4. User Based Integration
+----------------------------
 
 Custom *x0-validation-functions* are integrated directly in ``userFunctions.js``,
-which ships with a dedicated ``UserValidate`` (single-field) and
-``UserValidateGroup`` (group) registry -- structurally identical to the system
-registries documented in 17.4, but kept in a separate, application-owned file
-so that it survives engine upgrades untouched.
+which ships with a dedicated ``UserValidate`` (single-field) and ``UserValidateGroup``
+(group) registry.
 
 Register a new single-field validation function by adding a named key/function
 pair to ``UserValidate``'s ``ValidateFunc`` object:
@@ -396,10 +438,5 @@ pair to ``UserValidate``'s ``ValidateFunc`` object:
        return false;
    }
 
-Group validation functions follow the same pattern against
-``UserValidateGroup``'s ``ValidateFunc`` object, receiving the array of
-participating form objects instead of a single value.
-
-Reference the resulting function name via ``ValidateRef`` (single-field) or
-``FunctionRef`` (``GroupValidate``, see :ref:`appdevformobjects`, 11.1.2)
-exactly like any system-provided validation type.
+Additional information will be provided in the systems-developer manual starting
+at :ref:`devarchitecture`.
