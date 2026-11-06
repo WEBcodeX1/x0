@@ -12,6 +12,7 @@ This chapter covers the global architecture components provided by the *x0-syste
 It outlines the following global sub-points:
 
 - Global Data Storage
+- Object Instancing
 - Notify Indication
 - Get/Set Data Abstraction
 - Realtime Pagination System
@@ -89,7 +90,48 @@ Write a screen global variable:
 
 .. _appdev-backend-notify:
 
-14.3. Notify Indication
+14.3. Object Instancing
+-----------------------
+
+In ``object.json``, a single object declarative configuration allows an entry to be
+declared as a *instance* of another, already-defined object instead of repeating its
+full definition.
+
+14.3.1. InstanceOf
+******************
+
+## Write a better suitable, simple description text about IntanceOf
+
+.. code-block:: json
+
+   "FormList2":
+   {
+      "InstanceOf": "FormList1"
+   }
+
+14.3.2. AttributesOverwrite
+***************************
+
+## Write a better suitable, simple description text about AttributesOverwrite
+
+.. code-block:: json
+
+   "ExamplesOverlayFormlist":
+   {
+      "InstanceOf": "ExamplesCopyPasteFormSource",
+      "AttributesOverwrite": {
+         "ObjectIDs": [
+            "WorkerNameLabel",
+            "WorkerName",
+            "WorkerSurenameLabel",
+            "WorkerSurename",
+            "TeamGroupLabel",
+            "TeamGroup"
+         ]
+      }
+   }
+
+14.4. Notify Indication
 -----------------------
 
 ## Add / improve the notifiy indicator description, probably add sub-chapters, but do not go into techincal details
@@ -117,17 +159,17 @@ shown in the following example.
       }
    }
 
-14.4. Object Data Abstraction
+14.5. Object Data Abstraction
 -----------------------------
 
 ## Add complete chapter including subchapters / describe the generic ``getObjectData()`` /  ``setObjectData()`` concept in detail,
 
-14.5. Realtime Pagination
+14.6. Realtime Pagination
 -------------------------
 
 ## Add complete chapter including subchapters / describe the generic realtime pagination concept including examples / remark that also hierarical objects can be paginated
 
-14.6. Drag & Drop
+14.7. Drag & Drop
 -----------------
 
 ## Add a remark that drag&drop is prepared but finaly needs a 100% generic ``getObjectData()`` /  ``setObjectData()`` abstraction to work correctly, which hopefully will be provided in system version 1.2.
