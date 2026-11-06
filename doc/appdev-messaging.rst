@@ -2,15 +2,15 @@
 
 .. _appdev-messaging:
 
-20. Messaging System
+19. Messaging System
 ====================
 
-20.1. Overview
+19.1. Overview
 --------------
 
-The *x0-messaging-system* provides real-time communication capabilities between browser
-clients, enabling the transfer of JSON object data and notification messages across
-network connections. This system facilitates multi-user collaboration, real-time data
+The *x0-messaging-system* provides **real-time communication** capabilities between browser
+clients, enabling the transfer of JSON object data and notification messages **across**
+**network connections**. This system facilitates multi-user collaboration, real-time data
 synchronization, and interactive web applications.
 
 By default, the *x0-framework* ships with a very limited, self-implemented, and dockerized
@@ -29,26 +29,26 @@ that handles message routing, session management, and delivery between connected
    internal message exchange testing and local development. It must not be deployed
    in production environments.
 
-20.2. Architecture
+19.2. Architecture
 ------------------
 
 The messaging system consists of three main components:
 
-20.2.1. Client-Side Components
+19.2.1. Client-Side Components
 ******************************
 
 * **sysAsyncNotifyMsgHandler**: JavaScript client that manages message polling and processing
 * **sysXMLRPCRequest**: Handles HTTP communication with the messaging server
 * **Session Management**: Tracks user sessions and message routing
 
-20.2.2. Messaging Server
+19.2.2. Messaging Server
 ************************
 
 * **MsgHandler.py**: WSGI application handling HTTP requests from clients
 * **MessagingServer.py**: Core message processing and routing logic
 * **Unix Socket Communication**: Internal communication between components
 
-20.2.3. Communication Flow
+19.2.3. Communication Flow
 **************************
 
 .. code-block:: text
@@ -63,7 +63,7 @@ The messaging system consists of three main components:
        |--- GET polling request --->|                            |
        |<-- return message(s) ------|                            |
 
-20.2.4. Technical Implementation
+19.2.4. Technical Implementation
 ********************************
 
 The system uses HTTP long-polling with a 10-second timeout for real-time communication.
@@ -75,17 +75,17 @@ continuous polling requests.
    WebSocket implementation is planned for future releases to improve efficiency
    and reduce server load.
 
-20.3. Setup and Installation
+19.3. Setup and Installation
 -----------------------------
 
-20.3.1. Prerequisites
+19.3.1. Prerequisites
 *********************
 
 * Docker environment
 * *x0-app* container running
 * Network connectivity between containers
 
-20.3.2. Server Installation
+19.3.2. Server Installation
 ***************************
 
 Download and start the messaging server:
@@ -102,7 +102,7 @@ Download and start the messaging server:
     cd ./docker
     ./x0-start-msg-server.sh
 
-20.3.3. Network Configuration
+19.3.3. Network Configuration
 *****************************
 
 Configure DNS resolution for the messaging server:
@@ -117,10 +117,10 @@ Configure DNS resolution for the messaging server:
    Due to Docker networking limitations, the messaging server runs on port 8080
    to ensure compatibility with *x0-app* and *x0-msg-server* parallel execution.
 
-20.4. Configuration
+19.4. Configuration
 -------------------
 
-20.4.1. Server Configuration
+19.4.1. Server Configuration
 ****************************
 
 The messaging server configuration is defined in the Docker container:
@@ -138,10 +138,10 @@ The messaging server configuration is defined in the Docker container:
         }
     }
 
-20.4.2. Server CORS
+19.4.2. Server CORS
 *******************
 
-20.4.3. Client Configuration
+19.4.3. Client Configuration
 ****************************
 
 Configure the messaging client in your *x0-application*:
@@ -154,17 +154,17 @@ Configure the messaging client in your *x0-application*:
     // Configure server URL
     sysFactory.MsgServerGetURL = 'http://x0-msg-server.x0-localnet:8080/get';
 
-20.5. Example Implementation
+19.5. Example Implementation
 ----------------------------
 
-20.5.1. Basic Usage
+19.5.1. Basic Usage
 *******************
 
 The messaging system is demonstrated in Example #10:
 
 **URL:** http://x0-app.x0.localnet/python/Index.py?appid=example10
 
-20.5.2. Testing Procedure
+19.5.2. Testing Procedure
 *************************
 
 1. Open the example URL in two separate browser tabs
@@ -174,7 +174,7 @@ The messaging system is demonstrated in Example #10:
 5. Click "Send Data" to transmit data to the second tab
 6. Observe real-time data transfer and notification display
 
-20.5.3. Current Implementation Status
+19.5.3. Current Implementation Status
 *************************************
 
 .. note::

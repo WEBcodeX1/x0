@@ -44,8 +44,10 @@ found in the system developer's guide (see: ).
    is triggered, the list is populated (updated) with data from the **Backend.py** service
    call.
 
-15.3. Backend Data
-------------------
+.. _appdevserviceconnector:
+
+15.3. Backend Connector
+-----------------------
 
 To populate an *x0-object* with data from an asynchronous backend service call, a
 special *x0-object* of type ``ServiceConnector`` is used.

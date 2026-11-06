@@ -12,9 +12,9 @@ framework ecosystem.
 29.1. Architectural Foundations
 -------------------------------
 
-The implementation of a custom, deterministic x0-object requires strict adherence to the framework's
+The implementation of a custom, deterministic *x0-object* requires strict adherence to the framework's
 core structural constraints. The following core principles must be thoroughly understood before a
-developer attempts to construct custom objects or modular extensions.
+developer attempts to construct **custom objects** or **modular extensions**.
 
 Distinct rules separate mandatory requirements ("musts") from optional features ("cans"). Deviating
 from these specifications can significantly alter overall system behavior; therefore, all subsequent

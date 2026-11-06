@@ -5,15 +5,14 @@
 7. Application Development
 ==========================
 
-This section of the documentation focuses on application development—specifically
+This section of the documentation focuses on **application development**, specifically
 limited to the **declarative part** of the *x0-system*. This means using only
-pre-existing *x0-objects* by configuring them declaratively with static configurations
+pre-existing *x0-objects* by configuring them declaratively with **static** configurations
 in ``object.json``.
 
-The programmatic part (developing custom *x0-objects* to build sophisticated
-UI elements / templates) is covered in the systems-developer section starting at
-:ref:`devarchitecture` and briefly here under 7.5. "Custom Extensions"
-:ref:`appdevcustomextensions`.
+The **programmatic part** (developing custom *x0-objects* to build sophisticated UI elements,
+also referred to as **OOP Enhanced Templating**) is covered in the systems-developer section
+starting at :ref:`devarchitecture`, and briefly here under :ref:`appdevcustomextensions`.
 
 .. _appdevmainconcept:
 
@@ -208,8 +207,18 @@ two ``RangeSlider`` objects ready to be connected to the tab container's tabs:
        "Type": "TabContainer",
        "Attributes": {
          "Tabs": [
-           { "ID": "Tab1", "Default": true, "TextID": "TXT.BASIC-TABCONTAINER.TAB1", "Style": "col-md-6" },
-           { "ID": "Tab2", "TextID": "TXT.BASIC-TABCONTAINER.TAB2", "Style": "col-md-6" }
+           {
+             "ID": "Tab1",
+             "Default": true,
+             "TextID": "TXT.BASIC-TABCONTAINER.TAB1",
+             "Style": "col-md-6"
+           },
+           {
+             "ID": "Tab2",
+             "TextID":
+             "TXT.BASIC-TABCONTAINER.TAB2",
+             "Style": "col-md-6"
+           }
          ]
        }
      },

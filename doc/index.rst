@@ -16,7 +16,7 @@ x0 Framework Documentation
 
 .. toctree::
    :maxdepth: 2
-   :caption: Application Development Guide
+   :caption: Application Development
 
    appdev-main-concept
    appdev-config

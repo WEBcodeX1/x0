@@ -1,13 +1,13 @@
 .. appdev-kubernetes
 
-21. Kubernetes Deployment
+20. Kubernetes Deployment
 =========================
 
-21.1. Intro
+20.1. Intro
 -----------
 
-The *x0-kubernetes-deployment* main goal is to get multiple production ready
-GKE (Google Kubernetes Engine) environments online with minimum effort.
+The *x0-kubernetes-deployment* main goal is to get **multiple** production ready
+GKE (Google Kubernetes Engine) **environments** online with **minimum effort**.
 
 Why Kubernetes? It is the only current system worldwide guaranteeing
 native fail-safe operations including application load-balancing and
@@ -20,7 +20,7 @@ Following, our proposed deployment workflow.
 * Deploy to GKE Production Cluster (x0-supported)
 * Takeover Lifecycle / DevOps Management by Terraform or similar
 
-21.2. Kubernetes Installer
+20.2. Kubernetes Installer
 --------------------------
 
 The kubernetes installer will set up the following, depending on the
@@ -61,7 +61,7 @@ The kubernetes installer is located at ``/kubernetes/setup/Setup.py``.
    # run installer
    python3 ./Setup.py
 
-21.2.1. Base Properties
+20.2.1. Base Properties
 ***********************
 
 Root properties.
@@ -85,7 +85,7 @@ Root properties.
    | vhosts              | Object               | VHosts Object Declaration                       |
    +---------------------+----------------------+-------------------------------------------------+
 
-21.2.2. Project Properties
+20.2.2. Project Properties
 **************************
 
 Project related properties.
@@ -103,7 +103,7 @@ Project related properties.
    | git-repo            | Git-Repo String      | Git Repository (Docker Registry Ref)            |
    +---------------------+----------------------+-------------------------------------------------+
 
-21.2.3. Installer Properties
+20.2.3. Installer Properties
 ****************************
 
 Installer related properties.
@@ -117,7 +117,7 @@ Installer related properties.
    | type (installer)    | Enum InstallerString | "x0" or "debian-package" or "default"           |
    +---------------------+----------------------+-------------------------------------------------+
 
-21.2.4. Database Properties
+20.2.4. Database Properties
 ***************************
 
 Database related properties.
@@ -137,7 +137,7 @@ Database related properties.
    | repl_password       | DB-Password String   | Kubergres Replication Password                  |
    +---------------------+----------------------+-------------------------------------------------+
 
-21.2.5. Environment Element
+20.2.5. Environment Element
 ***************************
 
 Environment Element related properties.
@@ -169,7 +169,7 @@ Environment Element related properties.
    | $env.database.replicas                  | Integer              | Pods Replica Count                    |
    +-----------------------------------------+----------------------+---------------------------------------+
 
-21.2.6. VirtualHost Element
+20.2.6. VirtualHost Element
 ***************************
 
 .. table:: Set up VirtualHost Element Properties
