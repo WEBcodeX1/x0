@@ -30,7 +30,7 @@ hidden, or repurposed without touching the engine itself.
 
    Browser Content Areas
 
-.. tip::
+.. important::
    Screen areas not currently in focus are not destroyed; they remain
    present as invisible layers, which is what enables instantaneous,
    stateful transitions between screens (see :ref:`appdevconfig-statepreservation`).
@@ -93,7 +93,7 @@ or navigating via the Menu Area, **never** resets object state.
 .. _appdevconfig-positioning:
 
 8.1.5. Area Positioning / CSS
------------------------------
+*****************************
 
 -  Layout is implemented with the Bootstrap grid for responsive
    positioning, e.g. ``<body class="row">`` combined with ``col-md-x``
