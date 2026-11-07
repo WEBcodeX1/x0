@@ -1384,6 +1384,8 @@ Defined in ``sysHelper.js``. A small collection of standalone, module-level util
 - ``sysConvertSysDataArray2Object(Data)``: Converts an array of ``{ KeyID, … }`` entries into an
   object keyed by ``KeyID``.
 
+.. _devoopmodel-classes-asyncnotify:
+
 24.5. Async Notification Classes
 --------------------------------
 
