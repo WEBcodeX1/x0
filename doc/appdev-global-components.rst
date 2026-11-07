@@ -272,9 +272,21 @@ and type 6 is limited to a hardcoded implementation that only supports simple, n
 The following sections will focus specifically on type 6 (Real-time object instantiation), as its
 optimization fundamentally influences the future extensibility of the *x0-system*.
 
-14.6.1. Realtime Object Instancing
-**********************************
+14.6.1. Real-Time Object Instantiation
+**************************************
 
+An initial prototype is currently testing a generic, recursive approach to get and set
+nested JSON data using an Object-Document Mapping (ODM) pattern. In this architecture,
+the *x0-shadow-dom* acts as an ODM entity, routing and managing data to dynamically modify
+and instantiate complex object hierarchies—including deeply nested structures—at runtime.
+
+This concept drastically reduces complexity from a NoSQL perspective: raw JSON data can
+be fetched unmodified from MongoDB or similar databases and used directly to instantiate
+multiple object hierarchies inside the *x0-runtime*. The same seamless process applies
+conversely to data persistence and storage.
+
+To support this complete generic implementation, the methods ``getObjectData()`` and
+``setObjectData()`` are currently being developed and tested.
 
 14.7. Drag & Drop
 -----------------
