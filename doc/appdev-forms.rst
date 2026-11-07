@@ -129,7 +129,7 @@ the system with custom, programmatic validation routines.
 The declarative **Form** approach also allows you to apply professional layouts
 without complex configurations, as shown below:
 
-.. code-block:: javascript
+.. code-block:: text
 
    +---------------------------------+---------------------------------+
    | FormItem1 (label)               | FormItem2                       |
