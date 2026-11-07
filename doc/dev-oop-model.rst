@@ -5,13 +5,26 @@
 23. OOP Model
 =============
 
-This chapter documents the architectural model of the *x0-framework*: the small set of
+This chapter documents the architectural model of the x0-framework: the small set of
 foundational classes that every *x0-system-object* is built upon, and the core engine
-components that instantiate, connect, and drive these objects at runtime. Together they
-form a **pointer-based recursive object model**: every object holds a direct reference
-(``ParentObject``) to its parent and an array of direct references (``ChildObjects``) to
-its children, so the entire application state at any point in time is simply one
-in-memory object graph rooted at a screen's ``HierarchyRootObject``.
+components that instantiate, connect, and drive these objects at runtime. Together, they
+form a pointer-based recursive object model: every object holds a direct reference
+(`ParentObject`) to its parent and an array of direct references (`ChildObjects`) to
+its children. As a result, the entire application state at any point in time is simply
+one in-memory object graph, partitioned (segmented for performance reasons) and rooted
+at each screen's `HierarchyRootObject`.
+
+.. code-block:: text
+
+   +----------------+      +----------------------------------+
+   | object.json    |      | x0-core (Factory.js/Screen.js)   |
+   +----------------+ ---> +------------+---------------------+      +----------------------+
+   | skeleton.json  |      | Screen1    | HierarchyRootObject | ---> | Object1::Ref Screen1 |
+   +----------------+      +------------+---------------------+      +----------------------+
+                           | Screen2    | HierarchyRootObject |      | Object2::Ref Object1 |
+                           +------------+---------------------+      +----------------------+
+                                                                     | Object3::Ref Object2 |
+                                                                     +----------------------+
 
 .. _devoopmodel_base:
 
