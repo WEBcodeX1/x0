@@ -33,6 +33,8 @@ relations specific to menu purposes.
 Through the integration of so-called ``ServiceConnectors`` (which will be discussed later),
 this ecosystem can be fed with external data either at **load-time** or dynamically at **run-time**.
 
+.. _shadow-dom:
+
 7.2. Shadow DOM
 ---------------
 
@@ -66,6 +68,8 @@ your infrastructure clean and well-structured.
 
 .. important::
    A 100% generic approach is currently in development and will be shipped with x0 version 1.2.
+
+.. _appdev-metadata-model:
 
 7.4. Metadata & Object Model
 ----------------------------

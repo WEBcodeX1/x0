@@ -95,6 +95,8 @@ a context menu item, the *x0-system* distinguishes between two models:
    From a declarative perspective, only the **Internal Function** method can be used to map
    functionality. The **Callback Function** method is strictly limited to custom *x0-objects*.
 
+.. _contextmenu-functions:
+
 13.4. Function Mapping
 ----------------------
 

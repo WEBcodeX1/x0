@@ -386,7 +386,7 @@ to the backend. Specify the source screen with ``ScreenID``:
       }
    }
 
-.. _appdevactions:
+.. _event-actions:
 
 16. Actions
 ===========

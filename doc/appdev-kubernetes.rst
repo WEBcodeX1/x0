@@ -1,5 +1,7 @@
 .. appdev-kubernetes
 
+.. _kubernetes-deployment:
+
 20. Kubernetes Deployment
 =========================
 

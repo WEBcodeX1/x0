@@ -7,45 +7,53 @@
 
 Currently the following *x0-system-objects* are usable inside ``object.json``.
 
-* :ref:`objecttype-div`
-* :ref:`objecttype-text`
-* :ref:`objecttype-button`
-* :ref:`objecttype-buttoninternal`
-* :ref:`objecttype-image`
-* :ref:`objecttype-imageselector`
-* :ref:`objecttype-badgeselector`
-* :ref:`objecttype-list`
-* :ref:`objecttype-tabcontainer`
-* :ref:`objecttype-fileupload`
-* :ref:`objecttype-errorcontainer`
-* :ref:`objecttype-openclosecontainer`
-* :ref:`objecttype-treesimple`
-* :ref:`objecttype-divunique`
-* :ref:`objecttype-progressbar`
-* :ref:`objecttype-rangeslider`
-* :ref:`objecttype-rangeslidercontainer`
-* :ref:`objecttype-headerbodycontainer`
-* :ref:`objecttype-systemsettingscontainer`
-* :ref:`objecttype-systemsettingscontainergrid`
-* :ref:`objecttype-infoparagraph`
-* :ref:`objecttype-languageswitch`
-* :ref:`objecttype-dynradiolist`
-* :ref:`objecttype-serviceconnector`
+- :ref:`objecttype-div`
+- :ref:`objecttype-text`
+- :ref:`objecttype-button`
+- :ref:`objecttype-buttoninternal`
+- :ref:`objecttype-image`
+- :ref:`objecttype-imageselector`
+- :ref:`objecttype-badgeselector`
+- :ref:`objecttype-list`
+- :ref:`objecttype-tabcontainer`
+- :ref:`objecttype-fileupload`
+- :ref:`objecttype-errorcontainer`
+- :ref:`objecttype-openclosecontainer`
+- :ref:`objecttype-treesimple`
+- :ref:`objecttype-divunique`
+- :ref:`objecttype-progressbar`
+- :ref:`objecttype-rangeslider`
+- :ref:`objecttype-rangeslidercontainer`
+- :ref:`objecttype-headerbodycontainer`
+- :ref:`objecttype-systemsettingscontainer`
+- :ref:`objecttype-systemsettingscontainergrid`
+- :ref:`objecttype-infoparagraph`
+- :ref:`objecttype-languageswitch`
+- :ref:`objecttype-dynradiolist`
+- :ref:`objecttype-serviceconnector`
 
-Additionally, the following user-space example objects (``/www/userObj*.js``) ship
-with the static reference container and illustrate how core objects can be
-composed into higher-level, reusable building blocks:
+Additionally, the following custom object extensions are provided within the
+*x0-static* Docker **reference container**. They illustrate how the core system
+components can be composed into higher-level, **reusable building blocks**,
+serving as a blueprint for **programmatically** building custom *x0-objects*:
 
-* :ref:`objecttype-timedprogress`
-* :ref:`objecttype-examplewizard`
-* :ref:`objecttype-exampleeditableitem`
-* :ref:`objecttype-exampleeditableitemcontainer`
-* :ref:`objecttype-exampleflightdetails`
-* :ref:`objecttype-exampleflightstatus`
-* :ref:`objecttype-examplecardtasklist`
-* :ref:`objecttype-examplepeopleselector`
+- :ref:`objecttype-timedprogress`
+- :ref:`objecttype-examplewizard`
+- :ref:`objecttype-exampleeditableitem`
+- :ref:`objecttype-exampleeditableitemcontainer`
+- :ref:`objecttype-exampleflightdetails`
+- :ref:`objecttype-exampleflightstatus`
+- :ref:`objecttype-examplecardtasklist`
+- :ref:`objecttype-examplepeopleselector`
 
-For form-specific objects, see :ref:`appdevformobjects`. For practical examples and implementations, see the :ref:`examples section <object-examples-reference>` at the end of this document.
+**Form-specific objects**, see :ref:`appdevformobjects`.
+
+**Practical examples** can be found under ``/examples/``, including detailed descriptions.
+
+.. note::
+   For immediate access to these examples and to explore the system's full potential,
+   you can use the pre-configured *x0-static* application running inside a minimal
+   Docker container. For setup instructions, see :ref:`installation-minimal`.
 
 .. _objecttype-div:
 
@@ -59,7 +67,7 @@ It generates a DOM layer with a configurable CSS class attribute.
 *************************
 
 .. table:: Object Type Div Attributes
-   :widths: 15 15 70
+   :widths: 10 10 90
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -77,7 +85,8 @@ It generates a DOM layer with a configurable CSS class attribute.
    "$ObjectID":
    {
       "Type": "Div",
-      "Attributes": {
+      "Attributes":
+      {
          "Style": "css1 css2 css3"
       }
    }
@@ -122,7 +131,8 @@ file for **NoSQL** operations.
    "$ObjectID":
    {
       "Type": "SQLText",
-      "Attributes": {
+      "Attributes":
+      {
          "Style": "css1 css2",
          "TextID": "TXT.TEST.NR1"
       }
@@ -135,7 +145,7 @@ file for **NoSQL** operations.
 
 The ``Button`` *x0-object-type* generates a control-flow modifying object.
 
-Details see :ref:`appdevcontrolbutton`.
+.. _button-attributes:
 
 11.3.1. Object Attributes
 *************************
@@ -164,62 +174,17 @@ Details see :ref:`appdevcontrolbutton`.
    +---------------------+----------------------+-------------------------------------------------+
    | OnClick             | URL-String           | Backend Service URL                             |
    +---------------------+----------------------+-------------------------------------------------+
-   | Action              | Action-String        | Single Action before Service Exec, see 11.3.2.  |
+   | Action              | Array of Actions     | Actions **before** Service Execution            |
    +---------------------+----------------------+-------------------------------------------------+
-   | DstObjectID         | ObjectID-String      | Destination ObjectID Reference                  |
-   +---------------------+----------------------+-------------------------------------------------+
-   | DstScreenID         | ScreenID-String      | Destination ScreenID Reference                  |
+   | OnResult            | Array of Actions     | Actions **after** Service Execution             |
    +---------------------+----------------------+-------------------------------------------------+
    | FireEvents          | Array of EventIDs    | Array of EventIDs                               |
    +---------------------+----------------------+-------------------------------------------------+
-   | CloseOverlay        | Boolean              | Close Overlay On Click                          |
-   +---------------------+----------------------+-------------------------------------------------+
-   | OnResult            | Array of Actions     | Actions after Service Execution, see 11.3.3.    |
-   +---------------------+----------------------+-------------------------------------------------+
 
-11.3.2. Actions
-***************
+11.3.2. Actions / OnResult
+**************************
 
-.. table:: Button Actions
-   :widths: 30 70
-
-   +---------------------+------------------------------------------------------------------------+
-   | **Action**          | **Description**                                                        |
-   +=====================+========================================================================+
-   | enable              | Set DOM Visible State "visible"                                        |
-   +---------------------+------------------------------------------------------------------------+
-   | disable             | Set DOM Visible State "hidden"                                         |
-   +---------------------+------------------------------------------------------------------------+
-   | activate            | Set Internal State to "active" (processing validation)                 |
-   +---------------------+------------------------------------------------------------------------+
-   | deactivate          | Set Internal State to "inactive" (omitting from validation)            |
-   +---------------------+------------------------------------------------------------------------+
-   | reset               | Call Objects reset() Method                                            |
-   +---------------------+------------------------------------------------------------------------+
-   | switchscreen        | Switch Screen to Value in DstScreenID                                  |
-   +---------------------+------------------------------------------------------------------------+
-
-11.3.3. OnResult Actions
-************************
-
-.. table:: Button OnResult Actions
-   :widths: 30 70
-
-   +---------------------+------------------------------------------------------------------------+
-   | **Action**          | **Description**                                                        |
-   +=====================+========================================================================+
-   | enable              | Set DOM Visible State "visible"                                        |
-   +---------------------+------------------------------------------------------------------------+
-   | disable             | Set DOM Visible State "hidden"                                         |
-   +---------------------+------------------------------------------------------------------------+
-   | activate            | Set Internal State to "active" (processing validation)                 |
-   +---------------------+------------------------------------------------------------------------+
-   | deactivate          | Set Internal State to "inactive" (omitting from validation)            |
-   +---------------------+------------------------------------------------------------------------+
-   | reset               | Call Objects reset() Method                                            |
-   +---------------------+------------------------------------------------------------------------+
-   | tabswitch           | Switch to TabContainers Tab                                            |
-   +---------------------+------------------------------------------------------------------------+
+See :ref:`event-actions`.
 
 .. _objecttype-buttoninternal:
 
@@ -229,43 +194,10 @@ Details see :ref:`appdevcontrolbutton`.
 The ``ButtonInternal`` *x0-object-type* inherits ``Button`` *x0-object-type* and, as the name suggests,
 is designed for use cases that are not centered around backend services.
 
-Details see :ref:`appdevcontrolbuttoninternal`.
-
 11.4.1. Object Attributes
 *************************
 
-.. table:: Object Type ButtonInternal Attributes
-   :widths: 15 15 70
-
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
-   +---------------------+----------------------+-------------------------------------------------+
-   | DOMValue            | String               | Set Hardcoded Display Value                     |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Style               | CSS-String           | CSS Style Classes, space separated              |
-   +---------------------+----------------------+-------------------------------------------------+
-   | IconStyle           | CSS-String           | Fontawesome Icon CSS for Prepend Icon           |
-   +---------------------+----------------------+-------------------------------------------------+
-   | IconStylePost       | CSS-String           | Fontawesome Icon CSS for Append Icon            |
-   +---------------------+----------------------+-------------------------------------------------+
-   | FormButton          | Boolean              | Treat Button as HTML form input type "button"   |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Disabled            | Boolean              | Disable Functionality                           |
-   +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Action              | Action-String        | Single Action before Service Exec, see 11.3.2.  |
-   +---------------------+----------------------+-------------------------------------------------+
-   | DstObjectID         | ObjectID-String      | Destination ObjectID Reference                  |
-   +---------------------+----------------------+-------------------------------------------------+
-   | DstScreenID         | ScreenID-String      | Destination ScreenID Reference                  |
-   +---------------------+----------------------+-------------------------------------------------+
-   | FireEvents          | Array                | Array of EventIDs                               |
-   +---------------------+----------------------+-------------------------------------------------+
-   | CloseOverlay        | Boolean              | Close Overlay On Click                          |
-   +---------------------+----------------------+-------------------------------------------------+
+All attrributes are inherited from ``Button``, see :ref:`button-attributes`.
 
 .. _objecttype-image:
 
@@ -281,19 +213,19 @@ through the standard ``getObjectData()`` / ``setObjectData()`` API.
 *************************
 
 .. table:: Object Type Image Attributes
-   :widths: 15 15 70
+   :widths: 10 10 80
 
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | Value               | URL-String           | Image ``src`` path                              |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Width               | String               | Image ``width`` attribute, e.g. ``80px``        |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Height              | String               | Image ``height`` attribute, e.g. ``80px``       |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Style               | CSS-String           | CSS Style Classes, space separated              |
-   +---------------------+----------------------+-------------------------------------------------+
+   +-----------------+------------------+---------------------------------------------------------+
+   | **Property**    | **Type**         | **Description**                                         |
+   +=================+==================+=========================================================+
+   | Value           | URL-String       | Image ``src`` path                                      |
+   +-----------------+------------------+---------------------------------------------------------+
+   | Width           | String           | Image ``width`` attribute, e.g. ``80px``                |
+   +-----------------+------------------+---------------------------------------------------------+
+   | Height          | String           | Image ``height`` attribute, e.g. ``80px``               |
+   +-----------------+------------------+---------------------------------------------------------+
+   | Style           | CSS-String       | CSS Style Classes, space separated                      |
+   +-----------------+------------------+---------------------------------------------------------+
 
 11.5.2. Runtime API
 *******************
@@ -301,7 +233,7 @@ through the standard ``getObjectData()`` / ``setObjectData()`` API.
 .. code-block:: javascript
 
    // read current image source
-   var src = sysFactory.getObjectByID('MyImage').getObjectData();
+   const src = sysFactory.getObjectByID('MyImage').getObjectData();
 
    // swap the image source and re-render
    sysFactory.getObjectByID('MyImage').setObjectData('/image/other.png');
@@ -314,7 +246,8 @@ through the standard ``getObjectData()`` / ``setObjectData()`` API.
    "$ObjectID":
    {
       "Type": "Image",
-      "Attributes": {
+      "Attributes":
+      {
          "Value": "/image/x0-logo.png",
          "Style": "border rounded"
       }
@@ -1648,16 +1581,8 @@ inherits from ``sysObjDivUnique`` and is typically instantiated inside a
 
 .. _object-examples:
 
-11.33. Object Examples Reference
---------------------------------
-
-Examples can be found under ``/examples/``, including detailed descriptions.
-
-.. note::
-   Additionally, the *x0-static* component (which runs inside the static Docker container)
-   includes various examples demonstrating its full potential; see :ref:`installation-minimal`.
-
-**Object Type Categories:**
+11.33. Object Type Categories
+-----------------------------
 
 **Container Objects:**
   - :ref:`objecttype-div`

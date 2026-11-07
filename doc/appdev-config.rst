@@ -49,8 +49,7 @@ an ``Image`` object (the application logo) and a ``TreeSimple`` object (the
 navigation tree), with no dedicated "link" object involved at all.
 
 -  Menu objects are referenced in ``menu.json`` and defined in
-   ``object.json``, exactly as for any other screen (see
-   :ref:`appdevconfig-metadata`).
+   ``object.json``, exactly as for any other screen (see :ref:`appdev-metadata-model`).
 -  Activating a navigation entry switches the active screen in the Screen
    Content Area.
 -  Positioning is CSS-driven (see :ref:`appdevconfig-positioning`).
@@ -176,13 +175,13 @@ The relevant ``system.config`` parameters are:
 
 The ``config/app-config.json`` file defines database authentication, virtual hosts,
 and the *x0-applications* served per vhost. While the full property reference for
-this file is documented in :ref:`appdev-kubernetes`, this section summarizes
+this file is documented in :ref:`kubernetes-deployment`, this section summarizes
 the parts relevant to day-to-day application development.
 
 .. important::
    Multi-virtual-host and multi-environment support requires a properly
    configured and packaged database-backed deployment; it is not available
-   in the standalone :ref:`installation-quickstart` container.
+   in the standalone :ref:`installation-minimal` container.
 
 8.3.1. Database Authentication
 ******************************
@@ -200,7 +199,7 @@ image build:
 -  Apache virtual hosts are generated from the JSON configuration during
    the Docker build.
 -  SSL/TLS is only fully automated for Kubernetes deployments (see
-   :ref:`appdeployment-kubernetes`).
+   :ref:`kubernetes-deployment`).
 
 8.3.3. x0-Applications
 **********************
