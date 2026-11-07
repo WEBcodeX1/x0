@@ -155,25 +155,26 @@ inherited unchanged from the source object.
 14.4. Notify Indication
 -----------------------
 
-The *x0-notify-indication* system is a non-blocking, asynchronous feedback channel that
+The *x0-notify-indication* system is an asynchronous feedback channel that
 informs the user about the outcome of actions executed in the background, without
-interrupting the current screen state. It is implemented across four cooperating engine
-components: ``sysObjAsyncNotify`` (``sysAsyncNotify.js``), the globally accessible
-singleton container ``sysObjAsyncNotifyIndicator`` (``sysAsyncNotifyIndicator.js``,
-exposed as ``sysFactory.GlobalAsyncNotifyIndicator``), the per-message
-``sysObjAsyncNotifyIndicatorItem`` (``sysAsyncNotifyIndicatorItem.js``), and the
-``sysAsyncNotifyMsgHandler`` (``sysAsyncNotifyMsgHandler.js``), which bridges
-server-pushed messages into the same indicator container. Every individual notification
-is represented by its own ``sysObjAsyncNotifyIndicatorItem`` instance, uniquely
-addressable through its declarative ``ID``, and progresses through a small status
-lifecycle — *pending*, *success*, *error* or *system error* — that is reflected both in
-the item's icon and its background styling.
+interrupting the current screen state. It also bridges server-pushed messages into
+the same indicator container.
+
+The system supports multiple message containers (item instances), which are uniquely
+addressable via their declarative ``ID``. Each message container can be configured with
+a specific icon and background color for visual emphasis, and transitions through the
+following states:
+
+- *pending*
+- *success*
+- *error*
+- *system error*
 
 14.4.1. Base Mechanism
 ***********************
 
 Add a notify indicator by adding the ``Notify`` attribute to *x0-button-type* like
-shown in the following example. 
+shown in the following example:
 
 .. code-block:: javascript
 
