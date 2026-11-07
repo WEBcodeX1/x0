@@ -221,7 +221,41 @@ developer's guide starting at :ref:`devarchitecture`.
 14.5. Realtime Pagination
 -------------------------
 
-## Add complete chapter including subchapters / describe the generic realtime pagination concept including examples / remark that also hierarical objects can be paginated
+The *x0-realtime-pagination* system, implemented by ``sysPagination``
+(``sysRTPagination.js``), splits an already-loaded, in-memory collection of rows into
+multiple navigable pages directly inside the browser. Page switches are resolved by
+toggling each row's ``VisibleState`` between ``hidden`` and ``visible``
+(``sysPagination.prototype.update()``); no additional backend round-trip is required to
+move between pages whose data has already been fetched, resulting in instantaneous,
+realtime page navigation.
+
+14.5.1. Generic Object Integration
+***********************************
+
+``sysPagination`` is a standalone runtime object rather than a base class: any
+*x0-system-object* — built-in or custom, flat or deeply nested — becomes paginatable by
+instantiating it as ``new sysPagination(this)`` and exposing two conventions the
+pagination engine relies on, a ``RowItems`` array holding the individual row objects and
+a ``RowCount`` attribute defining the number of rows displayed per page. The pagination
+object then renders its own navigation controls (previous/next links and numbered page
+items, built via ``sysFactory.setupObjectRefsRecursive()``) and attaches them to the
+parent object. This generic contract is what allows the same mechanism to drive the
+built-in ``List`` (``sysObjList.js``) and ``ImageSelector`` (``sysObjImageSelector.js``)
+*x0-object-types* as well as arbitrarily sophisticated, hierarchical custom containers,
+since each ``RowItem`` may itself be an arbitrarily complex, nested object graph.
+
+14.5.2. Editable, Paginated Containers
+****************************************
+
+``www/userObjExampleEditableItemContainer.js`` demonstrates this generic contract in a
+production-complexity scenario: a custom container whose row items
+(``userObjExampleEditableItem``) are not only paginated but also fully editable and
+re-orderable in realtime. Every structural mutation — adding a row
+(``addItem()``), reordering rows, or removing one — rebuilds the affected
+``ChildObjects``/``RowItems`` state and then calls ``this.PaginationObject.update()``
+(see ``redrawList()``) to recompute the currently visible slice and re-render the
+navigation controls, keeping the pagination state consistent with the underlying,
+dynamically changing data set.
 
 14.6. Object Data Abstraction
 -----------------------------
