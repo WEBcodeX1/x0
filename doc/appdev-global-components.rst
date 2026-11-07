@@ -196,65 +196,27 @@ shown in the following example:
       }
    }
 
-For a backend-calling ``Button``, the declarative ``Notify`` block is registered as soon
-as the call is dispatched (``sysObjButton.prototype.callService()`` delegates to
-``addNotifyHandler()``), and the corresponding ``sysObjAsyncNotifyIndicatorItem`` is
-resolved automatically once the XML-RPC response returns, with the resulting status
-(*success*, *error* or *system error*) derived from the response payload
-(``sysObjButton.prototype.callbackXMLRPCAsync()``). ``ButtonInternal`` shares the same
-validation and action-processing foundation — ``validateForm()``, ``processActions()``
-and the subsequent event-firing lifecycle — with ``Button``; because its actions are
-resolved entirely on the client, a ``ButtonInternal``-driven status indication is instead
-produced by invoking the very same indicator API directly once the internal operation
-has concluded (see 14.4.3).
-
 14.4.2. Multi-language Support
-*******************************
+******************************
 
-All user-facing text produced by the indicator — the header associated with a
-``Notify.ID``, the status captions (*success* / *error* / *system error*), and auxiliary
-interface strings such as the dismiss button's tooltip — is resolved through the
-framework's central text-resolution service, ``sysFactory.getText()``, following the same
-``TXT.*`` identifier convention used throughout *x0* (for example
-``TXT.SYS.NOTIFYINDICATOR.SUCCESS``, ``TXT.SYS.NOTIFYINDICATOR.ERROR`` and
-``TXT.SYS.NOTIFYINDICATOR.TITLE_CLOSE``). Because these identifiers — rather than literal
-strings — are embedded in the rendered item
-(``sysObjAsyncNotifyIndicatorItem.prototype.updateDisplayText()``), every notification
-produced by the system automatically follows the session's active language without
-requiring any additional localization logic in application code.
+The *x0-notify-indication* system fully complies with the framework's standard
+multi-language requirements. All user-facing text—including notification headers
+and status captions—is resolved dynamically using standard ``TXT.*`` identifiers.
+By embedding these text identifiers rather than literal strings, every notification
+automatically adapts to the active user session's language without requiring any
+additional localization logic in the application configuration.
 
-14.4.3. Versatility Beyond the ServiceConnector
-************************************************
+14.4.4. Programmatic Integration
+********************************
 
-While the ``ButtonSubmit`` example couples ``Notify`` with a ``ServiceConnector``-style
-backend dispatch, the underlying indicator API —
-``sysFactory.GlobalAsyncNotifyIndicator.addMsgItem()`` together with
-``getMsgItemByName(ID).setProcessStatus()`` — is entirely independent of that transport
-and works equally well with purely internal, declaratively-triggered logic. As a concrete
-example, ``sysObjSystemSettingsContainerItem.prototype.ButtonCallback()``
-(``sysObjSystemSettingsContainer.js``) registers and resolves a notification purely from
-a local get/set round-trip against an in-page object, without ever contacting a backend
-service. The same indicator is also the target of ``sysAsyncNotifyMsgHandler``'s
-long-polling channel (``sysAsyncNotifyMsgHandler.js``), which lets the backend push
-unsolicited ``sys-indicator`` status updates — as well as declarative ``fire-events`` and
-``switch-screen-id`` instructions — into already-registered indicator items. Taken
-together, these cases demonstrate that notify indication is a general-purpose,
-transport-agnostic event sink rather than a feature exclusive to ``ServiceConnector``
-calls.
+Beyond declarative configurations, the *x0-notify-indication* system can also be
+controlled programmatically within custom *x0-objects*. This programmatic approach
+allows developers to explicitly drive the notification lifecycle via code.
 
-14.4.4. Programmatic Extensibility
-************************************
-
-Because ``sysFactory.GlobalAsyncNotifyIndicator`` is a globally accessible singleton, any
-custom *x0-system-object* can integrate with the notify indication system
-programmatically, entirely independent of the declarative ``Notify`` attribute: calling
-``addMsgItem({ "ID": … })`` registers a new indicator item, and the item returned by
-``getMsgItemByName(ID)`` exposes ``setProcessStatus()``, ``setDisplayText()`` and
-``updateDisplay()`` to drive its lifecycle explicitly from custom application logic, as
-demonstrated by ``sysObjSystemSettingsContainer.js``. For the complete method-level
-reference of the classes involved — ``sysObjAsyncNotifyIndicator``,
-``sysObjAsyncNotifyIndicatorItem`` and ``sysAsyncNotifyMsgHandler`` — see
-:ref:`devoopmodel-classes-asyncnotify` in the system developer's guide.
+Additionally, the programmatic model grants access to network events and background
+messages processed by the notification system—a capability that is currently not available
+through the declarative model. For a complete API reference, please consult the system
+developer's guide starting at :ref:`devarchitecture`.
 
 14.5. Object Data Abstraction
 -----------------------------
