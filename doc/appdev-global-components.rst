@@ -11,12 +11,14 @@
 This chapter covers the global architecture components provided by the *x0-system*.
 It outlines the following global sub-points:
 
-- Global Data Storage
-- Object Instancing
-- Notify Indication
-- Realtime Pagination System
-- Data Abstraction Model
-- Drag & Drop Integration
+- :ref:`global-storage`
+- :ref:`object-instancing`
+- :ref:`notify-indication`
+- :ref:`realtime-pagination`
+- :ref:`data-abstraction`
+- :ref:`drag-drop`
+
+.. _global-storage:
 
 14.2. Global Data Storage
 -------------------------
@@ -96,7 +98,7 @@ Write a screen global variable:
    const ScreenObj = sysFactory.getScreenByID('Screen1');
    ScreenObj.setGlobalVar('MyScreenKey', 'my_value');
 
-.. _appdev-backend-notify:
+.. _object-instancing:
 
 14.3. Object Instancing
 -----------------------
@@ -151,6 +153,8 @@ inherited unchanged from the source object.
          ]
       }
    }
+
+.. _notify-indication:
 
 14.4. Notify Indication
 -----------------------
@@ -218,6 +222,8 @@ messages processed by the notification system—a capability that is currently n
 through the declarative model. For a complete API reference, please consult the system
 developer's guide starting at :ref:`devarchitecture`.
 
+.. _realtime-pagination:
+
 14.5. Realtime Pagination
 -------------------------
 
@@ -253,6 +259,8 @@ the true power of the *x0-framework*. Traditional component-based systems strugg
 such deep, multi-layered object mutations efficiently on invisible views, making *x0* uniquely
 capable of building these complex, real-time UI models with absolute architectural simplicity.
 
+.. _data-abstraction:
+
 14.6. Object Data Abstraction
 -----------------------------
 
@@ -287,6 +295,8 @@ conversely to data persistence and storage.
 
 To support this complete generic implementation, the methods ``getObjectData()`` and
 ``setObjectData()`` are currently being developed and tested.
+
+.. _drag-drop:
 
 14.7. Drag & Drop
 -----------------
