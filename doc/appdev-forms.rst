@@ -218,21 +218,21 @@ other, already rendered *x0-form-objects* without any custom JavaScript.
 .. table:: FormfieldOnchange OnChange Attributes
    :widths: 25 75
 
-   +----------------------+--------------------------------------------------------------------+
-   | **Property**         | **Description**                                                    |
-   +======================+====================================================================+
-   | ObjectID             | Destination ObjectID.                                              |
-   +----------------------+--------------------------------------------------------------------+
-   | EnableOnValues       | Recursive **enable** DstObject on matching Values.                 |
-   +----------------------+--------------------------------------------------------------------+
-   | DisableOnValues      | Recursive **disable** DstObject on matching Values.                |
-   +----------------------+--------------------------------------------------------------------+
-   | ActivateOnValues     | Recursive set DstObject active and visible on matching Values.     |
-   +----------------------+--------------------------------------------------------------------+
-   | DeactivateOnValues   | Recursive set DstObject inactive and invisible on matching Values. |
-   +----------------------+--------------------------------------------------------------------+
-   | FireEvents           | Fire Events globally on change.                                    |
-   +----------------------+--------------------------------------------------------------------+
+   +----------------------+---------------------------------------------------------------------------+
+   | **Property**         | **Description**                                                           |
+   +======================+===========================================================================+
+   | ObjectID             | Destination ObjectID.                                                     |
+   +----------------------+---------------------------------------------------------------------------+
+   | EnableOnValues       | Recursive **enable** DstObject on matching Values.                        |
+   +----------------------+---------------------------------------------------------------------------+
+   | DisableOnValues      | Recursive **disable** DstObject on matching Values.                       |
+   +----------------------+---------------------------------------------------------------------------+
+   | ActivateOnValues     | Recursive set DstObject activated **and** visible on matching Values.     |
+   +----------------------+---------------------------------------------------------------------------+
+   | DeactivateOnValues   | Recursive set DstObject deactivated **and** invisible on matching Values. |
+   +----------------------+---------------------------------------------------------------------------+
+   | FireEvents           | Fire Events globally on change.                                           |
+   +----------------------+---------------------------------------------------------------------------+
 
 **Configurations Scope:**
 
@@ -360,6 +360,11 @@ Globally fire (raise) *x0-events* on any objects state change.
    }
 
 See :ref:`appdeveventsystem` for the full event-system architecture.
+
+.. note::
+   The current implementation only supports firing events **globally** upon an
+   object value change. A slight refactoring is required in the future to allow
+   different events to be fired depending on the selected value.
 
 17.2.6. Chaining Events
 ***********************
