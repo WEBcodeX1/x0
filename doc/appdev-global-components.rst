@@ -120,8 +120,7 @@ separate copy somewhere else — for example, inside an overlay screen, as an it
 different list, or bound to a different element in ``skeleton.json``. Rather than
 duplicating the referenced object's full ``Attributes`` block, the new entry simply
 points to it by its ``ObjectID`` and is resolved and merged into a standalone
-configuration at screen setup time (see ``sysScreen.configObjectInstance()``,
-:ref:`devoopmodel` 23.6.3).
+configuration at screen setup.
 
 .. code-block:: json
 
