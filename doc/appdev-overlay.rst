@@ -5,97 +5,53 @@
 18. Overlay
 ===========
 
-It is possible to render a *x0-system-screen* in *x0-overlay-mode*.
-Due to the *x0-system* design (all screens are present, but only one visible)
-a screen instance will be set up coexisting with the original source version.
+During *x0-init* (see :ref:`devarchitecture`), every screen declared in
+``skeleton.json`` is instantiated up-front—**all screens are present** (but
+invisible) in the DOM. When no overlay is active, only a single base screen
+is activated. The *x0-overlay-mode* now exploits this pre-instantiation design
+to allow **multiple** screens to be active and visible **in parallel**.
 
-18.1. Example
--------------
+When an overlay is triggered, a **minimum** of **two screens** become active
+**simultaneously**, as the overlay screen is layered **above** the active base screen.
+Furthermore, the architecture supports **stacking**: when invoking multiple overlays
+(for example, via a context menu), more than two layers can be rendered and active
+**in parallel**. Because screens are **pre-rendered** in the DOM instead of being built on
+demand, managing these layers requires **minimal overhead**; the *x0-core* intelligently
+updates only the necessary objects using its internal event-model which solely updates
+on-demand (see: :ref:`appdeveventsystem`).
 
-See very limited example (screen only contains one single *x0-object*) at
-`Example 6 - Screen Overlay <http://x0-app.x0.localnet/python/Index.py?appid=example6>`_.
+18.1. Open Overlay
+------------------
 
-For more comprehensive overlay examples, see:
 
-* Local repository `/example/screen_overlay` - Complete overlay implementation
-* Advanced overlay patterns in the :ref:`object-examples-reference`
+18.1.1. Button
+**************
 
-19. Object Instancing
-=====================
 
-Additionally it is possible to create *x0-object-instances* and *decorate* them
-with existing *x0-object* properties (enhanced templating functionality).
+.. code-block:: json
 
-.. image:: images/x0-object-instancing.png
-  :alt: image - object instancing
+   {
+      "Action": "openoverlay",
+      "ScreenID": "OverlayScreenID"
+   }
 
-**Example:** `Object Instances (Example 11) <http://x0-app.x0.localnet/python/Index.py?appid=example11>`_ - Demonstrates dynamic object creation and instancing.
 
-.. warning::
+18.1.2. Context Menu
+********************
 
-    The *x0-object-instances* feature is **not** well-tested. Use with
-    caution, especially in combination with *x0-overlay-mode* and *x0-forms*.
+Any *x0-context-menu* item (see :ref:`appdevcontextmenu`) can declare ``OverlayScreenID``
+on its ``ItemConfig`` to open an overlay screen.
 
-19.1. Decorating Instances
---------------------------
+18.2. Close Overlay
+-------------------
 
-*x0-object-decorating* is done inside ``object.json`` (unlike referencing
-*x0-objects* inside ``skeleton.json``).
-
-If you reference a FormList like this, the sections from ``Formlist1`` will
-be appended to ``Formlist2``.
-
-.. code-block:: javascript
-
-	"Formlist2": {
-		"Type": "FormfieldList",
-		"RefID": "Formlist1",
-		"Attributes": {
-			"Sections": [
-				{
-					...
-				}
-			]
-		}
-	}
-
-.. note::
-
-    Also decorating already decorated objects is possible. The only thing:
-    order matters.
-
-19.2. Instance Prefixing
-------------------------
-
-Specifying an "InstancePrefix" will prefix the referenced form fields so they
-will get a unique id.
+There is currently no declarative ``closeoverlay`` Button action; closing is
+performed programmatically by the related object once the user's interaction is
+complete, typically from a ``ButtonCallback`` *x0-object-type*:
 
 .. code-block:: javascript
 
-	"FormList1": {
-		"InstancePrefix": "PrefixID",
-		"RefID": "FormList2",
-		"Attributes": {
-		}
-	}
-
-19.3. Merging Instance Attributes
----------------------------------
-
-By default, attributes get merged.
-
-19.4. Replacing Instance Attributes
------------------------------------
-
-You can replace attributes in the referenced object by providing
-``AttributesReplace``.
-
-.. code-block:: javascript
-
-	"FormList1": {
-		"RefID": "FormList2",
-		"AttributesReplace": [
-			{ "": "" },
-			{ "": "" }
-		]
-	}
+   sysObjCustomObject.prototype.ButtonCallback = function()
+   {
+       sysFactory.OverlayObj.closeOverlay('OverlayScreenID');
+   }

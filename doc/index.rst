@@ -3,6 +3,8 @@
 x0 Framework Documentation
 ==========================
 
+.. _menu_getting_started:
+
 .. toctree::
    :maxdepth: 2
    :caption: Getting Started
@@ -10,41 +12,47 @@ x0 Framework Documentation
    intro
    installation
 
+.. _menu_app_dev_guide:
+
 .. toctree::
    :maxdepth: 2
-   :caption: Application Development Guide
+   :caption: Application Development
 
+   appdev-main-concept
    appdev-config
    appdev-global-css
    appdev-grid-system
    appdev-objects
    appdev-form-objects
    appdev-context-menu
-   appdev-user-defaults
-   appdev-backend
+   appdev-global-components
    appdev-event-system
    appdev-forms
    appdev-overlay
    appdev-messaging
-   appdev-deployment
+   appdev-kubernetes
 
-.. toctree::
+.. _menu_core_dev:
+
+ .. toctree::
    :maxdepth: 2
    :caption: Core Development
 
    dev-architecture
    dev-oop-model
    dev-oop-classes
-   dev-backend
-   dev-object-modeling
+   dev-best-practices
+
+.. _menu_testing_examples:
 
 .. toctree::
    :maxdepth: 2
-   :caption: Development Tools & Testing
+   :caption: Testing & Examples
 
    dev-tests
    dev-examples
-   dev-porting
+
+.. _menu_extensions:
 
 .. toctree::
    :maxdepth: 2

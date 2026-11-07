@@ -2,197 +2,216 @@
 
 .. _appdevconfig:
 
-7. Basic Configuration
+8. Basic Configuration
 ======================
 
-Unlock the power of x0! This section guides you through setting up your
-SPA with clear, modular, and scalable configurations.
+This section describes how an *x0-application* is configured: the
+**browser content areas** it is composed of, the **database-backed configuration**
+tables, the **application server configuration** file, and the declarative
+**JSON metadata model** used to define *x0-objects*, *x0-screens* and menus.
 
---------------
+.. _appdevconfig-contentareas:
 
-7.1. Browser Content Areas
+8.1. Browser Content Areas
 --------------------------
 
-The *x0-framework* features a modern, three-pane layout:
-
-1. **Menu Area** – Navigation and commands (DOM id: ``sysMenu``)
-2. **Screen Content Area** – Main display for app content
-3. **Notification Area** – Real-time app and status messages
+Historically, an *x0-application* was described as a fixed, three-pane
+layout — a **Menu Area**, a **Screen Content Area** and a **Notification
+Area** — each bound to a conventionally named, statically positioned DOM
+container. The current engine no longer imposes this constraint: all three
+areas are created dynamically at runtime rather than being hard-coded into
+the page markup, and each is positioned **independently** via **CSS**. In
+combination with custom stylesheets and core *x0-features*, any of these
+regions can therefore be placed **anywhere** within the viewport, resized,
+hidden, or repurposed without touching the engine itself.
 
 .. figure:: images/x0-browser-content-areas.png
    :alt: Browser Content Areas
 
    Browser Content Areas
 
-..
+.. important::
+   Screen areas not currently in focus are not destroyed; they remain
+   present as invisible layers, which is what enables instantaneous,
+   stateful transitions between screens (see :ref:`appdevconfig-statepreservation`).
 
-   💡 **Tip:** Invisible screen layers work behind the scenes for
-   seamless transitions.
+8.1.1. Menu Area
+****************
 
-7.1.1. Menu Area
-~~~~~~~~~~~~~~~~
+The **Menu Area** is set up exactly like any other screen: it is a regular
+``sysScreen`` instance (DOM id: ``sysMenu``) whose object tree is loaded from
+``menu.json`` on page load. Because it uses the same generic setup mechanism
+as the Screen Content Area, the Menu Area is **not restricted to static menu
+links** — it is a generic, ultra-flexible layout container capable of
+hosting **any** valid *x0-system-object* or declarative UI component. The
+bundled static example demonstrates this directly: its menu is composed of
+an ``Image`` object (the application logo) and a ``TreeSimple`` object (the
+navigation tree), with no dedicated "link" object involved at all.
 
--  Holds menu-related *x0-objects*, primarily of type **link**.
--  Menu objects are loaded from ``menu.json`` into the ``sysMenu`` DIV
-   on page load.
--  Clicking a menu link activates the related screen in the Screen Area.
--  Positioning is CSS-driven (see: `Content Area
-   Positioning <#content-area-positioning>`__).
--  Not just for links: any *x0-object* can be referenced for rich,
-   flexible menus.
+-  Menu objects are referenced in ``menu.json`` and defined in
+   ``object.json``, exactly as for any other screen (see :ref:`appdev-metadata-model`).
+-  Activating a navigation entry switches the active screen in the Screen
+   Content Area.
+-  Positioning is CSS-driven (see :ref:`appdevconfig-positioning`).
 
-7.1.2. Screen Area
-~~~~~~~~~~~~~~~~~~
+8.1.2. Screen Area
+******************
 
--  The main stage for your content.
--  ``default_screen`` is set via config (see: `System
-   Config <#systemconfig>`__).
--  UI structure and object relationships are defined in
-   ``skeleton.json``.
--  CSS (e.g., Bootstrap Grid) controls layout.
+-  The main stage for application content.
+-  ``default_screen`` selects the screen shown on page load (see
+   :ref:`appdevconfig-systemconfig`).
+-  The object hierarchy of each screen is defined in ``skeleton.json``.
+-  Layout within a screen is controlled by CSS (e.g. the Bootstrap grid) or
+   by the :ref:`appdevgridsystem`.
 
 .. figure:: images/x0-screen-switch.png
    :alt: Screen Switch
 
    Screen Switch
 
-7.1.3. Notification Area
-~~~~~~~~~~~~~~~~~~~~~~~~
+8.1.3. Notification Area
+************************
 
--  Displays status info from backend/web service calls.
--  Flexible CSS positioning.
+-  Displays asynchronous status messages raised by backend/web-service
+   calls.
+-  Implemented as a regular *x0-system-object* (``sysObjAsyncNotify``) like
+   any other, and positioned independently via CSS.
 
-7.1.4. Object State Preservation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _appdevconfig-statepreservation:
 
-x0 guarantees **100% state preservation**—switch screens, tabs, or
-navigate, and every object stays exactly as you left it.
+8.1.4. Object State Preservation
+********************************
 
-* Example #15 - Tree Simple demonstrates:
-  ``https://download.webcodex.de/x0/video/x0-example-15-tree-simple.mkv``
+Because inactive screens persist as invisible layers rather than being torn
+down, x0 guarantees **full state preservation**: switching screens or tabs,
+or navigating via the Menu Area, **never** resets object state.
 
---------------
+.. tip::
+   Refer to or run the static Docker container to see state preservation in action.
 
-7.1.5. Area Positioning / CSS
------------------------------
+.. _appdevconfig-positioning:
 
--  Uses Bootstrap Grid for simple, responsive layouts.
--  Example: ``<body class="row">``, with ``col-md-x`` classes for areas.
--  Menu defaults to ``position: absolute``, but fully customizable.
--  See `Bootstrap Grid
-   Docs <https://getbootstrap.com/docs/5.3/layout/grid/>`__.
+8.1.5. Area Positioning / CSS
+*****************************
 
-..
+-  Layout is implemented with the Bootstrap grid for responsive
+   positioning, e.g. ``<body class="row">`` combined with ``col-md-x``
+   classes per area.
+-  The Menu Area defaults to ``position: absolute``, but this is a styling
+   default only and fully overridable.
+-  See the `Bootstrap Grid documentation
+   <https://getbootstrap.com/docs/5.3/layout/grid/>`__ for the underlying
+   grid mechanics.
 
-   ✨ **Modern CSS and Bootstrap make layout effortless!**
-
---------------
-
-7.2. Database Configuration
+8.2. Database Configuration
 ---------------------------
 
-**x0-application** config data lives in the ``system.config`` and
-``webui.text`` tables.
+Application configuration data is stored in the ``system.config`` and
+``webui.text`` database tables.
 
--  SQL scripts must be in ``/database``.
--  Database updates occur during Docker image builds.
+-  The corresponding SQL scripts live under ``/database``.
+-  These scripts are applied automatically during the Docker image build.
 
-7.2.1. System Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _appdevconfig-systemconfig:
 
-Key config parameters (in ``system.config``):
+8.2.1. System Configuration
+***************************
 
-+----------------------+----------------+--------------------------------+
-| Parameter            | Type           | Description                    |
-+======================+================+================================+
-| index_title          | String         | Page title                     |
-+----------------------+----------------+--------------------------------+
-| debug_level          | Integer        | Debug level                    |
-+----------------------+----------------+--------------------------------+
-| display_language     | ‘en’ \| ‘de’   | UI language                    |
-+----------------------+----------------+--------------------------------+
-| default_screen       | String         | Default screen ID              |
-+----------------------+----------------+--------------------------------+
-| parent_window_url    | String (URL)   | Parent (WP) plugin URL         |
-+----------------------+----------------+--------------------------------+
-| subdir               | String (Path)  | Static backend path            |
-+----------------------+----------------+--------------------------------+
-| message_handler      | Boolean        | Enable (true) msg handling     |
-+----------------------+----------------+--------------------------------+
-| config_file_menu     | String         | Menu config filename           |
-+----------------------+----------------+--------------------------------+
-| config_file_object   | String         | Object config filename         |
-+----------------------+----------------+--------------------------------+
-| config_file_skeleton | String         | Skeleton config filename       |
-+----------------------+----------------+--------------------------------+
+The relevant ``system.config`` parameters are:
 
-..
+.. table:: System Configuration Parameters
+   :widths: 25 10 65
 
-   **Default insert example:**
+   +-----------------------+----------------+-----------------------------------------+
+   | **Parameter**         | **Type**       | **Description**                         |
+   +=======================+================+=========================================+
+   | index_title           | String         | Page title                              |
+   +-----------------------+----------------+-----------------------------------------+
+   | debug_level           | Integer        | Client-side debug log level             |
+   +-----------------------+----------------+-----------------------------------------+
+   | display_language      | ``en`` / ``de``| Default UI language                     |
+   +-----------------------+----------------+-----------------------------------------+
+   | default_screen        | String         | Screen ID shown on page load            |
+   +-----------------------+----------------+-----------------------------------------+
+   | parent_window_url     | String (URL)   | Parent (e.g. WordPress) plugin  URL     |
+   +-----------------------+----------------+-----------------------------------------+
+   | subdir                | String (Path)  | Static backend path                     |
+   +-----------------------+----------------+-----------------------------------------+
+   | message_handler       | Boolean        | Enable (``true``) message handling      |
+   +-----------------------+----------------+-----------------------------------------+
+   | config_file_menu      | String         | Menu config filename                    |
+   +-----------------------+----------------+-----------------------------------------+
+   | config_file_object    | String         | Object config filename                  |
+   +-----------------------+----------------+-----------------------------------------+
+   | config_file_skeleton  | String         | Skeleton config filename                |
+   +-----------------------+----------------+-----------------------------------------+
 
-.. code:: sql
+.. code-block:: sql
 
    INSERT INTO system.config (config_group, "value") VALUES ('index_title', 'x0 Default App');
 
-7.2.2. Display Text
-~~~~~~~~~~~~~~~~~~~
+8.2.2. Display Text
+*******************
 
--  Multi-language text in ``webui.text``.
--  Reference these IDs in your JSON configs.
+-  Multi-language text is stored in ``webui.text``.
+-  Text IDs defined there are referenced from the JSON configuration files.
 
-.. code:: sql
+.. code-block:: sql
 
    INSERT INTO webui.text (id, "group", value_en, value_de)
    VALUES ('TXT.TEXTID.1', 'group1', 'English Text #1', 'German Text #1');
 
-7.2.3. Application ID
-~~~~~~~~~~~~~~~~~~~~~
+8.2.3. Application ID
+*********************
 
--  Append ``?appid=example2`` to your app URL to load another config
-   set!
--  Store separate config rows for each ``app_id``.
+-  Appending ``?appid=example2`` to the application URL loads an
+   alternative configuration set.
+-  Each ``app_id`` is backed by its own set of configuration rows.
 
---------------
+.. _appdevconfig-serverconfig:
 
-7.7. Application Server Config (``app-config.json``)
-----------------------------------------------------
+8.3. Server Configuration
+-------------------------
 
-Define in ``/config/app-config.json``:
+The ``config/app-config.json`` file defines database authentication, virtual hosts,
+and the *x0-applications* served per vhost. While the full property reference for
+this file is documented in :ref:`kubernetes-deployment`, this section summarizes
+the parts relevant to day-to-day application development.
 
--  Database auth
--  Virtual hosts
--  x0-applications
+.. important::
+   Multi-virtual-host and multi-environment support requires a properly
+   configured and packaged database-backed deployment; it is not available
+   in the standalone :ref:`installation-minimal` container.
 
-..
+8.3.1. Database Authentication
+******************************
 
-   ⚠️ Multi-virtual-host and environment support requires proper
-   database config and packaging. Not available in standalone/Docker.
+The following database users are created automatically during the Docker
+image build:
 
-7.7.1. Database Authentication
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-  ``postgres`` (``su_password``)
+-  ``x0`` (``x0_password``)
+-  ``replication`` (``repl_password``)
 
--  Users created automatically during Docker build:
+8.3.2. Virtual Hosts
+********************
 
-   -  ``postgres`` (su_password)
-   -  ``x0`` (x0_password)
-   -  ``replication`` (repl_password)
+-  Apache virtual hosts are generated from the JSON configuration during
+   the Docker build.
+-  SSL/TLS is only fully automated for Kubernetes deployments (see
+   :ref:`kubernetes-deployment`).
 
-7.7.2. Virtual Hosts
-~~~~~~~~~~~~~~~~~~~~
+8.3.3. x0-Applications
+**********************
 
--  Apache virtual hosts are generated per JSON config during Docker
-   builds.
--  SSL is only fully automated for Kubernetes deploys.
+-  A single vhost may serve multiple *x0-applications* in parallel (see
+   the ``apps`` list below); this is available for any database-backed
+   deployment, not only Kubernetes.
 
-7.7.3. x0-Applications
-~~~~~~~~~~~~~~~~~~~~~~
+8.3.4. Default Config Example
+*****************************
 
--  Multiple apps: **Kubernetes only**.
-
-7.7.4. Default Config Example
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. code:: json
+.. code-block:: json
 
    {
      "installer": { "type": "x0" },
@@ -210,110 +229,4 @@ Define in ``/config/app-config.json``:
      }
    }
 
---------------
-
-7.4. Application Metadata & Object Model
-----------------------------------------
-
-x0 uses a declarative, JSON-driven UI/config model:
-
--  **object.json** – All UI objects, attributes, metadata
--  **skeleton.json** – How objects/screens are structured and related
--  **menu.json** – Menu objects and navigation hierarchy
-
-**Workflow:** 1. ``skeleton.json`` initializes the UI hierarchy. 2.
-``object.json`` defines the objects, inserted dynamically. 3.
-``menu.json`` creates the menu structure.
-
-   **Highly modular, scalable, and runtime-flexible!**
-
-7.4.1. object.json
-~~~~~~~~~~~~~~~~~~
-
-Each object:
-
-.. code:: json
-
-   {
-     "$ObjectID": {
-       "Type": "$ObjectType",
-       "Attributes": {}
-     }
-   }
-
--  IDs are referenced in ``menu.json`` and ``skeleton.json``.
-
-7.4.2. skeleton.json
-~~~~~~~~~~~~~~~~~~~~
-
-Defines screens and what objects are on them, e.g.:
-
-.. code:: json
-
-   {
-     "Screen1": [
-       { "Object1": { "RefID": "Screen1" } }
-     ]
-   }
-
-7.4.3. menu.json
-~~~~~~~~~~~~~~~~
-
-Same syntax as skeleton, but root ``RefID`` is always ``sysMenu``.
-
---------------
-
-7.5. Metadata ElementID
------------------------
-
--  Reference object elements (like tabs) via ``ElementID`` property in
-   ``skeleton.json``.
-
-Example: Tab Container
-~~~~~~~~~~~~~~~~~~~~~~
-
-**object.json**
-
-.. code:: json
-
-   {
-     "TabContainer1": {
-       "Type": "TabContainer",
-       "Attributes": {
-         "Tabs": [
-           { "ID": "Tab1", "Default": true, "TextID": "TXT.BASIC-TABCONTAINER.TAB1", "Style": "col-md-4" },
-           { "ID": "Tab2", "TextID": "TXT.BASIC-TABCONTAINER.TAB2", "Style": "col-md-8" }
-         ]
-       }
-     }
-   }
-
-**skeleton.json**
-
-.. code:: json
-
-   {
-     "Screen1": [
-       { "TabContainer1": { "RefID": "Screen1" } },
-       { "Text1": { "RefID": "TabContainer1", "ElementID": "Tab1" } },
-       { "Text2": { "RefID": "TabContainer1", "ElementID": "Tab2" } }
-     ]
-   }
-
---------------
-
-7.6. Object Templates
----------------------
-
--  Add custom object templates via ``template_file`` and ``setup_class``
-   config parameters in the DB.
--  Place ``.js`` templates in ``/static``.
--  See: :ref:`devobjectmodeling`
-
---------------
-
-**🚀 x0: Modular, Dynamic, and Developer Friendly**
-
-With JSON-powered configuration, robust state management, and modern CSS
-support, x0 is built for serious SPA development—without sacrificing
-flexibility or performance.
+.. _appdevconfig-metadata:
