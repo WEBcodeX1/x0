@@ -122,12 +122,11 @@ The practical relevance of this performance profile extends well beyond conventi
 browser-based deployments. Because the entire runtime footprint is deliberately kept
 minimal and free of heavy framework dependencies, the *x0-system* is equally capable
 of operating on **resource-constrained embedded hardware**. This is empirically
-substantiated by the external
-`micropython-as <https://github.com/WEBcodeX1/micropython-as>`__ repository, which
-provides a complete, production-ready implementation of the x0 system operating
-directly on a resource-constrained **ESP32-S3** microcontroller board — a deployment
-target that would be structurally infeasible for most contemporary SPA frameworks
-burdened by extensive runtime and tooling overhead.
+substantiated by the external `micropython-as <https://github.com/WEBcodeX1/micropython-as>`__
+repository, which provides a complete, production-ready implementation of the *x0-system*
+operating directly on a resource-constrained **ESP32-S3** microcontroller board — a
+deployment target that would be structurally infeasible for most contemporary SPA
+frameworks burdened by extensive runtime and tooling overhead.
 
 1.5. SPA - Single Page Application
 ----------------------------------
