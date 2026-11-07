@@ -291,4 +291,11 @@ To support this complete generic implementation, the methods ``getObjectData()``
 14.7. Drag & Drop
 -----------------
 
-## Add a remark that drag&drop is prepared but finaly needs a 100% generic ``getObjectData()`` /  ``setObjectData()`` abstraction to work correctly, which hopefully will be provided in system version 1.2.
+Basic Drag & Drop functionality is already prepared; simple use cases, such as changing
+an element's row position, can easily be achieved right now. However, when combined with
+the Object Data Abstraction architecture introduced in the previous chapter, Drag & Drop
+will evolve into a significantly more powerful capability.
+
+This integration requires a fundamentally operational Real-Time Object Instantiation
+component. Both of these advanced features are currently undergoing rapid development;
+this functionality is expected to be available in *x0-version* 1.2.
