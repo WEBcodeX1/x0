@@ -204,9 +204,94 @@ and the incoming data key "FormID4" will be ignored.
 17.1.7. Backend Output
 **********************
 
+Conversely, modified or newly added form data must be transmitted back to the backend
+at some point. This outbound data transfer is implemented within the ``Button``
+*x0-object-type*.
+
+By specifying the backend service URL inside the ``OnClick`` property and listing
+the originating source objects within the ``SrcDataObjects`` array, the corresponding
+data is automatically appended to the XML-RPC POST JSON request payload.
+
+This data abstraction is 100% parameter-free, as all data transmitted to the backend
+is fully encapsulated within structured JSON data.
+
+.. important::
+   Any *x0-object-type* that supports the ``getObjectData()`` method can be referenced
+   inside the ``SrcDataObjects`` array.
+
+As the following example demonstrates, clicking the button appends the data from
+"Formlist1", "Object1", and "Object2" to the POST request payload sent to the URL
+**https://your-service.com/python/service.py**.
+
+.. code-block:: javascript
+
+   "SubmitButton":
+   {
+      "Type": "Button",
+      "Attributes":
+      {
+         "TextID": "TXT.BUTTON.SUBMIT",
+         "Style": "btn btn-primary w-100 mt-3",
+         "IconStyle": "fa-solid fa-square-check",
+         "OnClick": "https://your-service.com/python/service.py",
+         "SrcDataObjects":
+         [
+            "Formlist1",
+            "Object1",
+            "Object2"
+         ]
+      }
+   }
+
 17.1.8. Context Menu
 ********************
 
+To build more complex applications, it is often necessary to exchange data between
+multiple ``List``, ``FormfieldList``, ``Formfield``, or other data-containing objects.
+
+The declarative configuration approach allows you to equip components with a context menu
+featuring multiple functionalities. Currently, the ``FormfieldList`` supports the "get-data"
+and "set-data" actions (see :ref:`contextmenu-functions`).
+
+The following example demonstrates how to configure a context menu with two distinct functions:
+"get-data" and "set-data". This setup allows the ``FormfieldList`` data to be populated from the
+global clipboard space by selecting the first context menu option, or retrieved into the global
+clipboard space by selecting the second option.
+
+.. code-block:: javascript
+
+   "ExamplesFormlist":
+   {
+      "Type": "FormfieldList",
+      "Attributes":
+      {
+         "ObjectIDs":
+         [
+            "Formfield1Label",
+            "Formfield1",
+            "Formfield2Label",
+            "Formfield2",
+            "Formfield3Label",
+            "Formfield3",
+            "Formfield4Label",
+            "Formfield4"
+         ],
+         "ContextMenuItems": [
+            {
+               "ID": "GetData",
+               "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.GET_DATA",
+               "IconStyle": "fa-solid fa-copy",
+               "InternalFunction": "get-data"
+            },
+            {
+               "ID": "SetData",
+               "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.SET_DATA",
+               "IconStyle": "fa-solid fa-paste",
+               "InternalFunction": "set-data"
+            }
+         ]
+      }
+   }
 
 17.2. FormfieldOnchange Handler
 -------------------------------
@@ -216,7 +301,7 @@ a declarative mechanism allowing a single form field's state change to reactivel
 other, already rendered *x0-form-objects* without any custom JavaScript.
 
 .. table:: FormfieldOnchange OnChange Attributes
-   :widths: 25 75
+   :widths: 20 80
 
    +----------------------+---------------------------------------------------------------------------+
    | **Property**         | **Description**                                                           |
