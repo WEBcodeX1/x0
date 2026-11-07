@@ -256,7 +256,25 @@ capable of building these complex, real-time UI models with absolute architectur
 14.6. Object Data Abstraction
 -----------------------------
 
-## Add complete chapter including subchapters / describe the generic ``getObjectData()`` /  ``setObjectData()`` concept in detail.
+Object Data Abstraction defines how the *x0-shadow-dom* entity manages data.
+In this context, data handling is categorized into the following distinct types:
+
+1. External input (incoming data from external web services)
+2. External output (outgoing data sent to external web services)
+3. Internal object inter-communication (runtime data exchange between local objects)
+4. External object inter-communication (real-time JSON messaging via network between clients)
+5. Static object instantiation (executed on initial load)
+6. Real-time object instantiation (executed dynamically at runtime)
+
+While all these handling types are supported, type 4 currently requires improvement,
+and type 6 is limited to a hardcoded implementation that only supports simple, non-nested object types.
+
+The following sections will focus specifically on type 6 (Real-time object instantiation), as its
+optimization fundamentally influences the future extensibility of the *x0-system*.
+
+14.6.1. Realtime Object Instancing
+**********************************
+
 
 14.7. Drag & Drop
 -----------------
