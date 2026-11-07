@@ -124,9 +124,9 @@ configuration at screen setup.
 
 .. code-block:: json
 
-   "FormList2":
+   "ExampleFormList2":
    {
-      "InstanceOf": "FormList1"
+      "InstanceOf": "ExampleFormList1"
    }
 
 14.3.2. AttributesOverwrite
