@@ -14,8 +14,8 @@ It outlines the following global sub-points:
 - Global Data Storage
 - Object Instancing
 - Notify Indication
-- Get/Set Data Abstraction
 - Realtime Pagination System
+- Data Abstraction Model
 - Drag & Drop Integration
 
 14.2. Global Data Storage
@@ -218,15 +218,15 @@ messages processed by the notification system—a capability that is currently n
 through the declarative model. For a complete API reference, please consult the system
 developer's guide starting at :ref:`devarchitecture`.
 
-14.5. Object Data Abstraction
------------------------------
-
-## Add complete chapter including subchapters / describe the generic ``getObjectData()`` /  ``setObjectData()`` concept in detail.
-
-14.6. Realtime Pagination
+14.5. Realtime Pagination
 -------------------------
 
 ## Add complete chapter including subchapters / describe the generic realtime pagination concept including examples / remark that also hierarical objects can be paginated
+
+14.6. Object Data Abstraction
+-----------------------------
+
+## Add complete chapter including subchapters / describe the generic ``getObjectData()`` /  ``setObjectData()`` concept in detail.
 
 14.7. Drag & Drop
 -----------------
