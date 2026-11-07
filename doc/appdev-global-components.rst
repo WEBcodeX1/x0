@@ -101,6 +101,12 @@ Write a screen global variable:
 14.3. Object Instancing
 -----------------------
 
+Any *x0-object-type* — regardless of whether it is a simple formfield, a complex
+container, or a fully composed list — can be instantiated from an already-existing
+declarative configuration. Rather than duplicating an entire ``object.json`` definition
+entry by entry, a new entry can simply reference an existing one as its source and,
+optionally, adjust only the attributes that need to differ.
+
 In ``object.json``, a single object declarative configuration allows an entry to be
 declared as a *instance* of another, already-defined object instead of repeating its
 full definition.
@@ -108,7 +114,14 @@ full definition.
 14.3.1. InstanceOf
 ******************
 
-## Write a better suitable, simple description text about IntanceOf
+The ``InstanceOf`` property is used whenever a new object must expose the exact same
+declarative configuration as an already-defined one, yet needs to exist as its own,
+separate copy somewhere else — for example, inside an overlay screen, as an item of a
+different list, or bound to a different element in ``skeleton.json``. Rather than
+duplicating the referenced object's full ``Attributes`` block, the new entry simply
+points to it by its ``ObjectID`` and is resolved and merged into a standalone
+configuration at screen setup time (see ``sysScreen.configObjectInstance()``,
+:ref:`devoopmodel` 23.6.3).
 
 .. code-block:: json
 
@@ -120,7 +133,11 @@ full definition.
 14.3.2. AttributesOverwrite
 ***************************
 
-## Write a better suitable, simple description text about AttributesOverwrite
+An instantiated object is not required to be an exact, unmodified copy of its source. By
+adding an ``AttributesOverwrite`` block alongside ``InstanceOf``, any attribute already
+present in the referenced configuration's ``Attributes`` can be selectively replaced with
+a new value for this particular instance, while every attribute not listed remains
+inherited unchanged from the source object.
 
 .. code-block:: json
 
