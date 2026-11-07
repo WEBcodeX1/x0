@@ -8,7 +8,7 @@
 This section provides a comprehensive reference for all JavaScript classes
 in the *x0-framework*. Each class is documented with its constructor,
 properties, methods, and inheritance relationships, reflecting the current
-state of the engine source tree under ``www/``.
+state of the engine source tree under ``/www/``.
 
 24.1. Core Framework Classes
 ----------------------------
