@@ -21,14 +21,14 @@ It outlines the following global sub-points:
 14.2. Global Data Storage
 -------------------------
 
-The *x0-global-data* concept officially supersedes the legacy practice of storing or
-passing global data to the backend via hidden form fields. Instead of embedding
+The *x0-global-data* concept officially **supersedes** the legacy practice of storing or
+passing **global data** to the backend via hidden form fields. Instead of embedding
 auxiliary state directly inside the DOM through invisible, unmanaged input elements,
-*x0* exposes a dedicated, declarative key/value store that is natively integrated into
+*x0* exposes a dedicated, **declarative key/value store** that is natively integrated into
 the object model. When combined with the ``SrcDataObjects`` (*SourceDataObjects*)
 mechanism (see :ref:`appdeveventsystem`), global data — or screen-scoped global data —
 can be selectively included in the payload of any backend service call, without
-requiring a corresponding, hidden *x0-formfield* to carry the value.
+requiring a corresponding, ``Formfield`` of type **hidden** to carry the value.
 
 - **Global Data** — application-wide key/value pairs accessible from any screen at
   any time via ``sysFactory.getGlobalVar()`` / ``sysFactory.setGlobalVar()``.
@@ -77,23 +77,24 @@ A global variable can be set declaratively through a *x0-action* on ``sysObjButt
 14.2.3. Screen Global Data
 **************************
 
-The *x0-system* also enables a more fine grained control over global data (namesapce)
-by mapping global variables not to the main global space but to a specified *x0-screen.
+The *x0-system* also enables more **fine-grained control** over **global data** (like
+an isolated namespace) by mapping global variables to a specified *x0-screen* rather than
+the main global space.
 
-It is currently not supported to set screen based global variables declaratively,
-programmatically, inside your own custom-built *x0-objects*, you can access them via:
+While setting screen-based global variables declaratively is currently **not supported**,
+you can access them programmatically inside your own custom-built *x0-objects* via:
 
 .. code-block:: javascript
 
-   const screenObj = sysFactory.getScreenByID('Screen1');
-   var value = screenObj.getGlobalVar('MyScreenKey');
+   const ScreenObj = sysFactory.getScreenByID('Screen1');
+   var Value = ScreenObj.getGlobalVar('MyScreenKey');
 
 Write a screen global variable:
 
 .. code-block:: javascript
 
-   const screenObj = sysFactory.getScreenByID('Screen1');
-   screenObj.setGlobalVar('MyScreenKey', 'my_value');
+   const ScreenObj = sysFactory.getScreenByID('Screen1');
+   ScreenObj.setGlobalVar('MyScreenKey', 'my_value');
 
 .. _appdev-backend-notify:
 
@@ -123,17 +124,14 @@ full definition.
 
 .. code-block:: json
 
-   "ExamplesOverlayFormlist":
+   "ExampleFormlist2":
    {
-      "InstanceOf": "ExamplesCopyPasteFormSource",
+      "InstanceOf": "ExampleFormlist1",
       "AttributesOverwrite": {
          "ObjectIDs": [
-            "WorkerNameLabel",
-            "WorkerName",
-            "WorkerSurenameLabel",
-            "WorkerSurename",
-            "TeamGroupLabel",
-            "TeamGroup"
+            "Formfield1",
+            "Formfield2",
+            "Formfield3"
          ]
       }
    }
