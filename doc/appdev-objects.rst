@@ -232,7 +232,7 @@ execution, and ``FireEvents`` dispatches *x0-events* to interact with the intern
    +---------------------+----------------------+-------------------------------------------------+
    | OnClick             | URL-String           | Backend Service URL                             |
    +---------------------+----------------------+-------------------------------------------------+
-   | SrcDataObjects      | Type dependend       | Generic Source Data Integration                 |
+   | SrcDataObjects      | Type dependend       | Generic *Source Data Objects* Integration       |
    +---------------------+----------------------+-------------------------------------------------+
    | Notify              | Object               | Notify Indicator Configuration                  |
    +---------------------+----------------------+-------------------------------------------------+
