@@ -246,6 +246,7 @@ execution, and ``FireEvents`` dispatches *x0-events* to interact with the intern
 11.3.2. Actions / OnResult
 **************************
 
+Note that specifying ``Action`` or ``OnResult`` actions requires mandatory base properties to be set.
 
 See :ref:`event-actions`.
 
@@ -254,9 +255,8 @@ See :ref:`event-actions`.
 11.4. ButtonInternal
 --------------------
 
-The ``ButtonInternal`` *x0-object-type* inherits ``Button``, the main difference is that it lacks
-backend functionality, otherwise functionality is the same.
-
+The ``ButtonInternal`` *x0-object-type* inherits from ``Button``. The main difference is that it
+lacks backend functionality; otherwise, its behavior is identical.
 
 11.4.1. Object Attributes
 *************************
@@ -295,14 +295,52 @@ backend functionality, otherwise functionality is the same.
 11.5. ButtonCallback
 --------------------
 
+``ButtonCallback`` is intended **only** for **programmatically** building **custom** *x0-objects*.
+It is used inside an object's class model to react to *single* or *multiple* defined actions
+within its ``ButtonCallback()`` method whenever a button is clicked.
 
-11.5.1. Object Attributes
-*************************
+The implementer must distinguish between the **button definition**—where the callback and target
+function identifier are *registered*—and the **usage** inside the ``ButtonCallback()`` method.
 
+11.5.1. Definition
+******************
 
-11.5.2. Programmatic Usage
-**************************
+To define two buttons that will invoke the ``ButtonCallback()`` method when clicked,
+do the following:
 
+.. code-block:: javascript
+
+   //- setup move up button
+   this.MoveUpButton = new sysObjButtonCallback();
+   this.MoveUpButton.overrideDOMObjectID = true;
+   this.MoveUpButton.setCallback(this, 'moveUp');
+   this.addObject(this.MoveUpButton);
+
+   //- setup move down button
+   this.MoveDownButton = new sysObjButtonCallback();
+   this.MoveDownButton.overrideDOMObjectID = true;
+   this.MoveDownButton.setCallback(this, 'moveDown');
+   this.addObject(this.MoveDownButton);
+
+11.5.2. Usage
+*************
+
+To process and distinguish between the triggered button actions, implement the ``ButtonCallback()``
+method on your custom object:
+
+.. code-block:: javascript
+
+   userObject.prototype.ButtonCallback = function(FunctionID)
+   {
+      if (FunctionID == 'moveUp')
+      {
+         this.moveItemUp();
+      }
+      else if (FunctionID == 'moveDown')
+      {
+         this.moveItemDown();
+      }
+   };
 
 .. _objecttype-image:
 
