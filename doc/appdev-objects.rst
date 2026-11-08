@@ -281,7 +281,7 @@ is designed for use cases that are not centered around backend services.
    +---------------------+----------------------+-------------------------------------------------+
    | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
    +---------------------+----------------------+-------------------------------------------------+
-   | Action              | Array of Actions     | Actions executed             |
+   | Action              | Array of Actions     | Actions executed                                |
    +---------------------+----------------------+-------------------------------------------------+
    | FireEvents          | Array of EventIDs    | Array of EventIDs / Reactor Integration         |
    +---------------------+----------------------+-------------------------------------------------+
