@@ -168,7 +168,40 @@ Depending on the deployment mode, the text content is retrieved from one of two 
 11.3. Button
 ------------
 
-The ``Button`` *x0-object-type* generates a control-flow modifying object.
+The ``Button`` *x0-object-type* is the most important component regarding control flows and
+object interactions. There are two derived types, ``ButtonInternal`` and ``ButtonCallback``;
+the following explains their purpose and how they differ.
+
+The ``Button`` type is **service-centric** and **always** connected to backend interactions,
+whereas ``ButtonInternal``—as its name suggests—is used exclusively for internal system
+interactions. Both ``Button`` and ``ButtonInternal`` can be used **declaratively** in
+``object.json``.
+
+The ``ButtonCallback`` type is **only** used for **programmatic**, custom *x0-object*
+development.
+
+By default, the ``DOMType`` for a ``Button`` is an HTML-compliant ``button``, though it can
+be overridden. For example, to make it look like a link, you can set ``DOMType`` to ``a`` or
+any other valid tag. Because its internal click mechanism is attached via an event handler,
+the outer HTML tag does not affect functionality. By setting ``DOMValue``, you can override
+the ``innerHTML`` completely. Setting ``FormButton`` renders it as an HTML form-compliant
+``<input type="button">`` usable inside HTML ``<form>`` tags.
+
+Setting ``Disabled`` to ``true`` initializes the button in a disabled state. Providing a
+``TextID`` displays a localized, multilingual text label, while ``IconStyle`` **or**
+``IconStylePost`` adds Font Awesome icons.
+
+The ``OnClick`` property must contain a valid HTTP(S) URL to execute a backend service upon
+clicking. In ``SrcDataObjects``, you reference currently active *x0-objects* containing data
+(such as ``FormfieldList`` via its ``ObjectID``); when triggered, their current metadata is
+fetched in real time and appended to the backend service POST request JSON.
+
+The ``Notify`` object structure defines how the button interacts with the notification
+indication system.
+
+Control flow is managed via ``Action``, ``OnResult``, and ``FireEvents``: ``Action`` triggers
+actions **before** service execution, ``OnResult`` triggers actions **after successful**
+execution, and ``FireEvents`` dispatches *x0-events* to interact with the internal event system.
 
 .. _button-attributes:
 
@@ -199,11 +232,15 @@ The ``Button`` *x0-object-type* generates a control-flow modifying object.
    +---------------------+----------------------+-------------------------------------------------+
    | OnClick             | URL-String           | Backend Service URL                             |
    +---------------------+----------------------+-------------------------------------------------+
+   | SrcDataObjects      | Array of ObjectIDs   | Object data appended to Service POST request    |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Notify              | Object               | Notify Indicator Configuration                  |
+   +---------------------+----------------------+-------------------------------------------------+
    | Action              | Array of Actions     | Actions **before** Service Execution            |
    +---------------------+----------------------+-------------------------------------------------+
    | OnResult            | Array of Actions     | Actions **after** Service Execution             |
    +---------------------+----------------------+-------------------------------------------------+
-   | FireEvents          | Array of EventIDs    | Array of EventIDs                               |
+   | FireEvents          | Array of EventIDs    | Array of EventIDs / Reactor Integration         |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.3.2. Actions / OnResult
@@ -222,7 +259,32 @@ is designed for use cases that are not centered around backend services.
 11.4.1. Object Attributes
 *************************
 
-All attrributes are inherited from ``Button``, see :ref:`button-attributes`.
+.. table:: Object Type Button Attributes
+   :widths: 15 15 70
+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
+   +---------------------+----------------------+-------------------------------------------------+
+   | DOMValue            | String               | Set Hardcoded Display Value                     |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
+   | IconStyle           | CSS-String           | Fontawesome Icon CSS for Prepend Icon           |
+   +---------------------+----------------------+-------------------------------------------------+
+   | IconStylePost       | CSS-String           | Fontawesome Icon CSS for Append Icon            |
+   +---------------------+----------------------+-------------------------------------------------+
+   | FormButton          | Boolean              | Treat Button as HTML form input type "button"   |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Disabled            | Boolean              | Disable Functionality Initially                 |
+   +---------------------+----------------------+-------------------------------------------------+
+   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Action              | Array of Actions     | Actions executed             |
+   +---------------------+----------------------+-------------------------------------------------+
+   | FireEvents          | Array of EventIDs    | Array of EventIDs / Reactor Integration         |
+   +---------------------+----------------------+-------------------------------------------------+
 
 .. _objecttype-buttoncallback:
 
