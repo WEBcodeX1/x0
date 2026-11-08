@@ -97,7 +97,7 @@ This concept is explained in detail in the system developer documentation; see:
 
 .. code-block:: javascript
 
-   "SimpleDivObject":
+   "ExampleDivObject":
    {
       "Type": "Div",
       "Attributes":
@@ -153,7 +153,7 @@ Depending on the deployment mode, the text content is retrieved from one of two 
 
 .. code-block:: javascript
 
-   "$ObjectID":
+   "ExampleTextObject":
    {
       "Type": "Text",
       "Attributes":
@@ -192,9 +192,9 @@ Setting ``Disabled`` to ``true`` initializes the button in a disabled state. Pro
 ``IconStylePost`` adds Font Awesome icons.
 
 The ``OnClick`` property must contain a valid HTTP(S) URL to execute a backend service upon
-clicking. In ``SrcDataObjects``, you reference currently active *x0-objects* containing data
-(such as ``FormfieldList`` via its ``ObjectID``); when triggered, their current metadata is
-fetched in real time and appended to the backend service POST request JSON.
+clicking. In ``SrcDataObjects``, the global x0 *Source Data Objects* mechanism is used to
+specify runtime data selectively (see :ref:`appdevcontrolflow`). When triggered, this metadata
+is fetched in real time and appended to the backend service POST request JSON.
 
 The ``Notify`` object structure defines how the button interacts with the notification
 indication system.
@@ -232,7 +232,7 @@ execution, and ``FireEvents`` dispatches *x0-events* to interact with the intern
    +---------------------+----------------------+-------------------------------------------------+
    | OnClick             | URL-String           | Backend Service URL                             |
    +---------------------+----------------------+-------------------------------------------------+
-   | SrcDataObjects      | Array of ObjectIDs   | Object data appended to Service POST request    |
+   | SrcDataObjects      | Type dependend       | Generic Source Data Integration                 |
    +---------------------+----------------------+-------------------------------------------------+
    | Notify              | Object               | Notify Indicator Configuration                  |
    +---------------------+----------------------+-------------------------------------------------+
@@ -246,6 +246,7 @@ execution, and ``FireEvents`` dispatches *x0-events* to interact with the intern
 11.3.2. Actions / OnResult
 **************************
 
+
 See :ref:`event-actions`.
 
 .. _objecttype-buttoninternal:
@@ -253,8 +254,9 @@ See :ref:`event-actions`.
 11.4. ButtonInternal
 --------------------
 
-The ``ButtonInternal`` *x0-object-type* inherits ``Button`` *x0-object-type* and, as the name suggests,
-is designed for use cases that are not centered around backend services.
+The ``ButtonInternal`` *x0-object-type* inherits ``Button``, the main difference is that it lacks
+backend functionality, otherwise functionality is the same.
+
 
 11.4.1. Object Attributes
 *************************
@@ -280,6 +282,8 @@ is designed for use cases that are not centered around backend services.
    | Disabled            | Boolean              | Disable Functionality Initially                 |
    +---------------------+----------------------+-------------------------------------------------+
    | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Notify              | Object               | Notify Indicator Configuration                  |
    +---------------------+----------------------+-------------------------------------------------+
    | Action              | Array of Actions     | Actions executed                                |
    +---------------------+----------------------+-------------------------------------------------+
@@ -344,7 +348,7 @@ through the standard ``getObjectData()`` / ``setObjectData()`` API.
 
 .. code-block:: javascript
 
-   "$ObjectID":
+   "ExampleImageObject":
    {
       "Type": "Image",
       "Attributes":
