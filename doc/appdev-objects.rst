@@ -229,44 +229,14 @@ All attrributes are inherited from ``Button``, see :ref:`button-attributes`.
 11.5. ButtonCallback
 --------------------
 
-The ``ButtonCallback`` *x0-object-type* is a programmatic variant of ``Button`` that
-inherits its rendering and attribute handling (``init()``, ``enable()``, ``disable()``,
-``addEventListenerClick()``), but replaces the backend ``OnClick`` service dispatch with
-a direct, in-page method invocation. Rather than being declared through
-``object.json``/``skeleton.json``, it is always instantiated and wired up in code via
-``new sysObjButtonCallback()`` together with ``setCallback(CallbackObject,
-CallbackFunction, CallbackArguments)``; once clicked, it invokes
-``CallbackObject.ButtonCallback(CallbackFunction, CallbackArguments, Event)`` directly,
-without involving a request/response round-trip. This makes it the preferred building
-block for Button-styled UI controls that only need to trigger logic already local to the
-current screen — for instance the previous/next and page-index navigation controls of
-``sysPagination`` (see :ref:`realtime-pagination`), or the per-row action buttons of
-custom containers such as ``ExampleEditableItemContainer``
-(see :ref:`objecttype-exampleeditableitemcontainer`).
 
 11.5.1. Object Attributes
 *************************
 
-All rendering attributes (``DOMType``, ``Style``, ``IconStyle``, ``IconStylePost``,
-``TextID``, ``FormButton``, ``Disabled``) are inherited from ``Button``, see
-:ref:`button-attributes`; ``OnClick``, ``Action``, ``OnResult`` and ``FireEvents`` are not
-applicable, since dispatch is handled entirely via the programmatic callback below.
 
 11.5.2. Programmatic Usage
 **************************
 
-.. code-block:: javascript
-
-   let MyButton = new sysObjButtonCallback();
-   MyButton.setCallback(ParentObjectRef, 'myFunctionID', OptionalArguments);
-
-   //- the parent object implements the dispatch target
-   ParentObjectRef.prototype.ButtonCallback = function(FunctionID, Arguments, Event)
-   {
-       if (FunctionID == 'myFunctionID') {
-           //- handle the click, purely client-side
-       }
-   }
 
 .. _objecttype-image:
 
