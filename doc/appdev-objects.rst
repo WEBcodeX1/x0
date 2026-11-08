@@ -111,12 +111,22 @@ This concept is explained in detail in the system developer documentation; see:
 11.2. Text
 ----------
 
-The ``Text`` *x0-object-type* renders multilingual text retrieved from the *x0-system-db*
-``webui.text`` table. Alternatively, the **static** *x0-component* uses the ``/static/meta/text-data.json``
-file for **NoSQL** operations.
+The ``Text`` *x0-object-type* is used to render localized, multilingual strings within the
+user interface. Rather than hardcoding text directly into the layout, this object resolves
+text identifiers dynamically based on the active user language.
+
+Depending on the deployment mode, the text content is retrieved from one of two sources:
+
+- **Database Mode (Default):** In standard setups, strings are fetched directly from the
+  ``webui.text`` table inside the *x0-system-db*.
+
+- **Static / NoSQL Mode:** When running as a **static** *x0-component* without a live
+  database connection, the object falls back to reading key-value pairs from the local
+  ``/static/meta/text-data.json`` file.
 
 .. important::
-   For backward compatibility, the ``Text`` object type is also referenceable as ``SQLText``.
+   For backward compatibility with legacy configurations, the ``Text`` object type can
+   still be referenced under its former name ``SQLText``.
 
 11.2.1. Object Attributes
 *************************
@@ -893,13 +903,13 @@ its own ``ObjectID``.
 .. table:: Object Type DivValue Runtime Methods
    :widths: 15 85
 
-   +---------------------+-------------------------------------------------------------+
-   | **Method**          | **Description**                                              |
-   +=====================+===============================================================+
-   | setValue(Data)      | Sets ``Value``/``DOMValue`` and refreshes the rendered DOM     |
-   +---------------------+-------------------------------------------------------------+
-   | getValue()          | Returns the current, rendered DOM value                       |
-   +---------------------+-------------------------------------------------------------+
+   +---------------------+------------------------------------------------------------------------+
+   | **Method**          | **Description**                                                        |
+   +=====================+========================================================================+
+   | setValue(Data)      | Sets ``Value``/``DOMValue`` and refreshes the rendered DOM             |
+   +---------------------+------------------------------------------------------------------------+
+   | getValue()          | Returns the current, rendered DOM value                                |
+   +---------------------+------------------------------------------------------------------------+
 
 11.16.3. JSON Example
 *********************
