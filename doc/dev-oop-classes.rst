@@ -77,10 +77,17 @@ to handle complex object relationships with ease.
 24.1.2. sysBaseObject.renderObject / rerenderObject
 ***************************************************
 
-The ``sysBaseObject.renderObject()`` method is responsible for rendering a sysBaseObject
-instance and its child objects into the Document Object Model (DOM). ``rerenderObject()``
-is a thin convenience wrapper that removes the existing DOM subtree and renders it again,
-useful after large data-driven layout changes.
+The ``sysBaseObject.renderObject()`` method is inherited by and responsible for rendering
+**any** *x0-object-type* and its child objects into the Document Object Model (DOM).
+While ``renderObject()`` can be called from any sub-node within the object graph hierarchy,
+it is primarily intended to be invoked on an *x0-screen*'s ``HierarchyRootObject`` to render
+the entire view at once.
+
+For updating or refreshing already rendered content, ``rerenderObject()`` should **always**
+be used. It cleanly removes the existing DOM subtree and renders it again, making it the standard
+method for any dynamic content updates.
+
+This is the **most important** *x0-core* feature. It is documented in detail here:
 
 24.1.2.1. Method Implementation
 ###############################
@@ -136,11 +143,10 @@ useful after large data-driven layout changes.
     1. DOM Object ID Generation:
         The method generates a unique ``DOMObjectID`` for the object by concatenating the
         optional recursive ``Prefix`` with the object's own ``ObjectID``. When
-        ``overrideDOMObjectID`` is ``true`` (used by objects that must keep a stable,
-        non-prefixed DOM id, e.g. ``sysObjButtonCallback`` or ``sysObjDivUnique``), the
-        ``ObjectID`` is used directly as the ``DOMObjectID``.
-        The ``Prefix`` argument is only ever supplied internally during recursion and
-        should not be passed on the initial, outside call.
+        ``overrideDOMObjectID`` is ``true``, the ``ObjectID`` is used directly as the
+        ``DOMObjectID``. The ``Prefix`` argument is only ever supplied internally during recursion
+        and should not be passed on the initial, outside call.
+        A detailed explanation
 
     2. Conditional Rendering:
         Ensures that the object is rendered only if its corresponding DOM element does not already exist.
