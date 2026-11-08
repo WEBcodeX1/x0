@@ -62,8 +62,21 @@ serving as a blueprint for **programmatically** building custom *x0-objects*:
 11.1. Div
 ---------
 
-The ``Div`` *x0-object-type* is the simplest of all.
-It generates a DOM layer with a configurable CSS class attribute.
+The ``Div`` *x0-object-type* is a very limited, yet very important, component.
+It generates a DOM layer with a configurable CSS class attribute. The outer HTML
+tag is specified in ``DOMType``; when omitted, its default value is ``div``.
+
+It should **never** be used directly in a **declarative configuration**—use
+``DivUnique`` or ``DivValue`` instead. The latter also explains where and why it should
+be used in a **programmatic, custom** *x0-object*.
+
+When building custom *x0-object*'s, you should be familiar with **when** exactly to
+use this type of object and when **not** to. It should primarily be used **only**
+for intermediate divs in so-called *object-between-layers*, because it does
+**not** set its internal property ``this.overrideDOMObjectID`` to **true** (which
+disables the automatic, prefixed DOM object generation in ``sysBaseObject.renderObject()``).
+
+This concept is explained in detail in the system developer documentation; see:
 
 11.1.1. Object Attributes
 *************************
@@ -84,7 +97,7 @@ It generates a DOM layer with a configurable CSS class attribute.
 
 .. code-block:: javascript
 
-   "$ObjectID":
+   "SimpleDivObject":
    {
       "Type": "Div",
       "Attributes":
@@ -132,7 +145,7 @@ file for **NoSQL** operations.
 
    "$ObjectID":
    {
-      "Type": "SQLText",
+      "Type": "Text",
       "Attributes":
       {
          "Style": "css1 css2",
