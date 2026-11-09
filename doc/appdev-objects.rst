@@ -81,7 +81,7 @@ for intermediate divs in so-called *object-between-layers*, because it does
 disables the automatic, prefixed DOM object generation in ``sysBaseObject.renderObject()``).
 
 This concept is explained in detail in the system developer documentation section under
-"Development Best Practices"; see: :ref:`devbestpractices`.
+"Development Best Practices"; see: :ref:`dev-bestpractices`.
 
 11.1.1. Object Attributes
 *************************
@@ -1775,7 +1775,7 @@ inherits from ``sysObjDivUnique`` and is typically instantiated inside a
 
 **Data Objects:**
   - :ref:`objecttype-list`
-  - :ref:`objecttype-sqltext`
+  - :ref:`objecttype-text`
   - :ref:`objecttype-infoparagraph`
 
 **Interactive Objects:**
