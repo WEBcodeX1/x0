@@ -288,28 +288,34 @@ expressed through static JSON metadata alone, the declarative approach reaches i
 the programmatic methodology introduced in **7.6. Custom Extensions**.
 
 .. important::
-   The declarative approach can certainly build complex objects—for example, by combining
-   basic ``Div`` *x0-object* types into higher-level abstractions in ``object.json`` and
-   ``skeleton.json``. **However**, it is not advisable to do so; instead, you should use the
-   programmatic custom extensions approach described below.
+   The declarative approach can certainly be used to build complex objects—for example, by combining
+   **basic** (e.g., ``DivUnique``) and **container** *x0-objects* into higher-level abstractions in
+   ``object.json`` and ``skeleton.json``. **However**, in some situations, such a configuration can
+   become overly complex, making it inadvisable to continue that way; instead, you should use the
+   **programmatic custom extensions** approach described below.
 
 7.6. Custom Extensions
 ----------------------
 
-Building **custom** *x0-extensions* (your own custom-coded classes) requires strict
-adherence to the system's OOP model. The developer section of this documentation
+Building **custom** *x0-objects* (your own custom-coded classes) requires strict adherence to the
+system's OOP model. The developer section of this documentation
 describes both:
 
 - **How to build** these classes
 - **How to integrate** them into the *x0-core*
 
+Once integrated, these **custom** *x0-objects* can be used like any other *x0-object*—either
+**declaratively** or **programmatically**—across the entire system.
+
 Please ensure you are familiar with :ref:`dev-bestpractices` before you begin.
 
 .. tip::
-   The *x0-system* only unlocks its **full potential** when building own custom user-defined
-   extensions (*x0-user-objects*). This innovative, OOP-based templating is extremely powerful,
-   especially for complex, nested, and interdependent elements.
+   The *x0-system* only unlocks its **full potential** when you build your own custom,
+   user-defined extensions (*x0-custom-classes*, primarily referred to as *x0-objects*). This
+   innovative, OOP-based templating approach is extremely powerful, especially for complex,
+   nested, and interdependent elements.
 
 .. important::
-   This methodology also makes it possible to integrate the *x0-system* as a **highly maintainable**
-   ecosystem in **large-scale environments**.
+   Ultimately, building custom extensions serves as the **architectural foundation** for integrating
+   the *x0-system* as a **highly maintainable** ecosystem capable of meeting **carrier-grade
+   requirements** in **large-scale environments**.
