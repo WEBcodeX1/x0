@@ -627,14 +627,15 @@ contract:
 11.10. TabContainer
 -------------------
 
-The ``TabContainer`` *x0-object-type* offers a real-time switchable object container that
-enables seamless transitions between sibling views without a backend round-trip. Each
-``Tab`` wraps a dedicated ``ContentObj`` sub-tree; ``switchTab()`` activates the selected
-tab's content by toggling its ``VisibleState`` between ``visible`` and ``hidden`` while
-deactivating all others, rather than destroying and rebuilding the DOM. Like every other
-*x0-object-type*, state is therefore preserved recursively across every child object for
-as long as the screen remains loaded, ensuring continuity and consistency across
-interactions.
+11.10. TabContainer
+-------------------
+
+The ``TabContainer`` *x0-object-type* implements a tabbed interface that organizes content into
+separate, switchable panels within the same view. Each tab can hold its own complete object
+hierarchy; selecting a tab activates and displays its hierarchy while automatically disabling
+and hiding the content of all other tabs. Because inactive tabs are simply disabled rather than
+destroyed and recreated, the state of every child object within each tab is preserved across
+all other interactions, including switching to a different *x0-screen*.
 
 .. code-block:: bash
 
