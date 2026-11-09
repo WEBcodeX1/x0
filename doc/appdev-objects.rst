@@ -80,7 +80,8 @@ for intermediate divs in so-called *object-between-layers*, because it does
 **not** set its internal property ``this.overrideDOMObjectID`` to **true** (which
 disables the automatic, prefixed DOM object generation in ``sysBaseObject.renderObject()``).
 
-This concept is explained in detail in the system developer documentation; see:
+This concept is explained in detail in the system developer documentation section under
+"Development Best Practices"; see: :ref:`devbestpractices`.
 
 11.1.1. Object Attributes
 *************************
@@ -417,11 +418,6 @@ inherits :ref:`objecttype-divunique` and composes :ref:`objecttype-image`,
 ``FileUpload`` and ``FormfieldList`` child objects to additionally offer an inline
 upload form for registering new images. Row pagination reuses the same mechanism as
 :ref:`objecttype-list`.
-
-.. warning::
-   The data abstraction model (declarative as well as programmatic) will **change** for
-   the ``Image`` *x0-object-tpye* in later *x0-version's*, because it does not match the
-   criteria for a 100% generic aproach.
 
 11.7.1. Object Attributes
 *************************
