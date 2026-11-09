@@ -630,9 +630,9 @@ contract:
 11.10. TabContainer
 -------------------
 
-The ``TabContainer`` *x0-object-type* implements a tabbed interface that organizes content into
-separate, switchable panels within the same view. Each tab can hold its own complete object
-hierarchy; selecting a tab activates and displays its hierarchy while automatically disabling
+The ``TabContainer`` *x0-object-type* organizes content into separate tabs within a single view,
+allowing users to switch seamlessly between different panels. Each tab can hold its own complete
+object hierarchy; selecting a tab activates and displays its hierarchy while automatically disabling
 and hiding the content of all other tabs. Because inactive tabs are simply disabled rather than
 destroyed and recreated, the state of every child object within each tab is preserved across
 all other interactions, including switching to a different *x0-screen*.
