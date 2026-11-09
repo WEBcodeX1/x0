@@ -714,21 +714,21 @@ interactions in dependent objects, such as a backend data update.
 11.12. ErrorContainer
 ---------------------
 
-The ``ErrorContainer`` *x0-object-type* is a lightweight, state-free container used to
-surface informational and error messages near the *x0-system-object* that triggers them.
-It exposes two runtime methods rather than declarative attributes: ``displayError(ErrorMsg,
-ErrorDetailMsg)`` applies a Bootstrap ``danger``-styled alert box and renders the (optionally
-detailed) message, while ``reset()`` clears both style and content. It is commonly referenced
-by its ``ObjectID`` from a sibling object's ``ErrorContainer`` attribute — for instance
-:ref:`objecttype-list`, which calls ``reset()`` before appending a new row and
-``displayError()`` when row validation (``DoubleCheckColumn``/``ValidateColumnRegEx``) or a
-``DataMaxRows`` limit rejects it.
+The ``ErrorContainer`` *x0-object-type* provides a dedicated container for displaying
+informational and error messages anywhere within the application layout. Because it is
+completely decoupled from the objects that trigger it, an ``ErrorContainer`` can be
+placed at any desired position in the view hierarchy. Although ``ErrorContainer`` defines
+no attributes of its own, any other *x0-object* can declaratively bind to it by referencing
+its ``ObjectID`` in that object's ``ErrorContainer`` attribute—primarily :ref:`objecttype-button`
+and :ref:`objecttype-buttoninternal` for form validation errors, as well as :ref:`objecttype-list`
+for runtime column append errors. Refer to the individual documentation for each of these objects
+to see how to declaratively configure their interaction with ``ErrorContainer``, including how to
+define localized error messages across multiple languages.
 
 11.12.1. Object Attributes
 **************************
 
-None. ``ErrorContainer`` is driven entirely through its programmatic
-``displayError()`` / ``reset()`` API.
+None.
 
 11.12.2. JSON Example
 *********************
@@ -738,9 +738,7 @@ None. ``ErrorContainer`` is driven entirely through its programmatic
    "$ObjectID":
    {
       "Type": "ErrorContainer",
-      "Attributes":
-      {
-      }
+      "Attributes": {}
    }
 
 .. _objecttype-openclosecontainer:
