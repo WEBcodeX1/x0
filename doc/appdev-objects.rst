@@ -682,14 +682,14 @@ all other interactions, including switching to a different *x0-screen*.
 -----------------
 
 The ``FileUpload`` *x0-object-type* renders a ``multipart/form-data`` file-selection
-control together with a visually intuitive upload progress indicator, composed
-internally from a callback-bound ``ButtonCallback`` trigger and a nested
-:ref:`objecttype-progressbar`. Selecting ``startUpload()`` dispatches an asynchronous
-``XMLHttpRequest`` POST to ``UploadScript``; upload progress events update the inner
-progress bar in real time via ``updateProgress()``, and the object's ``Status``
-transitions through ``init`` → ``uploading`` → ``success``/``failed`` → ``finished``
-as the request resolves. On successful completion, an optional ``FireEvents`` array
-triggers a dependent screen data reload.
+control paired with a visual upload progress indicator, composed internally of a
+callback-bound ``ButtonCallback`` trigger and a nested :ref:`objecttype-progressbar`.
+Invoking ``startUpload()`` dispatches an asynchronous ``XMLHttpRequest`` POST request to
+``UploadScript``. Upload progress events update the inner progress bar in real time via
+``updateProgress()``, while the object's ``Status`` transitions through
+``init`` → ``uploading`` → ``success`` / ``failed`` → ``finished`` as the request resolves.
+Upon successful completion, an optional ``FireEvents`` array triggers *x0-reactor*-based
+interactions in dependent objects, such as a backend data update.
 
 11.11.1. Object Attributes
 **************************
