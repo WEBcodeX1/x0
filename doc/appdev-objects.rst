@@ -497,11 +497,22 @@ an overlay. It inherits :ref:`objecttype-divunique`.
 11.9. List
 ----------
 
-The ``List`` *x0-object-type* renders a table-like HTML structure using Bootstrap's Grid CSS,
-avoiding the traditional ``<table><tr><td>`` HTML syntax for a more modern and flexible layout.
+The ``List`` *x0-object-type* renders a table-like, grid-based structure built on
+Bootstrap's Grid CSS, deliberately avoiding the legacy ``<table><tr><td>`` HTML syntax
+in favor of a modern, responsive layout. Internally, every row is a dedicated
+``sysListRow`` instance that composes the configured ``Column`` cells and participates
+in the same recursive object hierarchy as any other *x0-system-object*, so individual
+cells may hold arbitrarily complex nested objects rather than plain text.
 
-Additionally, it incorporates advanced features such as *x0-realtime-container*
-for dynamic updates and *x0-context-menu* for enhanced user interaction.
+Beyond static tabular display, ``List`` directly integrates two further x0 subsystems:
+*x0-context-menu* for per-row and multi-row interaction (see :ref:`appdevcontextmenu`),
+and *x0-realtime-container* semantics for incremental, backend-driven row updates. When
+``Navigation`` is enabled, pagination is delegated to the same generic ``sysPagination``
+mechanism documented in :ref:`realtime-pagination`, toggling already-rendered rows
+between pages without a backend reload. Newly appended rows (for example, submitted via
+a linked ``FormfieldList``) are validated through the optional ``DoubleCheckColumn`` and
+``ValidateColumnRegEx`` mechanisms, with user-facing feedback routed through a referenced
+``ErrorContainer``.
 
 11.9.1. Object Attributes
 *************************
@@ -516,6 +527,8 @@ for dynamic updates and *x0-context-menu* for enhanced user interaction.
    +---------------------+----------------------+-------------------------------------------------+
    | HeaderRowStyle      | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
+   | DisableHeader       | Boolean              | Suppress rendering of the header row            |
+   +---------------------+----------------------+-------------------------------------------------+
    | RowCount            | Integer              | Table Row Count                                 |
    +---------------------+----------------------+-------------------------------------------------+
    | RowSelectable       | Boolean              | Row / Multirow / Context Menu selectable        |
@@ -524,7 +537,15 @@ for dynamic updates and *x0-context-menu* for enhanced user interaction.
    +---------------------+----------------------+-------------------------------------------------+
    | ErrorContainer      | ObjectID-String      | Error Container Object Reference                |
    +---------------------+----------------------+-------------------------------------------------+
-   | ContextMenuItems    | Array of Items       | Context Menu Entries, see 11.9.4.               |
+   | DataMaxRows         | Integer              | Maximum Row Count accepted on append            |
+   +---------------------+----------------------+-------------------------------------------------+
+   | DoubleCheckColumn   | String               | Column checked for duplicate values on append   |
+   +---------------------+----------------------+-------------------------------------------------+
+   | ValidateColumnRegEx | Object               | Per-Column ``{RegexTemplate, ErrorMsg}`` checks |
+   +---------------------+----------------------+-------------------------------------------------+
+   | ContextMenuItems    | Array of Items       | Row Context Menu Entries, see 11.9.5.           |
+   +---------------------+----------------------+-------------------------------------------------+
+   | HeaderContextMenuItems | Array of Items    | Header Context Menu Entries, see 11.9.5.        |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.9.2. Column Attributes
@@ -568,8 +589,10 @@ Global Context Menu Attributes can be applied, see :ref:`appdevcontextmenu`.
 11.9.6. Backend JSON Schema
 ***************************
 
-Backend services must return the following JSON to provide table cell data on
-service execution.
+When bound to an :ref:`objecttype-serviceconnector`, the backend service must return
+the following JSON array to populate table cell data; each element's keys correlate to
+the configured ``Column`` IDs (``col1``, ``col2``, ...) and are appended row-by-row
+into the list's internal ``RuntimeData`` array on service execution.
 
 .. code-block:: javascript
 
@@ -583,19 +606,35 @@ service execution.
 11.9.7. Runtime Features
 ************************
 
-The following runtime-features are supported.
+``List`` supports the standard ``getObjectData()`` / ``setObjectData()`` runtime
+contract:
 
-* RuntimeGetDataFunc()
-* RuntimeAppendDataFunc()
+.. table:: Object Type List Runtime Methods
+   :widths: 25 75
+
+   +---------------------------+------------------------------------------------------------------------+
+   | **Mechanism**             | **Description**                                                        |
+   +===========================+========================================================================+
+   | RuntimeGetDataFunc        | Returns the full ``RuntimeData`` array as currently rendered           |
+   +---------------------------+------------------------------------------------------------------------+
+   | RuntimeSetDataFunc        | Validates and appends a single new row (``DataMaxRows``,               |
+   |                           | ``DoubleCheckColumn`` and ``ValidateColumnRegEx`` are enforced here),  |
+   |                           | then re-renders the page                                               |
+   +---------------------------+------------------------------------------------------------------------+
 
 .. _objecttype-tabcontainer:
 
 11.10. TabContainer
 -------------------
 
-The ``TabContainer`` *x0-object-type* offers a real-time switchable object container,
-enabling seamless transitions between different views or components. Like all *x0-object-types*,
-it preserves object states recursively, ensuring continuity and consistency across interactions.
+The ``TabContainer`` *x0-object-type* offers a real-time switchable object container that
+enables seamless transitions between sibling views without a backend round-trip. Each
+``Tab`` wraps a dedicated ``ContentObj`` sub-tree; ``switchTab()`` activates the selected
+tab's content by toggling its ``VisibleState`` between ``visible`` and ``hidden`` while
+deactivating all others, rather than destroying and rebuilding the DOM. Like every other
+*x0-object-type*, state is therefore preserved recursively across every child object for
+as long as the screen remains loaded, ensuring continuity and consistency across
+interactions.
 
 .. code-block:: bash
 
@@ -641,8 +680,15 @@ it preserves object states recursively, ensuring continuity and consistency acro
 11.11. FileUpload
 -----------------
 
-The ``FileUpload`` *x0-object-type* provides a file selection dialog along with a visually
-intuitive upload progress indicator.
+The ``FileUpload`` *x0-object-type* renders a ``multipart/form-data`` file-selection
+control together with a visually intuitive upload progress indicator, composed
+internally from a callback-bound ``ButtonCallback`` trigger and a nested
+:ref:`objecttype-progressbar`. Selecting ``startUpload()`` dispatches an asynchronous
+``XMLHttpRequest`` POST to ``UploadScript``; upload progress events update the inner
+progress bar in real time via ``updateProgress()``, and the object's ``Status``
+transitions through ``init`` → ``uploading`` → ``success``/``failed`` → ``finished``
+as the request resolves. On successful completion, an optional ``FireEvents`` array
+triggers a dependent screen data reload.
 
 11.11.1. Object Attributes
 **************************
@@ -655,21 +701,11 @@ intuitive upload progress indicator.
    +============================+======================+==========================================+
    | Style                      | CSS-String           | CSS Style Classes, space separated       |
    +----------------------------+----------------------+------------------------------------------+
-   | StyleDescription           | CSS-String           | CSS Style Classes, space separated       |
-   +----------------------------+----------------------+------------------------------------------+
-   | StyleSelectButton          | CSS-String           | CSS Style Classes, space separated       |
-   +----------------------------+----------------------+------------------------------------------+
-   | StyleProgressContainer     | CSS-String           | CSS Style Classes, space separated       |
-   +----------------------------+----------------------+------------------------------------------+
-   | StyleProgressBar           | CSS-String           | CSS Style Classes, space separated       |
-   +----------------------------+----------------------+------------------------------------------+
-   | StyleProgressBarPercentage | CSS-String           | CSS Style Classes, space separated       |
-   +----------------------------+----------------------+------------------------------------------+
-   | StyleUploadButton          | CSS-String           | CSS Style Classes, space separated       |
+   | StyleSelectButton          | CSS-String           | CSS Style Classes for the file input     |
    +----------------------------+----------------------+------------------------------------------+
    | UploadScript               | URL-String           | POST Upload URL                          |
    +----------------------------+----------------------+------------------------------------------+
-   | ScreenDataLoad             | ScreenID-String      | On Successful Upload trigger Data reload |
+   | FireEvents                 | Array of EventIDs    | On Successful Upload trigger Data reload |
    +----------------------------+----------------------+------------------------------------------+
 
 .. _objecttype-errorcontainer:
@@ -677,12 +713,21 @@ intuitive upload progress indicator.
 11.12. ErrorContainer
 ---------------------
 
-The ``ErrorContainer`` *x0-object-type* is designed to display informational and error messages.
+The ``ErrorContainer`` *x0-object-type* is a lightweight, state-free container used to
+surface informational and error messages near the *x0-system-object* that triggers them.
+It exposes two runtime methods rather than declarative attributes: ``displayError(ErrorMsg,
+ErrorDetailMsg)`` applies a Bootstrap ``danger``-styled alert box and renders the (optionally
+detailed) message, while ``reset()`` clears both style and content. It is commonly referenced
+by its ``ObjectID`` from a sibling object's ``ErrorContainer`` attribute — for instance
+:ref:`objecttype-list`, which calls ``reset()`` before appending a new row and
+``displayError()`` when row validation (``DoubleCheckColumn``/``ValidateColumnRegEx``) or a
+``DataMaxRows`` limit rejects it.
 
 11.12.1. Object Attributes
 **************************
 
-None.
+None. ``ErrorContainer`` is driven entirely through its programmatic
+``displayError()`` / ``reset()`` API.
 
 11.12.2. JSON Example
 *********************
@@ -702,10 +747,14 @@ None.
 11.13. OpenCloseContainer
 -------------------------
 
-The ``OpenCloseContainer`` *x0-object-type* provides a collapsible content container 
-with toggle functionality, allowing users to expand or collapse sections to manage 
-screen real estate effectively. This component is particularly useful for organizing 
-large amounts of content in a compact, user-friendly manner.
+The ``OpenCloseContainer`` *x0-object-type* renders a Bootstrap card with a styled header
+row and a collapsible body, letting users expand or collapse a section to manage screen
+real estate without losing its contents. The body is a nested ``Div`` whose
+``VisibleState`` is toggled between ``visible`` and ``hidden`` by ``toggleVisibleState()``
+— bound to a FontAwesome caret icon click — so any child *x0-system-object* placed inside
+remains fully initialized and continues to hold its state while collapsed. The initial
+``StateOpen`` attribute controls whether the body starts expanded or collapsed when the
+screen is first rendered.
 
 11.13.1. Object Attributes
 **************************
@@ -718,19 +767,16 @@ large amounts of content in a compact, user-friendly manner.
    +=====================+======================+=================================================+
    | Style               | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
+   | HeaderStyle         | CSS-String           | CSS Style Classes applied to the header row     |
+   +---------------------+----------------------+-------------------------------------------------+
    | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
    +---------------------+----------------------+-------------------------------------------------+
+   | IconStyle           | CSS-String           | Fontawesome Icon CSS for the header text        |
+   +---------------------+----------------------+-------------------------------------------------+
+   | StateOpen           | Boolean              | Initial expanded (``true``) / collapsed state   |
+   +---------------------+----------------------+-------------------------------------------------+
 
-11.13.2. Features
-*****************
-
-- **Toggle Functionality**: Click to expand or collapse content sections
-- **State Management**: Maintains open/close state across interactions
-- **Nested Content**: Can contain any x0-system-objects within collapsible sections
-- **Responsive Design**: Adapts to different screen sizes using Bootstrap styling
-- **Visual Indicators**: Uses FontAwesome caret icons to indicate state
-
-11.13.3. JSON Example
+11.13.2. JSON Example
 *********************
 
 .. code-block:: javascript
@@ -748,30 +794,25 @@ large amounts of content in a compact, user-friendly manner.
       "Type": "OpenCloseContainer",
       "Attributes": {
          "Style": "mb-4",
-         "TextID": "TXT.SECTION.ADVANCED.SETTINGS"
+         "TextID": "TXT.SECTION.ADVANCED.SETTINGS",
+         "StateOpen": false
       }
    }
-
-11.13.4. Usage Examples
-***********************
-
-This system object can be used for:
-
-- Creating collapsible content sections
-- Organizing complex forms with grouped sections
-- Building accordion-style interfaces
-- Managing information hierarchy and screen space
-- Demonstrating modular UI construction
 
 .. _objecttype-treesimple:
 
 11.14. TreeSimple
 -----------------
 
-The ``TreeSimple`` *x0-object-type* creates hierarchical tree structures with 
-expandable/collapsible nodes, FontAwesome icons, and navigation capabilities. It 
-supports both expandable nodes (containers) and interactive items (navigation elements) 
-with visual selection indicators and state management.
+The ``TreeSimple`` *x0-object-type* renders a hierarchical, Bootstrap list-group tree of
+expandable/collapsible ``Node`` elements and interactive, navigation-triggering ``Item``
+elements, each carrying its own FontAwesome icon. Clicking a node's folder icon toggles
+its own ``Children`` container between expanded and collapsed without affecting tree
+state elsewhere; clicking an item's link instead invokes ``sysFactory.switchScreen()``
+against its configured ``DstScreenID`` and visually hi-lites the clicked row, replacing
+the style on whichever item (tracked via the tree root's ``LastSelectedItem`` reference)
+was previously selected. Rows are additionally hi-lited on ``mouseover``/``mouseout`` for
+immediate visual feedback, independent of the persisted selection state.
 
 11.14.1. Object Attributes
 **************************
@@ -822,20 +863,10 @@ Interactive navigation elements that trigger screen navigation:
    +---------------------+----------------------+-------------------------------------------------+
    | Icon                | CSS-String           | FontAwesome Icon CSS Classes                    |
    +---------------------+----------------------+-------------------------------------------------+
-   | ScreenID            | ScreenID-String      | Target Screen for navigation                    |
+   | DstScreenID         | ScreenID-String      | Target Screen for navigation                    |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.14.4. Features
-*****************
-
-- **Hierarchical Structure**: Support for nested nodes and items
-- **Expandable Nodes**: Click caret controls to expand/collapse tree nodes
-- **Navigation Items**: Tree items trigger screen navigation while maintaining tree state
-- **Icon Integration**: FontAwesome icons provide visual cues for different node and item types
-- **Visual Feedback**: Hover effects and selection indicators enhance user interaction
-- **State Management**: Tree state is preserved during navigation between screens
-
-11.14.5. JSON Example
+11.14.4. JSON Example
 *********************
 
 .. code-block:: javascript
@@ -853,13 +884,13 @@ Interactive navigation elements that trigger screen navigation:
                      "Type": "Item",
                      "TextID": "TXT.ITEM1",
                      "Icon": "fa-solid fa-code-branch",
-                     "ScreenID": "Screen1"
+                     "DstScreenID": "Screen1"
                   },
                   {
                      "Type": "Item",
                      "TextID": "TXT.ITEM2",
                      "Icon": "fa-solid fa-lightbulb",
-                     "ScreenID": "Screen2"
+                     "DstScreenID": "Screen2"
                   }
                ]
             },
@@ -877,7 +908,7 @@ Interactive navigation elements that trigger screen navigation:
                            "Type": "Item",
                            "TextID": "TXT.SUBITEM1",
                            "Icon": "fa-solid fa-file",
-                           "ScreenID": "Screen3"
+                           "DstScreenID": "Screen3"
                         }
                      ]
                   }
@@ -886,17 +917,6 @@ Interactive navigation elements that trigger screen navigation:
          ]
       }
    }
-
-11.14.6. Usage Examples
-***********************
-
-This system object can be used for:
-
-- Creating hierarchical navigation menus with expandable categories
-- Building file explorer-style interfaces
-- Implementing sidebar navigation with nested menu structures
-- Demonstrating tree-based data organization in x0 applications
-- Creating multi-level category browsers
 
 .. _objecttype-divunique:
 
@@ -944,6 +964,15 @@ can act as a parent container for nested child objects.
 11.16. DivValue
 ---------------
 
+The ``DivValue`` *x0-object-type* extends ``Div`` — sharing its declarative ``DOMType``,
+``Value`` and ``Style`` attribute handling via ``sysObjDiv.prototype.init`` — with the
+standard runtime data-exchange contract: it exposes ``RuntimeSetDataFunc`` /
+``RuntimeGetDataFunc`` bound to its own ``setValue()`` / ``getValue()`` methods, so a
+plain DOM container can participate in the same ``getObjectData()`` / ``setObjectData()``
+mechanism as formfield-type objects — for example as the target of a ``SrcDataObjects``
+payload mapping, or of a custom object's programmatic data assignment — without requiring
+a dedicated formfield. Like ``DivUnique``, it sets its own ``overrideDOMObjectID`` and
+therefore needs no additional naming scheme beyond its own ``ObjectID``.
 
 11.16.1. Object Attributes
 **************************
