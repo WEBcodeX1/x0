@@ -898,21 +898,6 @@ This system object can be used for:
 - Demonstrating tree-based data organization in x0 applications
 - Creating multi-level category browsers
 
-11.14.7. Integration with OpenCloseContainer
-********************************************
-
-TreeSimple objects work well when wrapped in OpenCloseContainer for additional 
-collapsibility:
-
-.. code-block:: javascript
-
-   "TreeContainer": {
-      "Type": "OpenCloseContainer",
-      "Attributes": {
-         "TextID": "TXT.NAVIGATION.TREE"
-      }
-   }
-
 .. _objecttype-divunique:
 
 11.15. DivUnique
@@ -959,15 +944,6 @@ can act as a parent container for nested child objects.
 11.16. DivValue
 ---------------
 
-The ``DivValue`` *x0-object-type* extends ``Div`` (sharing its declarative ``DOMType``,
-``Value`` and ``Style`` attribute handling) with the standard runtime data-exchange
-contract: it exposes ``RuntimeSetDataFunc``/``RuntimeGetDataFunc`` (bound to
-``setValue()``/``getValue()``), so a plain DOM container can participate in the same
-get/set data mechanisms as formfield-type objects — for example as the target of a
-``SrcDataObjects`` payload mapping or of a custom object's programmatic data assignment —
-without requiring a dedicated formfield. Like ``ButtonCallback``, it follows the
-``overrideDOMObjectID`` convention and therefore needs no additional naming scheme beyond
-its own ``ObjectID``.
 
 11.16.1. Object Attributes
 **************************
@@ -1021,7 +997,7 @@ The ``ProgressBar`` *x0-object-type* renders a Bootstrap-styled horizontal
 progress indicator. It wraps an inner bar child object whose width is driven by
 a percentage value. The percentage can be read and written at runtime through
 the standard ``getObjectData()`` / ``setObjectData()`` API, making it easy to
-update from button actions or backend callbacks.
+update from button actions.
 
 11.17.1. Object Attributes
 **************************
@@ -1270,12 +1246,6 @@ is the backing object for the static example's "Settings/Global Settings" screen
       }
    }
 
-11.21.4. Runnable Example
-*************************
-
-* Reachable via the static reference container's Main Menu under
-  "Settings/Global Settings", Tab "Default Settings".
-
 .. _objecttype-systemsettingscontainergrid:
 
 11.22. SystemSettingsContainerGrid
@@ -1306,13 +1276,6 @@ request.
    | GridGenerator       | Object               | ``sysGridGenerator`` config, see                |
    |                     |                      | :ref:`appdevgridsystem`                         |
    +---------------------+----------------------+-------------------------------------------------+
-
-11.22.2. Runnable Example
-*************************
-
-* Reachable via the static reference container's Main Menu under
-  "Settings/Global Settings", Tab "Default Settings", Subsection
-  "Adjust Grid / Column View".
 
 .. _objecttype-infoparagraph:
 
