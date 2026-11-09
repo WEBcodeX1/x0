@@ -922,12 +922,6 @@ Interactive navigation elements that trigger screen navigation:
 11.15. DivUnique
 ----------------
 
-The ``DivUnique`` *x0-object-type* is an extended ``Div`` that sets its DOM
-``ObjectID`` to a guaranteed-unique value derived from the object's own ``ID``
-(overriding the default recursive naming). This makes it safe to use multiple
-instances on the same screen without ID collisions. It supports the same
-``Style``, ``DOMType``, and ``TextID`` attributes as the standard ``Div`` and
-can act as a parent container for nested child objects.
 
 11.15.1. Object Attributes
 **************************
@@ -941,8 +935,6 @@ can act as a parent container for nested child objects.
    | DOMType             | String               | Container element tag, e.g. ``div``, ``span``   |
    +---------------------+----------------------+-------------------------------------------------+
    | Style               | CSS-String           | CSS Style Classes, space separated              |
-   +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.15.2. JSON Example
@@ -963,15 +955,6 @@ can act as a parent container for nested child objects.
 11.16. DivValue
 ---------------
 
-The ``DivValue`` *x0-object-type* extends ``Div`` — sharing its declarative ``DOMType``,
-``Value`` and ``Style`` attribute handling via ``sysObjDiv.prototype.init`` — with the
-standard runtime data-exchange contract: it exposes ``RuntimeSetDataFunc`` /
-``RuntimeGetDataFunc`` bound to its own ``setValue()`` / ``getValue()`` methods, so a
-plain DOM container can participate in the same ``getObjectData()`` / ``setObjectData()``
-mechanism as formfield-type objects — for example as the target of a ``SrcDataObjects``
-payload mapping, or of a custom object's programmatic data assignment — without requiring
-a dedicated formfield. Like ``DivUnique``, it sets its own ``overrideDOMObjectID`` and
-therefore needs no additional naming scheme beyond its own ``ObjectID``.
 
 11.16.1. Object Attributes
 **************************
@@ -1024,8 +1007,8 @@ therefore needs no additional naming scheme beyond its own ``ObjectID``.
 The ``ProgressBar`` *x0-object-type* renders a Bootstrap-styled horizontal
 progress indicator. It wraps an inner bar child object whose width is driven by
 a percentage value. The percentage can be read and written at runtime through
-the standard ``getObjectData()`` / ``setObjectData()`` API, making it easy to
-update from button actions.
+the standard ``getObjectData()`` / ``setObjectData()`` API so its current value
+can be read from or written to by any other *x0-object* or button action.
 
 11.17.1. Object Attributes
 **************************
@@ -1123,8 +1106,7 @@ from or written to by any other *x0-object* or button action.
 The ``RangeSliderContainer`` *x0-object-type* wraps :ref:`objecttype-rangeslider` with
 Min/Max/Unit labels and a disabled, auto-updating text field reflecting the current
 value, composed as a single Bootstrap grid row. It inherits ``DivUnique`` and supports
-the standard ``getObjectData()`` / ``setObjectData()`` API, delegating both to the
-inner ``RangeSlider`` child.
+the standard ``getObjectData()`` / ``setObjectData()`` API.
 
 11.19.1. Object Attributes
 **************************
@@ -1428,9 +1410,9 @@ a context menu offering the same removal action (see :ref:`appdevcontextmenu`).
 -----------------------
 
 The ``ServiceConnector`` *x0-object-type* binds a backend service call to a target
-*x0-system-object* (typically a ``List``), triggering the call whenever one of the
-configured system events fires (e.g. ``InitSystem``). Its full event-registration and
-dispatch mechanics are documented in :ref:`devoopmodel` (section 23.8).
+*x0-system-object* (typically a ``List`` or a ``FormfieldList``), triggering the call
+whenever one of the configured system events fires (e.g. ``InitSystem``). Its full
+event-registration and dispatch mechanics are documented in :ref:`devoopmodel`.
 
 11.26.1. Object Attributes
 **************************
@@ -1545,8 +1527,7 @@ The ``ExampleEditableItem`` *x0-object-type*
 (``/www/userObjExampleEditableItemContainer.js``) renders a single, optionally
 in-place editable row (image, header text and content text) used as the
 per-row template of :ref:`objecttype-exampleeditableitemcontainer`. It
-inherits from ``sysObjDivUnique`` and supports a switchable edit mode as well
-as a switchable drag-reorder mode.
+inherits from ``sysObjDivUnique`` and supports a switchable edit mode.
 
 11.29.1. Object Attributes
 **************************
@@ -1761,7 +1742,7 @@ The ``ExamplePeopleSelector`` *x0-object-type*
 roster of selectable collaborator rows (each with an image, name and
 localized text) inside a closable overlay-style header/body layout. It
 inherits from ``sysObjDivUnique`` and is typically instantiated inside a
-:ref:`screen overlay <appdevoverlay>`.
+:ref:`appdevoverlay`.
 
 11.34.1. Object Attributes
 **************************
