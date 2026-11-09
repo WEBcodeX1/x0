@@ -1,15 +1,15 @@
 .. dev-best-practices
 
-.. _devbestpractices:
+.. _dev-bestpractices:
 
-29. Development Best Practices
+24. Development Best Practices
 ==============================
 
 This chapter establishes the *core architectural* **standards**, object-construction patterns,
 and runtime-update strategies required to develop robust custom *x0-system-objects* within the
 framework ecosystem.
 
-29.1. Architectural Foundations
+24.1. Architectural Foundations
 -------------------------------
 
 The implementation of a custom, deterministic *x0-object* requires strict adherence to the framework's
@@ -54,8 +54,8 @@ principles and sub-chapters must be reviewed carefully.
 The subsequent sections analyze these structural prerequisites in depth, specifying the exact implementation
 semantics required by the framework's architectural infrastructure.
 
-29.2. Understanding the Core Concept
-------------------------------------
+24.2. Know the Core Concept
+---------------------------
 
 Before continuing, a system developer **must** be familiar with the *x0-core-concept*—especially
 how things work compared to other systems, and how they do not.
@@ -72,8 +72,8 @@ during application design, combining smart *x0-building-blocks* ultimately produ
 sophisticated, nested structures **and** a much cleaner, spaghetti-free codebase built for
 long-term enterprise maintainability.
 
-29.2.1. Shadow DOM
-******************
+24.3. Shadow DOM
+----------------
 
 The developer must be thoroughly familiar with—and 100% understand—what the *x0-shadow-dom*
 is responsible for and how it is structured.
@@ -97,20 +97,111 @@ JavaScript's underlying prototype design by relying on a large set of inherited 
 the underlying JS engine maps purely via pointers. In practice, the x0 OOP model creates nearly
 zero data copies when instantiating large numbers of object instances.
 
-29.2.2. Declarative OOP Model
-*****************************
+24.4. Declarative Model
+-----------------------
 
-In combination with the *x0-shadow-dom*, the declarative OOP model (for a single object instance
-or multiple instances) integrates the metadata already declared in ``object.json`` **directly**
-(also zero-copy) into an object instance's configuration space (``JSONConfig.Attributes``).
+The *x0-system's* declarative model is used for **both** the **static declarative configuration**
+approach (non-programmatic) **and** the **programmatic** one (building custom *x0-objects*).
+These best practices focus exclusively on the **programmatic approach**, but for a broader
+understanding, a developer **should** understand the differences between the two implementations.
+To illustrate this, we will proceed with configuration and code examples.
 
-Furthermore, this declarative model is not limited to *x0-init*. Its generic design also makes
-it usable for the programmatic approach (especially for **runtime** requirements) covered in this
-best-practices guide. On top of that, this enables **multi-dimensional**, **runtime** JSON ODM
-(Object Document Mapping) of declarative configurations into complex, nested object
-hierarchies—a primary *x0* feature also covered later in this best-practices guide.
+24.4.1. Declarative Configuration
+*********************************
 
-29.3. Custom Class Derivation
+A declarative confguration (here excerpt taken from ``DivUnique``) inside ``object.json``.
+
+.. code-block:: javascript
+
+   "ExampleRowContainer":
+   {
+      "Type": "DivUnique",
+      "Attributes":
+      {
+         "Style": "row m-0 p-0"
+      }
+   }
+
+This declarative configuration processed on *x0-init* initializes the object instance,
+automatically setting its internal ``ObjectID`` property to "ExampleRowContainer" and
+attaches the ``Attributes`` sub-configuration as ``JSONConfig.Attributes`` which afterwards
+is programmatically accessible from inside the objcect.
+
+24.4.2. Initialization
+**********************
+
+Inside the *x0-system-class* instance, this process takes place in the ``init()`` method.
+Currently, this mechanism is not generic: each object transforms configuration attributes into
+internal class properties via hardcoded logic within this method, where **default values** for
+individual attributes are also defined.
+
+Because ``DivUnique`` inherits its ``init()`` method from ``Div``, the ``Div`` implementation
+is referenced below:
+
+.. code-block:: javascript
+
+   //------------------------------------------------------------------------------
+   //- METHOD "init"
+   //------------------------------------------------------------------------------
+
+   sysObjDiv.prototype.init = function()
+   {
+      if (this.JSONConfig !== undefined)
+      {
+         const Attributes = this.JSONConfig.Attributes;
+
+         //- set DOM type if given
+         this.DOMType = (Attributes.DOMType === undefined) ? 'div' : Attributes.DOMType;
+
+         //- set DOM value if value in attributes, if not set empty
+         this.DOMValue = (Attributes.Value === undefined) ? '' : Attributes.Value;
+
+         //- set DOM style
+         this.DOMStyle = Attributes.Style;
+      }
+   }
+
+As shown above, ``this.DOMType``, ``this.DOMValue``, and ``this.DOMStyle``—all of which are
+**system-internal properties**—are populated from ``JSONConfig.Attributes``.
+
+This provides a brief overview of the ``init()`` implementation and how the declarative data
+defined in ``object.json`` maps to the class instance. Rather than going into full detail here,
+we will explore this mechanism more thoroughly in a later section.
+
+24.4.3. Programmatic Access
+***************************
+
+Now, when using the programmatic approach, the implementor must use some aspects which are
+automatically processed by the *x0-init* process, these include:
+
+- setting the objects ``this.ObjectID`` property manually
+- calling the objects ``init()`` method manually
+- setting an objects ``this.ParentObject`` property manually
+- consider setting ``this.overrideDOMObjectID`` property manually
+- connect the object manually via ``this.addObject(ObjectRef)``
+
+.. code-block:: javascript
+
+   let BtnClose = new sysObjDiv();
+
+   BtnClose.ObjectID = 'ExampleButton';
+
+   BtnClose.DOMAttributes = new Object();
+   BtnClose.DOMAttributes['type'] = 'button';
+   BtnClose.DOMAttributes['title'] = sysFactory.getText('TXT.SYS.TITLE_CLOSE');
+
+   BtnClose.JSONConfig = {
+      "Attributes": {
+         "DOMType": "button",
+         "Style": "btn btn-close"
+      }
+   };
+
+   BtnClose.init()
+
+   this.addObject(BtnClose)
+
+24.5. Custom Class Derivation
 -----------------------------
 
 Now that we have covered the basic concepts, you as a developer are ready to explore what your
@@ -133,8 +224,56 @@ without them is not advisable:
   configurations via ``JSONConfig.Attributes``, and how those settings are accessed or modified
   programmatically within the class.
 
-29.3.1. Base Class Inheritance
-******************************
+24.5.1. Base Inheritance
+************************
 
-29.4. Object Chaining Rules
+To summarize the base class inheritance hierarchy:
+``sysBaseDOMElement`` is the root base class, which is inherited by ``sysBaseObject``.
+``sysBaseDOMElement`` is responsible for direct DOM manipulation, while ``sysBaseObject`` handles
+interconnecting objects and provides all required methods for child classes used by the system.
+
+To establish interconnections between objects, ``sysBaseObject`` manages the ``ChildObjects``
+array, which contains child object instance references (also deriving from ``sysBaseObject``).
+Crucially for your further understanding, every single object in the entire system derives
+(or rather, **must** derive) from ``sysBaseObject`` or one of the system's intermediate classes
+(which also inherit from ``sysBaseObject`` in the inheritance chain).
+
+24.5.2. Object Examples
+***********************
+
+Lets take a look at the ``Div`` object's constructor (this object is part of the
+*x0-frameworks* early implementation stage).
+
+.. code-block:: javascript
+
+   //------------------------------------------------------------------------------
+   //- CONSTRUCTOR "sysObjDiv"
+   //------------------------------------------------------------------------------
+
+   function sysObjDiv()
+   {
+      this.ObjectType             = 'Div';            //- System Object Type
+      this.ChildObjects           = new Array();      //- Child Objects
+      this.EventListeners         = new Object();     //- Event Listeners
+   }
+
+   //- inherit sysBaseObject
+   sysObjDiv.prototype = new sysBaseObject();
+
+As you can see,
+
+
+24.6. Object Chaining Rules
 ---------------------------
+
+24.6.1. Direct Referencing
+**************************
+
+24.6.2. Hierarchical Setup
+**************************
+
+24.x. Generic Data Model
+------------------------
+
+24.x. Realtime Pagination
+-------------------------
