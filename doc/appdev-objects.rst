@@ -13,8 +13,6 @@ Currently the following *x0-system-objects* are usable inside ``object.json``.
 - :ref:`objecttype-buttoninternal`
 - :ref:`objecttype-buttoncallback`
 - :ref:`objecttype-image`
-- :ref:`objecttype-imageselector`
-- :ref:`objecttype-badgeselector`
 - :ref:`objecttype-list`
 - :ref:`objecttype-tabcontainer`
 - :ref:`objecttype-fileupload`
@@ -27,17 +25,28 @@ Currently the following *x0-system-objects* are usable inside ``object.json``.
 - :ref:`objecttype-rangeslider`
 - :ref:`objecttype-rangeslidercontainer`
 - :ref:`objecttype-headerbodycontainer`
-- :ref:`objecttype-systemsettingscontainer`
-- :ref:`objecttype-systemsettingscontainergrid`
 - :ref:`objecttype-infoparagraph`
-- :ref:`objecttype-languageswitch`
 - :ref:`objecttype-dynradiolist`
+
+**Form-specific Objects**:
+
+- See: :ref:`appdevformobjects`
+
+**Backend Service:**
+
 - :ref:`objecttype-serviceconnector`
 
-Additionally, the following custom object extensions are provided within the
-*x0-static* Docker **reference container**. They illustrate how the core system
-components can be composed into higher-level, **reusable building blocks**,
-serving as a blueprint for **programmatically** building custom *x0-objects*:
+**Systems Internal:**
+
+- :ref:`objecttype-imageselector`
+- :ref:`objecttype-badgeselector`
+- :ref:`objecttype-systemsettingscontainer`
+- :ref:`objecttype-systemsettingscontainergrid`
+- :ref:`objecttype-languageswitch`
+
+Additionally, the following custom object extensions illustrate how the core system
+components can be composed into higher-level, **reusable building blocks**, serving as
+a blueprint for **programmatically** building **custom** *x0-objects*.
 
 - :ref:`objecttype-timedprogress`
 - :ref:`objecttype-examplewizard`
@@ -48,14 +57,9 @@ serving as a blueprint for **programmatically** building custom *x0-objects*:
 - :ref:`objecttype-examplecardtasklist`
 - :ref:`objecttype-examplepeopleselector`
 
-**Form-specific objects**, see :ref:`appdevformobjects`.
-
-**Practical examples** can be found under ``/examples/``, including detailed descriptions.
-
-.. note::
-   For immediate access to these examples and to explore the system's full potential,
-   you can use the pre-configured *x0-static* application running inside a minimal
-   Docker container. For setup instructions, see :ref:`installation-minimal`.
+These examples can be viewed immediately by starting the included *x0-static* Docker
+container (see :ref:`installation-minimal`). Additional practical examples with detailed
+descriptions can be found in the ``/examples/`` directory at the project root.
 
 .. _objecttype-div:
 
@@ -347,10 +351,14 @@ method on your custom object:
 11.6. Image
 -----------
 
-The ``Image`` *x0-object-type* renders an HTML ``<img>`` element. Unlike most other
-*x0-object-types*, its ``DOMType`` is fixed to ``img`` rather than being generic
-(see :ref:`devoopmodel_base`). Its source path can be read and updated at runtime
-through the standard ``getObjectData()`` / ``setObjectData()`` API.
+The ``Image`` *x0-object-type* renders an HTML ``<img>`` element. Its ``DOMType`` is
+fixed to ``img`` and should not be altered. Its source path can be read and updated at
+runtime through the standard ``getObjectData()`` / ``setObjectData()`` API.
+
+.. warning::
+   The data abstraction model (declarative as well as programmatic) will **change** for
+   the ``Image`` *x0-object-tpye* in later *x0-version's*, because it does not match the
+   criteria for a 100% generic aproach.
 
 11.6.1. Object Attributes
 *************************
@@ -370,18 +378,7 @@ through the standard ``getObjectData()`` / ``setObjectData()`` API.
    | Style           | CSS-String       | CSS Style Classes, space separated                      |
    +-----------------+------------------+---------------------------------------------------------+
 
-11.6.2. Runtime API
-*******************
-
-.. code-block:: javascript
-
-   // read current image source
-   const src = sysFactory.getObjectByID('MyImage').getObjectData();
-
-   // swap the image source and re-render
-   sysFactory.getObjectByID('MyImage').setObjectData('/image/other.png');
-
-11.6.3. JSON Example
+11.6.2. JSON Example
 ********************
 
 .. code-block:: javascript
@@ -392,9 +389,22 @@ through the standard ``getObjectData()`` / ``setObjectData()`` API.
       "Attributes":
       {
          "Value": "/image/x0-logo.png",
+         "Width": "80px",
+         "Height": "80px",
          "Style": "border rounded"
       }
    }
+
+11.6.3. Programmatic Implementation
+***********************************
+
+.. code-block:: javascript
+
+   // read current image source
+   const src = sysFactory.getObjectByID('MyImage').getObjectData();
+
+   // swap the image source and re-render
+   sysFactory.getObjectByID('MyImage').setObjectData('/image/other.png');
 
 .. _objecttype-imageselector:
 
@@ -407,6 +417,11 @@ inherits :ref:`objecttype-divunique` and composes :ref:`objecttype-image`,
 ``FileUpload`` and ``FormfieldList`` child objects to additionally offer an inline
 upload form for registering new images. Row pagination reuses the same mechanism as
 :ref:`objecttype-list`.
+
+.. warning::
+   The data abstraction model (declarative as well as programmatic) will **change** for
+   the ``Image`` *x0-object-tpye* in later *x0-version's*, because it does not match the
+   criteria for a 100% generic aproach.
 
 11.7.1. Object Attributes
 *************************
