@@ -358,8 +358,8 @@ runtime through the standard ``getObjectData()`` / ``setObjectData()`` API.
 
 .. warning::
    The data abstraction model (declarative as well as programmatic) will **change** for
-   the ``Image`` *x0-object-tpye* in later *x0-version's*, because it does not match the
-   criteria for a 100% generic aproach.
+   the ``Image`` *x0-object-type* in later *x0-versions*, because it does not meet the
+   criteria for a 100% generic approach.
 
 11.6.1. Object Attributes
 *************************
@@ -419,6 +419,10 @@ inherits :ref:`objecttype-divunique` and composes :ref:`objecttype-image`,
 upload form for registering new images. Row pagination reuses the same mechanism as
 :ref:`objecttype-list`.
 
+.. important::
+   This object's implementation demonstrates how to **programmatically** integrate the
+   *x0-object-type* ``FormfieldList``.
+
 11.7.1. Object Attributes
 *************************
 
@@ -440,22 +444,21 @@ upload form for registering new images. Row pagination reuses the same mechanism
 
 .. code-block:: javascript
 
-   "ExamplesBasicOverlayImageList":
+   "ExampleImageSelector":
    {
       "Type": "ImageSelector",
       "Attributes": {
          "RowCount": 3,
-         "Value": [
-            { "ID": "UTF-Emoji-Clock", "Description": "Clock Icon", "Path": "/image/icon-emoji-clock.png" }
+         "Value":
+         [
+            { "ID": "UTF-Emoji-Clock", "Description": "Clock Icon", "Path": "/image/icon-emoji-clock.png" },
+            { "ID": "UTF-Emoji-Truck", "Description": "Truck Icon", "Path": "/image/icon-emoji-truck.png" },
+            { "ID": "UTF-Emoji-Package", "Description": "Package Icon", "Path": "/image/icon-emoji-package.png" },
+            { "ID": "UTF-Emoji-Beer", "Description": "Beer Icon", "Path": "/image/icon-emoji-beer.png" },
+            { "ID": "UTF-Emoji-Houses", "Description": "Houses Icon", "Path": "/image/icon-emoji-houses.png" }
          ]
       }
    }
-
-11.7.3. Runnable Example
-************************
-
-* Example - Global Settings "Default Settings" overlay image picker, reachable via the
-   static reference container's Main Menu under "Settings/Global Settings".
 
 .. _objecttype-badgeselector:
 
@@ -484,7 +487,7 @@ an overlay. It inherits :ref:`objecttype-divunique`.
 
 .. code-block:: javascript
 
-   "OverlayGlobalBadgesList":
+   "ExampleBadgeSelector":
    {
       "Type": "BadgeSelector"
    }
