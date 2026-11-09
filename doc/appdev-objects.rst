@@ -66,22 +66,15 @@ descriptions can be found in the ``/examples/`` directory at the project root.
 11.1. Div
 ---------
 
-The ``Div`` *x0-object-type* is a very limited, yet very important, component.
-It generates a DOM layer with a configurable CSS class attribute. The outer HTML
-tag is specified in ``DOMType``; when omitted, its default value is ``div``.
+The ``Div`` *x0-object-type* is one of the system's most fundamental base objects, even though
+it provides only minimal functionality on its own. It generates a DOM layer with a configurable
+CSS class attribute, using the outer HTML tag specified in ``DOMType`` (defaulting to ``div``
+when omitted).
 
-It should **never** be used directly in a **declarative configuration**—use
-``DivUnique`` or ``DivValue`` instead. The latter also explains where and why it should
-be used in a **programmatic, custom** *x0-object*.
-
-When building custom *x0-object*'s, you should be familiar with **when** exactly to
-use this type of object and when **not** to. It should primarily be used **only**
-for intermediate divs in so-called *object-between-layers*, because it does
-**not** set its internal property ``this.overrideDOMObjectID`` to **true** (which
-disables the automatic, prefixed DOM object generation in ``sysBaseObject.renderObject()``).
-
-This concept is explained in detail in the system developer documentation section under
-"Development Best Practices"; see: :ref:`dev-bestpractices`.
+It should **never** be used directly in a **declarative configuration**—use ``DivUnique`` or
+``DivValue`` instead. In **programmatic, custom** *x0-system-classes* the ``Div`` *x0-object-type*
+exclusively is used as a **between-element** in a multi-nested hierarchy. This concept is described
+in detail in the system-developers documentation under “Development Best Practices” :ref:`dev-object-nesting`.
 
 11.1.1. Object Attributes
 *************************
