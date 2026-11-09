@@ -272,7 +272,28 @@ relevant ``Tab`` elements:
 
 .. _appdevcustomextensions:
 
-7.5. Custom Extensions
+7.5. Declarative Boundaries
+---------------------------
+
+By combining ``object.json`` for instance definitions with ``skeleton.json`` (and ``menu.json``)
+for hierarchical linking via ``RefID`` and ``ElementID`` mappings—alongside logical intermediaries
+such as ``ServiceConnector``—you can declaratively assemble complete, referenced object trees backed
+by a 1:1 *x0-shadow-dom* layer abstraction.
+
+While this purely configuration-driven model covers a wide range of standard application layouts
+without writing custom JavaScript, it remains inherently bounded by the capabilities and predefined
+behaviors of existing *x0-system-classes* (i.e., built-in *x0-objects*). When an application demands
+bespoke UI behavior, intricate state dependencies, or dynamic object generation that cannot be
+expressed through static JSON metadata alone, the declarative approach reaches its limits—requiring
+the programmatic methodology introduced in **7.6. Custom Extensions**.
+
+.. important::
+   The declarative approach can certainly build complex objects—for example, by combining
+   basic ``Div`` *x0-object* types into higher-level abstractions in ``object.json`` and
+   ``skeleton.json``. **However**, it is not advisable to do so; instead, you should use the
+   programmatic custom extensions approach described below.
+
+7.6. Custom Extensions
 ----------------------
 
 Building **custom** *x0-extensions* (your own custom-coded classes) requires strict
@@ -282,7 +303,7 @@ describes both:
 - **How to build** these classes
 - **How to integrate** them into the *x0-core*
 
-Please ensure you are familiar with :ref:`devbestpractices` before you begin.
+Please ensure you are familiar with :ref:`dev-bestpractices` before you begin.
 
 .. tip::
    The *x0-system* only unlocks its **full potential** when building own custom user-defined
