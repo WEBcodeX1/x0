@@ -239,7 +239,14 @@ manages the lifecycle and renders the corresponding navigation controls. This fl
 architecture allows the exact same mechanism to power standard components like ``Lists``,
 as well as **deeply nested** custom *x0-objects* and containers.
 
-14.5.1. Complex Editable Example
+14.5.1. Integration
+*******************
+
+Realtime pagination is only usable within custom-built *x0-objects* in a **programmatic**
+manner. Detailed documentation is available in the system developer guide under "Development
+Best Practices" (see :ref:`dev-bestpractices`).
+
+14.5.2. Complex Editable Example
 ********************************
 
 An advanced demonstration of this pagination mechanism is provided within the **x0-static**
