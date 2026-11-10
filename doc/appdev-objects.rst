@@ -87,6 +87,8 @@ in detail in the system-developers documentation under “Development Best Pract
    +=====================+======================+=================================================+
    | DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
    +---------------------+----------------------+-------------------------------------------------+
+   | Value               | String               | Value (innerHTML)                               |
+   +---------------------+----------------------+-------------------------------------------------+
    | Style               | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
 
@@ -100,7 +102,8 @@ in detail in the system-developers documentation under “Development Best Pract
       "Type": "Div",
       "Attributes":
       {
-         "Style": "css1 css2 css3"
+         "Style": "css1 css2 css3",
+         "Value": "This is rendered as innerHTML"
       }
    }
 
