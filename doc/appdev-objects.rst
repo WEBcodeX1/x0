@@ -1004,7 +1004,28 @@ Interactive navigation elements that trigger screen navigation:
 11.15. DivUnique
 ----------------
 
-The ``DivUnique``
+The ``DivUnique`` *x0-object-type* is **mostly** identical to the ``Div``
+*x0-object-type*, with one primary difference: ``this.overrideDOMObjectID`` is
+set to ``true`` inside its constructor. When enabled, this flag prevents the
+automatic recursive prefixing of parent ObjectIDs during
+``sysBaseObject.renderObject(Prefix)`` inside the recursive rendering loop.
+
+For a direct comparison, consider three nested ``Div`` objects configured
+inside ``object.json``: the resulting DOM layer IDs are ``Object1ID`` for the
+first object, ``Object1ID_Object2ID`` for the second, and
+``Object1ID_Object2ID_Object3ID`` for the third.
+
+When using ``DivUnique``, the resulting DOM IDs remain unaltered: ``Object1ID``,
+``Object2ID``, and ``Object3ID``. This makes ``DivUnique`` the ideal choice for
+single-container modeling within the declarative scope of ``object.json``.
+
+When using ``DivUnique`` inside the **programmatic** scope (building custom
+*x0-object* types), the implementor must **ensure** the uniqueness of each
+assigned ObjectID (e.g., for dynamically created row containers). In contrast,
+the standard ``Div`` *x0-object-type* is explicitly used in nested programmatic
+setups as an intermediate structural layer without logic. This concept is
+described in detail in the system developer documentation under "Development
+Best Practices" (see :ref:`dev-object-nesting`).
 
 11.15.1. Object Attributes
 **************************
@@ -1025,10 +1046,11 @@ The ``DivUnique``
 
 .. code-block:: javascript
 
-   "$ObjectID":
+   "ExampleDivUnique":
    {
       "Type": "DivUnique",
-      "Attributes": {
+      "Attributes":
+      {
          "Style": "container-fluid p-3"
       }
    }
@@ -1038,6 +1060,12 @@ The ``DivUnique``
 11.16. DivValue
 ---------------
 
+The ``DivValue`` *x0-object-type* is **mostly** identical to the ``DivUnique``
+*x0-object-type*, with one primary difference: it provides ``getObjectData()``
+and ``setObjectData()`` methods for runtime data manipulation.
+
+Because it inherits from ``DivUnique``, ``this.overrideDOMObjectID`` is also
+set to ``true``, resulting in identical DOM ID behavior.
 
 11.16.1. Object Attributes
 **************************
