@@ -497,13 +497,13 @@ toggling already-rendered rows between pages without a backend reload.
 
 It also supports runtime data manipulation via ``getObjectData()`` / ``setObjectData()``
 to append rows in real time, e.g., by using *x0-actions* in ``Button`` or ``ButtonInternal``
-*x0-object-types* **and** by using *x0-context-menu* items.
+*x0-object-types* **or** by using *x0-context-menu* configuration.
 
 When specifying the ``ErrorContainer`` attribute, occurring errors—such as exceeding
 the maximum allowed row count—will trigger the error output there. Like any other
 *x0-object-type* supporting ``ServiceConnector`` integration, the ``List`` can be
 populated with data on an occurring *x0-event* (e.g., on system initialization or a
-runtime button click).
+runtime ``Button`` or ``ButtonInternal`` click).
 
 11.9.1. Object Attributes
 *************************
@@ -594,36 +594,20 @@ into the list's internal ``RuntimeData`` array on service execution.
       { "id": "4", "col1": "row4-1", "col2": "row4-2" }
    ]
 
-11.9.7. Runtime Features
-************************
-
-``List`` supports the standard ``getObjectData()`` / ``setObjectData()`` runtime
-contract:
-
-.. table:: Object Type List Runtime Methods
-   :widths: 25 75
-
-   +---------------------------+------------------------------------------------------------------------+
-   | **Mechanism**             | **Description**                                                        |
-   +===========================+========================================================================+
-   | RuntimeGetDataFunc        | Returns the full ``RuntimeData`` array as currently rendered           |
-   +---------------------------+------------------------------------------------------------------------+
-   | RuntimeSetDataFunc        | Validates and appends a single new row (``DataMaxRows``,               |
-   |                           | ``DoubleCheckColumn`` and ``ValidateColumnRegEx`` are enforced here),  |
-   |                           | then re-renders the page                                               |
-   +---------------------------+------------------------------------------------------------------------+
-
 .. _objecttype-tabcontainer:
 
 11.10. TabContainer
 -------------------
 
-The ``TabContainer`` *x0-object-type* organizes content into separate tabs within a single view,
-allowing users to switch seamlessly between different panels. Each tab can hold its own complete
-object hierarchy; selecting a tab activates and displays its hierarchy while automatically disabling
-and hiding the content of all other tabs. Because inactive tabs are simply disabled rather than
-destroyed and recreated, the state of every child object within each tab is preserved across
-all other interactions, including switching to a different *x0-screen*.
+The ``TabContainer`` *x0-object-type* organizes content into side-by-side
+rendered ``Tab`` instances, where each single tab can display a multilingual
+description and, optionally, a Font Awesome icon. Every single ``Tab`` can hold
+its own complete object hierarchy; selecting a tab activates and displays its
+hierarchy while automatically disabling and hiding the content of all other
+``Tab`` instances. Because inactive tabs are simply disabled rather than
+destroyed and recreated, the state of every child object within each tab is
+preserved across all other interactions, including switching to a different
+*x0-screen*.
 
 .. code-block:: bash
 
@@ -633,6 +617,10 @@ all other interactions, including switching to a different *x0-screen*.
        |         |         |
     ObjRef1   ObjRef3    ObjRef4
     ObjRef2              ObjRef5
+
+To **connect** a single object to a single ``Tab``, reference the object inside
+``skeleton.json`` using the Tab ObjectID suffixed with ``Content`` (see section
+11.10.3 for a working example).
 
 11.10.1. Object Attributes
 **************************
@@ -664,20 +652,108 @@ all other interactions, including switching to a different *x0-screen*.
    | Style               | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
 
+11.10.3. Example
+****************
+
+In ``object.json``, declaratively configure the ``Tab`` and two example ``DivUnique``
+instances:
+
+.. code-block:: javascript
+
+   "ExampleTabcontainer":
+   {
+      "Type": "TabContainer",
+      "Attributes":
+      {
+         "Tabs":
+         [
+            {
+               "ID": "Tab1",
+               "Attributes":
+               {
+                  "TextID": "TXT.TABCONTAINER.NUMBER1",
+                  "Style": "col-md-6",
+                  "IconStyle": "fa-solid fa-hourglass-half",
+                  "Default": true
+               }
+            },
+            {
+               "ID": "Tab2",
+               "Attributes":
+               {
+                  "TextID": "TXT.TABCONTAINER.NUMBER1",
+                  "Style": "col-md-6",
+                  "IconStyle": "fa-solid fa-link"
+               }
+            }
+         ]
+      }
+   },
+   "DivContent1":
+   {
+      "Type": "DivUnique",
+      "Attributes":
+      {
+         "Value": "Display Content1"
+      }
+   },
+   "DivContent2":
+   {
+      "Type": "DivUnique",
+      "Attributes":
+      {
+         "Value": "Display Content2"
+      }
+   }
+
+In ``skeleton.json``, **connect** the ``DivUnique`` instances to the ``TabContainer``
+using the additional ``ElementID`` property:
+
+.. code-block:: javascript
+
+   "ExampleScreen":
+   [
+      {
+         "ExampleTabcontainer":
+         {
+            "RefID": "ExampleScreen"
+         }
+      },
+      {
+         "DivContent1":
+         {
+            "RefID": "ExampleTabcontainer",
+            "ElementID": "Tab1Content"
+         }
+      },
+      {
+         "DivContent2":
+         {
+            "RefID": "ExampleTabcontainer",
+            "ElementID": "Tab2Content"
+         }
+      }
+   ]
+
 .. _objecttype-fileupload:
 
 11.11. FileUpload
 -----------------
 
-The ``FileUpload`` *x0-object-type* renders a ``multipart/form-data`` file-selection
-control paired with a visual upload progress indicator, composed internally of a
-callback-bound ``ButtonCallback`` trigger and a nested :ref:`objecttype-progressbar`.
-Invoking ``startUpload()`` dispatches an asynchronous ``XMLHttpRequest`` POST request to
-``UploadScript``. Upload progress events update the inner progress bar in real time via
-``updateProgress()``, while the object's ``Status`` transitions through
-``init`` → ``uploading`` → ``success`` / ``failed`` → ``finished`` as the request resolves.
-Upon successful completion, an optional ``FireEvents`` array triggers *x0-reactor*-based
-interactions in dependent objects, such as a backend data update.
+The ``FileUpload`` *x0-object-type* renders a ``multipart/form-data``
+file-selection control paired with a visual upload progress indicator.
+Internally, it is composed of a callback-bound ``ButtonCallback`` trigger and a
+nested :ref:`objecttype-progressbar` instance.
+
+Invoking ``startUpload()`` dispatches an asynchronous ``XMLHttpRequest`` POST
+request to ``UploadScript``. During transmission, upload progress events update
+the inner progress bar in real time via ``updateProgress()``, while the
+``Status`` attribute transitions through ``init`` → ``uploading`` →
+``success`` / ``failed`` → ``finished`` as the request resolves.
+
+Upon successful completion, an optional ``FireEvents`` array triggers
+*x0-reactor*-based interactions in dependent objects, such as a backend data
+update.
 
 11.11.1. Object Attributes
 **************************
@@ -702,16 +778,22 @@ interactions in dependent objects, such as a backend data update.
 11.12. ErrorContainer
 ---------------------
 
-The ``ErrorContainer`` *x0-object-type* provides a dedicated container for displaying
-informational and error messages anywhere within the application layout. Because it is
-completely decoupled from the objects that trigger it, an ``ErrorContainer`` can be
-placed at any desired position in the view hierarchy. Although ``ErrorContainer`` defines
-no attributes of its own, any other *x0-object* can declaratively bind to it by referencing
-its ``ObjectID`` in that object's ``ErrorContainer`` attribute—primarily :ref:`objecttype-button`
-and :ref:`objecttype-buttoninternal` for form validation errors, as well as :ref:`objecttype-list`
-for runtime column append errors. Refer to the individual documentation for each of these objects
-to see how to declaratively configure their interaction with ``ErrorContainer``, including how to
-define localized error messages across multiple languages.
+The ``ErrorContainer`` *x0-object-type* provides a dedicated target container
+for displaying informational and error messages anywhere within the application
+layout. Because it is completely decoupled from the objects that trigger it, an
+``ErrorContainer`` instance can be placed at any desired position within the
+*x0-screen* hierarchy (``skeleton.json``).
+
+Although ``ErrorContainer`` defines no attributes of its own, any other
+*x0-object* can declaratively bind to it by referencing its ``ObjectID`` inside
+the ``ErrorContainer`` attribute. This mechanism is primarily used by
+:ref:`objecttype-button` and :ref:`objecttype-buttoninternal` for form
+validation errors, as well as :ref:`objecttype-list` for runtime row append
+errors.
+
+Refer to the individual documentation of each respective *x0-object-type* to
+see how to declaratively configure its interaction with ``ErrorContainer``,
+including how to define multilingual error messages.
 
 11.12.1. Object Attributes
 **************************
@@ -734,14 +816,18 @@ None.
 11.13. OpenCloseContainer
 -------------------------
 
-The ``OpenCloseContainer`` *x0-object-type* renders a Bootstrap card with a styled header
-row and a collapsible body, letting users expand or collapse a section to manage screen
-real estate without losing its contents. The body is a nested ``Div`` whose
-``VisibleState`` is toggled between ``visible`` and ``hidden`` by ``toggleVisibleState()``
-— bound to a FontAwesome caret icon click — so any child *x0-system-object* placed inside
-remains fully initialized and continues to hold its state while collapsed. The initial
-``StateOpen`` attribute controls whether the body starts expanded or collapsed when the
-screen is first rendered.
+The ``OpenCloseContainer`` *x0-object-type* renders a Bootstrap card with a
+styled header row and a collapsible body, allowing users to expand or collapse a
+section to manage screen space without losing its contents.
+
+Internally, the body is a nested ``Div`` whose ``VisibleState`` attribute is
+toggled between ``visible`` and ``hidden`` via ``toggleVisibleState()`` when
+clicking a Font Awesome caret icon. Because the body is only hidden rather than
+destroyed, any child *x0-object* placed inside remains fully initialized and
+preserves its state while collapsed.
+
+The ``StateOpen`` attribute controls whether the container body starts expanded
+or collapsed when the *x0-screen* is initially rendered.
 
 11.13.1. Object Attributes
 **************************
@@ -791,15 +877,21 @@ screen is first rendered.
 11.14. TreeSimple
 -----------------
 
-The ``TreeSimple`` *x0-object-type* renders a hierarchical, Bootstrap list-group tree of
-expandable/collapsible ``Node`` elements and interactive, navigation-triggering ``Item``
-elements, each carrying its own FontAwesome icon. Clicking a node's folder icon toggles
-its own ``Children`` container between expanded and collapsed without affecting tree
-state elsewhere; clicking an item's link instead invokes ``sysFactory.switchScreen()``
-against its configured ``DstScreenID`` and visually hi-lites the clicked row, replacing
-the style on whichever item (tracked via the tree root's ``LastSelectedItem`` reference)
-was previously selected. Rows are additionally hi-lited on ``mouseover``/``mouseout`` for
-immediate visual feedback, independent of the persisted selection state.
+The ``TreeSimple`` *x0-object-type* renders a hierarchical Bootstrap list-group
+tree composed of expandable/collapsible ``Node`` elements and interactive,
+navigation-triggering ``Item`` elements, each carrying its own Font Awesome
+icon.
+
+Clicking the folder icon of a ``Node`` toggles its ``Children`` container
+between expanded and collapsed without affecting the state of other branches.
+In contrast, clicking the link of an ``Item`` invokes
+``sysFactory.switchScreen()`` targeting its configured ``DstScreenID``.
+
+Upon selection, the clicked row is visually highlighted while resetting the
+previous selection tracked via the ``LastSelectedItem`` reference on the tree
+root. Rows are additionally highlighted on ``mouseover`` and ``mouseout``
+events to provide immediate visual feedback independent of the persisted
+selection state.
 
 11.14.1. Object Attributes
 **************************
@@ -858,10 +950,12 @@ Interactive navigation elements that trigger screen navigation:
 
 .. code-block:: javascript
 
-   "TreeSimpleElement1": {
+   "ExampleTree": {
       "Type": "TreeSimple",
-      "Attributes": {
-         "TreeItems": [
+      "Attributes":
+      {
+         "TreeItems":
+         [
             {
                "Type": "Node",
                "TextID": "TXT.NODE1",
@@ -910,6 +1004,7 @@ Interactive navigation elements that trigger screen navigation:
 11.15. DivUnique
 ----------------
 
+The ``DivUnique``
 
 11.15.1. Object Attributes
 **************************
@@ -1137,11 +1232,14 @@ the standard ``getObjectData()`` / ``setObjectData()`` API.
 11.20. HeaderBodyContainer
 --------------------------
 
-The ``HeaderBodyContainer`` *x0-object-type* sets up a two-row layout consisting of a
-styled header row and a body row, each exposing a nested ``Div`` for child objects.
-Child objects are attached using ``ElementID`` in ``skeleton.json``, where the
-``ElementID`` is the container's own ``ObjectID`` suffixed with ``Header`` or
-``Content``.
+The ``HeaderBodyContainer`` *x0-object-type* renders a two-row layout consisting
+of a styled header row and a body row, each exposing a ``Div`` to hold
+*x0-object* instances.
+
+To **connect** child objects inside ``skeleton.json``, reference the container
+``ObjectID`` suffixed with ``Header`` (header) or ``Content`` (body) via the
+``ElementID`` property, following the same attachment mechanism used by
+:ref:`objecttype-tabcontainer`. See example JSON below (11.20.2.).
 
 11.20.1. Object Attributes
 **************************
@@ -1157,27 +1255,58 @@ Child objects are attached using ``ElementID`` in ``skeleton.json``, where the
    | BodyStyle           | CSS-String           | CSS Style Classes for the body row              |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.20.2. skeleton.json Example
-******************************
-
-.. code-block:: javascript
-
-   "IntroductionContainerLeftHeaderText": { "RefID": "IntroductionContainerLeftHeader" },
-   "IntroductionContainerLeftText":       { "RefID": "IntroductionContainerLeftContent" }
-
-11.20.3. JSON Examples
+11.20.2. JSON Examples
 **********************
 
+
 .. code-block:: javascript
 
-   "IntroductionContainerRight":
+   "ExampleHeaderBodyContainer":
    {
       "Type": "HeaderBodyContainer",
       "Attributes": {
-         "HeaderStyle": "row m-0 p-3 border border-1 border-success rounded-top bg-success bg-opacity-50",
-         "BodyStyle": "row m-0 p-3 border border-1 border-success bg-success-subtle bg-opacity-25"
+         "HeaderStyle": "row m-0 p-3 border border-1 bg-success bg-opacity-50",
+         "BodyStyle": "row m-0 p-3 border border-1 bg-success-subtle bg-opacity-25"
+      }
+   },
+   "DisplayText1":
+   {
+      "Type": "Text",
+      "Attributes": {
+         "DOMType": "h1",
+         "TextID": "TXT.HEADER.EXAMPLE_TEXT1",
+         "Style": "text-primary-emphasis"
+      }
+   },
+   "DisplayText2":
+   {
+      "Type": "Text",
+      "Attributes": {
+         "DOMType": "h2",
+         "TextID": "TXT.HEADER.EXAMPLE_TEXT1",
+         "Style": "text-primary-emphasis"
       }
    }
+
+
+.. code-block:: javascript
+
+   "ExampleHeaderBodyContainer":
+   {
+      "RefID": "ExampleScreen1"
+   },
+   "DisplayText1":
+   {
+      "RefID": "ExampleHeaderBodyContainer",
+      "ElementID": "ExampleHeaderBodyContainerHeader"
+   },
+   "DisplayText2":
+   {
+      "RefID": "ExampleHeaderBodyContainer",
+      "ElementID": "ExampleHeaderBodyContainerContent"
+   }
+
+
 
 .. _objecttype-systemsettingscontainer:
 
