@@ -263,48 +263,26 @@ The configuration must be declaratively defined in the root of an object's
 ``Attributes`` section. It will only be processed if it is correctly paired with
 a corresponding ``ServiceConnector`` setup.
 
-The following example shows a ``FormfieldList`` configuration with a single referenced
-object and three hardcoded values: "LimitRows", "DateFrom", and "DateTo":
+.. important::
+   Passing an **array** of ObjectIDs (as described in section 15.6.1) is usually
+   sufficient if you do not need to append multiple different subtypes to the
+   backend request (specified as **object type** in the JSON configuration).
+
+15.6.1. Multiple Objects
+************************
+
+Reference multiple *x0-objects* easily by only applying an **array** of object IDs:
 
 .. code-block:: javascript
 
-   "ReceiverObjectID":
-   {
-      "Type": "FormfieldList",
-      "Attributes":
-      {
-         "ObjectIDs": [
-            "FormfieldLabel1",
-            "Formfield1"
-         ],
-         "Style": "border rounded p-2",
-         "RowStyle": "row m-0 p1",
-         "RowAfterElements": 2,
-         "ColAfterElements": 1,
-         "ColStyle": [
-            "col-md-6",
-            "col-md-6"
-         ],
-         "SrcDataObjects":
-         {
-            "RefObject1":
-            {
-               "Type": "GlobalObject"
-            },
-            "Dummy":
-            {
-               "Type": "HardcodedValues",
-               "Values": {
-                  "LimitRows": 10,
-                  "DateFrom": "2024-01-12",
-                  "DateTo": "2025-01-12"
-               }
-            }
-         }
-      }
-   }
+   "SrcDataObjects":
+   [
+      "ObjectID1",
+      "ObjectID2",
+      "ObjectID3"
+   ]
 
-15.6.1. Single Object
+15.6.2. Single Object
 *********************
 
 Use the ``GlobalObject`` SrcDataObject type to include hardcoded values in
@@ -319,20 +297,6 @@ a backend request:
           "Type": "GlobalObject"
       }
    }
-
-15.6.2. Multiple Objects
-************************
-
-Reference multiple *x0-objects* easily by only applying an array of object ids:
-
-.. code-block:: javascript
-
-   "SrcDataObjects":
-   [
-      "ObjectID1",
-      "ObjectID2",
-      "ObjectID3"
-   ]
 
 15.6.3. Hardcoded Values
 ************************
@@ -386,16 +350,60 @@ to the backend. Specify the source screen with ``ScreenID``:
       }
    }
 
+15.6.6. Examples
+****************
+
+The following example shows a ``FormfieldList`` configuration with a single referenced
+object and three hardcoded values: "LimitRows", "DateFrom", and "DateTo":
+
+.. code-block:: javascript
+
+   "ReceiverObjectID":
+   {
+      "Type": "FormfieldList",
+      "Attributes":
+      {
+         "ObjectIDs": [
+            "FormfieldLabel1",
+            "Formfield1"
+         ],
+         "Style": "border rounded p-2",
+         "SrcDataObjects":
+         {
+            "RefObject1":
+            {
+               "Type": "GlobalObject"
+            },
+            "Dummy":
+            {
+               "Type": "HardcodedValues",
+               "Values": {
+                  "LimitRows": 10,
+                  "DateFrom": "2024-01-12",
+                  "DateTo": "2025-01-12"
+               }
+            }
+         }
+      }
+   }
+
 .. _event-actions:
 
 16. Actions
 ===========
 
-*x0-actions* are only valid for *x0-object-types* of the **button** kind.
+*x0-actions* are only valid for *x0-object-types* of the ``Button`` and
+``ButtonInternal`` kind.
 
 .. warning::
    They are a legacy feature and are planned to be merged into the generic
    function dispatcher / event system in x0 version 1.2.
+
+16.1. Overview
+--------------
+
+The following actions are adressable, which ``Attributes`` must be used inside
+the declarative configuration JSON is listed in the following tables **Attributes** column.
 
 .. table:: Actions References
    :widths: 10 30 60
@@ -424,13 +432,34 @@ to the backend. Specify the source screen with ``ScreenID``:
    | openoverlay     | ``activateOverlay()``            | Using ``ScreenID``.                                 |
    +-----------------+----------------------------------+-----------------------------------------------------+
 
-The following sub-chapters describe the logical control flow of the different object
-types and the order in which they are processed.
+16.2. Examples
+--------------
+
+16.2.1. Enable
+**************
+
+16.2.2. Set
+***********
+
+16.2.3. Tabswitch
+*****************
+
+16.2.4. Set Global Var
+**********************
+
+16.2.5. Open Overlay
+********************
+
+16.3. Control Flow
+------------------
+
+The following actions are addressable. The required ``Attributes`` for the declarative
+configuration JSON are listed in the **Attributes** column of the following table.
 
 .. _appdevactionbutton:
 
-16.1. Button
-------------
+16.3.1. Button
+**************
 
 * Backend Service Execution
 * Execute Action *after* **successful** Form Validation
@@ -440,8 +469,8 @@ types and the order in which they are processed.
 
 .. _appdevactionbuttoninternal:
 
-16.2. ButtonInternal
---------------------
+16.3.2. ButtonInternal
+**********************
 
 * No Backend Service Execution
 * Form Validation
