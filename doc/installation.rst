@@ -21,36 +21,32 @@ also ideally suited for rapid x0-application development without overhead.
    In addition to Docker and standalone installation, the *x0-system* also
    supports a fully automated **Kubernetes** deployment (GKE and Minikube),
    including multi-vhost routing, load-balancing and fail-safe database
-   setup. See :ref:`appdeployment-kubernetes` below for details.
+   setup. See :ref:`kubernetes-deployment` below for details.
 
 .. _installation-minimal:
 
 6.1. Static, Minimal Setup
 --------------------------
 
-The simplest, fastest way to evaluate the *x0-framework* is the ``x0-static``
+The **simplest** and **fastest** way to evaluate the *x0-framework* is the ``x0-static``
 Docker container. It is a **single, self-contained container** that requires
-**no database provisioning, no background services (messaging, WSGI), and no
-multi-container network configuration** — Apache alone serves the entire
-application.
+**no database** provisioning, **no background services** (messaging, WSGI), and **no**
+**multi-container** network configuration — Apache alone serves the entire application.
 
-The container bundles a fully operational example showcase that you can run
-immediately via ``http://localhost`` with no further setup required.
-
-.. code-block:: bash
-
-   cd ./docker
-   ./build-x0-static.sh
-   ./x0-start-static.sh
+The container bundles a **fully operational example** showcase that you can run
+immediately via ``http://localhost/``.
 
 The build creates the local ``x0-static`` image, defined in
 ``/docker/x0-static.dockerfile``. The startup script runs it as the
 ``x0-static`` container, publishing container port 80 on host port 80. Open
-``http://localhost/`` in your browser — no further setup is required.
+``http://localhost/`` in your browser — **no further setup is required**.
 
-If you need the database, backend services, or intend to build your own
-*x0-system-objects*, continue with the :ref:`installation-full-system`
-installation below.
+If you need to use multiple virtual hosts or plan to implement examples,
+continue with the :ref:`installation-full-system` below.
+
+.. tip::
+   The static Docker container can be used perfectly to build and test
+   your application for later deployment in the system's full setup.
 
 .. _installation-full-system:
 
@@ -67,8 +63,8 @@ suite, or Kubernetes deployment.
 You can use **any Linux distribution** where Debian packages can be built natively (``debuild``):
 
 - Ubuntu 24.04 / 26.04
-- Debian 12
-- Devuan 5
+- Debian 12 / 13
+- Devuan 5 / 6
 
 6.2.2. Dependencies
 *******************
