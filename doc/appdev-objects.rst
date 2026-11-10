@@ -5,7 +5,8 @@
 11. System Objects
 ==================
 
-Currently the following *x0-system-objects* are usable inside ``object.json``.
+Currently, the following *x0-system-objects* can be used **declaratively** inside
+``object.json`` and **programmatically** in custom *x0-objects*.
 
 - :ref:`objecttype-div`
 - :ref:`objecttype-text`
@@ -92,21 +93,6 @@ in detail in the system-developers documentation under “Development Best Pract
    | Style               | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.1.2. JSON Example
-********************
-
-.. code-block:: javascript
-
-   "ExampleDivObject":
-   {
-      "Type": "Div",
-      "Attributes":
-      {
-         "Style": "css1 css2 css3",
-         "Value": "This is rendered as innerHTML"
-      }
-   }
-
 .. _objecttype-text:
 
 11.2. Text
@@ -149,8 +135,8 @@ Depending on the deployment mode, the text content is retrieved from one of two 
    | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.2.2. JSON Example
-********************
+11.2.2. JSON Examples
+*********************
 
 .. code-block:: javascript
 
@@ -247,9 +233,12 @@ execution, and ``FireEvents`` dispatches *x0-events* to interact with the intern
 11.3.2. Actions / OnResult
 **************************
 
-Note that specifying ``Action`` or ``OnResult`` actions requires mandatory base properties to be set.
+Note that specifying ``Action`` or ``OnResult`` actions requires mandatory base ``Attributes``
+to be set (see :ref:`event-actions`).
 
-See :ref:`event-actions`.
+11.3.3. JSON Examples
+*********************
+
 
 .. _objecttype-buttoninternal:
 
@@ -375,8 +364,8 @@ runtime through the standard ``getObjectData()`` / ``setObjectData()`` API.
    | Style           | CSS-String       | CSS Style Classes, space separated                      |
    +-----------------+------------------+---------------------------------------------------------+
 
-11.6.2. JSON Example
-********************
+11.6.2. JSON Examples
+*********************
 
 .. code-block:: javascript
 
@@ -415,7 +404,7 @@ inherits :ref:`objecttype-divunique` and composes :ref:`objecttype-image`,
 upload form for registering new images. Row pagination reuses the same mechanism as
 :ref:`objecttype-list`.
 
-.. important::
+.. tip::
    This object's implementation demonstrates how to **programmatically** integrate the
    *x0-object-type* ``FormfieldList``.
 
@@ -435,8 +424,8 @@ upload form for registering new images. Row pagination reuses the same mechanism
    | Value               | Array of Elements    | Array of ``{ID, Description, Path}`` image rows |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.7.2. JSON Example
-********************
+11.7.2. JSON Examples
+*********************
 
 .. code-block:: javascript
 
@@ -478,8 +467,8 @@ an overlay. It inherits :ref:`objecttype-divunique`.
    | Style               | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.8.2. JSON Example
-********************
+11.8.2. JSON Examples
+*********************
 
 .. code-block:: javascript
 
@@ -493,22 +482,28 @@ an overlay. It inherits :ref:`objecttype-divunique`.
 11.9. List
 ----------
 
-The ``List`` *x0-object-type* renders a table-like, grid-based structure built on
-Bootstrap's Grid CSS, deliberately avoiding the legacy ``<table><tr><td>`` HTML syntax
-in favor of a modern, responsive layout. Internally, every row is a dedicated
-``sysListRow`` instance that composes the configured ``Column`` cells and participates
-in the same recursive object hierarchy as any other *x0-system-object*, so individual
-cells may hold arbitrarily complex nested objects rather than plain text.
+The ``List`` *x0-object-type* renders a table-like, grid-based structure using
+the internal *x0-grid* component (see :ref:`appdevgridsystem`) to provide a modern,
+flexible, and responsive layout. Internally, every row is a dedicated ``sysListRow``
+instance that composes the configured ``Column`` cells and participates in the same
+recursive object hierarchy as any other *x0-object*, so individual cells may hold
+arbitrarily complex nested objects rather than plain text.
 
-Beyond static tabular display, ``List`` directly integrates two further x0 subsystems:
-*x0-context-menu* for per-row and multi-row interaction (see :ref:`appdevcontextmenu`),
-and *x0-realtime-container* semantics for incremental, backend-driven row updates. When
-``Navigation`` is enabled, pagination is delegated to the same generic ``sysPagination``
-mechanism documented in :ref:`realtime-pagination`, toggling already-rendered rows
-between pages without a backend reload. Newly appended rows (for example, submitted via
-a linked ``FormfieldList``) are validated through the optional ``DoubleCheckColumn`` and
-``ValidateColumnRegEx`` mechanisms, with user-facing feedback routed through a referenced
-``ErrorContainer``.
+Beyond static tabular display, ``List`` declaratively integrates the *x0-context-menu*
+for **per-row** (remove) and **multi-row** (remove selected) interactions (see
+:ref:`appdevcontextmenu`). When ``Navigation`` is enabled, pagination is delegated
+to the same generic ``sysPagination`` mechanism documented in :ref:`realtime-pagination`,
+toggling already-rendered rows between pages without a backend reload.
+
+It also supports runtime data manipulation via ``getObjectData()`` / ``setObjectData()``
+to append rows in real time, e.g., by using *x0-actions* in ``Button`` or ``ButtonInternal``
+*x0-object-types* **and** by using *x0-context-menu* items.
+
+When specifying the ``ErrorContainer`` attribute, occurring errors—such as exceeding
+the maximum allowed row count—will trigger the error output there. Like any other
+*x0-object-type* supporting ``ServiceConnector`` integration, the ``List`` can be
+populated with data on an occurring *x0-event* (e.g., on system initialization or a
+runtime button click).
 
 11.9.1. Object Attributes
 *************************
@@ -623,9 +618,6 @@ contract:
 11.10. TabContainer
 -------------------
 
-11.10. TabContainer
--------------------
-
 The ``TabContainer`` *x0-object-type* organizes content into separate tabs within a single view,
 allowing users to switch seamlessly between different panels. Each tab can hold its own complete
 object hierarchy; selecting a tab activates and displays its hierarchy while automatically disabling
@@ -726,8 +718,8 @@ define localized error messages across multiple languages.
 
 None.
 
-11.12.2. JSON Example
-*********************
+11.12.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -771,8 +763,8 @@ screen is first rendered.
    | StateOpen           | Boolean              | Initial expanded (``true``) / collapsed state   |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.13.2. JSON Example
-*********************
+11.13.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -861,8 +853,8 @@ Interactive navigation elements that trigger screen navigation:
    | DstScreenID         | ScreenID-String      | Target Screen for navigation                    |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.14.4. JSON Example
-*********************
+11.14.4. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -933,8 +925,8 @@ Interactive navigation elements that trigger screen navigation:
    | Style               | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.15.2. JSON Example
-*********************
+11.15.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -982,8 +974,8 @@ Interactive navigation elements that trigger screen navigation:
    | getValue()          | Returns the current, rendered DOM value                                |
    +---------------------+------------------------------------------------------------------------+
 
-11.16.3. JSON Example
-*********************
+11.16.3. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1031,8 +1023,8 @@ can be read from or written to by any other *x0-object* or button action.
    // set percentage and re-render
    sysFactory.getObjectByID('MyProgressBar').setObjectData(75);
 
-11.17.3. JSON Example
-*********************
+11.17.3. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1080,8 +1072,8 @@ from or written to by any other *x0-object* or button action.
    // set slider value programmatically
    sysFactory.getObjectByID('MySlider').setObjectData(50);
 
-11.18.3. JSON Example
-*********************
+11.18.3. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1124,8 +1116,8 @@ the standard ``getObjectData()`` / ``setObjectData()`` API.
    | UnitTextID          | TextID-String        | TextID for the Min/Max unit label               |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.19.2. JSON Example
-*********************
+11.19.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1173,8 +1165,8 @@ Child objects are attached using ``ElementID`` in ``skeleton.json``, where the
    "IntroductionContainerLeftHeaderText": { "RefID": "IntroductionContainerLeftHeader" },
    "IntroductionContainerLeftText":       { "RefID": "IntroductionContainerLeftContent" }
 
-11.20.3. JSON Example
-*********************
+11.20.3. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1230,8 +1222,8 @@ is the backing object for the static example's "Settings/Global Settings" screen
    |                     |                      | instantiated from ``sysFactory.SetupClasses``   |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.21.3. JSON Example
-*********************
+11.21.3. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1306,8 +1298,8 @@ top of a screen or tab.
    | Text                | Array of Elements    | Array of ``{ID, Style, IconStyle}`` paragraphs  |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.23.2. JSON Example
-*********************
+11.23.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1352,8 +1344,8 @@ and re-renders every active ``SQLText`` object application-wide via
    | ButtonStyle         | CSS-String           | CSS Style Classes for the activation button     |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.24.2. JSON Example
-*********************
+11.24.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1387,8 +1379,8 @@ a context menu offering the same removal action (see :ref:`appdevcontextmenu`).
    | ButtonTextDisabled  | Boolean              | Hide add/remove button text, icon-only display  |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.25.2. JSON Example
-*********************
+11.25.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1426,8 +1418,8 @@ event-registration and dispatch mechanics are documented in :ref:`devoopmodel`.
    | OnEvent.ServiceID   | String               | Optional Backend Service Identifier             |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.26.2. JSON Example
-*********************
+11.26.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1470,8 +1462,8 @@ following sections.
    | IncreaseBy          | Integer              | Percentage increment applied on every interval  |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.27.2. JSON Example
-*********************
+11.27.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1503,8 +1495,8 @@ This object type currently accepts no configurable ``Attributes`` beyond the
 common base properties; step tabs, navigation buttons and the validated
 formfield-list IDs per step are wired internally.
 
-11.28.2. JSON Example
-*********************
+11.28.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1547,8 +1539,8 @@ inherits from ``sysObjDivUnique`` and supports a switchable edit mode.
    | ContentText         | String               | Item body/description text                      |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.29.2. JSON Example
-*********************
+11.29.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1593,8 +1585,8 @@ like :ref:`objecttype-list` rows.
    | HeaderIconStyle     | CSS-String           | FontAwesome icon style for the header           |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.30.2. JSON Example
-*********************
+11.30.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1632,8 +1624,8 @@ used as a repeated row inside a parent :ref:`objecttype-list` or
    | Value               | Object               | ``{Icon, Airline, FlightNr, Airport}``          |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.31.2. JSON Example
-*********************
+11.31.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1675,8 +1667,8 @@ and derives both its border color and inner text color from the
    | Value               | Object               | ``{Alert, Type, Time}``                         |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.32.2. JSON Example
-*********************
+11.32.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1718,8 +1710,8 @@ addable tasklists/tasks. It inherits from ``sysObjDivUnique`` and composes
    | Style               | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.33.2. JSON Example
-*********************
+11.33.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
@@ -1752,8 +1744,8 @@ inherits from ``sysObjDivUnique`` and is typically instantiated inside a
    | Style               | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.34.2. JSON Example
-*********************
+11.34.2. JSON Examples
+**********************
 
 .. code-block:: javascript
 
