@@ -100,22 +100,24 @@ Practices” :ref:`dev-object-nesting`.
 11.2. Text
 ----------
 
-The ``Text`` *x0-object-type* is used to render localized, multilingual strings within the
-user interface. Rather than hardcoding text directly into the layout, this object resolves
-text identifiers dynamically based on the active user language.
+The ``Text`` *x0-object-type* is used to render localized, multilingual strings
+within the user interface. Rather than hardcoding text directly into the
+layout, this object resolves text identifiers dynamically based on the active
+user language.
 
-Depending on the deployment mode, the text content is retrieved from one of two sources:
+Depending on the deployment mode, the text content is retrieved from one of two
+sources:
 
-- **Database Mode (Default):** In standard setups, strings are fetched directly from the
-  ``webui.text`` table inside the *x0-system-db*.
+- **Database Mode (Default):** In standard setups, strings are fetched directly
+  from the ``webui.text`` table inside the *x0-system-db*.
 
-- **Static / NoSQL Mode:** When running as a **static** *x0-component* without a live
-  database connection, the object falls back to reading key-value pairs from the local
-  ``/static/meta/text-data.json`` file.
+- **Static / NoSQL Mode:** When running as a **static** *x0-component* without a
+  live database connection, the object falls back to reading key-value pairs from
+  the local ``/static/meta/text-data.json`` file.
 
 .. important::
-   For backward compatibility with legacy configurations, the ``Text`` object type can
-   still be referenced under its former name ``SQLText``.
+   For backward compatibility with legacy configurations, the ``Text`` object type
+   can still be referenced under its former name ``SQLText``.
 
 11.2.1. Object Attributes
 *************************
@@ -157,40 +159,44 @@ Depending on the deployment mode, the text content is retrieved from one of two 
 11.3. Button
 ------------
 
-The ``Button`` *x0-object-type* is the most important component regarding control flows and
-object interactions. There are two derived types, ``ButtonInternal`` and ``ButtonCallback``;
-the following explains their purpose and how they differ.
+The ``Button`` *x0-object-type* is the most important component regarding
+control flows and object interactions. There are two derived types,
+``ButtonInternal`` and ``ButtonCallback``; the following explains their purpose
+and how they differ.
 
-The ``Button`` type is **service-centric** and **always** connected to backend interactions,
-whereas ``ButtonInternal``—as its name suggests—is used exclusively for internal system
-interactions. Both ``Button`` and ``ButtonInternal`` can be used **declaratively** in
-``object.json``.
+The ``Button`` type is **service-centric** and **always** connected to backend
+interactions, whereas ``ButtonInternal``—as its name suggests—is used
+exclusively for internal system interactions. Both ``Button`` and
+``ButtonInternal`` can be used **declaratively** in ``object.json``.
 
-The ``ButtonCallback`` type is **only** used for **programmatic**, custom *x0-object*
-development.
+The ``ButtonCallback`` type is **only** used for **programmatic**, custom
+*x0-object* development.
 
-By default, the ``DOMType`` for a ``Button`` is an HTML-compliant ``button``, though it can
-be overridden. For example, to make it look like a link, you can set ``DOMType`` to ``a`` or
-any other valid tag. Because its internal click mechanism is attached via an event handler,
-the outer HTML tag does not affect functionality. By setting ``DOMValue``, you can override
-the ``innerHTML`` completely. Setting ``FormButton`` renders it as an HTML form-compliant
-``<input type="button">`` usable inside HTML ``<form>`` tags.
+By default, the ``DOMType`` for a ``Button`` is an HTML-compliant ``button``,
+though it can be overridden. For example, to make it look like a link, you can
+set ``DOMType`` to ``a`` or any other valid tag. Because its internal click
+mechanism is attached via an event handler, the outer HTML tag does not affect
+functionality. By setting ``DOMValue``, you can override the ``innerHTML``
+completely. Setting ``FormButton`` renders it as an HTML form-compliant ``<input
+type="button">`` usable inside HTML ``<form>`` tags.
 
-Setting ``Disabled`` to ``true`` initializes the button in a disabled state. Providing a
-``TextID`` displays a localized, multilingual text label, while ``IconStyle`` **or**
-``IconStylePost`` adds Font Awesome icons.
+Setting ``Disabled`` to ``true`` initializes the button in a disabled state.
+Providing a ``TextID`` displays a localized, multilingual text label, while
+``IconStyle`` **or** ``IconStylePost`` adds Font Awesome icons.
 
-The ``OnClick`` property must contain a valid HTTP(S) URL to execute a backend service upon
-clicking. In ``SrcDataObjects``, the global x0 *Source Data Objects* mechanism is used to
-specify runtime data selectively (see :ref:`appdevcontrolflow`). When triggered, this metadata
-is fetched in realtime and appended to the backend service POST request JSON.
+The ``OnClick`` property must contain a valid HTTP(S) URL to execute a backend
+service upon clicking. In ``SrcDataObjects``, the global x0 *Source Data
+Objects* mechanism is used to specify runtime data selectively (see
+:ref:`appdevcontrolflow`). When triggered, this metadata is fetched in realtime
+and appended to the backend service POST request JSON.
 
-The ``Notify`` object structure defines how the button interacts with the notification
-indication system.
+The ``Notify`` object structure defines how the button interacts with the
+notification indication system.
 
-Control flow is managed via ``Action``, ``OnResult``, and ``FireEvents``: ``Action`` triggers
-actions **before** service execution, ``OnResult`` triggers actions **after successful**
-execution, and ``FireEvents`` dispatches *x0-events* to interact with the internal event system.
+Control flow is managed via ``Action``, ``OnResult``, and ``FireEvents``:
+``Action`` triggers actions **before** service execution, ``OnResult`` triggers
+actions **after successful** execution, and ``FireEvents`` dispatches
+*x0-events* to interact with the internal event system.
 
 .. _button-attributes:
 
@@ -235,8 +241,8 @@ execution, and ``FireEvents`` dispatches *x0-events* to interact with the intern
 11.3.2. Actions / OnResult
 **************************
 
-Note that specifying ``Action`` or ``OnResult`` actions requires mandatory base ``Attributes``
-to be set (see :ref:`event-actions`).
+Note that specifying ``Action`` or ``OnResult`` actions requires mandatory base
+``Attributes`` to be set (see :ref:`event-actions`).
 
 11.3.3. JSON Examples
 *********************
@@ -265,8 +271,8 @@ to be set (see :ref:`event-actions`).
 11.4. ButtonInternal
 --------------------
 
-The ``ButtonInternal`` *x0-object-type* inherits from ``Button``. The main difference is that it
-lacks backend functionality; otherwise, its behavior is identical.
+The ``ButtonInternal`` *x0-object-type* inherits from ``Button``. The main difference
+is that it lacks backend functionality; otherwise, its behavior is identical.
 
 11.4.1. Object Attributes
 *************************
@@ -324,12 +330,14 @@ lacks backend functionality; otherwise, its behavior is identical.
 11.5. ButtonCallback
 --------------------
 
-``ButtonCallback`` is intended **only** for **programmatically** building **custom** *x0-objects*.
-It is used inside an object's class model to react to *single* or *multiple* defined actions
-within its ``ButtonCallback()`` method whenever a button is clicked.
+``ButtonCallback`` is intended **only** for **programmatically** building
+**custom** *x0-objects*. It is used inside an object's class model to react to
+*single* or *multiple* defined actions within its ``ButtonCallback()`` method
+whenever a button is clicked.
 
-The implementer must distinguish between the **button definition**—where the callback and target
-function identifier are *registered*—and the **usage** inside the ``ButtonCallback()`` method.
+The implementer must distinguish between the **button definition**—where the
+callback and target function identifier are *registered*—and the **usage**
+inside the ``ButtonCallback()`` method.
 
 11.5.1. Definition
 ******************
@@ -354,8 +362,8 @@ do the following:
 11.5.2. Usage
 *************
 
-To process and distinguish between the triggered button actions, implement the ``ButtonCallback()``
-method on your custom object:
+To process and distinguish between the triggered button actions, implement the
+``ButtonCallback()`` method on your custom object:
 
 .. code-block:: javascript
 
@@ -376,14 +384,15 @@ method on your custom object:
 11.6. Image
 -----------
 
-The ``Image`` *x0-object-type* renders an HTML ``<img>`` element. Its ``DOMType`` is
-fixed to ``img`` and should not be altered. Its source path can be read and updated at
-runtime through the standard ``getObjectData()`` / ``setObjectData()`` API.
+The ``Image`` *x0-object-type* renders an HTML ``<img>`` element. Its ``DOMType``
+is fixed to ``img`` and should not be altered. Its source path can be read and
+updated at runtime through the standard ``getObjectData()`` /
+``setObjectData()`` API.
 
 .. warning::
-   The data abstraction model (declarative as well as programmatic) will **change** for
-   the ``Image`` *x0-object-type* in later *x0-versions*, because it does not meet the
-   criteria for a 100% generic approach.
+   The data abstraction model (declarative as well as programmatic) will
+   **change** for the ``Image`` *x0-object-type* in later *x0-versions*, because
+   it does not meet the criteria for a 100% generic approach.
 
 11.6.1. Object Attributes
 *************************
@@ -436,16 +445,16 @@ runtime through the standard ``getObjectData()`` / ``setObjectData()`` API.
 11.7. ImageSelector
 -------------------
 
-The ``ImageSelector`` *x0-object-type* renders a paginated, scrollable picker listing
-a set of images (ID, description and path per row), each with a "select" action. It
-inherits :ref:`objecttype-divunique` and composes :ref:`objecttype-image`,
-``FileUpload`` and ``FormfieldList`` child objects to additionally offer an inline
-upload form for registering new images. Row pagination reuses the same mechanism as
-:ref:`objecttype-list`.
+The ``ImageSelector`` *x0-object-type* renders a paginated, scrollable picker
+listing a set of images (ID, description and path per row), each with a
+"select" action. It inherits :ref:`objecttype-divunique` and composes
+:ref:`objecttype-image`, ``FileUpload`` and ``FormfieldList`` child objects to
+additionally offer an inline upload form for registering new images. Row
+pagination reuses the same mechanism as :ref:`objecttype-list`.
 
 .. tip::
-   This object's implementation demonstrates how to **programmatically** integrate the
-   *x0-object-type* ``FormfieldList``.
+   This object's implementation demonstrates how to **programmatically**
+   integrate the *x0-object-type* ``FormfieldList``.
 
 11.7.1. Object Attributes
 *************************
@@ -522,27 +531,30 @@ an overlay. It inherits :ref:`objecttype-divunique`.
 ----------
 
 The ``List`` *x0-object-type* renders a table-like, grid-based structure using
-the internal *x0-grid* component (see :ref:`appdevgridsystem`) to provide a modern,
-flexible, and responsive layout. Internally, every row is a dedicated ``sysListRow``
-instance that composes the configured ``Column`` cells and participates in the same
-recursive object hierarchy as any other *x0-object*, so individual cells may hold
-arbitrarily complex nested objects rather than plain text.
+the internal *x0-grid* component (see :ref:`appdevgridsystem`) to provide a
+modern, flexible, and responsive layout. Internally, every row is a dedicated
+``sysListRow`` instance that composes the configured ``Column`` cells and
+participates in the same recursive object hierarchy as any other *x0-object*,
+so individual cells may hold arbitrarily complex nested objects rather than
+plain text.
 
-Beyond static tabular display, ``List`` declaratively integrates the *x0-context-menu*
-for **per-row** (remove) and **multi-row** (remove selected) interactions (see
-:ref:`appdevcontextmenu`). When ``Navigation`` is enabled, pagination is delegated
-to the same generic ``sysPagination`` mechanism documented in :ref:`realtime-pagination`,
-toggling already-rendered rows between pages without a backend reload.
+Beyond static tabular display, ``List`` declaratively integrates the
+*x0-context-menu* for **per-row** (remove) and **multi-row** (remove selected)
+interactions (see :ref:`appdevcontextmenu`). When ``Navigation`` is enabled,
+pagination is delegated to the same generic ``sysPagination`` mechanism
+documented in :ref:`realtime-pagination`, toggling already-rendered rows
+between pages without a backend reload.
 
-It also supports runtime data manipulation via ``getObjectData()`` / ``setObjectData()``
-to append rows in realtime, e.g., by using *x0-actions* in ``Button`` or ``ButtonInternal``
-*x0-object-type*'s **or** by using *x0-context-menu* configuration.
+It also supports runtime data manipulation via ``getObjectData()`` /
+``setObjectData()`` to append rows in realtime, e.g., by using *x0-actions* in
+``Button`` or ``ButtonInternal`` *x0-object-type*'s **or** by using
+*x0-context-menu* configuration.
 
-When specifying the ``ErrorContainer`` attribute, occurring errors—such as exceeding
-the maximum allowed row count—will trigger the error output there. Like any other
-*x0-object-type*'s supporting ``ServiceConnector`` integration, the ``List`` can be
-populated with data on an occurring *x0-event* (e.g., on system initialization or a
-runtime ``Button`` or ``ButtonInternal`` click).
+When specifying the ``ErrorContainer`` attribute, occurring errors—such as
+exceeding the maximum allowed row count—will trigger the error output there.
+Like any other *x0-object-type*'s supporting ``ServiceConnector`` integration,
+the ``List`` can be populated with data on an occurring *x0-event* (e.g., on
+system initialization or a runtime ``Button`` or ``ButtonInternal`` click).
 
 11.9.1. Object Attributes
 *************************
