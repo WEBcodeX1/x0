@@ -86,7 +86,7 @@ The *x0-grid-system* processing requires an **Array of Elements** as input data.
 10.3.2. RowStyle / RowAfterElements
 -----------------------------------
 
-``RowAfterElements`` is definable as a single string or an Array of Strings.
+``RowAfterElements`` is definable as a single Integer or an Array of Strings.
 
 Setting ``"RowAfterElements": 1`` will generate a row container div with css
 class from ``RowStyle`` for each single Element.
