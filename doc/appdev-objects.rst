@@ -538,7 +538,7 @@ to append rows in realtime, e.g., by using *x0-actions* in ``Button`` or ``Butto
 
 When specifying the ``ErrorContainer`` attribute, occurring errors—such as exceeding
 the maximum allowed row count—will trigger the error output there. Like any other
-*x0-object-type* supporting ``ServiceConnector`` integration, the ``List`` can be
+*x0-object-type*'s supporting ``ServiceConnector`` integration, the ``List`` can be
 populated with data on an occurring *x0-event* (e.g., on system initialization or a
 runtime ``Button`` or ``ButtonInternal`` click).
 
@@ -674,7 +674,7 @@ To **connect** a single object to a single ``Tab``, reference the object inside
 11.10.2. Tab Attributes
 ***********************
 
-.. table:: Object Type TabAttributes
+.. table:: Object Type Tab Attributes
    :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
@@ -1452,7 +1452,7 @@ The ``SystemSettingsContainerGrid`` *x0-object-type* extends
 
 .. important::
    ``SystemSettingsContainerGrid`` demonstrates the *x0-grid* live functionality,
-   that a grid can be attached different models (styles) in realtime .
+   that a grid can be attached different models (styles) in realtime.
 
 11.22.1. Object Attributes
 **************************
@@ -1535,7 +1535,7 @@ each consisting of:
             },
             {
                "ID": "TXT.EXAMPLE.PARAGRAPH1.TEXT1",
-               "Style": "text-dark text-opacitiy-50"
+               "Style": "text-dark text-opacity-50"
             }
          ]
       }
