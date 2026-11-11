@@ -128,9 +128,9 @@ Depending on the deployment mode, the text content is retrieved from one of two 
    +---------------------+----------------------+-------------------------------------------------+
    | Style               | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
-   | IconStyle           | CSS-String           | Fontawesome Icon CSS for Prepend Icon           |
+   | IconStyle           | CSS-String           | Font Awesome Icon CSS for Prepend Icon          |
    +---------------------+----------------------+-------------------------------------------------+
-   | IconStylePost       | CSS-String           | Fontawesome Icon CSS for Append Icon            |
+   | IconStylePost       | CSS-String           | Font Awesome Icon CSS for Append Icon           |
    +---------------------+----------------------+-------------------------------------------------+
    | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
    +---------------------+----------------------+-------------------------------------------------+
@@ -207,9 +207,9 @@ execution, and ``FireEvents`` dispatches *x0-events* to interact with the intern
    +---------------------+----------------------+-------------------------------------------------+
    | Style               | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
-   | IconStyle           | CSS-String           | Fontawesome Icon CSS for Prepend Icon           |
+   | IconStyle           | CSS-String           | Font Awesome Icon CSS for Prepend Icon          |
    +---------------------+----------------------+-------------------------------------------------+
-   | IconStylePost       | CSS-String           | Fontawesome Icon CSS for Append Icon            |
+   | IconStylePost       | CSS-String           | Font Awesome Icon CSS for Append Icon           |
    +---------------------+----------------------+-------------------------------------------------+
    | FormButton          | Boolean              | Treat Button as HTML form input type "button"   |
    +---------------------+----------------------+-------------------------------------------------+
@@ -263,9 +263,9 @@ lacks backend functionality; otherwise, its behavior is identical.
    +---------------------+----------------------+-------------------------------------------------+
    | Style               | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
-   | IconStyle           | CSS-String           | Fontawesome Icon CSS for Prepend Icon           |
+   | IconStyle           | CSS-String           | Font Awesome Icon CSS for Prepend Icon          |
    +---------------------+----------------------+-------------------------------------------------+
-   | IconStylePost       | CSS-String           | Fontawesome Icon CSS for Append Icon            |
+   | IconStylePost       | CSS-String           | Font Awesome Icon CSS for Append Icon           |
    +---------------------+----------------------+-------------------------------------------------+
    | FormButton          | Boolean              | Treat Button as HTML form input type "button"   |
    +---------------------+----------------------+-------------------------------------------------+
@@ -844,7 +844,7 @@ or collapsed when the *x0-screen* is initially rendered.
    +---------------------+----------------------+-------------------------------------------------+
    | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
    +---------------------+----------------------+-------------------------------------------------+
-   | IconStyle           | CSS-String           | Fontawesome Icon CSS for the header text        |
+   | IconStyle           | CSS-String           | Font Awesome Icon CSS                           |
    +---------------------+----------------------+-------------------------------------------------+
    | StateOpen           | Boolean              | Initial expanded (``true``) / collapsed state   |
    +---------------------+----------------------+-------------------------------------------------+
@@ -1020,7 +1020,7 @@ When using ``DivUnique``, the resulting DOM IDs remain unaltered: ``Object1ID``,
 single-container modeling within the declarative scope of ``object.json``.
 
 When using ``DivUnique`` inside the **programmatic** scope (building custom
-*x0-object* types), the implementor must **ensure** the uniqueness of each
+*x0-object-type*s), the implementor must **ensure** the uniqueness of each
 assigned ObjectID (e.g., for dynamically created row containers). In contrast,
 the standard ``Div`` *x0-object-type* is explicitly used in nested programmatic
 setups as an intermediate structural layer without logic. This concept is
@@ -1341,13 +1341,13 @@ To **connect** child objects inside ``skeleton.json``, reference the container
 11.21. SystemSettingsContainer
 ------------------------------
 
-The ``SystemSettingsContainer`` *x0-object-type* renders a list of labeled settings
-rows, each pairing a ``TextID`` description with an arbitrary nested *x0-system-object*
-(any entry of ``sysFactory.SetupClasses``, commonly ``FormfieldPulldown``,
-``FormfieldCheckbox`` or :ref:`objecttype-rangeslider` /
-:ref:`objecttype-rangeslidercontainer`), plus per-row "reset" and "save" controls.
+The ``SystemSettingsContainer`` *x0-object-type* renders a list of labeled
+configuration rows used for internal *x0-system* settings.
 
-It is the backing object for the static example's "Settings/Global Settings" screens.
+.. warning::
+   ``SystemSettingsContainer`` is an internal *x0-system* object that also
+   serves as a demonstration component and should not be used in production
+   applications.
 
 11.21.1. Object Attributes
 **************************
@@ -1374,7 +1374,7 @@ It is the backing object for the static example's "Settings/Global Settings" scr
    +---------------------+----------------------+-------------------------------------------------+
    | Style               | CSS-String           | CSS Style Classes applied to the description    |
    +---------------------+----------------------+-------------------------------------------------+
-   | IconStyle           | CSS-String           | Fontawesome Icon CSS for the description        |
+   | IconStyle           | CSS-String           | Font Awesome Icon CSS                           |
    +---------------------+----------------------+-------------------------------------------------+
    | SettingsObject      | Object               | ``{ObjectType, Attributes}``, nested object     |
    |                     |                      | instantiated from ``sysFactory.SetupClasses``   |
@@ -1409,12 +1409,11 @@ It is the backing object for the static example's "Settings/Global Settings" scr
 
 The ``SystemSettingsContainerGrid`` *x0-object-type* extends
 :ref:`objecttype-systemsettingscontainer` with the Global Grid System
-(see :ref:`appdevgridsystem`), rendering the same setting rows across one or more
-selectable grid "variants". This is the live demonstrator referenced in
-:ref:`appdevgridsystem`'s "Runtime Flexibility and Dynamic Restructuring" section: the
-entire structural layout — not just column widths — can be toggled at runtime (e.g.
-between a 3-column and a 6-column view), entirely client-side and without any backend
-request.
+(see :ref:`appdevgridsystem`).
+
+.. important::
+   ``SystemSettingsContainerGrid`` demonstrates the *x0-grid* live functionality,
+   that a grid can be attached different models (styles) in realtime .
 
 11.22.1. Object Attributes
 **************************
@@ -1422,25 +1421,31 @@ request.
 .. table:: Object Type SystemSettingsContainerGrid Attributes
    :widths: 15 15 70
 
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | Settings            | Array of Elements    | Same schema as 11.21.2.                         |
-   +---------------------+----------------------+-------------------------------------------------+
-   | GridStyles          | Object               | ``{SelectorRowStyle}``, variant selector style  |
-   +---------------------+----------------------+-------------------------------------------------+
-   | GridGenerator       | Object               | ``sysGridGenerator`` config, see                |
-   |                     |                      | :ref:`appdevgridsystem`                         |
-   +---------------------+----------------------+-------------------------------------------------+
+   +-------------------+--------------------+--------------------------------------------------+
+   | **Property**      | **Type**           | **Description**                                  |
+   +===================+====================+==================================================+
+   | Settings          | Array of Elements  | Same schema as 11.21.2.                          |
+   +-------------------+--------------------+--------------------------------------------------+
+   | GridStyles        | Object             | ``{SelectorRowStyle}``, variant selector style   |
+   +-------------------+--------------------+--------------------------------------------------+
+   | GridGenerator     | Object             | ``sysGridGenerator`` see :ref:`appdevgridsystem` |
+   +-------------------+--------------------+--------------------------------------------------+
 
 .. _objecttype-infoparagraph:
 
 11.23. InfoParagraph
 --------------------
 
-The ``InfoParagraph`` *x0-object-type* renders a sequence of ``SQLText`` paragraphs
-inside a single styled container, commonly used as an introductory info box at the
-top of a screen or tab.
+The ``InfoParagraph`` *x0-object-type* acts as a multi-paragraph ``Text``
+container for *fast paragraph design*, avoiding the overhead of modeling
+individual objects in ``object.json`` and ``skeleton.json``.
+
+Its primary use is to render simple text blocks containing multiple items,
+each consisting of:
+
+- a multilingual ``Text``,
+- a CSS ``Style``, **and**
+- an optional ``IconStyle`` to prepend a Font Awesome icon.
 
 11.23.1. Object Attributes
 **************************
@@ -1456,20 +1461,42 @@ top of a screen or tab.
    | Text                | Array of Elements    | Array of ``{ID, Style, IconStyle}`` paragraphs  |
    +---------------------+----------------------+-------------------------------------------------+
 
-11.23.2. JSON Examples
+11.23.2. Text Attributes
+************************
+
+.. table:: Object Type InfoParagraph Text Attributes
+   :widths: 15 15 70
+
+   +---------------------+----------------------+-------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                 |
+   +=====================+======================+=================================================+
+   | ID                  | TextID-String        | Row description, referenced in ``webui.text``   |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Style               | CSS-String           | CSS Style Classes applied to the container      |
+   +---------------------+----------------------+-------------------------------------------------+
+   | IconStyle           | Array of Elements    | Array of ``{ID, Style, IconStyle}`` paragraphs  |
+   +---------------------+----------------------+-------------------------------------------------+
+
+11.23.3. JSON Examples
 **********************
 
 .. code-block:: javascript
 
-   "IntroductionBodyInfo":
+   "ExampleInfoParagraph":
    {
       "Type": "InfoParagraph",
-      "Attributes": {
-         "Text": [
+      "Attributes":
+      {
+         "Text":
+         [
             {
-               "ID": "TXT.INTRODUCTION.INFOPARAGRAPH.START",
-               "Style": "h4 text-dark text-opacity-75 fw-bold",
+               "ID": "TXT.EXAMPLE.PARAGRAPH1.HEADER",
+               "Style": "text-primary-emphasis text-opacity-75 fw-bold",
                "IconStyle": "fa-solid fa-user-group"
+            },
+            {
+               "ID": "TXT.EXAMPLE.PARAGRAPH1.TEXT1",
+               "Style": "text-dark text-opacitiy-50"
             }
          ]
       }
@@ -1480,11 +1507,10 @@ top of a screen or tab.
 11.24. LanguageSwitch
 ---------------------
 
-The ``LanguageSwitch`` *x0-object-type* renders a pulldown of the configured display
-languages (see :ref:`appdevconfig-systemconfig`) next to an activation button.
-Selecting a language and triggering the button updates ``sysFactory.EnvUserLanguage``
-and re-renders every active ``SQLText`` object application-wide via
-``sysFactory.updateLanguageObjectsGlobal()``, without a page reload.
+The ``LanguageSwitch`` *x0-object-type* renders a dropdown list of the
+configured display languages (see :ref:`appdevconfig-systemconfig`) paired with
+an activation button to switch to the selected language at runtime without a
+page reload.
 
 11.24.1. Object Attributes
 **************************
@@ -1507,10 +1533,11 @@ and re-renders every active ``SQLText`` object application-wide via
 
 .. code-block:: javascript
 
-   "SettingsLanguageSwitch":
+   "ExampleLanguageSwitch":
    {
       "Type": "LanguageSwitch",
-      "Attributes": {
+      "Attributes":
+      {
          "Style": "row border rounded m-0 p-3 fw-bold"
       }
    }
@@ -1520,10 +1547,17 @@ and re-renders every active ``SQLText`` object application-wide via
 11.25. DynRadioList
 -------------------
 
-The ``DynRadioList`` *x0-object-type* renders a dynamically growable list of radio
-button rows, each paired with a text input. Clicking the trailing "add" control
-appends a new row with its own "remove" control; right-clicking a removable row opens
-a context menu offering the same removal action (see :ref:`appdevcontextmenu`).
+The ``DynRadioList`` *x0-object-type* renders a dynamically growable list of
+radio button rows, each paired with a text input. Clicking the trailing "add"
+control appends a new row with its own "remove" control; right-clicking a
+removable row opens a context menu offering the same removal action (see
+:ref:`appdevcontextmenu`).
+
+.. important::
+   ``DynRadioList`` can be treated as a fully supported ``Formfield``
+   *x0-object-type* and used inside ``FormfieldList``. In addition, it
+   demonstrates how the ``ContextMenu`` and ``Button`` *x0-object-type*'s can be
+   combined within a single component.
 
 11.25.1. Object Attributes
 **************************
@@ -1542,10 +1576,11 @@ a context menu offering the same removal action (see :ref:`appdevcontextmenu`).
 
 .. code-block:: javascript
 
-   "$ObjectID":
+   "ExampleDynRadioList":
    {
       "Type": "DynRadioList",
-      "Attributes": {
+      "Attributes":
+      {
          "ButtonTextDisabled": false
       }
    }
@@ -1556,7 +1591,7 @@ a context menu offering the same removal action (see :ref:`appdevcontextmenu`).
 -----------------------
 
 The ``ServiceConnector`` *x0-object-type* binds a backend service call to a
-target *x0-system-object* (currently supported *x0-object* types are ``List``
+target *x0-system-object* (currently supported *x0-object-type*'s are ``List``
 and ``FormfieldList``), triggering the call whenever one of the configured
 system events fires (e.g., ``InitSystem``).
 
@@ -1584,13 +1619,13 @@ Its full event-registration and dispatch mechanics are documented in
 
 .. code-block:: javascript
 
-   "$ObjectID":
+   "ExampleServiceConnector":
    {
       "Type": "ServiceConnector",
       "Attributes": {
          "OnEvent": {
             "Events": [ "InitSystem" ],
-            "ServiceCall": "/python/IntegrationTestGetTableData.py"
+            "ServiceCall": "/python/BackendService.py"
          }
       }
    }
@@ -1625,7 +1660,7 @@ callback-bound :ref:`objecttype-buttoninternal` trigger.
 
 .. code-block:: javascript
 
-   "ExamplesBasicSlidersSlider1":
+   "ExampleTimedProgress":
    {
       "Type": "TimedProgress",
       "Attributes": {
@@ -1658,7 +1693,7 @@ navigation.
 
 .. code-block:: javascript
 
-   "ExamplesBasicSlidersStepControlledWizard":
+   "ExampleWizard":
    {
       "Type": "ExampleWizard",
       "Attributes": {}
@@ -1709,7 +1744,7 @@ It inherits from ``sysObjDivUnique`` and supports a switchable edit mode.
 
 .. code-block:: javascript
 
-   "ExamplesBasicEditableTemplate1EditableItem":
+   "ExampleEditableItem":
    {
       "Type": "ExampleEditableItem",
       "Attributes": {
@@ -1761,10 +1796,11 @@ rows.
 
 .. code-block:: javascript
 
-   "ExamplesBasicEditableTemplate1":
+   "ExampleEditableTemplate":
    {
       "Type": "ExampleEditableItemContainer",
-      "Attributes": {
+      "Attributes":
+      {
          "HeaderTextID": "TXT.HEADER.EXAMPLES_BASIC_EDITABLE_TEMPLATE1_HEADER",
          "HeaderStyle": "h3 text-primary-emphasis",
          "HeaderIconStyle": "fa-solid fa-card-shopping"
@@ -1805,7 +1841,7 @@ inside a parent :ref:`objecttype-list` column container.
 
 .. code-block:: javascript
 
-   "MyFlightDetails":
+   "ExampleFlightDetails":
    {
       "Type": "ExampleFlightDetails",
       "Attributes": {
@@ -1852,7 +1888,7 @@ inner text color from the ``Value.Alert`` Bootstrap contextual color keyword
 
 .. code-block:: javascript
 
-   "MyFlightStatus":
+   "ExampleFlightStatus":
    {
       "Type": "ExampleFlightStatus",
       "Attributes": {
@@ -1895,7 +1931,7 @@ addable tasklists and tasks.
 
 .. code-block:: javascript
 
-   "ExamplesBasicEditableTemplate2CardTasklists":
+   "ExampleCardTasklist":
    {
       "Type": "ExampleCardTasklist"
    }
@@ -1934,7 +1970,7 @@ It inherits from ``sysObjDivUnique`` and is typically instantiated inside an
 
 .. code-block:: javascript
 
-   "OverlayGlobalCollaboratorsList":
+   "ExampleCollaboratorsList":
    {
       "Type": "ExamplePeopleSelector"
    }
