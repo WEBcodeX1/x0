@@ -141,6 +141,15 @@ The messaging server configuration is defined in the Docker container:
 19.4.2. Server CORS
 *******************
 
+CORS on the server is configured to allow all requests (``*``).
+
+.. code-block:: text
+
+    Header onsuccess unset Access-Control-Allow-Origin
+    Header always set Access-Control-Allow-Origin "*"
+    Header onsuccess unset Access-Control-Allow-Headers
+    Header always set Access-Control-Allow-Headers "*"
+
 19.4.3. Client Configuration
 ****************************
 
