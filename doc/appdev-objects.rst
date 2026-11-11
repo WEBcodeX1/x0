@@ -140,7 +140,7 @@ Depending on the deployment mode, the text content is retrieved from one of two 
 
 .. code-block:: javascript
 
-   "ExampleTextObject":
+   "ExampleText":
    {
       "Type": "Text",
       "Attributes":
@@ -369,7 +369,7 @@ runtime through the standard ``getObjectData()`` / ``setObjectData()`` API.
 
 .. code-block:: javascript
 
-   "ExampleImageObject":
+   "ExampleImage":
    {
       "Type": "Image",
       "Attributes":
@@ -1104,7 +1104,7 @@ set to ``true``, resulting in identical DOM ID behavior.
 
 .. code-block:: javascript
 
-   "$ObjectID":
+   "ExampleDivValue":
    {
       "Type": "DivValue",
       "Attributes": {
@@ -1153,7 +1153,7 @@ can be read from or written to by any other *x0-object* or button action.
 
 .. code-block:: javascript
 
-   "MyProgressBar":
+   "ExampleProgressBar":
    {
       "Type": "ProgressBar",
       "Attributes": {
@@ -1202,7 +1202,7 @@ from or written to by any other *x0-object* or button action.
 
 .. code-block:: javascript
 
-   "MySlider":
+   "ExampleSlider":
    {
       "Type": "RangeSlider",
       "Attributes": {
@@ -1246,7 +1246,7 @@ the standard ``getObjectData()`` / ``setObjectData()`` API.
 
 .. code-block:: javascript
 
-   "TeamPercentageMin":
+   "ExampleRangeSliderContainer":
    {
       "Type": "RangeSliderContainer",
       "Attributes": {
@@ -1288,6 +1288,7 @@ To **connect** child objects inside ``skeleton.json``, reference the container
 11.20.2. JSON Examples
 **********************
 
+In ``object.json``:
 
 .. code-block:: javascript
 
@@ -1318,6 +1319,7 @@ To **connect** child objects inside ``skeleton.json``, reference the container
       }
    }
 
+In ``skeleton.json``:
 
 .. code-block:: javascript
 
@@ -1385,7 +1387,7 @@ configuration rows used for internal *x0-system* settings.
 
 .. code-block:: javascript
 
-   "SettingsGlobalVideoSettings":
+   "ExampleSettingsContainer":
    {
       "Type": "SystemSettingsContainer",
       "Attributes": {
