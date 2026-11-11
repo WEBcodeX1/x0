@@ -181,7 +181,7 @@ Setting ``Disabled`` to ``true`` initializes the button in a disabled state. Pro
 The ``OnClick`` property must contain a valid HTTP(S) URL to execute a backend service upon
 clicking. In ``SrcDataObjects``, the global x0 *Source Data Objects* mechanism is used to
 specify runtime data selectively (see :ref:`appdevcontrolflow`). When triggered, this metadata
-is fetched in real time and appended to the backend service POST request JSON.
+is fetched in realtime and appended to the backend service POST request JSON.
 
 The ``Notify`` object structure defines how the button interacts with the notification
 indication system.
@@ -219,7 +219,7 @@ execution, and ``FireEvents`` dispatches *x0-events* to interact with the intern
    +---------------------+----------------------+-------------------------------------------------+
    | OnClick             | URL-String           | Backend Service URL                             |
    +---------------------+----------------------+-------------------------------------------------+
-   | SrcDataObjects      | Type dependend       | Generic *Source Data Objects* Integration       |
+   | SrcDataObjects      | Type dependent       | Generic *Source Data Objects* Integration       |
    +---------------------+----------------------+-------------------------------------------------+
    | Notify              | Object               | Notify Indicator Configuration                  |
    +---------------------+----------------------+-------------------------------------------------+
@@ -239,6 +239,24 @@ to be set (see :ref:`event-actions`).
 11.3.3. JSON Examples
 *********************
 
+.. code-block:: javascript
+
+   "ExampleButton":
+   {
+      "Type": "Button",
+      "Attributes":
+      {
+         "TextID": "TXT.BUTTON1",
+         "Style": "btn btn-primary btn-lg w-100 mt-3",
+         "IconStyle": "fa-solid fa-floppy-disk",
+         "OnClick": "/python/saveSettings.py",
+         "RequestMethod": "POST",
+         "Notify": {
+            "ID": "SaveSystemSettings",
+            "DisplayHeaderID": "TXT.NOTIFYMSG.SAVE_SYSTEMSETTINGS"
+         }
+      }
+   }
 
 .. _objecttype-buttoninternal:
 
@@ -251,7 +269,7 @@ lacks backend functionality; otherwise, its behavior is identical.
 11.4.1. Object Attributes
 *************************
 
-.. table:: Object Type Button Attributes
+.. table:: Object Type ButtonInternal Attributes
    :widths: 15 15 70
 
    +---------------------+----------------------+-------------------------------------------------+
@@ -279,6 +297,25 @@ lacks backend functionality; otherwise, its behavior is identical.
    +---------------------+----------------------+-------------------------------------------------+
    | FireEvents          | Array of EventIDs    | Array of EventIDs / Reactor Integration         |
    +---------------------+----------------------+-------------------------------------------------+
+
+11.4.2. JSON Examples
+*********************
+
+.. code-block:: javascript
+
+   "ExampleButtonInternal":
+   {
+      "Type": "ButtonInternal",
+      "Attributes":
+      {
+         "TextID": "TXT.BUTTON.EXAMPLE1",
+         "Style": "btn btn-primary w-100 mt-2 mb-2",
+         "IconStylePost": "fa-solid fa-arrow-down",
+         "Action": "append",
+         "SrcDataObject": "SourceObjectID",
+         "DstDataObject": "DestinationObjectID"
+      }
+   }
 
 .. _objecttype-buttoncallback:
 
@@ -496,8 +533,8 @@ to the same generic ``sysPagination`` mechanism documented in :ref:`realtime-pag
 toggling already-rendered rows between pages without a backend reload.
 
 It also supports runtime data manipulation via ``getObjectData()`` / ``setObjectData()``
-to append rows in real time, e.g., by using *x0-actions* in ``Button`` or ``ButtonInternal``
-*x0-object-types* **or** by using *x0-context-menu* configuration.
+to append rows in realtime, e.g., by using *x0-actions* in ``Button`` or ``ButtonInternal``
+*x0-object-type*'s **or** by using *x0-context-menu* configuration.
 
 When specifying the ``ErrorContainer`` attribute, occurring errors—such as exceeding
 the maximum allowed row count—will trigger the error output there. Like any other
@@ -643,7 +680,7 @@ To **connect** a single object to a single ``Tab``, reference the object inside
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | ID                  | Array of Elements    | Tab Identifier                                  |
+   | ID                  | String               | Tab Identifier                                  |
    +---------------------+----------------------+-------------------------------------------------+
    | Default             | Boolean              | Default "selected" Tab                          |
    +---------------------+----------------------+-------------------------------------------------+
@@ -681,7 +718,7 @@ instances:
                "ID": "Tab2",
                "Attributes":
                {
-                  "TextID": "TXT.TABCONTAINER.NUMBER1",
+                  "TextID": "TXT.TABCONTAINER.NUMBER2",
                   "Style": "col-md-6",
                   "IconStyle": "fa-solid fa-link"
                }
@@ -747,7 +784,7 @@ nested :ref:`objecttype-progressbar` instance.
 
 Invoking ``startUpload()`` dispatches an asynchronous ``XMLHttpRequest`` POST
 request to ``UploadScript``. During transmission, upload progress events update
-the inner progress bar in real time via ``updateProgress()``, while the
+the inner progress bar in realtime via ``updateProgress()``, while the
 ``Status`` attribute transitions through ``init`` → ``uploading`` →
 ``success`` / ``failed`` → ``finished`` as the request resolves.
 
@@ -920,7 +957,7 @@ Expandable/collapsible containers that can contain other nodes or items:
    +---------------------+----------------------+-------------------------------------------------+
    | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
    +---------------------+----------------------+-------------------------------------------------+
-   | Icon                | CSS-String           | FontAwesome Icon CSS Classes                    |
+   | Icon                | CSS-String           | Font Awesome Icon CSS Classes                   |
    +---------------------+----------------------+-------------------------------------------------+
    | Children            | Array of Elements    | Array of child Node and Item elements           |
    +---------------------+----------------------+-------------------------------------------------+
@@ -940,7 +977,7 @@ Interactive navigation elements that trigger screen navigation:
    +---------------------+----------------------+-------------------------------------------------+
    | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
    +---------------------+----------------------+-------------------------------------------------+
-   | Icon                | CSS-String           | FontAwesome Icon CSS Classes                    |
+   | Icon                | CSS-String           | Font Awesome Icon CSS Classes                   |
    +---------------------+----------------------+-------------------------------------------------+
    | DstScreenID         | ScreenID-String      | Target Screen for navigation                    |
    +---------------------+----------------------+-------------------------------------------------+
@@ -1020,12 +1057,12 @@ When using ``DivUnique``, the resulting DOM IDs remain unaltered: ``Object1ID``,
 single-container modeling within the declarative scope of ``object.json``.
 
 When using ``DivUnique`` inside the **programmatic** scope (building custom
-*x0-object-type*s), the implementor must **ensure** the uniqueness of each
+*x0-object-type*'s), the implementor must **ensure** the uniqueness of each
 assigned ObjectID (e.g., for dynamically created row containers). In contrast,
 the standard ``Div`` *x0-object-type* is explicitly used in nested programmatic
 setups as an intermediate structural layer without logic. This concept is
-described in detail in the system developer documentation under "Development
-Best Practices" (see :ref:`dev-object-nesting`).
+described in detail in the system developer documentation under “Development
+Best Practices“ (see :ref:`dev-object-nesting`).
 
 11.15.1. Object Attributes
 **************************
@@ -1472,11 +1509,11 @@ each consisting of:
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | ID                  | TextID-String        | Row description, referenced in ``webui.text``   |
+   | ID                  | TextID-String        | Text ID, referenced in ``webui.text``           |
    +---------------------+----------------------+-------------------------------------------------+
-   | Style               | CSS-String           | CSS Style Classes applied to the container      |
+   | Style               | CSS-String           | CSS Style Classes                               |
    +---------------------+----------------------+-------------------------------------------------+
-   | IconStyle           | Array of Elements    | Array of ``{ID, Style, IconStyle}`` paragraphs  |
+   | IconStyle           | CSS-String           | Font Awesome Icon CSS for Prepend Icon          |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.23.3. JSON Examples
@@ -1640,7 +1677,7 @@ Its full event-registration and dispatch mechanics are documented in
 The ``TimedProgress`` *x0-object-type*
 (``/www/userObjExampleTimedProgress.js``) renders a self-contained,
 periodically auto-incrementing progress indicator composed of a core
-:ref:`objecttype-progressbar` instance, a ``sysFormfieldItemLabel``, and a
+:ref:`objecttype-progressbar` instance, a ``FormfieldItemLabel``, and a
 callback-bound :ref:`objecttype-buttoninternal` trigger.
 
 11.27.1. Object Attributes
@@ -1680,7 +1717,7 @@ The ``ExampleWizard`` *x0-object-type* (``/www/userObjExampleWizard.js``)
 renders a step-controlled, multi-tab wizard pattern built on top of
 :ref:`objecttype-tabcontainer` and :ref:`objecttype-progressbar` instances.
 
-It inherits from ``sysObjDivUnique``, tracks the active step via an internal
+It inherits from ``DivUnique``, tracks the active step via an internal
 ``StepIndex`` and ``StepCount`` state pair, and enforces per-step form
 validation through its ``ValidateForm`` array before permitting forward
 navigation.
@@ -1690,7 +1727,7 @@ navigation.
    be viewed inside the *x0-static* Docker container at ``http://localhost/``
    once started.
 
-11.28.2. JSON Examples
+11.28.1. JSON Examples
 **********************
 
 .. code-block:: javascript
@@ -1712,11 +1749,11 @@ in-place editable row—displaying an image, header text, and content text—tha
 serves as the per-row template for
 :ref:`objecttype-exampleeditableitemcontainer`.
 
-It inherits from ``sysObjDivUnique`` and supports a switchable edit mode.
+It inherits from ``DivUnique`` and supports a switchable edit mode.
 
 .. warning::
    ``ExampleEditableItem`` serves as a demonstration of a *complex, nested*,
-   *real-time editable* **and** *paginateable* **x0-object** and and must be
+   *realtime editable* **and** *paginated* **x0-object** and must be
    treated as **experimental**.
 
 11.29.1. Object Attributes
@@ -1764,7 +1801,7 @@ The ``ExampleEditableItemContainer`` *x0-object-type*
 (``/www/userObjExampleEditableItemContainer.js``) renders the paginated
 container counterpart to :ref:`objecttype-exampleeditableitem` instances.
 
-It inherits from ``sysObjDivUnique`` and integrates a ``sysPagination``
+It inherits from ``DivUnique`` and integrates a ``sysPagination``
 instance. In addition, it exposes the standard runtime data API using
 ``SetDataMechanism: 'Plain'`` and routes both ``RuntimeSetDataFunc`` and
 ``RuntimeAppendDataFunc`` through its internal ``addItem()`` method, allowing
@@ -1790,7 +1827,7 @@ rows.
    +---------------------+----------------------+-------------------------------------------------+
    | HeaderStyle         | CSS-String           | CSS Style Classes for the header text           |
    +---------------------+----------------------+-------------------------------------------------+
-   | HeaderIconStyle     | CSS-String           | FontAwesome icon style for the header           |
+   | HeaderIconStyle     | CSS-String           | Font Awesome icon style for the header          |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.30.2. JSON Examples
@@ -1803,7 +1840,7 @@ rows.
       "Type": "ExampleEditableItemContainer",
       "Attributes":
       {
-         "HeaderTextID": "TXT.HEADER.EXAMPLES_BASIC_EDITABLE_TEMPLATE1_HEADER",
+         "HeaderTextID": "TXT.HEADER1",
          "HeaderStyle": "h3 text-primary-emphasis",
          "HeaderIconStyle": "fa-solid fa-card-shopping"
       }
@@ -1819,11 +1856,11 @@ The ``ExampleFlightDetails`` *x0-object-type*
 summary row—displaying an airline icon, airline name, flight number, and
 airport.
 
-It inherits from ``sysObjDivUnique`` and is used for demonstration purposes
+It inherits from ``DivUnique`` and is used for demonstration purposes
 inside a parent :ref:`objecttype-list` column container.
 
 .. warning::
-   ``ExampleFlightStatus`` serves as a demonstration of a *status-display*
+   ``ExampleFlightDetails`` serves as a demonstration of a *status-display*
    *container* and must be treated as **experimental**.
 
 11.31.1. Object Attributes
@@ -1865,7 +1902,7 @@ The ``ExampleFlightStatus`` *x0-object-type*
 (``/www/userObjExampleFlightData.js``) renders a status badge—composed of a
 colored indicator circle, status type, and time.
 
-It inherits from ``sysObjDivUnique`` and derives both its border color and
+It inherits from ``DivUnique`` and derives both its border color and
 inner text color from the ``Value.Alert`` Bootstrap contextual color keyword
 (e.g., ``success``, ``warning``, or ``danger``).
 
@@ -1948,7 +1985,7 @@ The ``ExamplePeopleSelector`` *x0-object-type*
 roster of selectable collaborator rows—each displaying an image, a name, and
 localized text—within a closable overlay-style header and body layout.
 
-It inherits from ``sysObjDivUnique`` and is typically instantiated inside an
+It inherits from ``DivUnique`` and is typically instantiated inside an
 :ref:`appdevoverlay` container.
 
 .. warning::
