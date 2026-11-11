@@ -5,13 +5,13 @@
 17. Forms
 =========
 
-Providing forms for today's modern cloud applications is no longer the
-static process it was years ago. If your application does not supply real-time,
-modifiable forms—including content-based, dynamically reloading sub-content and specifically
-highlighting areas upon user errors—the user experience will be rated poorly. Many frameworks
-remain far too data-centric (such as SAP), making them look like tax forms from 1992.
-Conversely, modern frameworks that rely too heavily on raw CSS and HTML5 often provide
-a poor data-driven model, which is also undesirable.
+Providing forms for today's modern cloud applications is no longer the static
+process it was years ago. If your application does not supply realtime,
+modifiable forms—capable of dynamically reloading sub-content based on user
+input and highlighting specific areas upon validation errors—the user experience
+will suffer. Many frameworks remain far too data-centric, resulting in poor
+usability. Conversely, modern frameworks that rely too heavily on raw CSS and
+HTML5 often provide a weak data-driven model, which is equally undesirable.
 
 The *x0-framework* combines these two worlds, providing an ultra-flexible, OOP-based
 design model with two distinct development approaches:
