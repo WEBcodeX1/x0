@@ -76,7 +76,7 @@ network boundaries.
 -------------------------------
 
 The primary application development paradigm in *x0* (see
-:ref:`appdev-main-concept`), in which entire applications are assembled from
+:ref:`main-concept`), in which entire applications are assembled from
 pre-existing *x0-system-objects* using static JSON metadata files
 (``object.json``, ``skeleton.json``, ``menu.json``) without writing custom
 JavaScript.
@@ -246,7 +246,7 @@ of objects on hidden pages.
 28.23. Real-Time Templating Engine (RTTE)
 -----------------------------------------
 
-The core browser-side rendering concept of *x0* (see :ref:`intro`), replacing
+The core browser-side rendering concept of *x0* (see :ref:`abstract`), replacing
 server-side string template replacement with live, metadata-driven JavaScript
 object hierarchies that can be mutated and re-rendered (``rerenderObject()``)
 in real time without bundling or page reloads.

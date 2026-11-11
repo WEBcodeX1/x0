@@ -1,5 +1,7 @@
 .. intro
 
+.. _intro:
+
 1. x0 Framework
 ===============
 
@@ -66,6 +68,8 @@ suited for teams prioritizing modular development, robust object-oriented princi
 and efficient cross-object communication, while maintaining lightweight and responsive
 design principles. It is also well-suited for embedded and microcontroller web interface
 development where resource constraints demand minimal overhead.
+
+.. _abstract:
 
 1.3. Abstract
 -------------
