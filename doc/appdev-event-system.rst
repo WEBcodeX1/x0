@@ -353,12 +353,36 @@ to the backend. Specify the source screen with ``ScreenID``:
 15.6.6. Examples
 ****************
 
+The most simple way, defining multiple ObjectIDs as **array type**:
+
+.. code-block:: javascript
+
+   "ExampleArrayOfObjects":
+   {
+      "Type": "FormfieldList",
+      "Attributes":
+      {
+         "ObjectIDs": [
+            "FormfieldLabel1",
+            "Formfield1"
+         ],
+         "Style": "border rounded p-2",
+         "SrcDataObjects":
+         [
+            "RefFormfieldList",
+            "RefList",
+            "RefSingleObject1",
+            "RefSingleObject2"
+         ]
+      }
+   }
+
 The following example shows a ``FormfieldList`` configuration with a single referenced
 object and three hardcoded values: "LimitRows", "DateFrom", and "DateTo":
 
 .. code-block:: javascript
 
-   "ReceiverObjectID":
+   "ExampleMultiObject":
    {
       "Type": "FormfieldList",
       "Attributes":
