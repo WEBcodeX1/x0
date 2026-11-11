@@ -85,11 +85,11 @@ the label's (multilanguage) text and optional icon.
    +==============+===============+====================================================================+
    | Style        | CSS-String    | CSS Classes applied to the ``<label>`` element                     |
    +--------------+---------------+--------------------------------------------------------------------+
-   | TextStyle    | CSS-String    | Text CSS Classes (child :ref:`objecttype-text` element)            |
+   | TextStyle    | CSS-String    | Text CSS Classes                                                   |
    +--------------+---------------+--------------------------------------------------------------------+
-   | IconStyle    | CSS-String    | Icon CSS Classes (child :ref:`objecttype-text` element)            |
+   | IconStyle    | CSS-String    | Icon CSS Classes                                                   |
    +--------------+---------------+--------------------------------------------------------------------+
-   | TextID       | TextID-String | TextID from "webui.text" DB Table (child :ref:`objecttype-text`    |
+   | TextID       | TextID-String | TextID from "webui.text" DB Table                                  |
    +--------------+---------------+--------------------------------------------------------------------+
 
 .. _formfield-textarea:
