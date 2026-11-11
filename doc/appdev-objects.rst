@@ -88,9 +88,9 @@ in detail in the system-developers documentation under “Development Best Pract
    +=====================+======================+=================================================+
    | DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
    +---------------------+----------------------+-------------------------------------------------+
-   | Value               | String               | Value (innerHTML)                               |
-   +---------------------+----------------------+-------------------------------------------------+
    | Style               | CSS-String           | CSS Style Classes, space separated              |
+   +---------------------+----------------------+-------------------------------------------------+
+   | Value               | String               | Value (innerHTML)                               |
    +---------------------+----------------------+-------------------------------------------------+
 
 .. _objecttype-text:
@@ -805,7 +805,7 @@ None.
 
 .. code-block:: javascript
 
-   "$ObjectID":
+   "ExampleErrorContainer":
    {
       "Type": "ErrorContainer",
       "Attributes": {}
@@ -854,7 +854,7 @@ or collapsed when the *x0-screen* is initially rendered.
 
 .. code-block:: javascript
 
-   "OpenCloseElement1": {
+   "ExampleOpenCloseElement1": {
       "Type": "OpenCloseContainer",
       "Attributes": {
          "TextID": "TXT.OPENCLOSE1-HEADER"
@@ -863,7 +863,7 @@ or collapsed when the *x0-screen* is initially rendered.
 
 .. code-block:: javascript
 
-   "OpenCloseElement2": {
+   "ExampleOpenCloseElement2": {
       "Type": "OpenCloseContainer",
       "Attributes": {
          "Style": "mb-4",
@@ -1040,6 +1040,8 @@ Best Practices" (see :ref:`dev-object-nesting`).
    +---------------------+----------------------+-------------------------------------------------+
    | Style               | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
+   | Value               | String               | Value (innerHTML)                               |
+   +---------------------+----------------------+-------------------------------------------------+
 
 11.15.2. JSON Examples
 **********************
@@ -1080,7 +1082,7 @@ set to ``true``, resulting in identical DOM ID behavior.
    +---------------------+----------------------+-------------------------------------------------+
    | Style               | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
-   | Value               | String               | Initial Display/Data Value                      |
+   | Value               | String               | Initial Display / Data Value                    |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.16.2. Runtime API
@@ -1334,8 +1336,6 @@ To **connect** child objects inside ``skeleton.json``, reference the container
       "ElementID": "ExampleHeaderBodyContainerContent"
    }
 
-
-
 .. _objecttype-systemsettingscontainer:
 
 11.21. SystemSettingsContainer
@@ -1345,8 +1345,9 @@ The ``SystemSettingsContainer`` *x0-object-type* renders a list of labeled setti
 rows, each pairing a ``TextID`` description with an arbitrary nested *x0-system-object*
 (any entry of ``sysFactory.SetupClasses``, commonly ``FormfieldPulldown``,
 ``FormfieldCheckbox`` or :ref:`objecttype-rangeslider` /
-:ref:`objecttype-rangeslidercontainer`), plus per-row "reset" and "save" controls. It
-is the backing object for the static example's "Settings/Global Settings" screens.
+:ref:`objecttype-rangeslidercontainer`), plus per-row "reset" and "save" controls.
+
+It is the backing object for the static example's "Settings/Global Settings" screens.
 
 11.21.1. Object Attributes
 **************************
@@ -1554,10 +1555,13 @@ a context menu offering the same removal action (see :ref:`appdevcontextmenu`).
 11.26. ServiceConnector
 -----------------------
 
-The ``ServiceConnector`` *x0-object-type* binds a backend service call to a target
-*x0-system-object* (typically a ``List`` or a ``FormfieldList``), triggering the call
-whenever one of the configured system events fires (e.g. ``InitSystem``). Its full
-event-registration and dispatch mechanics are documented in :ref:`devoopmodel`.
+The ``ServiceConnector`` *x0-object-type* binds a backend service call to a
+target *x0-system-object* (currently supported *x0-object* types are ``List``
+and ``FormfieldList``), triggering the call whenever one of the configured
+system events fires (e.g., ``InitSystem``).
+
+Its full event-registration and dispatch mechanics are documented in
+:ref:`appdevserviceconnector`.
 
 11.26.1. Object Attributes
 **************************
@@ -1596,14 +1600,11 @@ event-registration and dispatch mechanics are documented in :ref:`devoopmodel`.
 11.27. TimedProgress
 --------------------
 
-The ``TimedProgress`` *x0-object-type* is a user-space demonstrator object
-(``/www/userObjExampleTimedProgress.js``) illustrating how the core
-:ref:`objecttype-progressbar` primitive can be composed with
-``sysFormfieldItemLabel`` and a callback-bound :ref:`objecttype-buttoninternal`
-into a self-contained, periodically auto-incrementing progress indicator. It
-inherits from ``sysObjDivUnique`` and is the first of several user-space
-example objects located under ``/www/userObj*.js`` documented in this and the
-following sections.
+The ``TimedProgress`` *x0-object-type*
+(``/www/userObjExampleTimedProgress.js``) renders a self-contained,
+periodically auto-incrementing progress indicator composed of a core
+:ref:`objecttype-progressbar` instance, a ``sysFormfieldItemLabel``, and a
+callback-bound :ref:`objecttype-buttoninternal` trigger.
 
 11.27.1. Object Attributes
 **************************
@@ -1639,18 +1640,18 @@ following sections.
 --------------------
 
 The ``ExampleWizard`` *x0-object-type* (``/www/userObjExampleWizard.js``)
-demonstrates a step-controlled, multi-tab wizard pattern built on top of
-:ref:`objecttype-tabcontainer` and :ref:`objecttype-progressbar`. It inherits
-from ``sysObjDivUnique``, tracks the active step via an internal
-``StepIndex``/``StepCount`` state pair and drives per-step form validation
-through its ``ValidateForm`` array before allowing forward navigation.
+renders a step-controlled, multi-tab wizard pattern built on top of
+:ref:`objecttype-tabcontainer` and :ref:`objecttype-progressbar` instances.
 
-11.28.1. Object Attributes
-**************************
+It inherits from ``sysObjDivUnique``, tracks the active step via an internal
+``StepIndex`` and ``StepCount`` state pair, and enforces per-step form
+validation through its ``ValidateForm`` array before permitting forward
+navigation.
 
-This object type currently accepts no configurable ``Attributes`` beyond the
-common base properties; step tabs, navigation buttons and the validated
-formfield-list IDs per step are wired internally.
+.. important::
+   ``ExampleWizard``, like any other example prefixed with ``Example*``, can
+   be viewed inside the *x0-static* Docker container at ``http://localhost/``
+   once started.
 
 11.28.2. JSON Examples
 **********************
@@ -1670,9 +1671,16 @@ formfield-list IDs per step are wired internally.
 
 The ``ExampleEditableItem`` *x0-object-type*
 (``/www/userObjExampleEditableItemContainer.js``) renders a single, optionally
-in-place editable row (image, header text and content text) used as the
-per-row template of :ref:`objecttype-exampleeditableitemcontainer`. It
-inherits from ``sysObjDivUnique`` and supports a switchable edit mode.
+in-place editable row—displaying an image, header text, and content text—that
+serves as the per-row template for
+:ref:`objecttype-exampleeditableitemcontainer`.
+
+It inherits from ``sysObjDivUnique`` and supports a switchable edit mode.
+
+.. warning::
+   ``ExampleEditableItem`` serves as a demonstration of a *complex, nested*,
+   *real-time editable* **and** *paginateable* **x0-object** and and must be
+   treated as **experimental**.
 
 11.29.1. Object Attributes
 **************************
@@ -1716,13 +1724,19 @@ inherits from ``sysObjDivUnique`` and supports a switchable edit mode.
 -----------------------------------
 
 The ``ExampleEditableItemContainer`` *x0-object-type*
-(``/www/userObjExampleEditableItemContainer.js``) is the paginated container
-counterpart to :ref:`objecttype-exampleeditableitem`. It inherits from
-``sysObjDivUnique``, integrates a ``sysPagination`` instance and exposes the
-common runtime data API (``SetDataMechanism: 'Plain'``,
-``RuntimeSetDataFunc``/``RuntimeAppendDataFunc`` both routed through its
-internal ``addItem()`` method) so new rows can be pushed in at runtime exactly
-like :ref:`objecttype-list` rows.
+(``/www/userObjExampleEditableItemContainer.js``) renders the paginated
+container counterpart to :ref:`objecttype-exampleeditableitem` instances.
+
+It inherits from ``sysObjDivUnique`` and integrates a ``sysPagination``
+instance. In addition, it exposes the standard runtime data API using
+``SetDataMechanism: 'Plain'`` and routes both ``RuntimeSetDataFunc`` and
+``RuntimeAppendDataFunc`` through its internal ``addItem()`` method, allowing
+new rows to be appended at runtime in the same way as :ref:`objecttype-list`
+rows.
+
+.. warning::
+   ``ExampleEditableItemContainer`` serves as a demonstration of a
+   *runtime editable container* and must be treated as **experimental**.
 
 11.30.1. Object Attributes
 **************************
@@ -1764,10 +1778,15 @@ like :ref:`objecttype-list` rows.
 
 The ``ExampleFlightDetails`` *x0-object-type*
 (``/www/userObjExampleFlightData.js``) renders a single, read-only flight
-summary row (airline icon, airline name, flight number and airport) from a
-single ``Value`` object. It inherits from ``sysObjDivUnique`` and is typically
-used as a repeated row inside a parent :ref:`objecttype-list` or
-:ref:`objecttype-div` layout.
+summary row—displaying an airline icon, airline name, flight number, and
+airport.
+
+It inherits from ``sysObjDivUnique`` and is used for demonstration purposes
+inside a parent :ref:`objecttype-list` column container.
+
+.. warning::
+   ``ExampleFlightStatus`` serves as a demonstration of a *status-display*
+   *container* and must be treated as **experimental**.
 
 11.31.1. Object Attributes
 **************************
@@ -1805,12 +1824,16 @@ used as a repeated row inside a parent :ref:`objecttype-list` or
 --------------------------
 
 The ``ExampleFlightStatus`` *x0-object-type*
-(``/www/userObjExampleFlightData.js``) renders a status badge (colored
-indicator circle, status type and time) sharing its parent file with
-:ref:`objecttype-exampleflightdetails`. It inherits from ``sysObjDivUnique``
-and derives both its border color and inner text color from the
-``Value.Alert`` Bootstrap contextual-color keyword (for example ``success``,
-``warning`` or ``danger``).
+(``/www/userObjExampleFlightData.js``) renders a status badge—composed of a
+colored indicator circle, status type, and time.
+
+It inherits from ``sysObjDivUnique`` and derives both its border color and
+inner text color from the ``Value.Alert`` Bootstrap contextual color keyword
+(e.g., ``success``, ``warning``, or ``danger``).
+
+.. warning::
+   ``ExampleFlightStatus`` serves as a demonstration of a *status-display*
+   *container* and must be treated as **experimental**.
 
 11.32.1. Object Attributes
 **************************
@@ -1847,13 +1870,13 @@ and derives both its border color and inner text color from the
 --------------------------
 
 The ``ExampleCardTasklist`` *x0-object-type*
-(``/www/userObjExampleCardTasklists.js``) implements a Kanban-style card with
-badge selection, collaborator selection and one or more nested, independently
-addable tasklists/tasks. It inherits from ``sysObjDivUnique`` and composes
-:ref:`objecttype-image`, :ref:`objecttype-badgeselector` and
-:ref:`objecttype-examplepeopleselector` internally; the card itself exposes
-``selectBadges()``, ``selectColaborators()``, ``addTasklist()`` and
-``saveData()`` callback-bound actions.
+(``/www/userObjExampleCardTasklists.js``) renders a Kanban-style card with
+badge selection, collaborator selection, and one or more nested, independently
+addable tasklists and tasks.
+
+.. warning::
+   ``ExampleCardTasklist`` serves as a demonstration of a *complex, nested object*
+   *interaction* and must be treated as **experimental**.
 
 11.33.1. Object Attributes
 **************************
@@ -1884,10 +1907,15 @@ addable tasklists/tasks. It inherits from ``sysObjDivUnique`` and composes
 
 The ``ExamplePeopleSelector`` *x0-object-type*
 (``/www/userObjExamplePeopleSelector.js``) renders a fixed, non-overridable
-roster of selectable collaborator rows (each with an image, name and
-localized text) inside a closable overlay-style header/body layout. It
-inherits from ``sysObjDivUnique`` and is typically instantiated inside a
-:ref:`appdevoverlay`.
+roster of selectable collaborator rows—each displaying an image, a name, and
+localized text—within a closable overlay-style header and body layout.
+
+It inherits from ``sysObjDivUnique`` and is typically instantiated inside an
+:ref:`appdevoverlay` container.
+
+.. warning::
+   ``ExamplePeopleSelector`` serves as a demonstration of an *overlay-select*
+   *container* and must be treated as **experimental**.
 
 11.34.1. Object Attributes
 **************************
