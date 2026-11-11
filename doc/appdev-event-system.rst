@@ -59,6 +59,10 @@ and the HTTP POST payload can be configured using the internal x0 ``SourceDataOb
 mechanism to smartly append structures (e.g., to provide filtering parameters) to the
 backend service calls.
 
+The ``sysCallXMLRPC()`` *x0-system-call* evaluates the backend return status. Upon success,
+it executes the originating *x0-object* instance's statically named ``callbackXMLRPCAsync()``
+method, continuing the program flow directly inside the object (OOP style).
+
 The following example demonstrates a working setup using a ``FormfieldList`` object as the
 receiver type; however, any *x0-producer-type* can trigger events for it (see :ref:`eventproducertypes`).
 
