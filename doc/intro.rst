@@ -22,7 +22,7 @@ metadata, and custom application code, the total deployment size remains under
 renders completely within the client browser, it is perfectly suited for
 **resource-constrained** environments like embedded **microcontroller** web interfaces.
 
-An example of an x0-application-driven, browser-controlled multiplayer PONG game
+An example of an *x0-application* driven, browser-controlled multiplayer PONG game
 running on an **ESP32-S3** microcontroller using the ESP-IDF framework (with embedded
 *MicroPython*) can be found at the
 `micropython-as <https://github.com/WEBcodeX1/micropython-as>`_ project.
@@ -70,13 +70,13 @@ development where resource constraints demand minimal overhead.
 1.3. Abstract
 -------------
 
-The x0-system is a cutting-edge JavaScript framework designed to simplify the
+The *x0-system* is a cutting-edge JavaScript framework designed to simplify the
 development of real-time Single Page Applications (SPAs). By leveraging cross-object
 communication, responsive design principles, and object-oriented DOM manipulation,
 it offers developers a powerful toolset for creating modular, scalable, and highly
 interactive web applications. With seamless integration of Bootstrap 5.3 (without
 JavaScript dependencies), multi-language support, and deployment solutions like
-Docker and Kubernetes, the x0-system is tailored for modern web development needs.
+Docker and Kubernetes, the *x0-system* is tailored for modern web development needs.
 
 1.4. Performance
 ----------------
@@ -112,7 +112,7 @@ To establish a baseline under unoptimized conditions, a preliminary benchmark wa
 conducted using a standard CPU test configuration. On the server side, the application is
 hosted within a **containerized runtime served inside a Linux Virtual Machine (VM)**,
 executed on a current **13th Generation Intel Core i9** processor. On the client side,
-measurements were performed externally — on the same physical hardware-machine — from a
+measurements were performed externally — on the same physical hardware — from a
 **Windows 11 Professional** environment, using the **Mozilla Firefox** browser as the
 measuring agent. The underlying static deployment configuration used for this measurement
 is defined within ``/docker/x0-static.dockerfile``, which serves the live, authoritative
