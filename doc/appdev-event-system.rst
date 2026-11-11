@@ -164,7 +164,7 @@ producer object triggers the **CustomEvent2** event (e.g., via a button click).
       ]
    }
 
-15.3.5. Callback Data
+15.3.4. Callback Data
 ---------------------
 
 Currently, it remains unclear how a) the data from the backend must be structured,

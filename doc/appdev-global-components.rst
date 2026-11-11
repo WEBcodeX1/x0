@@ -210,7 +210,7 @@ By embedding these text identifiers rather than literal strings, every notificat
 automatically adapts to the active user session's language without requiring any
 additional localization logic in the application configuration.
 
-14.4.4. Programmatic Integration
+14.4.3. Programmatic Integration
 ********************************
 
 Beyond declarative configurations, the *x0-notify-indication* system can also be

@@ -254,7 +254,7 @@ Here is how it works under the hood:
 - **Zero Delay:** Because this entire process happens directly inside your web browser (client-side), the change is immediate.
 - **No Server Load:** The system does not need to reload the page, refresh templates, or talk to the backend server at all. Everything updates instantly on your screen without a single network request.
 
-10.5. Systems Integration
+10.6. Systems Integration
 *************************
 
 Any *x0-system-object* (including hierarchical ones) can make use of the global grid
