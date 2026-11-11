@@ -145,8 +145,8 @@ This is the **most important** *x0-core* feature. It is documented in detail her
         optional recursive ``Prefix`` with the object's own ``ObjectID``. When
         ``overrideDOMObjectID`` is ``true``, the ``ObjectID`` is used directly as the
         ``DOMObjectID``. The ``Prefix`` argument is only ever supplied internally during recursion
-        and should not be passed on the initial, outside call.
-        A detailed explanation
+        and should not be passed on the initial, outside call. See :ref:`dev-object-nesting` for
+        a detailed explanation.
 
     2. Conditional Rendering:
         Ensures that the object is rendered only if its corresponding DOM element does not already exist.

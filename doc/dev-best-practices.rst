@@ -109,7 +109,7 @@ To illustrate this, we will proceed with configuration and code examples.
 24.4.1. Declarative Configuration
 *********************************
 
-A declarative confguration (here excerpt taken from ``DivUnique``) inside ``object.json``.
+A declarative configuration (shown here as an excerpt from ``DivUnique``) inside ``object.json``.
 
 .. code-block:: javascript
 
@@ -125,7 +125,7 @@ A declarative confguration (here excerpt taken from ``DivUnique``) inside ``obje
 This declarative configuration processed on *x0-init* initializes the object instance,
 automatically setting its internal ``ObjectID`` property to "ExampleRowContainer" and
 attaches the ``Attributes`` sub-configuration as ``JSONConfig.Attributes`` which afterwards
-is programmatically accessible from inside the objcect.
+is programmatically accessible from inside the object.
 
 24.4.2. Initialization
 **********************
@@ -174,9 +174,9 @@ we will explore this mechanism more thoroughly in a later section.
 Now, when using the programmatic approach, the implementor must use some aspects which are
 automatically processed by the *x0-init* process, these include:
 
-- setting the objects ``this.ObjectID`` property manually
-- calling the objects ``init()`` method manually
-- setting an objects ``this.ParentObject`` property manually
+- setting the object's ``this.ObjectID`` property manually
+- calling the object's ``init()`` method manually
+- setting an object's ``this.ParentObject`` property manually
 - consider setting ``this.overrideDOMObjectID`` property manually
 - connect the object manually via ``this.addObject(ObjectRef)``
 
@@ -241,8 +241,8 @@ Crucially for your further understanding, every single object in the entire syst
 24.5.2. Object Examples
 ***********************
 
-Lets take a look at the ``Div`` object's constructor (this object is part of the
-*x0-frameworks* early implementation stage).
+Let's take a look at the ``Div`` object's constructor (this object is part of the
+*x0-framework's* early implementation stage).
 
 .. code-block:: javascript
 
@@ -262,9 +262,10 @@ Lets take a look at the ``Div`` object's constructor (this object is part of the
 
 As you can see,
 
+.. _dev-object-nesting:
 
-24.6. Object Chaining Rules
----------------------------
+24.6. Object Nesting
+--------------------
 
 24.6.1. Direct Referencing
 **************************

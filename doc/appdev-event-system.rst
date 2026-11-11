@@ -36,7 +36,7 @@ properties of the event producer (direct ``JSONConfig``) from those of the event
 
 The following chapters document the **Declarative Configuration** (for backend-related
 receivers). The **Programmatic Implementation** (for custom-setup *x0-objects*) can be
-found in the system developer's guide (see: ).
+found in the system developer's guide (see: :ref:`devarchitecture`).
 
 .. important::
    The illustration above shows the *x0-object-type* ``List`` with the name **List1**,
