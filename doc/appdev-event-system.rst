@@ -381,7 +381,7 @@ The most simple way, defining multiple ObjectIDs as **array type**:
    }
 
 The following example shows a ``FormfieldList`` configuration with a single referenced
-object and three hardcoded values: "LimitRows", "DateFrom", and "DateTo":
+object and three hardcoded values: ``LimitRows``, ``DateFrom``, and ``DateTo``:
 
 .. code-block:: javascript
 
@@ -589,8 +589,7 @@ When passing ``Action`` as an **object**, multiple actions can be addressed.
 16.3. Control Flow
 ------------------
 
-The following actions are addressable. The required ``Attributes`` for the declarative
-configuration JSON are listed in the **Attributes** column of the following table.
+The following sections describe the control flow of ``Button`` and ``ButtonInternal``.
 
 .. _appdevactionbutton:
 
