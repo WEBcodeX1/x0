@@ -76,8 +76,8 @@ It should **never** be used directly in a **declarative configuration**—use
 ``DivUnique`` or ``DivValue`` instead. In **programmatic, custom**
 *x0-system-classes* the ``Div`` *x0-object-type* exclusively is used as a
 **between-element** in a multi-nested hierarchy. This concept is described in
-detail in the system-developers documentation under “Development Best
-Practices” :ref:`dev-object-nesting`.
+detail in the system-developers documentation under "Development Best
+Practices" :ref:`dev-object-nesting`.
 
 11.1.1. Object Attributes
 *************************
@@ -1075,8 +1075,8 @@ When using ``DivUnique`` inside the **programmatic** scope (building custom
 assigned ObjectID (e.g., for dynamically created row containers). In contrast,
 the standard ``Div`` *x0-object-type* is explicitly used in nested programmatic
 setups as an intermediate structural layer without logic. This concept is
-described in detail in the system developer documentation under “Development
-Best Practices“ (see :ref:`dev-object-nesting`).
+described in detail in the system developer documentation under "Development
+Best Practices" (see :ref:`dev-object-nesting`).
 
 11.15.1. Object Attributes
 **************************

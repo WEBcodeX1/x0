@@ -170,7 +170,7 @@ of a **row** container div.
 
    "RowStyle": [ "row fw-bold", "row" ],
    "RowAfterElements": [ 1, 2 ],
-   "ColStyle": "col-md-12"
+   "ColStyle": "col-md-12",
    "ColAfterElements": [ 1, 2 ]
 
 .. code-block:: html
@@ -204,7 +204,7 @@ of a **row** container div.
 .. code-block:: javascript
 
    "RowStyle": "row",
-   "RowAfterElements": [ 2, 4 ]
+   "RowAfterElements": [ 2, 4 ],
    "ColStyle": [
       "col-md-5",
       "col-md-7",

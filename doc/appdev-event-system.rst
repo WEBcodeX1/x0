@@ -430,7 +430,7 @@ object and three hardcoded values: "LimitRows", "DateFrom", and "DateTo":
 16.1. Overview
 --------------
 
-The following actions are adressable, which ``Attributes`` must be used inside
+The following actions are addressable, which ``Attributes`` must be used inside
 the declarative configuration JSON is listed in the following tables **Attributes** column.
 
 .. table:: Actions References

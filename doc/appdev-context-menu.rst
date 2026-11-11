@@ -65,6 +65,7 @@ looks like this:
 .. code-block:: javascript
 
    "ContextMenuItems":
+   [
      {
        "ID": "EditItem",
        "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.EDIT_DATA",
@@ -237,11 +238,11 @@ pairs based on this ``KeyID``.
 Supported **Internal Functions**:
 
     get-data
-        Reads key/value structured data from ``FormfieldItems`` into the clipboard).
+        Reads key/value structured data from ``FormfieldItems`` into the clipboard.
     set-data
         Updates the key-matching ``FormfieldItems`` inside the ``FormfieldList`` with key/value structured data.
     get-set-data
-        Works only when specified as ``DestObjectID`` in the source object.
+        Works only when specified as ``DstObjectID`` in the source object.
     reset
         Resets all ``FormfieldItems`` to their default values.
 

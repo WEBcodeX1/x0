@@ -54,7 +54,7 @@ to ``type="text"``. See :ref:`formfield-global` for inherited attributes.
    +-------------------+---------------+----------------------------------------------------------------+
    | MaxLength         | Integer       | Maximum Length Character Count                                 |
    +-------------------+---------------+----------------------------------------------------------------+
-   | Number            | Boolean       | Switches the HTML input "type" to 'number'                     |
+   | Number            | Boolean       | Switches the HTML input "type" to "number"                     |
    +-------------------+---------------+----------------------------------------------------------------+
    | Disabled          | Boolean       | Set HTML Form "disabled" Property                              |
    +-------------------+---------------+----------------------------------------------------------------+
@@ -241,7 +241,7 @@ of type ``hidden``. See :ref:`formfield-global` for inherited attributes.
 12.8. Global Formfield Attributes
 ---------------------------------
 
-Global ``FormfielItem`` properties, valid for **any** sub-type of ``FormfielItem``.
+Global ``FormfieldItem`` properties, valid for **any** sub-type of ``FormfieldItem``.
 
 .. table:: Global Formfield Attributes
    :widths: 15 10 75

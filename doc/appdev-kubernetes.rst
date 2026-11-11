@@ -136,7 +136,7 @@ Database related properties.
    +---------------------+----------------------+-------------------------------------------------+
    | x0_password         | DB-Password String   | Web Application User Password used by x0 App    |
    +---------------------+----------------------+-------------------------------------------------+
-   | repl_password       | DB-Password String   | Kubergres Replication Password                  |
+   | repl_password       | DB-Password String   | Kubegres Replication Password                   |
    +---------------------+----------------------+-------------------------------------------------+
 
 20.2.5. Environment Element
