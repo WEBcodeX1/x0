@@ -98,8 +98,8 @@ and ``menu.json`` files:
 If a test requires backend (Python) scripts, they must be added to the global Python
 script directory: ``./test/integration/python/${script_name}.py``.
 
-25.2.5. Building the Test
-*************************
+25.2.5. Test Building
+*********************
 
 After storing your test *x0-application* configuration in the correct locations,
 *x0-system* must be re-built. This happens automatically when you build all docker images.
