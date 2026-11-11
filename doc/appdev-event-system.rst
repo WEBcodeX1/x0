@@ -289,8 +289,7 @@ Reference multiple *x0-objects* easily by only applying an **array** of object I
 15.6.2. Single Object
 *********************
 
-Use the ``GlobalObject`` SrcDataObject type to include hardcoded values in
-a backend request:
+Use the ``GlobalObject`` ``SrcDataObject`` type to reference a **single** object only.
 
 .. code-block:: javascript
 
@@ -305,7 +304,7 @@ a backend request:
 15.6.3. Hardcoded Values
 ************************
 
-Use the ``HardcodedValues`` SrcDataObject type to include hardcoded values in
+Use the ``HardcodedValues`` ``SrcDataObject`` type to include hardcoded values in
 a backend request:
 
 .. code-block:: javascript
@@ -324,7 +323,7 @@ a backend request:
 15.6.4. Global Variables
 ************************
 
-Use the ``GlobalVar`` SrcDataObject type to include individual application-wide
+Use the ``GlobalVar`` ``SrcDataObject`` type to include individual application-wide
 global variables in a backend request:
 
 .. code-block:: javascript
@@ -340,7 +339,7 @@ global variables in a backend request:
 15.6.5. Global Screen Variables
 *******************************
 
-Use the ``ScreenGlobalVar`` SrcDataObject type to forward a screen-level variable
+Use the ``ScreenGlobalVar`` ``SrcDataObject`` type to forward a screen-level variable
 to the backend. Specify the source screen with ``ScreenID``:
 
 .. code-block:: javascript
