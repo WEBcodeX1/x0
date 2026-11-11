@@ -71,7 +71,7 @@ to ``type="text"``. See :ref:`formfield-global` for inherited attributes.
 --------------------
 
 The ``FormfieldLabel`` *x0-object-type* renders an HTML ``<label>`` element for form
-inputs. Internally it instantiates a child :ref:`object-text` object to render
+inputs. Internally it instantiates a child :ref:`objecttype-text` object to render
 the label's (multilanguage) text and optional icon.
 
 12.2.1. Object Attributes
@@ -85,11 +85,11 @@ the label's (multilanguage) text and optional icon.
    +==============+===============+====================================================================+
    | Style        | CSS-String    | CSS Classes applied to the ``<label>`` element                     |
    +--------------+---------------+--------------------------------------------------------------------+
-   | TextStyle    | CSS-String    | Text CSS Classes (child :ref:`object-text` element)                |
+   | TextStyle    | CSS-String    | Text CSS Classes (child :ref:`objecttype-text` element)            |
    +--------------+---------------+--------------------------------------------------------------------+
-   | IconStyle    | CSS-String    | Icon CSS Classes (child :ref:`object-text` element)                |
+   | IconStyle    | CSS-String    | Icon CSS Classes (child :ref:`objecttype-text` element)            |
    +--------------+---------------+--------------------------------------------------------------------+
-   | TextID       | TextID-String | TextID from "webui.text" DB Table (child :ref:`object-text`        |
+   | TextID       | TextID-String | TextID from "webui.text" DB Table (child :ref:`objecttype-text`    |
    +--------------+---------------+--------------------------------------------------------------------+
 
 .. _formfield-textarea:

@@ -1423,14 +1423,13 @@ configuration rows used for internal *x0-system* settings.
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | TextID              | TextID-String        | Row description, referenced in ``webui.text``   |
+   | TextID              | TextID-String        | Row description, referenced in "webui.text"     |
    +---------------------+----------------------+-------------------------------------------------+
    | Style               | CSS-String           | CSS Style Classes applied to the description    |
    +---------------------+----------------------+-------------------------------------------------+
    | IconStyle           | CSS-String           | Font Awesome Icon CSS                           |
    +---------------------+----------------------+-------------------------------------------------+
    | SettingsObject      | Object               | ``{ObjectType, Attributes}``, nested object     |
-   |                     |                      | instantiated from ``sysFactory.SetupClasses``   |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.21.3. JSON Examples
@@ -1523,7 +1522,7 @@ each consisting of:
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | ID                  | TextID-String        | Text ID, referenced in ``webui.text``           |
+   | ID                  | TextID-String        | Text ID, referenced in "webui.text"             |
    +---------------------+----------------------+-------------------------------------------------+
    | Style               | CSS-String           | CSS Style Classes                               |
    +---------------------+----------------------+-------------------------------------------------+

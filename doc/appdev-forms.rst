@@ -82,7 +82,7 @@ function reference (see :ref:`form-validation-types`), the item is **ready** for
 
 Triggering the validation process ultimately happens when a ``Button`` or ``ButtonInternal``
 *x0-object-type* (:ref:`objecttype-button` or :ref:`objecttype-buttoninternal`) has been
-configured to do so. See :ref:`appdevactions` for details on the logical control flow behavior.
+configured to do so. See :ref:`event-actions` for details on the logical control flow behavior.
 
 17.1.3. Group Validation
 ************************

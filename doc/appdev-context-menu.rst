@@ -31,7 +31,7 @@ only difference is the specific **position** where the configuration must be pla
 This entire section and all subsequent sub-chapters focus exclusively on the **declarative method**.
 This declarative concept is limited to standard *x0-system* objects. For advanced use cases,
 refer to the "Programmatic Integration" section within the System Developer documentation
-under "Best Practices" :ref:`devbestpractices` to see how to achieve fine-grained control
+under "Best Practices" :ref:`dev-bestpractices` to see how to achieve fine-grained control
 inside your custom *x0-objects*.
 
 .. important::

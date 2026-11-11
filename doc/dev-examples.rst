@@ -2,7 +2,7 @@
 
 .. _devexamples:
 
-28. Developing Examples
+26. Developing Examples
 =======================
 
 This section provides guidelines for **creating and structuring examples**
@@ -10,13 +10,13 @@ within the *x0-framework*. These examples are critical for showcasing the
 framework's capabilities and providing developers with a reference for
 implementing features.
 
-28.1. Example Structure
+26.1. Example Structure
 ------------------------
 
 Each example should adhere to a well-defined structure to ensure consistency
 and ease of understanding. The structure includes the following components:
 
-28.1.1. App Configuration (Database)
+26.1.1. App Configuration (Database)
 ************************************
 
 - Define the system database configuration for the example.
@@ -37,7 +37,7 @@ Example SQL:
 
 Save this SQL script in: ``/examples/${example_app_id}/sql/01-sys-config.sql``.
 
-28.1.2. App Configuration (Static Files)
+26.1.2. App Configuration (Static Files)
 ****************************************
 
 Include the following static JSON configuration files:
@@ -48,7 +48,7 @@ Include the following static JSON configuration files:
 
 Place these files in: ``/examples/${example_app_id}/static/``.
 
-28.1.3. Database Data
+26.1.3. Database Data
 *********************
 
 If the example requires preloaded data, provide an SQL script to populate the database.
@@ -62,7 +62,7 @@ Example SQL:
 
 Save this SQL script in: ``/examples/${example_app_id}/sql/02-app-data.sql``.
 
-28.1.4. Backend Scripts
+26.1.4. Backend Scripts
 ***********************
 
 For examples with server-side functionality, include the necessary Python scripts.
@@ -73,7 +73,7 @@ These scripts should:
 
 Place the scripts in: ``/examples/example_app/python/``.
 
-28.2. Example Processing
+26.2. Example Processing
 -------------------------
 
 After storing your example *x0-application* configuration in the correct locations,
@@ -91,7 +91,7 @@ After building, restart the *x0-system*:
 	# start x0-app, x0-db containers
 	cd ./docker && ./x0-start-containers.sh
 
-28.3. Final Checklist
+26.3. Final Checklist
 ---------------------
 
 1. **Test the Example**:
