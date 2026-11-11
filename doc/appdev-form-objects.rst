@@ -1,6 +1,6 @@
 .. appdev-form-objects
 
-.. _appdevformobjects:
+.. _form-objects:
 
 12. Formfield Objects
 =====================
@@ -44,21 +44,21 @@ to ``type="text"``. See :ref:`formfield-global` for inherited attributes.
    +-------------------+---------------+----------------------------------------------------------------+
    | **Property**      | **Type**      | **Description**                                                |
    +===================+===============+================================================================+
-   | Type              | String        | Overrides HTML "type" attribute                                |
+   | Type              | String        | Overrides HTML ``type`` attribute                              |
    +-------------------+---------------+----------------------------------------------------------------+
-   | TextID            | TextID-String | TextID referenced in "webui.text" DB Table                     |
+   | TextID            | TextID-String | TextID referenced in ``webui.text`` DB Table                   |
    +-------------------+---------------+----------------------------------------------------------------+
    | Placeholder       | String        | Placeholder                                                    |
    +-------------------+---------------+----------------------------------------------------------------+
-   | PlaceholderTextID | TextID-String | Placeholder, TextID referenced in "webui.text" DB Table        |
+   | PlaceholderTextID | TextID-String | Placeholder, TextID referenced in ``webui.text`` DB Table      |
    +-------------------+---------------+----------------------------------------------------------------+
    | MaxLength         | Integer       | Maximum Length Character Count                                 |
    +-------------------+---------------+----------------------------------------------------------------+
-   | Number            | Boolean       | Switches the HTML input "type" to "number"                     |
+   | Number            | Boolean       | Switches the HTML input ``type`` to ``number``                 |
    +-------------------+---------------+----------------------------------------------------------------+
-   | Disabled          | Boolean       | Set HTML Form "disabled" Property                              |
+   | Disabled          | Boolean       | Set HTML Form ``disabled`` Property                            |
    +-------------------+---------------+----------------------------------------------------------------+
-   | ReadOnly          | Boolean       | Set HTML Form "readonly" Property                              |
+   | ReadOnly          | Boolean       | Set HTML Form ``readonly`` Property                            |
    +-------------------+---------------+----------------------------------------------------------------+
    | Min               | Integer       | Minimum Number Value                                           |
    +-------------------+---------------+----------------------------------------------------------------+
@@ -89,7 +89,7 @@ the label's (multilanguage) text and optional icon.
    +--------------+---------------+--------------------------------------------------------------------+
    | IconStyle    | CSS-String    | Icon CSS Classes                                                   |
    +--------------+---------------+--------------------------------------------------------------------+
-   | TextID       | TextID-String | TextID from "webui.text" DB Table                                  |
+   | TextID       | TextID-String | TextID from ``webui.text`` DB Table                                |
    +--------------+---------------+--------------------------------------------------------------------+
 
 .. _formfield-textarea:
@@ -109,19 +109,19 @@ form inputs. See :ref:`formfield-global` for inherited attributes.
    +-------------------+---------------+---------------------------------------------------------------+
    | **Property**      | **Type**      | **Description**                                               |
    +===================+===============+===============================================================+
-   | TextID            | TextID-String | TextID referenced in "webui.text" DB Table                    |
+   | TextID            | TextID-String | TextID referenced in ``webui.text`` DB Table                  |
    +-------------------+---------------+---------------------------------------------------------------+
    | Placeholder       | String        | Placeholder                                                   |
    +-------------------+---------------+---------------------------------------------------------------+
-   | PlaceholderTextID | TextID-String | Placeholder, TextID referenced in "webui.text" DB Table       |
+   | PlaceholderTextID | TextID-String | Placeholder, TextID referenced in ``webui.text`` DB Table     |
    +-------------------+---------------+---------------------------------------------------------------+
-   | Rows              | Integer       | HTML "rows" Attribute                                         |
+   | Rows              | Integer       | HTML ``rows`` Attribute                                       |
    +-------------------+---------------+---------------------------------------------------------------+
    | MaxLength         | Integer       | Maximum Length Character Count                                |
    +-------------------+---------------+---------------------------------------------------------------+
-   | Disabled          | Boolean       | Set HTML Form "disabled" Property                             |
+   | Disabled          | Boolean       | Set HTML Form ``disabled`` Property                           |
    +-------------------+---------------+---------------------------------------------------------------+
-   | ReadOnly          | Boolean       | Set HTML Form "readonly" Property                             |
+   | ReadOnly          | Boolean       | Set HTML Form ``readonly`` Property                           |
    +-------------------+---------------+---------------------------------------------------------------+
 
 .. _formfield-pulldown:
@@ -143,11 +143,11 @@ predefined options. See :ref:`formfield-global` for inherited attributes.
    +==================+===================+============================================================+
    | Options          | Array of Elements | Array of Option Elements                                   |
    +------------------+-------------------+------------------------------------------------------------+
-   | AddNoneItem      | Boolean           | Prepend an empty "none selected" Option Element            |
+   | AddNoneItem      | Boolean           | Prepend an empty Option Element                            |
    +------------------+-------------------+------------------------------------------------------------+
-   | AddNoneItemValue | String            | Value of the prepended "none" Option (default ``null``)    |
+   | AddNoneItemValue | String            | Value of the prepended Option Element (default ``null``)   |
    +------------------+-------------------+------------------------------------------------------------+
-   | AddNoneItemTxtID | TextID-String     | TextID of the prepended "none" Option                      |
+   | AddNoneItemTxtID | TextID-String     | TextID of the prepended Option Element                     |
    +------------------+-------------------+------------------------------------------------------------+
 
 12.4.2. Options Element
@@ -159,7 +159,7 @@ predefined options. See :ref:`formfield-global` for inherited attributes.
    +--------------+---------------+--------------------------------------------------------------------+
    | **Property** | **Type**      | **Description**                                                    |
    +==============+===============+====================================================================+
-   | TextID       | TextID-String | TextID referenced in "webui.text" DB Table                         |
+   | TextID       | TextID-String | TextID referenced in ``webui.text`` DB Table                       |
    +--------------+---------------+--------------------------------------------------------------------+
    | Value        | String        | Hardcoded Value                                                    |
    +--------------+---------------+--------------------------------------------------------------------+
@@ -251,19 +251,17 @@ Global ``FormfieldItem`` properties, valid for **any** sub-type of ``FormfieldIt
    +========================+================+=========================================================+
    | Style                  | CSS-String     | CSS Style Classes, space separated                      |
    +------------------------+----------------+---------------------------------------------------------+
-   | GlobalVar              | String         | Global variable key restored into this field on reset() |
+   | GlobalVar              | String         | Set Value from Global Variable (ID) on reset()          |
    +------------------------+----------------+---------------------------------------------------------+
-   | OnChange               | Object / Array | On-change handler config, see :ref:`appdevforms`        |
+   | OnChange               | Object / Array | OnChange Handler Config                                 |
    +------------------------+----------------+---------------------------------------------------------+
-   | ValidateRef            | String         | Named Validate Function / Regex, see :ref:`appdevforms` |
+   | ValidateRef            | String         | Named Validate Function / Regex                         |
    +------------------------+----------------+---------------------------------------------------------+
-   | ValidateNullable       | Boolean        | Skip validation when the field value is empty           |
+   | ValidateNullable       | Boolean        | Skip Validation on empty Field Value                    |
    +------------------------+----------------+---------------------------------------------------------+
-   | ValidateErrorTextID    | TextID-String  | TextID referenced in "webui.text" DB Table              |
+   | ValidateErrorTextID    | TextID-String  | TextID referenced in ``webui.text`` DB Table            |
    +------------------------+----------------+---------------------------------------------------------+
    | StyleValidateOk        | CSS-String     | CSS Style applied on success                            |
    +------------------------+----------------+---------------------------------------------------------+
    | StyleValidateFail      | CSS-String     | CSS Style applied on failure                            |
-   +------------------------+----------------+---------------------------------------------------------+
-   | StyleValidateFailFirst | CSS-String     | Additional CSS applied to the first failed field        |
    +------------------------+----------------+---------------------------------------------------------+

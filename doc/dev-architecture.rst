@@ -1,6 +1,6 @@
 .. dev-architecture
 
-.. _devarchitecture:
+.. _dev-architecture:
 
 21. System Architecture
 =======================

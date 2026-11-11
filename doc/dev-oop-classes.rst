@@ -1,6 +1,6 @@
 .. dev-oop-classes
 
-.. _devoopmodel-classes:
+.. _oopmodel-classes:
 
 23. Class Reference
 ===================
@@ -16,7 +16,7 @@ state of the engine source tree under ``/www/``.
 This section contains the most important and fundamental classes of the x0-framework.
 These classes provide essential functionality that forms the backbone of the entire system.
 
-.. _devoopmodel-classes-baseobj-addobject:
+.. _oopmodel-classes-baseobj-addobject:
 
 23.1.1. sysBaseObject.addObject
 *******************************
@@ -203,7 +203,7 @@ and recursive rendering of object hierarchies in the *x0-framework*. It ensures 
 and encapsulates all rendering logic for both parent and child objects, while ``rerenderObject()``
 provides a convenient full-refresh counterpart.
 
-.. _devoopmodel-classes-baseobj-remove:
+.. _oopmodel-classes-baseobj-remove:
 
 23.1.3. sysBaseObject.remove
 ****************************
@@ -252,10 +252,10 @@ object's own children, ``remove()`` only removes the object itself.
 
     - Removing a single dynamically created object (e.g. a list row, a dynamic radio
       list entry, or a context menu item) without affecting its siblings.
-    - Use :ref:`devoopmodel-classes-baseobj-removeparent` instead when the object's own
+    - Use :ref:`oopmodel-classes-baseobj-removeparent` instead when the object's own
       children must also be discarded.
 
-.. _devoopmodel-classes-baseobj-removeparent:
+.. _oopmodel-classes-baseobj-removeparent:
 
 23.1.4. sysBaseObject.removeParent
 **********************************
@@ -356,7 +356,7 @@ The purpose of ``setupObjectRefsRecursive`` is to:
     * Dynamically create and initialize objects based on a predefined hierarchy (ObjDefs).
     * Assign configuration attributes to each object.
     * Propagate an optional ``KeyID`` used by key-value driven recursive data dispatch
-      (see :ref:`devoopmodel-classes-getobjectdata`).
+      (see :ref:`oopmodel-classes-getobjectdata`).
     * Establish parent-child relationships between objects.
     * Allow nested objects to be recursively processed and added to their respective parents.
 
@@ -539,7 +539,7 @@ configuring hierarchical object structures in the *x0-framework*. By leveraging 
 developers can efficiently build complex UI components with minimal manual effort.
 
 
-.. _devoopmodel-classes-getobjectdata:
+.. _oopmodel-classes-getobjectdata:
 
 23.1.6. sysBaseObject.getObjectData / setObjectData
 ***************************************************
@@ -601,7 +601,7 @@ constructor: ``GetDataMechanism`` and ``SetDataMechanism``.
         { "KeyID": "LastName",  "ObjectValue": "Doe"  }
     ]);
 
-.. _devoopmodel-classes-getobjectdatarecursive:
+.. _oopmodel-classes-getobjectdatarecursive:
 
 23.1.7. sysBaseObject.getObjectDataRecursive / setObjectDataKeyValueRecursive
 *****************************************************************************
@@ -687,7 +687,7 @@ recursive traversal path; existing callers that invoke ``getObjectData()`` /
 ``setObjectData(Data)`` without any extra arguments are unaffected by which mechanism the
 target object declares, since the dispatch happens transparently inside the object itself.
 
-.. _devoopmodel-classes-buttoncallback:
+.. _oopmodel-classes-buttoncallback:
 
 23.1.8. sysObjButtonCallback
 ****************************
@@ -878,7 +878,7 @@ the base functionality to provide specific UI elements.
 Defined in ``sysObjButton.js``. Creates interactive button elements with event handling,
 form validation, and service connectivity capabilities.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Properties:**
 
@@ -918,7 +918,7 @@ form validation, and service connectivity capabilities.
 Defined in ``sysObjDiv.js``. Creates div container elements for layout and grouping, with two
 specialized variants.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **sysObjDiv** (``ObjectType`` ``'Div'``):
 
@@ -942,7 +942,7 @@ specialized variants.
 Defined in ``sysObjTabContainer.js``. Implements tabbed interface functionality built from two
 cooperating classes.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **sysTab:**
 
@@ -967,7 +967,7 @@ cooperating classes.
 Defined in ``sysObjSQLText.js``. Displays text content resolved via ``sysFactory.getText()``
 from the loaded language/metadata definitions.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Methods:**
 
@@ -983,7 +983,7 @@ Defined in ``sysObjLanguageSwitch.js``. Provides a pulldown selector and update 
 to switch ``sysFactory.EnvUserLanguage`` at runtime and refresh all ``sysObjSQLText``
 objects.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Methods:**
 
@@ -999,7 +999,7 @@ Defined in ``sysObjImage.js``. Renders an ``<img>`` element whose source can be 
 updated at runtime, demonstrating that the framework's object/DOM binding is not limited to
 ``div`` elements.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Properties:**
 
@@ -1018,7 +1018,7 @@ updated at runtime, demonstrating that the framework's object/DOM binding is not
 Defined in ``sysObjProgressBar.js``. Renders a Bootstrap progress bar whose fill percentage is
 exposed through the standard data API.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Properties:**
 
@@ -1038,7 +1038,7 @@ exposed through the standard data API.
 Defined in ``sysObjRangeSlider.js``. Provides an HTML range input together with a linked,
 read-only display element.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>` (``sysObjRangeSliderContainer`` inherits from ``sysObjDivUnique``)
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject` (``sysObjRangeSliderContainer`` inherits from ``sysObjDivUnique``)
 
 **sysObjRangeSlider:**
 
@@ -1084,7 +1084,7 @@ row-based, click-to-select UI pattern on top of ``sysObjDivUnique``.
 Defined in ``sysObjTreeSimple.js``. Renders an expandable/collapsible tree of nodes and leaf
 items using Bootstrap list-group styling.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Properties:**
 
@@ -1106,7 +1106,7 @@ Defined in ``sysObjHeaderBodyContainer.js``, ``sysObjSystemSettingsContainer.js`
 ``sysObjSystemSettingsContainerGrid.js``. Layout containers used to build structured
 header/body panels and system-settings grids.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 - ``sysObjHeaderBodyContainer.init()``: Creates separate header and body container divs.
 - ``sysObjSystemSettingsContainerItem.init()`` / ``ButtonCallback()``: Builds and handles a
@@ -1114,14 +1114,14 @@ header/body panels and system-settings grids.
 - ``sysObjSystemSettingsContainer.init()``: Builds a plain list of settings items.
 - ``sysObjSystemSettingsContainerGrid.init()`` / ``buildRuntimeGridSelector()`` / ``genGrid()``
   / ``ButtonCallback()``: Builds the same kind of settings items laid out on the CSS Grid
-  System (see :ref:`appdevgridsystem`).
+  System (see :ref:`grid-system`).
 
 23.2.12. sysErrorContainer
 **************************
 
 Defined in ``sysObjErrorContainer.js``. Displays validation/service error messages inline.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Methods:**
 
@@ -1140,7 +1140,7 @@ These classes handle form elements, validation, and user input processing.
 Defined in ``sysObjFormfieldItem.js`` as ``sysFormfieldItem`` (no ``Obj`` infix). Base class
 for all concrete form field components.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Methods:**
 
@@ -1256,10 +1256,10 @@ that span *multiple* related form fields at once.
 
 Defined in ``sysObjFormfieldList.js``. Groups a set of ``sysFormfieldItem`` children into a
 single ``<form>`` element, addressed as a whole via the ``KeyValue`` recursive data mechanism
-(see :ref:`devoopmodel-classes-getobjectdata`) and backed by its own
+(see :ref:`oopmodel-classes-getobjectdata`) and backed by its own
 ``sysFormFieldValidateGroup`` instance for cross-field validation.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Properties:**
 
@@ -1330,7 +1330,7 @@ XML-RPC/REST communication with backend services.
 Defined in ``sysGridGenerator.js``. Generates CSS Grid System layouts programmatically from a
 list of source objects.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Methods:**
 
@@ -1385,12 +1385,12 @@ Defined in ``sysHelper.js``. A small collection of standalone, module-level util
   merged recursively, arrays are concatenated, and scalar values in ``Object2`` overwrite
   those in ``Object1``.
 - ``sysConvertSysData2KeyValue(Data)``: Converts an array of ``{ KeyID, ObjectValue }`` entries
-  (as produced by :ref:`devoopmodel-classes-getobjectdata`'s recursive getter) into a flat
+  (as produced by :ref:`oopmodel-classes-getobjectdata`'s recursive getter) into a flat
   ``{ KeyID: ObjectValue, … }`` object.
 - ``sysConvertSysDataArray2Object(Data)``: Converts an array of ``{ KeyID, … }`` entries into an
   object keyed by ``KeyID``.
 
-.. _devoopmodel-classes-asyncnotify:
+.. _oopmodel-classes-asyncnotify:
 
 23.5. Async Notification Classes
 --------------------------------
@@ -1403,7 +1403,7 @@ These classes handle asynchronous notifications and status indicators.
 Defined in ``sysAsyncNotifyIndicator.js``. Creates the visual container for one or more
 asynchronous operation status indicators.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Methods:**
 
@@ -1417,7 +1417,7 @@ asynchronous operation status indicators.
 Defined in ``sysAsyncNotifyIndicatorItem.js``. Represents an individual notification item
 within the async indicator container.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Methods:**
 
@@ -1453,7 +1453,7 @@ routes them to the appropriate ``sysObjAsyncNotifyIndicatorItem``.
 Defined in ``sysObjFileUpload.js`` as ``sysFileUpload``. Handles file upload functionality
 including progress reporting.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Methods:**
 
@@ -1469,7 +1469,7 @@ including progress reporting.
 
 Defined in ``sysObjOpenCloseContainer.js``. Creates a collapsible/expandable container.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Methods:**
 
@@ -1483,7 +1483,7 @@ Defined in ``sysObjOpenCloseContainer.js``. Creates a collapsible/expandable con
 
 Defined in ``sysObjDynRadioList.js``. Dynamic, user-extensible radio button list component.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **sysObjDynRadioListRow:**
 
@@ -1492,7 +1492,7 @@ Defined in ``sysObjDynRadioList.js``. Dynamic, user-extensible radio button list
 - ``addObjects(ButtonRef, ButtonJSONAttributes)``: Attaches the row's action button.
 - ``EventListenerRightClick(Event)``: Opens the row's context menu.
 - ``ButtonCallback(Function, Arguments)``: Handles the row's button action.
-- ``remove()``: Removes this row from the list (see :ref:`devoopmodel-classes-baseobj-remove`).
+- ``remove()``: Removes this row from the list (see :ref:`oopmodel-classes-baseobj-remove`).
 
 **sysObjDynRadioList:**
 
@@ -1533,12 +1533,12 @@ Defined in ``sysObjContextMenu.js``. Implements a generic, position-aware contex
 
 Defined in ``sysObjList.js``. Creates data lists with paginated, service-backed rows.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Properties:**
 
 - ``RuntimeGetDataFunc`` / ``RuntimeSetDataFunc``: Bound to ``getRuntimeData`` / ``appendData``.
-- ``GetDataMechanism`` / ``SetDataMechanism``: Both ``'Plain'`` (see :ref:`devoopmodel-classes-getobjectdata`).
+- ``GetDataMechanism`` / ``SetDataMechanism``: Both ``'Plain'`` (see :ref:`oopmodel-classes-getobjectdata`).
 
 **Key Methods:**
 
@@ -1565,7 +1565,7 @@ Defined in ``sysObjList.js``. Creates data lists with paginated, service-backed 
 
 Defined in ``sysObjList.js``. Individual row component within a ``sysList``.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Methods:**
 
@@ -1583,7 +1583,7 @@ Defined in ``sysObjList.js``. Individual row component within a ``sysList``.
 Defined in ``sysRTPagination.js``. Handles pagination controls for ``sysList`` and similar,
 page-based components.
 
-**Inherits from:** :ref:`sysBaseObject <devoopmodel-classes-baseobj-addobject>`
+**Inherits from:** :ref:`oopmodel-classes-baseobj-addobject`
 
 **Key Methods:**
 

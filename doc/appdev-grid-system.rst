@@ -1,6 +1,6 @@
 .. appdev-grid-system
 
-.. _appdevgridsystem:
+.. _grid-system:
 
 10. Grid System
 ===============
@@ -261,4 +261,4 @@ Any *x0-system-object* (including hierarchical ones) can make use of the global 
 formatting routines provided that an array of elements is passed as input data.
 
 Check out the developer documentation to learn how to implement grid formatting
-into your custom-designed *x0-objects*, starting at :ref:`devarchitecture`.
+into your custom-designed *x0-objects*, starting at :ref:`dev-architecture`.

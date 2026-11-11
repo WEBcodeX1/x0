@@ -1,6 +1,6 @@
 .. appdev-objects
 
-.. _systemobjects:
+.. _system-objects:
 
 11. System Objects
 ==================
@@ -31,7 +31,7 @@ Currently, the following *x0-system-objects* can be used **declaratively** insid
 
 **Form-specific Objects**:
 
-- See: :ref:`appdevformobjects`
+- See: :ref:`form-objects`
 
 **Backend Service:**
 
@@ -186,7 +186,7 @@ Providing a ``TextID`` displays a localized, multilingual text label, while
 The ``OnClick`` property must contain a valid HTTP(S) URL to execute a backend
 service upon clicking. In ``SrcDataObjects``, the global x0 *Source Data
 Objects* mechanism is used to specify runtime data selectively (see
-:ref:`appdevcontrolflow`). When triggered, this metadata is fetched in realtime
+:ref:`sourcedata-objects`). When triggered, this metadata is fetched in realtime
 and appended to the backend service POST request JSON.
 
 The ``Notify`` object structure defines how the button interacts with the
@@ -530,7 +530,7 @@ an overlay. It inherits :ref:`objecttype-divunique`.
 ----------
 
 The ``List`` *x0-object-type* renders a table-like, grid-based structure using
-the internal *x0-grid* component (see :ref:`appdevgridsystem`) to provide a
+the internal *x0-grid* component (see :ref:`grid-system`) to provide a
 modern, flexible, and responsive layout. Internally, every row is a dedicated
 ``sysListRow`` instance that composes the configured ``Column`` cells and
 participates in the same recursive object hierarchy as any other *x0-object*,
@@ -539,7 +539,7 @@ plain text.
 
 Beyond static tabular display, ``List`` declaratively integrates the
 *x0-context-menu* for **per-row** (remove) and **multi-row** (remove selected)
-interactions (see :ref:`appdevcontextmenu`). When ``Navigation`` is enabled,
+interactions (see :ref:`context-menu`). When ``Navigation`` is enabled,
 pagination is delegated to the same generic ``sysPagination`` mechanism
 documented in :ref:`realtime-pagination`, toggling already-rendered rows
 between pages without a backend reload.
@@ -620,12 +620,12 @@ system initialization or a runtime ``Button`` or ``ButtonInternal`` click).
 11.9.4. Grid Attributes
 ***********************
 
-Global Grid Attributes can be applied, see :ref:`appdevgridsystem`.
+Global Grid Attributes can be applied, see :ref:`grid-system`.
 
 11.9.5. Context Menu
 ********************
 
-Global Context Menu Attributes can be applied, see :ref:`appdevcontextmenu`.
+Global Context Menu Attributes can be applied, see :ref:`context-menu`.
 
 11.9.6. Backend JSON Schema
 ***************************
@@ -1458,7 +1458,7 @@ configuration rows used for internal *x0-system* settings.
 
 The ``SystemSettingsContainerGrid`` *x0-object-type* extends
 :ref:`objecttype-systemsettingscontainer` with the Global Grid System
-(see :ref:`appdevgridsystem`).
+(see :ref:`grid-system`).
 
 .. important::
    ``SystemSettingsContainerGrid`` demonstrates the *x0-grid* live functionality,
@@ -1477,7 +1477,7 @@ The ``SystemSettingsContainerGrid`` *x0-object-type* extends
    +-------------------+--------------------+--------------------------------------------------+
    | GridStyles        | Object             | ``{SelectorRowStyle}``, variant selector style   |
    +-------------------+--------------------+--------------------------------------------------+
-   | GridGenerator     | Object             | ``sysGridGenerator`` see :ref:`appdevgridsystem` |
+   | GridGenerator     | Object             | ``sysGridGenerator`` see :ref:`grid-system`      |
    +-------------------+--------------------+--------------------------------------------------+
 
 .. _objecttype-infoparagraph:
@@ -1557,7 +1557,7 @@ each consisting of:
 ---------------------
 
 The ``LanguageSwitch`` *x0-object-type* renders a dropdown list of the
-configured display languages (see :ref:`appdevconfig-systemconfig`) paired with
+configured display languages (see :ref:`system-config`) paired with
 an activation button to switch to the selected language at runtime without a
 page reload.
 
@@ -1600,7 +1600,7 @@ The ``DynRadioList`` *x0-object-type* renders a dynamically growable list of
 radio button rows, each paired with a text input. Clicking the trailing "add"
 control appends a new row with its own "remove" control; right-clicking a
 removable row opens a context menu offering the same removal action (see
-:ref:`appdevcontextmenu`).
+:ref:`context-menu`).
 
 .. important::
    ``DynRadioList`` can be treated as a fully supported ``Formfield``
@@ -1645,7 +1645,7 @@ and ``FormfieldList``), triggering the call whenever one of the configured
 system events fires (e.g., ``InitSystem``).
 
 Its full event-registration and dispatch mechanics are documented in
-:ref:`appdevserviceconnector`.
+:ref:`backend-connector`.
 
 11.26.1. Object Attributes
 **************************
@@ -1996,7 +1996,7 @@ roster of selectable collaborator rows—each displaying an image, a name, and
 localized text—within a closable overlay-style header and body layout.
 
 It inherits from ``DivUnique`` and is typically instantiated inside an
-:ref:`appdevoverlay` container.
+:ref:`appdev-overlay` container.
 
 .. warning::
    ``ExamplePeopleSelector`` serves as a demonstration of an *overlay-select*

@@ -1,6 +1,6 @@
 .. appdev-forms
 
-.. _appdevforms:
+.. _appdev-forms:
 
 17. Forms
 =========
@@ -28,7 +28,7 @@ design model with two distinct development approaches:
 
 The following documentation focuses on approach 1 (**Declarative Configuration**). If you are
 interested in approach 2 (**Programmatic Development**) , please refer to the system developer
-documentation starting at :ref:`devarchitecture`.
+documentation starting at :ref:`dev-architecture`.
 
 .. _formfield-list:
 
@@ -40,7 +40,7 @@ multiple ``Formfield`` items. It provides core functionality such as single vali
 group validation, professional grid layouts, and error handling.
 
 Each individual ``Formfield`` item has its own configuration, which is specified here:
-:ref:`appdevformobjects`.
+:ref:`form-objects`.
 
 Additionally, these *x0-object-types* are officially supported:
 
@@ -61,13 +61,13 @@ Additionally, these *x0-object-types* are officially supported:
    +------------------+-------------------+--------------------------------------------------+
    | **Property**     | **Type**          | **Description**                                  |
    +==================+===================+==================================================+
-   | ObjectIDs        | Array of Strings  | Formfield (or other form-capable) ObjectIDs      |
+   | ObjectIDs        | Array of Strings  | Formfield ObjectIDs                              |
    +------------------+-------------------+--------------------------------------------------+
    | Style            | CSS-String        | CSS Style Classes, space separated               |
    +------------------+-------------------+--------------------------------------------------+
-   | ErrorContainer   | String            | ObjectID of an :ref:`objecttype-errorcontainer`  |
+   | ErrorContainer   | String            | ErrorContainer ObjectID                          |
    +------------------+-------------------+--------------------------------------------------+
-   | ContextMenuItems | Array of Elements | Context Menu Items, see :ref:`appdevcontextmenu` |
+   | ContextMenuItems | Array of Elements | Context Menu Items                               |
    +------------------+-------------------+--------------------------------------------------+
    | GroupValidate    | Array of Elements | Array of Group Validate Elements                 |
    +------------------+-------------------+--------------------------------------------------+
@@ -141,7 +141,7 @@ without complex configurations, as shown below:
    | FormItem7      | FormItem8      | FormItem9      | FormItem10     |
    +----------------+----------------+----------------+----------------+
 
-For a detailed explanation of how the *x0-grid* system works, see :ref:`appdevgridsystem`.
+For a detailed explanation of how the *x0-grid* system works, see :ref:`grid-system`.
 
 17.1.5. ErrorContainer
 **********************
@@ -166,7 +166,7 @@ and calls the object instance's render routines, which ultimately output the det
 *********************
 
 To populate a ``FormfieldList`` object instance with data from the backend, the global,
-generic *x0-component* ``ServiceConnector`` (see :ref:`appdevserviceconnector`) is used.
+generic *x0-component* ``ServiceConnector`` (see :ref:`backend-connector`) is used.
 Once configured correctly and after the corresponding event triggers the backend
 service, the data arrives at the internal XML-RPC receiving mechanism of the ``FormfieldList``.
 
@@ -444,7 +444,7 @@ Globally fire (raise) *x0-events* on any object's state change.
       "FireEvents": [ "EventID1", "EventID2" ]
    }
 
-See :ref:`appdeveventsystem` for the full event-system architecture.
+See :ref:`event-system` for the full event-system architecture.
 
 .. note::
    The current implementation only supports firing events **globally** upon an
@@ -480,7 +480,7 @@ Multiple ``OnChange`` configurations can be specified if provided as **Array** t
 -----------------------------
 
 Referenced by name via a form element's ``ValidateRef`` attribute (see
-:ref:`appdevformobjects`), implemented in ``sysFormfieldValidate.js``.
+:ref:`form-objects`), implemented in ``sysFormfieldValidate.js``.
 
 17.3.1. Regex
 *************
@@ -561,4 +561,4 @@ pair to ``UserValidate``'s ``ValidateFunc`` object:
    }
 
 Additional information will be provided in the systems-developer manual starting
-at :ref:`devarchitecture`.
+at :ref:`dev-architecture`.

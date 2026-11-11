@@ -1,6 +1,6 @@
 .. appdev-context-menu
 
-.. _appdevcontextmenu:
+.. _context-menu:
 
 13. Context Menu
 ================
@@ -251,7 +251,7 @@ Supported **Internal Functions**:
 
 Setting ``OverlayScreenID`` to a valid ScreenID activates the referenced
 overlay screen via ``sysFactory.OverlayObj.activateOverlay()`` (see
-:ref:`appdevoverlay`) before the menu is closed.
+:ref:`appdev-overlay`) before the menu is closed.
 
 .. code-block:: javascript
 
@@ -271,7 +271,7 @@ overlay screen via ``sysFactory.OverlayObj.activateOverlay()`` (see
 
 Setting ``FireEvents`` to an array of EventIDs fires the referenced
 *x0-system-events* via ``sysFactory.Reactor.fireEvents()`` (see
-:ref:`appdeveventsystem`), allowing a context menu action to notify arbitrary,
+:ref:`event-system`), allowing a context menu action to notify arbitrary,
 unrelated *x0-system-objects* without a direct object reference.
 
 .. code-block:: javascript

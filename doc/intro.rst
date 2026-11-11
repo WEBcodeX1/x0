@@ -303,19 +303,19 @@ For the current milestones, see: https://github.com/WEBcodeX1/x0/milestones.
 --------------------------
 
 - Configuration / Application Setup
-    :ref:`appdevconfig`
+    :ref:`appdev-config`
 - CSS Styling Guide
-    :ref:`appdevglobalcss`
+    :ref:`global-css`
 - Grid System
-    :ref:`appdevgridsystem`
+    :ref:`grid-system`
 - System Objects and Examples
-    :ref:`systemobjects`
+    :ref:`system-objects`
 - Forms Development
-    :ref:`appdevforms`
+    :ref:`appdev-forms`
 - Developer Documentation
-    :ref:`devarchitecture`
+    :ref:`dev-architecture`
 - Example Development Guidelines
-    :ref:`devexamples`
+    :ref:`dev-examples`
 
 5.2. External Resources
 -----------------------

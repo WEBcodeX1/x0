@@ -1,6 +1,6 @@
 .. appdev-event-system
 
-.. _appdeveventsystem:
+.. _event-system:
 
 15. Event System
 ================
@@ -36,7 +36,7 @@ properties of the event producer (direct ``JSONConfig``) from those of the event
 
 The following chapters document the **Declarative Configuration** (for backend-related
 receivers). The **Programmatic Implementation** (for custom-setup *x0-objects*) can be
-found in the system developer's guide (see: :ref:`devarchitecture`).
+found in the system developer's guide (see: :ref:`dev-architecture`).
 
 .. important::
    The illustration above shows the *x0-object-type* ``List`` with the name **List1**,
@@ -44,7 +44,7 @@ found in the system developer's guide (see: :ref:`devarchitecture`).
    is triggered, the list is populated (updated) with data from the **Backend.py** service
    call.
 
-.. _appdevserviceconnector:
+.. _backend-connector:
 
 15.3. Backend Connector
 -----------------------
@@ -64,7 +64,7 @@ it executes the originating *x0-object* instance's statically named ``callbackXM
 method, continuing the program flow directly inside the object (OOP style).
 
 The following example demonstrates a working setup using a ``FormfieldList`` object as the
-receiver type; however, any *x0-producer-type* can trigger events for it (see :ref:`eventproducertypes`).
+receiver type; however, any *x0-producer-type* can trigger events for it (see :ref:`event-producer-types`).
 
 15.3.1. ServiceConnector Config
 -------------------------------
@@ -209,13 +209,13 @@ Valid ``List`` (multiple rows) schema:
    this data transparently using ``setObjectData()``. A generic handler for this mechanism
    is scheduled for the x0 release, version 1.2.
 
-.. _eventproducertypes:
+.. _event-producer-types:
 
 15.4. System Producer Types
 ---------------------------
 
 The following *x0-object-types* can trigger events. For detailed information on
-their configuration, please refer to the documentation under :ref:`systemobjects`.
+their configuration, please refer to the documentation under :ref:`system-objects`.
 
 - ``Button``
 - ``ButtonInternal``
@@ -238,7 +238,7 @@ explicit "fire" configuration anywhere -- any object may register for them:
   ``EventSelector`` -- allowing a registration to react only to a specific screen
   becoming active.
 
-.. _appdevcontrolflow:
+.. _sourcedata-objects:
 
 15.6. Source Data Objects
 -------------------------
@@ -591,7 +591,7 @@ When passing ``Action`` as an **object**, multiple actions can be addressed.
 
 The following sections describe the control flow of ``Button`` and ``ButtonInternal``.
 
-.. _appdevactionbutton:
+.. _action-button:
 
 16.3.1. Button
 **************
@@ -602,7 +602,7 @@ The following sections describe the control flow of ``Button`` and ``ButtonInter
 * Execute OnResult Actions *after* **successful** Service Execution
 * Fire Events *after* **successful** Service Execution
 
-.. _appdevactionbuttoninternal:
+.. _action-buttoninternal:
 
 16.3.2. ButtonInternal
 **********************

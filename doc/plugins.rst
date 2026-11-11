@@ -1,6 +1,6 @@
 .. modules
 
-.. _devplugins:
+.. _dev-plugins:
 
 27. Plugins
 ===========

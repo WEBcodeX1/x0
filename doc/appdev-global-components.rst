@@ -28,7 +28,7 @@ passing **global data** to the backend via hidden form fields. Instead of embedd
 auxiliary state directly inside the DOM through invisible, unmanaged input elements,
 *x0* exposes a dedicated, **declarative key/value store** that is natively integrated into
 the object model. When combined with the ``SrcDataObjects`` (*SourceDataObjects*)
-mechanism (see :ref:`appdeveventsystem`), global data — or screen-scoped global data —
+mechanism (see :ref:`event-system`), global data — or screen-scoped global data —
 can be selectively included in the payload of any backend service call, without
 requiring a corresponding, ``Formfield`` of type **hidden** to carry the value.
 
@@ -220,7 +220,7 @@ allows developers to explicitly drive the notification lifecycle via code.
 Additionally, the programmatic model grants access to network events and background
 messages processed by the notification system—a capability that is currently not available
 through the declarative model. For a complete API reference, please consult the system
-developer's guide starting at :ref:`devarchitecture`.
+developer's guide starting at :ref:`dev-architecture`.
 
 .. _realtime-pagination:
 

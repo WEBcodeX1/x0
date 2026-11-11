@@ -270,7 +270,7 @@ Find ready-to-run examples in the ``./examples`` directory. After starting the c
 - http://x0-app.x0.localnet/python/Index.py?appid=example2
 - http://x0-app.x0.localnet/python/Index.py?appid=example3
 
-See :ref:`devexamples` for details on structure and adding your own examples.
+See :ref:`dev-examples` for details on structure and adding your own examples.
 
 6.2.10. Testing & Continuous Integration
 ****************************************

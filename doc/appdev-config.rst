@@ -1,6 +1,6 @@
 .. appdev-config
 
-.. _appdevconfig:
+.. _appdev-config:
 
 8. Basic Configuration
 ======================
@@ -10,7 +10,7 @@ This section describes how an *x0-application* is configured: the
 tables, the **application server configuration** file, and the declarative
 **JSON metadata model** used to define *x0-objects*, *x0-screens* and menus.
 
-.. _appdevconfig-contentareas:
+.. _content-areas:
 
 8.1. Browser Content Areas
 --------------------------
@@ -33,7 +33,7 @@ hidden, or repurposed without touching the engine itself.
 .. important::
    Screen areas not currently in focus are not destroyed; they remain
    present as invisible layers, which is what enables instantaneous,
-   stateful transitions between screens (see :ref:`appdevconfig-statepreservation`).
+   stateful transitions between screens (see :ref:`state-preservation`).
 
 8.1.1. Menu Area
 ****************
@@ -49,20 +49,19 @@ an ``Image`` object (the application logo) and a ``TreeSimple`` object (the
 navigation tree), with no dedicated "link" object involved at all.
 
 -  Menu objects are referenced in ``menu.json`` and defined in
-   ``object.json``, exactly as for any other screen (see :ref:`appdev-metadata-model`).
--  Activating a navigation entry switches the active screen in the Screen
-   Content Area.
--  Positioning is CSS-driven (see :ref:`appdevconfig-positioning`).
+   ``object.json``, exactly as for any other screen (see :ref:`metadata-model`).
+-  Activating a navigation entry switches the active screen in the Screen Content Area.
+-  Positioning is CSS-driven (see :ref:`area-positioning`).
 
 8.1.2. Screen Area
 ******************
 
 -  The main stage for application content.
 -  ``default_screen`` selects the screen shown on page load (see
-   :ref:`appdevconfig-systemconfig`).
+   :ref:`system-config`).
 -  The object hierarchy of each screen is defined in ``skeleton.json``.
 -  Layout within a screen is controlled by CSS (e.g. the Bootstrap grid) or
-   by the :ref:`appdevgridsystem`.
+   by the :ref:`grid-system`.
 
 .. figure:: images/x0-screen-switch.png
    :alt: Screen Switch
@@ -77,7 +76,7 @@ navigation tree), with no dedicated "link" object involved at all.
 -  Implemented as a regular *x0-system-object* (``sysObjAsyncNotify``) like
    any other, and positioned independently via CSS.
 
-.. _appdevconfig-statepreservation:
+.. _state-preservation:
 
 8.1.4. Object State Preservation
 ********************************
@@ -89,7 +88,7 @@ or navigating via the Menu Area, **never** resets object state.
 .. tip::
    Refer to or run the static Docker container to see state preservation in action.
 
-.. _appdevconfig-positioning:
+.. _area-positioning:
 
 8.1.5. Area Positioning / CSS
 *****************************
@@ -112,7 +111,7 @@ Application configuration data is stored in the ``system.config`` and
 -  The corresponding SQL scripts live under ``/database``.
 -  These scripts are applied automatically during the Docker image build.
 
-.. _appdevconfig-systemconfig:
+.. _system-config:
 
 8.2.1. System Configuration
 ***************************
@@ -168,7 +167,7 @@ The relevant ``system.config`` parameters are:
    alternative configuration set.
 -  Each ``app_id`` is backed by its own set of configuration rows.
 
-.. _appdevconfig-serverconfig:
+.. _server-config:
 
 8.3. Server Configuration
 -------------------------
@@ -228,5 +227,3 @@ image build:
        }
      }
    }
-
-.. _appdevconfig-metadata:

@@ -65,12 +65,12 @@ and objects are rendered 100% inside the *x0-core* engine, which runs exclusivel
 **browser's** JavaScript engine and **nowhere else** (100% serverless).
 
 Many other frameworks rely on heavy, multi-layer frontend-backend communication combined with
-server-side string template replacements (a programming paradigm from the 19th century).
-The *x0-core* does not use *string parameter replacements* **at all**. Instead, it follows purely
-modern, object-oriented (OOP) patterns. While this approach may initially look like "more work"
-during application design, combining smart *x0-building-blocks* ultimately produces far more
-sophisticated, nested structures **and** a much cleaner, spaghetti-free codebase built for
-long-term enterprise maintainability.
+server-side string template replacements (a de facto outdated paradigm compared to modern OOP
+application design). The *x0-core* does not use *string parameter replacements* **at all**.
+Instead, it follows purely modern, object-oriented (OOP) patterns. While this approach may
+initially look like "more work" during application design, combining smart *x0-building-blocks*
+ultimately produces far more sophisticated, nested structures **and** a much cleaner, spaghetti-free
+codebase built for long-term enterprise maintainability.
 
 24.3. Shadow DOM
 ----------------
@@ -80,7 +80,7 @@ is responsible for and how it is structured.
 
 The Shadow DOM creates a 1:1 mapping between object instances and DOM object layers across an
 *x0-object-instance* hierarchy (also described in the OOP model documentation; see
-:ref:`devoopmodel`), which allows structured data storage and programmatic object manipulation
+:ref:`dev-oopmodel`), which allows structured data storage and programmatic object manipulation
 based on true OOP principles.
 
 During *x0-init*, the relationships between object instances are established from

@@ -187,7 +187,6 @@ The messaging system is demonstrated in Example #10:
 *************************************
 
 .. note::
-
    The *x0-messaging* feature is currently in **beta**. Extended API documentation
    is still under development. For architectural insights and implementation details,
    please refer directly to the source code of Example #10 within the workspace.

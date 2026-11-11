@@ -1,6 +1,6 @@
 .. dev-tests
 
-.. _devtests:
+.. _dev-tests:
 
 25. Developing Tests
 ====================

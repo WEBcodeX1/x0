@@ -1,6 +1,6 @@
 .. dev-oop-model
 
-.. _devoopmodel:
+.. _dev-oopmodel:
 
 22. OOP Model
 =============
@@ -26,7 +26,7 @@ at each screen's `HierarchyRootObject`.
                                                                      | Object3::Ref Object2 |
                                                                      +----------------------+
 
-.. _devoopmodel_base:
+.. _oppmodel-base:
 
 22.1. Base OOP Inheritance Model
 --------------------------------
@@ -45,7 +45,7 @@ singletons:
         references, recursive rendering, recursive traversal/query helpers, the
         runtime data read/write API, and the reset/enable/disable lifecycles. Every
         concrete *x0-system-object* (``sysObjDiv``, ``sysObjButton``, ``sysList``, …,
-        documented in full in :ref:`devoopmodel-classes`) inherits from
+        documented in full in :ref:`oopmodel-classes`) inherits from
         ``sysBaseObject``, either directly or through an intermediate subclass.
 
     3. ``sysFactory`` (``sysFactory.js``, singleton instance ``sysFactory``)
@@ -163,7 +163,7 @@ they depend on the object's position in the hierarchy.)
 
 Defined in ``sysBaseObject.js``. ``sysBaseObject`` is the root primitive from which every
 concrete *x0-system-object* is derived (``sysObjSomething.prototype = new sysBaseObject()``,
-see :ref:`devoopmodel-classes-baseobj-addobject`). It turns the single-node DOM binding
+see :ref:`oopmodel-classes-baseobj-addobject`). It turns the single-node DOM binding
 provided by ``sysBaseDOMElement`` into a recursive tree abstraction with its own
 lifecycle: construction, hierarchy assembly, rendering, data exchange, reset and removal.
 
@@ -192,7 +192,7 @@ lifecycle: construction, hierarchy assembly, rendering, data exchange, reset and
 Every method described in section 22.2 (sysBaseDOMElement) is therefore available,
 unmodified, on every ``sysBaseObject`` instance and every object derived from it.
 
-.. _devoopmodel-base-hierarchy:
+.. _oopmodel-base-hierarchy:
 
 22.3.3. Hierarchy Construction and Recursive Rendering
 ******************************************************
@@ -201,7 +201,7 @@ unmodified, on every ``sysBaseObject`` instance and every object derived from it
       ``ChildObject`` onto ``this.ChildObjects``. This is the single primitive operation
       that builds the entire object graph; every higher-level instantiation mechanism
       (``sysFactory.setupObjectRefsRecursive()``, ``sysScreen.setupObject()``) ultimately
-      calls it. Refer to :ref:`devoopmodel-classes-baseobj-addobject`.
+      calls it. Refer to :ref:`oopmodel-classes-baseobj-addobject`.
     - ``renderObject(Prefix)``: Computes ``this.DOMObjectID`` — either ``this.ObjectID``
       directly (if ``overrideDOMObjectID === true``, used by objects that must keep a
       stable, non-prefixed id) or the recursively prefixed form ``Prefix + '_' + this.ObjectID``.
@@ -284,18 +284,18 @@ notification indicators, dynamic radio lists) tractable without a virtual-DOM di
       recursive dispatch, and the exact traversal implementations
       (``getObjectDataRecursive()``, ``setObjectDataKeyValueRecursive()``,
       ``getKeyIDValueFromData()``) are documented in detail in
-      :ref:`devoopmodel-classes-getobjectdata` and :ref:`devoopmodel-classes-getobjectdatarecursive`.
+      :ref:`oopmodel-classes-getobjectdata` and :ref:`oopmodel-classes-getobjectdatarecursive`.
 
 22.3.7. Removal Semantics
 *************************
 
     - ``remove()``: Detaches *only this object* from its parent's ``ChildObjects`` (via
       ``getChildIndexByChildItemID()`` + ``splice()``) and removes its own DOM node.
-      Refer to :ref:`devoopmodel-classes-baseobj-remove`.
+      Refer to :ref:`oopmodel-classes-baseobj-remove`.
     - ``removeParent()``: Removes this object's own DOM subtree entirely
       (``removeDOMParentElement()``) and discards *its own* ``ChildObjects`` array,
       effectively pruning everything below this object rather than just this object
-      itself. Refer to :ref:`devoopmodel-classes-baseobj-removeparent`.
+      itself. Refer to :ref:`oopmodel-classes-baseobj-removeparent`.
 
 22.3.8. Reset Lifecycle
 ***********************
@@ -601,7 +601,7 @@ merged or reshaped:
       (22.6.3) to combine an ``InstanceOf``-referenced configuration with its overrides.
     - ``sysConvertSysData2KeyValue(Data)``: Converts an array of ``{ KeyID, ObjectValue }``
       entries (as produced by the recursive data getter, see
-      :ref:`devoopmodel-classes-getobjectdatarecursive`) into a flat
+      :ref:`oopmodel-classes-getobjectdatarecursive`) into a flat
       ``{ KeyID: ObjectValue, … }`` object.
     - ``sysConvertSysDataArray2Object(Data)``: Converts an array of ``{ KeyID, … }``
       entries into an object keyed by ``KeyID``.
@@ -612,7 +612,7 @@ merged or reshaped:
     1. Base Layer:
         ``sysBaseDOMElement`` provides single-node DOM binding; ``sysBaseObject`` builds the
         recursive parent/child tree and lifecycle on top of it. Every concrete
-        *x0-system-object* is a ``sysBaseObject`` subclass (:ref:`devoopmodel-classes`).
+        *x0-system-object* is a ``sysBaseObject`` subclass (:ref:`oopmodel-classes`).
 
     2. Factory and Screens:
         ``sysFactory`` owns the collection of ``sysScreen`` instances. Each ``sysScreen``

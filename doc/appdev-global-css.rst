@@ -1,6 +1,6 @@
 .. appdev-global-css
 
-.. _appdevglobalcss:
+.. _global-css:
 
 9. Global CSS Styling
 =====================

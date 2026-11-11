@@ -1,6 +1,6 @@
 .. dev-examples
 
-.. _devexamples:
+.. _dev-examples:
 
 26. Developing Examples
 =======================
