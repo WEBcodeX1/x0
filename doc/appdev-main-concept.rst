@@ -8,7 +8,7 @@
 This section of the documentation focuses on **application development**, specifically
 limited to the **declarative part** of the *x0-system*. This means using only
 pre-existing *x0-objects* by configuring them declaratively with **static** configurations
-in ``object.json``.
+in ``object.json``, ``skeleton.json`` and ``menu.json``.
 
 The **programmatic part** (developing custom *x0-objects* to build sophisticated UI elements,
 also referred to as **OOP Enhanced Templating**) is covered in the systems-developer section
