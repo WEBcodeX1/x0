@@ -220,7 +220,7 @@ is fully encapsulated within structured JSON data.
    inside the ``SrcDataObjects`` array.
 
 As the following example demonstrates, clicking the button appends the data from
-"Formlist1", "Object1", and "Object2" to the POST request payload sent to the URL
+``Formlist1``, ``Object1``, and ``Object2`` to the POST request payload sent to the URL
 **https://your-service.com/python/service.py**.
 
 .. code-block:: javascript

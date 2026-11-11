@@ -12,7 +12,7 @@ mechanism confined to a screen's initial load, the grid system is designed for
 high-frequency runtime modification: it can be re-invoked at any time to
 restructure an already rendered grid in response to changing source data,
 enabling real-time UI re-rendering and fluid grid restructuring directly within
-the browser client (see "Dynamic Restructuring" :ref:`dynamic-restructuring` below).
+the browser client (see :ref:`dynamic-restructuring` below).
 
 10.1. Key Characteristics
 *************************
