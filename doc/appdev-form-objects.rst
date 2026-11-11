@@ -141,7 +141,7 @@ predefined options. See :ref:`formfield-global` for inherited attributes.
    +------------------+-------------------+------------------------------------------------------------+
    | **Property**     | **Type**          | **Description**                                            |
    +==================+===================+============================================================+
-   | Options          | Array of Elements | Array of Option Elements, see 12.6.2                       |
+   | Options          | Array of Elements | Array of Option Elements                                   |
    +------------------+-------------------+------------------------------------------------------------+
    | AddNoneItem      | Boolean           | Prepend an empty "none selected" Option Element            |
    +------------------+-------------------+------------------------------------------------------------+
