@@ -301,7 +301,7 @@ notification indicators, dynamic radio lists) tractable without a virtual-DOM di
 ***********************
 
     - ``reset()``: An intentionally empty template method on ``sysBaseObject`` itself —
-      every concrete subclass that needs reset behaviour (form fields, open/close
+      every concrete subclass that needs reset behavior (form fields, open/close
       containers, tab containers, lists, …) overrides it with its own logic.
     - ``processReset()``: Calls ``this.reset()`` and then recurses into every entry of
       ``ChildObjects``, so a single call on a screen's root object resets every object in
@@ -435,7 +435,7 @@ refresh data" (a ``sysServiceConnector``). Because registration and dispatch are
 keyed purely by string identifiers rather than object references, the UI objects that
 raise events never need a direct reference to the objects that consume them, keeping the
 object graph itself acyclic and strictly hierarchical (parent/child only), while
-cross-cutting application behaviour is layered on top through the reactor.
+cross-cutting application behavior is layered on top through the reactor.
 
 22.6. sysScreen — Screen Lifecycle and Hierarchy Assembly
 ---------------------------------------------------------

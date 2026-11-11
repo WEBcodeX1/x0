@@ -563,7 +563,7 @@ constructor: ``GetDataMechanism`` and ``SetDataMechanism``.
 23.1.6.2. GetDataMechanism / SetDataMechanism
 #############################################
 
-``getObjectData()`` behaviour by ``GetDataMechanism``:
+``getObjectData()`` behavior by ``GetDataMechanism``:
 
 ``'Plain'``
     Invokes ``this.RuntimeGetDataFunc()`` directly and returns its result (used e.g. by
@@ -573,7 +573,7 @@ constructor: ``GetDataMechanism`` and ``SetDataMechanism``.
     Falls back to the recursive traversal implemented by ``getObjectDataRecursive()``
     (see 23.1.7.1, "getObjectDataRecursive").
 
-``setObjectData(Data)`` behaviour by ``SetDataMechanism``:
+``setObjectData(Data)`` behavior by ``SetDataMechanism``:
 
 ``'Plain'``
     Invokes ``this.RuntimeSetDataFunc(Data)`` directly (used e.g. by ``sysObjDiv``,
@@ -715,7 +715,7 @@ handle button-specific actions in a modular and object-oriented way.
         - Inherits from ``sysBaseObject``.
         - Re-uses the following methods directly from ``sysObjButton.prototype``:
             * ``init``: Initializes the button (style, SQL text child object, event listener).
-            * ``enable`` / ``disable``: Toggle the enabled/disabled visual and behavioural state.
+            * ``enable`` / ``disable``: Toggle the enabled/disabled visual and behavioral state.
             * ``addEventListenerClick``: Registers the ``mousedown`` click handler.
 
     3. setCallback Method:
@@ -1097,7 +1097,7 @@ items using Bootstrap list-group styling.
   (expandable branches) or ``sysObjTreeSimpleItem`` (selectable leaves) per configured ``Type``.
 - ``sysObjTreeSimpleNode.toggleVisibleState()``: Expands/collapses a branch.
 - ``sysObjTreeSimpleItem.setHilite()`` / ``removeHilite()`` / ``clickItem()``: Manage leaf
-  selection highlighting and click behaviour.
+  selection highlighting and click behavior.
 
 23.2.11. sysObjHeaderBodyContainer / sysObjSystemSettingsContainer(Grid)
 ************************************************************************
