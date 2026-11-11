@@ -67,15 +67,17 @@ descriptions can be found in the ``/examples/`` directory at the project root.
 11.1. Div
 ---------
 
-The ``Div`` *x0-object-type* is one of the system's most fundamental base objects, even though
-it provides only minimal functionality on its own. It generates a DOM layer with a configurable
-CSS class attribute, using the outer HTML tag specified in ``DOMType`` (defaulting to ``div``
-when omitted).
+The ``Div`` *x0-object-type* is one of the system's most fundamental base
+objects, even though it provides only minimal functionality on its own. It
+generates a DOM layer with a configurable CSS class attribute, using the outer
+HTML tag specified in ``DOMType`` (defaulting to ``div`` when omitted).
 
-It should **never** be used directly in a **declarative configuration**—use ``DivUnique`` or
-``DivValue`` instead. In **programmatic, custom** *x0-system-classes* the ``Div`` *x0-object-type*
-exclusively is used as a **between-element** in a multi-nested hierarchy. This concept is described
-in detail in the system-developers documentation under “Development Best Practices” :ref:`dev-object-nesting`.
+It should **never** be used directly in a **declarative configuration**—use
+``DivUnique`` or ``DivValue`` instead. In **programmatic, custom**
+*x0-system-classes* the ``Div`` *x0-object-type* exclusively is used as a
+**between-element** in a multi-nested hierarchy. This concept is described in
+detail in the system-developers documentation under “Development Best
+Practices” :ref:`dev-object-nesting`.
 
 11.1.1. Object Attributes
 *************************
