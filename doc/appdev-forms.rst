@@ -105,7 +105,7 @@ the system with custom, programmatic validation routines.
    +---------------------+------------------+------------------------------------------------+
    | ObjectIDs           | Array of Strings | ObjectIDs validated together by FunctionRef    |
    +---------------------+------------------+------------------------------------------------+
-   | ValidateErrorTextID | TextID-String    | TextID referenced in "webui.text" DB Table     |
+   | ValidateErrorTextID | TextID-String    | TextID referenced in ``webui.text`` DB Table   |
    +---------------------+------------------+------------------------------------------------+
 
 .. code-block:: javascript
@@ -178,7 +178,7 @@ Upon object instantiation, the ``FormfieldList`` *x0-object-type* automatically 
 internal ``KeyID`` to the given ``FormfieldID`` for each item. This ``KeyID`` serves as the primary
 key for the ``Formfield`` when incoming input data is processed for a list of ``Formfield`` items.
 
-Based on this rule, if three items with the IDs "FormID1", "FormID2", and "FormID3"
+Based on this rule, if three items with the IDs ``FormID1``, ``FormID2``, and ``FormID3``
 are mapped to the ``FormfieldList``, the following examples explain the behavior in detail:
 
 .. code-block:: javascript
@@ -250,11 +250,11 @@ To build more complex applications, it is often necessary to exchange data betwe
 multiple ``List``, ``FormfieldList``, ``Formfield``, or other data-containing objects.
 
 The declarative configuration approach allows you to equip components with a context menu
-featuring multiple functionalities. Currently, the ``FormfieldList`` supports the "get-data"
-and "set-data" actions (see :ref:`contextmenu-functions`).
+featuring multiple functionalities. Currently, the ``FormfieldList`` supports the ``get-data``
+and ``set-data`` actions (see :ref:`contextmenu-functions`).
 
 The following example demonstrates how to configure a context menu with two distinct functions:
-"get-data" and "set-data". This setup allows the ``FormfieldList`` data to be populated from the
+``get-data`` and ``set-data``. This setup allows the ``FormfieldList`` data to be populated from the
 global clipboard space by selecting the first context menu option, or retrieved into the global
 clipboard space by selecting the second option.
 
@@ -293,7 +293,7 @@ clipboard space by selecting the second option.
       }
    }
 
-17.2. FormfieldOnchange Handler
+17.2. FormfieldOnChange Handler
 -------------------------------
 
 The **x0::FormfieldOnChange** Handler component (``sysFormfieldOnChangeHandler.js``) provides

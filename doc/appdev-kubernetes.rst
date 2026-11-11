@@ -15,12 +15,12 @@ Why Kubernetes? It is the only current system worldwide guaranteeing
 native fail-safe operations including application load-balancing and
 auto-scaling.
 
-Following, our proposed deployment workflow.
+The following outlines our proposed deployment workflow:
 
-* Run & Test Application in Docker Environment (x0-supported)
-* Deploy on Kubernetes Minikube (x0-supported)
-* Deploy to GKE Production Cluster (x0-supported)
-* Takeover Lifecycle / DevOps Management by Terraform or similar
+- Run & Test Application in Docker Environment (x0-supported)
+- Deploy on Kubernetes Minikube (x0-supported)
+- Deploy to GKE Production Cluster (x0-supported)
+- Takeover Lifecycle / DevOps Management by Terraform or similar
 
 20.2. Kubernetes Installer
 --------------------------
@@ -28,16 +28,16 @@ Following, our proposed deployment workflow.
 The kubernetes installer will set up the following, depending on the
 configuration.
 
-* Kubegres / Multi-Pod PostgreSQL Database
-* Multi-Pod x0-application
-* Ingress-nginX Application Load-Balancing
+- Kubegres / Multi-Pod PostgreSQL Database
+- Multi-Pod x0-application
+- Ingress-nginX Application Load-Balancing
 
 It will set up multiple environments in different GKE namespaces with
 configurable DNS host / domain based Virtual Hosts and *x0-applications*.
 
-* Environments
-* Virtual Hosts
-* x0-Applications
+- Environments
+- Virtual Hosts
+- x0-Applications
 
 .. image:: images/x0-deployment.png
   :alt: image - kubernetes deployment
@@ -71,21 +71,21 @@ Root properties.
 .. table:: Base Properties
    :widths: 30 20 50
 
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | project             | Object               | Project Properties (name, id, git-repo)         |
-   +---------------------+----------------------+-------------------------------------------------+
-   | installer           | Object               | Installer Properties (type)                     |
-   +---------------------+----------------------+-------------------------------------------------+
-   | database            | Object               | Database Authentication Properties              |
-   +---------------------+----------------------+-------------------------------------------------+
-   | env_list            | Array of EnvStrings  | Environments List                               |
-   +---------------------+----------------------+-------------------------------------------------+
-   | environments        | Object               | Environments Objects Declaration                |
-   +---------------------+----------------------+-------------------------------------------------+
-   | vhosts              | Object               | VHosts Object Declaration                       |
-   +---------------------+----------------------+-------------------------------------------------+
+   +---------------------+----------------------+-----------------------------------------------------+
+   | **Property**        | **Type**             | **Description**                                     |
+   +=====================+======================+=====================================================+
+   | project             | Object               | Project Properties (``name``, ``id``, ``git-repo``) |
+   +---------------------+----------------------+-----------------------------------------------------+
+   | installer           | Object               | Installer Properties (``type``)                     |
+   +---------------------+----------------------+-----------------------------------------------------+
+   | database            | Object               | Database Authentication Properties                  |
+   +---------------------+----------------------+-----------------------------------------------------+
+   | env_list            | Array of EnvStrings  | Environments List                                   |
+   +---------------------+----------------------+-----------------------------------------------------+
+   | environments        | Object               | Environments Objects Declaration                    |
+   +---------------------+----------------------+-----------------------------------------------------+
+   | vhosts              | Object               | VHosts Object Declaration                           |
+   +---------------------+----------------------+-----------------------------------------------------+
 
 20.2.2. Project Properties
 **************************
@@ -100,7 +100,7 @@ Project related properties.
    +=====================+======================+=================================================+
    | name                | Identifier String    | Project Name                                    |
    +---------------------+----------------------+-------------------------------------------------+
-   | id                  | Identifier String    | Project ID (If different ID from name wanted)   |
+   | id                  | Identifier String    | Project ID                                      |
    +---------------------+----------------------+-------------------------------------------------+
    | git-repo            | Git-Repo String      | Git Repository (Docker Registry Ref)            |
    +---------------------+----------------------+-------------------------------------------------+
@@ -116,7 +116,7 @@ Installer related properties.
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | type (installer)    | Enum InstallerString | "x0" or "debian-package" or "default"           |
+   | type (installer)    | Enum InstallerString | ``x0`` or ``debian-package`` or ``default``     |
    +---------------------+----------------------+-------------------------------------------------+
 
 20.2.4. Database Properties
@@ -134,7 +134,7 @@ Database related properties.
    +---------------------+----------------------+-------------------------------------------------+
    | su_password         | DB-Password String   | Postgres Super User Password                    |
    +---------------------+----------------------+-------------------------------------------------+
-   | x0_password         | DB-Password String   | Web Application User Password used by x0 App    |
+   | x0_password         | DB-Password String   | Web Application User Password used by *x0-app*  |
    +---------------------+----------------------+-------------------------------------------------+
    | repl_password       | DB-Password String   | Kubegres Replication Password                   |
    +---------------------+----------------------+-------------------------------------------------+
@@ -180,7 +180,7 @@ Environment Element related properties.
    +-----------------------------------------+----------------------+---------------------------------------+
    | **Property**                            | **Type**             | **Description**                       |
    +=========================================+======================+=======================================+
-   | $vhost.apps                             | Array of AppStrings  | List of x0-Applications               |
+   | $vhost.apps                             | Array of AppStrings  | List of *x0-applications*             |
    +-----------------------------------------+----------------------+---------------------------------------+
    | $vhost.env                              | Object               | Environments Config                   |
    +-----------------------------------------+----------------------+---------------------------------------+

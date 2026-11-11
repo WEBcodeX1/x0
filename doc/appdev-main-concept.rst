@@ -79,7 +79,7 @@ the following files:
 
 -  **object.json** — Defines all *x0-system-objects*, including their attributes and metadata.
 -  **skeleton.json** — Defines how objects relate to one another and establishes screen references.
--  **menu.json** — Contains a subset of *skeleton.json* specific to the "menu" screen, managing navigation structures.
+-  **menu.json** — Contains a subset of *skeleton.json* specific to the ``menu`` screen, managing navigation structures.
 
 Optionally, in the *x0-static* (completely serverless) system variant, multilingual text data
 must also be defined on a file basis:

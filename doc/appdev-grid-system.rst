@@ -55,7 +55,7 @@ Currently the following *x0-object-types* are supporting the *x0-grid* feature:
 **************************
 
 If an *x0-object* supports *x0-global-grid-system* formatting the following
-properties can be set inside the object's "Attribute" representation.
+properties can be set inside the object's ``Attributes`` representation.
 
 .. table:: Global Grid Object Properties
    :widths: 30 20 50

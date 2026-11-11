@@ -30,9 +30,8 @@ only difference is the specific **position** where the configuration must be pla
 
 This entire section and all subsequent sub-chapters focus exclusively on the **declarative method**.
 This declarative concept is limited to standard *x0-system* objects. For advanced use cases,
-refer to the "Programmatic Integration" section within the System Developer documentation
-under "Best Practices" :ref:`dev-bestpractices` to see how to achieve fine-grained control
-inside your custom *x0-objects*.
+refer to :ref:`dev-bestpractices` within the System Developer Documentation to see how to achieve
+fine-grained control inside your custom *x0-objects*.
 
 .. important::
    In *x0*, a single context menu is directly **object-bound**, rather than being connected
@@ -159,8 +158,8 @@ and **HeaderContextMenuItems** (table header only).
    fine-grained, multi-line operations.
 
 .. note::
-   The *x0-static* runnable container includes multiple viewable examples showing how operating
-   the context menu on a ``List`` looks like.
+   The *x0-static* runnable container includes multiple viewable examples showing how the
+   context menu behaves in combination with a ``List`` *x0-object-type*.
 
 13.5.2. List Header
 *******************
