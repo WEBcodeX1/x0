@@ -441,6 +441,8 @@ the declarative configuration JSON is listed in the following tables **Attribute
    +=================+==================================+=====================================================+
    | set             | ``setObjectData()``              | Using ``SrcDataObject`` and ``DstDataObject``.      |
    +-----------------+----------------------------------+-----------------------------------------------------+
+   | append          | ``setObjectData()``              | Using ``SrcDataObject`` and ``DstDataObject``.      |
+   +-----------------+----------------------------------+-----------------------------------------------------+
    | enable          | ``setDOMVisibleState()``         | Using ``DstObjectID``.                              |
    +-----------------+----------------------------------+-----------------------------------------------------+
    | disable         | ``setDOMVisibleState()``         | Using ``DstObjectID``.                              |
@@ -463,20 +465,127 @@ the declarative configuration JSON is listed in the following tables **Attribute
 16.2. Examples
 --------------
 
-16.2.1. Enable
+16.2.1. Append
 **************
 
-16.2.2. Set
-***********
+.. code-block:: javascript
+
+   "ExampleButtonActionAppend":
+   {
+      "Type": "Button",
+      "Attributes":
+      {
+         "TextID": "TXT.BUTTON.EXAMPLE",
+         "Style": "btn btn-primary w-100 mt-2 mb-2",
+         "IconStylePost": "fa-solid fa-arrow-down",
+         "Action": "append",
+         "SrcDataObject": "SourceObjectID",
+         "DstDataObject": "DestinationObjectID"
+      }
+   }
+
+16.2.2. Enable
+**************
+
+.. code-block:: javascript
+
+   "ExampleButtonActionEnable":
+   {
+      "Type": "Button",
+      "Attributes":
+      {
+         "TextID": "TXT.BUTTON.EXAMPLE",
+         "Style": "btn btn-primary w-100 mt-2 mb-2",
+         "IconStylePost": "fa-solid fa-arrow-down",
+         "Action": "enable",
+         "DstObjectID": "DestinationObjectID"
+      }
+   }
 
 16.2.3. Tabswitch
 *****************
 
+.. code-block:: javascript
+
+   "ExampleButtonActionTabSwitch":
+   {
+      "Type": "Button",
+      "Attributes":
+      {
+         "TextID": "TXT.BUTTON.EXAMPLE",
+         "Style": "btn btn-primary w-100 mt-2 mb-2",
+         "IconStylePost": "fa-solid fa-arrow-down",
+         "Action": "tabswitch",
+         "TabContainer": "TabContainerObjectID",
+         "Tab": "TabObjectID"
+      }
+   }
+
 16.2.4. Set Global Var
 **********************
 
+.. code-block:: javascript
+
+   "ExampleButtonActionSetGlobalVar":
+   {
+      "Type": "Button",
+      "Attributes":
+      {
+         "TextID": "TXT.BUTTON.EXAMPLE",
+         "Style": "btn btn-primary w-100 mt-2 mb-2",
+         "IconStylePost": "fa-solid fa-arrow-down",
+         "Action": "setglobalvar",
+         "SetVar": "VarName",
+         "SetValue": "VarValue"
+      }
+   }
+
 16.2.5. Open Overlay
 ********************
+
+.. code-block:: javascript
+
+   "ExampleButtonActionOpenOverlay":
+   {
+      "Type": "Button",
+      "Attributes":
+      {
+         "TextID": "TXT.BUTTON.EXAMPLE",
+         "Style": "btn btn-primary w-100 mt-2 mb-2",
+         "IconStylePost": "fa-solid fa-arrow-down",
+         "Action": "openoverlay",
+         "ScreenID": "ScreenName"
+      }
+   }
+
+16.2.6. Multiple Actions
+************************
+
+When passing ``Action`` as an **object**, multiple actions can be addressed.
+
+.. code-block:: javascript
+
+   "ExampleButtonActionMultipleActions":
+   {
+      "Type": "Button",
+      "Attributes":
+      {
+         "TextID": "TXT.BUTTON.EXAMPLE",
+         "Style": "btn btn-primary w-100 mt-2 mb-2",
+         "IconStylePost": "fa-solid fa-arrow-down",
+         "Action": {
+            "openoverlay":
+            {
+               "ScreenID": "ScreenName"
+            },
+            "setglobalvar":
+            {
+               "SetVar": "VarName",
+               "SetValue": "VarValue"
+            }
+         }
+      }
+   }
 
 16.3. Control Flow
 ------------------
