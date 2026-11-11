@@ -186,8 +186,8 @@ it from table rows.
 13.5.3. List Row
 ****************
 
-The ``List`` sub-type ``RowElement`` supports an own context menu which operates
-on row level.
+The ``List`` sub-type ``RowElement`` supports its own context menu that operates
+at the row level.
 
 Supported **Internal Functions**:
 

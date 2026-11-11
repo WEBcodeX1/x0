@@ -74,10 +74,9 @@ HTML tag specified in ``DOMType`` (defaulting to ``div`` when omitted).
 
 It should **never** be used directly in a **declarative configuration**—use
 ``DivUnique`` or ``DivValue`` instead. In **programmatic, custom**
-*x0-system-classes* the ``Div`` *x0-object-type* exclusively is used as a
-**between-element** in a multi-nested hierarchy. This concept is described in
-detail in the system-developers documentation under "Development Best
-Practices" :ref:`dev-object-nesting`.
+*x0-system-classes*, the ``Div`` *x0-object-type* is used exclusively as an
+**intermediate element** in nested hierarchies. This concept is described
+in detail in the system developer documentation under :ref:`dev-object-nesting`.
 
 11.1.1. Object Attributes
 *************************
@@ -547,12 +546,12 @@ between pages without a backend reload.
 
 It also supports runtime data manipulation via ``getObjectData()`` /
 ``setObjectData()`` to append rows in realtime, e.g., by using *x0-actions* in
-``Button`` or ``ButtonInternal`` *x0-object-type*'s **or** by using
+``Button`` or ``ButtonInternal`` *x0-object-types* **or** by using
 *x0-context-menu* configuration.
 
 When specifying the ``ErrorContainer`` attribute, occurring errors—such as
 exceeding the maximum allowed row count—will trigger the error output there.
-Like any other *x0-object-type*'s supporting ``ServiceConnector`` integration,
+Like any other *x0-object-types* supporting ``ServiceConnector`` integration,
 the ``List`` can be populated with data on an occurring *x0-event* (e.g., on
 system initialization or a runtime ``Button`` or ``ButtonInternal`` click).
 
@@ -872,7 +871,7 @@ styled header row and a collapsible body, allowing users to expand or collapse a
 section to manage screen space without losing its contents.
 
 Internally, the body is a nested ``Div`` whose ``VisibleState`` attribute is
-toggled between ``visible`` and ``hidden`` via ``toggleVisibleState()`` when
+toggled between ``visible`` and ``hidden`` via ``toggleVisibleState()`` by
 clicking a Font Awesome caret icon. Because the body is only hidden rather than
 destroyed, any child *x0-object* placed inside remains fully initialized and
 preserves its state while collapsed.
@@ -1071,7 +1070,7 @@ When using ``DivUnique``, the resulting DOM IDs remain unaltered: ``Object1ID``,
 single-container modeling within the declarative scope of ``object.json``.
 
 When using ``DivUnique`` inside the **programmatic** scope (building custom
-*x0-object-type*'s), the implementor must **ensure** the uniqueness of each
+*x0-object-types*), the implementor must **ensure** the uniqueness of each
 assigned ObjectID (e.g., for dynamically created row containers). In contrast,
 the standard ``Div`` *x0-object-type* is explicitly used in nested programmatic
 setups as an intermediate structural layer without logic. This concept is
@@ -1465,7 +1464,7 @@ The ``SystemSettingsContainerGrid`` *x0-object-type* extends
 
 .. important::
    ``SystemSettingsContainerGrid`` demonstrates the *x0-grid* live functionality,
-   that a grid can be attached different models (styles) in realtime.
+   that different models (styles) can be attached to a grid in realtime.
 
 11.22.1. Object Attributes
 **************************
@@ -1608,7 +1607,7 @@ removable row opens a context menu offering the same removal action (see
 .. important::
    ``DynRadioList`` can be treated as a fully supported ``Formfield``
    *x0-object-type* and used inside ``FormfieldList``. In addition, it
-   demonstrates how the ``ContextMenu`` and ``Button`` *x0-object-type*'s can be
+   demonstrates how the ``ContextMenu`` and ``Button`` *x0-object-types* can be
    combined within a single component.
 
 11.25.1. Object Attributes
@@ -1643,7 +1642,7 @@ removable row opens a context menu offering the same removal action (see
 -----------------------
 
 The ``ServiceConnector`` *x0-object-type* binds a backend service call to a
-target *x0-system-object* (currently supported *x0-object-type*'s are ``List``
+target *x0-system-object* (currently supported *x0-object-types* are ``List``
 and ``FormfieldList``), triggering the call whenever one of the configured
 system events fires (e.g., ``InitSystem``).
 

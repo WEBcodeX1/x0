@@ -49,13 +49,13 @@ Currently the following *x0-object-types* are supporting the *x0-grid* feature:
 
 .. warning::
 
-   You should be familiar with Bootstrap CSS / Grid system before continue reading.
+   You should be familiar with Bootstrap CSS / Grid system before continuing to read.
 
 10.3. Global JSON Metadata
 **************************
 
 If an *x0-object* supports *x0-global-grid-system* formatting the following
-properties can be set inside the objects "Attribute" representation.
+properties can be set inside the object's "Attribute" representation.
 
 .. table:: Global Grid Object Properties
    :widths: 30 20 50
@@ -157,9 +157,9 @@ Modifying ``"RowStyle": [ "row fw-bold", "row" ]`` renders:
 10.3.3. ColStyle / ColAfterElements
 -----------------------------------
 
-ColAfterElements processing is likewise RowAfterElements processing,
-with the difference of generating a **column** container div instead
-of a **row** container div.
+``ColAfterElements`` processing works just like ``RowAfterElements``
+processing, with the difference of generating a **column** container div
+instead of a **row** container div.
 
 .. note::
    Note that ColAfterElements default value is ``[1]``, so the container
@@ -208,10 +208,10 @@ of a **row** container div.
    "ColStyle": [
       "col-md-5",
       "col-md-7",
-      "col-md2",
-      "col-md3",
-      "col-md3",
-      "col-md5"
+      "col-md-2",
+      "col-md-3",
+      "col-md-3",
+      "col-md-5"
    ]
 
 Without table header the resulting output looks like the following.
@@ -221,11 +221,11 @@ Without table header the resulting output looks like the following.
    +-----------------------------------------+-----------------------------------------+
    | Col1 (col-md-5)                         | Col2 (col-md-7)                         |
    +--------------------+--------------------+--------------------+--------------------+
-   | Col3 (col-md2)     | Col4 (col-md3)     | Col5 (col-md3)     | Col6 (col-md5)     |
+   | Col3 (col-md-2)    | Col4 (col-md-3)    | Col5 (col-md-3)    | Col6 (col-md-5)    |
    +--------------------+--------------------+--------------------+--------------------+
    | Col1 (col-md-5)                         | Col2 (col-md-7)                         |
    +--------------------+--------------------+--------------------+--------------------+
-   | Col3 (col-md2)     | Col4 (col-md3)     | Col5 (col-md3)     | Col6 (col-md5)     |
+   | Col3 (col-md-2)    | Col4 (col-md-3)    | Col5 (col-md-3)    | Col6 (col-md-5)    |
    +--------------------+--------------------+--------------------+--------------------+
 
 .. _dynamic-restructuring:

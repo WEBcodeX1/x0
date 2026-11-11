@@ -184,7 +184,7 @@ existing Selenium test files.
 	wd_options.add_argument('ignore-certificate-errors')
 	wd_options.add_argument('headless')
 
-- The global conig() always must be defined like this.
+- The global config() must always be defined like this.
   ``scope='module'`` will tell the selenium driver to only use one single
   tcp connection to the selenium-server and to reuse it for the complete test
   run.
@@ -194,7 +194,7 @@ existing Selenium test files.
 	@pytest.fixture(scope='module')
 	def config():
 
-- Currently config() **must** contain in every ``.py`` test file.
+- Currently, config() **must** be included in every .py test file.
 
 .. code-block:: python
 

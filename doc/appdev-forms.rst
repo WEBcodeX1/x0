@@ -336,7 +336,7 @@ other, already rendered *x0-form-objects* without any custom JavaScript.
 **********************
 
 This configuration (used exclusively in combination with ``DisableOnValues``) allows you to
-enable or disable a destination object—or an entire hierarchy of nested objects—dependent
+enable or disable a destination object—or an entire hierarchy of nested objects—depending
 on the **current value** triggered by the ``OnChange`` event of the source object.
 
 The following example demonstrates this behavior using a ``Checkbox`` *x0-object-type*:
@@ -436,7 +436,7 @@ to the destination object:
 17.2.5. FireEvents
 ******************
 
-Globally fire (raise) *x0-events* on any objects state change.
+Globally fire (raise) *x0-events* on any object's state change.
 
 .. code-block:: javascript
 
@@ -454,7 +454,7 @@ See :ref:`appdeveventsystem` for the full event-system architecture.
 17.2.6. Chaining Events
 ***********************
 
-Multiple OnChange configuration can be specified if provided as **Array** type.
+Multiple ``OnChange`` configurations can be specified if provided as **Array** type.
 
 .. code-block:: javascript
 

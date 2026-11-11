@@ -24,10 +24,10 @@ that handles message routing, session management, and delivery between connected
 
 .. warning::
 
-   The shipped *x0-msg-server* container is functionally very limited and possesses
-   strict performance ceilings. It is explicitly designed and intended **only** for
-   internal message exchange testing and local development. It must not be deployed
-   in production environments.
+   The shipped *x0-msg-server* container is functionally very limited and has strict
+   performance limits. It is explicitly designed and intended **only** for internal
+   message exchange testing and local development. It must not be deployed in production
+   environments.
 
 19.2. Architecture
 ------------------

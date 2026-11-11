@@ -62,7 +62,7 @@ the key ``backend_key`` from the backend JSON response and store it under the na
 14.2.2. Declarative Access
 **************************
 
-A global variable can be set declaratively through a *x0-action* on ``sysObjButton`` or
+A global variable can be set declaratively through an *x0-action* on a ``sysObjButton`` or
 ``sysObjButtonInternal`` *x0-object-type*:
 
 .. code-block:: javascript

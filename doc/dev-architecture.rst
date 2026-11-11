@@ -37,7 +37,7 @@ network environment for a demo application, initialized by the *x0-kubernetes-in
 The primary purpose of the application is to manage large-scale industrial
 packaging systems and warehouse relations.
 
-The application is divided into three sub-parts / environments:
+The application is divided into three sub-components / environments:
 
 1. Packaging Factory (EDI - SAP systems interconnect)
 2. Warehouse Android Scanner Devices
