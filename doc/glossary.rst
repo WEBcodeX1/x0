@@ -264,8 +264,8 @@ POST calls to populate its target object.
 
 .. _glossary-shadow-dom:
 
-28.25. Shadow DOM (x0-shadow-dom)
----------------------------------
+28.25. Shadow DOM (*x0-shadow-dom*)
+-----------------------------------
 
 The internal recursive object graph of x0 (see :ref:`dev-oopmodel`), in which
 each live JavaScript object instance maintains a strict 1:1 association with a
@@ -274,8 +274,8 @@ between application logic and presentation.
 
 .. _glossary-source-data-objects:
 
-28.26. Source Data Objects (SrcDataObjects)
--------------------------------------------
+28.26. Source Data Objects (``SrcDataObjects``)
+-----------------------------------------------
 
 A declarative mechanism handled by ``sysSourceObjectHandler`` (see
 :ref:`sourcedata-objects`) that gathers runtime values from referenced system
