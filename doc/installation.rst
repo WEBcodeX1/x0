@@ -242,7 +242,7 @@ For restricted or frequent development environments, a local Ubuntu apt mirror c
 .. code-block:: bash
 
     export UBUNTU_MIRROR_DNS=your-hostname.localnet
-    export UBUNTU_MIRROR_IP=196.168.0.253
+    export UBUNTU_MIRROR_IP=192.168.0.253
 
 .. warning::
    Both ``UBUNTU_MIRROR_DNS`` and ``UBUNTU_MIRROR_IP`` must be set and your DNS must resolve correctly.

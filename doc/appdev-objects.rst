@@ -76,7 +76,7 @@ It should **never** be used directly in a **declarative configuration**—use
 ``DivUnique`` or ``DivValue`` instead. In **programmatic, custom**
 *x0-system-classes*, the ``Div`` *x0-object-type* is used exclusively as an
 **intermediate element** in nested hierarchies. This concept is described
-in detail in the system developer documentation under :ref:`dev-object-nesting`.
+in detail in the System Developer Documentation under :ref:`dev-object-nesting`.
 
 11.1.1. Object Attributes
 *************************
@@ -135,7 +135,7 @@ sources:
    +---------------------+----------------------+-------------------------------------------------+
    | IconStylePost       | CSS-String           | Font Awesome Icon CSS for Append Icon           |
    +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.2.2. JSON Examples
@@ -222,7 +222,7 @@ actions **after successful** execution, and ``FireEvents`` dispatches
    +---------------------+----------------------+-------------------------------------------------+
    | Disabled            | Boolean              | Disable Functionality Initially                 |
    +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
    +---------------------+----------------------+-------------------------------------------------+
    | OnClick             | URL-String           | Backend Service URL                             |
    +---------------------+----------------------+-------------------------------------------------+
@@ -296,7 +296,7 @@ is that it lacks backend functionality; otherwise, its behavior is identical.
    +---------------------+----------------------+-------------------------------------------------+
    | Disabled            | Boolean              | Disable Functionality Initially                 |
    +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
    +---------------------+----------------------+-------------------------------------------------+
    | Notify              | Object               | Notify Indicator Configuration                  |
    +---------------------+----------------------+-------------------------------------------------+
@@ -600,7 +600,7 @@ system initialization or a runtime ``Button`` or ``ButtonInternal`` click).
    +=====================+======================+=================================================+
    | ID                  | ID-String            | Column ID, also DB Column Reference             |
    +---------------------+----------------------+-------------------------------------------------+
-   | HeaderTextID        | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   | HeaderTextID        | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
    +---------------------+----------------------+-------------------------------------------------+
    | HeaderStyle         | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
@@ -697,7 +697,7 @@ To **connect** a single object to a single ``Tab``, reference the object inside
    +---------------------+----------------------+-------------------------------------------------+
    | Default             | Boolean              | Default "selected" Tab                          |
    +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
    +---------------------+----------------------+-------------------------------------------------+
    | Style               | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
@@ -892,7 +892,7 @@ or collapsed when the *x0-screen* is initially rendered.
    +---------------------+----------------------+-------------------------------------------------+
    | HeaderStyle         | CSS-String           | CSS Style Classes applied to the header row     |
    +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
    +---------------------+----------------------+-------------------------------------------------+
    | IconStyle           | CSS-String           | Font Awesome Icon CSS                           |
    +---------------------+----------------------+-------------------------------------------------+
@@ -968,7 +968,7 @@ Expandable/collapsible containers that can contain other nodes or items:
    +=====================+======================+=================================================+
    | Type                | Constant String      | Fixed String 'Node'                             |
    +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
    +---------------------+----------------------+-------------------------------------------------+
    | Icon                | CSS-String           | Font Awesome Icon CSS Classes                   |
    +---------------------+----------------------+-------------------------------------------------+
@@ -988,7 +988,7 @@ Interactive navigation elements that trigger screen navigation:
    +=====================+======================+=================================================+
    | Type                | Constant String      | Fixed String 'Item'                             |
    +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
    +---------------------+----------------------+-------------------------------------------------+
    | Icon                | CSS-String           | Font Awesome Icon CSS Classes                   |
    +---------------------+----------------------+-------------------------------------------------+
@@ -1074,8 +1074,8 @@ When using ``DivUnique`` inside the **programmatic** scope (building custom
 assigned ObjectID (e.g., for dynamically created row containers). In contrast,
 the standard ``Div`` *x0-object-type* is explicitly used in nested programmatic
 setups as an intermediate structural layer without logic. This concept is
-described in detail in the system developer documentation under "Development
-Best Practices" (see :ref:`dev-object-nesting`).
+described in detail in the System Developer Documentation under
+:ref:`dev-object-nesting`.
 
 11.15.1. Object Attributes
 **************************
@@ -1420,7 +1420,7 @@ configuration rows used for internal *x0-system* settings.
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | TextID              | TextID-String        | Row description, referenced in "webui.text"     |
+   | TextID              | TextID-String        | Row description, referenced in ``webui.text``   |
    +---------------------+----------------------+-------------------------------------------------+
    | Style               | CSS-String           | CSS Style Classes applied to the description    |
    +---------------------+----------------------+-------------------------------------------------+
@@ -1462,7 +1462,7 @@ The ``SystemSettingsContainerGrid`` *x0-object-type* extends
 
 .. important::
    ``SystemSettingsContainerGrid`` demonstrates the *x0-grid* live functionality,
-   that different models (styles) can be attached to a grid in realtime.
+   how different models (styles) can be attached to a grid in realtime.
 
 11.22.1. Object Attributes
 **************************
@@ -1519,7 +1519,7 @@ each consisting of:
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | ID                  | TextID-String        | Text ID, referenced in "webui.text"             |
+   | ID                  | TextID-String        | Text ID, referenced in ``webui.text``           |
    +---------------------+----------------------+-------------------------------------------------+
    | Style               | CSS-String           | CSS Style Classes                               |
    +---------------------+----------------------+-------------------------------------------------+
@@ -1833,7 +1833,7 @@ rows.
    +=====================+======================+=================================================+
    | Style               | CSS-String           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
-   | HeaderTextID        | TextID-String        | TextID referenced in "webui.text" DB Table      |
+   | HeaderTextID        | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
    +---------------------+----------------------+-------------------------------------------------+
    | HeaderStyle         | CSS-String           | CSS Style Classes for the header text           |
    +---------------------+----------------------+-------------------------------------------------+
