@@ -88,9 +88,9 @@ Save this configuration in:
 As with all *x0-applications*, the test requires valid ``object.json``, ``skeleton.json``,
 and ``menu.json`` files:
 
-* ``./test/integration/config/${test_id}/static/menu.json``
-* ``./test/integration/config/${test_id}/static/object.json``
-* ``./test/integration/config/${test_id}/static/skeleton.json``
+- ``./test/integration/config/${test_id}/static/menu.json``
+- ``./test/integration/config/${test_id}/static/object.json``
+- ``./test/integration/config/${test_id}/static/skeleton.json``
 
 25.2.4. Test Global Data
 ************************
