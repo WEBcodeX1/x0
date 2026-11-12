@@ -67,14 +67,12 @@ A global variable can be set declaratively through an *x0-action* on a ``sysObjB
 
 .. code-block:: javascript
 
-   "OnClick":
-   [
-      {
-         "Action": "setglobalvar",
-         "SetVar": "MyGlobalKey",
-         "SetValue": "my_value"
-      }
-   ]
+   "Attributes":
+   {
+      "Action": "setglobalvar",
+      "SetVar": "MyGlobalKey",
+      "SetValue": "my_value"
+   }
 
 14.2.3. Screen Global Data
 **************************

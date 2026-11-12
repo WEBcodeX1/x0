@@ -289,7 +289,7 @@ Run tests locally after containers are running:
 
 x0 runs on GKE and Minikube with automated ingress, redundancy (Kubegres), and fail-safe DB setup.
 
-For details, see: https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md
+For details, see: https://github.com/WEBcodeX1/x0/tree/current-release/kubernetes/README.md
 
 6.2.12. Running on Windows 11
 *****************************

@@ -94,10 +94,11 @@ Each object in ``object.json`` is declared as follows:
 .. code-block:: json
 
    {
-     "$ObjectID": {
-       "Type": "$ObjectType",
-       "Attributes": {}
-     }
+      "$ObjectID":
+      {
+         "Type": "$ObjectType",
+         "Attributes": {}
+      }
    }
 
 -  Each individual object declaration must be assigned a unique ID via ``$ObjectID``.
@@ -123,13 +124,15 @@ object must be referenced by its ``RefID``.
 .. code-block:: json
 
    {
-     "Screen1": [
-       {
-         "Object1": {
-           "RefID": "Screen1"
+      "Screen1":
+      [
+         {
+            "Object1":
+            {
+               "RefID": "Screen1"
+            }
          }
-       }
-     ]
+      ]
    }
 
 - If a *x0-object* is **not connected** or connected to a **non-existent** screen, it will be ignored.
@@ -144,18 +147,21 @@ of the child object must point to the parent object.
 .. code-block:: json
 
    {
-     "Screen1": [
-       {
-         "Object1": {
-           "RefID": "Screen1"
+      "Screen1":
+      [
+         {
+            "Object1":
+            {
+               "RefID": "Screen1"
+            }
+         },
+         {
+            "Object2":
+            {
+               "RefID": "Object1"
+            }
          }
-       },
-       {
-         "Object2": {
-           "RefID": "Object1"
-         }
-       }
-     ]
+      ]
    }
 
 When configured this way, the resulting chain of objects forms a **plain** object
@@ -180,20 +186,20 @@ The only difference in ``menu.json`` is that the menu content area uses a static
 
 .. code-block:: json
 
-  [
-    {
-      "x0Logo":
+   [
       {
-        "RefID": "sysMenu"
-      }
-    },
-    {
-      "MenuTree":
+         "x0Logo":
+         {
+            "RefID": "sysMenu"
+         }
+      },
       {
-         "RefID": "sysMenu"
+         "MenuTree":
+         {
+            "RefID": "sysMenu"
+         }
       }
-    }
-  ]
+   ]
 
 7.4.6. Skeleton ElementID
 *************************
@@ -207,39 +213,46 @@ two ``RangeSlider`` objects ready to be connected to the tab container's tabs:
 .. code-block:: json
 
    {
-     "TabContainer1": {
-       "Type": "TabContainer",
-       "Attributes": {
-         "Tabs": [
-           {
-             "ID": "Tab1",
-             "Default": true,
-             "TextID": "TXT.BASIC-TABCONTAINER.TAB1",
-             "Style": "col-md-6"
-           },
-           {
-             "ID": "Tab2",
-             "TextID":
-             "TXT.BASIC-TABCONTAINER.TAB2",
-             "Style": "col-md-6"
-           }
-         ]
-       }
-     },
-     "Object1": {
-       "Type": "RangeSlider",
-       "Attributes": {
-         "Min": 0,
-         "Max": 100
-       }
-     },
-     "Object2": {
-       "Type": "RangeSlider",
-       "Attributes": {
-         "Min": 0,
-         "Max": 100
-       }
-     }
+      "TabContainer1":
+      {
+         "Type": "TabContainer",
+         "Attributes":
+         {
+            "Tabs":
+            [
+               {
+                  "ID": "Tab1",
+                  "Default": true,
+                  "TextID": "TXT.BASIC-TABCONTAINER.TAB1",
+                  "Style": "col-md-6"
+               },
+               {
+                  "ID": "Tab2",
+                  "TextID":
+                  "TXT.BASIC-TABCONTAINER.TAB2",
+                  "Style": "col-md-6"
+               }
+            ]
+         }
+      },
+      "Object1":
+      {
+         "Type": "RangeSlider",
+         "Attributes":
+         {
+            "Min": 0,
+            "Max": 100
+         }
+      },
+      "Object2":
+      {
+         "Type": "RangeSlider",
+         "Attributes":
+         {
+            "Min": 0,
+            "Max": 100
+         }
+      }
    }
 
 The following configuration in ``skeleton.json`` uses the ``ElementID`` to finally
@@ -249,25 +262,29 @@ relevant ``Tab`` elements:
 .. code-block:: json
 
    {
-     "Screen1": [
-       {
-         "TabContainer1": {
-           "RefID": "Screen1"
+      "Screen1":
+      [
+         {
+            "TabContainer1":
+            {
+               "RefID": "Screen1"
+            }
+         },
+         {
+            "Object1":
+            {
+               "RefID": "TabContainer1",
+               "ElementID": "Tab1Content"
+            }
+         },
+         {
+            "Object2":
+            {
+               "RefID": "TabContainer1",
+               "ElementID": "Tab2Content"
+            }
          }
-       },
-       {
-         "Object1": {
-           "RefID": "TabContainer1",
-           "ElementID": "Tab1"
-         }
-       },
-       {
-         "Object2": {
-           "RefID": "TabContainer1",
-           "ElementID": "Tab2"
-         }
-       }
-     ]
+      ]
    }
 
 .. _custom-extensions:

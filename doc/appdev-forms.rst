@@ -325,7 +325,7 @@ other, already rendered *x0-form-objects* without any custom JavaScript.
 
    "TestObject":
    {
-      "ObjectType": "FormfieldText",
+      "Type": "FormfieldText",
       "Attributes":
       {
          "OnChange": { <<-scope->> }
@@ -345,7 +345,7 @@ The following example demonstrates this behavior using a ``Checkbox`` *x0-object
 
    "CheckboxObject":
    {
-      "ObjectType": "FormfieldCheckbox",
+      "Type": "FormfieldCheckbox",
       "Attributes":
       {
          "Style": "form-check form-check-input mb-1 p-1 w-100",

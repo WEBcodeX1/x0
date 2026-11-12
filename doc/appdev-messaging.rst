@@ -110,7 +110,7 @@ Configure DNS resolution for the messaging server:
 .. code-block:: bash
 
     # Add to /etc/hosts
-    echo "172.20.0.100 x0-msg-server.x0-localnet" >> /etc/hosts
+    echo "172.20.0.100 x0-msg-server.x0.localnet" >> /etc/hosts
 
 .. note::
 
@@ -161,7 +161,7 @@ Configure the messaging client in your *x0-application*:
     const msgHandler = new sysAsyncNotifyMsgHandler(true);
     
     // Configure server URL
-    sysFactory.MsgServerGetURL = 'http://x0-msg-server.x0-localnet:8080/get';
+    sysFactory.MsgServerGetURL = 'http://x0-msg-server.x0.localnet:8080/get';
 
 19.5. Example Implementation
 ----------------------------
