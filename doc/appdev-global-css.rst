@@ -30,20 +30,28 @@ Bootstrap CSS classes can be applied to any *x0-system-object* that supports the
 
 .. code-block:: javascript
 
-   "MyButton": {
-      "Type": "Button",
-      "Attributes": {
-         "Style": "btn btn-primary me-2",
-         "TextID": "TXT.BUTTON.SAVE"
+   {
+      "ExampleButton":
+      {
+         "Type": "Button",
+         "Attributes":
+         {
+            "Style": "btn btn-primary me-2",
+            "TextID": "TXT.BUTTON.SAVE"
+         }
       }
    }
 
 .. code-block:: javascript
 
-   "MyContainer": {
-      "Type": "Div",
-      "Attributes": {
-         "Style": "container-fluid p-4 bg-light rounded shadow"
+   {
+      "ExampleContainer":
+      {
+         "Type": "Div",
+         "Attributes":
+         {
+            "Style": "container-fluid p-4 bg-light rounded shadow"
+         }
       }
    }
 
@@ -80,12 +88,16 @@ apply Bootstrap grid classes:
 
 .. code-block:: javascript
 
-   "MyList": {
-      "Type": "List",
-      "Attributes": {
-         "RowStyle": "row mb-3",
-         "ColStyle": [ "col-md-6", "col-md-3", "col-md-3" ],
-         "RowAfterElements": 1
+   {
+      "ExampleList":
+      {
+         "Type": "List",
+         "Attributes":
+         {
+            "RowStyle": "row mb-3",
+            "ColStyle": [ "col-md-6", "col-md-3", "col-md-3" ],
+            "RowAfterElements": 1
+         }
       }
    }
 
@@ -101,12 +113,16 @@ Complex layouts can be achieved by mixing *x0-grid* properties with Bootstrap ut
 
 .. code-block:: javascript
 
-   "ResponsiveForm": {
-      "Type": "FormfieldList",
-      "Attributes": {
-         "RowStyle": [ "row g-3", "row g-3 bg-light p-2" ],
-         "ColStyle": [ "col-12 col-md-6", "col-12 col-md-4", "col-12 col-md-2"],
-         "RowAfterElements": [ 2, 3 ]
+   {
+      "ExampleResponsiveForm":
+      {
+         "Type": "FormfieldList",
+         "Attributes":
+         {
+            "RowStyle": [ "row g-3", "row g-3 bg-light p-2" ],
+            "ColStyle": [ "col-12 col-md-6", "col-12 col-md-4", "col-12 col-md-2"],
+            "RowAfterElements": [ 2, 3 ]
+         }
       }
    }
 
@@ -153,17 +169,23 @@ Mix custom classes with Bootstrap classes in your JSON configurations:
 
 .. code-block:: javascript
 
-   "HeaderContainer": {
-      "Type": "Div",
-      "Attributes": {
-         "Style": "my-custom-header p-4 mb-3 shadow-lg"
+   {
+      "ExampleHeaderContainer":
+      {
+         "Type": "Div",
+         "Attributes":
+         {
+            "Style": "my-custom-header p-4 mb-3 shadow-lg"
+         }
       }
-   }
 
-   "StatusIndicator": {
-      "Type": "Div",
-      "Attributes": {
-         "Style": "d-flex align-items-center status-indicator status-active"
+      "StatusIndicator":
+      {
+         "Type": "Div",
+         "Attributes":
+         {
+            "Style": "d-flex align-items-center status-indicator status-active"
+         }
       }
    }
 
@@ -183,12 +205,16 @@ Mix custom classes with Bootstrap classes in your JSON configurations:
 
 .. code-block:: javascript
 
-   "ProductCard": {
-      "Type": "Div",
-      "Attributes": {
-         "Style": "card product-card shadow-sm hover-lift"
+   {
+      "ExampleProductCard":
+      {
+         "Type": "Div",
+         "Attributes":
+         {
+            "Style": "card product-card shadow-sm hover-lift"
+         }
       }
    }
 
-Where ``card`` and ``shadow-sm`` are Bootstrap classes, and ``product-card`` and 
+Where ``card`` and ``shadow-sm`` are Bootstrap classes, and ``product-card`` and
 ``hover-lift`` are custom classes defined in globalstyles.css.
