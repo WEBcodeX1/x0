@@ -65,13 +65,15 @@ the key ``backend_key`` from the backend JSON response and store it under the na
 A global variable can be set declaratively through an *x0-action* on a ``sysObjButton`` or
 ``sysObjButtonInternal`` *x0-object-type*:
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "Attributes":
    {
-      "Action": "setglobalvar",
-      "SetVar": "MyGlobalKey",
-      "SetValue": "my_value"
+      "Attributes":
+      {
+         "Action": "setglobalvar",
+         "SetVar": "MyGlobalKey",
+         "SetValue": "my_value"
+      }
    }
 
 14.2.3. Screen Global Data
@@ -124,9 +126,11 @@ configuration at screen setup.
 
 .. code-block:: json
 
-   "ExampleFormList2":
    {
-      "InstanceOf": "ExampleFormList1"
+      "ExampleFormList2":
+      {
+         "InstanceOf": "ExampleFormList1"
+      }
    }
 
 14.3.2. AttributesOverwrite
@@ -140,15 +144,19 @@ inherited unchanged from the source object.
 
 .. code-block:: json
 
-   "ExampleFormlist2":
    {
-      "InstanceOf": "ExampleFormlist1",
-      "AttributesOverwrite": {
-         "ObjectIDs": [
-            "Formfield1",
-            "Formfield2",
-            "Formfield3"
-         ]
+      "ExampleFormlist2":
+      {
+         "InstanceOf": "ExampleFormlist1",
+         "AttributesOverwrite":
+         {
+            "ObjectIDs":
+            [
+               "Formfield1",
+               "Formfield2",
+               "Formfield3"
+            ]
+         }
       }
    }
 
@@ -178,22 +186,28 @@ following states:
 Add a notify indicator by adding the ``Notify`` attribute to *x0-button-type* like
 shown in the following example:
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ButtonSubmit": {
-      "Type": "Button",
-      "Attributes": {
-         "TextID": "TXT.BUTTON.SUBMIT",
-         "Style": "btn btn-primary w-100 mt-3",
-         "OnClick": "/python/example-service.py",
-         "SrcDataObjects": [
-            "FormfieldList1",
-            "FormfieldObject1",
-            "FormfieldObject2"
-         ],
-         "Notify": {
-            "ID": "SubmitIdentifier",
-            "DisplayHeaderID": "TXT.NOTIFY.EXAMPLE"
+   {
+      "ButtonSubmit":
+      {
+         "Type": "Button",
+         "Attributes":
+         {
+            "TextID": "TXT.BUTTON.SUBMIT",
+            "Style": "btn btn-primary w-100 mt-3",
+            "OnClick": "/python/example-service.py",
+            "SrcDataObjects":
+            [
+               "FormfieldList1",
+               "FormfieldObject1",
+               "FormfieldObject2"
+            ],
+            "Notify":
+            {
+               "ID": "SubmitIdentifier",
+               "DisplayHeaderID": "TXT.NOTIFY.EXAMPLE"
+            }
          }
       }
    }
