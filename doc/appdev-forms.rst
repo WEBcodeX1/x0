@@ -328,7 +328,8 @@ other, already rendered *x0-form-objects* without any custom JavaScript.
       "Type": "FormfieldText",
       "Attributes":
       {
-         "OnChange": { <<-scope->> }
+         "OnChange": {
+         }
       }
    }
 
