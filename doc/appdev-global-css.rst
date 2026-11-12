@@ -28,7 +28,7 @@ attribute in ``object.json`` object declarations.
 Bootstrap CSS classes can be applied to any *x0-system-object* that supports the
 ``Style`` attribute:
 
-.. code-block:: javascript
+.. code-block:: json
 
    {
       "ExampleButton":
@@ -42,7 +42,7 @@ Bootstrap CSS classes can be applied to any *x0-system-object* that supports the
       }
    }
 
-.. code-block:: javascript
+.. code-block:: json
 
    {
       "ExampleContainer":
@@ -86,7 +86,7 @@ responsive layouts.
 When using *x0-grid* properties like ``RowStyle`` and ``ColStyle``, you can directly
 apply Bootstrap grid classes:
 
-.. code-block:: javascript
+.. code-block:: json
 
    {
       "ExampleList":
@@ -95,7 +95,12 @@ apply Bootstrap grid classes:
          "Attributes":
          {
             "RowStyle": "row mb-3",
-            "ColStyle": [ "col-md-6", "col-md-3", "col-md-3" ],
+            "ColStyle":
+            [
+               "col-md-6",
+               "col-md-3",
+               "col-md-3"
+            ],
             "RowAfterElements": 1
          }
       }
@@ -111,7 +116,7 @@ This creates a responsive layout where:
 
 Complex layouts can be achieved by mixing *x0-grid* properties with Bootstrap utilities:
 
-.. code-block:: javascript
+.. code-block:: json
 
    {
       "ExampleResponsiveForm":
@@ -119,8 +124,17 @@ Complex layouts can be achieved by mixing *x0-grid* properties with Bootstrap ut
          "Type": "FormfieldList",
          "Attributes":
          {
-            "RowStyle": [ "row g-3", "row g-3 bg-light p-2" ],
-            "ColStyle": [ "col-12 col-md-6", "col-12 col-md-4", "col-12 col-md-2"],
+            "RowStyle":
+            [
+               "row g-3",
+               "row g-3 bg-light p-2"
+            ],
+            "ColStyle":
+            [
+               "col-12 col-md-6",
+               "col-12 col-md-4",
+               "col-12 col-md-2"
+            ],
             "RowAfterElements": [ 2, 3 ]
          }
       }
@@ -167,7 +181,7 @@ Custom styles in ``globalstyles.css`` can be applied alongside Bootstrap classes
 
 Mix custom classes with Bootstrap classes in your JSON configurations:
 
-.. code-block:: javascript
+.. code-block:: json
 
    {
       "ExampleHeaderContainer":
@@ -203,7 +217,7 @@ Mix custom classes with Bootstrap classes in your JSON configurations:
 9.4.2. Example Integration
 --------------------------
 
-.. code-block:: javascript
+.. code-block:: json
 
    {
       "ExampleProductCard":
