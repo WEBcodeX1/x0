@@ -141,15 +141,17 @@ sources:
 11.2.2. JSON Examples
 *********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleText":
    {
-      "Type": "Text",
-      "Attributes":
+      "ExampleText":
       {
-         "Style": "css1 css2",
-         "TextID": "TXT.TEST.NR1"
+         "Type": "Text",
+         "Attributes":
+         {
+            "Style": "css1 css2",
+            "TextID": "TXT.TEST.NR1"
+         }
       }
    }
 
@@ -246,21 +248,23 @@ Note that specifying ``Action`` or ``OnResult`` actions requires mandatory base
 11.3.3. JSON Examples
 *********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleButton":
    {
-      "Type": "Button",
-      "Attributes":
+      "ExampleButton":
       {
-         "TextID": "TXT.BUTTON1",
-         "Style": "btn btn-primary btn-lg w-100 mt-3",
-         "IconStyle": "fa-solid fa-floppy-disk",
-         "OnClick": "/python/saveSettings.py",
-         "RequestMethod": "POST",
-         "Notify": {
-            "ID": "SaveSystemSettings",
-            "DisplayHeaderID": "TXT.NOTIFYMSG.SAVE_SYSTEMSETTINGS"
+         "Type": "Button",
+         "Attributes":
+         {
+            "TextID": "TXT.BUTTON1",
+            "Style": "btn btn-primary btn-lg w-100 mt-3",
+            "IconStyle": "fa-solid fa-floppy-disk",
+            "OnClick": "/python/saveSettings.py",
+            "RequestMethod": "POST",
+            "Notify": {
+               "ID": "SaveSystemSettings",
+               "DisplayHeaderID": "TXT.NOTIFYMSG.SAVE_SYSTEMSETTINGS"
+            }
          }
       }
    }
@@ -308,19 +312,21 @@ is that it lacks backend functionality; otherwise, its behavior is identical.
 11.4.2. JSON Examples
 *********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleButtonInternal":
    {
-      "Type": "ButtonInternal",
-      "Attributes":
+      "ExampleButtonInternal":
       {
-         "TextID": "TXT.BUTTON.EXAMPLE1",
-         "Style": "btn btn-primary w-100 mt-2 mb-2",
-         "IconStylePost": "fa-solid fa-arrow-down",
-         "Action": "append",
-         "SrcDataObject": "SourceObjectID",
-         "DstDataObject": "DestinationObjectID"
+         "Type": "ButtonInternal",
+         "Attributes":
+         {
+            "TextID": "TXT.BUTTON.EXAMPLE1",
+            "Style": "btn btn-primary w-100 mt-2 mb-2",
+            "IconStylePost": "fa-solid fa-arrow-down",
+            "Action": "append",
+            "SrcDataObject": "SourceObjectID",
+            "DstDataObject": "DestinationObjectID"
+         }
       }
    }
 
@@ -414,17 +420,19 @@ updated at runtime through the standard ``getObjectData()`` /
 11.6.2. JSON Examples
 *********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleImage":
    {
-      "Type": "Image",
-      "Attributes":
+      "ExampleImage":
       {
-         "Value": "/image/x0-logo.png",
-         "Width": "80px",
-         "Height": "80px",
-         "Style": "border rounded"
+         "Type": "Image",
+         "Attributes":
+         {
+            "Value": "/image/x0-logo.png",
+            "Width": "80px",
+            "Height": "80px",
+            "Style": "border rounded"
+         }
       }
    }
 
@@ -474,21 +482,24 @@ pagination reuses the same mechanism as :ref:`objecttype-list`.
 11.7.2. JSON Examples
 *********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleImageSelector":
    {
-      "Type": "ImageSelector",
-      "Attributes": {
-         "RowCount": 3,
-         "Value":
-         [
-            { "ID": "UTF-Emoji-Clock", "Description": "Clock Icon", "Path": "/image/icon-emoji-clock.png" },
-            { "ID": "UTF-Emoji-Truck", "Description": "Truck Icon", "Path": "/image/icon-emoji-truck.png" },
-            { "ID": "UTF-Emoji-Package", "Description": "Package Icon", "Path": "/image/icon-emoji-package.png" },
-            { "ID": "UTF-Emoji-Beer", "Description": "Beer Icon", "Path": "/image/icon-emoji-beer.png" },
-            { "ID": "UTF-Emoji-Houses", "Description": "Houses Icon", "Path": "/image/icon-emoji-houses.png" }
-         ]
+      "ExampleImageSelector":
+      {
+         "Type": "ImageSelector",
+         "Attributes":
+         {
+            "RowCount": 3,
+            "Value":
+            [
+               { "ID": "UTF-Emoji-Clock", "Description": "Clock Icon", "Path": "/image/icon-emoji-clock.png" },
+               { "ID": "UTF-Emoji-Truck", "Description": "Truck Icon", "Path": "/image/icon-emoji-truck.png" },
+               { "ID": "UTF-Emoji-Package", "Description": "Package Icon", "Path": "/image/icon-emoji-package.png" },
+               { "ID": "UTF-Emoji-Beer", "Description": "Beer Icon", "Path": "/image/icon-emoji-beer.png" },
+               { "ID": "UTF-Emoji-Houses", "Description": "Houses Icon", "Path": "/image/icon-emoji-houses.png" }
+            ]
+         }
       }
    }
 
@@ -517,11 +528,13 @@ an overlay. It inherits :ref:`objecttype-divunique`.
 11.8.2. JSON Examples
 *********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleBadgeSelector":
    {
-      "Type": "BadgeSelector"
+      "ExampleBadgeSelector":
+      {
+         "Type": "BadgeSelector"
+      }
    }
 
 .. _objecttype-list:
@@ -635,7 +648,7 @@ the following JSON array to populate table cell data; each element's keys correl
 the configured ``Column`` IDs (``col1``, ``col2``, ...) and are appended row-by-row
 into the list's internal ``RuntimeData`` array on service execution.
 
-.. code-block:: javascript
+.. code-block:: json
 
    [
       { "id": "1", "col1": "row1-1", "col2": "row1-2" },
@@ -659,7 +672,7 @@ destroyed and recreated, the state of every child object within each tab is
 preserved across all other interactions, including switching to a different
 *x0-screen*.
 
-.. code-block:: bash
+.. code-block:: text
 
    +---------+---------+---------+
    | Tab1    | Tab2    | Tab3    |
@@ -708,82 +721,86 @@ To **connect** a single object to a single ``Tab``, reference the object inside
 In ``object.json``, declaratively configure the ``Tab`` and two example ``DivUnique``
 instances:
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleTabcontainer":
    {
-      "Type": "TabContainer",
-      "Attributes":
+      "ExampleTabcontainer":
       {
-         "Tabs":
-         [
-            {
-               "ID": "Tab1",
-               "Attributes":
+         "Type": "TabContainer",
+         "Attributes":
+         {
+            "Tabs":
+            [
                {
-                  "TextID": "TXT.TABCONTAINER.NUMBER1",
-                  "Style": "col-md-6",
-                  "IconStyle": "fa-solid fa-hourglass-half",
-                  "Default": true
-               }
-            },
-            {
-               "ID": "Tab2",
-               "Attributes":
+                  "ID": "Tab1",
+                  "Attributes":
+                  {
+                     "TextID": "TXT.TABCONTAINER.NUMBER1",
+                     "Style": "col-md-6",
+                     "IconStyle": "fa-solid fa-hourglass-half",
+                     "Default": true
+                  }
+               },
                {
-                  "TextID": "TXT.TABCONTAINER.NUMBER2",
-                  "Style": "col-md-6",
-                  "IconStyle": "fa-solid fa-link"
+                  "ID": "Tab2",
+                  "Attributes":
+                  {
+                     "TextID": "TXT.TABCONTAINER.NUMBER2",
+                     "Style": "col-md-6",
+                     "IconStyle": "fa-solid fa-link"
+                  }
                }
-            }
-         ]
-      }
-   },
-   "DivContent1":
-   {
-      "Type": "DivUnique",
-      "Attributes":
+            ]
+         }
+      },
+      "DivContent1":
       {
-         "Value": "Display Content1"
-      }
-   },
-   "DivContent2":
-   {
-      "Type": "DivUnique",
-      "Attributes":
+         "Type": "DivUnique",
+         "Attributes":
+         {
+            "Value": "Display Content1"
+         }
+      },
+      "DivContent2":
       {
-         "Value": "Display Content2"
+         "Type": "DivUnique",
+         "Attributes":
+         {
+            "Value": "Display Content2"
+         }
       }
    }
 
 In ``skeleton.json``, **connect** the ``DivUnique`` instances to the ``TabContainer``
 using the additional ``ElementID`` property:
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleScreen":
-   [
-      {
-         "ExampleTabcontainer":
+   {
+      "ExampleScreen":
+      [
          {
-            "RefID": "ExampleScreen"
-         }
-      },
-      {
-         "DivContent1":
+            "ExampleTabcontainer":
+            {
+               "RefID": "ExampleScreen"
+            }
+         },
          {
-            "RefID": "ExampleTabcontainer",
-            "ElementID": "Tab1Content"
-         }
-      },
-      {
-         "DivContent2":
+            "DivContent1":
+            {
+               "RefID": "ExampleTabcontainer",
+               "ElementID": "Tab1Content"
+            }
+         },
          {
-            "RefID": "ExampleTabcontainer",
-            "ElementID": "Tab2Content"
+            "DivContent2":
+            {
+               "RefID": "ExampleTabcontainer",
+               "ElementID": "Tab2Content"
+            }
          }
-      }
-   ]
+      ]
+   }
 
 .. _objecttype-fileupload:
 
@@ -853,12 +870,14 @@ None.
 11.12.2. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleErrorContainer":
    {
-      "Type": "ErrorContainer",
-      "Attributes": {}
+      "ExampleErrorContainer":
+      {
+         "Type": "ErrorContainer",
+         "Attributes": {}
+      }
    }
 
 .. _objecttype-openclosecontainer:
@@ -902,23 +921,31 @@ or collapsed when the *x0-screen* is initially rendered.
 11.13.2. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleOpenCloseElement1": {
-      "Type": "OpenCloseContainer",
-      "Attributes": {
-         "TextID": "TXT.OPENCLOSE1-HEADER"
+   {
+      "ExampleOpenCloseElement1":
+      {
+         "Type": "OpenCloseContainer",
+         "Attributes":
+         {
+            "TextID": "TXT.OPENCLOSE1-HEADER"
+         }
       }
    }
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleOpenCloseElement2": {
-      "Type": "OpenCloseContainer",
-      "Attributes": {
-         "Style": "mb-4",
-         "TextID": "TXT.SECTION.ADVANCED.SETTINGS",
-         "StateOpen": false
+   {
+      "ExampleOpenCloseElement2":
+      {
+         "Type": "OpenCloseContainer",
+         "Attributes":
+         {
+            "Style": "mb-4",
+            "TextID": "TXT.SECTION.ADVANCED.SETTINGS",
+            "StateOpen": false
+         }
       }
    }
 
@@ -998,54 +1025,59 @@ Interactive navigation elements that trigger screen navigation:
 11.14.4. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleTree": {
-      "Type": "TreeSimple",
-      "Attributes":
+   {
+      "ExampleTree":
       {
-         "TreeItems":
-         [
-            {
-               "Type": "Node",
-               "TextID": "TXT.NODE1",
-               "Icon": "fa-solid fa-hexagon-nodes",
-               "Children": [
-                  {
-                     "Type": "Item",
-                     "TextID": "TXT.ITEM1",
-                     "Icon": "fa-solid fa-code-branch",
-                     "DstScreenID": "Screen1"
-                  },
-                  {
-                     "Type": "Item",
-                     "TextID": "TXT.ITEM2",
-                     "Icon": "fa-solid fa-lightbulb",
-                     "DstScreenID": "Screen2"
-                  }
-               ]
-            },
-            {
-               "Type": "Node",
-               "TextID": "TXT.NODE2",
-               "Icon": "fa-solid fa-folder",
-               "Children": [
-                  {
-                     "Type": "Node",
-                     "TextID": "TXT.SUBNODE1",
-                     "Icon": "fa-solid fa-folder-open",
-                     "Children": [
-                        {
-                           "Type": "Item",
-                           "TextID": "TXT.SUBITEM1",
-                           "Icon": "fa-solid fa-file",
-                           "DstScreenID": "Screen3"
-                        }
-                     ]
-                  }
-               ]
-            }
-         ]
+         "Type": "TreeSimple",
+         "Attributes":
+         {
+            "TreeItems":
+            [
+               {
+                  "Type": "Node",
+                  "TextID": "TXT.NODE1",
+                  "Icon": "fa-solid fa-hexagon-nodes",
+                  "Children":
+                  [
+                     {
+                        "Type": "Item",
+                        "TextID": "TXT.ITEM1",
+                        "Icon": "fa-solid fa-code-branch",
+                        "DstScreenID": "Screen1"
+                     },
+                     {
+                        "Type": "Item",
+                        "TextID": "TXT.ITEM2",
+                        "Icon": "fa-solid fa-lightbulb",
+                        "DstScreenID": "Screen2"
+                     }
+                  ]
+               },
+               {
+                  "Type": "Node",
+                  "TextID": "TXT.NODE2",
+                  "Icon": "fa-solid fa-folder",
+                  "Children": [
+                     {
+                        "Type": "Node",
+                        "TextID": "TXT.SUBNODE1",
+                        "Icon": "fa-solid fa-folder-open",
+                        "Children":
+                        [
+                           {
+                              "Type": "Item",
+                              "TextID": "TXT.SUBITEM1",
+                              "Icon": "fa-solid fa-file",
+                              "DstScreenID": "Screen3"
+                           }
+                        ]
+                     }
+                  ]
+               }
+            ]
+         }
       }
    }
 
@@ -1096,14 +1128,16 @@ described in detail in the System Developer Documentation under
 11.15.2. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleDivUnique":
    {
-      "Type": "DivUnique",
-      "Attributes":
+      "ExampleDivUnique":
       {
-         "Style": "container-fluid p-3"
+         "Type": "DivUnique",
+         "Attributes":
+         {
+            "Style": "container-fluid p-3"
+         }
       }
    }
 
@@ -1152,13 +1186,16 @@ set to ``true``, resulting in identical DOM ID behavior.
 11.16.3. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleDivValue":
    {
-      "Type": "DivValue",
-      "Attributes": {
-         "Style": "fw-bold"
+      "ExampleDivValue":
+      {
+         "Type": "DivValue",
+         "Attributes":
+         {
+            "Style": "fw-bold"
+         }
       }
    }
 
@@ -1199,13 +1236,16 @@ can be read from or written to by any other *x0-object* or button action.
 11.17.3. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleProgressBar":
    {
-      "Type": "ProgressBar",
-      "Attributes": {
-         "Style": "bg-success"
+      "ExampleProgressBar":
+      {
+         "Type": "ProgressBar",
+         "Attributes":
+         {
+            "Style": "bg-success"
+         }
       }
    }
 
@@ -1248,14 +1288,17 @@ from or written to by any other *x0-object* or button action.
 11.18.3. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleSlider":
    {
-      "Type": "RangeSlider",
-      "Attributes": {
-         "Min": 0,
-         "Max": 100
+      "ExampleSlider":
+      {
+         "Type": "RangeSlider",
+         "Attributes":
+         {
+            "Min": 0,
+            "Max": 100
+         }
       }
    }
 
@@ -1292,16 +1335,19 @@ the standard ``getObjectData()`` / ``setObjectData()`` API.
 11.19.2. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleRangeSliderContainer":
    {
-      "Type": "RangeSliderContainer",
-      "Attributes": {
-         "Min": 1,
-         "Max": 100,
-         "Value": 50,
-         "UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE"
+      "ExampleRangeSliderContainer":
+      {
+         "Type": "RangeSliderContainer",
+         "Attributes":
+         {
+            "Min": 1,
+            "Max": 100,
+            "Value": 50,
+            "UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE"
+         }
       }
    }
 
@@ -1338,52 +1384,59 @@ To **connect** child objects inside ``skeleton.json``, reference the container
 
 In ``object.json``:
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleHeaderBodyContainer":
    {
-      "Type": "HeaderBodyContainer",
-      "Attributes": {
-         "HeaderStyle": "row m-0 p-3 border border-1 bg-success bg-opacity-50",
-         "BodyStyle": "row m-0 p-3 border border-1 bg-success-subtle bg-opacity-25"
-      }
-   },
-   "DisplayText1":
-   {
-      "Type": "Text",
-      "Attributes": {
-         "DOMType": "h1",
-         "TextID": "TXT.HEADER.EXAMPLE_TEXT1",
-         "Style": "text-primary-emphasis"
-      }
-   },
-   "DisplayText2":
-   {
-      "Type": "Text",
-      "Attributes": {
-         "DOMType": "h2",
-         "TextID": "TXT.HEADER.EXAMPLE_TEXT1",
-         "Style": "text-primary-emphasis"
+      "ExampleHeaderBodyContainer":
+      {
+         "Type": "HeaderBodyContainer",
+         "Attributes":
+         {
+            "HeaderStyle": "row m-0 p-3 border border-1 bg-success bg-opacity-50",
+            "BodyStyle": "row m-0 p-3 border border-1 bg-success-subtle bg-opacity-25"
+         }
+      },
+      "DisplayText1":
+      {
+         "Type": "Text",
+         "Attributes":
+         {
+            "DOMType": "h1",
+            "TextID": "TXT.HEADER.EXAMPLE_TEXT1",
+            "Style": "text-primary-emphasis"
+         }
+      },
+      "DisplayText2":
+      {
+         "Type": "Text",
+         "Attributes":
+         {
+            "DOMType": "h2",
+            "TextID": "TXT.HEADER.EXAMPLE_TEXT1",
+            "Style": "text-primary-emphasis"
+         }
       }
    }
 
 In ``skeleton.json``:
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleHeaderBodyContainer":
    {
-      "RefID": "ExampleScreen1"
-   },
-   "DisplayText1":
-   {
-      "RefID": "ExampleHeaderBodyContainer",
-      "ElementID": "ExampleHeaderBodyContainerHeader"
-   },
-   "DisplayText2":
-   {
-      "RefID": "ExampleHeaderBodyContainer",
-      "ElementID": "ExampleHeaderBodyContainerContent"
+      "ExampleHeaderBodyContainer":
+      {
+         "RefID": "ExampleScreen1"
+      },
+      "DisplayText1":
+      {
+         "RefID": "ExampleHeaderBodyContainer",
+         "ElementID": "ExampleHeaderBodyContainerHeader"
+      },
+      "DisplayText2":
+      {
+         "RefID": "ExampleHeaderBodyContainer",
+         "ElementID": "ExampleHeaderBodyContainerContent"
+      }
    }
 
 .. _objecttype-systemsettingscontainer:
@@ -1432,22 +1485,27 @@ configuration rows used for internal *x0-system* settings.
 11.21.3. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleSettingsContainer":
    {
-      "Type": "SystemSettingsContainer",
-      "Attributes": {
-         "Settings": [
-            {
-               "TextID": "TXT.SYSTEMSETTINGS.VIDEO.BRIGHTNESS",
-               "IconStyle": "fa-solid fa-sun",
-               "SettingsObject": {
-                  "ObjectType": "RangeSlider",
-                  "Attributes": { "Style": "w-100", "Min": 1, "Max": 100, "Value": 90 }
+      "ExampleSettingsContainer":
+      {
+         "Type": "SystemSettingsContainer",
+         "Attributes":
+         {
+            "Settings":
+            [
+               {
+                  "TextID": "TXT.SYSTEMSETTINGS.VIDEO.BRIGHTNESS",
+                  "IconStyle": "fa-solid fa-sun",
+                  "SettingsObject":
+                  {
+                     "ObjectType": "RangeSlider",
+                     "Attributes": { "Style": "w-100", "Min": 1, "Max": 100, "Value": 90 }
+                  }
                }
-            }
-         ]
+            ]
+         }
       }
    }
 
@@ -1529,25 +1587,27 @@ each consisting of:
 11.23.3. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleInfoParagraph":
    {
-      "Type": "InfoParagraph",
-      "Attributes":
+      "ExampleInfoParagraph":
       {
-         "Text":
-         [
-            {
-               "ID": "TXT.EXAMPLE.PARAGRAPH1.HEADER",
-               "Style": "text-primary-emphasis text-opacity-75 fw-bold",
-               "IconStyle": "fa-solid fa-user-group"
-            },
-            {
-               "ID": "TXT.EXAMPLE.PARAGRAPH1.TEXT1",
-               "Style": "text-dark text-opacity-50"
-            }
-         ]
+         "Type": "InfoParagraph",
+         "Attributes":
+         {
+            "Text":
+            [
+               {
+                  "ID": "TXT.EXAMPLE.PARAGRAPH1.HEADER",
+                  "Style": "text-primary-emphasis text-opacity-75 fw-bold",
+                  "IconStyle": "fa-solid fa-user-group"
+               },
+               {
+                  "ID": "TXT.EXAMPLE.PARAGRAPH1.TEXT1",
+                  "Style": "text-dark text-opacity-50"
+               }
+            ]
+         }
       }
    }
 
@@ -1580,14 +1640,16 @@ page reload.
 11.24.2. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleLanguageSwitch":
    {
-      "Type": "LanguageSwitch",
-      "Attributes":
+      "ExampleLanguageSwitch":
       {
-         "Style": "row border rounded m-0 p-3 fw-bold"
+         "Type": "LanguageSwitch",
+         "Attributes":
+         {
+            "Style": "row border rounded m-0 p-3 fw-bold"
+         }
       }
    }
 
@@ -1623,14 +1685,16 @@ removable row opens a context menu offering the same removal action (see
 11.25.2. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleDynRadioList":
    {
-      "Type": "DynRadioList",
-      "Attributes":
+      "ExampleDynRadioList":
       {
-         "ButtonTextDisabled": false
+         "Type": "DynRadioList",
+         "Attributes":
+         {
+            "ButtonTextDisabled": false
+         }
       }
    }
 
@@ -1666,7 +1730,7 @@ Its full event-registration and dispatch mechanics are documented in
 11.26.2. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
    "ExampleServiceConnector":
    {
@@ -1707,14 +1771,17 @@ callback-bound :ref:`objecttype-buttoninternal` trigger.
 11.27.2. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleTimedProgress":
    {
-      "Type": "TimedProgress",
-      "Attributes": {
-         "Interval": 100,
-         "IncreaseBy": 1
+      "ExampleTimedProgress":
+      {
+         "Type": "TimedProgress",
+         "Attributes":
+         {
+            "Interval": 100,
+            "IncreaseBy": 1
+         }
       }
    }
 
@@ -1740,12 +1807,14 @@ navigation.
 11.28.1. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleWizard":
    {
-      "Type": "ExampleWizard",
-      "Attributes": {}
+      "ExampleWizard":
+      {
+         "Type": "ExampleWizard",
+         "Attributes": {}
+      }
    }
 
 .. _objecttype-exampleeditableitem:
@@ -1791,14 +1860,17 @@ It inherits from ``DivUnique`` and supports a switchable edit mode.
 11.29.2. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleEditableItem":
    {
-      "Type": "ExampleEditableItem",
-      "Attributes": {
-         "Editable": true,
-         "OrderChangeable": false
+      "ExampleEditableItem":
+      {
+         "Type": "ExampleEditableItem",
+         "Attributes":
+         {
+            "Editable": true,
+            "OrderChangeable": false
+         }
       }
    }
 
@@ -1843,16 +1915,18 @@ rows.
 11.30.2. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleEditableTemplate":
    {
-      "Type": "ExampleEditableItemContainer",
-      "Attributes":
+      "ExampleEditableTemplate":
       {
-         "HeaderTextID": "TXT.HEADER1",
-         "HeaderStyle": "h3 text-primary-emphasis",
-         "HeaderIconStyle": "fa-solid fa-card-shopping"
+         "Type": "ExampleEditableItemContainer",
+         "Attributes":
+         {
+            "HeaderTextID": "TXT.HEADER1",
+            "HeaderStyle": "h3 text-primary-emphasis",
+            "HeaderIconStyle": "fa-solid fa-card-shopping"
+         }
       }
    }
 
@@ -1888,17 +1962,21 @@ inside a parent :ref:`objecttype-list` column container.
 11.31.2. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleFlightDetails":
    {
-      "Type": "ExampleFlightDetails",
-      "Attributes": {
-         "Value": {
-            "Icon": "icon-airline-lufthansa.png",
-            "Airline": "Lufthansa",
-            "FlightNr": "LH441",
-            "Airport": "FRA"
+      "ExampleFlightDetails":
+      {
+         "Type": "ExampleFlightDetails",
+         "Attributes":
+         {
+            "Value":
+            {
+               "Icon": "icon-airline-lufthansa.png",
+               "Airline": "Lufthansa",
+               "FlightNr": "LH441",
+               "Airport": "FRA"
+            }
          }
       }
    }
@@ -1935,16 +2013,20 @@ inner text color from the ``Value.Alert`` Bootstrap contextual color keyword
 11.32.2. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleFlightStatus":
    {
-      "Type": "ExampleFlightStatus",
-      "Attributes": {
-         "Value": {
-            "Alert": "success",
-            "Type": "On Time",
-            "Time": "14:35"
+      "ExampleFlightStatus":
+      {
+         "Type": "ExampleFlightStatus",
+         "Attributes":
+         {
+            "Value":
+            {
+               "Alert": "success",
+               "Type": "On Time",
+               "Time": "14:35"
+            }
          }
       }
    }
@@ -1978,11 +2060,13 @@ addable tasklists and tasks.
 11.33.2. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleCardTasklist":
    {
-      "Type": "ExampleCardTasklist"
+      "ExampleCardTasklist":
+      {
+         "Type": "ExampleCardTasklist"
+      }
    }
 
 .. _objecttype-examplepeopleselector:
@@ -2017,11 +2101,13 @@ It inherits from ``DivUnique`` and is typically instantiated inside an
 11.34.2. JSON Examples
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleCollaboratorsList":
    {
-      "Type": "ExamplePeopleSelector"
+      "ExampleCollaboratorsList":
+      {
+         "Type": "ExamplePeopleSelector"
+      }
    }
 
 .. _object-examples:
