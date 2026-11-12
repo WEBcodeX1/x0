@@ -33,25 +33,30 @@ relations specific to menu purposes.
 Through the integration of so-called ``ServiceConnectors`` (which will be discussed later),
 this ecosystem can be fed with external data either at **load-time** or dynamically at **run-time**.
 
-.. _shadow-dom:
+.. _mirror-dom:
 
-7.2. Shadow DOM
+7.2. Mirror DOM
 ---------------
 
-The most important part of the system is the *x0-shadow-dom*. Just like the DOM is
-hierarchically structured, the internal x0 object representation consists of recursive
-objects, where each individual object is always bound 1:1 to a DOM layer.
+The **most important** part of the system is the *x0-mirror-dom*. Just like the DOM is
+hierarchically structured, the **internal** x0 object representation consists of **recursive**
+**objects**, where each individual object is **always** bound **1:1** to a DOM layer.
 
-This concept establishes an intermediate layer (a shadow) between the logical and the
-presentational (DOM) layers. This entirely outperforms old-fashioned approaches, such as
+This concept establishes an **intermediate layer** (a mirror) between the logical and the
+presentational (DOM) layers. This entirely **outperforms** old-fashioned approaches, such as
 directly accessing or manipulating the DOM, or using hidden form fields for data storage.
 
 One might think this concept scales poorly, but the exact opposite is true. While
-function-driven systems scale badly, the *x0-system* integrates a true, smart,
-abstract **OOP-driven model**. It utilizes the JavaScript core engine's pointer-based
-inheritance mechanism, which references inherited data memory only once. Consequently,
-instantiating 10,000 object structures results in an exceptionally low memory and
-performance footprint.
+function-driven systems **scale badly**, the *x0-system* integrates a true, smart, abstract
+**OOP-driven model**. It utilizes the JavaScript core engine's pointer-based inheritance
+mechanism, which references inherited data memory only once. Consequently, instantiating
+10,000 object structures results in an exceptionally low memory and performance footprint.
+
+To drive this *x0-mirror-dom* architecture, the system relies **entirely** on its **OOP Enhanced**
+**Templating** engine rather than **string replacement** or traditional **markup processing**. Unlike
+native Web Components—which only approximate OOP while **mixing** in non-OOP patterns—*x0* enforces
+**strict object orientation** from top to bottom. For developers experienced in C++ or Java, this
+provides a familiar, cleaner, and **far more structured** way to build complex UI hierarchies.
 
 7.3. Data Abstraction
 ---------------------
@@ -295,7 +300,7 @@ relevant ``Tab`` elements:
 By combining ``object.json`` for instance definitions with ``skeleton.json`` (and ``menu.json``)
 for hierarchical linking via ``RefID`` and ``ElementID`` mappings—alongside logical intermediaries
 such as ``ServiceConnector``—you can declaratively assemble complete, referenced object trees backed
-by a 1:1 *x0-shadow-dom* layer abstraction.
+by a 1:1 *x0-mirror-dom* layer abstraction.
 
 While this purely configuration-driven model covers a wide range of standard application layouts
 without writing custom JavaScript, it remains inherently bounded by the capabilities and predefined
