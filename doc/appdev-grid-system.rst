@@ -20,7 +20,7 @@ the browser client (see :ref:`dynamic-restructuring` below).
 The **x0-grid-system** can be used to render layouts like the one shown in the
 following diagram:
 
-.. code-block:: javascript
+.. code-block:: text
 
    +-----------------------------------------+-----------------------------------------+
    | Col1                                    | Col2                                    |
@@ -77,16 +77,18 @@ properties can be set inside the object's ``Attributes`` representation.
 10.3.1. Input Data
 ------------------
 
-The *x0-grid-system* processing requires an **Array of Elements** as input data.
+The *x0-grid-system* processing requires an array of *x0-object* references as input data.
 
 .. code-block:: javascript
 
-   [ el1, el2, el3, el4, el5, el6 ... ]
+   [
+      objref1, objref2, objref3, objref4, objref5, objref6
+   ]
 
 10.3.2. RowStyle / RowAfterElements
 -----------------------------------
 
-``RowAfterElements`` is definable as a single Integer or an Array of Integers.
+``RowAfterElements`` is definable as a single integer or an array of integers.
 
 Setting ``"RowAfterElements": 1`` will generate a row container div with css
 class from ``RowStyle`` for each single Element.
@@ -116,7 +118,7 @@ Setting ``"RowAfterElements": 2`` will generate divs like this:
       <el4></el4>
    </div>
 
-Setting ``"RowAfterElements": [ 1, 2 ]`` (Array type) like this:
+Setting ``"RowAfterElements": [ 1, 2 ]`` (array type) like this:
 
 .. code-block:: html
 
@@ -166,12 +168,14 @@ instead of a **row** container div.
    div including CSS will be set for each processed element.
 
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "RowStyle": [ "row fw-bold", "row" ],
-   "RowAfterElements": [ 1, 2 ],
-   "ColStyle": "col-md-12",
-   "ColAfterElements": [ 1, 2 ]
+   {
+      "RowStyle": [ "row fw-bold", "row" ],
+      "RowAfterElements": [ 1, 2 ],
+      "ColStyle": "col-md-12",
+      "ColAfterElements": [ 1, 2 ]
+   }
 
 .. code-block:: html
 
@@ -201,22 +205,24 @@ instead of a **row** container div.
 10.4. Example List
 ******************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "RowStyle": "row",
-   "RowAfterElements": [ 2, 4 ],
-   "ColStyle": [
-      "col-md-5",
-      "col-md-7",
-      "col-md-2",
-      "col-md-3",
-      "col-md-3",
-      "col-md-5"
-   ]
+   {
+      "RowStyle": "row",
+      "RowAfterElements": [ 2, 4 ],
+      "ColStyle": [
+         "col-md-5",
+         "col-md-7",
+         "col-md-2",
+         "col-md-3",
+         "col-md-3",
+         "col-md-5"
+      ]
+   }
 
 Without table header the resulting output looks like the following.
 
-.. code-block:: javascript
+.. code-block:: text
 
    +-----------------------------------------+-----------------------------------------+
    | Col1 (col-md-5)                         | Col2 (col-md-7)                         |
