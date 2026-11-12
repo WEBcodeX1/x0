@@ -23,7 +23,6 @@ The messaging infrastructure is built around a lightweight micro-messaging serve
 that handles message routing, session management, and delivery between connected clients.
 
 .. warning::
-
    The shipped *x0-msg-server* container is functionally very limited and has strict
    performance limits. It is explicitly designed and intended **only** for internal
    message exchange testing and local development. It must not be deployed in production
@@ -37,16 +36,16 @@ The messaging system consists of three main components:
 19.2.1. Client-Side Components
 ******************************
 
-* **sysAsyncNotifyMsgHandler**: JavaScript client that manages message polling and processing
-* **sysXMLRPCRequest**: Handles HTTP communication with the messaging server
-* **Session Management**: Tracks user sessions and message routing
+- **sysAsyncNotifyMsgHandler**: JavaScript client that manages message polling and processing
+- **sysXMLRPCRequest**: Handles HTTP communication with the messaging server
+- **Session Management**: Tracks user sessions and message routing
 
 19.2.2. Messaging Server
 ************************
 
-* **MsgHandler.py**: WSGI application handling HTTP requests from clients
-* **MessagingServer.py**: Core message processing and routing logic
-* **Unix Socket Communication**: Internal communication between components
+- **MsgHandler.py**: WSGI application handling HTTP requests from clients
+- **MessagingServer.py**: Core message processing and routing logic
+- **Unix Socket Communication**: Internal communication between components
 
 19.2.3. Communication Flow
 **************************
@@ -71,7 +70,6 @@ Messages are temporarily stored in memory and delivered to destination sessions 
 continuous polling requests.
 
 .. note::
-
    WebSocket implementation is planned for future releases to improve efficiency
    and reduce server load.
 
@@ -81,9 +79,9 @@ continuous polling requests.
 19.3.1. Prerequisites
 *********************
 
-* Docker environment
-* *x0-app* container running
-* Network connectivity between containers
+- Docker environment
+- *x0-app* container running
+- Network connectivity between containers
 
 19.3.2. Server Installation
 ***************************
