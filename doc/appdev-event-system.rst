@@ -167,9 +167,9 @@ producer object triggers the **CustomEvent2** event (e.g., via a button click).
 15.3.4. Callback Data
 ---------------------
 
-Currently, it remains unclear how a) the data from the backend must be structured,
-and b) how this data will be mapped to individual form fields inside the FormfieldList
-or other *x0-object-types*.
+To process backend responses correctly, the callback mechanism defines both a) how
+data from the backend must be structured, and b) how this data is mapped to individual
+form fields inside a ``FormfieldList`` or other *x0-object-types*.
 
 In detail, when a *x0-event* is received and the object is connected to the
 corresponding ``ServiceConnector``, an asynchronous ``sysXMLRPCRequest.js`` call is
@@ -557,10 +557,10 @@ lists which attributes must be used in the **declarative** JSON configuration.
       }
    }
 
-16.2.6. Multiple Actions
+16.2.6. OnResult Actions
 ************************
 
-When passing ``Action`` as an **object**, multiple actions can be addressed.
+Passing ``OnResult`` as an array of objects allows you to trigger multiple actions.
 
 .. code-block:: javascript
 
@@ -572,17 +572,18 @@ When passing ``Action`` as an **object**, multiple actions can be addressed.
          "TextID": "TXT.BUTTON.EXAMPLE",
          "Style": "btn btn-primary w-100 mt-2 mb-2",
          "IconStylePost": "fa-solid fa-arrow-down",
-         "Action": {
-            "openoverlay":
+         "OnResult":
+         [
             {
+               "Action": "openoverlay"
                "ScreenID": "ScreenName"
             },
-            "setglobalvar":
             {
+               "Action": "setglobalvar",
                "SetVar": "VarName",
                "SetValue": "VarValue"
             }
-         }
+         ]
       }
    }
 
