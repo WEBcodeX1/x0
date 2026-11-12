@@ -147,7 +147,11 @@ The relevant ``system.config`` parameters are:
 
 .. code-block:: sql
 
-   INSERT INTO system.config (config_group, "value") VALUES ('index_title', 'x0 Default App');
+   INSERT INTO
+     system.config
+       (app_id, config_group, "value")
+         VALUES
+       ('app1', 'index_title', 'x0 Default App');
 
 8.2.2. Display Text
 *******************
@@ -157,8 +161,11 @@ The relevant ``system.config`` parameters are:
 
 .. code-block:: sql
 
-   INSERT INTO webui.text (id, "group", value_en, value_de)
-   VALUES ('TXT.TEXTID.1', 'group1', 'English Text #1', 'German Text #1');
+   INSERT INTO
+     webui.text
+       (id, "group", value_en, value_de)
+         VALUES
+       ('TXT.TEXTID.1', 'group1', 'English Text #1', 'German Text #1');
 
 8.2.3. Application ID
 *********************
