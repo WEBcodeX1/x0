@@ -575,7 +575,7 @@ Passing ``OnResult`` as an array of objects allows you to trigger multiple actio
          "OnResult":
          [
             {
-               "Action": "openoverlay"
+               "Action": "openoverlay",
                "ScreenID": "ScreenName"
             },
             {
