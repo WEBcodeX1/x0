@@ -105,20 +105,6 @@ declarative model to receive its configuration. Rather than hardcoding parameter
 abstraction layer processes JSON-based metadata (``JSONConfig.Attributes``) to populate
 each instance with well-defined properties.
 
-So when the *x0-init* process instantiates each object defined inside ``object.json`` and
-its object relation ``skeleton.json``; a very rudimentary description: it takes the objects
-``Attributes``, instaniates the *x0-object* by its ``Type`` and set the ``JSONConfig.Attributes``
-property in the new created object instance. Afterwards the instance ``init()`` method is
-getting executed.
-
-24.4. Declarative Model
------------------------
-
-In *x0*, everything is an **object**—and every *x0-object* instance relies on a unified,
-declarative model to receive its configuration. Rather than hardcoding parameters, this
-abstraction layer processes JSON-based metadata (``JSONConfig.Attributes``) to populate
-each instance with well-defined properties.
-
 When the *x0-init* process instantiates the objects defined in ``object.json`` along with
 their relationships in ``skeleton.json``, it reads each object's ``Attributes``, instantiates
 the *x0-object* according to its ``Type``, and sets the ``JSONConfig.Attributes`` property on
