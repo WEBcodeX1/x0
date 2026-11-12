@@ -61,26 +61,28 @@ The following properties are mandatory for any context menu item setup.
 A generic example configuration for three context menu items without any associated functionality
 looks like this:
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ContextMenuItems":
-   [
-     {
-       "ID": "EditItem",
-       "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.EDIT_DATA",
-       "IconStyle": "fa-solid fa-edit"
-     },
-     {
-       "ID": "RemoveItem",
-       "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_DATA",
-       "IconStyle": "fa-solid fa-trash"
-     },
-     {
-       "ID": "SaveData",
-       "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.SAVE_DATA",
-       "IconStyle": "fa-solid fa-floppy-disk"
-     }
-   ]
+   {
+      "ContextMenuItems":
+      [
+         {
+            "ID": "EditItem",
+            "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.EDIT_DATA",
+            "IconStyle": "fa-solid fa-edit"
+         },
+         {
+            "ID": "RemoveItem",
+            "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_DATA",
+            "IconStyle": "fa-solid fa-trash"
+         },
+         {
+            "ID": "SaveData",
+            "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.SAVE_DATA",
+            "IconStyle": "fa-solid fa-floppy-disk"
+         }
+      ]
+   }
 
 13.3. Dispatch Mechanisms
 -------------------------
@@ -167,16 +169,19 @@ and **HeaderContextMenuItems** (table header only).
 The ``List`` **header** supports an independent context menu to clearly separate
 it from table rows.
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "HeaderContextMenuItems": [
-      {
-         "ID": "AppendData",
-         "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.APPEND_DATA",
-         "IconStyle": "fa-solid fa-paste",
-         "InternalFunction": "set-data"
-      }
-   ]
+   {
+      "HeaderContextMenuItems":
+      [
+         {
+            "ID": "AppendData",
+            "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.APPEND_DATA",
+            "IconStyle": "fa-solid fa-paste",
+            "InternalFunction": "set-data"
+         }
+      ]
+   }
 
 .. warning::
    Currently, only the ``set-data`` function is officially tested and supported.
@@ -195,34 +200,37 @@ Supported **Internal Functions**:
 - remove
 - remove-selected
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ContextMenuItems": [
-      {
-         "ID": "GetData",
-         "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.GET_DATA",
-         "IconStyle": "fa-solid fa-copy",
-         "InternalFunction": "get-data"
-      },
-      {
-         "ID": "SetData",
-         "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.SET_DATA",
-         "IconStyle": "fa-solid fa-paste",
-         "InternalFunction": "set-data"
-      },
-      {
-          "ID": "RemoveRow",
-          "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_ROW",
-          "IconStyle": "fa-solid fa-trash-can",
-          "InternalFunction": "remove"
-      },
-      {
-          "ID": "RemoveSelectedRows",
-          "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_SELECTED_ROWS",
-          "IconStyle": "fa-solid fa-trash-can",
-          "InternalFunction": "remove-selected"
-      }
-   ]
+   {
+      "ContextMenuItems":
+      [
+         {
+            "ID": "GetData",
+            "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.GET_DATA",
+            "IconStyle": "fa-solid fa-copy",
+            "InternalFunction": "get-data"
+         },
+         {
+            "ID": "SetData",
+            "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.SET_DATA",
+            "IconStyle": "fa-solid fa-paste",
+            "InternalFunction": "set-data"
+         },
+         {
+            "ID": "RemoveRow",
+            "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_ROW",
+            "IconStyle": "fa-solid fa-trash-can",
+            "InternalFunction": "remove"
+         },
+         {
+            "ID": "RemoveSelectedRows",
+            "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_SELECTED_ROWS",
+            "IconStyle": "fa-solid fa-trash-can",
+            "InternalFunction": "remove-selected"
+         }
+      ]
+   }
 
 13.5.4. FormfieldList
 *********************
@@ -252,18 +260,21 @@ Setting ``OverlayScreenID`` to a valid ScreenID activates the referenced
 overlay screen via ``sysFactory.OverlayObj.activateOverlay()`` (see
 :ref:`appdev-overlay`) before the menu is closed.
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ContextMenuItems": [
-      {
-         "ID": "EditData",
-         "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.EDIT_IN_OVERLAY",
-         "IconStyle": "fa-solid fa-edit",
-         "InternalFunction": "get-set-data",
-         "OverlayScreenID": "ExamplesOverlayEditData",
-         "DstObjectID": "ExamplesOverlayEditOverlayDataFormWorker"
-      }
-   ]
+   {
+      "ContextMenuItems":
+      [
+         {
+            "ID": "EditData",
+            "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.EDIT_IN_OVERLAY",
+            "IconStyle": "fa-solid fa-edit",
+            "InternalFunction": "get-set-data",
+            "OverlayScreenID": "ExamplesOverlayEditData",
+            "DstObjectID": "ExamplesOverlayEditOverlayDataFormWorker"
+         }
+      ]
+   }
 
 13.7. Reactor Integration
 -------------------------
@@ -273,16 +284,19 @@ Setting ``FireEvents`` to an array of EventIDs fires the referenced
 :ref:`event-system`), allowing a context menu action to notify arbitrary,
 unrelated *x0-system-objects* without a direct object reference.
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ContextMenuItems": [
-      {
-         "ID": "FireEvent",
-         "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.LOAD_DATA",
-         "IconStyle": "fa-solid fa-edit",
-         "FireEvents": [ "Event1", "Event2" ]
-      }
-   ]
+   {
+      "ContextMenuItems":
+      [
+         {
+            "ID": "FireEvent",
+            "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.LOAD_DATA",
+            "IconStyle": "fa-solid fa-edit",
+            "FireEvents": [ "Event1", "Event2" ]
+         }
+      ]
+   }
 
 .. warning::
    Please note that ``FireEvents`` are executed additionally **after** an
