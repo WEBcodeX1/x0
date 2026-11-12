@@ -44,10 +44,11 @@ configurable DNS host / domain based Virtual Hosts and *x0-applications*.
 
 The kubernetes installer is located at ``/kubernetes/setup/Setup.py``.
 
-.. code-block:: javascript
+.. code-block:: json
 
    {
-      "installer": {
+      "installer":
+      {
          "type": "x0",
          "subtype": "minikube",
          "os": "mswindows",
