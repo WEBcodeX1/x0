@@ -196,7 +196,7 @@ error* states and displays server-pushed messages.
 The unified runtime data API exposed via ``getObjectData()`` and
 ``setObjectData()`` (see :ref:`data-abstraction` and
 :ref:`oopmodel-classes-getobjectdata`). Acting as an in-browser Object-Document
-Mapper (ODM) on top of the *x0-shadow-dom*, it supports both direct (``Plain``)
+Mapper (ODM) on top of the *x0-mirror-dom*, it supports both direct (``Plain``)
 and recursive (``KeyValue`` via ``KeyID``) JSON mapping for seamless NoSQL and
 backend integration.
 
@@ -262,9 +262,9 @@ child object (such as ``List`` or ``FormfieldList``) in ``skeleton.json``. It
 listens for configured reactor events and executes asynchronous XML-RPC/REST
 POST calls to populate its target object.
 
-.. _glossary-shadow-dom:
+.. _glossary-mirror-dom:
 
-28.25. Shadow DOM (*x0-shadow-dom*)
+28.25. Mirror DOM (*x0-mirror-dom*)
 -----------------------------------
 
 The internal recursive object graph of x0 (see :ref:`dev-oopmodel`), in which
@@ -284,8 +284,8 @@ appends them to the JSON payload of outgoing backend POST requests.
 
 .. _glossary-base-class:
 
-28.27. x0-base-class
---------------------
+28.27. Base Class (*x0-base-class*)
+-----------------------------------
 
 A foundational JavaScript class in the *x0-core*—specifically
 ``sysBaseDOMElement`` (single-node DOM binding) and ``sysBaseObject``
@@ -294,7 +294,7 @@ which every *x0-system-object* and custom extension must derive.
 
 .. _glossary-factory:
 
-28.28. x0-factory (``sysFactory``)
+28.28. ``sysFactory`` (x0-factory)
 ----------------------------------
 
 The global singleton registry and bootstrap entry point of an *x0-application*
@@ -304,7 +304,7 @@ localized texts, and starts the reactor and async notification handler.
 
 .. _glossary-screen:
 
-28.29. x0-screen (``sysScreen``)
+28.29. ``sysScreen`` (x0-screen)
 --------------------------------
 
 A self-contained, pre-instantiated visual view rooted at a HierarchyRootObject
@@ -314,8 +314,8 @@ state preservation across screen switches.
 
 .. _glossary-static:
 
-28.30. x0-static
-----------------
+28.30. Static Docker Container (*x0-static*)
+--------------------------------------------
 
 The lightweight, completely serverless deployment mode and Docker container
 (``/docker/x0-static.dockerfile``, see :ref:`installation-minimal`) served by
@@ -324,8 +324,8 @@ complete runnable showcase of x0 examples.
 
 .. _glossary-system-object:
 
-28.31. x0-system-object
------------------------
+28.31. System Object (*x0-system-object*)
+-----------------------------------------
 
 Alias: *x0-object*.
 
