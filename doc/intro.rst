@@ -283,7 +283,7 @@ See :ref:`installation` for instructions on how to proceed.
 *x0-applications* can also be deployed on (load-balanced) Google Kubernetes Engine
 (GKE), with native support integrated into the *x0-system*.
 
-For more details, visit: https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md.
+For more details, visit: https://github.com/WEBcodeX1/x0/tree/current-release/kubernetes/README.md.
 
 4. Licensing and Milestones
 ===========================
@@ -291,7 +291,7 @@ For more details, visit: https://github.com/WEBcodeX1/x0/blob/main/kubernetes/RE
 4.1. Licensing
 --------------
 
-*x0-base-system* is licensed under the Open Source AGPLv3 license.
+*x0-system* is licensed under the Open Source AGPLv3 license.
 
 Certain components, including the WYSIWYG Editor, will be offered as **non-free**.
 
