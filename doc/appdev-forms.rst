@@ -108,20 +108,22 @@ the system with custom, programmatic validation routines.
    | ValidateErrorTextID | TextID-String    | TextID referenced in ``webui.text`` DB Table   |
    +---------------------+------------------+------------------------------------------------+
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "GroupValidate":
-   [
-      {
-         "FunctionRef": "CheckItemsMatch",
-         "ObjectIDs":
-         [
-            "PasswordNew",
-            "PasswordRepeat"
-         ],
-         "ValidateErrorTextID": "TXT.VALIDATE.PASSWORD-MISMATCH"
-      }
-   ]
+   {
+      "GroupValidate":
+      [
+         {
+            "FunctionRef": "CheckItemsMatch",
+            "ObjectIDs":
+            [
+               "PasswordNew",
+               "PasswordRepeat"
+            ],
+            "ValidateErrorTextID": "TXT.VALIDATE.PASSWORD-MISMATCH"
+         }
+      ]
+   }
 
 17.1.4. Grid Integration
 ************************
@@ -131,15 +133,15 @@ without complex configurations, as shown below:
 
 .. code-block:: text
 
-   +---------------------------------+---------------------------------+
-   | FormItem1 (label)               | FormItem2                       |
-   +---------------------------------+---------------------------------+
-   | FormItem3 (label)                                                 |
-   +---------------------------------+----------------+----------------+
-   | FormItem4                       | FormItem5      | FormItem6      |
-   +----------------+----------------+----------------+----------------+
-   | FormItem7      | FormItem8      | FormItem9      | FormItem10     |
-   +----------------+----------------+----------------+----------------+
+   +-----------------------------------------+-----------------------------------------+
+   | FormItem1 (label)                       | FormItem2                               |
+   +-----------------------------------------+-----------------------------------------+
+   | FormItem3 (label)                                                                 |
+   +-----------------------------------------+--------------------+--------------------+
+   | FormItem4                               | FormItem5          | FormItem6          |
+   +--------------------+--------------------+--------------------+--------------------+
+   | FormItem7          | FormItem8          | FormItem9          | FormItem10         |
+   +--------------------+--------------------+--------------------+--------------------+
 
 For a detailed explanation of how the *x0-grid* system works, see :ref:`grid-system`.
 
@@ -181,7 +183,7 @@ key for the ``Formfield`` when incoming input data is processed for a list of ``
 Based on this rule, if three items with the IDs ``FormID1``, ``FormID2``, and ``FormID3``
 are mapped to the ``FormfieldList``, the following examples explain the behavior in detail:
 
-.. code-block:: javascript
+.. code-block:: json
 
    {
       "FormID1": "data1",
@@ -190,7 +192,7 @@ are mapped to the ``FormfieldList``, the following examples explain the behavior
 
 Two items will be updated with the values "data1" and "data2". The ``Formfield`` item "FormID3" remains empty.
 
-.. code-block:: javascript
+.. code-block:: json
 
    {
       "FormID2": "data2",
@@ -223,23 +225,25 @@ As the following example demonstrates, clicking the button appends the data from
 ``Formlist1``, ``Object1``, and ``Object2`` to the POST request payload sent to the URL
 **https://your-service.com/python/service.py**.
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "SubmitButton":
    {
-      "Type": "Button",
-      "Attributes":
+      "SubmitButton":
       {
-         "TextID": "TXT.BUTTON.SUBMIT",
-         "Style": "btn btn-primary w-100 mt-3",
-         "IconStyle": "fa-solid fa-square-check",
-         "OnClick": "https://your-service.com/python/service.py",
-         "SrcDataObjects":
-         [
-            "Formlist1",
-            "Object1",
-            "Object2"
-         ]
+         "Type": "Button",
+         "Attributes":
+         {
+            "TextID": "TXT.BUTTON.SUBMIT",
+            "Style": "btn btn-primary w-100 mt-3",
+            "IconStyle": "fa-solid fa-square-check",
+            "OnClick": "https://your-service.com/python/service.py",
+            "SrcDataObjects":
+            [
+               "Formlist1",
+               "Object1",
+               "Object2"
+            ]
+         }
       }
    }
 
@@ -258,38 +262,41 @@ The following example demonstrates how to configure a context menu with two dist
 global clipboard space by selecting the first context menu option, or retrieved into the global
 clipboard space by selecting the second option.
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExamplesFormlist":
    {
-      "Type": "FormfieldList",
-      "Attributes":
+      "ExamplesFormlist":
       {
-         "ObjectIDs":
-         [
-            "Formfield1Label",
-            "Formfield1",
-            "Formfield2Label",
-            "Formfield2",
-            "Formfield3Label",
-            "Formfield3",
-            "Formfield4Label",
-            "Formfield4"
-         ],
-         "ContextMenuItems": [
-            {
-               "ID": "GetData",
-               "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.GET_DATA",
-               "IconStyle": "fa-solid fa-copy",
-               "InternalFunction": "get-data"
-            },
-            {
-               "ID": "SetData",
-               "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.SET_DATA",
-               "IconStyle": "fa-solid fa-paste",
-               "InternalFunction": "set-data"
-            }
-         ]
+         "Type": "FormfieldList",
+         "Attributes":
+         {
+            "ObjectIDs":
+            [
+               "Formfield1Label",
+               "Formfield1",
+               "Formfield2Label",
+               "Formfield2",
+               "Formfield3Label",
+               "Formfield3",
+               "Formfield4Label",
+               "Formfield4"
+            ],
+            "ContextMenuItems":
+            [
+               {
+                  "ID": "GetData",
+                  "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.GET_DATA",
+                  "IconStyle": "fa-solid fa-copy",
+                  "InternalFunction": "get-data"
+               },
+               {
+                  "ID": "SetData",
+                  "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.SET_DATA",
+                  "IconStyle": "fa-solid fa-paste",
+                  "InternalFunction": "set-data"
+               }
+            ]
+         }
       }
    }
 
@@ -321,14 +328,16 @@ other, already rendered *x0-form-objects* without any custom JavaScript.
 
 **Configurations Scope:**
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "TestObject":
    {
-      "Type": "FormfieldText",
-      "Attributes":
+      "TestObject":
       {
-         "OnChange": {
+         "Type": "FormfieldText",
+         "Attributes":
+         {
+            "OnChange": {
+            }
          }
       }
    }
@@ -342,20 +351,22 @@ on the **current value** triggered by the ``OnChange`` event of the source objec
 
 The following example demonstrates this behavior using a ``Checkbox`` *x0-object-type*:
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "CheckboxObject":
    {
-      "Type": "FormfieldCheckbox",
-      "Attributes":
+      "CheckboxObject":
       {
-         "Style": "form-check form-check-input mb-1 p-1 w-100",
-         "Value": true,
-         "OnChange":
+         "Type": "FormfieldCheckbox",
+         "Attributes":
          {
-            "EnableOnValues": [ true ],
-            "DisableOnValues": [ false ],
-            "ObjectID": "DestinationObjectID"
+            "Style": "form-check form-check-input mb-1 p-1 w-100",
+            "Value": true,
+            "OnChange":
+            {
+               "EnableOnValues": [ true ],
+               "DisableOnValues": [ false ],
+               "ObjectID": "DestinationObjectID"
+            }
          }
       }
    }
@@ -375,35 +386,37 @@ The following example demonstrates this behavior using a ``FormfieldPulldown`` *
 the **RecordPriority** destination object is only *enabled* for editing when the pulldown value
 **MX** is selected. Changing the value back to **A** or **CNAME** will disable it again.
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "RecordType":
    {
-      "Type": "FormfieldPulldown",
-      "Attributes":
+      "RecordType":
       {
-         "Style": "form-select w-100",
-         "Options":
-         [
-            {
-               "TextID": "TXT.PULLDOWN.RECORD-TYPE.A",
-               "Value": "A",
-               "Default": true
-            },
-            {
-               "TextID": "TXT.PULLDOWN.RECORD-TYPE.CNAME",
-               "Value": "CNAME"
-            },
-            {
-               "TextID": "TXT.PULLDOWN.RECORD-TYPE.MX",
-               "Value": "MX"
-            }
-         ],
-         "OnChange":
+         "Type": "FormfieldPulldown",
+         "Attributes":
          {
-            "ObjectID": "RecordPriority",
-            "EnableOnValues": [ "MX"],
-            "DisableOnValues": [ "A", "CNAME" ]
+            "Style": "form-select w-100",
+            "Options":
+            [
+               {
+                  "TextID": "TXT.PULLDOWN.RECORD-TYPE.A",
+                  "Value": "A",
+                  "Default": true
+               },
+               {
+                  "TextID": "TXT.PULLDOWN.RECORD-TYPE.CNAME",
+                  "Value": "CNAME"
+               },
+               {
+                  "TextID": "TXT.PULLDOWN.RECORD-TYPE.MX",
+                  "Value": "MX"
+               }
+            ],
+            "OnChange":
+            {
+               "ObjectID": "RecordPriority",
+               "EnableOnValues": [ "MX"],
+               "DisableOnValues": [ "A", "CNAME" ]
+            }
          }
       }
    }
@@ -439,10 +452,12 @@ to the destination object:
 
 Globally fire (raise) *x0-events* on any object's state change.
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "OnChange": {
-      "FireEvents": [ "EventID1", "EventID2" ]
+   {
+      "OnChange": {
+         "FireEvents": [ "EventID1", "EventID2" ]
+      }
    }
 
 See :ref:`event-system` for the full event-system architecture.
@@ -457,23 +472,28 @@ See :ref:`event-system` for the full event-system architecture.
 
 Multiple ``OnChange`` configurations can be specified if provided as **Array** type.
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "OnChange": [
-      {
-         "ObjectID": "RecordPriority",
-         "EnableOnValues": [
-            "MX"
-         ],
-         "DisableOnValues": [
-            "A",
-            "CNAME"
-         ]
-      },
-      {
-         "FireEvents": [ "EventID1", "EventID2" ]
-      }
-   ]
+   {
+      "OnChange":
+      [
+         {
+            "ObjectID": "RecordPriority",
+            "EnableOnValues":
+            [
+               "MX"
+            ],
+            "DisableOnValues":
+            [
+               "A",
+               "CNAME"
+            ]
+         },
+         {
+            "FireEvents": [ "EventID1", "EventID2" ]
+         }
+      ]
+   }
 
 .. _form-validation-types:
 
