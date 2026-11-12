@@ -60,9 +60,10 @@ semantics required by the framework's architectural infrastructure.
 Before continuing, a system developer **must** be familiar with the *x0-core-concept*—especially
 how things work compared to other systems, and how they do not.
 
-The first and most important difference compared to other frameworks is that all related content
-and objects are rendered 100% inside the *x0-core* engine, which runs exclusively in the
-**browser's** JavaScript engine and **nowhere else** (100% serverless).
+The first and **most important** difference compared to other frameworks is that only the **static**
+**system core** JavaScript files and the **object metadata** definitions are fetched from the server.
+All related content and objects are then rendered 100% inside the *x0-core* engine, which runs exclusively
+in the browser's JavaScript engine and nowhere else (100% serverless).
 
 Many other frameworks rely on heavy, multi-layer frontend-backend communication combined with
 server-side string template replacements (a de facto outdated paradigm compared to modern OOP
@@ -179,8 +180,8 @@ object:
 
 - assigning the object's ``JSONConfig.Attributes`` metadata
 - setting the object's ``ObjectID`` property
-- calling the object's ``init()`` method
 - optionally setting the ``overrideDOMObjectID`` property
+- calling the object's ``init()`` method
 - connecting the object to its parent via ``this.addObject(ObjectRef)`` (which also sets ``ParentObject`` automatically)
 
 .. code-block:: javascript
@@ -228,8 +229,8 @@ without them is not advisable:
   configurations via ``JSONConfig.Attributes``, and how those settings are accessed or modified
   programmatically within the class.
 
-24.5.1. Base Inheritance
-************************
+24.5.1. Inheritance Basics
+**************************
 
 To summarize the base class inheritance hierarchy:
 ``sysBaseDOMElement`` is the root base class, which is inherited by ``sysBaseObject``.
@@ -242,7 +243,7 @@ Crucially for your further understanding, every single object in the entire syst
 (or rather, **must** derive) from ``sysBaseObject`` or one of the system's intermediate classes
 (which also inherit from ``sysBaseObject`` in the inheritance chain).
 
-24.5.2. Object Examples
+24.5.2. Base Derivation
 ***********************
 
 Let's take a look at the ``Div`` object's constructor (this object is part of the
@@ -264,7 +265,58 @@ Let's take a look at the ``Div`` object's constructor (this object is part of th
    //- inherit sysBaseObject
    sysObjDiv.prototype = new sysBaseObject();
 
-As you can see,
+As shown above, the constructor initializes the three core instance properties (``ObjectType``,
+``ChildObjects``, and ``EventListeners``) and sets ``sysBaseObject`` as the prototype.
+Overall, the purpose of ``Div`` and ``DivUnique`` is intentionally minimal: they handle basic
+container functionality, such as applying a CSS ``Style`` or setting the DOM layer's
+``innerHTML`` (``Value``).
+
+.. code-block:: text
+
+   +-----------------------+      +-----------------------+      +-----------------------+
+   |  ::sysBaseDOMElement  | -->  |    ::sysBaseObject    | -->  |    ::sysCustomObj     |
+   +-----------------------+      +-----------------------+      +-----------------------+
+
+This is the **most common** derivation model for an *x0-custom-class*. While it can sometimes
+make sense to place an intermediate class **between** ``::sysBaseObject`` and your custom
+class, we will revisit that pattern later—first, let's examine the core base properties and
+their purpose in the next section.
+
+24.5.3. Core Members
+********************
+
+When implementing a custom *x0-object*, certain base properties must be initialized directly
+inside your class constructor.
+
+**Optional:**
+
+- ``this.ChildObjects``: An ``Array`` that stores all child *x0-objects* attached to this
+  instance via ``addObject()``.
+- ``this.ParentObject``: A reference to the parent *x0-object* that contains this instance.
+  This is set automatically when the object is added to a parent via ``addObject()``.
+- ``this.EventListeners``: An ``Object`` that maps DOM events (like clicks or key presses)
+  to their handler functions, which are automatically attached when the object renders.
+- ``this.DOMAttributes``: An ``Object`` containing HTML attributes as key/value pairs
+  (such as ``type``, ``title``, or ``disabled``) that are applied directly to the rendered
+  HTML element.
+- ``this.overrideDOMObjectID``: A boolean flag (``false`` by default). When set to ``true``,
+  the rendered HTML element keeps the exact ``this.ObjectID`` as its ``id`` instead of
+  combining it with parent IDs.
+
+**Mandatory:**
+
+- ``this.ObjectType``: A unique name that identifies the class type (such as ``'Div'`` or
+  ``'CustomObj'``). It must match the key used when registering the class in
+  ``sysFactory.SetupClasses`` so the framework can recognize and look up the object.
+- ``this.ObjectID``: The unique identifier for the object instance. It is automatically
+  assigned from your ``object.json`` configuration or set manually in code, and serves
+  as the base for the element's HTML ``id``. It must be **system-wide unique**; a
+  duplicate entry will **overwrite** an existing one (making it inaccessible).
+
+.. important::
+   Properly managing ``this.ObjectID``—especially alongside ``this.overrideDOMObjectID``
+   when building complex, nested sub-objects—is a fundamental concept in *x0*. We will
+   explore how IDs must be set up in different scenarios to avoid serious mistakes.
 
 .. _dev-object-nesting:
 
