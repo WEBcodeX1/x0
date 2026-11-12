@@ -5,19 +5,19 @@
 22. OOP Model
 =============
 
-This chapter documents the architectural model of the x0-framework: the small set of
-foundational classes that every *x0-system-object* is built upon, and the core engine
-components that instantiate, connect, and drive these objects at runtime. Together, they
-form a pointer-based recursive object model: every object holds a direct reference
+This chapter documents the **architectural model** of the *x0-framework*: the small set of
+**foundational classes** that every *x0-system-object* is built upon, and the **core engine**
+components that instantiate, connect, and drive these objects at **runtime**. Together, they
+form a **pointer-based recursive object model**: every object holds a direct reference
 (`ParentObject`) to its parent and an array of direct references (`ChildObjects`) to
 its children. As a result, the entire application state at any point in time is simply
-one in-memory object graph, partitioned (segmented for performance reasons) and rooted
+one **in-memory object graph**, partitioned (segmented for performance reasons) and rooted
 at each screen's `HierarchyRootObject`.
 
 .. code-block:: text
 
    +----------------+      +----------------------------------+
-   | object.json    |      | x0-core (Factory.js/Screen.js)   |
+   | object.json    |      | x0-core (sysFactory/sysScreen)   |
    +----------------+ ---> +------------+---------------------+      +----------------------+
    | skeleton.json  |      | Screen1    | HierarchyRootObject | ---> | Object1::Ref Screen1 |
    +----------------+      +------------+---------------------+      +----------------------+
@@ -292,10 +292,17 @@ notification indicators, dynamic radio lists) tractable without a virtual-DOM di
     - ``remove()``: Detaches *only this object* from its parent's ``ChildObjects`` (via
       ``getChildIndexByChildItemID()`` + ``splice()``) and removes its own DOM node.
       Refer to :ref:`oopmodel-classes-baseobj-remove`.
-    - ``removeParent()``: Removes this object's own DOM subtree entirely
-      (``removeDOMParentElement()``) and discards *its own* ``ChildObjects`` array,
-      effectively pruning everything below this object rather than just this object
-      itself. Refer to :ref:`oopmodel-classes-baseobj-removeparent`.
+    - ``removeParent()``: Removes ``this.DOMObjectID`` from the ``ParentObject`` DOM element
+      (``removeDOMParentElement()``) and discards *its own* ``ChildObjects`` array. This
+      effectively prunes everything below this object while keeping the object instance
+      itself, along with its reference in the ``ParentObject``'s ``ChildObjects`` array used
+      for re-rendering. Refer to :ref:`oopmodel-classes-baseobj-removeparent`.
+
+      .. warning::
+         The logical workflow for ``removeParent()`` is completely correct, but the
+         function names are misleading. They should be renamed in future releases to
+         ``removeFromParent()`` (or ``detachFromParent()``) **and**
+         ``DOMremoveFromParentElement()``.
 
 22.3.8. Reset Lifecycle
 ***********************

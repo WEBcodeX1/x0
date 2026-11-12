@@ -209,8 +209,7 @@ provides a convenient full-refresh counterpart.
 ****************************
 
 The ``remove()`` method detaches a single object from its parent's ``ChildObjects`` array
-and removes its DOM representation. Unlike ``removeParent()``, which also clears the
-object's own children, ``remove()`` only removes the object itself.
+and removes its DOM representation.
 
 23.1.3.1. Method Implementation
 ###############################
@@ -263,9 +262,17 @@ object's own children, ``remove()`` only removes the object itself.
 23.1.4.1. Purpose
 #################
 
-The ``removeParent()`` method is used to remove an object's parent relationship and its
-associated DOM elements. This ensures that the object is detached from its parent both
-logically (in the object hierarchy) and visually (in the DOM).
+The ``removeParent()`` method removes ``this.DOMObjectID`` from the ``ParentObject`` DOM
+element (``removeDOMParentElement()``) and discards *its own* ``ChildObjects`` array.
+This effectively prunes everything below this object while keeping the object instance
+itself, along with its reference in the ``ParentObject``'s ``ChildObjects`` array used
+for re-rendering.
+
+.. warning::
+    The logical workflow for ``removeParent()`` is completely correct, but the
+    function names are misleading. They should be renamed in future releases to
+    ``removeFromParent()`` (or ``detachFromParent()``) **and**
+    ``DOMremoveFromParentElement()``.
 
 23.1.4.2. Method Signature
 ##########################
@@ -278,12 +285,13 @@ logically (in the object hierarchy) and visually (in the DOM).
 ######################
 
     * DOM Element Removal:
-        Checks if the DOM element associated with the object exists.
-        If it exists, the DOM parent element is removed using removeDOMParentElement().
+        Checks if the DOM parent element associated with the object exists.
+        If not, the DOM element is removed from ``document.body``.
+        If it exists, the object's DOM element representation (``this.DOMObjectID``) is removed from the DOM parent element using ``removeDOMParentElement()``.
 
     * Child Objects Reset:
-        Deletes the ChildObjects array to ensure all child references are cleared.
-        Resets ChildObjects to an empty array to maintain consistency.
+        Deletes the ``ChildObjects`` array to ensure all child references are cleared.
+        Resets ``ChildObjects`` to an empty array to enable clean re-rendering.
 
     * Error Handling:
         Catches and logs any errors that occur during the removal process.
