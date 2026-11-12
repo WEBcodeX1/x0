@@ -294,8 +294,8 @@ which every *x0-system-object* and custom extension must derive.
 
 .. _glossary-factory:
 
-28.28. x0-factory (sysFactory)
-------------------------------
+28.28. x0-factory (``sysFactory``)
+----------------------------------
 
 The global singleton registry and bootstrap entry point of an *x0-application*
 (see :ref:`dev-oopmodel`). It holds the ``SetupClasses`` constructor map,
@@ -304,8 +304,8 @@ localized texts, and starts the reactor and async notification handler.
 
 .. _glossary-screen:
 
-28.29. x0-screen (sysScreen)
-----------------------------
+28.29. x0-screen (``sysScreen``)
+--------------------------------
 
 A self-contained, pre-instantiated visual view rooted at a HierarchyRootObject
 (see :ref:`appdev-config` and :ref:`dev-oopmodel`). Inactive screens persist as
