@@ -5,18 +5,18 @@
 24. Development Best Practices
 ==============================
 
-This chapter establishes the *core architectural* **standards**, object-construction patterns,
-and runtime-update strategies required to develop robust custom *x0-system-objects* within the
+This chapter establishes the **core architectural standards**, **object-construction patterns**,
+and **runtime-update strategies** required to develop robust custom *x0-system-objects* within the
 framework ecosystem.
 
 24.1. Architectural Foundations
 -------------------------------
 
-The implementation of a custom, deterministic *x0-object* requires strict adherence to the framework's
-core structural constraints. The following core principles must be thoroughly understood before a
-developer attempts to construct **custom objects** or **modular extensions**.
+The implementation of a **custom**, **deterministic** *x0-object* requires **strict adherence** to the
+framework's **core structural constraints**. The following **core principles** must be thoroughly **understood**
+before a developer attempts to construct **custom objects** or **modular extensions**.
 
-Distinct rules separate mandatory requirements ("musts") from optional features ("cans"). Deviating
+Distinct rules separate mandatory requirements (**musts**) from optional features (**cans**). Deviating
 from these specifications can significantly alter overall system behavior; therefore, all subsequent
 principles and sub-chapters must be reviewed carefully.
 
@@ -100,43 +100,66 @@ zero data copies when instantiating large numbers of object instances.
 24.4. Declarative Model
 -----------------------
 
-The *x0-system's* declarative model is used for **both** the **static declarative configuration**
-approach (non-programmatic) **and** the **programmatic** one (building custom *x0-objects*).
-These best practices focus exclusively on the **programmatic approach**, but for a broader
-understanding, a developer **should** understand the differences between the two implementations.
-To illustrate this, we will proceed with configuration and code examples.
+In *x0*, everything is an **object**—and every *x0-object* instance relies on a unified,
+declarative model to receive its configuration. Rather than hardcoding parameters, this
+abstraction layer processes JSON-based metadata (``JSONConfig.Attributes``) to populate
+each instance with well-defined properties.
 
-24.4.1. Declarative Configuration
-*********************************
+So when the *x0-init* process instantiates each object defined inside ``object.json`` and
+its object relation ``skeleton.json``; a very rudimentary description: it takes the objects
+``Attributes``, instaniates the *x0-object* by its ``Type`` and set the ``JSONConfig.Attributes``
+property in the new created object instance. Afterwards the instance ``init()`` method is
+getting executed.
 
-A declarative configuration (shown here as an excerpt from ``DivUnique``) inside ``object.json``.
+24.4. Declarative Model
+-----------------------
 
-.. code-block:: javascript
+In *x0*, everything is an **object**—and every *x0-object* instance relies on a unified,
+declarative model to receive its configuration. Rather than hardcoding parameters, this
+abstraction layer processes JSON-based metadata (``JSONConfig.Attributes``) to populate
+each instance with well-defined properties.
 
-   "ExampleRowContainer":
+When the *x0-init* process instantiates the objects defined in ``object.json`` along with
+their relationships in ``skeleton.json``, it reads each object's ``Attributes``, instantiates
+the *x0-object* according to its ``Type``, and sets the ``JSONConfig.Attributes`` property on
+the newly created instance. Afterward, the instance's ``init()`` method is executed.
+
+24.4.1. JSON Example
+********************
+
+The following JSON config utilizes an *x0-object* of type ``DivUnique``.
+
+.. code-block:: json
+
    {
-      "Type": "DivUnique",
-      "Attributes":
+      "ExampleRowContainer":
       {
-         "Style": "row m-0 p-0"
+         "Type": "DivUnique",
+         "Attributes":
+         {
+            "Style": "row m-0 p-0"
+         }
       }
    }
 
-This declarative configuration processed on *x0-init* initializes the object instance,
-automatically setting its internal ``ObjectID`` property to "ExampleRowContainer" and
-attaches the ``Attributes`` sub-configuration as ``JSONConfig.Attributes`` which afterwards
-is programmatically accessible from inside the object.
+When the *x0-system* initializes with this config, a new ``DivUnique`` object instance is
+generated, its internal ``ObjectID`` property is set to ``ExampleRowContainer``, and
+``JSONConfig.Attributes`` is set as a property on the object instance.
 
 24.4.2. Initialization
 **********************
 
-Inside the *x0-system-class* instance, this process takes place in the ``init()`` method.
-Currently, this mechanism is not generic: each object transforms configuration attributes into
-internal class properties via hardcoded logic within this method, where **default values** for
-individual attributes are also defined.
+After the object instance is populated with ``JSONConfig.Attributes``, its ``init()`` method
+is invoked. The main purpose of ``init()`` is to check whether specific configuration attributes
+exist, assign default values where needed, and initialize the internal properties so that the
+object instance is ready for use.
 
-Because ``DivUnique`` inherits its ``init()`` method from ``Div``, the ``Div`` implementation
-is referenced below:
+Currently, this mechanism is not generic: each object transforms configuration attributes into
+internal class properties via hardcoded logic within this method, with a few minor exceptions
+that will be discussed later.
+
+The simple workflow in ``Div``'s ``init()`` method—from which ``DivUnique`` also inherits—is
+shown below:
 
 .. code-block:: javascript
 
@@ -161,24 +184,18 @@ is referenced below:
       }
    }
 
-As shown above, ``this.DOMType``, ``this.DOMValue``, and ``this.DOMStyle``—all of which are
-**system-internal properties**—are populated from ``JSONConfig.Attributes``.
-
-This provides a brief overview of the ``init()`` implementation and how the declarative data
-defined in ``object.json`` maps to the class instance. Rather than going into full detail here,
-we will explore this mechanism more thoroughly in a later section.
-
 24.4.3. Programmatic Access
 ***************************
 
-Now, when using the programmatic approach, the implementor must use some aspects which are
-automatically processed by the *x0-init* process, these include:
+When instantiating objects programmatically without running through the declarative *x0-init*
+pipeline, the implementor must perform these exact setup steps **manually** inside the custom
+object:
 
-- setting the object's ``this.ObjectID`` property manually
-- calling the object's ``init()`` method manually
-- setting an object's ``this.ParentObject`` property manually
-- consider setting ``this.overrideDOMObjectID`` property manually
-- connect the object manually via ``this.addObject(ObjectRef)``
+- assigning the object's ``JSONConfig.Attributes`` metadata
+- setting the object's ``ObjectID`` property
+- calling the object's ``init()`` method
+- optionally setting the ``overrideDOMObjectID`` property
+- connecting the object to its parent via ``this.addObject(ObjectRef)`` (which also sets ``ParentObject`` automatically)
 
 .. code-block:: javascript
 
@@ -191,15 +208,16 @@ automatically processed by the *x0-init* process, these include:
    BtnClose.DOMAttributes['title'] = sysFactory.getText('TXT.SYS.TITLE_CLOSE');
 
    BtnClose.JSONConfig = {
-      "Attributes": {
+      "Attributes":
+      {
          "DOMType": "button",
          "Style": "btn btn-close"
       }
    };
 
-   BtnClose.init()
+   BtnClose.init();
 
-   this.addObject(BtnClose)
+   this.addObject(BtnClose);
 
 24.5. Custom Class Derivation
 -----------------------------
