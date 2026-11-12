@@ -174,7 +174,7 @@ without any intermediate build or deployment step.
 =========================
 
 2.1. OOP Enhanced Templating
------------------------------
+----------------------------
 
 At the heart of the *x0-system* lies a strict **binding of inheritable JavaScript
 Class Instances to a hierarchical DOM structure**. Each DOM node — down to the
