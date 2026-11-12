@@ -71,17 +71,19 @@ receiver type; however, any *x0-producer-type* can trigger events for it (see :r
 
 First we need to define the service properties inside ``object.json`` of type ``ServiceConnector``.
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ConnectorObjectID":
    {
-      "Type": "ServiceConnector",
-      "Attributes":
+      "ConnectorObjectID":
       {
-         "OnEvent":
+         "Type": "ServiceConnector",
+         "Attributes":
          {
-            "Events": [ "InitSystem", "CustomEvent2" ],
-            "ServiceCall": "/python/BackendService.py"
+            "OnEvent":
+            {
+               "Events": [ "InitSystem", "CustomEvent2" ],
+               "ServiceCall": "/python/BackendService.py"
+            }
          }
       }
    }
@@ -97,43 +99,49 @@ that the configuration of two form fields has also been included to demonstrate 
    Please note: The ``FormfieldList`` object will only receive data once these objects
    are **connected** inside ``skeleton.json``, which is described in the next step (15.3.3).
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ReceiverObjectID":
    {
-      "Type": "FormfieldList",
-      "Attributes":
+      "ReceiverObjectID":
       {
-         "ObjectIDs": [
-            "FormfieldLabel1",
-            "Formfield1"
-         ],
-         "Style": "border rounded p-2",
-         "RowStyle": "row m-0 p1",
-         "RowAfterElements": 2,
-         "ColAfterElements": 1,
-         "ColStyle": [
-            "col-md-6",
-            "col-md-6"
-         ]
-      }
-   },
+         "Type": "FormfieldList",
+         "Attributes":
+         {
+            "ObjectIDs":
+            [
+               "FormfieldLabel1",
+               "Formfield1"
+            ],
+            "Style": "border rounded p-2",
+            "RowStyle": "row m-0 p1",
+            "RowAfterElements": 2,
+            "ColAfterElements": 1,
+            "ColStyle":
+            [
+               "col-md-6",
+               "col-md-6"
+            ]
+         }
+      },
 
-   "FormfieldLabel1":
-   {
-      "Type": "FormfieldLabel",
-      "Attributes": {
-         "Style": "p-1 w-100 text-primary-emphasis",
-         "IconStyle": "fa-solid fa-id-card",
-         "TextID": "TXT.FORMLABEL1"
-      }
-   },
+      "FormfieldLabel1":
+      {
+         "Type": "FormfieldLabel",
+         "Attributes":
+         {
+            "Style": "p-1 w-100 text-primary-emphasis",
+            "IconStyle": "fa-solid fa-id-card",
+            "TextID": "TXT.FORMLABEL1"
+         }
+      },
 
-   "Formfield1":
-   {
-      "Type": "FormfieldText",
-      "Attributes": {
-         "Style": "form-control border-secondary m-1 p-2 w-100 text-primary-emphasis"
+      "Formfield1":
+      {
+         "Type": "FormfieldText",
+         "Attributes":
+         {
+            "Style": "form-control border-secondary m-1 p-2 w-100 text-primary-emphasis"
+         }
       }
    }
 
@@ -144,7 +152,7 @@ Finally, with the following setup in ``skeleton.json``, the receiver object rece
 data during system initialization / page load (the **InitSystem** event) **and** when another
 producer object triggers the **CustomEvent2** event (e.g., via a button click).
 
-.. code-block:: javascript
+.. code-block:: json
 
    {
       "Screen1":
@@ -189,13 +197,13 @@ the existing DOM without triggering a full redraw.
 
 Valid ``FormfieldList`` schema:
 
-.. code-block:: javascript
+.. code-block:: json
 
    { "FormField1": "Value1", "FormField2": "Value2", "FormField3": "Value3" }
 
 Valid ``List`` (multiple rows) schema:
 
-.. code-block:: javascript
+.. code-block:: json
 
    [
       { "RowColumn1": "Value1", "RowColumn2": "Value2", "RowColumn3": "Value3" },
@@ -277,27 +285,31 @@ a corresponding ``ServiceConnector`` setup.
 
 Reference multiple *x0-objects* easily by only applying an **array** of object IDs:
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "SrcDataObjects":
-   [
-      "ObjectID1",
-      "ObjectID2",
-      "ObjectID3"
-   ]
+   {
+      "SrcDataObjects":
+      [
+         "ObjectID1",
+         "ObjectID2",
+         "ObjectID3"
+      ]
+   }
 
 15.6.2. Single Object
 *********************
 
 Use the ``GlobalObject`` ``SrcDataObject`` type to reference a **single** object only.
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "SrcDataObjects":
    {
-      "RefObject1":
+      "SrcDataObjects":
       {
-          "Type": "GlobalObject"
+         "RefObject1":
+         {
+            "Type": "GlobalObject"
+         }
       }
    }
 
@@ -307,15 +319,18 @@ Use the ``GlobalObject`` ``SrcDataObject`` type to reference a **single** object
 Use the ``HardcodedValues`` ``SrcDataObject`` type to include hardcoded values in
 a backend request:
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "SrcDataObjects":
    {
-      "Dummy":
+      "SrcDataObjects":
       {
-         "Type": "HardcodedValues",
-         "Values": {
-            "LimitRows": 20
+         "Dummy":
+         {
+            "Type": "HardcodedValues",
+            "Values":
+            {
+               "LimitRows": 20
+            }
          }
       }
    }
@@ -326,13 +341,15 @@ a backend request:
 Use the ``GlobalVar`` ``SrcDataObject`` type to include individual application-wide
 global variables in a backend request:
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "SrcDataObjects":
    {
-      "MyGlobalKey":
+      "SrcDataObjects":
       {
-         "Type": "GlobalVar"
+         "MyGlobalKey":
+         {
+            "Type": "GlobalVar"
+         }
       }
    }
 
@@ -342,14 +359,16 @@ global variables in a backend request:
 Use the ``ScreenGlobalVar`` ``SrcDataObject`` type to forward a screen-level variable
 to the backend. Specify the source screen with ``ScreenID``:
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "SrcDataObjects":
    {
-      "MyScreenKey":
+      "SrcDataObjects":
       {
-         "Type": "ScreenGlobalVar",
-         "ScreenID": "Screen1"
+         "MyScreenKey":
+         {
+            "Type": "ScreenGlobalVar",
+            "ScreenID": "Screen1"
+         }
       }
    }
 
@@ -358,56 +377,63 @@ to the backend. Specify the source screen with ``ScreenID``:
 
 The most simple way, defining multiple ObjectIDs as **array type**:
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleArrayOfObjects":
    {
-      "Type": "FormfieldList",
-      "Attributes":
+      "ExampleArrayOfObjects":
       {
-         "ObjectIDs": [
-            "FormfieldLabel1",
-            "Formfield1"
-         ],
-         "Style": "border rounded p-2",
-         "SrcDataObjects":
-         [
-            "RefFormfieldList",
-            "RefList",
-            "RefSingleObject1",
-            "RefSingleObject2"
-         ]
+         "Type": "FormfieldList",
+         "Attributes":
+         {
+            "ObjectIDs":
+            [
+               "FormfieldLabel1",
+               "Formfield1"
+            ],
+            "Style": "border rounded p-2",
+            "SrcDataObjects":
+            [
+               "RefFormfieldList",
+               "RefList",
+               "RefSingleObject1",
+               "RefSingleObject2"
+            ]
+         }
       }
    }
 
 The following example shows a ``FormfieldList`` configuration with a single referenced
 object and three hardcoded values: ``LimitRows``, ``DateFrom``, and ``DateTo``:
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleMultiObject":
    {
-      "Type": "FormfieldList",
-      "Attributes":
+      "ExampleMultiObject":
       {
-         "ObjectIDs": [
-            "FormfieldLabel1",
-            "Formfield1"
-         ],
-         "Style": "border rounded p-2",
-         "SrcDataObjects":
+         "Type": "FormfieldList",
+         "Attributes":
          {
-            "RefObject1":
+            "ObjectIDs":
+            [
+               "FormfieldLabel1",
+               "Formfield1"
+            ],
+            "Style": "border rounded p-2",
+            "SrcDataObjects":
             {
-               "Type": "GlobalObject"
-            },
-            "Dummy":
-            {
-               "Type": "HardcodedValues",
-               "Values": {
-                  "LimitRows": 10,
-                  "DateFrom": "2024-01-12",
-                  "DateTo": "2025-01-12"
+               "RefObject1":
+               {
+                  "Type": "GlobalObject"
+               },
+               "Dummy":
+               {
+                  "Type": "HardcodedValues",
+                  "Values":
+                  {
+                     "LimitRows": 10,
+                     "DateFrom": "2024-01-12",
+                     "DateTo": "2025-01-12"
+                  }
                }
             }
          }
@@ -467,93 +493,103 @@ lists which attributes must be used in the **declarative** JSON configuration.
 16.2.1. Append
 **************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleButtonActionAppend":
    {
-      "Type": "Button",
-      "Attributes":
+      "ExampleButtonActionAppend":
       {
-         "TextID": "TXT.BUTTON.EXAMPLE",
-         "Style": "btn btn-primary w-100 mt-2 mb-2",
-         "IconStylePost": "fa-solid fa-arrow-down",
-         "Action": "append",
-         "SrcDataObject": "SourceObjectID",
-         "DstDataObject": "DestinationObjectID"
+         "Type": "Button",
+         "Attributes":
+         {
+            "TextID": "TXT.BUTTON.EXAMPLE",
+            "Style": "btn btn-primary w-100 mt-2 mb-2",
+            "IconStylePost": "fa-solid fa-arrow-down",
+            "Action": "append",
+            "SrcDataObject": "SourceObjectID",
+            "DstDataObject": "DestinationObjectID"
+         }
       }
    }
 
 16.2.2. Enable
 **************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleButtonActionEnable":
    {
-      "Type": "Button",
-      "Attributes":
+      "ExampleButtonActionEnable":
       {
-         "TextID": "TXT.BUTTON.EXAMPLE",
-         "Style": "btn btn-primary w-100 mt-2 mb-2",
-         "IconStylePost": "fa-solid fa-arrow-down",
-         "Action": "enable",
-         "DstObjectID": "DestinationObjectID"
+         "Type": "Button",
+         "Attributes":
+         {
+            "TextID": "TXT.BUTTON.EXAMPLE",
+            "Style": "btn btn-primary w-100 mt-2 mb-2",
+            "IconStylePost": "fa-solid fa-arrow-down",
+            "Action": "enable",
+            "DstObjectID": "DestinationObjectID"
+         }
       }
    }
 
 16.2.3. Tabswitch
 *****************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleButtonActionTabSwitch":
    {
-      "Type": "Button",
-      "Attributes":
+      "ExampleButtonActionTabSwitch":
       {
-         "TextID": "TXT.BUTTON.EXAMPLE",
-         "Style": "btn btn-primary w-100 mt-2 mb-2",
-         "IconStylePost": "fa-solid fa-arrow-down",
-         "Action": "tabswitch",
-         "TabContainer": "TabContainerObjectID",
-         "Tab": "TabObjectID"
+         "Type": "Button",
+         "Attributes":
+         {
+            "TextID": "TXT.BUTTON.EXAMPLE",
+            "Style": "btn btn-primary w-100 mt-2 mb-2",
+            "IconStylePost": "fa-solid fa-arrow-down",
+            "Action": "tabswitch",
+            "TabContainer": "TabContainerObjectID",
+            "Tab": "TabObjectID"
+         }
       }
    }
 
 16.2.4. Set Global Var
 **********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleButtonActionSetGlobalVar":
    {
-      "Type": "Button",
-      "Attributes":
+      "ExampleButtonActionSetGlobalVar":
       {
-         "TextID": "TXT.BUTTON.EXAMPLE",
-         "Style": "btn btn-primary w-100 mt-2 mb-2",
-         "IconStylePost": "fa-solid fa-arrow-down",
-         "Action": "setglobalvar",
-         "SetVar": "VarName",
-         "SetValue": "VarValue"
+         "Type": "Button",
+         "Attributes":
+         {
+            "TextID": "TXT.BUTTON.EXAMPLE",
+            "Style": "btn btn-primary w-100 mt-2 mb-2",
+            "IconStylePost": "fa-solid fa-arrow-down",
+            "Action": "setglobalvar",
+            "SetVar": "VarName",
+            "SetValue": "VarValue"
+         }
       }
    }
 
 16.2.5. Open Overlay
 ********************
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleButtonActionOpenOverlay":
    {
-      "Type": "Button",
-      "Attributes":
+      "ExampleButtonActionOpenOverlay":
       {
-         "TextID": "TXT.BUTTON.EXAMPLE",
-         "Style": "btn btn-primary w-100 mt-2 mb-2",
-         "IconStylePost": "fa-solid fa-arrow-down",
-         "Action": "openoverlay",
-         "ScreenID": "ScreenName"
+         "Type": "Button",
+         "Attributes":
+         {
+            "TextID": "TXT.BUTTON.EXAMPLE",
+            "Style": "btn btn-primary w-100 mt-2 mb-2",
+            "IconStylePost": "fa-solid fa-arrow-down",
+            "Action": "openoverlay",
+            "ScreenID": "ScreenName"
+         }
       }
    }
 
@@ -562,28 +598,30 @@ lists which attributes must be used in the **declarative** JSON configuration.
 
 Passing ``OnResult`` as an array of objects allows you to trigger multiple actions.
 
-.. code-block:: javascript
+.. code-block:: json
 
-   "ExampleButtonActionMultipleActions":
    {
-      "Type": "Button",
-      "Attributes":
+      "ExampleButtonActionMultipleActions":
       {
-         "TextID": "TXT.BUTTON.EXAMPLE",
-         "Style": "btn btn-primary w-100 mt-2 mb-2",
-         "IconStylePost": "fa-solid fa-arrow-down",
-         "OnResult":
-         [
-            {
-               "Action": "openoverlay",
-               "ScreenID": "ScreenName"
-            },
-            {
-               "Action": "setglobalvar",
-               "SetVar": "VarName",
-               "SetValue": "VarValue"
-            }
-         ]
+         "Type": "Button",
+         "Attributes":
+         {
+            "TextID": "TXT.BUTTON.EXAMPLE",
+            "Style": "btn btn-primary w-100 mt-2 mb-2",
+            "IconStylePost": "fa-solid fa-arrow-down",
+            "OnResult":
+            [
+               {
+                  "Action": "openoverlay",
+                  "ScreenID": "ScreenName"
+               },
+               {
+                  "Action": "setglobalvar",
+                  "SetVar": "VarName",
+                  "SetValue": "VarValue"
+               }
+            ]
+         }
       }
    }
 
