@@ -374,9 +374,10 @@ references to its children in ``self._child_elements`` (equivalent to ``this.Chi
 or lookup loop. Pre-linking object references statically at instantiation time allows the
 engine to walk large object graphs with minimal overhead.
 
-This exact recursive pattern is used inside *x0*'s ``renderObject()`` method (see
-:ref:`oopmodel-classes` for the full implementation). This leads directly to the next
-question: how do you efficiently connect and set up multiple nested object instances?
+This exact recursive traversal powers *x0*'s ``renderObject()`` method (see
+:ref:`oopmodel-classes` for the full implementation). However, for ``renderObject()`` to
+walk a component's subtree at runtime, those parent-child links must first be established
+in memory—starting with the simplest approach, direct referencing, in the next section.
 
 24.6.2. Direct Referencing
 **************************
