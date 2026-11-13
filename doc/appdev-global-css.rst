@@ -191,7 +191,7 @@ Mix custom classes with Bootstrap classes in your JSON configurations:
          {
             "Style": "my-custom-header p-4 mb-3 shadow-lg"
          }
-      }
+      },
 
       "StatusIndicator":
       {
