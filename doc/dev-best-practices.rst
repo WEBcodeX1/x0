@@ -174,9 +174,9 @@ shown below:
 24.4.3. Programmatic Access
 ***************************
 
-When instantiating objects programmatically without running through the declarative *x0-init*
-pipeline, the implementor must perform these exact setup steps **manually** inside the custom
-object:
+When instantiating objects programmatically without running through the declarative
+*x0-init* pipeline, the implementor must perform these exact setup steps **manually**
+inside the custom object:
 
 - assigning the object's ``JSONConfig.Attributes`` metadata
 - setting the object's ``ObjectID`` property
@@ -186,15 +186,15 @@ object:
 
 .. code-block:: javascript
 
-   let BtnClose = new sysObjDiv();
+   let BtnExample = new sysObjDiv();
 
-   BtnClose.ObjectID = 'ExampleButton';
+   BtnExample.ObjectID = 'ExampleButton';
 
-   BtnClose.DOMAttributes = new Object();
-   BtnClose.DOMAttributes['type'] = 'button';
-   BtnClose.DOMAttributes['title'] = sysFactory.getText('TXT.SYS.TITLE_CLOSE');
+   BtnExample.DOMAttributes = new Object();
+   BtnExample.DOMAttributes['type'] = 'button';
+   BtnExample.DOMAttributes['title'] = sysFactory.getText('TXT.SYS.TITLE_CLOSE');
 
-   BtnClose.JSONConfig = {
+   BtnExample.JSONConfig = {
       "Attributes":
       {
          "DOMType": "button",
@@ -202,46 +202,48 @@ object:
       }
    };
 
-   BtnClose.init();
+   BtnExample.init();
 
-   this.addObject(BtnClose);
+   this.addObject(BtnExample);
 
 24.5. Custom Class Derivation
 -----------------------------
 
-Now that we have covered the basic concepts, you as a developer are ready to explore what your
-first custom *x0-object*'s base structure must look like and how its parts fit together.
+Now that we have covered the basic concepts, you as a developer are ready to explore
+what your first custom *x0-object*'s base structure must look like and how its parts
+fit together.
 
-Before proceeding, verify that you have a solid understanding of the following concepts—continuing
-without them is not advisable:
+Before proceeding, verify that you have a solid understanding of the following
+concepts—continuing without them is not advisable:
 
-- **Inheritance & Relationships:** The derivation and relationship between ``sysBaseDOMElement``
-  and ``sysBaseObject``.
-- **Core Rendering Methods:** Familiarity with the existence of ``sysBaseObject.renderObject()``
-  and ``sysBaseObject.rerenderObject()``. A **deep** understanding is not required yet, as this
-  will be covered in detail later.
-- **Basic Object Structure:** An understanding of what a simple object's representation class
-  looks like, such as ``Div`` in ``/www/sysObjDiv.js``.
-- **Object Interconnection:** How objects are connected using ``this.addObject(Object)``. Note that
-  for large sets of objects, this approach is overkill, and you will learn much more efficient
-  methods later.
-- **Declarative Configuration Model:** How object instances use data from statically declared
-  configurations via ``JSONConfig.Attributes``, and how those settings are accessed or modified
-  programmatically within the class.
+- **Inheritance & Relationships:** The derivation and relationship between
+  ``sysBaseDOMElement`` and ``sysBaseObject``.
+- **Core Rendering Methods:** Familiarity with the existence of
+  ``sysBaseObject.renderObject()`` and ``sysBaseObject.rerenderObject()``. A **deep**
+  understanding is not required yet, as this will be covered in detail later.
+- **Basic Object Structure:** An understanding of what a simple object's representation
+  class looks like, such as ``Div`` in ``/www/sysObjDiv.js``.
+- **Object Interconnection:** How objects are connected using ``this.addObject(Object)``.
+  Note that for large sets of objects, this approach is overkill, and you will learn much
+  more efficient methods later.
+- **Declarative Configuration Model:** How object instances use data from statically
+  declared configurations via ``JSONConfig.Attributes``, and how those settings are
+  accessed or modified programmatically within the class.
 
 24.5.1. Inheritance Basics
 **************************
 
 To summarize the base class inheritance hierarchy:
 ``sysBaseDOMElement`` is the root base class, which is inherited by ``sysBaseObject``.
-``sysBaseDOMElement`` is responsible for direct DOM manipulation, while ``sysBaseObject`` handles
-interconnecting objects and provides all required methods for child classes used by the system.
+``sysBaseDOMElement`` is responsible for direct DOM manipulation, while ``sysBaseObject``
+handles interconnecting objects and provides all required methods for child classes used by
+the system.
 
 To establish interconnections between objects, ``sysBaseObject`` manages the ``ChildObjects``
 array, which contains child object instance references (also deriving from ``sysBaseObject``).
 Crucially for your further understanding, every single object in the entire system derives
-(or rather, **must** derive) from ``sysBaseObject`` or one of the system's intermediate classes
-(which also inherit from ``sysBaseObject`` in the inheritance chain).
+(or rather, **must** derive) from ``sysBaseObject`` or one of the system's intermediate
+classes (which also inherit from ``sysBaseObject`` in the inheritance chain).
 
 24.5.2. Base Derivation
 ***********************
@@ -288,17 +290,27 @@ their purpose in the next section.
 When implementing a custom *x0-object*, certain base properties must be initialized directly
 inside your class constructor.
 
+**Static System:**
+
+- ``this.ParentObject``: A reference to the parent *x0-object* that contains this instance.
+  This is set automatically when the object is added to a parent via ``addObject()``.
+  In nested *x0-custom-classes*, a class sometimes needs access to the parent object **before**
+  ``addObject()`` has been called (e.g., during the constructor phase). In that case, pass
+  the parent reference and set ``this.ParentObject`` manually.
+
 **Optional:**
 
 - ``this.ChildObjects``: An ``Array`` that stores all child *x0-objects* attached to this
-  instance via ``addObject()``.
-- ``this.ParentObject``: A reference to the parent *x0-object* that contains this instance.
-  This is set automatically when the object is added to a parent via ``addObject()``.
-- ``this.EventListeners``: An ``Object`` that maps DOM events (like clicks or key presses)
-  to their handler functions, which are automatically attached when the object renders.
-- ``this.DOMAttributes``: An ``Object`` containing HTML attributes as key/value pairs
-  (such as ``type``, ``title``, or ``disabled``) that are applied directly to the rendered
-  HTML element.
+  instance via ``addObject()``. Why is this property optional? When omitted, your custom
+  object cannot process child objects, which is only suitable when an object is always at
+  the end of the object chain. Otherwise, forgetting to set this property will break child
+  object handling.
+- ``this.EventListeners``: An ``Object`` used to register DOM events (such as ``change`` or
+  ``mousedown``) and map them to a private, self-defined callback function on the object.
+  Event handling is discussed in its own chapter later.
+- ``this.DOMAttributes``: An ``Object`` containing HTML **attributes** as key/value pairs
+  (such as ``type``, ``title``, or ``disabled``). When no HTML attributes are needed, simply
+  omit this property.
 - ``this.overrideDOMObjectID``: A boolean flag (``false`` by default). When set to ``true``,
   the rendered HTML element keeps the exact ``this.ObjectID`` as its ``id`` instead of
   combining it with parent IDs.
@@ -307,11 +319,14 @@ inside your class constructor.
 
 - ``this.ObjectType``: A unique name that identifies the class type (such as ``'Div'`` or
   ``'CustomObj'``). It must match the key used when registering the class in
-  ``sysFactory.SetupClasses`` so the framework can recognize and look up the object.
+  ``sysFactory.SetupClasses`` so the framework can recognize and look up the object via
+  ``sysFactory.getObjectByType('CustomObj')``.
 - ``this.ObjectID``: The unique identifier for the object instance. It is automatically
-  assigned from your ``object.json`` configuration or set manually in code, and serves
-  as the base for the element's HTML ``id``. It must be **system-wide unique**; a
-  duplicate entry will **overwrite** an existing one (making it inaccessible).
+  assigned from your ``object.json`` configuration **or** set manually in code, and serves
+  as the base for the element's HTML ``id``. It must be system-wide **unique**; a
+  duplicate entry will **overwrite** an existing one (making it inaccessible). Calling
+  ``sysFactory.getObjectByID('ObjectID')`` returns the reference to the object instance for
+  direct access.
 
 .. important::
    Properly managing ``this.ObjectID``—especially alongside ``this.overrideDOMObjectID``
@@ -323,11 +338,51 @@ inside your class constructor.
 24.6. Object Nesting
 --------------------
 
-24.6.1. Direct Referencing
+Nesting objects—much like nodes in the browser DOM—is a fundamental process in *x0*, where a
+single composite component commonly spans many chained hierarchy levels. Because even simple
+objects often require multiple nested layers, the following sections explain how to construct
+and manage these hierarchies effectively.
+
+24.6.1. Recursion HowTo
+***********************
+
+First, let's take a brief look at *x0-object-recursion*: how does *x0* handle recursive
+traversal, and why is it so fast?
+
+The engine applies a classic recursive tree-traversal design pattern—conceptually similar to
+recursive Python generators, where Python's built-in ``__iter__`` method is overridden to
+iterate over a private ``self._child_elements`` list of child object references that all
+inherit the same base traversal methods:
+
+.. code-block:: python
+
+    def __iter__(self):
+        return iter(self._child_elements)
+
+    def iterate(self):
+        yield self
+        for x in self:
+            for y in x.iterate():
+                yield y
+
+Because every object inherits these methods via its prototype/class chain and holds direct
+references to its children in ``self._child_elements`` (equivalent to ``this.ChildObjects`` in
+*x0*), each node knows how to traverse its own subtree without requiring an external manager
+or lookup loop. Pre-linking object references statically at instantiation time allows the
+engine to walk large object graphs with minimal overhead.
+
+This exact recursive pattern is used inside *x0*'s ``renderObject()`` method (see
+:ref:`oopmodel-classes` for the full implementation). This leads directly to the next
+question: how do you efficiently connect and set up multiple nested object instances?
+
+24.6.2. Direct Referencing
 **************************
 
-24.6.2. Hierarchical Setup
+24.6.3. Hierarchical Setup
 **************************
+
+24.x. Event Listeners
+---------------------
 
 24.x. Generic Data Model
 ------------------------
