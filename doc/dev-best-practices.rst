@@ -343,6 +343,9 @@ single composite component commonly spans many chained hierarchy levels. Because
 objects often require multiple nested layers, the following sections explain how to construct
 and manage these hierarchies effectively.
 
+In addition, we will cover naming conventions—especially how ``this.ObjectID`` is handled in
+nested hierarchies, and when to select ``Div`` versus ``DivUnique``—in the subsections below.
+
 24.6.1. Recursion HowTo
 ***********************
 
@@ -378,10 +381,190 @@ question: how do you efficiently connect and set up multiple nested object insta
 24.6.2. Direct Referencing
 **************************
 
+In the earliest development stages of *x0*, direct referencing was the only way to connect
+objects. With a large number of objects, this approach does not scale well and quickly loses
+clarity. Compare this to the browser DOM: in a debugger view, you can easily inspect layer
+connections and immediately see how elements behave, including their events and CSS styles.
+A similar capability was added to *x0* later, enabling a much cleaner setup method and
+providing an as-is tree view of the interconnected objects (described in the next section).
+
+However, the hierarchical approach can introduce unnecessary overhead when you only need to
+connect two or three objects. In such simple cases, hierarchical referencing should be
+avoided—let's take a look at how the direct method works instead.
+
+.. important::
+   Once a component spans more than two or three objects, consider the direct-referencing
+   pattern shown below an **antipattern** that **must** be replaced by *x0*'s hierarchical
+   setup functionality described in the next section (:ref:`hierarchical-object-setup`).
+
+.. code-block:: javascript
+
+   this.ObjectID = 'ExampleCustomObject';
+   this.overrideDOMObjectID = true;
+
+   let CtrRow = new sysObjDivUnique();
+   CtrRow.ObjectID = 'ContainerRow';
+
+   CtrRow.JSONConfig = {
+      "Attributes":
+      {
+         "Style": "row"
+      }
+   };
+
+   CtrRow.init();
+
+   let CtrColLeft = new sysObjDivUnique();
+   CtrColLeft.ObjectID = 'ContainerColLeft';
+
+   CtrColLeft.JSONConfig = {
+      "Attributes":
+      {
+         "Style": "col col-md-4"
+      }
+   };
+
+   CtrCtrColLeft.init();
+
+   let CtrColRight = new sysObjDivUnique();
+   CtrColRight.ObjectID = 'ContainerColRight';
+
+   CtrColRight.JSONConfig = {
+      "Attributes":
+      {
+         "Style": "col col-md-8"
+      }
+   };
+
+   CtrCtrColRight.init();
+
+   let BtnExample = new sysObjDivUnique();
+   BtnExample.ObjectID = 'ExampleButton';
+
+   BtnExample.JSONConfig = {
+      "Attributes":
+      {
+         "DOMType": "button",
+         "Style": "btn btn-close"
+      }
+   };
+
+   BtnExample.init();
+
+   //- connect col right / left to row
+   CtrRow.addObject(CtrColLeft);
+   CtrRow.addObject(CtrColRight);
+
+   //- connect button to col right
+   CtrColRight.addObject(BtnExample);
+
+   //- connect row to our custom object
+   this.addObject(CtrRow);
+
+We have used ``DivUnique`` specifically here and will discuss the ``ObjectID``
+consequences. The resulting HTML will look like:
+
+.. code-block:: html
+
+   <div id="ExampleCustomObject">
+     <div id="ContainerRow" class="row">
+       <div id="ContainerColLeft" class="col col-md-4"></div>
+       <div id="ContainerColRight" class="col col-md-8">
+        <button id="ExampleButton" class="btn btn-close"></div>
+       </div>
+     </div>
+   </div>
+
+Now look at the resulting DOM output when the root object leaves
+``this.overrideDOMObjectID = false`` and all child containers use ``Div`` instead of
+``DivUnique``:
+
+.. code-block:: html
+
+   <div id="ExampleCustomObject">
+     <div id="ExampleCustomObject_ContainerRow" class="row">
+       <div id="ExampleCustomObject_ContainerRow_ContainerColLeft" class="col col-md-4"></div>
+       <div id="ExampleCustomObject_ContainerRow_ContainerColRight" class="col col-md-8">
+        <button id="ExampleCustomObject_ContainerRow_ContainerColRight_ExampleButton" class="btn btn-close"></div>
+       </div>
+     </div>
+   </div>
+
+Combining both aspects—first, wiring up verbose individual connections for a relatively simple
+component, and second, dealing with long, unpredictable auto-prefixed DOM IDs when using
+``Div`` (or ``this.overrideDOMObjectID = false``)—can easily create the false impression that
+*x0* is overly complicated.
+
+Therefore, the first rule is: use ``this.overrideDOMObjectID = true`` and ``DivUnique``
+whenever possible, while keeping in mind that **you** are responsible for assigning a unique
+``ObjectID``—especially when building dependent sub-objects such as dynamic rows that include
+a ``RowID`` or index.
+
+Combined with *x0*'s hierarchical setup functions (described in the next section), the first
+issue—verbose object connections and lack of clarity—is turned into a major strength. We will
+also cover the specific cases where leaving ``this.overrideDOMObjectID = false`` supports
+simplicity in the overall process of designing object hierarchies.
+
+.. _hierarchical-object-setup:
+
 24.6.3. Hierarchical Setup
 **************************
 
+Since *x0* version 1.0 introduced ``sysFactory.setupObjectRefsRecursive(ObjDefs, RefObj)``, it
+is also possible to build an object tree from nested declarative object definitions in a
+clean, structured way. Look at the **transformed** example from the previous section:
+
+.. code-block:: javascript
+
+   this.ObjectID = 'ExampleCustomObject';
+   this.overrideDOMObjectID = true;
+
+   let ObjDefs =
+   [
+      {
+         "id": "ContainerRow",
+         "SysObject": new sysObjDivUnique(),
+         "JSONAttributes": {
+            "Style": "row"
+         },
+         "ObjectDefs": [
+            {
+               "id": "ContainerColLeft",
+               "SysObject": new sysObjDivUnique(),
+               "JSONAttributes": {
+                  "Style": "col col-md-4"
+                }
+            },
+            {
+               "id": "ContainerColRight",
+               "SysObject": new sysObjDivUnique(),
+               "JSONAttributes": {
+                  "Style": "col col-md-8"
+               },
+               "ObjectDefs": [
+                  {
+                     "id": "ExampleButton",
+                     "SysObject": new sysObjDivUnique(),
+                     "JSONAttributes": {
+                        "DOMType": "button",
+                        "Style": "btn btn-close"
+                     }
+                  }
+               ]
+            }
+         ]
+      }
+   ];
+
+   sysFactory.setupObjectRefsRecursive(ObjDefs, this);
+
 24.x. Event Listeners
+---------------------
+
+24.x. Intermediate Classes
+--------------------------
+
+24.x. Complex Objects
 ---------------------
 
 24.x. Generic Data Model
