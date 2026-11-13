@@ -424,7 +424,7 @@ avoided—let's take a look at how the direct method works instead.
       }
    };
 
-   CtrCtrColLeft.init();
+   CtrColLeft.init();
 
    let CtrColRight = new sysObjDivUnique();
    CtrColRight.ObjectID = 'ContainerColRight';
@@ -436,7 +436,7 @@ avoided—let's take a look at how the direct method works instead.
       }
    };
 
-   CtrCtrColRight.init();
+   CtrColRight.init();
 
    let BtnExample = new sysObjDivUnique();
    BtnExample.ObjectID = 'ExampleButton';
