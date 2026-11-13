@@ -470,7 +470,7 @@ consequences. The resulting HTML will look like:
      <div id="ContainerRow" class="row">
        <div id="ContainerColLeft" class="col col-md-4"></div>
        <div id="ContainerColRight" class="col col-md-8">
-        <button id="ExampleButton" class="btn btn-close"></div>
+        <button id="ExampleButton" class="btn btn-close"></button>
        </div>
      </div>
    </div>
@@ -485,7 +485,7 @@ Now look at the resulting DOM output when the root object leaves
      <div id="ExampleCustomObject_ContainerRow" class="row">
        <div id="ExampleCustomObject_ContainerRow_ContainerColLeft" class="col col-md-4"></div>
        <div id="ExampleCustomObject_ContainerRow_ContainerColRight" class="col col-md-8">
-        <button id="ExampleCustomObject_ContainerRow_ContainerColRight_ExampleButton" class="btn btn-close"></div>
+        <button id="ExampleCustomObject_ContainerRow_ContainerColRight_ExampleButton" class="btn btn-close"></button>
        </div>
      </div>
    </div>
