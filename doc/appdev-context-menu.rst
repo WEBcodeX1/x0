@@ -14,11 +14,6 @@ functions to be bound **directly** to an *x0-object-instance* or to **global sys
 For example, it can utilize the *x0-clipboard*, which operates on real objects rather
 than *flat*, disconnected copy/paste metadata.
 
-This enables complex **copy/paste** operations that other systems can only dream of,
-especially since operating systems like Windows or Linux handle clipboard data with a very
-limited (and often insecure) approach. The *x0-context-menu* is built for next-generation
-applications—object-oriented and easily extensible.
-
 13.1. Declarative Config
 ------------------------
 
