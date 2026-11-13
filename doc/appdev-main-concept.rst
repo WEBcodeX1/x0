@@ -227,14 +227,20 @@ two ``RangeSlider`` objects ready to be connected to the tab container's tabs:
             [
                {
                   "ID": "Tab1",
-                  "Default": true,
-                  "TextID": "TXT.BASIC-TABCONTAINER.TAB1",
-                  "Style": "col-md-6"
+                  "Attributes":
+                  {
+                     "TextID": "TXT.BASIC-TABCONTAINER.TAB1",
+                     "Style": "col-md-6",
+                     "Default": true,
+                  }
                },
                {
                   "ID": "Tab2",
-                  "TextID": "TXT.BASIC-TABCONTAINER.TAB2",
-                  "Style": "col-md-6"
+                  "Attributes":
+                  {
+                     "TextID": "TXT.BASIC-TABCONTAINER.TAB2",
+                     "Style": "col-md-6"
+                  }
                }
             ]
          }
