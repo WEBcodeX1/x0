@@ -558,6 +558,19 @@ clean, structured way. Look at the **transformed** example from the previous sec
 
    sysFactory.setupObjectRefsRecursive(ObjDefs, this);
 
+As you can see at first glance, this structure is far cleaner and offers several key
+advantages:
+
+- **Inline instantiation:** Object instances (such as ``new sysObjDiv()``) are created
+  directly inside the nested definition tree.
+- **Visual clarity:** You can immediately see parent-child connections and nesting levels.
+- **Flexible attachment:** The second parameter of ``setupObjectRefsRecursive()`` (``RefObj``)
+  lets you attach the entire subtree directly to any target parent object.
+
+This approach also lets you compose and combine multiple ``ObjDefs`` arrays programmatically,
+making it easy to maintain clarity even in complex components whose content or child object
+types change dynamically at runtime.
+
 24.x. Event Listeners
 ---------------------
 
