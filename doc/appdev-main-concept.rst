@@ -233,8 +233,7 @@ two ``RangeSlider`` objects ready to be connected to the tab container's tabs:
                },
                {
                   "ID": "Tab2",
-                  "TextID":
-                  "TXT.BASIC-TABCONTAINER.TAB2",
+                  "TextID": "TXT.BASIC-TABCONTAINER.TAB2",
                   "Style": "col-md-6"
                }
             ]
