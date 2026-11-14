@@ -257,10 +257,8 @@ notification indicators, dynamic radio lists) tractable without a virtual-DOM di
 22.3.5. Activation State and Enable/Disable
 *******************************************
 
-    - ``setActivated()`` / ``setDeactivated()``: Set the ``Deactivated`` flag on the
-      object itself (both intentionally operate non-recursively; the recursive descent
-      into ``ChildObjects`` is present in the source but commented out, i.e. activation
-      state is deliberately a per-object flag rather than propagated automatically).
+    - ``setActivated()`` / ``setDeactivated()``: Recursively set the ``Deactivated``
+      flag on the object and every descendant in ``ChildObjects``.
     - ``enableDOMElementRecursive()`` / ``disableDOMElementRecursive()``: Recursively
       enable/disable every node in the subtree via ``sysBaseDOMElement.enableDOMElement()``/
       ``disableDOMElement()``. ``enableDOMElementRecursive()`` additionally skips any node
