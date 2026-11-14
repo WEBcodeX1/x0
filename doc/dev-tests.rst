@@ -15,7 +15,7 @@ executed locally per developer, rather than multiplying the load by the number o
 developers and straining the Git CI system's servers.
 
 As a developer, you are strongly encouraged to write sufficient tests and add them to the
-``/tests`` subdirectory. This chapter provides detailed instructions on how to do so.
+``/test`` subdirectory. This chapter provides detailed instructions on how to do so.
 
 25.1. Testing in the CI
 -----------------------
