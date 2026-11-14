@@ -307,7 +307,7 @@ The **x0::FormfieldOnChange** Handler component (``sysFormfieldOnChangeHandler.j
 a declarative mechanism allowing a single form field's state change to reactively reconfigure
 other, already rendered *x0-form-objects* without any custom JavaScript.
 
-.. table:: FormfieldOnchange OnChange Attributes
+.. table:: FormfieldOnChange OnChange Attributes
    :widths: 20 80
 
    +----------------------+---------------------------------------------------------------------------+
