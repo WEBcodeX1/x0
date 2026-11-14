@@ -5,7 +5,7 @@
 10. Grid System
 ===============
 
-The **x0-grid-system** is implemented through the `sysGridGenerator` system object,
+The **x0-grid-system** is implemented through the ``sysGridGenerator`` system object,
 which is responsible for generating a grid layout by processing source objects
 into structured *rows* and *columns*. Rather than being a purely static layout
 mechanism confined to a screen's initial load, the grid system is designed for
