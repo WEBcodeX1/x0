@@ -73,7 +73,7 @@ navigation tree), with no dedicated "link" object involved at all.
 
 -  Displays asynchronous status messages raised by backend/web-service
    calls.
--  Implemented as a regular *x0-system-object* (``sysObjAsyncNotify``) like
+-  Implemented as a regular *x0-system-object* (``sysObjAsyncNotifyIndicator``) like
    any other, and positioned independently via CSS.
 
 .. _state-preservation:
