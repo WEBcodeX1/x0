@@ -283,7 +283,7 @@ capable of building these complex, real-time UI models with absolute architectur
 14.6. Object Data Abstraction
 -----------------------------
 
-Object Data Abstraction defines how the *x0-shadow-dom* entity manages data.
+Object Data Abstraction defines how the *x0-mirror-dom* entity manages data.
 In this context, data handling is categorized into the following distinct types:
 
 - External input (incoming data from external web services)
@@ -304,7 +304,7 @@ optimization fundamentally influences the future extensibility of the *x0-system
 
 An initial prototype is currently testing a generic, recursive approach to get and set
 nested JSON data using an Object-Document Mapping (ODM) pattern. In this architecture,
-the *x0-shadow-dom* acts as an ODM entity, routing and managing data to dynamically modify
+the *x0-mirror-dom* acts as an ODM entity, routing and managing data to dynamically modify
 and instantiate complex object hierarchies—including deeply nested structures—at runtime.
 
 This concept drastically reduces complexity from a NoSQL perspective: raw JSON data can

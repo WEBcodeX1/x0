@@ -154,7 +154,7 @@ Like any other *x0-object*, it supports multilingual display text and is **not**
 **bound** directly to the referencing ``FormfieldList``.
 
 Positioning (layout) the ``ErrorContainer`` is achieved via ``object.json`` and ``skeleton.json``,
-just like any other *x0-object-type*. The *x0-shadow-dom* enables this behavior: on validation failure,
+just like any other *x0-object-type*. The *x0-mirror-dom* enables this behavior: on validation failure,
 the *x0-system* references the bound ``ErrorContainer`` using ``sysFactory.getObjectByID(ErrorContainerID)``
 and calls the object instance's render routines, which ultimately output the detailed error information
 (according to the current display language).
