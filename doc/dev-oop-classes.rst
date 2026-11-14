@@ -1155,7 +1155,7 @@ for all concrete form field components.
 - ``FormItemInit()`` / ``FormItemInitFinish()``: Shared initialization steps run by every
   concrete subclass's own ``init()``.
 - ``setupOnChangeEventListener()``: Wires the field's ``change``/``input`` listener via
-  ``sysFormFieldOnChangeHandler``.
+  ``sysFormfieldOnChangeHandler``.
 - ``setupAttributes(Attributes)``: Applies shared configuration (style, required, globals, etc.).
 - ``getValue()`` / ``setValue(Value)``: Read/update the field's current value (used as
   ``RuntimeGetDataFunc`` / ``RuntimeSetDataFunc`` by default).
@@ -1164,7 +1164,7 @@ for all concrete form field components.
 - ``focus()``: Focuses the underlying DOM input element.
 - ``validate()``: Runs the field's configured validation and applies the resulting style.
 - ``setValidateStyle(Result)`` / ``clearStyle()``: Apply/clear validation feedback styling.
-- ``processOnChangeItem``: Inherited from ``sysFormFieldOnChangeHandler``.
+- ``processOnChangeItem``: Inherited from ``sysFormfieldOnChangeHandler``.
 - ``processSourceObjects``: Inherited from ``sysSourceObjectHandler``.
 
 23.3.2. sysFormfieldItemText
