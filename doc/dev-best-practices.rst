@@ -653,9 +653,10 @@ The following is a practical CustomObj example that specifically demonstrates th
 
    function sysObjCustomObj(Index)
    {
-      this.ObjectType  = 'CustomObj';                //- System Object Type
-      this.ObjectID    = 'CustomObjRowCtr' + Index;  //- Unique ObjectID
-      this.DOMStyle    = 'container-fluid';          //- CSS
+      this.ObjectType    = 'CustomObj';                //- System Object Type
+      this.ObjectID      = 'CustomObjRowCtr' + Index;  //- Unique ObjectID
+      this.DOMStyle      = 'container-fluid';          //- CSS Style
+      this.ChildObjects  = new Array();                //- Child Objects
    }
 
    //- inherit sysDivUnique, setting overrideDOMObjectID = true
