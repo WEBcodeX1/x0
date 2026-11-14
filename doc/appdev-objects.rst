@@ -85,11 +85,11 @@ It should **never** be used directly in a **declarative configuration**—use
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
+   | DOMType             | ``String``           | Container Div Type, <DOMType></DOMType>         |
    +---------------------+----------------------+-------------------------------------------------+
-   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   | Style               | ``String``           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
-   | Value               | String               | Value (innerHTML)                               |
+   | Value               | ``String``           | Value (innerHTML)                               |
    +---------------------+----------------------+-------------------------------------------------+
 
 .. _objecttype-text:
@@ -122,19 +122,19 @@ sources:
 .. table:: Object Type Text Attributes
    :widths: 15 15 70
 
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Style               | CSS-String           | CSS Style Classes, space separated              |
-   +---------------------+----------------------+-------------------------------------------------+
-   | IconStyle           | CSS-String           | Font Awesome Icon CSS for Prepend Icon          |
-   +---------------------+----------------------+-------------------------------------------------+
-   | IconStylePost       | CSS-String           | Font Awesome Icon CSS for Append Icon           |
-   +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
-   +---------------------+----------------------+-------------------------------------------------+
+   +---------------------+------------------+-----------------------------------------------------+
+   | **Property**        | **Type**         | **Description**                                     |
+   +=====================+==================+=====================================================+
+   | DOMType             | ``String``       | Container Div Type, <DOMType></DOMType>             |
+   +---------------------+------------------+-----------------------------------------------------+
+   | Style               | ``String``       | CSS Style Classes, space separated                  |
+   +---------------------+------------------+-----------------------------------------------------+
+   | IconStyle           | ``String``       | Font Awesome Icon CSS for Prepend Icon              |
+   +---------------------+------------------+-----------------------------------------------------+
+   | IconStylePost       | ``String``       | Font Awesome Icon CSS for Append Icon               |
+   +---------------------+------------------+-----------------------------------------------------+
+   | TextID              | ``String``       | ``TextID`` referenced in ``webui.text`` DB Table    |
+   +---------------------+------------------+-----------------------------------------------------+
 
 11.2.2. JSON Examples
 *********************
@@ -208,33 +208,33 @@ actions **after successful** execution, and ``FireEvents`` dispatches
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
+   | DOMType             | ``String``           | Container Div Type, <DOMType></DOMType>         |
    +---------------------+----------------------+-------------------------------------------------+
-   | DOMValue            | String               | Set Hardcoded Display Value                     |
+   | DOMValue            | ``String``           | Set Hardcoded Display Value                     |
    +---------------------+----------------------+-------------------------------------------------+
-   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   | Style               | ``String``           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
-   | IconStyle           | CSS-String           | Font Awesome Icon CSS for Prepend Icon          |
+   | IconStyle           | ``String``           | Font Awesome Icon CSS for Prepend Icon          |
    +---------------------+----------------------+-------------------------------------------------+
-   | IconStylePost       | CSS-String           | Font Awesome Icon CSS for Append Icon           |
+   | IconStylePost       | ``String``           | Font Awesome Icon CSS for Append Icon           |
    +---------------------+----------------------+-------------------------------------------------+
-   | FormButton          | Boolean              | Treat Button as HTML form input type "button"   |
+   | FormButton          | ``Boolean``          | Treat Button as HTML form input type "button"   |
    +---------------------+----------------------+-------------------------------------------------+
-   | Disabled            | Boolean              | Disable Functionality Initially                 |
+   | Disabled            | ``Boolean``          | Disable Functionality Initially                 |
    +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
+   | TextID              | ``String``           | TextID referenced in ``webui.text`` DB Table    |
    +---------------------+----------------------+-------------------------------------------------+
-   | OnClick             | URL-String           | Backend Service URL                             |
+   | OnClick             | ``String``           | Backend Service URL                             |
    +---------------------+----------------------+-------------------------------------------------+
-   | SrcDataObjects      | Type dependent       | Generic *Source Data Objects* Integration       |
+   | SrcDataObjects      | ``Array``/dependent  | Generic *Source Data Objects* Integration       |
    +---------------------+----------------------+-------------------------------------------------+
-   | Notify              | Object               | Notify Indicator Configuration                  |
+   | Notify              | ``Object``           | Notify Indicator Configuration                  |
    +---------------------+----------------------+-------------------------------------------------+
-   | Action              | Array of Actions     | Actions **before** Service Execution            |
+   | Action              | ``String``           | Single Action **before** Service Call           |
    +---------------------+----------------------+-------------------------------------------------+
-   | OnResult            | Array of Actions     | Actions **after** Service Execution             |
+   | OnResult            | ``String``/``Array`` | Single Action or Actions **after** Service Call |
    +---------------------+----------------------+-------------------------------------------------+
-   | FireEvents          | Array of EventIDs    | Array of EventIDs / Reactor Integration         |
+   | FireEvents          | ``Array``            | ``Array`` of EventIDs / Reactor Integration     |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.3.2. Actions / OnResult
@@ -281,31 +281,31 @@ is that it lacks backend functionality; otherwise, its behavior is identical.
 .. table:: Object Type ButtonInternal Attributes
    :widths: 15 15 70
 
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | DOMType             | String               | Container Div Type, <DOMType></DOMType>         |
-   +---------------------+----------------------+-------------------------------------------------+
-   | DOMValue            | String               | Set Hardcoded Display Value                     |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Style               | CSS-String           | CSS Style Classes, space separated              |
-   +---------------------+----------------------+-------------------------------------------------+
-   | IconStyle           | CSS-String           | Font Awesome Icon CSS for Prepend Icon          |
-   +---------------------+----------------------+-------------------------------------------------+
-   | IconStylePost       | CSS-String           | Font Awesome Icon CSS for Append Icon           |
-   +---------------------+----------------------+-------------------------------------------------+
-   | FormButton          | Boolean              | Treat Button as HTML form input type "button"   |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Disabled            | Boolean              | Disable Functionality Initially                 |
-   +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Notify              | Object               | Notify Indicator Configuration                  |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Action              | Array of Actions     | Actions executed                                |
-   +---------------------+----------------------+-------------------------------------------------+
-   | FireEvents          | Array of EventIDs    | Array of EventIDs / Reactor Integration         |
-   +---------------------+----------------------+-------------------------------------------------+
+   +---------------------+------------------+-----------------------------------------------------+
+   | **Property**        | **Type**         | **Description**                                     |
+   +=====================+==================+=====================================================+
+   | DOMType             | ``String``       | Container Div Type, <DOMType></DOMType>             |
+   +---------------------+------------------+-----------------------------------------------------+
+   | DOMValue            | ``String``       | Set Hardcoded Display Value                         |
+   +---------------------+------------------+-----------------------------------------------------+
+   | Style               | ``String``       | CSS Style Classes, space separated                  |
+   +---------------------+------------------+-----------------------------------------------------+
+   | IconStyle           | ``String``       | Font Awesome Icon CSS for Prepend Icon              |
+   +---------------------+------------------+-----------------------------------------------------+
+   | IconStylePost       | ``String``       | Font Awesome Icon CSS for Append Icon               |
+   +---------------------+------------------+-----------------------------------------------------+
+   | FormButton          | ``Boolean``      | Treat Button as HTML form input type ``"button"``   |
+   +---------------------+------------------+-----------------------------------------------------+
+   | Disabled            | ``Boolean``      | Disable Functionality Initially                     |
+   +---------------------+------------------+-----------------------------------------------------+
+   | TextID              | ``String``       | ``TextID`` referenced in ``webui.text`` DB Table    |
+   +---------------------+------------------+-----------------------------------------------------+
+   | Notify              | ``Object``       | Notify Indicator Configuration                      |
+   +---------------------+------------------+-----------------------------------------------------+
+   | Action              | ``String``       | Single executed Action                              |
+   +---------------------+------------------+-----------------------------------------------------+
+   | FireEvents          | ``Array``        | ``Array`` of EventIDs / Reactor Integration         |
+   +---------------------+------------------+-----------------------------------------------------+
 
 11.4.2. JSON Examples
 *********************
@@ -406,13 +406,13 @@ updated at runtime through the standard ``getObjectData()`` /
    +-----------------+------------------+---------------------------------------------------------+
    | **Property**    | **Type**         | **Description**                                         |
    +=================+==================+=========================================================+
-   | Value           | URL-String       | Image ``src`` path                                      |
+   | Value           | ``String``       | Image ``src`` path                                      |
    +-----------------+------------------+---------------------------------------------------------+
-   | Width           | String           | Image ``width`` attribute, e.g. ``80px``                |
+   | Width           | ``String``       | Image ``width`` attribute, e.g. ``80px``                |
    +-----------------+------------------+---------------------------------------------------------+
-   | Height          | String           | Image ``height`` attribute, e.g. ``80px``               |
+   | Height          | ``String``       | Image ``height`` attribute, e.g. ``80px``               |
    +-----------------+------------------+---------------------------------------------------------+
-   | Style           | CSS-String       | CSS Style Classes, space separated                      |
+   | Style           | ``String``       | CSS Style Classes, space separated                      |
    +-----------------+------------------+---------------------------------------------------------+
 
 11.6.2. JSON Examples
@@ -467,15 +467,15 @@ pagination reuses the same mechanism as :ref:`objecttype-list`.
 .. table:: Object Type ImageSelector Attributes
    :widths: 15 15 70
 
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | Style               | CSS-String           | CSS Style Classes, space separated              |
-   +---------------------+----------------------+-------------------------------------------------+
-   | RowCount            | Integer              | Rows displayed per pagination page (default 5)  |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Value               | Array of Elements    | Array of ``{ID, Description, Path}`` image rows |
-   +---------------------+----------------------+-------------------------------------------------+
+   +-----------------+------------------+---------------------------------------------------------+
+   | **Property**    | **Type**         | **Description**                                         |
+   +=================+==================+=========================================================+
+   | Style           | ``String``       | CSS Style Classes, space separated                      |
+   +-----------------+------------------+---------------------------------------------------------+
+   | RowCount        | ``Integer``      | Rows displayed per pagination page (default 5)          |
+   +-----------------+------------------+---------------------------------------------------------+
+   | Value           | ``Array``        | ``Array`` of ``{ID, Description, Path}`` image rows     |
+   +-----------------+------------------+---------------------------------------------------------+
 
 11.7.2. JSON Examples
 *********************
@@ -520,7 +520,7 @@ an overlay. It inherits :ref:`objecttype-divunique`.
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   | Style               | ``String``           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.8.2. JSON Examples
@@ -572,33 +572,33 @@ system initialization or a runtime ``Button`` or ``ButtonInternal`` click).
 .. table:: Object Type List Attributes
    :widths: 15 15 70
 
-   +------------------------+----------------------+-------------------------------------------------+
-   | **Property**           | **Type**             | **Description**                                 |
-   +========================+======================+=================================================+
-   | Style                  | CSS-String           | CSS Style Classes, space separated              |
-   +------------------------+----------------------+-------------------------------------------------+
-   | HeaderRowStyle         | CSS-String           | CSS Style Classes, space separated              |
-   +------------------------+----------------------+-------------------------------------------------+
-   | DisableHeader          | Boolean              | Suppress rendering of the header row            |
-   +------------------------+----------------------+-------------------------------------------------+
-   | RowCount               | Integer              | Table Row Count                                 |
-   +------------------------+----------------------+-------------------------------------------------+
-   | RowSelectable          | Boolean              | Row / Multirow / Context Menu selectable        |
-   +------------------------+----------------------+-------------------------------------------------+
-   | Navigation             | Boolean              | Pagination / Navigation enabled                 |
-   +------------------------+----------------------+-------------------------------------------------+
-   | ErrorContainer         | ObjectID-String      | Error Container Object Reference                |
-   +------------------------+----------------------+-------------------------------------------------+
-   | DataMaxRows            | Integer              | Maximum Row Count accepted on append            |
-   +------------------------+----------------------+-------------------------------------------------+
-   | DoubleCheckColumn      | String               | Column checked for duplicate values on append   |
-   +------------------------+----------------------+-------------------------------------------------+
-   | ValidateColumnRegEx    | Object               | Per-Column ``{RegexTemplate, ErrorMsg}`` checks |
-   +------------------------+----------------------+-------------------------------------------------+
-   | ContextMenuItems       | Array of Items       | Row Context Menu Entries, see 11.9.5.           |
-   +------------------------+----------------------+-------------------------------------------------+
-   | HeaderContextMenuItems | Array of Items       | Header Context Menu Entries, see 11.9.5.        |
-   +------------------------+----------------------+-------------------------------------------------+
+   +------------------------+-------------------+-------------------------------------------------+
+   | **Property**           | **Type**          | **Description**                                 |
+   +========================+===================+=================================================+
+   | Style                  | ``String``        | CSS Style Classes, space separated              |
+   +------------------------+-------------------+-------------------------------------------------+
+   | HeaderRowStyle         | ``String``        | CSS Style Classes, space separated              |
+   +------------------------+-------------------+-------------------------------------------------+
+   | DisableHeader          | ``Boolean``       | Suppress rendering of the header row            |
+   +------------------------+-------------------+-------------------------------------------------+
+   | RowCount               | ``Integer``       | Table Row Count                                 |
+   +------------------------+-------------------+-------------------------------------------------+
+   | RowSelectable          | ``Boolean``       | Row / Multirow / Context Menu selectable        |
+   +------------------------+-------------------+-------------------------------------------------+
+   | Navigation             | ``Boolean``       | Pagination / Navigation enabled                 |
+   +------------------------+-------------------+-------------------------------------------------+
+   | ErrorContainer         | ``String``        | Error Container ObjectID Reference              |
+   +------------------------+-------------------+-------------------------------------------------+
+   | DataMaxRows            | ``Integer``       | Maximum Row Count accepted on append            |
+   +------------------------+-------------------+-------------------------------------------------+
+   | DoubleCheckColumn      | ``String``        | Column checked for duplicate values on append   |
+   +------------------------+-------------------+-------------------------------------------------+
+   | ValidateColumnRegEx    | ``Object``        | Per-Column ``{RegexTemplate, ErrorMsg}`` checks |
+   +------------------------+-------------------+-------------------------------------------------+
+   | ContextMenuItems       | ``Array``         | Row Context Menu Entry Items                    |
+   +------------------------+-------------------+-------------------------------------------------+
+   | HeaderContextMenuItems | ``Array``         | Header Context Menu Entry Items                 |
+   +------------------------+-------------------+-------------------------------------------------+
 
 11.9.2. Column Attributes
 *************************
@@ -606,15 +606,15 @@ system initialization or a runtime ``Button`` or ``ButtonInternal`` click).
 .. table:: Object Type List Column Attributes
    :widths: 15 15 70
 
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | ID                  | ID-String            | Column ID, also DB Column Reference             |
-   +---------------------+----------------------+-------------------------------------------------+
-   | HeaderTextID        | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
-   +---------------------+----------------------+-------------------------------------------------+
-   | HeaderStyle         | CSS-String           | CSS Style Classes, space separated              |
-   +---------------------+----------------------+-------------------------------------------------+
+   +---------------------+------------------+-----------------------------------------------------+
+   | **Property**        | **Type**         | **Description**                                     |
+   +=====================+==================+=====================================================+
+   | ID                  | ``String``       | Column ``ID``, also DB Column Reference             |
+   +---------------------+------------------+-----------------------------------------------------+
+   | HeaderTextID        | ``String``       | ``TextID`` referenced in ``webui.text`` DB Table    |
+   +---------------------+------------------+-----------------------------------------------------+
+   | HeaderStyle         | ``String``       | CSS Style Classes, space separated                  |
+   +---------------------+------------------+-----------------------------------------------------+
 
 11.9.3. RT Attributes
 *********************
@@ -625,7 +625,7 @@ system initialization or a runtime ``Button`` or ``ButtonInternal`` click).
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | DoubleCheckColumn   | String               | Check Column Value already exists on Row append |
+   | DoubleCheckColumn   | ``String``           | Check Column Value already exists on Row append |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.9.4. Grid Attributes
@@ -692,7 +692,7 @@ To **connect** a single object to a single ``Tab``, reference the object inside
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | Tabs                | Array of Elements    | Array of Tab Elements (Config)                  |
+   | Tabs                | ``Array``            | ``Array`` of Tab Elements (Config)              |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.10.2. Tab Attributes
@@ -701,17 +701,17 @@ To **connect** a single object to a single ``Tab``, reference the object inside
 .. table:: Object Type Tab Attributes
    :widths: 15 15 70
 
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | ID                  | String               | Tab Identifier                                  |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Default             | Boolean              | Default "selected" Tab                          |
-   +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Style               | CSS-String           | CSS Style Classes, space separated              |
-   +---------------------+----------------------+-------------------------------------------------+
+   +-----------------+------------------+---------------------------------------------------------+
+   | **Property**    | **Type**         | **Description**                                         |
+   +=================+==================+=========================================================+
+   | ID              | ``String``       | Tab Identifier                                          |
+   +-----------------+------------------+---------------------------------------------------------+
+   | Default         | ``Boolean``      | Default "selected" Tab                                  |
+   +-----------------+------------------+---------------------------------------------------------+
+   | TextID          | ``String``       | ``TextID`` referenced in ``webui.text`` DB Table        |
+   +-----------------+------------------+---------------------------------------------------------+
+   | Style           | ``String``       | CSS Style Classes, space separated                      |
+   +-----------------+------------------+---------------------------------------------------------+
 
 11.10.3. Example
 ****************
@@ -826,17 +826,17 @@ update.
 .. table:: Object Type FileUpload Attributes
    :widths: 15 15 70
 
-   +----------------------------+----------------------+------------------------------------------+
-   | **Property**               | **Type**             | **Description**                          |
-   +============================+======================+==========================================+
-   | Style                      | CSS-String           | CSS Style Classes, space separated       |
-   +----------------------------+----------------------+------------------------------------------+
-   | StyleSelectButton          | CSS-String           | CSS Style Classes for the file input     |
-   +----------------------------+----------------------+------------------------------------------+
-   | UploadScript               | URL-String           | POST Upload URL                          |
-   +----------------------------+----------------------+------------------------------------------+
-   | FireEvents                 | Array of EventIDs    | On Successful Upload trigger Data reload |
-   +----------------------------+----------------------+------------------------------------------+
+   +----------------------+----------------+------------------------------------------------------+
+   | **Property**         | **Type**       | **Description**                                      |
+   +======================+================+======================================================+
+   | Style                | ``String``     | CSS Style Classes, space separated                   |
+   +----------------------+----------------+------------------------------------------------------+
+   | StyleSelectButton    | ``String``     | CSS Style Classes for the file input                 |
+   +----------------------+----------------+------------------------------------------------------+
+   | UploadScript         | ``String``     | POST Upload URL                                      |
+   +----------------------+----------------+------------------------------------------------------+
+   | FireEvents           | ``Array``      | ``Array`` of EventIDs triggered on upload success    |
+   +----------------------+----------------+------------------------------------------------------+
 
 .. _objecttype-errorcontainer:
 
@@ -902,19 +902,19 @@ or collapsed when the *x0-screen* is initially rendered.
 .. table:: Object Type OpenCloseContainer Attributes
    :widths: 15 15 70
 
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | Style               | CSS-String           | CSS Style Classes, space separated              |
-   +---------------------+----------------------+-------------------------------------------------+
-   | HeaderStyle         | CSS-String           | CSS Style Classes applied to the header row     |
-   +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
-   +---------------------+----------------------+-------------------------------------------------+
-   | IconStyle           | CSS-String           | Font Awesome Icon CSS                           |
-   +---------------------+----------------------+-------------------------------------------------+
-   | StateOpen           | Boolean              | Initial expanded (``true``) / collapsed state   |
-   +---------------------+----------------------+-------------------------------------------------+
+   +-----------------+------------------+---------------------------------------------------------+
+   | **Property**    | **Type**         | **Description**                                         |
+   +=================+==================+=========================================================+
+   | Style           | ``String``       | CSS Style Classes, space separated                      |
+   +-----------------+------------------+---------------------------------------------------------+
+   | HeaderStyle     | ``String``       | CSS Style Classes applied to the header row             |
+   +-----------------+------------------+---------------------------------------------------------+
+   | TextID          | ``String``       | ``TextID`` referenced in ``webui.text`` DB Table        |
+   +-----------------+------------------+---------------------------------------------------------+
+   | IconStyle       | ``String``       | Font Awesome Icon CSS                                   |
+   +-----------------+------------------+---------------------------------------------------------+
+   | StateOpen       | ``Boolean``      | Initial expanded (``true``) / collapsed state           |
+   +-----------------+------------------+---------------------------------------------------------+
 
 11.13.2. JSON Examples
 **********************
@@ -974,11 +974,11 @@ selection state.
 .. table:: Object Type TreeSimple Attributes
    :widths: 15 15 70
 
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | TreeItems           | Array of Elements    | Array of Tree Node and Item definitions         |
-   +---------------------+----------------------+-------------------------------------------------+
+   +-----------------+------------------+---------------------------------------------------------+
+   | **Property**    | **Type**         | **Description**                                         |
+   +=================+==================+=========================================================+
+   | TreeItems       | ``Array``        | ``Array`` of tree ``'Node'`` and ``'Item'`` definitions |
+   +-----------------+------------------+---------------------------------------------------------+
 
 11.14.2. Element Type Node
 **************************
@@ -988,17 +988,17 @@ Expandable/collapsible containers that can contain other nodes or items:
 .. table:: Tree Node Attributes
    :widths: 15 15 70
 
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | Type                | Constant String      | Fixed String 'Node'                             |
-   +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Icon                | CSS-String           | Font Awesome Icon CSS Classes                   |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Children            | Array of Elements    | Array of child Node and Item elements           |
-   +---------------------+----------------------+-------------------------------------------------+
+   +-----------------+------------------+---------------------------------------------------------+
+   | **Property**    | **Type**         | **Description**                                         |
+   +=================+==================+=========================================================+
+   | Type            | ``String``       | Fixed String ``'Node'``                                 |
+   +-----------------+------------------+---------------------------------------------------------+
+   | TextID          | ``String``       | ``TextID`` referenced in ``webui.text`` DB Table        |
+   +-----------------+------------------+---------------------------------------------------------+
+   | Icon            | ``String``       | Font Awesome Icon CSS Classes                           |
+   +-----------------+------------------+---------------------------------------------------------+
+   | Children        | ``Array``        | ``Array`` of child ``'Node'`` and ``'Item'`` elements   |
+   +-----------------+------------------+---------------------------------------------------------+
 
 11.14.3. Element Type Item
 **************************
@@ -1008,17 +1008,17 @@ Interactive navigation elements that trigger screen navigation:
 .. table:: Tree Item Attributes
    :widths: 15 15 70
 
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | Type                | Constant String      | Fixed String 'Item'                             |
-   +---------------------+----------------------+-------------------------------------------------+
-   | TextID              | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Icon                | CSS-String           | Font Awesome Icon CSS Classes                   |
-   +---------------------+----------------------+-------------------------------------------------+
-   | DstScreenID         | ScreenID-String      | Target Screen for navigation                    |
-   +---------------------+----------------------+-------------------------------------------------+
+   +-----------------+------------------+---------------------------------------------------------+
+   | **Property**    | **Type**         | **Description**                                         |
+   +=================+==================+=========================================================+
+   | Type            | ``String``       | Fixed String ``'Item'``                                 |
+   +-----------------+------------------+---------------------------------------------------------+
+   | TextID          | ``String``       | ``TextID`` referenced in ``webui.text`` DB Table        |
+   +-----------------+------------------+---------------------------------------------------------+
+   | Icon            | ``String``       | Font Awesome Icon CSS Classes                           |
+   +-----------------+------------------+---------------------------------------------------------+
+   | DstScreenID     | ``String``       | Target ``ScreenID`` for navigation                      |
+   +-----------------+------------------+---------------------------------------------------------+
 
 11.14.4. JSON Examples
 **********************
@@ -1115,11 +1115,11 @@ in the System Developer Documentation under :ref:`dev-object-nesting`.
    +-----------------+------------------+---------------------------------------------------------+
    | **Property**    | **Type**         | **Description**                                         |
    +=================+==================+=========================================================+
-   | DOMType         | String           | Container element tag, e.g. ``div``, ``span``           |
+   | DOMType         | ``String``       | Container element tag, e.g. ``div``, ``span``           |
    +-----------------+------------------+---------------------------------------------------------+
-   | Style           | CSS-String       | CSS Style Classes, space separated                      |
+   | Style           | ``String``       | CSS Style Classes, space separated                      |
    +-----------------+------------------+---------------------------------------------------------+
-   | Value           | String           | Value (innerHTML)                                       |
+   | Value           | ``String``       | Value (innerHTML)                                       |
    +-----------------+------------------+---------------------------------------------------------+
 
 11.15.2. JSON Examples
@@ -1159,11 +1159,11 @@ set to ``true``, resulting in identical DOM ID behavior.
    +-----------------+------------------+---------------------------------------------------------+
    | **Property**    | **Type**         | **Description**                                         |
    +=================+==================+=========================================================+
-   | DOMType         | String           | Container element tag, e.g. ``div``, ``span``           |
+   | DOMType         | ``String``       | Container element tag, e.g. ``div``, ``span``           |
    +-----------------+------------------+---------------------------------------------------------+
-   | Style           | CSS-String       | CSS Style Classes, space separated                      |
+   | Style           | ``String``       | CSS Style Classes, space separated                      |
    +-----------------+------------------+---------------------------------------------------------+
-   | Value           | String           | Initial Display / Data Value                            |
+   | Value           | ``String``       | Initial Display / Data Value                            |
    +-----------------+------------------+---------------------------------------------------------+
 
 11.16.2. Runtime API
@@ -1175,9 +1175,9 @@ set to ``true``, resulting in identical DOM ID behavior.
    +---------------------+------------------------------------------------------------------------+
    | **Method**          | **Description**                                                        |
    +=====================+========================================================================+
-   | setValue(Data)      | Sets ``Value``/``DOMValue`` and refreshes the rendered DOM             |
+   | ``setValue(Data)``  | Sets ``Value``/``DOMValue`` and refreshes the rendered DOM             |
    +---------------------+------------------------------------------------------------------------+
-   | getValue()          | Returns the current, rendered DOM value                                |
+   | ``getValue()``      | Returns the current, rendered DOM value                                |
    +---------------------+------------------------------------------------------------------------+
 
 11.16.3. JSON Examples
@@ -1216,7 +1216,7 @@ can be read from or written to by any other *x0-object* or button action.
    +---------------------+----------------------+-------------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                       |
    +=====================+======================+=======================================================+
-   | Style               | CSS-String           | Additional CSS classes applied to the inner bar       |
+   | Style               | ``String``           | Additional CSS classes applied to the inner bar       |
    +---------------------+----------------------+-------------------------------------------------------+
 
 11.17.2. Runtime API
@@ -1266,9 +1266,9 @@ from or written to by any other *x0-object* or button action.
    +-----------------+------------------+---------------------------------------------------------+
    | **Property**    | **Type**         | **Description**                                         |
    +=================+==================+=========================================================+
-   | Min             | Number           | Minimum slider value (HTML ``min`` attribute)           |
+   | Min             | ``Number``       | Minimum slider value (HTML ``min`` attribute)           |
    +-----------------+------------------+---------------------------------------------------------+
-   | Max             | Number           | Maximum slider value (HTML ``max`` attribute)           |
+   | Max             | ``Number``       | Maximum slider value (HTML ``max`` attribute)           |
    +-----------------+------------------+---------------------------------------------------------+
 
 11.18.2. Runtime API
@@ -1318,15 +1318,15 @@ the standard ``getObjectData()`` / ``setObjectData()`` API.
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   | Style               | ``String``           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
-   | Min                 | Number               | Minimum slider value (HTML ``min`` attribute)   |
+   | Min                 | ``Number``           | Minimum slider value (HTML ``min`` attribute)   |
    +---------------------+----------------------+-------------------------------------------------+
-   | Max                 | Number               | Maximum slider value (HTML ``max`` attribute)   |
+   | Max                 | ``Number``           | Maximum slider value (HTML ``max`` attribute)   |
    +---------------------+----------------------+-------------------------------------------------+
-   | Value               | Number               | Initial slider value                            |
+   | Value               | ``Number``           | Initial slider value                            |
    +---------------------+----------------------+-------------------------------------------------+
-   | UnitTextID          | TextID-String        | TextID for the Min/Max unit label               |
+   | UnitTextID          | ``String``           | ``TextID`` for the Min/Max unit label           |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.19.2. JSON Examples
@@ -1371,9 +1371,9 @@ To **connect** child objects inside ``skeleton.json``, reference the container
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | HeaderStyle         | CSS-String           | CSS Style Classes for the header row            |
+   | HeaderStyle         | ``String``           | CSS Style Classes for the header row            |
    +---------------------+----------------------+-------------------------------------------------+
-   | BodyStyle           | CSS-String           | CSS Style Classes for the body row              |
+   | BodyStyle           | ``String``           | CSS Style Classes for the body row              |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.20.2. JSON Examples
@@ -1458,7 +1458,7 @@ configuration rows used for internal *x0-system* settings.
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | Settings            | Array of Elements    | Array of Setting rows, see 11.21.2.             |
+   | Settings            | ``Array``            | ``Array`` of Elements (setting rows)            |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.21.2. Setting Element Attributes
@@ -1470,13 +1470,13 @@ configuration rows used for internal *x0-system* settings.
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | TextID              | TextID-String        | Row description, referenced in ``webui.text``   |
+   | TextID              | ``String``           | Row description, referenced in ``webui.text``   |
    +---------------------+----------------------+-------------------------------------------------+
-   | Style               | CSS-String           | CSS Style Classes applied to the description    |
+   | Style               | ``String``           | CSS Style Classes applied to the description    |
    +---------------------+----------------------+-------------------------------------------------+
-   | IconStyle           | CSS-String           | Font Awesome Icon CSS                           |
+   | IconStyle           | ``String``           | Font Awesome Icon CSS                           |
    +---------------------+----------------------+-------------------------------------------------+
-   | SettingsObject      | Object               | ``{ObjectType, Attributes}``, nested object     |
+   | SettingsObject      | ``Object``           | ``{ObjectType, Attributes}``, nested object     |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.21.3. JSON Examples
@@ -1528,11 +1528,11 @@ The ``SystemSettingsContainerGrid`` *x0-object-type* extends
    +-------------------+--------------------+--------------------------------------------------+
    | **Property**      | **Type**           | **Description**                                  |
    +===================+====================+==================================================+
-   | Settings          | Array of Elements  | Same schema as 11.21.2.                          |
+   | Settings          | ``Array``          | ``Array`` of Elements (setting rows)             |
    +-------------------+--------------------+--------------------------------------------------+
-   | GridStyles        | Object             | ``{SelectorRowStyle}``, variant selector style   |
+   | GridStyles        | ``Object``         | ``{SelectorRowStyle}``, variant selector style   |
    +-------------------+--------------------+--------------------------------------------------+
-   | GridGenerator     | Object             | ``sysGridGenerator`` see :ref:`grid-system`      |
+   | GridGenerator     | ``Object``         | ``sysGridGenerator`` see :ref:`grid-system`      |
    +-------------------+--------------------+--------------------------------------------------+
 
 .. _objecttype-infoparagraph:
@@ -1557,13 +1557,13 @@ each consisting of:
 .. table:: Object Type InfoParagraph Attributes
    :widths: 15 15 70
 
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | Style               | CSS-String           | CSS Style Classes applied to the container      |
-   +---------------------+----------------------+-------------------------------------------------+
-   | Text                | Array of Elements    | Array of ``{ID, Style, IconStyle}`` paragraphs  |
-   +---------------------+----------------------+-------------------------------------------------+
+   +-----------------+------------------+---------------------------------------------------------+
+   | **Property**    | **Type**         | **Description**                                         |
+   +=================+==================+=========================================================+
+   | Style           | ``String``       | CSS Style Classes applied to the container              |
+   +-----------------+------------------+---------------------------------------------------------+
+   | Text            | ``Array``        | ``Array`` of ``{ID, Style, IconStyle}`` paragraphs      |
+   +-----------------+------------------+---------------------------------------------------------+
 
 11.23.2. Text Attributes
 ************************
@@ -1574,11 +1574,11 @@ each consisting of:
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | ID                  | TextID-String        | Text ID, referenced in ``webui.text``           |
+   | ID                  | ``String``           | ``TextID``, referenced in ``webui.text``        |
    +---------------------+----------------------+-------------------------------------------------+
-   | Style               | CSS-String           | CSS Style Classes                               |
+   | Style               | ``String``           | CSS Style Classes                               |
    +---------------------+----------------------+-------------------------------------------------+
-   | IconStyle           | CSS-String           | Font Awesome Icon CSS for Prepend Icon          |
+   | IconStyle           | ``String``           | Font Awesome Icon CSS for Prepend Icon          |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.23.3. JSON Examples
@@ -1627,11 +1627,11 @@ page reload.
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | Style               | CSS-String           | CSS Style Classes applied to the row container  |
+   | Style               | ``String``           | CSS Style Classes applied to the row container  |
    +---------------------+----------------------+-------------------------------------------------+
-   | PulldownStyle       | CSS-String           | CSS Style Classes for the language pulldown     |
+   | PulldownStyle       | ``String``           | CSS Style Classes for the language pulldown     |
    +---------------------+----------------------+-------------------------------------------------+
-   | ButtonStyle         | CSS-String           | CSS Style Classes for the activation button     |
+   | ButtonStyle         | ``String``           | CSS Style Classes for the activation button     |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.24.2. JSON Examples
@@ -1676,7 +1676,7 @@ removable row opens a context menu offering the same removal action (see
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | ButtonTextDisabled  | Boolean              | Hide add/remove button text, icon-only display  |
+   | ButtonTextDisabled  | ``Boolean``          | Hide add/remove button text, icon-only display  |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.25.2. JSON Examples
@@ -1714,15 +1714,15 @@ Its full event-registration and dispatch mechanics are documented in
 .. table:: Object Type ServiceConnector Attributes
    :widths: 15 15 70
 
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | OnEvent.Events      | Array of EventIDs    | EventIDs triggering the service call            |
-   +---------------------+----------------------+-------------------------------------------------+
-   | OnEvent.ServiceCall | URL-String           | Backend Service URL                             |
-   +---------------------+----------------------+-------------------------------------------------+
-   | OnEvent.ServiceID   | String               | Optional Backend Service Identifier             |
-   +---------------------+----------------------+-------------------------------------------------+
+   +---------------------+------------------+-----------------------------------------------------+
+   | **Property**        | **Type**         | **Description**                                     |
+   +=====================+==================+=====================================================+
+   | OnEvent.Events      | ``Array``        | ``Array`` of EventIDs triggering the service call   |
+   +---------------------+------------------+-----------------------------------------------------+
+   | OnEvent.ServiceCall | ``String``       | Backend Service URL                                 |
+   +---------------------+------------------+-----------------------------------------------------+
+   | OnEvent.ServiceID   | ``String``       | Optional Backend Service Identifier                 |
+   +---------------------+------------------+-----------------------------------------------------+
 
 11.26.2. JSON Examples
 **********************
@@ -1760,9 +1760,9 @@ callback-bound :ref:`objecttype-buttoninternal` trigger.
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | Interval            | Integer (ms)         | Auto-increment timer interval, in milliseconds  |
+   | Interval            | ``Integer``          | Auto-increment timer interval, in milliseconds  |
    +---------------------+----------------------+-------------------------------------------------+
-   | IncreaseBy          | Integer              | Percentage increment applied on every interval  |
+   | IncreaseBy          | ``Integer``          | Percentage increment applied on every interval  |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.27.2. JSON Examples
@@ -1841,17 +1841,17 @@ It inherits from ``DivUnique`` and supports a switchable edit mode.
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   | Style               | ``String``           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
-   | Editable            | Boolean              | Enables in-place edit mode for this item        |
+   | Editable            | ``Boolean``          | Enables in-place edit mode for this item        |
    +---------------------+----------------------+-------------------------------------------------+
-   | OrderChangeable     | Boolean              | Enables drag-based reordering of this item      |
+   | OrderChangeable     | ``Boolean``          | Enables reordering of this item                 |
    +---------------------+----------------------+-------------------------------------------------+
-   | ImagePath           | URL-String           | Item image, defaults to a placeholder icon      |
+   | ImagePath           | ``String``           | Item image, defaults to a placeholder icon      |
    +---------------------+----------------------+-------------------------------------------------+
-   | HeaderText          | String               | Item header/title text                          |
+   | HeaderText          | ``String``           | Item header/title text                          |
    +---------------------+----------------------+-------------------------------------------------+
-   | ContentText         | String               | Item body/description text                      |
+   | ContentText         | ``String``           | Item body/description text                      |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.29.2. JSON Examples
@@ -1897,17 +1897,17 @@ rows.
 .. table:: Object Type ExampleEditableItemContainer Attributes
    :widths: 15 15 70
 
-   +---------------------+----------------------+-------------------------------------------------+
-   | **Property**        | **Type**             | **Description**                                 |
-   +=====================+======================+=================================================+
-   | Style               | CSS-String           | CSS Style Classes, space separated              |
-   +---------------------+----------------------+-------------------------------------------------+
-   | HeaderTextID        | TextID-String        | TextID referenced in ``webui.text`` DB Table    |
-   +---------------------+----------------------+-------------------------------------------------+
-   | HeaderStyle         | CSS-String           | CSS Style Classes for the header text           |
-   +---------------------+----------------------+-------------------------------------------------+
-   | HeaderIconStyle     | CSS-String           | Font Awesome icon style for the header          |
-   +---------------------+----------------------+-------------------------------------------------+
+   +---------------------+------------------+-----------------------------------------------------+
+   | **Property**        | **Type**         | **Description**                                     |
+   +=====================+==================+=====================================================+
+   | Style               | ``String``       | CSS Style Classes, space separated                  |
+   +---------------------+------------------+-----------------------------------------------------+
+   | HeaderTextID        | ``String``       | ``TextID`` referenced in ``webui.text`` DB Table    |
+   +---------------------+------------------+-----------------------------------------------------+
+   | HeaderStyle         | ``String``       | CSS Style Classes for the header text               |
+   +---------------------+------------------+-----------------------------------------------------+
+   | HeaderIconStyle     | ``String``       | Font Awesome Icon Style for the header              |
+   +---------------------+------------------+-----------------------------------------------------+
 
 11.30.2. JSON Examples
 **********************
@@ -1953,7 +1953,7 @@ inside a parent :ref:`objecttype-list` column container.
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | Value               | Object               | ``{Icon, Airline, FlightNr, Airport}``          |
+   | Value               | ``Object``           | ``{Icon, Airline, FlightNr, Airport}``          |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.31.2. JSON Examples
@@ -2004,7 +2004,7 @@ inner text color from the ``Value.Alert`` Bootstrap contextual color keyword
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | Value               | Object               | ``{Alert, Type, Time}``                         |
+   | Value               | ``Object``           | ``{Alert, Type, Time}``                         |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.32.2. JSON Examples
@@ -2051,7 +2051,7 @@ addable tasklists and tasks.
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   | Style               | ``String``           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.33.2. JSON Examples
@@ -2092,7 +2092,7 @@ It inherits from ``DivUnique`` and is typically instantiated inside an
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
    +=====================+======================+=================================================+
-   | Style               | CSS-String           | CSS Style Classes, space separated              |
+   | Style               | ``String``           | CSS Style Classes, space separated              |
    +---------------------+----------------------+-------------------------------------------------+
 
 11.34.2. JSON Examples
