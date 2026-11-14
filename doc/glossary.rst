@@ -1,118 +1,339 @@
-.. glossary
-
 .. _glossary:
 
-31. Glossary
+28. Glossary
 ============
 
-31.1. Application Developing Documentation
-------------------------------------------
+.. _glossary-actions:
 
-Application Development Documentation including system installation and configuration, chapters 1-19.
+28.1. Actions (*x0-actions*)
+----------------------------
 
-31.2. Bootstrap
+A declarative command mechanism available on ``Button`` and ``ButtonInternal``
+*x0-object-types* (see :ref:`event-actions`) for triggering client-side
+operations such as setting or appending data (``set``, ``append``), toggling
+visibility or activation states (``enable``, ``disable``, ``activate``,
+``deactivate``), resetting objects (``reset``), switching tabs or screens
+(``tabswitch``, ``switchscreen``), writing global variables (``setglobalvar``),
+and opening overlays (``openoverlay``).
+
+.. _glossary-appdev-doc:
+
+28.2. Application Development Documentation
+-------------------------------------------
+
+The first part of the *x0* documentation (Chapters 1–20), covering framework
+introduction, installation, basic configuration, CSS styling, the grid system,
+built-in *x0-system-objects*, forms, context menus, global components, events,
+actions, overlays, messaging, and Kubernetes deployment.
+
+.. _glossary-bootstrap:
+
+28.3. Bootstrap
 ---------------
 
-A popular front-end framework used for building responsive and mobile-first web applications. The x0 system includes Bootstrap 5.3 stylesheets without JavaScript dependencies, providing a lightweight and extendable base.
+A popular front-end CSS framework pre-integrated into the *x0-system*
+(version 5.3) without any Bootstrap JavaScript dependencies. Its utility and
+12-column responsive grid classes are applied directly via the ``Style``,
+``RowStyle``, and ``ColStyle`` attributes in ``object.json`` (see
+:ref:`global-css`).
 
-31.3. Cross-Objects
--------------------
+.. _glossary-clipboard:
 
-The "cross" in x0 signifies communication. x0-objects are capable of exchanging metadata internally or over the network using JSON.
-
-31.4. CSS Grid System
----------------------
-
-A layout system used in x0 for responsive designs. It ensures device-independent responsiveness by leveraging the Bootstrap Grid feature.
-
-31.5. Docker
-------------
-
-A containerization platform used to package, deploy, and run x0 applications. Pre-configured Docker images are provided for quick setup.
-
-31.6. Developer Documentation
------------------------------
-
-*x0-system* Development Documentation including *x0-object-modeling* how-to, chapters 20-26.
-
-31.7. DIV2ObjectMapping
------------------------
-
-A core feature of the x0 system that maps a single JavaScript Object Instance to a rendered DOM DIV. This mapping enforces a 1:1 association for managing objects and their parent/child relationships in the DOM.
-
-31.8. Fontawesome
------------------
-
-An icon library integrated into the x0 base system, offering high-quality icons for use in applications.
-
-31.9. Kubernetes
-----------------
-
-An open-source platform for managing containerized workloads and services. x0 applications are deployable on Google Kubernetes Engine (GKE) with native integration.
-
-31.10. Multi-language Support
------------------------------
-
-The x0 system supports multiple languages (currently English and German), allowing real-time language switching without page reloads.
-
-31.11. Object Orientation
--------------------------
-
-x0 provides true object-oriented programming (OOP) capabilities for JavaScript, enabling clean code and efficient DOM object modeling.
-
-31.12. Object Combination
--------------------------
-
-A feature allowing the chaining and reusability of existing objects to create new composite objects. This is a fundamental aspect of the x0 framework's object modeling.
-
-31.13. PKCS 11 / PKCS 15
-------------------------
-
-Public Key Cryptography Standards supported by the x0 system for enhanced security. It includes compatibility for Private Key Infrastructure (PKI) management.
-
-31.14. Real-Time SPA
---------------------
-
-Single Page Applications (SPAs) built on the x0 framework operate in real time, offering a desktop-like user experience while being backend-independent.
-
-31.15. Responsiveness
----------------------
-
-The capability of a web application to adapt seamlessly to various devices and screen sizes. The x0 system achieves this through Bootstrap CSS and the CSS Grid System.
-
-31.16. Sphinx Documentation
----------------------------
-
-A documentation generator used to create the x0 system's developer guide and technical documentation.
-
-31.17. Target Group
--------------------
-
-The intended audience for the x0 framework includes developers seeking a robust, OOP-based framework for building modern SPAs.
-
-31.18. True DOM OOP
--------------------
-
-A methodology provided by x0 for object-oriented DOM modeling, enabling developers to manipulate and extend DOM elements programmatically.
-
-31.19. Zero Bootstrap JavaScript
+28.4. Clipboard (*x0-clipboard*)
 --------------------------------
 
-The x0 system integrates Bootstrap stylesheets without relying on Bootstrap's JavaScript, ensuring a lightweight and flexible framework.
+An internal, object-oriented data exchange buffer (``sysFactory.ClipboardData``)
+used by ``get-data`` and ``set-data`` operations—typically triggered via an
+*x0-context-menu* (see :ref:`context-menu`)—to transfer structured object data
+between *x0-objects* such as ``List`` and ``FormfieldList`` without flat
+DOM-scraping.
 
-31.20. x0-system-object
+.. _glossary-context-menu:
+
+28.5. Context Menu (*x0-context-menu*)
+--------------------------------------
+
+An object-bound, declaratively configurable right-click menu
+(``sysContextMenu``, see :ref:`context-menu`) supported out of the box on
+``List`` (row and header levels) and ``FormfieldList`` objects. It dispatches
+internal system functions (``get-data``, ``set-data``, ``get-set-data``,
+``remove``, ``remove-selected``, ``reset``), activates overlays, or fires
+reactor events.
+
+.. _glossary-cross-objects:
+
+28.6. Cross-Objects (*x0*)
+--------------------------
+
+The namesake principle of the *x0-framework* (/krɒs ɒb.dʒɪkt/): modular,
+object-oriented UI and logic components capable of exchanging structured JSON
+data and events both locally within the browser and asynchronously across
+network boundaries.
+
+.. _glossary-declarative-config:
+
+28.7. Declarative Configuration
+-------------------------------
+
+The primary application development paradigm in *x0* (see
+:ref:`main-concept`), in which entire applications are assembled from
+pre-existing *x0-system-objects* using static JSON metadata files
+(``object.json``, ``skeleton.json``, ``menu.json``) without writing custom
+JavaScript.
+
+.. _glossary-dev-doc:
+
+28.8. Developer Documentation
+-----------------------------
+
+The second part of the *x0* documentation (Chapters 21–27), covering system
+architecture, the pointer-based OOP inheritance model, the complete JavaScript
+class reference, development best practices, automated Pytest/Selenium testing,
+example creation, and plugins.
+
+.. _glossary-docker:
+
+28.9. Docker
+------------
+
+The primary containerization platform used to package, run, and test the
+*x0-system* locally (see :ref:`installation`), comprising pre-built images for
+``x0-app`` (Apache/WSGI backend), ``x0-db`` (PostgreSQL), ``x0-test``
+(Pytest/Selenium runner), ``x0-msg-server``, and the standalone ``x0-static``
+container.
+
+.. _glossary-event-system:
+
+28.10. Event System (*x0::Reactor*)
+-----------------------------------
+
+The publish/subscribe event bus implemented by ``sysReactor`` and ``sysEvent``
+(see :ref:`event-system`). It decouples *x0-event-producers* (such as
+``Button``, ``ButtonInternal``, ``Tab``, ``FormfieldOnChange``, and
+``ContextMenu``) from *x0-event-receivers* (such as ``ServiceConnector``), and
+automatically dispatches built-in lifecycle events (``InitSystem``,
+``SwitchScreen``).
+
+.. _glossary-fontawesome:
+
+28.11. Font Awesome
+-------------------
+
+An optional icon library integrated into *x0* whose CSS classes can be applied
+declaratively via ``IconStyle`` and ``IconStylePost`` properties across buttons,
+labels, trees, containers, and context menu items.
+
+.. _glossary-global-data:
+
+28.12. Global Data Storage (*x0-global-data*)
+---------------------------------------------
+
+A declarative, in-memory key/value store integrated into the object model (see
+:ref:`global-storage`) that replaces legacy hidden form fields. It supports
+both application-wide variables (``sysFactory.getGlobalVar()`` /
+``setGlobalVar()``) and screen-scoped variables (``ScreenObj.getGlobalVar()`` /
+``setGlobalVar()``).
+
+.. _glossary-grid-system:
+
+28.13. Grid System (*x0-grid-system*)
+-------------------------------------
+
+The runtime layout engine implemented by ``sysGridGenerator`` (see
+:ref:`grid-system`). Driven by ``RowStyle``, ``RowAfterElements``,
+``ColStyle``, and ``ColAfterElements``, it wraps arrays of *x0-objects* into
+responsive Bootstrap grid containers and supports instant, client-side dynamic
+restructuring without network requests.
+
+.. _glossary-kubernetes:
+
+28.14. Kubernetes
+-----------------
+
+An orchestration platform supported natively by the *x0-kubernetes-installer*
+(``/kubernetes/setup/Setup.py``, see :ref:`kubernetes-deployment`) to deploy
+multi-environment, load-balanced Google Kubernetes Engine (GKE) and Minikube
+clusters with Kubegres PostgreSQL replication, ``ingress-nginx``, and TLS.
+
+.. _glossary-metadata-model:
+
+28.15. Metadata Model
+---------------------
+
+The three core JSON configuration files that declaratively define an
+*x0-application* (see :ref:`metadata-model`): ``object.json`` (object types and
+attributes), ``skeleton.json`` (screen definitions and parent/child hierarchy
+links via ``RefID`` and ``ElementID``), and ``menu.json`` (object links for the
+``sysMenu`` area), optionally accompanied by ``text-data.json`` in static
+deployments.
+
+.. _glossary-multilanguage:
+
+28.16. Multi-language Support
+-----------------------------
+
+The built-in localization mechanism of *x0*, resolving ``TXT.*`` identifiers
+dynamically against either the ``webui.text`` PostgreSQL table or
+``/static/meta/text-data.json`` (see :ref:`system-config`). Changing the
+active language via ``LanguageSwitch`` updates all ``Text`` (``sysObjSQLText``)
+instances in place without a page reload.
+
+.. _glossary-notify-indication:
+
+28.17. Notify Indication (*x0-notify-indication*)
+-------------------------------------------------
+
+An asynchronous UI feedback channel (``sysObjAsyncNotifyIndicator``, see
+:ref:`notify-indication`) positioned in the Notification Area. It tracks
+background service calls through *pending*, *success*, *error*, and *system
+error* states and displays server-pushed messages.
+
+.. _glossary-data-abstraction:
+
+28.18. Object Data Abstraction (ODM)
+------------------------------------
+
+The unified runtime data API exposed via ``getObjectData()`` and
+``setObjectData()`` (see :ref:`data-abstraction` and
+:ref:`oopmodel-classes-getobjectdata`). Acting as an in-browser Object-Document
+Mapper (ODM) on top of the *x0-mirror-dom*, it supports both direct (``Plain``)
+and recursive (``KeyValue`` via ``KeyID``) JSON mapping for seamless NoSQL and
+backend integration.
+
+.. _glossary-object-instancing:
+
+28.19. Object Instancing (``InstanceOf``)
+-----------------------------------------
+
+A declarative reuse mechanism in ``object.json`` (see :ref:`object-instancing`)
+that allows an object entry to clone an existing configuration via
+``InstanceOf`` and selectively override individual attributes using
+``AttributesOverwrite`` without duplicating the full definition.
+
+.. _glossary-oop:
+
+28.20. Object-Oriented Programming (OOP) Model
+----------------------------------------------
+
+The pointer-based JavaScript prototype inheritance architecture at the core of
+*x0* (see :ref:`dev-oopmodel`). By deriving every UI and logic component from
+``sysBaseDOMElement`` and ``sysBaseObject``, the engine shares methods via
+prototype pointers and achieves a minimal memory footprint even with tens of
+thousands of live object instances.
+
+.. _glossary-overlay:
+
+28.21. Overlay Mode (*x0-overlay-mode*)
+---------------------------------------
+
+A screen-layering capability managed by ``sysScreenOverlay`` (see
+:ref:`appdev-overlay`) that activates one or more pre-instantiated screens on
+top of the active base screen—either centered as a modal or explicitly
+positioned—without re-creating DOM hierarchies.
+
+.. _glossary-realtime-pagination:
+
+28.22. Realtime Pagination (*x0-realtime-pagination*)
+-----------------------------------------------------
+
+An in-browser pagination engine (``sysPagination`` in ``sysRTPagination.js``,
+see :ref:`realtime-pagination`) that partitions in-memory object collections
+into navigable pages with zero network latency while preserving the live state
+of objects on hidden pages.
+
+.. _glossary-rtte:
+
+28.23. Real-Time Templating Engine (RTTE)
+-----------------------------------------
+
+The core browser-side rendering concept of *x0* (see :ref:`abstract`), replacing
+server-side string template replacement with live, metadata-driven JavaScript
+object hierarchies that can be mutated and re-rendered (``rerenderObject()``)
+in real time without bundling or page reloads.
+
+.. _glossary-service-connector:
+
+28.24. ServiceConnector
 -----------------------
+
+A non-visual intermediary *x0-system-object* (``sysServiceConnector``, see
+:ref:`backend-connector`) bound between a parent container and a data-bearing
+child object (such as ``List`` or ``FormfieldList``) in ``skeleton.json``. It
+listens for configured reactor events and executes asynchronous XML-RPC/REST
+POST calls to populate its target object.
+
+.. _glossary-mirror-dom:
+
+28.25. Mirror DOM (*x0-mirror-dom*)
+-----------------------------------
+
+The internal recursive object graph of x0 (see :ref:`dev-oopmodel`), in which
+each live JavaScript object instance maintains a strict 1:1 association with a
+corresponding browser DOM node. It acts as a stateful intermediate layer
+between application logic and presentation.
+
+.. _glossary-source-data-objects:
+
+28.26. Source Data Objects (``SrcDataObjects``)
+-----------------------------------------------
+
+A declarative mechanism handled by ``sysSourceObjectHandler`` (see
+:ref:`sourcedata-objects`) that gathers runtime values from referenced system
+objects, hardcoded definitions, global variables, or screen-scoped variables and
+appends them to the JSON payload of outgoing backend POST requests.
+
+.. _glossary-base-class:
+
+28.27. Base Class (*x0-base-class*)
+-----------------------------------
+
+A foundational JavaScript class in the *x0-core*—specifically
+``sysBaseDOMElement`` (single-node DOM binding) and ``sysBaseObject``
+(recursive parent/child hierarchy, rendering, data API, and lifecycle)—from
+which every *x0-system-object* and custom extension must derive.
+
+.. _glossary-factory:
+
+28.28. System Factory (``sysFactory``)
+--------------------------------------
+
+Alias: *x0-factory*.
+
+The global singleton registry and bootstrap entry point of an *x0-application*
+(see :ref:`dev-oopmodel`). It holds the ``SetupClasses`` constructor map,
+instantiates and switches ``sysScreen`` instances, manages global variables and
+localized texts, and starts the reactor and async notification handler.
+
+.. _glossary-screen:
+
+28.29. System Screen (``sysScreen``)
+------------------------------------
+
+Alias: *x0-screen*.
+
+A self-contained, pre-instantiated visual view rooted at a HierarchyRootObject
+(see :ref:`appdev-config` and :ref:`dev-oopmodel`). Inactive screens persist as
+hidden DOM layers rather than being destroyed, guaranteeing full client-side
+state preservation across screen switches.
+
+.. _glossary-static:
+
+28.30. Static Docker Container (*x0-static*)
+--------------------------------------------
+
+The lightweight, completely serverless deployment mode and Docker container
+(``/docker/x0-static.dockerfile``, see :ref:`installation-minimal`) served by
+Apache alone without PostgreSQL, WSGI, or background services, bundling a
+complete runnable showcase of x0 examples.
+
+.. _glossary-system-object:
+
+28.31. System Object (*x0-system-object*)
+-----------------------------------------
 
 Alias: *x0-object*.
 
-A fundamental unit in the x0 framework. It represents an object within the x0 system that combines metadata, functionality, and inter-object communication capabilities. These objects are designed for seamless integration and efficient abstraction in Single Page Applications (SPAs).
-
-31.21. x0-screen
-----------------
-
-An abstraction in the x0 system that represents a visual layout or view. It is used to manage and display interactive components within the Single Page Application (SPA). Screens in x0 are dynamically rendered and can communicate with x0-objects for seamless data sharing and updates.
-
-31.22. x0-base-class
---------------------
-
-A foundational class in the x0 framework that provides a standard structure for creating objects. It includes built-in methods for data abstraction, object chaining, and metadata handling, enabling developers to create reusable and extendable components efficiently.
+A modular, reusable building block in the *x0-framework* (either shipped
+out of the box under ``/www/sysObj*.js`` or implemented as a custom class
+extension) that combines declarative JSON metadata, OOP behavior, DOM binding,
+and inter-object communication.

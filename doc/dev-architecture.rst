@@ -1,8 +1,8 @@
 .. dev-architecture
 
-.. _devarchitecture:
+.. _dev-architecture:
 
-22. System Architecture
+21. System Architecture
 =======================
 
 The current chapter introduces the **developer-documentation** part.
@@ -11,24 +11,24 @@ The first chart shows an overall view of global systems inter-communication.
 .. image:: images/x0-architecture-overview.png
   :alt: image - architecture overview
 
-22.1. Global Workflows
+21.1. Global Workflows
 ----------------------
 
 - Initialization (Browser Page Load)
 
-22.1.1. Init Logical
+21.1.1. Init Logical
 ********************
 
 .. image:: images/x0-workflow-init-nonuml.png
   :alt: image - architecture init workflow no-uml
 
-22.1.2. Init UML Sequence
+21.1.2. Init UML Sequence
 *************************
 
 .. image:: images/x0-workflow-init-uml1.png
   :alt: image - architecture init workflow uml
 
-22.2. Kubernetes Platform
+21.2. Kubernetes Platform
 -------------------------
 
 The following chart illustrates an x0-generated GKE (Google Kubernetes Engine)
@@ -37,7 +37,7 @@ network environment for a demo application, initialized by the *x0-kubernetes-in
 The primary purpose of the application is to manage large-scale industrial
 packaging systems and warehouse relations.
 
-The application is divided into three sub-parts / environments:
+The application is divided into three sub-components / environments:
 
 1. Packaging Factory (EDI - SAP systems interconnect)
 2. Warehouse Android Scanner Devices

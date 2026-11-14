@@ -3,28 +3,71 @@
 6. Installation Guide
 =====================
 
-Welcome to the installation guide for the **x0-system**!
+This guide provides instructions for setting up the **x0-system**. It is divided
+into a minimal setup for evaluation and a full system deployment that includes the
+database, the application server, and optionally a lightweight messaging server.
 
-.. note::
-   If your goal is to develop *x0-applications* **only**, you **do not** need to install the full x0-base-system. Instead, start by setting up your own repository using the `x0-skeleton <https://github.com/WEBcodeX1/x0-skeleton>`_ template. Then, see the :ref:`appdevconfig` documentation for instructions on building and configuring your app.
+Since version 1.1, the **x0-system** ships with a minimal, static dockerized environment.
+Although its primary purpose is to showcase the capabilities of the framework, it is
+also ideally suited for rapid x0-application development without overhead.
 
 .. important::
-   If you plan to create your own *x0-system-objects* for custom use in your applications, **installing the x0-system is mandatory**. Continue reading below.
+   The database-backed *x0-system* is **multi-vhost-capable**: a single
+   installation can serve **multiple independent x0 applications in
+   parallel**, each bound to its own virtual host, DNS name and
+   configuration.
 
-6.1. Supported Environments
----------------------------
+.. important::
+   In addition to Docker and standalone installation, the *x0-system* also
+   supports a fully automated **Kubernetes** deployment (GKE and Minikube),
+   including multi-vhost routing, load-balancing and fail-safe database
+   setup. See :ref:`kubernetes-deployment` below for details.
+
+.. _installation-minimal:
+
+6.1. Static, Minimal Setup
+--------------------------
+
+The **simplest** and **fastest** way to evaluate the *x0-framework* is the ``x0-static``
+Docker container. It is a **single, self-contained container** that requires
+**no database** provisioning, **no background services** (messaging, WSGI), and **no**
+**multi-container** network configuration — Apache alone serves the entire application.
+
+The container bundles a **fully operational example** showcase that you can run
+immediately via ``http://localhost/``.
+
+The build creates the local ``x0-static`` image, defined in
+``/docker/x0-static.dockerfile``. The startup script runs it as the
+``x0-static`` container, publishing container port 80 on host port 80. Open
+``http://localhost/`` in your browser — **no further setup is required**.
+
+If you need to use multiple virtual hosts or plan to implement examples,
+continue with the :ref:`installation-full-system` below.
+
+.. tip::
+   The static Docker container can be used perfectly to build and test
+   your application for later deployment in the system's full setup.
+
+.. _installation-full-system:
+
+6.2. Full System Installation
+-----------------------------
+
+The following sections cover the complete, database-backed *x0-system*
+installation — required for backend development, running the full test
+suite, or Kubernetes deployment.
+
+6.2.1. Supported Environments
+*****************************
 
 You can use **any Linux distribution** where Debian packages can be built natively (``debuild``):
 
-- Ubuntu 22.04 / 24.04
-- Debian 12
-- Devuan 5
+- Ubuntu 24.04 / 26.04
+- Debian 12 / 13
+- Devuan 5 / 6
 
-.. tip::
-   Official *x0-system* Docker images are based on **Ubuntu 24.04**.
-
-6.2. Dependencies
------------------
+6.2.2. Dependencies
+*******************
 
 **Base requirements:**
 
@@ -52,8 +95,8 @@ You can use **any Linux distribution** where Debian packages can be built native
 
 - [`micro-msg-server`](https://github.com/clauspruefer/micro-msg-server)
 
-6.3. System Installation
-------------------------
+6.2.3. System Installation
+**************************
 
 .. highlight:: bash
 
@@ -74,8 +117,8 @@ First, install dependencies:
     # Sphinx documentation
     sudo apt-get install -y python3-sphinx python3-sphinx-rtd-theme
 
-6.4. Step-by-Step Setup
------------------------
+6.2.4. Step-by-Step Setup
+*************************
 
 1. **Clone the x0 Repository**
 
@@ -147,8 +190,8 @@ First, install dependencies:
 
    The changelog is at ``./debian/changelog``.
 
-6.5. Docker Network Reference
------------------------------
+6.2.5. Docker Network Reference
+*******************************
 
 .. list-table:: Docker Containers / IP Addresses / DNS
    :widths: 30 15 55
@@ -158,23 +201,23 @@ First, install dependencies:
      - **IP Address**
      - **DNS**
    * - x0-app
-     - 176.20.0.10
+     - 172.20.0.10
      - x0-app.x0.localnet
    * - x0-db
-     - 176.20.0.20
+     - 172.20.0.20
      - mypostgres
    * - x0-test
-     - 176.20.0.30
+     - 172.20.0.30
      -
    * - x0-selenium-server
-     - 176.20.0.40–60
+     - 172.20.0.40–60
      - selenium-server-0/1/2
    * - x0-msg-server
-     - 176.20.0.100
+     - 172.20.0.100
      - x0-msg-server.x0.localnet
 
-6.6. Docker Tips & Tricks
--------------------------
+6.2.6. Docker Tips & Tricks
+***************************
 
 .. code-block:: bash
 
@@ -191,21 +234,21 @@ First, install dependencies:
     docker exec -ti x0-db /bin/bash
     psql -U postgres -d x0
 
-6.7. Using a Local Ubuntu Mirror
---------------------------------
+6.2.7. Using a Local Ubuntu Mirror
+**********************************
 
 For restricted or frequent development environments, a local Ubuntu apt mirror can accelerate package downloads.
 
 .. code-block:: bash
 
     export UBUNTU_MIRROR_DNS=your-hostname.localnet
-    export UBUNTU_MIRROR_IP=196.168.0.253
+    export UBUNTU_MIRROR_IP=192.168.0.253
 
 .. warning::
    Both ``UBUNTU_MIRROR_DNS`` and ``UBUNTU_MIRROR_IP`` must be set and your DNS must resolve correctly.
 
-6.8. System Verification
-------------------------
+6.2.8. System Verification
+**************************
 
 Build everything and start the system:
 
@@ -218,8 +261,8 @@ Build everything and start the system:
 
 Then open http://x0-app.x0.localnet/python/Index.py in your browser to verify functionality.
 
-6.9. Examples
--------------
+6.2.9. Examples
+***************
 
 Find ready-to-run examples in the ``./examples`` directory. After starting the containers, access them via:
 
@@ -227,10 +270,10 @@ Find ready-to-run examples in the ``./examples`` directory. After starting the c
 - http://x0-app.x0.localnet/python/Index.py?appid=example2
 - http://x0-app.x0.localnet/python/Index.py?appid=example3
 
-See :ref:`devexamples` for details on structure and adding your own examples.
+See :ref:`dev-examples` for details on structure and adding your own examples.
 
-6.10. Testing & Continuous Integration
---------------------------------------
+6.2.10. Testing & Continuous Integration
+****************************************
 
 Tests are in ``./test``. The system uses **pytest** and **Selenium Server** for network-based tests, including in GKE pods.
 
@@ -241,15 +284,15 @@ Run tests locally after containers are running:
     cd ./test && python3 ./run-selenium-server.py
     sleep 10 && pytest-3
 
-6.11. Kubernetes Deployment
----------------------------
+6.2.11. Kubernetes Deployment
+*****************************
 
 x0 runs on GKE and Minikube with automated ingress, redundancy (Kubegres), and fail-safe DB setup.
 
-For details, see: https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md
+For details, see: https://github.com/WEBcodeX1/x0/tree/current-release/kubernetes/README.md
 
-6.12. Running on Windows 11
----------------------------
+6.2.12. Running on Windows 11
+*****************************
 
 **x0-system** Docker containers can be run on Windows 11 Pro using Docker Desktop.
 
@@ -265,7 +308,3 @@ For details, see: https://github.com/WEBcodeX1/x0/blob/main/kubernetes/README.md
     # Start containers
     cd ./docker
     ./x0-start-containers.sh
-
-----
-
-Congratulations! Your *x0-system* is now ready for development, testing, or deployment.

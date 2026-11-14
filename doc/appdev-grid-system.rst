@@ -1,254 +1,270 @@
 .. appdev-grid-system
 
-.. _appdevgridsystem:
+.. _grid-system:
 
-9. Grid System
-==============
+10. Grid System
+===============
 
-The x0 grid system is implemented through the `sysGridGenerator` system object,
+The **x0-grid-system** is implemented through the `sysGridGenerator` system object,
 which is responsible for generating a grid layout by processing source objects
-into structured rows and columns. Below is an explanation of its key components
-and functionality:
+into structured *rows* and *columns*. Rather than being a purely static layout
+mechanism confined to a screen's initial load, the grid system is designed for
+high-frequency runtime modification: it can be re-invoked at any time to
+restructure an already rendered grid in response to changing source data,
+enabling real-time UI re-rendering and fluid grid restructuring directly within
+the browser client (see :ref:`dynamic-restructuring` below).
 
-- Key Components:
+10.1. Key Characteristics
+*************************
 
-    1. Source Objects:
-        The grid generator takes an array of source objects as input, which are processed into grid elements.
+The **x0-grid-system** can be used to render layouts like the one shown in the
+following diagram:
 
-    2. Row and Column Styles:
-        Customizable row and column styles (`RowStyles` and `ColStyles`) allow you to define the CSS styling for each grid element.
+.. code-block:: text
 
-    3. Row and Column Enclosures:
-        Rows and columns are enclosed in containers (`sysObjDiv` objects) for structured layout.
-        The number of elements after which rows and columns are enclosed can be customized using `RowAfterElements` and `ColAfterElements`.
+   +-----------------------------------------+-----------------------------------------+
+   | Col1                                    | Col2                                    |
+   +-----------------------------------------+-----------------------------------------+
+   | Col3                                                                              |
+   +-----------------------------------------+--------------------+--------------------+
+   | Col4                                    | Col5               | Col6               |
+   +--------------------+--------------------+--------------------+--------------------+
+   | Col7               | Col8               | Col9               | Col10              |
+   +--------------------+--------------------+--------------------+--------------------+
 
-    4. Generators for Indices and Styles:
-        The system uses generators (`RowIndexGenerator`, `ColIndexGenerator`, `RowStyleGenerator`, `ColStyleGenerator`) to dynamically determine the next row/column indices and styles.
+To achieve this easily, the system uses an internal generator that wraps
+CSS styles around existing *x0-objects*.
 
-    5. Dynamic Grid Creation:
-        - The `generate` method processes the source objects:
-            Groups objects into columns based on `ColAfterElements`.
-            Groups columns into rows based on `RowAfterElements`.
-        - Each grid element is assigned a unique identifier for DOM manipulation.
+You can utilize Bootstrap grid utility classes, other advanced Bootstrap styles,
+or custom styles defined in ``globalstyles.css``. Also note that these styles—not
+just grid layouts—can be altered at runtime to provide awesome results.
 
-    6. Integration with Other System Objects:
-        The grid system interacts with other x0 system objects, such as `sysObjDiv`, to create and manage the grid structure dynamically.
-
-- Workflow:
-
-    * Initialization:
-        The `sysGridGenerator` object is initialized with row/column styles and enclosure settings.
-
-    * Grid Generation:
-        - The generate method iterates over the source objects:
-            Groups objects into columns.
-            Groups columns into rows.
-        - The generated rows are returned as an array of `sysObjDiv` objects, each representing a grid row.
-
-    * Styling and Customization:
-        Rows and columns are styled dynamically using the provided CSS styles or default styles.
-
-9.1. Supported Object Types
-***************************
+10.2. Supported Object Types
+****************************
 
 Currently the following *x0-object-types* are supporting the *x0-grid* feature:
 
 * List
 * FormfieldList
 
-.. note::
-
-	The *x0-global-grid-system* does not provide rowspan formating, this can be
-	done otherwise by **directly referencing** or **designing own** *x0-system-objects*,
-	see example #9 or :ref:`devobjectmodeling`.
-
 .. warning::
 
-	You should be familiar with Bootstrap Grid system before continue reading.
+   You should be familiar with Bootstrap CSS / Grid system before continuing to read.
 
-9.2. Global JSON Metadata
-*************************
+10.3. Global JSON Metadata
+**************************
 
 If an *x0-object* supports *x0-global-grid-system* formatting the following
-properties can be set inside the objects "Attribute" representation.
+properties can be set inside the object's ``Attributes`` representation.
 
 .. table:: Global Grid Object Properties
-	:widths: 30 20 50
+   :widths: 30 20 50
 
-	+-------------------+----------------------+-------------------------------------------------------+
-	| **Property**      | **Type**             | **Description**                                       |
-	+===================+======================+=======================================================+
-	| RowStyle          | String / Array       | CSS Style Classes used for next Row-Element (Div)     |
-	+-------------------+----------------------+-------------------------------------------------------+
-	| RowAfterElements  | Integer / Array      | Generate Row-Element at next RowAfterElements reached |
-	+-------------------+----------------------+-------------------------------------------------------+
-	| ColStyle          | String / Array       | CSS Style Classes used for next Col-Element (Div)     |
-	+-------------------+----------------------+-------------------------------------------------------+
-	| ColAfterElements  | Integer / Array      | Generate Col-Element at next ColAfterElements reached |
-	+-------------------+----------------------+-------------------------------------------------------+
-	|                   |                      | Optional, Default 1                                   |
-	+-------------------+----------------------+-------------------------------------------------------+
+   +-------------------+----------------------+-------------------------------------------------------+
+   | **Property**      | **Type**             | **Description**                                       |
+   +===================+======================+=======================================================+
+   | RowStyle          | String / Array       | CSS Style Classes used for next Row-Element (Div)     |
+   +-------------------+----------------------+-------------------------------------------------------+
+   | RowAfterElements  | Integer / Array      | Generate Row-Element at next RowAfterElements reached |
+   +-------------------+----------------------+-------------------------------------------------------+
+   | ColStyle          | String / Array       | CSS Style Classes used for next Col-Element (Div)     |
+   +-------------------+----------------------+-------------------------------------------------------+
+   | ColAfterElements  | Integer / Array      | Generate Col-Element at next ColAfterElements reached |
+   +-------------------+----------------------+-------------------------------------------------------+
+   |                   |                      | Optional, Default 1                                   |
+   +-------------------+----------------------+-------------------------------------------------------+
 
-9.2.1. Input Data
------------------
+10.3.1. Input Data
+------------------
 
-The *x0-grid-system* processing requires an **Array of Elements** as input data.
+The *x0-grid-system* processing requires an array of *x0-object* references as input data.
 
 .. code-block:: javascript
 
-	[ el1, el2, el3, el4, el5, el6 ... ]
+   [
+      objref1, objref2, objref3, objref4, objref5, objref6
+   ]
 
-9.2.2. RowStyle / RowAfterElements
-----------------------------------
+10.3.2. RowStyle / RowAfterElements
+-----------------------------------
 
-``RowAfterElements`` is definable as a single string or an Array of Strings.
+``RowAfterElements`` is definable as a single integer or an array of integers.
 
 Setting ``"RowAfterElements": 1`` will generate a row container div with css
 class from ``RowStyle`` for each single Element.
 
 .. code-block:: html
 
-	<div class="row">
-		<el1></el1>
-	</div>
-	<div class="row">
-		<el2></el2>
-	</div>
-	<div class="row">
-		<el3></el3>
-	</div>
+   <div class="row">
+      <el1></el1>
+   </div>
+   <div class="row">
+      <el2></el2>
+   </div>
+   <div class="row">
+      <el3></el3>
+   </div>
 
 Setting ``"RowAfterElements": 2`` will generate divs like this:
 
 .. code-block:: html
 
-	<div class="row">
-		<el1></el1>
-		<el2></el2>
-	</div>
-	<div class="row">
-		<el3></el3>
-		<el4></el4>
-	</div>
+   <div class="row">
+      <el1></el1>
+      <el2></el2>
+   </div>
+   <div class="row">
+      <el3></el3>
+      <el4></el4>
+   </div>
 
-Setting ``"RowAfterElements": [ 1, 2 ]`` (Array type) like this:
+Setting ``"RowAfterElements": [ 1, 2 ]`` (array type) like this:
 
 .. code-block:: html
 
-	<div class="row">
-		<el1></el1>
-	</div>
-	<div class="row">
-		<el2></el2>
-		<el3></el3>
-	</div>
-	<div class="row">
-		<el4></el4>
-	</div>
-	<div class="row">
-		<el5></el5>
-		<el6></el6>
-	</div>
+   <div class="row">
+      <el1></el1>
+   </div>
+   <div class="row">
+      <el2></el2>
+      <el3></el3>
+   </div>
+   <div class="row">
+      <el4></el4>
+   </div>
+   <div class="row">
+      <el5></el5>
+      <el6></el6>
+   </div>
 
 Modifying ``"RowStyle": [ "row fw-bold", "row" ]`` renders:
 
 .. code-block:: html
 
-	<div class="row fw-bold">
-		<el1></el1>
-	</div>
-	<div class="row">
-		<el2></el2>
-		<el3></el3>
-	</div>
-	<div class="row fw-bold">
-		<el4></el4>
-	</div>
-	<div class="row">
-		<el5></el5>
-		<el6></el6>
-	</div>
+   <div class="row fw-bold">
+      <el1></el1>
+   </div>
+   <div class="row">
+      <el2></el2>
+      <el3></el3>
+   </div>
+   <div class="row fw-bold">
+      <el4></el4>
+   </div>
+   <div class="row">
+      <el5></el5>
+      <el6></el6>
+   </div>
 
-9.2.3. ColStyle / ColAfterElements
-----------------------------------
+10.3.3. ColStyle / ColAfterElements
+-----------------------------------
 
-ColAfterElements processing is likewise RowAfterElements processing,
-with the difference of generating a **column** container div instead
-of a **row** container div.
+``ColAfterElements`` processing works just like ``RowAfterElements``
+processing, with the difference of generating a **column** container div
+instead of a **row** container div.
 
 .. note::
+   Note that ColAfterElements default value is ``[1]``, so the container
+   div including CSS will be set for each processed element.
 
-    Note that ColAfterElements default value is ``[1]``, so the container
-	div including CSS will be set for each processed element.
 
+.. code-block:: json
 
-.. code-block:: javascript
-
-	"RowStyle": [ "row fw-bold", "row" ],
-	"RowAfterElements": [ 1, 2 ],
-	"ColStyle": "col-md-12"
-	"ColAfterElements": [ 1, 2 ]
+   {
+      "RowStyle": [ "row fw-bold", "row" ],
+      "RowAfterElements": [ 1, 2 ],
+      "ColStyle": "col-md-12",
+      "ColAfterElements": [ 1, 2 ]
+   }
 
 .. code-block:: html
 
-	<div class="row fw-bold">
-		<div class="col-md-12">
-			<el1></el1>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<el2></el2>
-			<el3></el3>
-		</div>
-	</div>
-	<div class="row fw-bold">
-		<div class="col-md-12">
-			<el4></el4>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<el5></el5>
-			<el6></el>
-		</div>
-	</div>
+   <div class="row fw-bold">
+      <div class="col-md-12">
+         <el1></el1>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-12">
+         <el2></el2>
+         <el3></el3>
+      </div>
+   </div>
+   <div class="row fw-bold">
+      <div class="col-md-12">
+         <el4></el4>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-12">
+         <el5></el5>
+         <el6></el>
+      </div>
+   </div>
 
-9.3. Example List
-*****************
+10.4. Example List
+******************
 
-.. code-block:: javascript
+.. code-block:: json
 
-	"RowStyle": "row",
-	"RowAfterElements": [ 2, 4 ]
-	"ColStyle": [
-		"col-md-5",
-		"col-md-7",
-		"col-md2",
-		"col-md3",
-		"col-md3",
-		"col-md5"
-	]
+   {
+      "RowStyle": "row",
+      "RowAfterElements": [ 2, 4 ],
+      "ColStyle": [
+         "col-md-5",
+         "col-md-7",
+         "col-md-2",
+         "col-md-3",
+         "col-md-3",
+         "col-md-5"
+      ]
+   }
 
 Without table header the resulting output looks like the following.
 
-.. code-block:: javascript
+.. code-block:: text
 
-	+---------------------------------+---------------------------------+
-	| Col1 (col-md-5)                 | Col2 (col-md-7)                 |
-	+----------------+----------------+----------------+----------------+
-	| Col3 (col-md2) | Col4 (col-md3) | Col5 (col-md3) | Col6 (col-md5) |
-	+---------------------------------+---------------------------------+
-	| Col1 (col-md-5)                 | Col2 (col-md-7)                 |
-	+----------------+----------------+----------------+----------------+
-	| Col3 (col-md2) | Col4 (col-md3) | Col5 (col-md3) | Col6 (col-md5) |
-	+----------------+----------------+----------------+----------------+
+   +-----------------------------------------+-----------------------------------------+
+   | Col1 (col-md-5)                         | Col2 (col-md-7)                         |
+   +--------------------+--------------------+--------------------+--------------------+
+   | Col3 (col-md-2)    | Col4 (col-md-3)    | Col5 (col-md-3)    | Col6 (col-md-5)    |
+   +--------------------+--------------------+--------------------+--------------------+
+   | Col1 (col-md-5)                         | Col2 (col-md-7)                         |
+   +--------------------+--------------------+--------------------+--------------------+
+   | Col3 (col-md-2)    | Col4 (col-md-3)    | Col5 (col-md-3)    | Col6 (col-md-5)    |
+   +--------------------+--------------------+--------------------+--------------------+
 
-9.4. Developer
-**************
+.. _dynamic-restructuring:
 
-Any *x0-system-object* can make use of the global grid formatting routines in
-case an Array of Elements exists as input data.
+10.5. Dynamic Restructuring
+***************************
 
-Checkout the developer documentation how to implement grid formating into your
-self designed *x0-objects*.
+While the previous sections describe ``sysGridGenerator`` as the mechanism used to lay
+out a grid during the **initial build** of a screen, the grid system is **not** limited
+to being a static, load-time-only layout tool. Because ``sysGridGenerator.generate()``
+is a plain method operating on an in-memory array of source objects, it can be invoked
+**repeatedly at runtime**, allowing an already rendered grid to be torn down and rebuilt with
+different row/column styles, enclosure counts or source data at any point during the
+application's lifetime.
+
+10.5.1. Empirical Proof
+-----------------------
+
+An excellent example of this dynamic restructuring is the **Settings menu**. You can see
+it in action by navigating to: **Main Menu → Settings / Global Settings → Default Settings (Tab)
+→ Adjust Grid / Column View** inside the *x0-static* Docker container.
+
+Here is how it works under the hood:
+
+- **Instant Layout Changes:** In this section, you can select different grid layouts (variants) from a dropdown menu. When you choose a variant and click **Update View**, the system doesn't just resize a few columns. Instead, it instantly wipes out the current layout and builds a completely new one from scratch—for example, switching from a 3-column to a 6-column view in a single step.
+- **Zero Delay:** Because this entire process happens directly inside your web browser (client-side), the change is immediate.
+- **No Server Load:** The system does not need to reload the page, refresh templates, or talk to the backend server at all. Everything updates instantly on your screen without a single network request.
+
+10.6. Systems Integration
+*************************
+
+Any *x0-system-object* (including hierarchical ones) can make use of the global grid
+formatting routines provided that an array of elements is passed as input data.
+
+Check out the developer documentation to learn how to implement grid formatting
+into your custom-designed *x0-objects*, starting at :ref:`dev-architecture`.
