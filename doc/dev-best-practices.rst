@@ -800,11 +800,207 @@ client-side function, *x0* provides specialized button object types:
 24.7.2. Context Menu
 ********************
 
+This section explains how to programmatically add context menu functionality
+to your custom objects. The following code registers a right-click listener on
+the object's corresponding ``div`` element, for declarative context menu configuration,
+see :ref:`context-menu`.
+
+.. important::
+
+   Without initializing ``this.EventListeners`` in the constructor, the
+   context menu will not work.
+
+.. code-block:: javascript
+
+   //------------------------------------------------------------------------------
+   //- CONSTRUCTOR "sysObjCustomObj"
+   //------------------------------------------------------------------------------
+
+   function sysObjCustomObj()
+   {
+      this.EventListeners = new Object();    //- Event Listener Configuration
+   }
+
+   //------------------------------------------------------------------------------
+   //- METHOD "init"
+   //------------------------------------------------------------------------------
+
+   sysObjCustomObj.prototype.init = function()
+   {
+      let EventListenerObj = new Object();
+      EventListenerObj['Type'] = 'mousedown';
+      EventListenerObj['Element'] = this.EventListenerRightClick.bind(this);
+      this.EventListeners['ContextMenuOpen'] = EventListenerObj;
+   };
+
+How the listener registration works:
+
+- ``this.EventListeners``: Must be initialized as an ``Object`` in the
+  constructor so the framework can attach DOM event listeners during rendering.
+- ``EventListenerObj['Type']``: Specifies the DOM event type—for example,
+  ``'mousedown'`` to capture mouse button presses. Any other standard DOM
+  event type is also supported here.
+- ``EventListenerObj['Element']``: Holds the bound class method reference that
+  will be invoked when the event occurs.
+- ``this.EventListeners['ContextMenuOpen']``: Registers the listener under a
+  unique key name on the object.
+
+The listener registration always follows this same principle, whereas
+implementing the context menu items themselves involves a few specific details,
+covered after the example.
+
+Finally, implement the right-click handler to instantiate and display the
+``sysContextMenu``. The following example generates a context menu containing a
+single ``"RemoveItem"`` entry:
+
+.. code-block:: javascript
+
+   //------------------------------------------------------------------------------
+   //- METHOD "EventListenerRightClick"
+   //------------------------------------------------------------------------------
+
+   sysObjCustomObj.prototype.EventListenerRightClick = function(Event)
+   {
+      const ContextMenuItems = [
+         {
+            "ID": "RemoveItem",
+            "TextID": "TXT.SYS.CONTEXTMENU.MENUENTRY.REMOVE_DATA",
+            "IconStyle": "fa-solid fa-trash",
+            "CallbackFunction": this.remove,
+            "CallbackObjRef": this
+         }
+      ];
+
+      //- check for right click on mousedown
+      if (Event.button == 2 && ContextMenuItems !== undefined)
+      {
+         let ContextMenu          = new sysContextMenu();
+
+         ContextMenu.ID           = 'CtMenu' + this.ObjectID;
+         ContextMenu.ItemConfig   = ContextMenuItems;
+         ContextMenu.ScreenObject = this.ScreenObject;
+         ContextMenu.ParentObject = this;
+         ContextMenu.pageX        = Event.pageX;
+         ContextMenu.pageY        = Event.pageY;
+
+         ContextMenu.init();
+      }
+   };
+
+Key properties of the menu item definition (``ContextMenuItems``) and the
+``sysContextMenu`` instance:
+
+- ``ID``: Unique identifier for the individual menu entry.
+- ``TextID``: Multilanguage text identifier from ``webui.text`` database table
+  or static ``/static/meta/text-data.json`` used for the menu label display.
+- ``IconStyle``: Font Awesome icon CSS classes rendered next to the menu label.
+- ``Event.button == 2``: Filters the ``mousedown`` event so the context menu
+  only opens on a right-click (secondary mouse button).
+- ``ContextMenu.ID``: Sets a unique DOM ID for the popup menu by combining a
+  prefix with ``this.ObjectID``, preventing collisions across multiple
+  instances.
+- ``ContextMenu.ItemConfig``: Passes the array of menu entry definitions to
+  the menu instance.
+- ``ContextMenu.ScreenObject``: This reference **must** be a valid ScreenObject
+  reference, otherwise context menu rendering fails.
+- ``ContextMenu.ParentObject``: Links the context menu to its owning parent
+  object.
+- ``ContextMenu.pageX`` & ``ContextMenu.pageY``: Positions the context menu at
+  the exact cursor coordinates where the right-click occurred.
+- ``ContextMenu.init()``: Initializes and renders the context menu immediately
+  at the specified coordinates.
+
+To register functionality, also there must be distinguished between two different
+types:
+
+1. Own Function Callbacks inside the custom object
+2. Internal Function Dispatching, using the x0-systems internal ``sysFunctionDispatcher``
+
+**Own Function Callbacks:**
+
+- ``CallbackFunction`` & ``CallbackObjRef``: The method to execute when the
+user selects the entry, paired with the target object context (``this``) on
+which that method is invoked.
+- ``CallbackFunction`` & ``CallbackObjRef``: The method to execute when the
+user selects the entry, paired with the target object context (``this``) on
+which that method is invoked.
+
+**Function Dispatching:**
+
+
 24.7.3. Button Callback
 ***********************
 
+``ButtonCallback`` is the simplest abstraction model for executing custom
+client-side logic inside a custom class design. Under the hood, it utilizes the
+event listener mechanism described in the next section, but encapsulates the
+wiring so you do not have to manage raw DOM event bindings manually.
+
+If this lightweight callback model is not sufficient—for instance, when you
+need to listen for non-click DOM events such as ``keyup``, ``change``, or
+``mouseover``—you can fall back to registering custom ``EventListeners``
+directly.
+
+In the example below, a ``ButtonCallback`` is created inside a custom object's
+``init()`` method and bound to the system's fixed ``this.ButtonCallback()``
+method:
+
+.. code-block:: javascript
+
+   //------------------------------------------------------------------------------
+   //- METHOD "init"
+   //------------------------------------------------------------------------------
+
+   sysObjCustomObj.prototype.init = function()
+   {
+      let BtnAction = new sysObjButtonCallback();
+      BtnAction.ObjectID = 'BtnCallback';
+      BtnAction.JSONConfig = {
+         "Attributes": {
+            "Style": "btn btn-sm btn-primary",
+            "TextID": "TXT.BUTTON"
+         }
+      };
+
+      //- bind callback target and callback identifier passed as FunctionID parameter
+      BtnAction.setCallback(this, 'click');
+
+      BtnAction.init();
+      this.addObject(BtnAction);
+   };
+
+   //------------------------------------------------------------------------------
+   //- METHOD "ButtonCallback"
+   //------------------------------------------------------------------------------
+
+   sysObjCustomObj.prototype.ButtonCallback = function(FunctionID)
+   {
+      if (FunctionID == 'click')
+      {
+         console.log('Button click');
+      }
+   };
+
+How ``ButtonCallback`` routes clicks:
+
+- ``BtnAction.setCallback(this, 'click')``: Registers the owning custom object
+  (``this``) as the callback target and assigns a string identifier
+  (``'click'``) to distinguish between multiple callback buttons on the same
+  parent object.
+- ``this.ButtonCallback(FunctionID)``: The fixed handler method invoked on the
+  target object whenever any bound ``ButtonCallback`` is clicked, receiving
+  the configured ``FunctionID`` string so you can dispatch different actions
+  via ``if`` or ``switch`` statements.
+
 24.7.4. Event Listeners
 ***********************
+
+When predefined triggers such as ``Button``, ``ContextMenu``, or
+``ButtonCallback`` do not cover your interaction requirements, *x0* lets you
+bind native browser DOM events directly to methods on your custom object via
+``this.EventListeners``.
+
+
 
 24.8. Complex Objects
 ---------------------
