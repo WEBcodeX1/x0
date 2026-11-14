@@ -695,7 +695,7 @@ The following is a practical CustomObj example that specifically demonstrates th
                            "DOMType": "button",
                            "Style": "btn",
                            "OnClick": "https://backend.com/service.py",
-                           "SrcDataObjects": [ "FormList1", "FormList2" ]
+                           "SrcDataObjects": [ "Formlist1", "Formlist2" ]
                         }
                      }
                   ]
@@ -721,6 +721,28 @@ with ``Index`` set to ``1``:
      </div>
    </div>
 
+Short overview of **what** happens and **why**:
+
+- ``this.ObjectType`` is set to ``'CustomObj'``; however, the class must still be
+  registered with ``sysFactory`` and the object loader (see :ref:`<insert-target>`).
+- ``this.ObjectID`` is set dynamically using ``Index``. The base name is set to
+  ``CustomObjRowCtr`` because ``ObjectID`` values in the parent object (controller role)
+  follow a ``CustomObj*`` naming pattern, avoiding naming schema conflicts.
+- ``this.DOMStyle`` defines the container's CSS classes.
+- ``this.ChildObjects`` must be initialized as an empty ``Array``; otherwise, child
+  objects will not be processed.
+- The class inherits from ``sysObjDivUnique``, so no parent ``ObjectID`` prefix is
+  prepended during DOM ID generation—only the exact name set in the constructor is used.
+- Three child objects are added recursively: first, a ``Div`` object named ``CtrRow``;
+  second, a ``Div`` object named ``CtrCol`` attached to ``CtrRow``; and third, a
+  ``Button`` object attached to ``CtrCol``.
+- All three child objects are connected cleanly using ``sysFactory.setupObjectRefsRecursive()``.
+- The button is configured to trigger a backend service call with runtime data from the
+  objects with ``ObjectID`` ``Formlist1`` and ``Formlist2`` appended to the JSON payload
+  (these objects do not currently exist and are shown for demonstration purposes only).
+- The objects with ``ObjectID`` ``CtrRow`` and ``CtrCol`` act as presentational containers
+  only and therefore use the *x0-object-type* ``Div`` rather than ``DivUnique``.
+
 24.7. Object Interaction
 ------------------------
 
@@ -744,8 +766,10 @@ Only Button and Context Menu, ButtonInternal currently
 24.9. Realtime Pagination
 -------------------------
 
-24.10. Object Register
-----------------------
+24.10. Register Classes
+-----------------------
+
+
 
 24.11. Generic Data Model
 -------------------------
