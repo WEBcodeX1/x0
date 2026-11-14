@@ -572,17 +572,175 @@ This approach also lets you compose and combine multiple ``ObjDefs`` arrays prog
 making it easy to maintain clarity even in complex components whose content or child object
 types change dynamically at runtime.
 
-24.x. Event Listeners
+24.6.3. overrideDOMObjectID
+***************************
+
+It is also possible to vary ``this.overrideDOMObjectID`` within a nested object chain.
+Selectively setting ``this.overrideDOMObjectID`` to ``false`` or ``true`` should be
+considered in specific scenarios, particularly when dynamically creating ``ObjectID``
+values.
+
+Consider the following illustration, which shows how this approach can be useful even
+within a **static** *x0-object-type*:
+
+.. code-block:: text
+
+   +-----------------------+      +-----------------------+      +-----------------------+
+   |        ``Div``        | -->  |        ``Div``        | -->  |        ``Div``        |
+   +-----------------------+      +-----------------------+      +-----------------------+
+   |  overrideDOMObjectID  |      |  overrideDOMObjectID  |      |  overrideDOMObjectID  |
+   |        false          |      |         false         |      |         false         |
+   +-----------------------+      +-----------------------+      +-----------------------+
+   |     "RootObject"      |      |         "Row"         |      |         "Col1"        |
+   +-----------------------+      +-----------------------+      +-----------------------+
+
+This concept works well, provided you use a sensible naming schema for the subsequent layers.
+The resulting DOM IDs are ``RootObject``, ``RootObject_Row``, and ``RootObject_Row_Col1``.
+
+.. tip::
+   Keep ``ObjectID`` names short for this approach to work cleanly, while keeping a few
+   important constraints in mind.
+
+Note that naming an ``ObjectID`` ``Row`` will likely create duplicates. However, this is
+not an issue as long as the implementer is aware of the resulting consequences and limitations.
+
+When objects with **duplicate names** act **exclusively** as presentational (CSS) elements
+without containing any logical constructs (such as the ``Div`` *x0-object-type*), the implementer
+can use as many of them system-wide as needed.
+
+The only consequence is that these objects are non-unique and therefore cannot be addressed
+via ``sysFactory.getObjectByID()``.
+
+For **dynamic object creation**, consider the following illustration (only the beginning
+of the object chain is shown):
+
+.. code-block:: text
+
+   +-----------------------+      +-----------------------+      +-----------------------+
+   |     ``DivUnique``     | -->  |        ``Div``        | -->  |        ``Div``        |
+   +-----------------------+      +-----------------------+      +-----------------------+
+   |  overrideDOMObjectID  |      |  overrideDOMObjectID  |      |  overrideDOMObjectID  |
+   |          true         |      |         false         |      |         false         |
+   +-----------------------+      +-----------------------+      +-----------------------+
+   |         "Row1"        |      |        "CtrRow"       |      |       "CtrCol1"       |
+   +-----------------------+      +-----------------------+      +-----------------------+
+
+As shown in the illustration above, when dynamically creating multiple row objects inside
+a list-like object, use a ``DivUnique`` as the first element and include the **row index**
+in the ``ObjectID`` to make it unique. Then, for container-only (CSS) objects, the ``Div``
+type and a non-dynamic, simple ``ObjectID`` are sufficient.
+
+This generates clean DOM IDs **and** improves performance because these objects are not
+added to the internal system structures—avoiding significant overhead when rendering a large
+number of rows.
+
+.. important::
+   When building your custom class, ``this.ObjectID`` **is** the first (root) element;
+   inheriting from the appropriate *x0-object-type*—as shown in the practical example in
+   the next chapter—handles this automatically.
+
+24.6.4. Class Example
+*********************
+
+The following is a practical CustomObj example that specifically demonstrates the
+``overrideDOMObjectID`` behavior from the previous chapter.
+
+.. code-block:: javascript
+
+   //------------------------------------------------------------------------------
+   //- CONSTRUCTOR "sysObjCustomObj"
+   //------------------------------------------------------------------------------
+
+   function sysObjCustomObj(Index)
+   {
+      this.ObjectType  = 'CustomObj';                //- System Object Type
+      this.ObjectID    = 'CustomObjRowCtr' + Index;  //- Unique ObjectID
+      this.DOMStyle    = 'container';                //- CSS
+   }
+
+   //- inherit sysDivUnique, setting overrideDOMObjectID = true
+   sysObjCustomObj.prototype = new sysObjDivUnique();
+
+
+   //------------------------------------------------------------------------------
+   //- METHOD "init"
+   //------------------------------------------------------------------------------
+
+   sysObjCustomObj.prototype.init = function()
+   {
+      //- process initialization
+      const Attributes = this.JSONConfig.Attributes;
+
+      //- declarative define object tree
+      let ObjDefs = [
+         {
+            "id": "CtrRow",
+            "SysObject": new sysObjDiv(),
+            "JSONAttributes": {
+               "Style": "row"
+            },
+            "ObjectDefs": [
+               {
+                  "id": "CtrCol",
+                  "SysObject": new sysObjDiv(),
+                  "JSONAttributes": {
+                     "Style": "col col-md-12"
+                  },
+                  "ObjectDefs": [
+                     {
+                        "id": "Btn" + this.ObjectID,
+                        "SysObject": new sysObjButton(),
+                        "JSONAttributes": {
+                           "DOMType": "button",
+                           "Style": "btn",
+                           "OnClick": "https://backend.com/service.py",
+                           "SrcDataObjects": [ "FormList1", "FormList2" ]
+                        }
+                     }
+                  ]
+               }
+            ]
+         }
+      ];
+
+      //- build object relations
+      sysFactory.setupObjectRefsRecursive(ObjDefs, this);
+   }
+
+This results in the following HTML output, assuming the constructor is called
+with ``Index`` set to ``1``:
+
+.. code-block:: html
+
+   <div id="CustomObjRowCtr1">
+     <div id="CustomObjRowCtr1_CtrRow" class="row">
+       <div id="CustomObjRowCtr1_CtrRow_CtrCol" class="col col-md-12">
+         <button id="BtnCustomObjRowCtr1" class="btn"></button>
+       </div>
+     </div>
+   </div>
+
+24.7. Complex Objects
 ---------------------
 
-24.x. Intermediate Classes
---------------------------
-
-24.x. Complex Objects
----------------------
-
-24.x. Generic Data Model
-------------------------
-
-24.x. Realtime Pagination
+24.8. Logical Progression
 -------------------------
+
+24.8.2. Button Types
+********************
+
+24.8.3. Button Callback
+***********************
+
+24.8.4. Event Listeners
+***********************
+
+24.9. Realtime Pagination
+-------------------------
+
+24.10. Object Register
+----------------------
+
+24.11. Generic Data Model
+-------------------------
+
