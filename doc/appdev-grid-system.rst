@@ -58,26 +58,26 @@ If an *x0-object* supports *x0-global-grid-system* formatting the following
 properties can be set inside the object's ``Attributes`` representation.
 
 .. table:: Global Grid Object Properties
-   :widths: 30 20 50
+   :widths: 20 30 50
 
-   +-------------------+----------------------+-------------------------------------------------------+
-   | **Property**      | **Type**             | **Description**                                       |
-   +===================+======================+=======================================================+
-   | RowStyle          | String / Array       | CSS Style Classes used for next Row-Element (Div)     |
-   +-------------------+----------------------+-------------------------------------------------------+
-   | RowAfterElements  | Integer / Array      | Generate Row-Element at next RowAfterElements reached |
-   +-------------------+----------------------+-------------------------------------------------------+
-   | ColStyle          | String / Array       | CSS Style Classes used for next Col-Element (Div)     |
-   +-------------------+----------------------+-------------------------------------------------------+
-   | ColAfterElements  | Integer / Array      | Generate Col-Element at next ColAfterElements reached |
-   +-------------------+----------------------+-------------------------------------------------------+
-   |                   |                      | Optional, Default 1                                   |
-   +-------------------+----------------------+-------------------------------------------------------+
+   +-------------------+--------------------------+-------------------------------------------------------+
+   | **Property**      | **Type**                 | **Description**                                       |
+   +===================+==========================+=======================================================+
+   | RowStyle          | ``String``/``Array``     | CSS Style Classes used for next Row-Element           |
+   +-------------------+--------------------------+-------------------------------------------------------+
+   | RowAfterElements  | ``Integer``/``Array``    | Generate Row-Element at next RowAfterElements reached |
+   +-------------------+--------------------------+-------------------------------------------------------+
+   | ColStyle          | ``String``/``Array``     | CSS Style Classes used for next Col-Element           |
+   +-------------------+--------------------------+-------------------------------------------------------+
+   | ColAfterElements  | ``Integer``/``Array``    | Generate Col-Element at next ColAfterElements reached |
+   +-------------------+--------------------------+-------------------------------------------------------+
+   |                   |                          | Optional, Default 1                                   |
+   +-------------------+--------------------------+-------------------------------------------------------+
 
 10.3.1. Input Data
 ------------------
 
-The *x0-grid-system* processing requires an array of *x0-object* references as input data.
+The *x0-grid-system* processing requires an ``Array`` of *x0-object* references as input data.
 
 .. code-block:: javascript
 
@@ -88,7 +88,7 @@ The *x0-grid-system* processing requires an array of *x0-object* references as i
 10.3.2. RowStyle / RowAfterElements
 -----------------------------------
 
-``RowAfterElements`` is definable as a single integer or an array of integers.
+``RowAfterElements`` is definable as a single ``Integer`` or an ``Array`` of ``Integers``.
 
 Setting ``"RowAfterElements": 1`` will generate a row container div with css
 class from ``RowStyle`` for each single Element.
@@ -118,7 +118,7 @@ Setting ``"RowAfterElements": 2`` will generate divs like this:
       <el4></el4>
    </div>
 
-Setting ``"RowAfterElements": [ 1, 2 ]`` (array type) like this:
+Setting ``"RowAfterElements": [ 1, 2 ]`` (``Array`` type) like this:
 
 .. code-block:: html
 
@@ -242,7 +242,7 @@ Without table header the resulting output looks like the following.
 While the previous sections describe ``sysGridGenerator`` as the mechanism used to lay
 out a grid during the **initial build** of a screen, the grid system is **not** limited
 to being a static, load-time-only layout tool. Because ``sysGridGenerator.generate()``
-is a plain method operating on an in-memory array of source objects, it can be invoked
+is a plain method operating on an in-memory ``Array`` of source objects, it can be invoked
 **repeatedly at runtime**, allowing an already rendered grid to be torn down and rebuilt with
 different row/column styles, enclosure counts or source data at any point during the
 application's lifetime.
@@ -264,7 +264,7 @@ Here is how it works under the hood:
 *************************
 
 Any *x0-system-object* (including hierarchical ones) can make use of the global grid
-formatting routines provided that an array of elements is passed as input data.
+formatting routines provided that an ``Array`` of elements is passed as input data.
 
 Check out the developer documentation to learn how to implement grid formatting
 into your custom-designed *x0-objects*, starting at :ref:`dev-architecture`.
