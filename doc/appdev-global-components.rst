@@ -127,9 +127,9 @@ configuration at screen setup.
 .. code-block:: json
 
    {
-      "ExampleFormList2":
+      "ExampleFormlist2":
       {
-         "InstanceOf": "ExampleFormList1"
+         "InstanceOf": "ExampleFormlist1"
       }
    }
 
