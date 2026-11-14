@@ -120,7 +120,7 @@ the system with custom, programmatic validation routines.
                "PasswordNew",
                "PasswordRepeat"
             ],
-            "ValidateErrorTextID": "TXT.VALIDATE.PASSWORD-MISMATCH"
+            "ValidateErrorTextID": "TXT.VALIDATE.PASSWORD_MISMATCH"
          }
       ]
    }
@@ -398,16 +398,16 @@ the **RecordPriority** destination object is only *enabled* for editing when the
             "Options":
             [
                {
-                  "TextID": "TXT.PULLDOWN.RECORD-TYPE.A",
+                  "TextID": "TXT.PULLDOWN.RECORD_TYPE.A",
                   "Value": "A",
                   "Default": true
                },
                {
-                  "TextID": "TXT.PULLDOWN.RECORD-TYPE.CNAME",
+                  "TextID": "TXT.PULLDOWN.RECORD_TYPE.CNAME",
                   "Value": "CNAME"
                },
                {
-                  "TextID": "TXT.PULLDOWN.RECORD-TYPE.MX",
+                  "TextID": "TXT.PULLDOWN.RECORD_TYPE.MX",
                   "Value": "MX"
                }
             ],
