@@ -30,7 +30,7 @@ auxiliary state directly inside the DOM through invisible, unmanaged input eleme
 the object model. When combined with the ``SrcDataObjects`` (*SourceDataObjects*)
 mechanism (see :ref:`event-system`), global data — or screen-scoped global data —
 can be selectively included in the payload of any backend service call, without
-requiring a corresponding, ``Formfield`` of type **hidden** to carry the value.
+requiring a corresponding ``Formfield`` of type **hidden** to carry the value.
 
 - **Global Data** — application-wide key/value pairs accessible from any screen at
   any time via ``sysFactory.getGlobalVar()`` / ``sysFactory.setGlobalVar()``.
@@ -110,7 +110,7 @@ entry by entry, a new entry can simply reference an existing one as its source a
 optionally, adjust only the attributes that need to differ.
 
 In ``object.json``, a single object declarative configuration allows an entry to be
-declared as a *instance* of another, already-defined object instead of repeating its
+declared as an *instance* of another, already-defined object instead of repeating its
 full definition.
 
 14.3.1. InstanceOf
