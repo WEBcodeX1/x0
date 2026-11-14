@@ -743,13 +743,59 @@ Short overview of **what** happens and **why**:
 - The objects with ``ObjectID`` ``CtrRow`` and ``CtrCol`` act as presentational containers
   only and therefore use the *x0-object-type* ``Div`` rather than ``DivUnique``.
 
-24.7. Object Interaction
-------------------------
+24.7. Object Communication
+--------------------------
+
+Without communication and interaction between UI objects and backend services, a
+modern web application lacks essential functionality. The *x0-core* provides
+built-in mechanisms to handle both the declarative model used by shipped
+*x0-system-objects* and the programmatic model used in the underlying layer
+within *x0-system-objects*.
+
+Predefined *x0-system-objects* and declarative mechanisms include:
+
+- ``Button``
+- ``ButtonInternal``
+- ``ContextMenu``
+- *x0-events* driven by the ``x0::reactor`` component inside ``Button`` and
+  ``ContextMenu``
+
+At a lower, programmatic abstraction level—upon which the predefined
+*x0-system-objects* themselves are built—developers can also use:
+
+- **Event Listeners:** Mechanism for binding native DOM events directly to
+  object methods.
+- **Button Callbacks:** Mapping user actions to internal JavaScript callback
+  functions.
+- **Reactor Events:** Decoupled publish/subscribe event dispatching via
+  ``x0::reactor`` for cross-object communication.
 
 24.7.1. Button Types
 ********************
 
-Only Button and Context Menu, ButtonInternal currently
+Depending on whether an action triggers a remote backend service or an internal
+client-side function, *x0* provides specialized button object types:
+
+- ``Button``: Triggers an asynchronous backend service call (defined via
+  ``OnClick``) and optionally appends runtime data from specified source
+  objects (``SrcDataObjects``) to the service payload.
+- ``ButtonInternal``: Executes internal framework or object-level actions
+  without issuing a remote backend request.
+- ``ButtonCallback``: Maps a button click directly to a custom JavaScript
+  callback function on the target object instance.
+
+.. note::
+
+   Currently, declarative JSON configuration supports ``Button``,
+   ``ButtonInternal``, and ``ContextMenu`` directly, whereas ``ButtonCallback``
+   is primarily used programmatically inside custom classes.
+
+.. warning::
+
+   Currently, ``ButtonInternal`` has limited utility in both the declarative
+   and programmatic models. For *x0* version 1.2, it is planned to refactor and
+   merge the ``Action`` and ``FunctionDispatch`` subsystems into a unified,
+   cleaner model.
 
 24.7.2. Context Menu
 ********************
