@@ -71,15 +71,15 @@ You can use **any Linux distribution** where Debian packages can be built native
 
 **Base requirements:**
 
-- `Apache2` with Python3 WSGI — https://httpd.apache.org
-- `PostgreSQL 14` — https://www.postgresql.org
-- `psycopg2` (PostgreSQL DB interface) — https://pypi.org/project/psycopg2
-- `python-db-pool` — https://github.com/clauspruefer/python-db-pool
-- `Bootstrap 5.3` — https://getbootstrap.com
-- `Sphinx` + RTD theme — https://www.sphinx-doc.org
-- `Selenium` — https://www.selenium.dev
-- `Chromedriver` — https://chromedriver.chromium.org
-- `Docker` — https://www.docker.com
+- ``Apache2`` with Python3 WSGI — https://httpd.apache.org
+- ``PostgreSQL 14`` — https://www.postgresql.org
+- ``psycopg2`` (PostgreSQL DB interface) — https://pypi.org/project/psycopg2
+- ``python-db-pool`` — https://github.com/clauspruefer/python-db-pool
+- ``Bootstrap 5.3`` — https://getbootstrap.com
+- ``Sphinx`` + RTD theme — https://www.sphinx-doc.org
+- ``Selenium`` — https://www.selenium.dev
+- ``Chromedriver`` — https://chromedriver.chromium.org
+- ``Docker`` — https://www.docker.com
 
 **For GKE (Google Kubernetes Engine) deployments:**
 
