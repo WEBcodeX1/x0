@@ -73,10 +73,8 @@ generates a DOM layer with a configurable CSS class attribute, using the outer
 HTML tag specified in ``DOMType`` (defaulting to ``div`` when omitted).
 
 It should **never** be used directly in a **declarative configuration**—use
-``DivUnique`` or ``DivValue`` instead. In **programmatic, custom**
-*x0-system-classes*, the ``Div`` *x0-object-type* is used exclusively as an
-**intermediate element** in nested hierarchies. This concept is described
-in detail in the System Developer Documentation under :ref:`dev-object-nesting`.
+``DivUnique`` or ``DivValue`` instead. For details on how to use the ``Div``
+*x0-object-type* within *x0-system-classes*, refer to :ref:`dev-object-nesting`.
 
 11.1.1. Object Attributes
 *************************
@@ -1103,11 +1101,10 @@ single-container modeling within the declarative scope of ``object.json``.
 
 When using ``DivUnique`` inside the **programmatic** scope (building custom
 *x0-object-types*), the implementor must **ensure** the uniqueness of each
-assigned ObjectID (e.g., for dynamically created row containers). In contrast,
+assigned ``ObjectID`` (e.g., for dynamically created row containers). In contrast,
 the standard ``Div`` *x0-object-type* is explicitly used in nested programmatic
-setups as an intermediate structural layer without logic. This concept is
-described in detail in the System Developer Documentation under
-:ref:`dev-object-nesting`.
+setups as a structural layer without logic. This concept is described in detail
+in the System Developer Documentation under :ref:`dev-object-nesting`.
 
 11.15.1. Object Attributes
 **************************
