@@ -1409,7 +1409,7 @@ In ``object.json``:
          "Attributes":
          {
             "DOMType": "h2",
-            "TextID": "TXT.HEADER.EXAMPLE_TEXT1",
+            "TextID": "TXT.HEADER.EXAMPLE_TEXT2",
             "Style": "text-primary-emphasis"
          }
       }
