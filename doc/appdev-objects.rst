@@ -218,7 +218,7 @@ actions **after successful** execution, and ``FireEvents`` dispatches
    +-------------------+----------------------+---------------------------------------------------+
    | IconStylePost     | ``String``           | Font Awesome Icon CSS for Append Icon             |
    +-------------------+----------------------+---------------------------------------------------+
-   | FormButton        | ``Boolean``          | Treat Button as HTML form input type ``"button"`` |
+   | FormButton        | ``Boolean``          | Treat Button as HTML form input type ``button``   |
    +-------------------+----------------------+---------------------------------------------------+
    | Disabled          | ``Boolean``          | Disable Functionality Initially                   |
    +-------------------+----------------------+---------------------------------------------------+
@@ -294,7 +294,7 @@ is that it lacks backend functionality; otherwise, its behavior is identical.
    +---------------------+------------------+-----------------------------------------------------+
    | IconStylePost       | ``String``       | Font Awesome Icon CSS for Append Icon               |
    +---------------------+------------------+-----------------------------------------------------+
-   | FormButton          | ``Boolean``      | Treat Button as HTML form input type ``"button"``   |
+   | FormButton          | ``Boolean``      | Treat Button as HTML form input type ``button``     |
    +---------------------+------------------+-----------------------------------------------------+
    | Disabled            | ``Boolean``      | Disable Functionality Initially                     |
    +---------------------+------------------+-----------------------------------------------------+
