@@ -9,10 +9,10 @@ This chapter documents the **architectural model** of the *x0-framework*: the sm
 **foundational classes** that every *x0-system-object* is built upon, and the **core engine**
 components that instantiate, connect, and drive these objects at **runtime**. Together, they
 form a **pointer-based recursive object model**: every object holds a direct reference
-(`ParentObject`) to its parent and an array of direct references (`ChildObjects`) to
+(``ParentObject``) to its parent and an array of direct references (``ChildObjects``) to
 its children. As a result, the entire application state at any point in time is simply
 one **in-memory object graph**, partitioned (segmented for performance reasons) and rooted
-at each screen's `HierarchyRootObject`.
+at each screen's ``HierarchyRootObject``.
 
 .. code-block:: text
 
@@ -245,7 +245,7 @@ notification indicators, dynamic radio lists) tractable without a virtual-DOM di
     - ``getChildObjectByIndex(Index)``: Direct, non-recursive access into
       ``this.ChildObjects``.
     - ``getChildIndexByChildItemID(CheckID)``: Returns the array index of the direct
-      child whose ``ObjectID`` matches ``CheckID`` — used internally by `remove()`
+      child whose ``ObjectID`` matches ``CheckID`` — used internally by ``remove()``
       (see 22.3.7).
     - ``getObjectsByAttribute(Attribute)``: Recursively collects every object in the
       subtree whose ``JSONConfig.Attributes`` declares the given attribute key.
