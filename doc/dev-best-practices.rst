@@ -910,23 +910,26 @@ Key properties of the menu item definition (``ContextMenuItems``) and the
 - ``ContextMenu.init()``: Initializes and renders the context menu immediately
   at the specified coordinates.
 
-To register functionality, also there must be distinguished between two different
+To register functionality, a distinction must be made between two different
 types:
 
-1. Own Function Callbacks inside the custom object
-2. Internal Function Dispatching, using the x0-systems internal ``sysFunctionDispatcher``
+1. **Custom Function Callbacks** inside the custom object
+2. **Internal Function Dispatching**, using the x0-system's internal
+   ``sysFunctionDispatcher``
 
-**Own Function Callbacks:**
+**Custom Function Callbacks:**
 
-- ``CallbackFunction`` & ``CallbackObjRef``: The method to execute when the
-user selects the entry, paired with the target object context (``this``) on
-which that method is invoked.
-- ``CallbackFunction`` & ``CallbackObjRef``: The method to execute when the
-user selects the entry, paired with the target object context (``this``) on
-which that method is invoked.
+- ``CallbackFunction``: A reference to the callback method executed when the
+  user selects the entry.
+- ``CallbackObjRef``: Because JavaScript detaches methods from their original
+  object when passed as references (losing the ``this`` context), this object
+  reference is passed as a parameter so the callback function can access the
+  target object internally.
 
 **Function Dispatching:**
 
+- ``InternalFunction``: Maps a fixed, system-internal function inside
+  ``sysFunctionDispatcher``, function reference: :ref:`contextmenu-functions`.
 
 24.7.3. Button Callback
 ***********************
