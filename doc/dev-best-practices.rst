@@ -586,9 +586,9 @@ within a **static** *x0-object-type*:
 .. code-block:: text
 
    +-----------------------+      +-----------------------+      +-----------------------+
-   |        ``Div``        | -->  |        ``Div``        | -->  |        ``Div``        |
+   |        ``Div``        |      |        ``Div``        |      |        ``Div``        |
    +-----------------------+      +-----------------------+      +-----------------------+
-   |  overrideDOMObjectID  |      |  overrideDOMObjectID  |      |  overrideDOMObjectID  |
+   |  overrideDOMObjectID  | -->  |  overrideDOMObjectID  | -->  |  overrideDOMObjectID  |
    |        false          |      |         false         |      |         false         |
    +-----------------------+      +-----------------------+      +-----------------------+
    |     "RootObject"      |      |         "Row"         |      |         "Col1"        |
@@ -617,9 +617,9 @@ of the object chain is shown):
 .. code-block:: text
 
    +-----------------------+      +-----------------------+      +-----------------------+
-   |     ``DivUnique``     | -->  |        ``Div``        | -->  |        ``Div``        |
+   |     ``DivUnique``     |      |        ``Div``        |      |        ``Div``        |
    +-----------------------+      +-----------------------+      +-----------------------+
-   |  overrideDOMObjectID  |      |  overrideDOMObjectID  |      |  overrideDOMObjectID  |
+   |  overrideDOMObjectID  | -->  |  overrideDOMObjectID  | -->  |  overrideDOMObjectID  |
    |          true         |      |         false         |      |         false         |
    +-----------------------+      +-----------------------+      +-----------------------+
    |         "Row1"        |      |        "CtrRow"       |      |       "CtrCol1"       |
