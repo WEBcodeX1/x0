@@ -572,7 +572,7 @@ This approach also lets you compose and combine multiple ``ObjDefs`` arrays prog
 making it easy to maintain clarity even in complex components whose content or child object
 types change dynamically at runtime.
 
-24.6.3. overrideDOMObjectID
+24.6.4. overrideDOMObjectID
 ***************************
 
 It is also possible to vary ``this.overrideDOMObjectID`` within a nested object chain.
@@ -639,7 +639,7 @@ number of rows.
    inheriting from the appropriate *x0-object-type*—as shown in the practical example in
    the next chapter—handles this automatically.
 
-24.6.4. Class Example
+24.6.5. Class Example
 *********************
 
 The following is a practical CustomObj example that specifically demonstrates the
@@ -655,7 +655,7 @@ The following is a practical CustomObj example that specifically demonstrates th
    {
       this.ObjectType  = 'CustomObj';                //- System Object Type
       this.ObjectID    = 'CustomObjRowCtr' + Index;  //- Unique ObjectID
-      this.DOMStyle    = 'container';                //- CSS
+      this.DOMStyle    = 'container-fluid';          //- CSS
    }
 
    //- inherit sysDivUnique, setting overrideDOMObjectID = true
@@ -712,7 +712,7 @@ with ``Index`` set to ``1``:
 
 .. code-block:: html
 
-   <div id="CustomObjRowCtr1">
+   <div id="CustomObjRowCtr1" class="container-fluid">
      <div id="CustomObjRowCtr1_CtrRow" class="row">
        <div id="CustomObjRowCtr1_CtrRow_CtrCol" class="col col-md-12">
          <button id="BtnCustomObjRowCtr1" class="btn"></button>
@@ -720,20 +720,25 @@ with ``Index`` set to ``1``:
      </div>
    </div>
 
-24.7. Complex Objects
----------------------
+24.7. Object Interaction
+------------------------
 
-24.8. Logical Progression
--------------------------
-
-24.8.2. Button Types
+24.7.1. Button Types
 ********************
 
-24.8.3. Button Callback
+Only Button and Context Menu, ButtonInternal currently
+
+24.7.2. Context Menu
+********************
+
+24.7.3. Button Callback
 ***********************
 
-24.8.4. Event Listeners
+24.7.4. Event Listeners
 ***********************
+
+24.8. Complex Objects
+---------------------
 
 24.9. Realtime Pagination
 -------------------------
