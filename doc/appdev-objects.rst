@@ -257,7 +257,7 @@ Note that specifying ``Action`` or ``OnResult`` actions requires mandatory base
             "TextID": "TXT.BUTTON1",
             "Style": "btn btn-primary btn-lg w-100 mt-3",
             "IconStyle": "fa-solid fa-floppy-disk",
-            "OnClick": "/python/saveSettings.py",
+            "OnClick": "/python/SaveSettings.py",
             "RequestMethod": "POST",
             "Notify": {
                "ID": "SaveSystemSettings",

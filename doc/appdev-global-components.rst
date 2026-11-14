@@ -196,7 +196,7 @@ shown in the following example:
          {
             "TextID": "TXT.BUTTON.SUBMIT",
             "Style": "btn btn-primary w-100 mt-3",
-            "OnClick": "/python/example-service.py",
+            "OnClick": "/python/ExampleService.py",
             "SrcDataObjects":
             [
                "FormfieldList1",
