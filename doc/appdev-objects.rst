@@ -722,7 +722,7 @@ instances:
 .. code-block:: json
 
    {
-      "ExampleTabcontainer":
+      "ExampleTabContainer":
       {
          "Type": "TabContainer",
          "Attributes":
@@ -778,7 +778,7 @@ using the additional ``ElementID`` property:
       "ExampleScreen":
       [
          {
-            "ExampleTabcontainer":
+            "ExampleTabContainer":
             {
                "RefID": "ExampleScreen"
             }
@@ -786,14 +786,14 @@ using the additional ``ElementID`` property:
          {
             "DivContent1":
             {
-               "RefID": "ExampleTabcontainer",
+               "RefID": "ExampleTabContainer",
                "ElementID": "Tab1Content"
             }
          },
          {
             "DivContent2":
             {
-               "RefID": "ExampleTabcontainer",
+               "RefID": "ExampleTabContainer",
                "ElementID": "Tab2Content"
             }
          }
