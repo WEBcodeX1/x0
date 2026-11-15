@@ -1003,7 +1003,36 @@ When predefined triggers such as ``Button``, ``ContextMenu``, or
 bind native browser DOM events directly to methods on your custom object via
 ``this.EventListeners``.
 
+The following excerpt from ``sysObjContextMenu.js`` demonstrates how three event
+listeners—``click``, ``mouseover``, and ``mouseout``—are registered:
 
+.. code-block:: javascript
+
+   //- add click event listener
+   let EventListenerObj = new Object();
+   EventListenerObj['Type'] = 'click';
+   EventListenerObj['Element'] = ItemObj.EventListenerClick.bind(ItemObj);
+   ItemDisplayObj.EventListeners["ItemClick"] = EventListenerObj;
+
+   //- mouseover / mouseout event handler
+   let EventMouseOver = new Object();
+   EventMouseOver['Type'] = 'mouseover';
+   EventMouseOver['Element'] = ItemObj.setHilite.bind(ItemObj);
+   ItemDisplayObj.EventListeners["MouseOver"] = EventMouseOver;
+
+   let EventMouseOut = new Object();
+   EventMouseOut['Type'] = 'mouseout';
+   EventMouseOut['Element'] = ItemObj.removeHilite.bind(ItemObj);
+   ItemDisplayObj.EventListeners["MouseOut"] = EventMouseOut;
+
+.. important::
+   The *x0* event listener concept enables runtime-based processing of
+   nested structures when calling ``sysBaseObject.renderObject()``. Inside
+   this method, ``this.processEventListener()`` is executed recursively.
+
+.. important::
+   This OOP-based event handling concept reduces complexity in nested abstraction
+   models, as demonstrated in the next chapter.
 
 24.8. Complex Objects
 ---------------------
