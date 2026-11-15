@@ -353,6 +353,7 @@ initialized directly inside your class constructor.
   instance for direct access.
 
 .. important::
+
    Properly managing ``this.ObjectID``—especially alongside
    ``this.overrideDOMObjectID`` when building complex, nested sub-objects—is a
    fundamental concept in *x0*. We will explore how IDs must be set up in
@@ -419,6 +420,7 @@ connect two or three objects. In such simple cases, hierarchical referencing sho
 avoided—let's take a look at how the direct method works instead.
 
 .. important::
+
    Once a component spans more than two or three objects, consider the direct-referencing
    pattern shown below an **antipattern** that **must** be replaced by *x0*'s hierarchical
    setup functionality described in the next section (:ref:`hierarchical-object-setup`).
@@ -623,6 +625,7 @@ This concept works well, provided you use a sensible naming schema for the subse
 The resulting DOM IDs are ``RootObject``, ``RootObject_Row``, and ``RootObject_Row_Col1``.
 
 .. tip::
+
    Keep ``ObjectID`` names short for this approach to work cleanly, while keeping a few
    important constraints in mind.
 
@@ -660,6 +663,7 @@ added to the internal system structures—avoiding significant overhead when ren
 number of rows.
 
 .. important::
+
    When building your custom class, ``this.ObjectID`` **is** the first (root) element;
    inheriting from the appropriate *x0-object-type*—as shown in the practical example in
    the next chapter—handles this automatically.
@@ -1051,25 +1055,93 @@ listeners—``click``, ``mouseover``, and ``mouseout``—are registered:
    ItemDisplayObj.EventListeners["MouseOut"] = EventMouseOut;
 
 .. important::
+
    The *x0* event listener concept enables runtime-based processing of
    nested structures when calling ``sysBaseObject.renderObject()``. Inside
    this method, ``this.processEventListener()`` is executed recursively.
 
 .. important::
+
    This OOP-based event handling concept reduces complexity in nested abstraction
    models, as demonstrated in the next chapter.
 
 24.8. Complex Objects
 ---------------------
 
+Now that we have covered the most important best practices, this section
+demonstrates how to extend ``CustomObj`` from the previous chapters into
+multiple interacting classes. At the end of this chapter, we also point to
+several built-in example implementations that are worth exploring.
+
 24.9. Realtime Pagination
 -------------------------
 
-24.10. Register Classes
------------------------
+Thanks to the smart *x0-mirror-dom* realtime object model, even
+runtime-modifiable objects can be paginated. Specifically, pagination is not
+limited to static content such as plain lists—it can be applied to **any**
+nested, runtime-modifiable object hierarchy, opening up a completely new
+approach to broad, dynamic application design.
+
+Realtime pagination is provided by the ``sysPagination`` class
+(``/www/sysRTPagination.js``; see :ref:`oopmodel-classes` for the full method
+reference). Because all data is already held in memory on the client side,
+switching pages updates the visible child objects immediately without issuing
+backend requests, while preserving the live state of objects on hidden pages.
+
+24.10. Class Registration
+-------------------------
+
+Once you have built your custom object(s), they still need to be registered so
+the *x0-core* system can recognize and instantiate them.
+
+When using the database backend, register them as described in the following
+section.
+
+24.10.1. User Registration
+**************************
+
+The detailed process of the custom registration process is described here:
+:ref:`custom-object-registration`.
+
+24.10.2. sysFactory
+*******************
+
+The static *x0-component* does not yet support dynamic custom object
+registration. Instead, custom classes must be manually added to
+``this.SetupClasses`` inside ``/www/sysFactory.js`` so they can be instantiated
+from declarative metadata or used inside other custom objects.
+
+.. important::
+
+   Only modify ``/www/sysFactory.js`` directly when database-backed user
+   registration is unavailable (such as in the standalone static
+   *x0-component*).
+
+24.10.3. Object Loading
+***********************
+
+When registering objects in the database backend, dynamic object loading is
+handled automatically. Because the static component does not support this
+mechanism, implementation files must be added to the loader manually.
+
+For the *x0-static* Docker container, include your class's implementation file
+in ``/static/system/index.html`` so it is loaded during *x0-init*:
+
+.. code-block:: html
+
+   <script type="text/javascript" src="/userObjCustomClass.js"></script>
+
+If you have developed an internal *x0-core* class, register its script tag in
+``/python/Index.py`` as follows:
+
+.. code-block:: html
+
+   <script type="text/javascript" src="/sysObjInternalClass.js"></script>
+
+24.11. Object Instantiation
+---------------------------
 
 
-
-24.11. Generic Data Model
+24.12. Generic Data Model
 -------------------------
 
