@@ -31,6 +31,7 @@ hidden, or repurposed without touching the engine itself.
    Browser Content Areas
 
 .. important::
+
    Screen areas not currently in focus are not destroyed; they remain
    present as invisible layers, which is what enables instantaneous,
    stateful transitions between screens (see :ref:`state-preservation`).
@@ -86,6 +87,7 @@ down, x0 guarantees **full state preservation**: switching screens or tabs,
 or navigating via the Menu Area, **never** resets object state.
 
 .. tip::
+
    Refer to or run the static Docker container to see state preservation in action.
 
 .. _area-positioning:
@@ -121,29 +123,29 @@ The relevant ``system.config`` parameters are:
 .. table:: System Configuration Parameters
    :widths: 25 10 65
 
-   +----------------------+---------------+-------------------------------------------+
-   | **Parameter**        | **Type**      | **Description**                           |
-   +======================+===============+===========================================+
-   | index_title          | ``String``    | Page title                                |
-   +----------------------+---------------+-------------------------------------------+
-   | debug_level          | ``Integer``   | Client-side debug log level               |
-   +----------------------+---------------+-------------------------------------------+
-   | display_language     | ``Enum``      | Default UI language ``'en'`` or ``'de'``  |
-   +----------------------+---------------+-------------------------------------------+
-   | default_screen       | ``String``    | Screen ID shown on page load              |
-   +----------------------+---------------+-------------------------------------------+
-   | parent_window_url    | ``String``    | Parent (e.g. WordPress) plugin  URL       |
-   +----------------------+---------------+-------------------------------------------+
-   | subdir               | ``String``    | Static backend path                       |
-   +----------------------+---------------+-------------------------------------------+
-   | message_handler      | ``Boolean``   | Enable (``true``) message handling        |
-   +----------------------+---------------+-------------------------------------------+
-   | config_file_menu     | ``String``    | Menu config filename                      |
-   +----------------------+---------------+-------------------------------------------+
-   | config_file_object   | ``String``    | Object config filename                    |
-   +----------------------+---------------+-------------------------------------------+
-   | config_file_skeleton | ``String``    | Skeleton config filename                  |
-   +----------------------+---------------+-------------------------------------------+
+   +----------------------+---------------+-----------------------------------------------+
+   | **Parameter**        | **Type**      | **Description**                               |
+   +======================+===============+===============================================+
+   | index_title          | ``String``    | Page title                                    |
+   +----------------------+---------------+-----------------------------------------------+
+   | debug_level          | ``Integer``   | Client-side debug log level                   |
+   +----------------------+---------------+-----------------------------------------------+
+   | display_language     | ``Enum``      | Default UI language ``'en'`` or ``'de'``      |
+   +----------------------+---------------+-----------------------------------------------+
+   | default_screen       | ``String``    | Screen ID shown on page load                  |
+   +----------------------+---------------+-----------------------------------------------+
+   | parent_window_url    | ``String``    | Parent (e.g. WordPress) plugin  URL           |
+   +----------------------+---------------+-----------------------------------------------+
+   | subdir               | ``String``    | Static backend path                           |
+   +----------------------+---------------+-----------------------------------------------+
+   | message_handler      | ``Boolean``   | Enable (``true``) message handling            |
+   +----------------------+---------------+-----------------------------------------------+
+   | config_file_menu     | ``String``    | Menu config filename                          |
+   +----------------------+---------------+-----------------------------------------------+
+   | config_file_object   | ``String``    | Object config filename                        |
+   +----------------------+---------------+-----------------------------------------------+
+   | config_file_skeleton | ``String``    | Skeleton config filename                      |
+   +----------------------+---------------+-----------------------------------------------+
 
 .. code-block:: sql
 
@@ -185,6 +187,7 @@ this file is documented in :ref:`kubernetes-deployment`, this section summarizes
 the parts relevant to day-to-day application development.
 
 .. important::
+
    Multi-virtual-host and multi-environment support requires a properly
    configured and packaged database-backed deployment; it is not available
    in the standalone :ref:`installation-minimal` container.
@@ -234,3 +237,52 @@ image build:
        }
      }
    }
+
+.. _custom-object-registration:
+
+8.4. Custom Objects
+-------------------
+
+To register custom, user-based *x0-objects*, the configuration must be inserted
+into the ``system.config`` database table.
+
+The implementation file **should** follow the naming convention
+``userObjCustomClass.js`` and must exist inside ``/static/`` on the server (update
+the Dockerfile accordingly).
+
+.. table:: Custom Object Registration Parameters
+   :widths: 25 10 65
+
+   +------------------+-------------+-----------------------------------------------------+
+   | **Parameter**    | **Type**    | **Description**                                     |
+   +==================+=============+=====================================================+
+   | template_file    | ``String``  | Class implementation file in ``/static/``           |
+   +------------------+-------------+-----------------------------------------------------+
+   | setup_class      | ``String``  | Class name, appended to ``sysFactory.SetupClasses`` |
+   +------------------+-------------+-----------------------------------------------------+
+
+The following example SQL registers ``CustomClass`` from ``userObjCustomClass.js``:
+
+.. code-block:: sql
+
+   INSERT INTO
+     system.config
+       (app_id, config_group, "value")
+         VALUES
+       ('app1', 'template_file', 'userObjCustomClass.js');
+
+   INSERT INTO
+     system.config
+       (app_id, config_group, "value")
+         VALUES
+       ('app1', 'setup_class', 'CustomClass');
+
+.. important::
+
+   To register multiple custom classes, simply repeat the ``INSERT`` statements
+   above for each additional implementation file and class name.
+
+.. note::
+
+   The class implementation must follow the *x0-development* practices discussed
+   in :ref:`dev-bestpractices`.
