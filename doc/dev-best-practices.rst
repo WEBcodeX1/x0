@@ -195,14 +195,14 @@ inherits—is shown below:
 
 When instantiating objects programmatically without running through the
 declarative *x0-init* pipeline, the implementor must perform these exact
-setup steps **manually** inside the custom object:
+setup steps **manually** inside the custom object.
 
-- assigning the object's ``JSONConfig.Attributes`` metadata
-- setting the object's ``ObjectID`` property
-- optionally setting the ``overrideDOMObjectID`` property
-- calling the object's ``init()`` method
-- connecting the object to its parent via ``this.addObject(ObjectRef)``
-  (which also sets ``ParentObject`` automatically)
+- Assign the object's ``JSONConfig.Attributes`` metadata.
+- Set the object's ``ObjectID`` property.
+- Optionally set the ``overrideDOMObjectID`` property.
+- Call the object's ``init()`` method.
+- Connect the object to its parent via ``this.addObject(ObjectRef)``
+  (which also sets ``ParentObject`` automatically).
 
 .. code-block:: javascript
 
@@ -1088,6 +1088,7 @@ reference). Because all data is already held in memory on the client side,
 switching pages updates the visible child objects immediately without issuing
 backend requests, while preserving the live state of objects on hidden pages.
 
+
 24.10. Class Registration
 -------------------------
 
@@ -1124,12 +1125,16 @@ When registering objects in the database backend, dynamic object loading is
 handled automatically. Because the static component does not support this
 mechanism, implementation files must be added to the loader manually.
 
+- **Static Docker Container:**
+
 For the *x0-static* Docker container, include your class's implementation file
 in ``/static/system/index.html`` so it is loaded during *x0-init*:
 
 .. code-block:: html
 
    <script type="text/javascript" src="/userObjCustomClass.js"></script>
+
+- **System Core Classes:**
 
 If you have developed an internal *x0-core* class, register its script tag in
 ``/python/Index.py`` as follows:
