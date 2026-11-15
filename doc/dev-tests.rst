@@ -8,14 +8,15 @@
 Tests are an essential component for ensuring the stability of newly designed
 *x0-system-objects* and the base system, especially after major system changes.
 
-The *x0-system* design enables you to locally simulate the entire *x0-infrastructure*
-using Docker images (including the ``x0-test`` image) in minimal time, thereby saving
-valuable CPU resources. This approach ensures that a single infrastructure run is
-executed locally per developer, rather than multiplying the load by the number of
-developers and straining the Git CI system's servers.
+The *x0-system* design enables you to simulate the entire *x0-infrastructure*
+locally using Docker images (including the ``x0-test`` image) in minimal time.
+This approach ensures that a single infrastructure run is executed locally per
+developer, rather than multiplying the load by the number of developers and
+straining the Git CI system's servers.
 
-As a developer, you are strongly encouraged to write sufficient tests and add them to the
-``/test`` subdirectory. This chapter provides detailed instructions on how to do so.
+As a developer, you are strongly encouraged to write comprehensive tests and add
+them to the ``/test`` subdirectory. This chapter provides detailed instructions on
+how to do so.
 
 25.1. Testing in the CI
 -----------------------
@@ -28,8 +29,8 @@ before pushing to the ``current-release`` branch. This can be done by running:
 
 .. code-block:: bash
 
-	git checkout current-release
-	git push origin current-release
+   git checkout current-release
+   git push origin current-release
 
 Once the tests pass, a snapshot of the branch will be created and named:
 
@@ -69,15 +70,15 @@ test identifier and all test properties, including the test subdirectory:
 
 .. code-block:: sql
 
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'index_title', 'x0 Test - ${test_description}');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'debug_level', '10');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'display_language', 'en');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'default_screen', 'Screen1');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'parent_window_url', 'null');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'subdir', '/test/${test_subdir}');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'config_file_menu', 'menu.json');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'config_file_object', 'object.json');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'config_file_skeleton', 'skeleton.json');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'index_title', 'x0 Test - ${test_description}');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'debug_level', '10');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'display_language', 'en');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'default_screen', 'Screen1');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'parent_window_url', 'null');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'subdir', '/test/${test_subdir}');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'config_file_menu', 'menu.json');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'config_file_object', 'object.json');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('test_id', 'config_file_skeleton', 'skeleton.json');
 
 Save this configuration in:
 ``./test/integration/config/${test_id}/sql/01-sys-config.sql``.
@@ -143,126 +144,126 @@ existing Selenium test files.
 25.3.3. Python Hints
 ********************
 
-- Always import these.
+- Always import the following standard Python modules:
 
 .. code-block:: python
 
-	import os
-	import json
-	import time
-	import pytest
-	import logging
+   import os
+   import json
+   import time
+   import pytest
+   import logging
 
-- Mandatory, internal processing.
-
-.. code-block:: python
-
-	import globalconf
-
-- Basic Selenium imports.
+- Mandatory, internal processing:
 
 .. code-block:: python
 
-	from selenium import webdriver
-	from selenium.webdriver.common.by import By
-	from selenium.webdriver.common.keys import Keys
-	from selenium.webdriver.support.ui import WebDriverWait
-	from selenium.webdriver.support import expected_conditions as EC
+   import globalconf
 
-- Always use logging like this.
+- Basic Selenium imports:
 
 .. code-block:: python
 
-	logging.basicConfig(level=logging.DEBUG)
-	logger = logging.getLogger()
+   from selenium import webdriver
+   from selenium.webdriver.common.by import By
+   from selenium.webdriver.common.keys import Keys
+   from selenium.webdriver.support.ui import WebDriverWait
+   from selenium.webdriver.support import expected_conditions as EC
 
-- Always init like this.
-
-.. code-block:: python
-
-	wd_options = webdriver.ChromeOptions()
-	wd_options.add_argument('ignore-certificate-errors')
-	wd_options.add_argument('headless')
-
-- The global config() must always be defined like this.
-  ``scope='module'`` will tell the selenium driver to only use one single
-  tcp connection to the selenium-server and to reuse it for the complete test
-  run.
+- Always use logging like this:
 
 .. code-block:: python
 
-	@pytest.fixture(scope='module')
-	def config():
+   logging.basicConfig(level=logging.DEBUG)
+   logger = logging.getLogger()
 
-- Currently, config() **must** be included in every .py test file.
-
-.. code-block:: python
-
-	@pytest.fixture(scope='module')
-	def config():
-
-		try:
-			run_namespace = os.environ['RUN_NAMESPACE']
-		except Exception as e:
-			run_namespace = None
-
-		try:
-			run_kube_env = os.environ['KUBERNETES_SERVICE_HOST']
-		except Exception as e:
-			run_kube_env = None
-
-		try:
-			domain_suffix = '.' + run_namespace
-		except Exception as e:
-			domain_suffix = ''
-
-		if run_kube_env is not None:
-			domain_suffix += '.svc.cluster.local'
-
-		vhost_test_urls = globalconf.setup()
-
-		logger.info('test urls:{}'.format(vhost_test_urls))
-
-		selenium_server_url = 'http://selenium-server-0{}:4444'.format(domain_suffix)
-
-		logger.info('selenium server url:{}'.format(selenium_server_url))
-
-		wd = webdriver.Remote(
-			command_executor=selenium_server_url,
-			options=wd_options
-		)
-
-		config = {}
-		config["timeout"] = 10
-		config["driver"] = wd
-
-		get_url = '{}/python/Index.py?appid=test_base'.format(vhost_test_urls['x0-app'])
-
-		logger.info('test (get) url:{}'.format(get_url))
-
-		config["driver"].get(get_url)
-
-		return config
-
-- Always get the global driver data inside test method.
+- Always initialize the Selenium WebDriver options as follows:
 
 .. code-block:: python
 
-	def test_method_name(self, config):
-		d, w = config["driver"], config["timeout"]
-		wait = WebDriverWait(d, w)
+   wd_options = webdriver.ChromeOptions()
+   wd_options.add_argument('ignore-certificate-errors')
+   wd_options.add_argument('headless')
 
-- A common test class and method.
+- Always define the global ``config()`` fixture as follows.
+  Setting ``scope='module'`` instructs the Selenium driver to use a single
+  TCP connection to ``selenium-server`` and reuse it for the entire test
+  run:
 
 .. code-block:: python
 
-	class TestGeneral:
+   @pytest.fixture(scope='module')
+   def config():
 
-		def test_suspicious_id_null(self, config):
-			"""Find suspicious ID names containing the string null"""
-			d, w = config["driver"], config["timeout"]
-			wait = WebDriverWait(d, w)
-			elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, config["ready_selector"])))
+- Currently, ``config()`` **must** be included in every ``*.py`` test file:
 
-			elems = d.find_elements(By.XPATH, "//*[contains(@id,'null')]")
-			assert len(elems) == 0, 'Problematic string "null" found in one or more IDs'
+.. code-block:: python
+
+   @pytest.fixture(scope='module')
+   def config():
+
+      try:
+         run_namespace = os.environ['RUN_NAMESPACE']
+      except Exception as e:
+         run_namespace = None
+
+      try:
+         run_kube_env = os.environ['KUBERNETES_SERVICE_HOST']
+      except Exception as e:
+         run_kube_env = None
+
+      try:
+         domain_suffix = '.' + run_namespace
+      except Exception as e:
+         domain_suffix = ''
+
+      if run_kube_env is not None:
+         domain_suffix += '.svc.cluster.local'
+
+      vhost_test_urls = globalconf.setup()
+
+      logger.info('test urls:{}'.format(vhost_test_urls))
+
+      selenium_server_url = 'http://selenium-server-0{}:4444'.format(domain_suffix)
+
+      logger.info('selenium server url:{}'.format(selenium_server_url))
+
+      wd = webdriver.Remote(
+         command_executor=selenium_server_url,
+         options=wd_options
+      )
+
+      config = {}
+      config["timeout"] = 10
+      config["driver"] = wd
+
+      get_url = '{}/python/Index.py?appid=test_base'.format(vhost_test_urls['x0-app'])
+
+      logger.info('test (get) url:{}'.format(get_url))
+
+      config["driver"].get(get_url)
+
+      return config
+
+- Always get the global driver data inside test method:
+
+.. code-block:: python
+
+   def test_method_name(self, config):
+      d, w = config["driver"], config["timeout"]
+      wait = WebDriverWait(d, w)
+
+- A common test class and method:
+
+.. code-block:: python
+
+   class TestGeneral:
+
+      def test_suspicious_id_null(self, config):
+         """Find suspicious ID names containing the string null"""
+         d, w = config["driver"], config["timeout"]
+         wait = WebDriverWait(d, w)
+         elem = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, config["ready_selector"])))
+
+         elems = d.find_elements(By.XPATH, "//*[contains(@id,'null')]")
+         assert len(elems) == 0, 'Problematic string "null" found in one or more IDs'
