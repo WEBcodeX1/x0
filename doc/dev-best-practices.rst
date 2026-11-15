@@ -1073,6 +1073,18 @@ demonstrates how to extend ``CustomObj`` from the previous chapters into
 multiple interacting classes. At the end of this chapter, we also point to
 several built-in example implementations that are worth exploring.
 
+24.8.1. Controller Object
+*************************
+
+24.8.2. Dynamcic Content
+************************
+
+24.8.3. JSON Configuration
+**************************
+
+24.8.4. Referenced Examples
+***************************
+
 24.9. Realtime Pagination
 -------------------------
 
@@ -1088,6 +1100,11 @@ reference). Because all data is already held in memory on the client side,
 switching pages updates the visible child objects immediately without issuing
 backend requests, while preserving the live state of objects on hidden pages.
 
+24.9.1. Configuration
+*********************
+
+24.9.2. Data Structures
+***********************
 
 24.10. Class Registration
 -------------------------
@@ -1145,7 +1162,51 @@ If you have developed an internal *x0-core* class, register its script tag in
 24.11. Object Instantiation
 ---------------------------
 
+The *x0-system* currently supports instantiating objects during the *x0-init*
+phase. This is limited to statically defined, declarative configuration. After
+an object has  been initialized, rendered, and modified—often with extensive user
+input data,  particularly in nested structures—the system is currently unable to
+clone  the object into a new instance containing those exact modifications.
+
+Nevertheless, the *x0-system* can instantiate complex, nested objects during
+the *x0-init* phase. Object cloning remains a highly desirable capability for
+enhanced, data-centric browser applications. This mechanism is currently in
+development, though it requires a fundamental redesign of the base system
+(see the next chapter).
+
+.. note::
+
+   This feature is planned for *x0* version 1.2, at which point the developer
+   documentation will also include precise implementation instructions.
 
 24.12. Generic Data Model
 -------------------------
 
+The object instantiation process described in the previous chapter requires a
+clean **document relation layer**. While this is partially prepared in *x0*
+version 1.1, the current implementation lacks a truly generic design. Furthermore,
+the integration process relies on modifications across multiple subsystems and
+related layers before it can run smoothly and in a completely generic manner.
+
+Specifically, the **document relation layer** refers to the *x0-mirror-dom*,
+in particular to how **nested** data structures are defined. When combining or
+chaining *x0-objects* together, it is critical not only to **set** nested data,
+but also to **get** data in a generic internal format. The ideal goal is to get
+or set data from any sub-object anywhere within the *x0-object-graph*.
+
+This generic data model follows a well-established design pattern—**Object-Document
+Mapping** (``ODM``)—which maps a class hierarchy to data from existing, nested,
+declarative JSON **documents**. Following this exact concept, the *x0* system in
+version 1.2 will map existing JSON data generically **into** an *x0-object*
+hierarchy and, conversely, **get** recursive data from *x0-objects* as JSON for
+direct data exchange with modern NoSQL databases.
+
+Currently, the *x0* data model is hardcoded for each individual object. While
+this approach works functionally, it results in code bloat and unnecessary
+complexity. Furthermore, leaving this architecture as is will drastically hinder
+the future scaling of the *x0-system*.
+
+.. note::
+
+   As with object cloning, *x0* version 1.2 will also include precise
+   implementation instructions for this feature.
