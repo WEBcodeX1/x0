@@ -1107,7 +1107,7 @@ The detailed process of the custom registration process is described here:
 24.10.2. sysFactory
 *******************
 
-The static *x0-component* does not yet support dynamic custom object
+The *x0-static* component does not yet support dynamic custom object
 registration. Instead, custom classes must be manually added to
 ``this.SetupClasses`` inside ``/www/sysFactory.js`` so they can be instantiated
 from declarative metadata or used inside other custom objects.
@@ -1115,14 +1115,13 @@ from declarative metadata or used inside other custom objects.
 .. important::
 
    Only modify ``/www/sysFactory.js`` directly when database-backed user
-   registration is unavailable (such as in the standalone static
-   *x0-component*).
+   registration is unavailable (such as in the standalone *x0-static* component.
 
 24.10.3. Object Loading
 ***********************
 
 When registering objects in the database backend, dynamic object loading is
-handled automatically. Because the static component does not support this
+handled automatically. Because the *x0-static* component does not support this
 mechanism, implementation files must be added to the loader manually.
 
 - **Static Docker Container:**
