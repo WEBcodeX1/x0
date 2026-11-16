@@ -1310,21 +1310,133 @@ programmatically:
 .. important::
 
    When creating objects dynamically, it is mandatory to call ``renderObject()``
-   or ``rerenderObject()`` at the appropriate point in the lifecycle.
+   or ``rerenderObject()`` at the appropriate point in the lifecycle. Based on
+   the previous chapters, you should already know when and where to do so.
 
-24.8.3. Dynamcic Content
-************************
+24.8.3. Dynamic Content
+***********************
+
+Building on what you have learned about the *x0-system* design and structure,
+combining those concepts with this chapter on dynamic content will enable you to
+design sophisticated class abstractions—including event handling and real-time
+modifiable structures. Afterward, learning how to paginate your custom *x0-objects*
+and handle smart data input and output represents the pinnacle of mastering the
+framework.
+
+Let's replace the current static ``Button`` implementation with a
+``ButtonCallback`` to handle the logic inside a custom class method.
+
+Note that the ``ButtonCallback`` must be instantiated externally—before the
+``ObjDefs`` definition—and the callback itself is activated via
+``setCallback(this.ParentObject)``. In addition, the ``ObjectID`` of the left
+column has been extended to ``this.ObjectID + "Col1Value"`` so that it can be
+referenced later via ``sysFactory.getObjectByID()``. Finally, note that the
+following snippet is only an excerpt based on the previous example (with the
+constructor omitted).
+
+.. code-block:: javascript
+
+   //------------------------------------------------------------------------------
+   //- METHOD "init"
+   //------------------------------------------------------------------------------
+
+   sysObjCustomObjRow.prototype.init = function()
+   {
+      //- process initialization
+      const Attributes = this.JSONConfig.Attributes;
+
+      //- setup callback button instance
+      let CallbackButton = new sysObjButtonCallback();
+      CallbackButton.setCallback(this);
+
+      //- declaratively define object tree
+      let ObjDefs = [
+         {
+            "id": "CtrCol1",
+            "SysObject": new sysObjDiv(),
+            "JSONAttributes": {
+               "Style": "col col-md-9"
+            },
+            "ObjectDefs": [
+               {
+                  "id": this.ObjectID + "Col1Value",
+                  "SysObject": new sysObjDivValue(),
+                  "JSONAttributes": {
+                    "Style": "text-primary-emphasis",
+                    "Value": Attributes.Value
+                  }
+               }
+            ]
+         },
+         {
+            "id": "CtrCol2",
+            "SysObject": new sysObjDiv(),
+            "JSONAttributes": {
+               "Style": "col col-md-3"
+            },
+            "ObjectDefs": [
+               {
+                  "id": "Btn" + this.ObjectID,
+                  "SysObject": new sysObjButton(),
+                  "JSONAttributes": {
+                     "DOMType": "button",
+                     "Style": "btn"
+                  }
+               }
+            ]
+         }
+      ];
+
+      //- build object relations
+      sysFactory.setupObjectRefsRecursive(ObjDefs, this);
+   }
+
+Note that the callback method name is static, fixed by the system, and always
+references ``ButtonCallback()``.
+
+.. code-block:: javascript
+
+   //------------------------------------------------------------------------------
+   //- METHOD "init"
+   //------------------------------------------------------------------------------
+
+   sysObjCustomObjRow.prototype.ButtonCallback = function()
+   {
+      const randomAscii = String.fromCharCode(Math.floor(Math.random() * 94) + 33);
+      this.DOMValue = randomAscii;
+      this.setDOMElementValue();
+      this.rerenderObject();
+   }
 
 24.8.4. JSON Configuration
 **************************
 
+When designing your objects, always keep in mind that they must be populated from
+``JSONConfig.Attributes``, which always takes place during *x0-init*. Currently,
+it follows a fairly loose approach without strict underlying rules—a concept that
+will remain supported and will not be discontinued in upcoming releases. As a result,
+implementers have nearly 100% freedom in how they handle internal data manipulation.
+However, note that the *x0-system* (currently experimental) already offers smart
+methods to manage runtime data more effectively and will be extended with generic
+data handling in the future (ODM, Object Document Mapping), which is especially
+useful for deeply nested objects (see :ref:`generic-data-model`).
+
+.. important::
+
+   When your custom object acts as a data container for transfers to the backend,
+   its corresponding internal ``getObjectData()`` routine **must** properly handle
+   and return the correct data (see :ref:`runtime-data-model`).
+
 24.8.5. Referenced Examples
 ***************************
 
-- ``/www/sysObjDynRadioList.js`` which implements ... a concrete viewable example inside the static Docker ...
-  where this object is combined in a ``List`` column is available ...
-- ``/www/userObjExampleEditableItemContainer.js`` which implements ... a concrete viewable example inside the static Docker ...
-  where row items dynamically can toggle between edit mode, and in combination are paginated ...
+- ``/www/sysObjDynRadioList.js``: Implements [a dynamic radio button list]. A live,
+  viewable example demonstrating how this object is integrated into a ``List``
+  column is available in the static Docker environment.
+- ``/www/userObjExampleEditableItemContainer.js``: Implements [an editable item container].
+  A live, viewable example demonstrating how row items can dynamically toggle
+  between view and edit modes while supporting pagination is available in the
+  static Docker environment.
 
 24.9. Realtime Pagination
 -------------------------
@@ -1350,7 +1462,12 @@ backend requests, while preserving the live state of objects on hidden pages.
 24.9.3. Example Implementation
 ******************************
 
-24.10. Class Registration
+.. _runtime-data-model:
+
+24.10. Runtime Data Model
+-------------------------
+
+24.11. Class Registration
 -------------------------
 
 Once you have built your custom object(s), they still need to be registered so
@@ -1359,13 +1476,13 @@ the *x0-core* system can recognize and instantiate them.
 When using the database backend, register them as described in the following
 section.
 
-24.10.1. User Registration
+24.11.1. User Registration
 **************************
 
 The detailed process of the custom registration process is described here:
 :ref:`custom-object-registration`.
 
-24.10.2. sysFactory
+24.11.2. sysFactory
 *******************
 
 The *x0-static* component does not yet support dynamic custom object
@@ -1378,7 +1495,7 @@ from declarative metadata or used inside other custom objects.
    Only modify ``/www/sysFactory.js`` directly when database-backed user
    registration is unavailable (such as in the standalone *x0-static* component.
 
-24.10.3. Object Loading
+24.11.3. Object Loading
 ***********************
 
 When registering objects in the database backend, dynamic object loading is
@@ -1408,7 +1525,7 @@ If you have developed an internal *x0-core* class, register its script tag in
    Pay close attention to the exact position where you add your entry. If done
    incorrectly, dependent classes will not work.
 
-24.11. Object Instantiation
+24.12. Object Instantiation
 ---------------------------
 
 The *x0-system* currently supports instantiating objects during the *x0-init*
@@ -1430,7 +1547,7 @@ development, though it requires a fundamental redesign of the base system
 
 .. _generic-data-model:
 
-24.12. Generic Data Model
+24.13. Generic Data Model
 -------------------------
 
 The object instantiation process described in the previous chapter requires a
