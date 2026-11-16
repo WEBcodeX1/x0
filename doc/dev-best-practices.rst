@@ -1124,13 +1124,12 @@ naming scheme. A detailed explanation follows after the class definition.
    //- CONSTRUCTOR "sysObjCustomObjRow"
    //------------------------------------------------------------------------------
 
-   function sysObjCustomObjRow(ParentRef, Index, Data)
+   function sysObjCustomObjRow(ParentRef, Index)
    {
       this.ObjectType    = 'CustomObjRow';                      //- System Object Type
       this.ObjectID      = ParentRef.ObjectID + 'Row' + Index;  //- Unique ObjectID
       this.DOMStyle      = 'row';                               //- CSS Style
       this.ChildObjects  = new Array();                         //- Child Objects
-      this.Data          = Data;                                //- Data Container
    }
 
    //- inherit sysDivUnique
@@ -1160,7 +1159,7 @@ naming scheme. A detailed explanation follows after the class definition.
                   "SysObject": new sysObjDivValue(),
                   "JSONAttributes": {
                     "Style": "text-primary-emphasis",
-                    "Value": this.Data.Col1Value
+                    "Value": Attributes.Value
                   }
                }
             ]
@@ -1198,8 +1197,9 @@ Below is a detailed explanation of what was modified and why:
   declaratively in ``object.json`` or programmatically by setting a custom ``ObjectID``.
   When instantiating two objects with different names, the naming scheme in the
   subordinate objects must also match, which is guaranteed by using ``ParentRef.ObjectID``.
-- ``ParentRef`` must be used because the parent object did not call
-  ``this.addObject()``, which would have set ``this.ParentObject`` automatically.
+- ``ParentRef`` must be used in the constructor because the parent object has not
+  called ``this.addObject()`` at this point, which would otherwise set
+  ``this.ParentObject`` automatically.
 - By setting ``this.DOMStyle`` to ``row``, the CSS of ``sysObjCustomObjRow``'s
   inherited root object (``DivUnique``) is set to ``row``, saving one child object's
   declarative configuration.
@@ -1219,14 +1219,98 @@ Below is a detailed explanation of what was modified and why:
   ``true``, making it mandatory to assign a system-wide unique ``ObjectID``. By
   combining ``"Btn"`` with the already unique row root ID (``"Btn" + this.ObjectID``),
   the button becomes unique and addressable via ``sysFactory.getObjectByID()``.
-- Finally, by passing ``Data`` into the constructor and setting the column value
-  via ``this.Data.Col1Value``, we have a ready-to-use row-processing class. It
-  generates a simple two-column row consisting of a value in the left column and
-  a button (currently without callback functionality) in the right column. How to
-  implement the callback will be covered in the next subchapters.
+- Finally, by setting the column value via ``this.JSONConfig.Attributes.Value``,
+  we have a ready-to-use row-processing class. It generates a simple two-column row
+  consisting of a value in the left column and a button (currently without callback
+  functionality) in the right column. How to implement the callback will be covered
+  in the next subchapters.
 
 24.8.2. Controller Object
 *************************
+
+The controller object is quite simple and requires no declarative object definitions
+at all. Take a look—we will also provide a detailed explanation afterward.
+
+.. code-block:: javascript
+
+   //------------------------------------------------------------------------------
+   //- CONSTRUCTOR "sysObjCustomObj"
+   //------------------------------------------------------------------------------
+
+   function sysObjCustomObj()
+   {
+      this.ObjectType    = 'CustomObj';           //- System Object Type
+      this.DOMStyle      = 'container-fluid';     //- CSS Style
+      this.ChildObjects  = new Array();           //- Child Objects
+   }
+
+   //- inherit sysDivUnique
+   sysObjCustomObj.prototype = new sysObjDivUnique();
+
+
+   //------------------------------------------------------------------------------
+   //- METHOD "init"
+   //------------------------------------------------------------------------------
+
+   sysObjCustomObj.prototype.init = function()
+   {
+      //- process initialization
+      const Attributes = this.JSONConfig.Attributes;
+
+      //- get row data array from config
+      const RowData = this.JSONConfig.Attributes.RowData;
+
+      //- instantiate row objects
+      let i = 0;
+      for (const RowValue of RowData) {
+         let RowObj = new sysObjCustomObjRow(this, i);
+
+         RowObj.JSONConfig = {
+            "Attributes": {
+               "Value": RowData[i]
+            }
+         };
+
+         this.addObject(RowObj);
+         i++;
+      }
+   }
+
+Below is a detailed explanation of how the controller works:
+
+- We do not need to set ``ObjectID`` in the constructor because this is the root
+  object registered in ``sysFactory.SetupClasses``. As a result, it is instantiated
+  either during *x0-init* or programmatically, where a unique ID is already
+  enforced.
+- Because its name must be unique, the class inherits from ``DivUnique``.
+- ``this.ChildObjects`` holds the child instances; each row object is appended to
+  it via ``this.addObject(RowObj)``.
+- A ``JSONConfig`` object containing an ``Attributes`` property is dynamically
+  constructed and assigned to each row object so it can access its value during
+  initialization.
+- The display data must be provided as a simple array, such as
+  ``[ 'value1', 'value2', 'value3' ]`` in ``JSONConfig.Attributes.RowData``.
+
+The following example demonstrates how to set up and render this object
+programmatically:
+
+.. code-block:: javascript
+
+   let ExampleObj = new sysObjCustomObj();
+   ExampleObj.ObjectID = 'ExampleCustomObj';
+
+   ExampleObj.JSONConfig = {
+      "Attributes": {
+          "RowData": [ 'Value1', 'Value2', 'Value3' ]
+      }
+   };
+
+   ExampleObj.renderObject();
+
+.. important::
+
+   When creating objects dynamically, it is mandatory to call ``renderObject()``
+   or ``rerenderObject()`` at the appropriate point in the lifecycle.
 
 24.8.3. Dynamcic Content
 ************************
@@ -1263,8 +1347,8 @@ backend requests, while preserving the live state of objects on hidden pages.
 24.9.2. Data Structures
 ***********************
 
-24.9.3. Example
-***************
+24.9.3. Example Implementation
+******************************
 
 24.10. Class Registration
 -------------------------
@@ -1318,6 +1402,7 @@ If you have developed an internal *x0-core* class, register its script tag in
 .. code-block:: html
 
    <script type="text/javascript" src="/sysObjInternalClass.js"></script>
+
 
 24.11. Object Instantiation
 ---------------------------
