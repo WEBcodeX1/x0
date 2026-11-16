@@ -1403,6 +1403,10 @@ If you have developed an internal *x0-core* class, register its script tag in
 
    <script type="text/javascript" src="/sysObjInternalClass.js"></script>
 
+.. warning::
+
+   Pay close attention to the exact position where you add your entry. If done
+   incorrectly, dependent classes will not work.
 
 24.11. Object Instantiation
 ---------------------------
