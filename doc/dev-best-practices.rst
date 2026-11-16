@@ -701,7 +701,7 @@ The following is a practical CustomObj example that specifically demonstrates th
       //- process initialization
       const Attributes = this.JSONConfig.Attributes;
 
-      //- declarative define object tree
+      //- declaratively define object tree
       let ObjDefs = [
          {
             "id": "CtrRow",
@@ -1013,7 +1013,8 @@ method:
       }
    };
 
-How ``ButtonCallback`` routes clicks:
+The following is a detailed description of how ``ButtonCallback`` processes
+the click logic:
 
 - ``BtnAction.setCallback(this, 'click')``: Registers the owning custom object
   (``this``) as the callback target and assigns a string identifier
@@ -1065,6 +1066,39 @@ listeners—``click``, ``mouseover``, and ``mouseout``—are registered:
    This OOP-based event handling concept reduces complexity in nested abstraction
    models, as demonstrated in the next chapter.
 
+24.7.5. Data Abstraction
+************************
+
+Any *x0-object* exposes ``getObjectData()`` and ``setObjectData()`` methods to
+provide a standardized interface for reading and writing internal object state.
+
+Currently, this feature is hardcoded on a per-object basis and is not yet
+standardized. Therefore, detailed documentation is omitted here until the
+generic data model redesign is complete (see :ref:`generic-data-model`).
+
+.. code-block:: javascript
+
+   let RefObj1 = sysFactory.getObjectByID('TestObject1');
+   let RefObj2 = sysFactory.getObjectByID('TestObject2');
+
+   RefObj2.setObjectData(RefObj1.getObjectData());
+
+24.7.6. Direct Communication
+****************************
+
+When all other mechanisms fail, the implementor can fall back on **direct
+communication** as a last resort:
+
+- Get direct object references via ``sysFactory.getObjectByID(ObjectID)``.
+- Directly manipulate the object's members or call member functions.
+
+.. code-block:: javascript
+
+   const RefObj1 = sysFactory.getObjectByID('TestObject1');
+   const RefObj2 = sysFactory.getObjectByID('TestObject2');
+
+   RefObj2.Member = RefObj1.Member;
+
 24.8. Complex Objects
 ---------------------
 
@@ -1073,17 +1107,140 @@ demonstrates how to extend ``CustomObj`` from the previous chapters into
 multiple interacting classes. At the end of this chapter, we also point to
 several built-in example implementations that are worth exploring.
 
-24.8.1. Controller Object
-*************************
-
-24.8.2. Dynamcic Content
-************************
-
-24.8.3. JSON Configuration
+24.8.1. Modified Row Class
 **************************
 
-24.8.4. Referenced Examples
+Building on the previous example, this object has been renamed to fit our needs.
+It represents a dynamic row component controlled by a container object (discussed
+below).
+
+Take a closer look at the modifications we made—most importantly, changing the
+``ObjectType``, setting the ``DOMStyle`` CSS class to ``row``, and updating the
+naming scheme. A detailed explanation follows after the class definition.
+
+.. code-block:: javascript
+
+   //------------------------------------------------------------------------------
+   //- CONSTRUCTOR "sysObjCustomObjRow"
+   //------------------------------------------------------------------------------
+
+   function sysObjCustomObjRow(ParentRef, Index, Data)
+   {
+      this.ObjectType    = 'CustomObjRow';                      //- System Object Type
+      this.ObjectID      = ParentRef.ObjectID + 'Row' + Index;  //- Unique ObjectID
+      this.DOMStyle      = 'row';                               //- CSS Style
+      this.ChildObjects  = new Array();                         //- Child Objects
+      this.Data          = Data;                                //- Data Container
+   }
+
+   //- inherit sysDivUnique
+   sysObjCustomObjRow.prototype = new sysObjDivUnique();
+
+
+   //------------------------------------------------------------------------------
+   //- METHOD "init"
+   //------------------------------------------------------------------------------
+
+   sysObjCustomObjRow.prototype.init = function()
+   {
+      //- process initialization
+      const Attributes = this.JSONConfig.Attributes;
+
+      //- declaratively define object tree
+      let ObjDefs = [
+         {
+            "id": "CtrCol1",
+            "SysObject": new sysObjDiv(),
+            "JSONAttributes": {
+               "Style": "col col-md-9"
+            },
+            "ObjectDefs": [
+               {
+                  "id": "Col1Value",
+                  "SysObject": new sysObjDivValue(),
+                  "JSONAttributes": {
+                    "Style": "text-primary-emphasis",
+                    "Value": this.Data.Col1Value
+                  }
+               }
+            ]
+         },
+         {
+            "id": "CtrCol2",
+            "SysObject": new sysObjDiv(),
+            "JSONAttributes": {
+               "Style": "col col-md-3"
+            },
+            "ObjectDefs": [
+               {
+                  "id": "Btn" + this.ObjectID,
+                  "SysObject": new sysObjButton(),
+                  "JSONAttributes": {
+                     "DOMType": "button",
+                     "Style": "btn",
+                     "OnClick": "https://backend.com/service.py",
+                     "SrcDataObjects": [ "Formlist1", "Formlist2" ]
+                  }
+               }
+            ]
+         }
+      ];
+
+      //- build object relations
+      sysFactory.setupObjectRefsRecursive(ObjDefs, this);
+   }
+
+Below is a detailed explanation of what was modified and why:
+
+- In the constructor, the parent object's reference (the row controller) is passed
+  and used to build a system-wide unique name. The controller object is
+  referenced in ``sysFactory.SetupClasses`` so that it can be used either
+  declaratively in ``object.json`` or programmatically by setting a custom ``ObjectID``.
+  When instantiating two objects with different names, the naming scheme in the
+  subordinate objects must also match, which is guaranteed by using ``ParentRef.ObjectID``.
+- ``ParentRef`` must be used because the parent object did not call
+  ``this.addObject()``, which would have set ``this.ParentObject`` automatically.
+- By setting ``this.DOMStyle`` to ``row``, the CSS of ``sysObjCustomObjRow``'s
+  inherited root object (``DivUnique``) is set to ``row``, saving one child object's
+  declarative configuration.
+- Inside the ``ObjDefs`` configuration, the first two objects in the hierarchy,
+  ``"CtrCol1"`` and ``"CtrCol2"``, are set to type ``Div``. Why does this work?
+  Even though the ``ObjectID``s of ``"CtrCol1"`` and ``"CtrCol2"`` are statically
+  set (making those specific object references unresolvable later), the parent
+  object's ``ObjectID`` is already system-wide **unique**. Because of their
+  ``Div`` type, their resulting DOM ``id``s are calculated using the parent's
+  already-unique ``Prefix``, ensuring the layout works as intended.
+- **Why use container objects?** Instead of *directly* applying the layout style
+  to the button (e.g., ``"Style": "col col-md-3 btn"``), we wrap it in a container.
+  Mixing layout and component classes directly on a button breaks Bootstrap's CSS.
+  As a rule of thumb, abstracting objects so each has its own logical CSS and
+  purpose is good practice.
+- The button's object type (``Button``) internally has ``overrideDOMObjectID`` set to
+  ``true``, making it mandatory to assign a system-wide unique ``ObjectID``. By
+  combining ``"Btn"`` with the already unique row root ID (``"Btn" + this.ObjectID``),
+  the button becomes unique and addressable via ``sysFactory.getObjectByID()``.
+- Finally, by passing ``Data`` into the constructor and setting the column value
+  via ``this.Data.Col1Value``, we have a ready-to-use row-processing class. It
+  generates a simple two-column row consisting of a value in the left column and
+  a button (currently without callback functionality) in the right column. How to
+  implement the callback will be covered in the next subchapters.
+
+24.8.2. Controller Object
+*************************
+
+24.8.3. Dynamcic Content
+************************
+
+24.8.4. JSON Configuration
+**************************
+
+24.8.5. Referenced Examples
 ***************************
+
+- ``/www/sysObjDynRadioList.js`` which implements ... a concrete viewable example inside the static Docker ...
+  where this object is combined in a ``List`` column is available ...
+- ``/www/userObjExampleEditableItemContainer.js`` which implements ... a concrete viewable example inside the static Docker ...
+  where row items dynamically can toggle between edit mode, and in combination are paginated ...
 
 24.9. Realtime Pagination
 -------------------------
@@ -1105,6 +1262,9 @@ backend requests, while preserving the live state of objects on hidden pages.
 
 24.9.2. Data Structures
 ***********************
+
+24.9.3. Example
+***************
 
 24.10. Class Registration
 -------------------------
@@ -1179,6 +1339,8 @@ development, though it requires a fundamental redesign of the base system
    This feature is planned for *x0* version 1.2, at which point the developer
    documentation will also include precise implementation instructions.
 
+.. _generic-data-model:
+
 24.12. Generic Data Model
 -------------------------
 
@@ -1210,3 +1372,9 @@ the future scaling of the *x0-system*.
 
    As with object cloning, *x0* version 1.2 will also include precise
    implementation instructions for this feature.
+
+.. note::
+
+   Porting the SQL-based backend to a MongoDB backend is also planned in an
+   upcoming release to store the system's configuration for multi-vhost setups
+   including .
