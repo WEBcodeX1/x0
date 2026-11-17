@@ -1377,9 +1377,8 @@ constructor omitted).
             "ObjectDefs": [
                {
                   "id": "Btn" + this.ObjectID,
-                  "SysObject": new sysObjButton(),
+                  "SysObject": CallbackButton,
                   "JSONAttributes": {
-                     "DOMType": "button",
                      "Style": "btn"
                   }
                }
