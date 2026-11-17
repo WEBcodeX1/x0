@@ -1564,8 +1564,8 @@ The following examples illustrate how pagination works in practice:
 - ``/www/sysObjList.js``: Nearly every ``List`` inside the *x0-static* Docker
   environment uses pagination.
 - ``/www/userObjExampleEditableItemContainer.js``: An advanced editable list of
-  extended, nested row items, accessible via the **Examples > Editable Templates**
-  menu under the **Editable Order Remark List** subsection.
+  extended, nested row items, accessible via the **"Examples" / "Editable Templates"**
+  menu under the **"Editable Order Remark List"** subsection.
 
 24.10. Grid Integration
 -----------------------
