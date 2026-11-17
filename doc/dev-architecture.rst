@@ -5,8 +5,9 @@
 21. System Architecture
 =======================
 
-The current chapter introduces the **developer-documentation** part.
-The first chart shows an overall view of global systems inter-communication.
+This chapter introduces the **developer documentation** section. The
+architectural diagram below provides an overview of communication across
+global systems.
 
 .. image:: images/x0-architecture-overview.png
   :alt: image - architecture overview
@@ -14,7 +15,10 @@ The first chart shows an overall view of global systems inter-communication.
 21.1. Global Workflows
 ----------------------
 
-- Initialization (Browser Page Load)
+The **most important** framework process a developer should be aware of is
+**system initialization**, later referenced as *x0-init*. The following
+diagrams illustrate the *x0-init* process, first from a **logical perspective**
+and second as a **UML diagram**.
 
 21.1.1. Init Logical
 ********************
@@ -31,15 +35,16 @@ The first chart shows an overall view of global systems inter-communication.
 21.2. Kubernetes Platform
 -------------------------
 
-The following chart illustrates an x0-generated GKE (Google Kubernetes Engine)
-network environment for a demo application, initialized by the *x0-kubernetes-installer*.
+The following diagram illustrates an *x0-generated* Google Kubernetes Engine (GKE)
+network environment serving as a **demo application**, initialized by the
+*x0-kubernetes-installer*.
 
-The primary purpose of the application is to manage large-scale industrial
-packaging systems and warehouse relations.
+The primary purpose of this application is to manage a **large-scale** industrial
+**packaging system** and **warehouse operations**.
 
-The application is divided into three sub-components / environments:
+The application is divided into three subcomponents:
 
-1. Packaging Factory (EDI - SAP systems interconnect)
+1. Packaging Factory (EDI–SAP system interconnect)
 2. Warehouse Android Scanner Devices
 3. Web Administration / Application Control Plane
 
