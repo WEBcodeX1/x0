@@ -1556,7 +1556,7 @@ array for pagination to work.
 
    this.PaginationObject.update();
 
-24.9.4. Referenced Examples
+24.9.3. Referenced Examples
 ***************************
 
 The following examples illustrate how pagination works in practice:
