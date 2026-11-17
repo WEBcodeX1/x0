@@ -1708,5 +1708,4 @@ the future scaling of the *x0-system*.
 .. note::
 
    Porting the SQL-based backend to a MongoDB backend is also planned in an
-   upcoming release to store the system's configuration for multi-vhost setups
-   including .
+   upcoming release to store the system's configuration for multi-vhost setups.
