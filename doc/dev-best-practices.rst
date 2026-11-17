@@ -1416,6 +1416,7 @@ When designing your objects, always keep in mind that they must be populated fro
 it follows a fairly loose approach without strict underlying rules—a concept that
 will remain supported and will not be discontinued in upcoming releases. As a result,
 implementers have nearly 100% freedom in how they handle internal data manipulation.
+
 However, note that the *x0-system* (currently experimental) already offers smart
 methods to manage runtime data more effectively and will be extended with generic
 data handling in the future (ODM, Object Document Mapping), which is especially
@@ -1430,13 +1431,16 @@ useful for deeply nested objects (see :ref:`generic-data-model`).
 24.8.5. Referenced Examples
 ***************************
 
-- ``/www/sysObjDynRadioList.js``: Implements [a dynamic radio button list]. A live,
-  viewable example demonstrating how this object is integrated into a ``List``
-  column is available in the static Docker environment.
-- ``/www/userObjExampleEditableItemContainer.js``: Implements [an editable item container].
-  A live, viewable example demonstrating how row items can dynamically toggle
-  between view and edit modes while supporting pagination is available in the
-  static Docker environment.
+The following examples will help you understand how dynamic content is handled
+by the *x0-framework*, both by viewing them in the runnable static Docker
+environment and by inspecting their source code:
+
+- ``/www/sysObjDynRadioList.js``: A dynamic radio button list that can be modified
+  at runtime (add/remove), viewable at **"Examples" / "Basic Examples"** menu, under
+  the **"Combinded Objects"** tab.
+- ``/www/userObjExampleEditableItemContainer.js``: An advanced editable list of
+  extended, nested row items, viewable at **"Examples" / "Editable Templates"** menu,
+  under the **"Editable Order Remark List"** subsection.
 
 24.9. Realtime Pagination
 -------------------------
@@ -1453,21 +1457,50 @@ reference). Because all data is already held in memory on the client side,
 switching pages updates the visible child objects immediately without issuing
 backend requests, while preserving the live state of objects on hidden pages.
 
-24.9.1. Configuration
-*********************
+24.9.1. Setup / Configuration
+*****************************
+
+In your custom objects constructor,
+
+- Set ``this.PaginationObject = new sysPagination(this)``, to implement pagination logic.
+- Set ``this.RowCount = 10``, to configure how many rows per page will be processed.
 
 24.9.2. Data Structures
 ***********************
 
-24.9.3. Example Implementation
-******************************
+RowItems
+
+24.9.3. Example Integration
+***************************
+
+24.9.4. Examples
+****************
+
+24.10. Grid Integration
+-----------------------
+
+
 
 .. _runtime-data-model:
 
-24.10. Runtime Data Model
+24.11. Runtime Data Model
 -------------------------
 
-24.11. Class Registration
+
+
+24.11.x. Class Members
+**********************
+
+24.11.x. getObjectData()
+************************
+
+24.11.x. setObjectData()
+************************
+
+24.11.x. callbackXMLRPCAsync
+****************************
+
+24.12. Class Registration
 -------------------------
 
 Once you have built your custom object(s), they still need to be registered so
@@ -1476,13 +1509,13 @@ the *x0-core* system can recognize and instantiate them.
 When using the database backend, register them as described in the following
 section.
 
-24.11.1. User Registration
+24.12.1. User Registration
 **************************
 
 The detailed process of the custom registration process is described here:
 :ref:`custom-object-registration`.
 
-24.11.2. sysFactory
+24.12.2. sysFactory
 *******************
 
 The *x0-static* component does not yet support dynamic custom object
@@ -1495,7 +1528,7 @@ from declarative metadata or used inside other custom objects.
    Only modify ``/www/sysFactory.js`` directly when database-backed user
    registration is unavailable (such as in the standalone *x0-static* component.
 
-24.11.3. Object Loading
+24.12.3. Object Loading
 ***********************
 
 When registering objects in the database backend, dynamic object loading is
@@ -1525,7 +1558,7 @@ If you have developed an internal *x0-core* class, register its script tag in
    Pay close attention to the exact position where you add your entry. If done
    incorrectly, dependent classes will not work.
 
-24.12. Object Instantiation
+24.13. Object Instantiation
 ---------------------------
 
 The *x0-system* currently supports instantiating objects during the *x0-init*
@@ -1547,7 +1580,7 @@ development, though it requires a fundamental redesign of the base system
 
 .. _generic-data-model:
 
-24.13. Generic Data Model
+24.14. Generic Data Model
 -------------------------
 
 The object instantiation process described in the previous chapter requires a
