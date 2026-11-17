@@ -1318,7 +1318,7 @@ programmatically:
 
 Building on what you have learned about the *x0-system* design and structure,
 combining those concepts with this chapter on dynamic content will enable you to
-design sophisticated class abstractions—including event handling and real-time
+design sophisticated class abstractions—including event handling and real time
 modifiable structures. Afterward, learning how to paginate your custom *x0-objects*
 and handle smart data input and output represents the pinnacle of mastering the
 framework.
@@ -1431,9 +1431,10 @@ useful for deeply nested objects (see :ref:`generic-data-model`).
 24.8.5. Referenced Examples
 ***************************
 
-The following examples will help you understand how dynamic content is handled
-by the *x0-framework*, both by viewing them in the runnable static Docker
-environment and by inspecting their source code:
+The following examples provide an **in-depth** look at how the *x0-framework* handles
+dynamic content at a **granular level**, allowing you to explore the behavior both
+live in the runnable *x0-static* Docker environment and by inspecting the underlying
+source code:
 
 - ``/www/sysObjDynRadioList.js``: A dynamic radio button list that can be modified
   at runtime (add/remove), viewable at **"Examples" / "Basic Examples"** menu, under
@@ -1442,14 +1443,25 @@ environment and by inspecting their source code:
   extended, nested row items, viewable at **"Examples" / "Editable Templates"** menu,
   under the **"Editable Order Remark List"** subsection.
 
+.. important::
+
+   The second ``EditableItemContainer`` example **clearly demonstrates** how to model
+   dynamic content **efficiently** using the ``sysFactory.setupObjectRefsRecursive()``
+   abstraction mechanism.
+
+.. note::
+
+   These examples also demonstrate how to use the ``ContextMenu`` and ``Button``
+   *x0-object* types **together**.
+
 24.9. Realtime Pagination
 -------------------------
 
 Thanks to the smart *x0-mirror-dom* realtime object model, even
-runtime-modifiable objects can be paginated. Specifically, pagination is not
-limited to static content such as plain lists—it can be applied to **any**
-nested, runtime-modifiable object hierarchy, opening up a completely new
-approach to broad, dynamic application design.
+**runtime-modifiable** objects can be paginated. Specifically, pagination is
+not limited to static content such as plain lists—it can be applied to **any**
+nested object hierarchy, opening up a completely new approach to broad, dynamic
+application design.
 
 Realtime pagination is provided by the ``sysPagination`` class
 (``/www/sysRTPagination.js``; see :ref:`oopmodel-classes` for the full method
@@ -1460,21 +1472,100 @@ backend requests, while preserving the live state of objects on hidden pages.
 24.9.1. Setup / Configuration
 *****************************
 
-In your custom objects constructor,
+In your custom object's constructor, add the following properties:
 
-- Set ``this.PaginationObject = new sysPagination(this)``, to implement pagination logic.
-- Set ``this.RowCount = 10``, to configure how many rows per page will be processed.
+- Set ``this.PaginationObject = new sysPagination(this)`` to implement pagination logic.
+- Set ``this.RowCount = 10`` to configure the number of rows processed per page (set to 10 in this example).
 
 24.9.2. Data Structures
 ***********************
 
-RowItems
+In addition, your custom object must properly **manage** the ``this.RowItems``
+array for pagination to work.
 
-24.9.3. Example Integration
+- **Constructor:**
+
+  In the custom class constructor, initialize ``this.RowItems = new Array();``.
+
+- **Use Hierarchical Object Connection:**
+
+  Whenever possible, call ``sysFactory.setupObjectRefsRecursive()`` without passing
+  ``this`` as the second parameter. Instead, point it to a dynamically created
+  **container object**, as shown in the following code example (taken from
+  ``userObjExampleEditableItemContainer.js``), and append (push) each container
+  object to ``this.RowItems``.
+
+.. code-block:: javascript
+
+   //- base container object
+   let BaseContainerObj = new sysObjDivUnique()
+   BaseContainerObj.ObjectID = 'BaseRowCtr' + this.ObjectID + '_' + RowIndex;
+   BaseContainerObj.init();
+
+   //- new item object
+   let ItemObj = new userObjExampleEditableItem(this, RowIndex);
+   ItemObj.ScreenObject = this.ScreenObject;
+   BaseContainerObj.ItemRef = ItemObj;
+
+   //- setup recursive object structure
+   let ObjDefs = [
+      {
+         "id": "CtrItem" + this.ObjectID + '_' + RowIndex,
+         "SysObject": new sysObjDivUnique(),
+         "JSONAttributes": {
+            "Style": ""
+         },
+         "ObjectDefs": [
+            {
+               "id": this.ObjectID + '_' + RowIndex,
+               "SysObject": ItemObj,
+               "JSONAttributes": {
+                  "Style": "row m-0 p-0",
+                  "ImagePath": ItemData.ImagePath,
+                  "HeaderText": ItemData.HeaderText,
+                  "ContentText": ItemData.ContentText
+               }
+            }
+         ]
+      }
+   ];
+
+   sysFactory.setupObjectRefsRecursive(ObjDefs, BaseContainerObj);
+
+   //- push to navigation array
+   this.RowItems.push(BaseContainerObj);
+
+- **Manually Add Objects:**
+
+  Manually add objects using ``this.addObject()``, and remember to update
+  registered event listeners if your objects use event handling.
+
+.. code-block:: javascript
+
+   for (const RowItem of this.RowItems)
+   {
+      this.addObject(RowItem);
+      RowItem.processEventListener();
+   }
+
+- **Refresh Pagination:**
+
+  Finally, remember to refresh the pagination calculation.
+
+.. code-block:: javascript
+
+   this.PaginationObject.update();
+
+24.9.4. Referenced Examples
 ***************************
 
-24.9.4. Examples
-****************
+The following examples illustrate how pagination works in practice:
+
+- ``/www/sysObjList.js``: Nearly every ``List`` inside the *x0-static* Docker
+  environment uses pagination.
+- ``/www/userObjExampleEditableItemContainer.js``: An advanced editable list of
+  extended, nested row items, accessible via the **Examples > Editable Templates**
+  menu under the **Editable Order Remark List** subsection.
 
 24.10. Grid Integration
 -----------------------
