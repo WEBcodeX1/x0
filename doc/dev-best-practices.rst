@@ -1569,7 +1569,58 @@ The following examples illustrate how pagination works in practice:
 24.10. Grid Integration
 -----------------------
 
+The *x0-core* grid generation process is handled by ``sysGridGenerator.js``.
+The following sections explain how to integrate **dynamic** grids whose layout
+can be changed at runtime.
 
+24.10.1. Dynamic Integration
+****************************
+
+The following code example demonstrates how to set up a dynamic grid configured
+with multiple layouts inside the ``GridVariants`` array.
+
+``this.selectedGridVariant`` stores the active layout index (integer). By
+changing this value and calling ``rerenderObject()`` on the object structure,
+the layout switches dynamically to the selected variant. Because this follows
+the same rendering principles covered in previous sections, the underlying
+mechanics are omitted here.
+
+.. code-block:: javascript
+
+   //------------------------------------------------------------------------------
+   //- METHOD "genGrid"
+   //------------------------------------------------------------------------------
+
+   sysObjSystemSettingsContainerGrid.prototype.genGrid = function()
+   {
+      console.debug('::genGrid source ColItems:%o', this.ColItems);
+
+      const Atrributes = this.JSONConfig.Attributes;
+      const GridVariants = Atrributes.GridGenerator.Variants;
+
+      let GridGenerator = new sysGridGenerator(this.ColItems);
+
+      GridGenerator.init(
+         Atrributes.GridGenerator.RowStyles,
+         GridVariants[this.selectedGridVariant].ColStyles,
+         GridVariants[this.selectedGridVariant].RowAfterElements,
+         GridVariants[this.selectedGridVariant].ColAfterElements
+      );
+
+      const RowItems = GridGenerator.generate();
+      console.debug('::genGrid RowItems:%o', RowItems);
+
+      for (const RowItem of RowItems) {
+         this.ContainerObj.addObject(RowItem);
+      }
+   }
+
+24.10.2. Referenced Examples
+****************************
+
+The previous example code has been taken from ``sysObjSystemSettingsContainerGrid.js``,
+A live demonstration is accessible via the **"Settings" / "Global Settings"** menu
+under the **"Default Settings"** tab.
 
 .. _runtime-data-model:
 
