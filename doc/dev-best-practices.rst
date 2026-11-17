@@ -1627,18 +1627,41 @@ under the **"Default Settings"** tab.
 24.11. Runtime Data Model
 -------------------------
 
+To clarify what is meant by the **Runtime Data Model**: it refers to how one
+or more object instances store their state during their lifetime—whether as a
+single class member, a structured property, or a JSON document subtree within
+an object's memory space. This is especially important for nested, dependent
+data distributed across multiple object instances that must stay linked.
 
+The underlying concept—the *x0-mirror-dom*, where **one** single object instance
+maps directly to **one** single DOM node—serves as the foundation for the layer
+above it, connecting the state (runtime data) of multiple object instances
+together into what is called the **Runtime Data Model**.
 
-24.11.x. Class Members
+This concept has grown over time, in early stages of the *x0* frameworks only
+a limited count of *x0-core* objects had the possibility to mutate their run time
+state. When new objects were added, the new invented *x0-mirror-dom* showed
+possibilities to make this processing even more generic until today, where the
+**idea** of a 100% generic implementation for *x0* version 1.2 is imminent.
+
+However, an implementor **does not need to** wait for or rely on this upcoming
+generic model. The current *x0* version 1.1 implementation already provides a
+highly flexible approach to handling **runtime data** in custom *x0-objects*,
+which the following subsections describe in detail.
+
+24.11.1. Basic Concept
 **********************
 
-24.11.x. getObjectData()
+24.11.2. Class Members
+**********************
+
+24.11.3. getObjectData()
 ************************
 
-24.11.x. setObjectData()
+24.11.4. setObjectData()
 ************************
 
-24.11.x. callbackXMLRPCAsync
+24.11.5. callbackXMLRPCAsync
 ****************************
 
 24.12. Class Registration
