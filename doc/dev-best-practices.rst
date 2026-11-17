@@ -753,7 +753,7 @@ with ``Index`` set to ``1``:
 Short overview of **what** happens and **why**:
 
 - ``this.ObjectType`` is set to ``'CustomObj'``; however, the class must still be
-  registered with ``sysFactory`` and the object loader (see :ref:`<insert-target>`).
+  registered with ``sysFactory`` and the object loader (see :ref:`init-object-loading`).
 - ``this.ObjectID`` is set dynamically using ``Index``. The base name is set to
   ``CustomObjRowCtr`` because ``ObjectID`` values in the parent object (controller role)
   follow a ``CustomObj*`` naming pattern, avoiding naming schema conflicts.
@@ -1618,6 +1618,8 @@ from declarative metadata or used inside other custom objects.
 
    Only modify ``/www/sysFactory.js`` directly when database-backed user
    registration is unavailable (such as in the standalone *x0-static* component.
+
+.. _init-object-loading:
 
 24.12.3. Object Loading
 ***********************
