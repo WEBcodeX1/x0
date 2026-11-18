@@ -93,8 +93,8 @@ spaghetti-free codebase built for long-term enterprise maintainability.
 The developer must be thoroughly familiar with—and 100% understand—what the
 *x0-mirror-dom* is responsible for and how it is structured.
 
-The Mirror DOM creates a 1:1 mapping between object instances and DOM object layers
-across an *x0-object-instance* hierarchy (also described in the OOP model
+The *x0-mirror-dom* creates a 1:1 mapping between object instances and DOM object
+layers across an *x0-object-instance* hierarchy (also described in the OOP model
 documentation; see :ref:`dev-oopmodel`), which allows structured data storage and
 programmatic object manipulation based on true OOP principles.
 

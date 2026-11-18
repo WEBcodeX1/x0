@@ -30,7 +30,7 @@ also ideally suited for rapid x0-application development without overhead.
 6.1. Static, Minimal Setup
 --------------------------
 
-The **simplest** and **fastest** way to evaluate the *x0-framework* is the ``x0-static``
+The **simplest** and **fastest** way to evaluate the *x0-framework* is the *x0-static*
 Docker container. It is a **single, self-contained container** that requires
 **no database** provisioning, **no background services** (messaging, WSGI), and **no**
 **multi-container** network configuration — Apache alone serves the entire application.
@@ -38,7 +38,7 @@ Docker container. It is a **single, self-contained container** that requires
 The container bundles a **fully operational example** showcase that you can run
 immediately via ``http://localhost/``.
 
-The build creates the local ``x0-static`` image, defined in
+The build creates the local *x0-static* image, defined in
 ``/docker/x0-static.dockerfile``. The startup script runs it as the
 ``x0-static`` container, publishing container port 80 on host port 80. Open
 ``http://localhost/`` in your browser — **no further setup is required**.
