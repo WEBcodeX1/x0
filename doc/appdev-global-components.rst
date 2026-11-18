@@ -295,7 +295,7 @@ In this context, data handling is categorized into the following distinct types:
 
 1. External Input (incoming data from external web services)
 2. External Output (outgoing data sent to external web services)
-3. Internal Object Inter-communication (run-time data exchange between local objects)
+3. Internal Object Inter-communication (runtime data exchange between local objects)
 4. External Object Inter-communication (real-time JSON messaging via network between clients)
 5. Static Object Instantiation (executed on initial load)
 6. Realtime Object Instantiation (executed dynamically at runtime)
