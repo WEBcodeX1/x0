@@ -34,7 +34,7 @@ x0 Framework Documentation
 
 .. _menu-core-dev:
 
- .. toctree::
+.. toctree::
    :maxdepth: 2
    :caption: Core Development
 
