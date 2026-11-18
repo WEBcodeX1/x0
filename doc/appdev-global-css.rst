@@ -25,7 +25,7 @@ attribute in ``object.json`` object declarations.
 9.1.1. Using Bootstrap Classes
 ------------------------------
 
-Bootstrap CSS classes can be applied to any *x0-object* that supports the
+Bootstrap CSS classes can be applied to any *x0-system-object* that supports the
 ``Style`` attribute:
 
 .. code-block:: json
