@@ -222,6 +222,7 @@ The ``FormfieldHidden`` *x0-object-type* renders a non-visible HTML ``<input>`` 
 of type ``hidden``. See :ref:`formfield-global` for inherited attributes.
 
 .. warning::
+
    Hidden form fields are deprecated; use the *x0-globals* component instead.
 
 12.7.1. Object Attributes

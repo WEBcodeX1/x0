@@ -29,6 +29,7 @@ refer to :ref:`dev-bestpractices` within the System Developer Documentation to s
 fine-grained control inside your custom *x0-objects*.
 
 .. important::
+
    In *x0*, a single context menu is directly **object-bound**, rather than being connected
    globally through its item configuration. Consequently, performing a clipboard (get/set)
    operation between two distinct *x0-objects* requires **two** separately configured context
@@ -89,6 +90,7 @@ a context menu item, the *x0-system* distinguishes between two models:
 - **Callback Function** (maps directly to the specified object's callback function)
 
 .. important::
+
    From a declarative perspective, only the **Internal Function** method can be used to map
    functionality. The **Callback Function** method is strictly limited to custom *x0-objects*.
 
@@ -150,11 +152,13 @@ and **HeaderContextMenuItems** (table header only).
 - HeaderContextMenuItems
 
 .. tip::
+
    Please also check the object's configuration section for more **global configuration options**.
    For example, combining this with the context menu's **remove-selected** function enables
    fine-grained, multi-line operations.
 
 .. note::
+
    The *x0-static* runnable container includes multiple viewable examples showing how the
    context menu behaves in combination with a ``List`` *x0-object-type*.
 
@@ -179,6 +183,7 @@ it from table rows.
    }
 
 .. warning::
+
    Currently, only the ``set-data`` function is officially tested and supported.
    Other methods may work but could contain errors or cause unexpected behavior.
 
@@ -294,5 +299,6 @@ unrelated *x0-objects* without a direct object reference.
    }
 
 .. warning::
+
    Please note that ``FireEvents`` are executed additionally **after** an
    **Internal Function** call.

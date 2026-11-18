@@ -49,6 +49,7 @@ Additionally, these *x0-object-types* are officially supported:
 - :ref:`objecttype-dynradiolist`
 
 .. warning::
+
    Theoretically, **any** *x0-object-type* can be referenced inside a ``FormfieldList``, but
    doing so may break the layout or lead to unexpected behavior.
 
@@ -160,6 +161,7 @@ and calls the object instance's render routines, which ultimately output the det
 (according to the current display language).
 
 .. important::
+
    By default, the ``ErrorContainer`` should be configured without any attributes, unless a
    specific ``Style`` needs to be applied. Connecting it within ``skeleton.json`` is sufficient,
    as its logic is **always** controlled externally by other objects.
@@ -432,6 +434,7 @@ to the destination object:
 - **Visibility State:** The object's visibility state is set to **visible**. While this state change is not executed recursively by the internal handler, the browser automatically applies the visibility inheritance recursively to all nested DOM elements.
 
 .. important::
+
    **Use Case:** Multi-step wizards (tabs) containing dynamic content based on a pulldown
    selection must preserve their state. Simply toggling the visibility state of the pulldown
    object is insufficient, because steps that are already inactive are also invisible and

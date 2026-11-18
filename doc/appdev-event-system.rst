@@ -39,6 +39,7 @@ receivers). The **Programmatic Implementation** (for custom-setup *x0-objects*) 
 found in the system developer's guide (see: :ref:`dev-architecture`).
 
 .. important::
+
    The illustration above shows the *x0-object-type* ``List`` with the name **List1**,
    which has two connected events: **InitSystem** and **BtnClick**. Whenever either event
    is triggered, the list is populated (updated) with data from the **Backend.py** service
@@ -96,6 +97,7 @@ that the configuration of two form fields has also been included to demonstrate 
 ``FormfieldList`` setup.
 
 .. important::
+
    Please note: The ``FormfieldList`` object will only receive data once these objects
    are **connected** inside ``skeleton.json``, which is described in the next step (15.3.3).
 
@@ -212,6 +214,7 @@ Valid ``List`` (multiple rows) schema:
    ]
 
 .. important::
+
    Currently, most object types handle data within their callback routines using hardcoded
    logic after it is fetched from backend services. The recommended approach is to process
    this data transparently using ``setObjectData()``. A generic handler for this mechanism
@@ -276,6 +279,7 @@ The configuration must be declaratively defined in the root of an object's
 a corresponding ``ServiceConnector`` setup.
 
 .. important::
+
    Passing an **array** of ObjectIDs (as described in section 15.6.1) is usually
    sufficient if you do not need to append multiple different subtypes to the
    backend request (specified as **object type** in the JSON configuration).
@@ -449,6 +453,7 @@ object and three hardcoded values: ``LimitRows``, ``DateFrom``, and ``DateTo``:
 ``ButtonInternal`` kind.
 
 .. warning::
+
    They are a legacy feature and are planned to be merged into the generic
    function dispatcher / event system in x0 version 1.2.
 

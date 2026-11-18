@@ -77,6 +77,7 @@ This eliminates expensive middleware processing and data transformation pipeline
 your infrastructure clean and well-structured.
 
 .. important::
+
    A 100% generic approach is currently in development and will be shipped with x0 version 1.2.
 
 .. _metadata-model:
@@ -178,6 +179,7 @@ When configured this way, the resulting chain of objects forms a **plain** objec
 **reference** without any logical consequences. However, consider the following:
 
 .. note::
+
    Some *x0-object-types* (e.g., ``ServiceConnector``) can be interposed
    **within** this chained structure to extend the model with logical behavior
    (which is defined inside the object's declarative configuration in ``object.json``).
@@ -320,6 +322,7 @@ expressed through static JSON metadata alone, the declarative approach reaches i
 the programmatic methodology introduced in **7.6. Custom Extensions**.
 
 .. important::
+
    The declarative approach can certainly be used to build complex objects—for example, by combining
    **basic** (e.g., ``DivUnique``) and **container** *x0-objects* into higher-level abstractions in
    ``object.json`` and ``skeleton.json``. **However**, in some situations, such a configuration can
@@ -342,12 +345,14 @@ Once integrated, these **custom** *x0-objects* can be used like any other *x0-ob
 Please ensure you are familiar with :ref:`dev-bestpractices` before you begin.
 
 .. tip::
+
    The *x0-system* only unlocks its **full potential** when you build your own custom,
    user-defined extensions (*x0-custom-classes*, primarily referred to as *x0-objects*). This
    innovative, OOP-based templating approach is extremely powerful, especially for complex,
    nested, and interdependent elements.
 
 .. important::
+
    Ultimately, building custom extensions serves as the **architectural foundation** for integrating
    the *x0-system* as a **highly maintainable** ecosystem capable of meeting **carrier-grade
    requirements** in **large-scale environments**.

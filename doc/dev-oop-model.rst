@@ -297,6 +297,7 @@ notification indicators, dynamic radio lists) tractable without a virtual-DOM di
       for re-rendering. Refer to :ref:`oopmodel-classes-baseobj-removeparent`.
 
       .. warning::
+
          The logical workflow for ``removeParent()`` is completely correct, but the
          function names are misleading. They should be renamed in future releases to
          ``removeFromParent()`` (or ``detachFromParent()``) **and**

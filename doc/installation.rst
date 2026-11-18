@@ -130,7 +130,6 @@ First, install dependencies:
 Generate or import your GPG key for package signing:
 
 .. code-block:: bash
-   :linenos:
 
    gpg --full-generate-key
 
@@ -141,7 +140,6 @@ Generate or import your GPG key for package signing:
 Build Debian packages:
 
 .. code-block:: bash
-   :linenos:
 
    cd ./debian
    debuild
@@ -153,7 +151,6 @@ Packages and metadata will be in the parent directory.
 Add your user to the Docker group:
 
 .. code-block:: bash
-   :linenos:
 
    sudo usermod -aG docker $(whoami)
 
@@ -178,7 +175,6 @@ Add your user to the Docker group:
 5. **Start the x0 System**
 
 .. code-block:: bash
-   :linenos:
 
    cd ./docker
    ./x0-start-containers.sh
@@ -242,7 +238,6 @@ Develop your application, copy files into containers as needed, and rebuild imag
 For restricted or frequent development environments, a local Ubuntu apt mirror can accelerate package downloads.
 
 .. code-block:: bash
-   :linenos:
 
     export UBUNTU_MIRROR_DNS=your-hostname.localnet
     export UBUNTU_MIRROR_IP=192.168.0.253
@@ -257,7 +252,6 @@ For restricted or frequent development environments, a local Ubuntu apt mirror c
 Build everything and start the system:
 
 .. code-block:: bash
-   :linenos:
 
     cd ./debian && debuild
     cd ../docker && ./build-all.sh
@@ -284,7 +278,6 @@ Tests are in ``./test``. The system uses **pytest** and **Selenium Server** for 
 Run tests locally after containers are running:
 
 .. code-block:: bash
-   :linenos:
 
     cd ./test && python3 ./run-selenium-server.py
     sleep 10 && pytest-3

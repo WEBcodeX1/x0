@@ -23,6 +23,7 @@ The messaging infrastructure is built around a lightweight micro-messaging serve
 that handles message routing, session management, and delivery between connected clients.
 
 .. warning::
+
    The shipped *x0-msg-server* container is functionally very limited and has strict
    performance limits. It is explicitly designed and intended **only** for internal
    message exchange testing and local development. It must not be deployed in production
@@ -70,6 +71,7 @@ Messages are temporarily stored in memory and delivered to destination sessions 
 continuous polling requests.
 
 .. note::
+
    WebSocket implementation is planned for future releases to improve efficiency
    and reduce server load.
 
@@ -185,6 +187,7 @@ The messaging system is demonstrated in Example #10:
 *************************************
 
 .. note::
+
    The *x0-messaging* feature is currently in **beta**. Extended API documentation
    is still under development. For architectural insights and implementation details,
    please refer directly to the source code of Example #10 within the workspace.
