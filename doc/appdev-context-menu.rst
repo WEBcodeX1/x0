@@ -7,7 +7,7 @@
 
 An *x0-context-menu* is a flexible, configurable **building block** designed to model
 **highly efficient** workflows. Instead of being bound only to specific, static, pre-existing
-*x0-system-objects*, it can also be bound to **custom-made** objects easily.
+*x0-objects*, it can also be bound to **custom-made** objects easily.
 
 What makes the *x0-infrastructure* so special is its **smart OOP model**, which allows callback
 functions to be bound **directly** to an *x0-object-instance* or to **global system functions**.
@@ -24,7 +24,7 @@ This configuration is **generic**; all subsequent object types use the same stru
 only difference is the specific **position** where the configuration must be placed.
 
 This entire section and all subsequent sub-chapters focus exclusively on the **declarative method**.
-This declarative concept is limited to standard *x0-system* objects. For advanced use cases,
+This declarative concept is limited to standard *x0-objects*. For advanced use cases,
 refer to :ref:`dev-bestpractices` within the System Developer Documentation to see how to achieve
 fine-grained control inside your custom *x0-objects*.
 
@@ -277,7 +277,7 @@ overlay screen via ``sysFactory.OverlayObj.activateOverlay()`` (see
 Setting ``FireEvents`` to an array of EventIDs fires the referenced
 *x0-system-events* via ``sysFactory.Reactor.fireEvents()`` (see
 :ref:`event-system`), allowing a context menu action to notify arbitrary,
-unrelated *x0-system-objects* without a direct object reference.
+unrelated *x0-objects* without a direct object reference.
 
 .. code-block:: json
 
