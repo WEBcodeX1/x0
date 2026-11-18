@@ -48,7 +48,7 @@ Bootstrap CSS classes can be applied to any *x0-system-object* that supports the
    {
       "ExampleContainer":
       {
-         "Type": "Div",
+         "Type": "DivUnique",
          "Attributes":
          {
             "Style": "container-fluid p-4 bg-light rounded shadow"
@@ -187,7 +187,7 @@ Mix custom classes with Bootstrap classes in your JSON configurations:
    {
       "ExampleHeaderContainer":
       {
-         "Type": "Div",
+         "Type": "DivUnique",
          "Attributes":
          {
             "Style": "my-custom-header p-4 mb-3 shadow-lg"
@@ -196,7 +196,7 @@ Mix custom classes with Bootstrap classes in your JSON configurations:
 
       "StatusIndicator":
       {
-         "Type": "Div",
+         "Type": "DivUnique",
          "Attributes":
          {
             "Style": "d-flex align-items-center status-indicator status-active"
@@ -223,7 +223,7 @@ Mix custom classes with Bootstrap classes in your JSON configurations:
    {
       "ExampleProductCard":
       {
-         "Type": "Div",
+         "Type": "DivUnique",
          "Attributes":
          {
             "Style": "card product-card shadow-sm hover-lift"
