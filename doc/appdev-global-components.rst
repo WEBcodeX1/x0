@@ -56,7 +56,14 @@ The mapping syntax ``["GlobalVarName"] = "backend_key"`` instructs *x0* to read
 the key ``backend_key`` from the backend JSON response and store it under the name
 ``GlobalVarName`` in the global data store.
 
+.. important::
+
+   Keep the inner double quotes around ``"InitSystem.py"`` in the
+   ``preload_script`` entry—they are required by the configuration parser
+   and are intentional.
+
 .. warning::
+
    The *x0-static* component does **not yet** support this feature.
 
 14.2.2. Declarative Access
