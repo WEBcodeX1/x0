@@ -1455,7 +1455,7 @@ source code:
 24.9. Realtime Pagination
 -------------------------
 
-Thanks to the smart *x0-mirror-dom* realtime object model, even
+Thanks to the smart *x0-mirror-dom* real-time object model, even
 **runtime-modifiable** objects can be paginated. Specifically, pagination is
 not limited to static content such as plain lists—it can be applied to **any**
 nested object hierarchy, opening up a completely new approach to broad, dynamic
