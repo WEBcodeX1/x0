@@ -117,7 +117,7 @@ that the configuration of two form fields has also been included to demonstrate 
                "Formfield1"
             ],
             "Style": "border rounded p-2",
-            "RowStyle": "row m-0 p1",
+            "RowStyle": "row m-0 p-1",
             "RowAfterElements": 2,
             "ColAfterElements": 1,
             "ColStyle":
