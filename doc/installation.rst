@@ -47,6 +47,7 @@ If you need to use multiple virtual hosts or plan to implement examples,
 continue with the :ref:`installation-full-system` below.
 
 .. tip::
+
    The static Docker container can be used perfectly to build and test
    your application for later deployment in the system's full setup.
 
@@ -56,13 +57,14 @@ continue with the :ref:`installation-full-system` below.
 -----------------------------
 
 The following sections cover the complete, database-backed *x0-system*
-installation — required for backend development, running the full test
-suite, or Kubernetes deployment.
+installation — required for viewing examples, running the full test suite,
+or Kubernetes deployment.
 
 6.2.1. Supported Environments
 *****************************
 
-You can use **any Linux distribution** where Debian packages can be built natively (``debuild``):
+You can use **any Linux distribution** where Debian packages can be built
+natively (``debuild``):
 
 - Ubuntu 24.04 / 26.04
 - Debian 12 / 13
@@ -89,26 +91,16 @@ You can use **any Linux distribution** where Debian packages can be built native
 - `ingress-nginx` — https://kubernetes.github.io/ingress-nginx
 - `cert-manager` — https://cert-manager.io
 
-**Optional for advanced OOP web services:**
-
-- [`python-microesb`](https://github.com/clauspruefer/python-micro-esb)
-
-**Optional for local messaging tests:**
-
-- [`micro-msg-server`](https://github.com/clauspruefer/micro-msg-server)
-
 6.2.3. System Installation
 **************************
 
-.. highlight:: bash
-
-We **strongly recommend** using Docker containers for development.
-
-The *x0-system* provides tooling to build Docker images with full networking, so you can run the system (including DB and messaging server) **locally within minutes**.
+The *x0-system* provides tooling to build Docker images with full networking, so you
+can run the system (including DB and messaging server) **locally within minutes**.
 
 First, install dependencies:
 
 .. code-block:: bash
+   :linenos:
 
     # Install Docker & build tools
     sudo apt-get install -y docker.io docker-buildx debuild gpg
@@ -124,73 +116,80 @@ First, install dependencies:
 
 1. **Clone the x0 Repository**
 
-   .. code-block:: bash
+.. code-block:: bash
+   :linenos:
 
-      # HTTP clone (read-only)
-      git clone https://github.com/WEBcodeX1/x0.git
+   # HTTP clone (read-only)
+   git clone https://github.com/WEBcodeX1/x0.git
 
-      # OR: SSH clone (for contributors)
-      git clone git@github.com:WEBcodeX1/x0.git
+   # OR: SSH clone (for contributors)
+   git clone git@github.com:WEBcodeX1/x0.git
 
 2. **Set Up Debian Build System**
 
-   Generate or import your GPG key for package signing:
+Generate or import your GPG key for package signing:
 
-   .. code-block:: bash
+.. code-block:: bash
+   :linenos:
 
-      gpg --full-generate-key
+   gpg --full-generate-key
 
-   .. note::
-      Your GPG identity **must exactly match** the format in ``./debian/changelog``: "Real Name (Comment) <email-address.com>"
+.. note::
 
-   Build Debian packages:
+   Your GPG identity **must exactly match** the format in ``./debian/changelog``: "Real Name (Comment) <email-address.com>"
 
-   .. code-block:: bash
+Build Debian packages:
 
-      cd ./debian
-      debuild
+.. code-block:: bash
+   :linenos:
 
-   Packages and metadata will be in the parent directory.
+   cd ./debian
+   debuild
+
+Packages and metadata will be in the parent directory.
 
 3. **Configure Docker**
 
-   Add your user to the Docker group:
+Add your user to the Docker group:
 
-   .. code-block:: bash
+.. code-block:: bash
+   :linenos:
 
-      sudo usermod -aG docker $(whoami)
+   sudo usermod -aG docker $(whoami)
 
-   .. warning::
-      You must restart your shell/session for group changes to take effect.
+.. warning::
+
+   You must restart your shell/session for group changes to take effect.
 
 4. **Pull or Build Docker Images**
 
-   .. code-block:: bash
+.. code-block:: bash
+   :linenos:
 
-      # Pull prebuilt images (recommended)
-      docker pull ghcr.io/webcodex1/x0-app
-      docker pull ghcr.io/webcodex1/x0-db
-      docker pull ghcr.io/webcodex1/x0-test
+   # Pull prebuilt images (recommended)
+   docker pull ghcr.io/webcodex1/x0-app
+   docker pull ghcr.io/webcodex1/x0-db
+   docker pull ghcr.io/webcodex1/x0-test
 
-      # Or build images yourself
-      cd ./debian && debuild
-      cd ../docker && ./build-all.sh
+   # Or build images yourself
+   cd ./debian && debuild
+   cd ../docker && ./build-all.sh
 
 5. **Start the x0 System**
 
-   .. code-block:: bash
+.. code-block:: bash
+   :linenos:
 
-      cd ./docker
-      ./x0-start-containers.sh
+   cd ./docker
+   ./x0-start-containers.sh
 
 6. **Develop, Test, and Rebuild**
 
-   Develop your application, copy files into containers as needed, and rebuild images or restart containers.
+Develop your application, copy files into containers as needed, and rebuild images or restart containers.
 
-   .. note::
-      For minor changes, copying files directly into containers can be faster than a full rebuild.
+.. note::
 
-   The changelog is at ``./debian/changelog``.
+   For minor changes, copying files directly into containers can be faster than a full rebuild.
 
 6.2.5. Docker Network Reference
 *******************************
@@ -222,6 +221,7 @@ First, install dependencies:
 ***************************
 
 .. code-block:: bash
+   :linenos:
 
     # Copy files to a container
     docker cp ./file x0-app:/path/
@@ -242,11 +242,13 @@ First, install dependencies:
 For restricted or frequent development environments, a local Ubuntu apt mirror can accelerate package downloads.
 
 .. code-block:: bash
+   :linenos:
 
     export UBUNTU_MIRROR_DNS=your-hostname.localnet
     export UBUNTU_MIRROR_IP=192.168.0.253
 
 .. warning::
+
    Both ``UBUNTU_MIRROR_DNS`` and ``UBUNTU_MIRROR_IP`` must be set and your DNS must resolve correctly.
 
 6.2.8. System Verification
@@ -282,6 +284,7 @@ Tests are in ``./test``. The system uses **pytest** and **Selenium Server** for 
 Run tests locally after containers are running:
 
 .. code-block:: bash
+   :linenos:
 
     cd ./test && python3 ./run-selenium-server.py
     sleep 10 && pytest-3
@@ -302,6 +305,7 @@ For details, see: https://github.com/WEBcodeX1/x0/tree/current-release/kubernete
 - Use Git Bash (Cygwin-based) for correct image loading.
 
 .. code-block:: bash
+   :linenos:
 
     # Load images
     docker load < docker.x0-app.tar
