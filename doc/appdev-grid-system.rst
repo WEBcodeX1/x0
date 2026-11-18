@@ -250,15 +250,27 @@ application's lifetime.
 10.5.1. Empirical Proof
 -----------------------
 
-An excellent example of this dynamic restructuring is the **Settings menu**. You can see
-it in action by navigating to: **Main Menu → Settings / Global Settings → Default Settings (Tab)
-→ Adjust Grid / Column View** inside the *x0-static* Docker container.
+An excellent example of this dynamic restructuring can be found in the
+**"Default Settings"** tab of the *x0-static* Docker container. Start up
+the container, open the application in your browser, and navigate to
+**"Main Menu"** / **"Settings / Global Settings"** / **"Default Settings"**
+(tab). Under **"Adjust Grid / Column View"**, you can select between two
+different layout variants.
 
-Here is how it works under the hood:
+The underlying mechanism relies on three key behaviors:
 
-- **Instant Layout Changes:** In this section, you can select different grid layouts (variants) from a dropdown menu. When you choose a variant and click **Update View**, the system doesn't just resize a few columns. Instead, it instantly wipes out the current layout and builds a completely new one from scratch—for example, switching from a 3-column to a 6-column view in a single step.
-- **Zero Delay:** Because this entire process happens directly inside your web browser (client-side), the change is immediate.
-- **No Server Load:** The system does not need to reload the page, refresh templates, or talk to the backend server at all. Everything updates instantly on your screen without a single network request.
+- **Targeted Layout Redraws:** In this section, you can select different grid
+  layouts (variants) from a dropdown menu. When you choose a variant and click
+  **Update View**, the system leaves the surrounding page intact and only
+  clears and redraws the grid view below—for example, switching the modified
+  content area from a 3-column to a 6-column layout in a single step.
+
+- **Zero Latency:** Because the entire rendering process executes directly
+  within the browser (client-side), the visual update is immediate.
+
+- **Zero Server Overhead:** The application does not reload the page, re-fetch
+  templates, or communicate with the backend server. The target content area
+  updates on screen without issuing a single network request.
 
 10.6. Systems Integration
 *************************
