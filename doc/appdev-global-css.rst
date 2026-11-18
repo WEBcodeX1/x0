@@ -25,7 +25,7 @@ attribute in ``object.json`` object declarations.
 9.1.1. Using Bootstrap Classes
 ------------------------------
 
-Bootstrap CSS classes can be applied to any *x0-system-object* that supports the
+Bootstrap CSS classes can be applied to any *x0-object* that supports the
 ``Style`` attribute:
 
 .. code-block:: json
@@ -77,7 +77,7 @@ Common Bootstrap classes that work well with x0:
 9.2. x0 vs. Bootstrap Grid
 **************************
 
-The *x0-grid-system* works harmoniously with Bootstrap's grid classes to create powerful,
+The *x0-grid* system works harmoniously with Bootstrap's grid classes to create powerful,
 responsive layouts.
 
 9.2.1. Mix x0 with Bootstrap
