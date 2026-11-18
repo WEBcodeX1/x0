@@ -1638,11 +1638,11 @@ maps directly to **one** single DOM node—serves as the foundation for the laye
 above it, connecting the state (runtime data) of multiple object instances
 together into what is called the **Runtime Data Model**.
 
-This concept has grown over time, in early stages of the *x0* frameworks only
-a limited count of *x0-core* objects had the possibility to mutate their run time
-state. When new objects were added, the new invented *x0-mirror-dom* showed
-possibilities to make this processing even more generic until today, where the
-**idea** of a 100% generic implementation for *x0* version 1.2 is imminent.
+This concept evolved over time. In the early stages of the *x0* framework, only
+a limited number of *x0-core* objects could mutate their runtime state. As new
+objects were added, the newly introduced *x0-mirror-dom* opened up opportunities
+to make this state handling increasingly generic—culminating in the **idea** of
+a 100% generic implementation, which is now imminent in *x0* version 1.2.
 
 However, an implementor **does not need to** wait for or rely on this upcoming
 generic model. The current *x0* version 1.1 implementation already provides a
@@ -1652,16 +1652,104 @@ which the following subsections describe in detail.
 24.11.1. Basic Concept
 **********************
 
-24.11.2. Class Members
-**********************
+The concrete purpose of a **Runtime Data Model** within *x0* may still seem
+unclear. To illustrate it, consider a ``Formfield`` *x0-object* type. A form
+field always requires a mechanism to **set** (populate or modify) data and
+**get** modified user input, especially when exchanging data across multiple
+objects with backend systems.
 
-24.11.3. getObjectData()
-************************
+Implementing this process in a completely unstructured (hardcoded) way is bad
+practice, so *x0* provides dedicated API functionality for both the **get**
+and **set** operations. Custom *x0-objects* are configured for this mechanism
+within their class constructor, as described in the next subsection.
 
-24.11.4. setObjectData()
-************************
+24.11.2. Class Properties
+*************************
 
-24.11.5. callbackXMLRPCAsync
+Currently, in *x0* version 1.1, the following class properties can be used
+to control *x0-core* runtime data processing inside custom *x0-classes*.
+
+By defining ``this.RuntimeGetDataFunc`` or ``this.RuntimeSetDataFunc``, the
+*x0-core* knows which member functions are responsible for **get** and **set**
+data operations.
+
+.. code-block:: javascript
+
+   this.RuntimeGetDataFunc = this.getValue;
+   this.RuntimeSetDataFunc = this.setValue;
+
+``this.GetDataMechanism`` and ``this.SetDataMechanism`` define how the **get**
+and **set** data operations behave.
+
+.. code-block:: javascript
+
+   this.GetDataMechanism = 'Plain';
+   this.SetDataMechanism = 'Plain';
+
+Currently, ``this.GetDataMechanism`` and ``this.SetDataMechanism`` in *x0*
+version 1.1 only support ``Plain``. One exception is ``sysObjFormfieldList.js``,
+where ``this.SetDataMechanism`` is set to ``KeyValue`` as an experimental
+implementation for generic operations.
+
+The following subsections cover these mechanisms in detail.
+
+24.11.3. Recursive Processing
+*****************************
+
+First, here is a brief explanation of why a generic recursion model makes
+sense and how *x0-system* version 1.1 currently handles data operations across
+a nested *x0-object* class hierarchy.
+
+When ``sysBaseObject.getObjectData()`` is called from any starting point
+in the object graph via ``this.getObjectData()`` (a method inherited by all objects
+in the graph), the object instance first checks ``this.GetDataMechanism`` for the
+value ``Plain``. If it is **not** set to ``Plain``, execution continues into
+``this.getObjectDataRecursive()``, which recursively loops through all child objects
+by calling ``getObjectData()`` on each one.
+
+.. warning::
+
+   This feature is experimental in *x0* version 1.1. Until version 1.2 is
+   released, rely strictly on ``Plain`` handling.
+
+Take the current implementation of the ``List`` *x0-object* type (in ``/www/sysObjList.js``)
+as an example of how this **hardcoded approach** works and how it still fits
+into the *x0* recursive model.
+
+.. code-block:: text
+
+    Current, x0-version 1.1 implementation
+
+         +------------------------------+      +---------------------------------+
+         | ``List`` object type         |      | ``ListRow`` with ``Index=1``    |
+         +------------------------------+      +---------------------------------+
+         | ``getRuntimeData()``         | ---> | ``ListRow`` with ``Index=2``    |
+    <--- |   - manually loop            |      +---------------------------------+
+         |   - manually format result   |      | ``ListRow`` with ``Index=3``    |
+         +------------------------------+      +---------------------------------+
+                                               | ``ListRow`` with ``Index=4``    |
+                                               +---------------------------------+
+
+Here, ``this.RuntimeGetDataFunc = this.getRuntimeData`` and
+``this.RuntimeSetDataFunc = this.appendData`` map the data processing functions.
+Both are hardcoded. Setting ``this.GetDataMechanism`` and ``this.SetDataMechanism``
+to ``Plain`` flags the object as a data endpoint, stopping the recursion inside
+``sysBaseObject.getObjectData()``.
+
+However, this approach is limited. Since *x0* version 1.0, the ``List`` *x0-object* type
+has supported nested objects inside columns, allowing arbitrary subtypes and sub-subtypes
+to be applied recursively.
+
+For *x0* version 1.2, runtime object cloning is planned, meaning any object can be
+cloned or instantiated at runtime (see :ref:`runtime-object-instantiation` and
+:ref:`generic-data-model`). To properly clone and modify complex structures at runtime
+—such as a list containing nested column subtypes—the data **get** and **set** operations
+**must** be refactored to use generic recursive processing. In technical terms, this
+pattern is known as **Object Document Mapping** (ODM), enabling nested object hierarchies
+to be seamlessly serialized (**get**) and deserialized or populated (**set**) across
+arbitrary nesting depths.
+
+24.11.4. callbackXMLRPCAsync
 ****************************
 
 24.12. Class Registration
@@ -1724,6 +1812,8 @@ If you have developed an internal *x0-core* class, register its script tag in
    Pay close attention to the exact position where you add your entry. If done
    incorrectly, dependent classes will not work.
 
+.. _runtime-object-instantiation:
+
 24.13. Object Instantiation
 ---------------------------
 
@@ -1746,16 +1836,16 @@ development, though it requires a fundamental redesign of the base system
 
 .. _generic-data-model:
 
-24.14. Generic Data Model
--------------------------
+24.14. Generic Runtime Data Model
+---------------------------------
 
 The object instantiation process described in the previous chapter requires a
-clean **document relation layer**. While this is partially prepared in *x0*
+clean **Document Relation Layer**. While this is partially prepared in *x0*
 version 1.1, the current implementation lacks a truly generic design. Furthermore,
 the integration process relies on modifications across multiple subsystems and
 related layers before it can run smoothly and in a completely generic manner.
 
-Specifically, the **document relation layer** refers to the *x0-mirror-dom*,
+Specifically, the **Document Relation Layer** refers to the *x0-mirror-dom*,
 in particular to how **nested** data structures are defined. When combining or
 chaining *x0-objects* together, it is critical not only to **set** nested data,
 but also to **get** data in a generic internal format. The ideal goal is to get
