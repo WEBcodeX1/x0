@@ -100,7 +100,7 @@ programmatic object manipulation based on true OOP principles.
 
 During *x0-init*, the relationships between object instances are established from
 ``skeleton.json``, building a large graph-based tree in which each object instance
-holds a ``ChildObjects`` array referencing its child instances.
+holds a ``ChildObjects`` ``Array`` referencing its child instances.
 
 This architecture is exceptionally fast because it does not rely on an external
 object-manager pattern. Real-time redrawing of a specific object requires only a
@@ -334,9 +334,9 @@ initialized directly inside your class constructor.
 - ``this.DOMAttributes``: An ``Object`` containing HTML **attributes** as
   key/value pairs (such as ``type``, ``title``, or ``disabled``). When no HTML
   attributes are needed, simply omit this property.
-- ``this.overrideDOMObjectID``: A boolean flag (``false`` by default). When set
-  to ``true``, the rendered HTML element keeps the exact ``this.ObjectID`` as
-  its ``id`` instead of combining it with parent IDs.
+- ``this.overrideDOMObjectID``: A ``Boolean`` flag (``false`` by default). When
+  set to ``true``, the rendered HTML element keeps the exact ``this.ObjectID``
+  as its ``id`` instead of combining it with parent IDs.
 
 **Mandatory:**
 
@@ -928,7 +928,7 @@ Key properties of the menu item definition (``ContextMenuItems``) and the
 - ``ContextMenu.ID``: Sets a unique DOM ID for the popup menu by combining a
   prefix with ``this.ObjectID``, preventing collisions across multiple
   instances.
-- ``ContextMenu.ItemConfig``: Passes the array of menu entry definitions to
+- ``ContextMenu.ItemConfig``: Passes the ``Array`` of menu entry definitions to
   the menu instance.
 - ``ContextMenu.ScreenObject``: This reference **must** be a valid ScreenObject
   reference, otherwise context menu rendering fails.
@@ -1288,7 +1288,7 @@ Below is a detailed explanation of how the controller works:
 - A ``JSONConfig`` object containing an ``Attributes`` property is dynamically
   constructed and assigned to each row object so it can access its value during
   initialization.
-- The display data must be provided as a simple array, such as
+- The display data must be provided as a simple ``Array``, such as
   ``[ 'value1', 'value2', 'value3' ]`` in ``JSONConfig.Attributes.RowData``.
 
 The following example demonstrates how to set up and render this object
@@ -1480,7 +1480,7 @@ In your custom object's constructor, add the following properties:
 ***********************
 
 In addition, your custom object must properly **manage** the ``this.RowItems``
-array for pagination to work.
+``Array`` for pagination to work.
 
 - **Constructor:**
 
@@ -1577,9 +1577,9 @@ can be changed at runtime.
 ****************************
 
 The following code example demonstrates how to set up a dynamic grid configured
-with multiple layouts inside the ``GridVariants`` array.
+with multiple layouts inside the ``GridVariants`` ``Array``.
 
-``this.selectedGridVariant`` stores the active layout index (integer). By
+``this.selectedGridVariant`` stores the active layout index (``Integer``). By
 changing this value and calling ``rerenderObject()`` on the object structure,
 the layout switches dynamically to the selected variant. Because this follows
 the same rendering principles covered in previous sections, the underlying

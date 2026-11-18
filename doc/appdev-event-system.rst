@@ -379,7 +379,7 @@ to the backend. Specify the source screen with ``ScreenID``:
 15.6.6. Examples
 ****************
 
-The most simple way, defining multiple ObjectIDs as **array type**:
+The most simple way, defining multiple ObjectIDs as ``Array`` type:
 
 .. code-block:: json
 

@@ -22,7 +22,7 @@ These classes provide essential functionality that forms the backbone of the ent
 *******************************
 
 The ``sysBaseObject.addObject()`` method is responsible for adding a child object to the
-``ChildObjects`` array of a ``sysBaseObject`` instance. It also establishes the parent-child
+``ChildObjects`` ``Array`` of a ``sysBaseObject`` instance. It also establishes the parent-child
 relationship by setting the ``ParentObject`` property of the child object.
 
 This method is a fundamental part of the ``sysBaseObject`` class, enabling the *x0-framework*
@@ -46,7 +46,7 @@ to handle complex object relationships with ease.
         The method ensures that the ChildObject has a reference to its parent object via the ParentObject property.
 
     2. Dynamic Hierarchy:
-        By pushing the ChildObject into the ChildObjects array, this method allows the creation of dynamic, hierarchical structures within the x0-framework.
+        By pushing the ChildObject into the ChildObjects ``Array``, this method allows the creation of dynamic, hierarchical structures within the x0-framework.
 
     3. Recursiveness:
         Since ChildObject can itself be an instance of sysBaseObject or its derived classes, the method supports recursive structures (e.g., trees or nested components).
@@ -164,7 +164,7 @@ This is the **most important** *x0-core* feature. It is documented in detail her
         Attaches event listeners to the DOM element using processEventListener().
 
     5. Recursive Rendering:
-        Iterates over the ChildObjects array and invokes renderObject() on each child, propagating the rendering process recursively.
+        Iterates over the ChildObjects ``Array`` and invokes renderObject() on each child, propagating the rendering process recursively.
 
     6. rerenderObject():
         Removes the current DOM subtree (``removeDOMParentElement()``), calls ``renderObject()``
@@ -208,7 +208,7 @@ provides a convenient full-refresh counterpart.
 23.1.3. sysBaseObject.remove
 ****************************
 
-The ``remove()`` method detaches a single object from its parent's ``ChildObjects`` array
+The ``remove()`` method detaches a single object from its parent's ``ChildObjects`` ``Array``
 and removes its DOM representation.
 
 23.1.3.1. Method Implementation
@@ -263,9 +263,9 @@ and removes its DOM representation.
 #################
 
 The ``removeParent()`` method removes ``this.DOMObjectID`` from the ``ParentObject`` DOM
-element (``removeDOMParentElement()``) and discards *its own* ``ChildObjects`` array.
+element (``removeDOMParentElement()``) and discards *its own* ``ChildObjects`` ``Array``.
 This effectively prunes everything below this object while keeping the object instance
-itself, along with its reference in the ``ParentObject``'s ``ChildObjects`` array used
+itself, along with its reference in the ``ParentObject``'s ``ChildObjects`` ``Array`` used
 for re-rendering.
 
 .. warning::
@@ -290,8 +290,8 @@ for re-rendering.
         If it exists, the object's DOM element representation (``this.DOMObjectID``) is removed from the DOM parent element using ``removeDOMParentElement()``.
 
     * Child Objects Reset:
-        Deletes the ``ChildObjects`` array to ensure all child references are cleared.
-        Resets ``ChildObjects`` to an empty array to enable clean re-rendering.
+        Deletes the ``ChildObjects`` ``Array`` to ensure all child references are cleared.
+        Resets ``ChildObjects`` to an empty ``Array`` to enable clean re-rendering.
 
     * Error Handling:
         Catches and logs any errors that occur during the removal process.
@@ -379,7 +379,7 @@ The purpose of ``setupObjectRefsRecursive`` is to:
 ####################
 
     - ObjDefs:
-        An array of object definitions, where each definition specifies the id, SysObject, JSONAttributes, optional KeyID, and optionally nested ObjectDefs.
+        An ``Array`` of object definitions, where each definition specifies the id, SysObject, JSONAttributes, optional KeyID, and optionally nested ObjectDefs.
 
     - RefObj:
         The parent object to which the processed objects will be added as children.
@@ -408,7 +408,7 @@ The purpose of ``setupObjectRefsRecursive`` is to:
 ######################
 
     1. Iterate Through ObjDefs:
-        The function loops through each object definition in the ObjDefs array.
+        The function loops through each object definition in the ObjDefs ``Array``.
 
     2. Initialize Objects:
         For each object:
@@ -654,7 +654,7 @@ Walks the ``ChildObjects`` tree depth-first and populates two module-level accum
 23.1.7.2. setObjectDataKeyValueRecursive
 ########################################
 
-Used when ``SetDataMechanism == 'KeyValue'``. Resolves the incoming ``Data`` array to the
+Used when ``SetDataMechanism == 'KeyValue'``. Resolves the incoming ``Data`` ``Array`` to the
 ``KeyID`` configured on the current node via ``getKeyIDValueFromData(Data, this.KeyID)``: if a
 matching entry is found and the node exposes a ``RuntimeSetDataFunc``, that function is
 invoked directly with the resolved value; otherwise the search recurses into
@@ -717,7 +717,7 @@ handle button-specific actions in a modular and object-oriented way.
             * ``DOMType``: Set to 'button', indicating it represents a button element.
             * ``DOMAttributes``: An object for storing HTML attributes for the button.
             * ``EventListeners``: An object to store event listeners.
-            * ``ChildObjects``: An array for managing child objects.
+            * ``ChildObjects``: An ``Array`` for managing child objects.
 
     2. Inheritance:
         - Inherits from ``sysBaseObject``.
@@ -840,11 +840,11 @@ from the objects that should react to application-level events.
 **sysReactor** manages a flat list of registered ``sysEvent`` instances:
 
 - ``registerEvent(Attributes, CallbackFunction)``: Reads ``Attributes.OnEvent.Events``
-  (an array of either plain ``EventID`` strings or ``{ EventID, EventSelector }`` objects) and
+  (an ``Array`` of either plain ``EventID`` strings or ``{ EventID, EventSelector }`` objects) and
   pushes one ``sysEvent`` per entry, bound to the supplied ``CallbackFunction``.
 - ``dispatchEvent(EventID, EventSelector)``: Looks up the first registered ``sysEvent`` whose
   ``ID``/``EventSelector`` pair matches and invokes its ``CallbackFunction``.
-- ``fireEvents(FireEvents)``: Iterates an array of ``EventID`` values and calls
+- ``fireEvents(FireEvents)``: Iterates an ``Array`` of ``EventID`` values and calls
   ``sysFactory.Reactor.dispatchEvent(EventID)`` for each, used by ``sysObjButton.processActions()``
   and ``sysTab.fireEvents()`` to raise one or more events as a side effect of a user action.
 
@@ -1390,12 +1390,12 @@ Defined in ``sysHelper.js``. A small collection of standalone, module-level util
 (not attached to any prototype) used across the engine:
 
 - ``sysMergeObjects(Object1, Object2)``: Deep-merges two plain objects; nested objects are
-  merged recursively, arrays are concatenated, and scalar values in ``Object2`` overwrite
+  merged recursively, ``Array``s are concatenated, and scalar values in ``Object2`` overwrite
   those in ``Object1``.
-- ``sysConvertSysData2KeyValue(Data)``: Converts an array of ``{ KeyID, ObjectValue }`` entries
+- ``sysConvertSysData2KeyValue(Data)``: Converts an ``Array`` of ``{ KeyID, ObjectValue }`` entries
   (as produced by :ref:`oopmodel-classes-getobjectdata`'s recursive getter) into a flat
   ``{ KeyID: ObjectValue, … }`` object.
-- ``sysConvertSysDataArray2Object(Data)``: Converts an array of ``{ KeyID, … }`` entries into an
+- ``sysConvertSysDataArray2Object(Data)``: Converts an ``Array`` of ``{ KeyID, … }`` entries into an
   object keyed by ``KeyID``.
 
 .. _oopmodel-classes-asyncnotify:

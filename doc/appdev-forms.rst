@@ -62,17 +62,17 @@ Additionally, these *x0-object-types* are officially supported:
    +------------------+-------------------+--------------------------------------------------+
    | **Property**     | **Type**          | **Description**                                  |
    +==================+===================+==================================================+
-   | ObjectIDs        | Array of Strings  | Formfield ObjectIDs                              |
+   | ObjectIDs        | ``Array``         | ``Array`` of Strings (Formfield ``ObjectIDs``)   |
    +------------------+-------------------+--------------------------------------------------+
-   | Style            | CSS-String        | CSS Style Classes, space separated               |
+   | Style            | ``String``        | CSS Style Classes, space separated               |
    +------------------+-------------------+--------------------------------------------------+
-   | ErrorContainer   | String            | ErrorContainer ObjectID                          |
+   | ErrorContainer   | ``String``        | ErrorContainer ``ObjectID``                      |
    +------------------+-------------------+--------------------------------------------------+
-   | ContextMenuItems | Array of Elements | Context Menu Items                               |
+   | ContextMenuItems | ``Array``         | ``Array`` of Elements (Context Menu Items)       |
    +------------------+-------------------+--------------------------------------------------+
-   | GroupValidate    | Array of Elements | Array of Group Validate Elements                 |
+   | GroupValidate    | ``Array``         | ``Array`` of Elements (Group Validate Elements)  |
    +------------------+-------------------+--------------------------------------------------+
-   | Disable          | Boolean           | Disables all contained Formfields on ``reset()`` |
+   | Disable          | ``Boolean``       | Disables all contained Formfields on ``reset()`` |
    +------------------+-------------------+--------------------------------------------------+
 
 17.1.2. Validation
@@ -99,15 +99,15 @@ the system with custom, programmatic validation routines.
 .. table:: GroupValidate Element Attributes
    :widths: 15 15 70
 
-   +---------------------+------------------+------------------------------------------------+
-   | **Property**        | **Type**         | **Description**                                |
-   +=====================+==================+================================================+
-   | FunctionRef         | String           | Name of the system Group Validate function     |
-   +---------------------+------------------+------------------------------------------------+
-   | ObjectIDs           | Array of Strings | ObjectIDs validated together by FunctionRef    |
-   +---------------------+------------------+------------------------------------------------+
-   | ValidateErrorTextID | TextID-String    | TextID referenced in ``webui.text`` DB Table   |
-   +---------------------+------------------+------------------------------------------------+
+   +---------------------+--------------+----------------------------------------------------+
+   | **Property**        | **Type**     | **Description**                                    |
+   +=====================+==============+====================================================+
+   | FunctionRef         | ``String``   | Name of the system Group Validate function         |
+   +---------------------+--------------+----------------------------------------------------+
+   | ObjectIDs           | ``Array``    | ``Array`` of ``ObjectIDs``                         |
+   +---------------------+--------------+----------------------------------------------------+
+   | ValidateErrorTextID | ``String``   | ``TextID`` referenced in ``webui.text`` DB Table   |
+   +---------------------+--------------+----------------------------------------------------+
 
 .. code-block:: json
 
@@ -213,7 +213,7 @@ at some point. This outbound data transfer is implemented within the ``Button``
 *x0-object-type*.
 
 By specifying the backend service URL inside the ``OnClick`` property and listing
-the originating source objects within the ``SrcDataObjects`` array, the corresponding
+the originating source objects within the ``SrcDataObjects`` ``Array``, the corresponding
 data is automatically appended to the XML-RPC POST JSON request payload.
 
 This data abstraction is 100% parameter-free, as all data transmitted to the backend
@@ -221,7 +221,7 @@ is fully encapsulated within structured JSON data.
 
 .. important::
    Any *x0-object-type* that supports the ``getObjectData()`` method can be referenced
-   inside the ``SrcDataObjects`` array.
+   inside the ``SrcDataObjects`` ``Array``.
 
 As the following example demonstrates, clicking the button appends the data from
 ``Formlist1``, ``Object1``, and ``Object2`` to the POST request payload sent to the URL
@@ -373,7 +373,7 @@ The following example demonstrates this behavior using a ``Checkbox`` *x0-object
       }
    }
 
-Since the only valid states for a checkbox are **true** and **false**, this configuration
+Since the only valid states for a checkbox are ``true`` and ``false``, this configuration
 enables the object with the ID "DestinationObjectID" recursively when the checkbox is checked,
 and disables "DestinationObjectID" recursively when it is unchecked.
 
@@ -473,7 +473,7 @@ See :ref:`event-system` for the full event-system architecture.
 17.2.6. Chaining Events
 ***********************
 
-Multiple ``OnChange`` configurations can be specified if provided as **Array** type.
+Multiple ``OnChange`` configurations can be specified if provided as ``Array`` type.
 
 .. code-block:: json
 

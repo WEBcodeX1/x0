@@ -9,7 +9,7 @@ This chapter documents the **architectural model** of the *x0-framework*: the sm
 **foundational classes** that every *x0-system-object* is built upon, and the **core engine**
 components that instantiate, connect, and drive these objects at **runtime**. Together, they
 form a **pointer-based recursive object model**: every object holds a direct reference
-(``ParentObject``) to its parent and an array of direct references (``ChildObjects``) to
+(``ParentObject``) to its parent and an ``Array`` of direct references (``ChildObjects``) to
 its children. As a result, the entire application state at any point in time is simply
 one **in-memory object graph**, partitioned (segmented for performance reasons) and rooted
 at each screen's ``HierarchyRootObject``.
@@ -225,7 +225,7 @@ unmodified, on every ``sysBaseObject`` instance and every object derived from it
       ``connect()`` on every object whose ``ObjectType == 'ServiceConnector'``, wiring
       ``sysServiceConnector`` instances into ``sysFactory.Reactor`` (see 22.5 and 22.7).
 
-**Real-time rendering implications.** Because ``ChildObjects`` is a plain array of direct
+**Real-time rendering implications.** Because ``ChildObjects`` is a plain ``Array`` of direct
 object references rather than an indirection through IDs or a lookup table, traversal
 during ``renderObject()``, ``processEventListener()``, ``processReset()`` and the data API
 (22.3.6) is a simple, allocation-free recursive walk. Combined with the guard in
@@ -244,7 +244,7 @@ notification indicators, dynamic radio lists) tractable without a virtual-DOM di
       matching entry.
     - ``getChildObjectByIndex(Index)``: Direct, non-recursive access into
       ``this.ChildObjects``.
-    - ``getChildIndexByChildItemID(CheckID)``: Returns the array index of the direct
+    - ``getChildIndexByChildItemID(CheckID)``: Returns the ``Array`` index of the direct
       child whose ``ObjectID`` matches ``CheckID`` — used internally by ``remove()``
       (see 22.3.7).
     - ``getObjectsByAttribute(Attribute)``: Recursively collects every object in the
@@ -291,9 +291,9 @@ notification indicators, dynamic radio lists) tractable without a virtual-DOM di
       ``getChildIndexByChildItemID()`` + ``splice()``) and removes its own DOM node.
       Refer to :ref:`oopmodel-classes-baseobj-remove`.
     - ``removeParent()``: Removes ``this.DOMObjectID`` from the ``ParentObject`` DOM element
-      (``removeDOMParentElement()``) and discards *its own* ``ChildObjects`` array. This
+      (``removeDOMParentElement()``) and discards *its own* ``ChildObjects`` ``Array``. This
       effectively prunes everything below this object while keeping the object instance
-      itself, along with its reference in the ``ParentObject``'s ``ChildObjects`` array used
+      itself, along with its reference in the ``ParentObject``'s ``ChildObjects`` ``Array`` used
       for re-rendering. Refer to :ref:`oopmodel-classes-baseobj-removeparent`.
 
       .. warning::
@@ -396,7 +396,7 @@ and the concrete constructor function invoked at setup time — see 22.6.2 for h
 *************************************************
 
 The programmatic (non-skeleton-driven) counterpart to ``sysScreen.setupObject()``: given
-an array of object definitions (each specifying ``id``, ``SysObject``, ``JSONAttributes``,
+an ``Array`` of object definitions (each specifying ``id``, ``SysObject``, ``JSONAttributes``,
 an optional ``KeyID``, and optionally nested ``ObjectDefs``), it assigns the object's
 identity and configuration, calls its ``init()``, adds it to ``RefObj`` via ``addObject()``,
 and recurses into any nested ``ObjectDefs``, using the just-created object as the new
@@ -422,12 +422,12 @@ still being addressed individually, e.g. one ``'SwitchScreen'`` event per ``Scre
 *******************************
 
     - ``registerEvent(Attributes, CallbackFunction)``: Reads ``Attributes.OnEvent.Events``
-      — an array whose entries are either plain ``EventID`` strings or
+      — an ``Array`` whose entries are either plain ``EventID`` strings or
       ``{ EventID, EventSelector }`` objects — and pushes one ``sysEvent`` per entry onto
       ``this.Events``, each bound to the supplied ``CallbackFunction``.
     - ``dispatchEvent(EventID, EventSelector)``: Scans ``this.Events`` for an entry whose
       ``ID``/``EventSelector`` pair matches and invokes its ``CallbackFunction``.
-    - ``fireEvents(FireEvents)``: Iterates an array of plain ``EventID`` values and calls
+    - ``fireEvents(FireEvents)``: Iterates an ``Array`` of plain ``EventID`` values and calls
       ``sysFactory.Reactor.dispatchEvent(EventID)`` for each — the convenience entry point
       used by ``sysObjButton.processActions()`` and ``sysTab.fireEvents()`` to raise one or
       more events as a side effect of a user interaction.
@@ -602,14 +602,14 @@ attached to any prototype) used across the engine wherever plain-object data nee
 merged or reshaped:
 
     - ``sysMergeObjects(Object1, Object2)``: Deep-merges two plain objects — nested
-      objects are merged recursively, arrays are concatenated, and scalar values in
+      objects are merged recursively, ``Array``s are concatenated, and scalar values in
       ``Object2`` overwrite those in ``Object1``. Used by ``sysScreen.configObjectInstance()``
       (22.6.3) to combine an ``InstanceOf``-referenced configuration with its overrides.
-    - ``sysConvertSysData2KeyValue(Data)``: Converts an array of ``{ KeyID, ObjectValue }``
+    - ``sysConvertSysData2KeyValue(Data)``: Converts an ``Array`` of ``{ KeyID, ObjectValue }``
       entries (as produced by the recursive data getter, see
       :ref:`oopmodel-classes-getobjectdatarecursive`) into a flat
       ``{ KeyID: ObjectValue, … }`` object.
-    - ``sysConvertSysDataArray2Object(Data)``: Converts an array of ``{ KeyID, … }``
+    - ``sysConvertSysDataArray2Object(Data)``: Converts an ``Array`` of ``{ KeyID, … }``
       entries into an object keyed by ``KeyID``.
 
 22.10. Relationships and Interactions
