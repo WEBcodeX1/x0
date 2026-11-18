@@ -1428,12 +1428,16 @@ In ``skeleton.json``:
             "ExampleHeaderBodyContainer":
             {
                "RefID": "ExampleScreen1"
-            },
+            }
+         },
+         {
             "DisplayText1":
             {
                "RefID": "ExampleHeaderBodyContainer",
                "ElementID": "ExampleHeaderBodyContainerHeader"
-            },
+            }
+         },
+         {
             "DisplayText2":
             {
                "RefID": "ExampleHeaderBodyContainer",
