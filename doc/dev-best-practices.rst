@@ -1873,7 +1873,7 @@ from declarative metadata or used inside other custom objects.
 .. important::
 
    Only modify ``/www/sysFactory.js`` directly when database-backed user
-   registration is unavailable (such as in the standalone *x0-static* component.
+   registration is unavailable (such as in the standalone *x0-static* component).
 
 .. _init-object-loading:
 
