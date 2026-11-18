@@ -5,14 +5,15 @@
 10. Grid System
 ===============
 
-The **x0-grid-system** is implemented through the ``sysGridGenerator`` system object,
-which is responsible for generating a grid layout by processing source objects
-into structured *rows* and *columns*. Rather than being a purely static layout
-mechanism confined to a screen's initial load, the grid system is designed for
-high-frequency runtime modification: it can be re-invoked at any time to
-restructure an already rendered grid in response to changing source data,
-enabling real-time UI re-rendering and fluid grid restructuring directly within
-the browser client (see :ref:`dynamic-restructuring` below).
+The *x0-grid-system* is implemented through the ``sysGridGenerator``
+*x0-system-class*, which is responsible for generating a grid layout by
+processing source objects into structured *rows* and *columns*. Rather than
+being a purely static layout mechanism confined to a screen's initial load,
+the grid system is designed for high-frequency runtime modification: it can
+be re-invoked at any time to restructure an already rendered grid in response
+to changing source data, enabling real-time UI re-rendering and fluid grid
+restructuring directly within the browser client
+(see :ref:`dynamic-restructuring` below).
 
 10.1. Key Characteristics
 *************************

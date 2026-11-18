@@ -19,7 +19,7 @@ them in *x0-metadata* (JSON) configurations.
 **************************
 
 The *x0-framework* comes with **Bootstrap 5.3** CSS pre-integrated, allowing you to use
-Bootstrap classes directly in your x0 object configurations through the ``Style`` 
+Bootstrap classes directly in your *x0-object* configurations through the ``Style``
 attribute in ``object.json`` object declarations.
 
 9.1.1. Using Bootstrap Classes
@@ -55,7 +55,7 @@ Bootstrap CSS classes can be applied to any *x0-system-object* that supports the
       }
    }
 
-Common Bootstrap classes that work well with x0:
+Common Bootstrap classes that work well with *x0*:
 
 .. table:: Common Bootstrap Classes
    :widths: 10 90
@@ -143,7 +143,7 @@ Complex layouts can be achieved by mixing *x0-grid* properties with Bootstrap ut
 9.3. Custom CSS Integration
 ***************************
 
-For project-specific styling, x0 provides the ``/www/static/globalstyles.css`` file 
+For project-specific styling, *x0* provides the ``/www/static/globalstyles.css`` file
 where you can define custom CSS classes that complement Bootstrap styling.
 
 9.3.1. Using globalstyles.css

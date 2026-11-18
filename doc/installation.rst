@@ -9,7 +9,7 @@ database, the application server, and optionally a lightweight messaging server.
 
 Since version 1.1, the *x0-system* ships with a minimal, static dockerized environment.
 Although its primary purpose is to showcase the capabilities of the framework, it is
-also ideally suited for rapid x0-application development without overhead.
+also ideally suited for rapid *x0-application* development without overhead.
 
 .. important::
 
@@ -292,7 +292,7 @@ Run tests locally after containers are running:
 6.2.11. Kubernetes Deployment
 *****************************
 
-x0 runs on GKE and Minikube with automated ingress, redundancy (Kubegres), and fail-safe DB setup.
+*x0* runs on GKE and Minikube with automated ingress, redundancy (Kubegres), and fail-safe DB setup.
 
 For details, see: https://github.com/WEBcodeX1/x0/tree/current-release/kubernetes/README.md
 

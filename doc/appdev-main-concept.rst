@@ -178,7 +178,7 @@ When configured this way, the resulting chain of objects forms a **plain** objec
 **reference** without any logical consequences. However, consider the following:
 
 .. note::
-   Some *x0-object* **types** (e.g., ``ServiceConnector``) can be interposed
+   Some *x0-object-types* (e.g., ``ServiceConnector``) can be interposed
    **within** this chained structure to extend the model with logical behavior
    (which is defined inside the object's declarative configuration in ``object.json``).
 

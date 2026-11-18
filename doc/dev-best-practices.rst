@@ -786,7 +786,7 @@ Predefined *x0-system-objects* and declarative mechanisms include:
 - ``Button``
 - ``ButtonInternal``
 - ``ContextMenu``
-- *x0-events* driven by the ``x0::reactor`` component inside ``Button`` and
+- *x0-events* driven by the ``x0::Reactor`` component inside ``Button`` and
   ``ContextMenu``
 
 At a lower, programmatic abstraction level—upon which the predefined
@@ -797,7 +797,7 @@ At a lower, programmatic abstraction level—upon which the predefined
 - **Button Callbacks:** Mapping user actions to internal JavaScript callback
   functions.
 - **Reactor Events:** Decoupled publish/subscribe event dispatching via
-  ``x0::reactor`` for cross-object communication.
+  ``x0::Reactor`` for cross-object communication.
 
 24.7.1. Button Types
 ********************
