@@ -21,7 +21,7 @@ and opening overlays (``openoverlay``).
 28.2. Application Development Documentation
 -------------------------------------------
 
-The first part of the *x0* documentation (Chapters 1–20), covering framework
+The second part of the *x0* documentation (Chapters 7–20), covering framework
 introduction, installation, basic configuration, CSS styling, the grid system,
 built-in *x0-system-objects*, forms, context menus, global components, events,
 actions, overlays, messaging, and Kubernetes deployment.
@@ -86,7 +86,7 @@ JavaScript.
 28.8. Developer Documentation
 -----------------------------
 
-The second part of the *x0* documentation (Chapters 21–27), covering system
+The third part of the *x0* documentation (Chapters 21–27), covering system
 architecture, the pointer-based OOP inheritance model, the complete JavaScript
 class reference, development best practices, automated Pytest/Selenium testing,
 example creation, and plugins.
