@@ -1834,7 +1834,7 @@ It inherits from ``DivUnique`` and supports a switchable edit mode.
 
 .. warning::
    ``ExampleEditableItem`` serves as a demonstration of a *complex, nested*,
-   *realtime editable* **and** *paginated* **x0-object** and must be
+   *realtime editable* **and** *paginated* *x0-object* and must be
    treated as **experimental**.
 
 11.29.1. Object Attributes
