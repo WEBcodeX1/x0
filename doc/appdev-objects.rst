@@ -1743,13 +1743,16 @@ Its full event-registration and dispatch mechanics are documented in
 
 .. code-block:: json
 
-   "ExampleServiceConnector":
    {
-      "Type": "ServiceConnector",
-      "Attributes": {
-         "OnEvent": {
-            "Events": [ "InitSystem" ],
-            "ServiceCall": "/python/BackendService.py"
+      "ExampleServiceConnector":
+      {
+         "Type": "ServiceConnector",
+         "Attributes":
+         {
+            "OnEvent": {
+               "Events": [ "InitSystem" ],
+               "ServiceCall": "/python/BackendService.py"
+            }
          }
       }
    }
