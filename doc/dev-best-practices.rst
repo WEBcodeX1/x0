@@ -1749,13 +1749,108 @@ pattern is known as **Object Document Mapping** (ODM), enabling nested object hi
 to be seamlessly serialized (**get**) and deserialized or populated (**set**) across
 arbitrary nesting depths.
 
-24.11.4. callbackXMLRPCAsync
-****************************
+24.11.4. setObjectData()
+************************
+
+Just as ``getObjectData()`` is responsible for extracting clean JSON data
+from nested object structures, ``setObjectData()`` is responsible for doing
+the reverse with nested JSON input data. Going into further detail is not yet
+meaningful; therefore, this feature is flagged as experimental, and the developer
+documentation will be expanded in *x0* version 1.2.
+
+As a brief implementation note, generic ``Key/Value`` processing—as already
+experimentally tested in ``/www/sysObjFormfieldList.js``—will serve as the
+backbone of the generic, recursive data population mechanism.
+
+24.11.5. callbackXMLRPCAsync()
+******************************
+
+As a final note—also serving as a practical example—regarding the *x0-core* backend
+object population mechanism, backend data is currently mapped into *x0-objects*
+through hardcoded logic inside each *x0-object*'s ``callbackXMLRPCAsync()`` method.
+
+To provide a broad understanding of how the future ODM-based data population
+mechanism will work generically, consider the following JSON example for the ``List``
+*x0-object* type, where column data is also populated.
+
+First, a simplified text-based diagram:
+
+.. code-block:: text
+
+  "List" -> [
+   "ListRow": [
+    "ListCol" -> "KeyID":"Col1" "Value":"Val1", "ListCol" -> "KeyID":"Col2", {
+     "FlightData" -> Data1
+    }
+   ],
+   "ListRow": [
+    "ListCol" -> "KeyID":"Col1" "Value":"Val2", "ListCol" -> "KeyID":"Col2", {
+     "FlightData" -> Data2
+    }
+   ],
+   "ListRow": [
+    "ListCol" -> "KeyID":"Col1" "Value":"Val3", "ListCol" -> "KeyID":"Col2", {
+     "FlightData" -> Data3
+    }
+   ],
+   "ListRow": [
+    "ListCol" -> "KeyID":"Col1" "Value":"Val4", "ListCol" -> "KeyID":"Col2", {
+     "FlightData" -> Data4
+    }
+   ],
+   "ListRow": [
+    "ListCol" -> "KeyID":"Col1" "Value":"Val5", "ListCol" -> "KeyID":"Col2", {
+     "FlightData" -> Data5
+    }
+   ]
+  ]
+
+Here is a more concrete, JSON-based data example (not yet fully abstracted):
+
+.. code-block:: json
+
+    {
+       "RootObjID": {
+          "ObjectType": "List",
+          "ObjectData": [
+             {
+                "RootObjIDRow1": {
+                   "ObjectType": "ListRow",
+                   "ObjectData": [
+                      {
+                         "RootObjIDRow1Col1": {
+                            "ObjectType": "ListCol",
+                            "ObjectData": {
+                               "KeyID": "Col1",
+                               "Value": "Display Value 1"
+                            }
+                         }
+                      },
+                      {
+                         "RootObjIDRow1Col2": {
+                            "ObjectType": "ListCol",
+                            "ObjectData": {
+                               "KeyID": "Col2",
+                               "Value": {
+                                  "FlightData1": {
+                                     "ObjectType": "FlightData",
+                                     "ObjectData": {}
+                                  }
+                               }
+                            }
+                         }
+                      }
+                   ]
+                }
+             }
+          ]
+       }
+    }
 
 24.12. Class Registration
 -------------------------
 
-Once you have built your custom object(s), they still need to be registered so
+Once you have built your custom objects, they still need to be registered so
 the *x0-core* system can recognize and instantiate them.
 
 When using the database backend, register them as described in the following
