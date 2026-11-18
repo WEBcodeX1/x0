@@ -27,7 +27,7 @@ design model with two distinct development approaches:
   ``FormfieldList`` instances can be combined to create powerful, hierarchical UI elements.
 
 The following documentation focuses on approach 1 (**Declarative Configuration**). If you are
-interested in approach 2 (**Programmatic Development**) , please refer to the system developer
+interested in approach 2 (**Programmatic Development**), please refer to the system developer
 documentation starting at :ref:`dev-architecture`.
 
 .. _formfield-list:

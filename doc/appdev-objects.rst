@@ -80,7 +80,7 @@ It should **never** be used directly in a **declarative configuration**—use
 *************************
 
 .. table:: Object Type Div Attributes
-   :widths: 10 10 90
+   :widths: 10 10 80
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -564,7 +564,7 @@ It also supports runtime data manipulation via ``getObjectData()`` /
 
 When specifying the ``ErrorContainer`` attribute, occurring errors—such as
 exceeding the maximum allowed row count—will trigger the error output there.
-Like any other *x0-object-types* supporting ``ServiceConnector`` integration,
+Like any other *x0-object-type* supporting ``ServiceConnector`` integration,
 the ``List`` can be populated with data on an occurring *x0-event* (e.g., on
 system initialization or a runtime ``Button`` or ``ButtonInternal`` click).
 

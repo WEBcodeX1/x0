@@ -43,7 +43,7 @@ just grid layouts—can be altered at runtime to provide awesome results.
 10.2. Supported Object Types
 ****************************
 
-Currently the following *x0-object-types* are supporting the *x0-grid* feature:
+Currently, the following *x0-object-types* are supporting the *x0-grid* feature:
 
 * List
 * FormfieldList

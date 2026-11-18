@@ -190,8 +190,8 @@ following states:
 14.4.1. Base Mechanism
 ***********************
 
-Add a notify indicator by adding the ``Notify`` attribute to *x0-button-type* like
-shown in the following example:
+Add a notify indicator by adding the ``Notify`` attribute to *x0-button-type*
+as shown in the following example:
 
 .. code-block:: json
 

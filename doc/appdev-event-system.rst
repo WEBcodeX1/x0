@@ -184,7 +184,7 @@ To process backend responses correctly, the callback mechanism defines both a) h
 data from the backend must be structured, and b) how this data is mapped to individual
 form fields inside a ``FormfieldList`` or other *x0-object-types*.
 
-In detail, when a *x0-event* is received and the object is connected to the
+In detail, when an *x0-event* is received and the object is connected to the
 corresponding ``ServiceConnector``, an asynchronous ``sysXMLRPCRequest.js`` call is
 triggered. Upon successful data retrieval, the object instance's static method
 ``callbackXMLRPCAsync()`` is invoked with the JSON data resulting from this service call.
@@ -241,7 +241,7 @@ their configuration, please refer to the documentation under :ref:`system-object
 ----------------------------
 
 Two *x0-system-events* are dispatched automatically by the engine and require no
-explicit "fire" configuration anywhere -- any object may register for them:
+explicit "fire" configuration anywhere—any object may register for them:
 
 - ``InitSystem``: dispatched exactly once by ``sysFactory.init()`` after every
   screen has been built and the default screen has been switched to, signalling
@@ -249,7 +249,7 @@ explicit "fire" configuration anywhere -- any object may register for them:
 
 - ``SwitchScreen``: dispatched by ``sysFactory.switchScreen(ScreenID)`` every time
   the active screen changes, using the destination ``ScreenID`` as the
-  ``EventSelector`` -- allowing a registration to react only to a specific screen
+  ``EventSelector``—allowing a registration to react only to a specific screen
   becoming active.
 
 .. _sourcedata-objects:
@@ -382,7 +382,7 @@ to the backend. Specify the source screen with ``ScreenID``:
 15.6.6. Examples
 ****************
 
-The most simple way, defining multiple ObjectIDs as ``Array`` type:
+The simplest way, defining multiple ObjectIDs as ``Array`` type:
 
 .. code-block:: json
    :linenos:

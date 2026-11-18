@@ -721,9 +721,9 @@ handle button-specific actions in a modular and object-oriented way.
 
     1. Constructor (``sysObjButtonCallback``):
         Initializes the object with:
-            * ``ObjectType``: Set to ``'ButtonCallback'``.
+            * ``ObjectType``: Set to ``ButtonCallback``.
             * ``overrideDOMObjectID``: Set to ``true``, so the DOM id is not prefixed recursively.
-            * ``DOMType``: Set to 'button', indicating it represents a button element.
+            * ``DOMType``: Set to ``button``, indicating it represents a button element.
             * ``DOMAttributes``: An object for storing HTML attributes for the button.
             * ``EventListeners``: An object to store event listeners.
             * ``ChildObjects``: An ``Array`` for managing child objects.

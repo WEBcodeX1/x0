@@ -235,7 +235,7 @@ Supported **Internal Functions**:
 13.5.4. FormfieldList
 *********************
 
-The ``FormfieldList`` object type is a *x0-container* object comprising multiple
+The ``FormfieldList`` object type is an *x0-container* object comprising multiple
 ``FormfieldItems``. To enable *x0-data-get* and *x0-data-set* operations, each
 ``FormfieldItem`` must be configured with a ``KeyID`` property. This property identifies
 which item will be targeted during a *x0-data-set* operation. Conversely, during a
