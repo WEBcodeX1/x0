@@ -1258,7 +1258,7 @@ at all. Take a look—we will also provide a detailed explanation afterward.
       const Attributes = this.JSONConfig.Attributes;
 
       //- get row data array from config
-      const RowData = this.JSONConfig.Attributes.RowData;
+      const RowData = Attributes.RowData;
 
       //- instantiate row objects
       let i = 0;
