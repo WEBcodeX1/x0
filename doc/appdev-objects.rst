@@ -1418,22 +1418,26 @@ In ``object.json``:
 In ``skeleton.json``:
 
 .. code-block:: json
-
    {
-      "ExampleHeaderBodyContainer":
-      {
-         "RefID": "ExampleScreen1"
-      },
-      "DisplayText1":
-      {
-         "RefID": "ExampleHeaderBodyContainer",
-         "ElementID": "ExampleHeaderBodyContainerHeader"
-      },
-      "DisplayText2":
-      {
-         "RefID": "ExampleHeaderBodyContainer",
-         "ElementID": "ExampleHeaderBodyContainerContent"
-      }
+      "ExampleScreen1":
+      [
+         {
+            "ExampleHeaderBodyContainer":
+            {
+               "RefID": "ExampleScreen1"
+            },
+            "DisplayText1":
+            {
+               "RefID": "ExampleHeaderBodyContainer",
+               "ElementID": "ExampleHeaderBodyContainerHeader"
+            },
+            "DisplayText2":
+            {
+               "RefID": "ExampleHeaderBodyContainer",
+               "ElementID": "ExampleHeaderBodyContainerContent"
+            }
+         }
+      ]
    }
 
 .. _objecttype-systemsettingscontainer:
