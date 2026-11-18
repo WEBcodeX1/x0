@@ -261,7 +261,7 @@ Best Practices" (see :ref:`dev-bestpractices`).
 14.5.2. Complex Editable Example
 ********************************
 
-An advanced demonstration of this pagination mechanism is provided within the **x0-static**
+An advanced demonstration of this pagination mechanism is provided within the *x0-static*
 Docker container (see :ref:`installation-minimal`). In the running application, navigate to
 the **"Examples" / "Editable Templates"** menu; the **"Editable Order Remark List"** showcases
 this specific implementation.

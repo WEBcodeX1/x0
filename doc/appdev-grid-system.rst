@@ -54,8 +54,8 @@ Currently the following *x0-object-types* are supporting the *x0-grid* feature:
 10.3. Global JSON Metadata
 **************************
 
-If an *x0-object* supports *x0-global-grid-system* formatting the following
-properties can be set inside the object's ``Attributes`` representation.
+If an *x0-object* supports *x0-grid-system* formatting the following properties
+can be set inside the object's ``Attributes`` representation.
 
 .. table:: Global Grid Object Properties
    :widths: 20 30 50
