@@ -187,7 +187,7 @@ Providing a ``TextID`` displays a localized, multilingual text label, while
 The ``OnClick`` property must contain a valid HTTP(S) URL to execute a backend
 service upon clicking. In ``SrcDataObjects``, the global x0 *Source Data
 Objects* mechanism is used to specify runtime data selectively (see
-:ref:`sourcedata-objects`). When triggered, this metadata is fetched in realtime
+:ref:`sourcedata-objects`). When triggered, this metadata is fetched in real time
 and appended to the backend service POST request JSON.
 
 The ``Notify`` object structure defines how the button interacts with the
@@ -558,7 +558,7 @@ documented in :ref:`realtime-pagination`, toggling already-rendered rows
 between pages without a backend reload.
 
 It also supports runtime data manipulation via ``getObjectData()`` /
-``setObjectData()`` to append rows in realtime, e.g., by using *x0-actions* in
+``setObjectData()`` to append rows in real time, e.g., by using *x0-actions* in
 ``Button`` or ``ButtonInternal`` *x0-object-types* **or** by using
 *x0-context-menu* configuration.
 
@@ -814,7 +814,7 @@ nested :ref:`objecttype-progressbar` instance.
 
 Invoking ``startUpload()`` dispatches an asynchronous ``XMLHttpRequest`` POST
 request to ``UploadScript``. During transmission, upload progress events update
-the inner progress bar in realtime via ``updateProgress()``, while the
+the inner progress bar in real time via ``updateProgress()``, while the
 ``Status`` attribute transitions through ``init`` → ``uploading`` →
 ``success`` / ``failed`` → ``finished`` as the request resolves.
 
@@ -1530,7 +1530,7 @@ The ``SystemSettingsContainerGrid`` *x0-object-type* extends
 .. important::
 
    ``SystemSettingsContainerGrid`` demonstrates the *x0-grid* live functionality,
-   how different models (styles) can be attached to a grid in realtime.
+   how different models (styles) can be attached to a grid in real time.
 
 11.22.1. Object Attributes
 **************************
@@ -1848,7 +1848,7 @@ It inherits from ``DivUnique`` and supports a switchable edit mode.
 .. warning::
 
    ``ExampleEditableItem`` serves as a demonstration of a *complex, nested*,
-   *realtime editable* **and** *paginated* *x0-object* and must be
+   *real-time editable* **and** *paginated* *x0-object* and must be
    treated as **experimental**.
 
 11.29.1. Object Attributes
@@ -1942,7 +1942,7 @@ rows.
          {
             "HeaderTextID": "TXT.HEADER1",
             "HeaderStyle": "h3 text-primary-emphasis",
-            "HeaderIconStyle": "fa-solid fa-card-shopping"
+            "HeaderIconStyle": "fa-solid fa-cart-shopping"
          }
       }
    }

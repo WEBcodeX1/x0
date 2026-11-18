@@ -293,21 +293,21 @@ capable of building these complex, real-time UI models with absolute architectur
 Object Data Abstraction defines how the *x0-mirror-dom* entity manages data.
 In this context, data handling is categorized into the following distinct types:
 
-- External input (incoming data from external web services)
-- External output (outgoing data sent to external web services)
-- Internal object inter-communication (runtime data exchange between local objects)
-- External object inter-communication (real-time JSON messaging via network between clients)
-- Static object instantiation (executed on initial load)
-- Real-time object instantiation (executed dynamically at runtime)
+1. External Input (incoming data from external web services)
+2. External Output (outgoing data sent to external web services)
+3. Internal Object Inter-communication (run-time data exchange between local objects)
+4. External Object Inter-communication (real-time JSON messaging via network between clients)
+5. Static Object Instantiation (executed on initial load)
+6. Realtime Object Instantiation (executed dynamically at runtime)
 
 While all these handling types are supported, type 4 currently requires improvement,
 and type 6 is limited to a hardcoded implementation that only supports simple, non-nested object types.
 
-The following sections will focus specifically on type 6 (Real-time object instantiation), as its
+The following sections will focus specifically on type 6 (Realtime Object Instantiation), as its
 optimization fundamentally influences the future extensibility of the *x0-system*.
 
-14.6.1. Real-Time Object Instantiation
-**************************************
+14.6.1. Realtime Object Instantiation
+*************************************
 
 An initial prototype is currently testing a generic, recursive approach to get and set
 nested JSON data using an Object-Document Mapping (ODM) pattern. In this architecture,

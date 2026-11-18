@@ -6,7 +6,7 @@
 =========
 
 Providing forms for today's modern cloud applications is no longer the static
-process it was years ago. If your application does not supply realtime,
+process it was years ago. If your application does not supply real-time,
 modifiable forms—capable of dynamically reloading sub-content based on user
 input and highlighting specific areas upon validation errors—the user experience
 will suffer. Many frameworks remain far too data-centric, resulting in poor
