@@ -69,7 +69,7 @@ infrastructure.
 ---------------------------
 
 Before continuing, a system developer **must** be familiar with the
-*x0-core-concept*—especially how things work compared to other systems, and how
+*x0-core* concept—especially how things work compared to other systems, and how
 they do not.
 
 The first and **most important** difference compared to other frameworks is that
@@ -1451,7 +1451,7 @@ source code:
 .. note::
 
    These examples also demonstrate how to use the ``ContextMenu`` and ``Button``
-   *x0-object* types **together**.
+   *x0-object-type*s **together**.
 
 24.9. Realtime Pagination
 -------------------------
@@ -1653,7 +1653,7 @@ which the following subsections describe in detail.
 **********************
 
 The concrete purpose of a **Runtime Data Model** within *x0* may still seem
-unclear. To illustrate it, consider a ``Formfield`` *x0-object* type. A form
+unclear. To illustrate it, consider a ``Formfield`` *x0-object-type*. A form
 field always requires a mechanism to **set** (populate or modify) data and
 **get** modified user input, especially when exchanging data across multiple
 objects with backend systems.
@@ -1712,7 +1712,7 @@ by calling ``getObjectData()`` on each one.
    This feature is experimental in *x0* version 1.1. Until version 1.2 is
    released, rely strictly on ``Plain`` handling.
 
-Take the current implementation of the ``List`` *x0-object* type (in ``/www/sysObjList.js``)
+Take the current implementation of the ``List`` *x0-object-type* (in ``/www/sysObjList.js``)
 as an example of how this **hardcoded approach** works and how it still fits
 into the *x0* recursive model.
 
@@ -1736,7 +1736,7 @@ Both are hardcoded. Setting ``this.GetDataMechanism`` and ``this.SetDataMechanis
 to ``Plain`` flags the object as a data endpoint, stopping the recursion inside
 ``sysBaseObject.getObjectData()``.
 
-However, this approach is limited. Since *x0* version 1.0, the ``List`` *x0-object* type
+However, this approach is limited. Since *x0* version 1.0, the ``List`` *x0-object-type*
 has supported nested objects inside columns, allowing arbitrary subtypes and sub-subtypes
 to be applied recursively.
 
@@ -1771,7 +1771,7 @@ through hardcoded logic inside each *x0-object*'s ``callbackXMLRPCAsync()`` meth
 
 To provide a broad understanding of how the future ODM-based data population
 mechanism will work generically, consider the following JSON example for the ``List``
-*x0-object* type, where column data is also populated.
+*x0-object-type*, where column data is also populated.
 
 First, a simplified text-based diagram:
 

@@ -94,7 +94,7 @@ the following files:
 Optionally, in the *x0-static* (completely serverless) system variant, multilingual text data
 must also be defined on a file basis:
 
-- **text-data.json** — Defines the multilingual text data for use with *x0-objects* of type ``Text``.
+- **text-data.json** — Defines the multilingual text data for use with *x0-object-type* ``Text``.
 
 7.4.1. Object Definition
 ************************
@@ -113,7 +113,7 @@ Each object in ``object.json`` is declared as follows:
 
 -  Each individual object declaration must be assigned a unique ID via ``$ObjectID``.
 -  Each object declaration maps 1:1 to a single *x0-object* instance.
--  The ``Attributes`` property must contain the metadata required for the specific *x0-object* type (see :ref:`system-objects`).
+-  The ``Attributes`` property must contain the metadata required for the specific *x0-object-type* (see :ref:`system-objects`).
 -  The ``$ObjectID`` is referenced from within ``skeleton.json`` *or* ``menu.json``.
 
 7.4.2. Skeleton Definition
@@ -188,7 +188,7 @@ When configured this way, the resulting chain of objects forms a **plain** objec
 Building a menu structure is as easy as referencing objects inside ``skeleton.json``.
 
 To see how *x0-content-areas* are set up, refer to :ref:`area-positioning`.
-Any *x0-object* type can be used inside the menu content area.
+Any *x0-object-type* can be used inside the menu content area.
 
 The only difference in ``menu.json`` is that the menu content area uses a statically defined
 ``$ScreenID`` named ``sysMenu``. Therefore, screen-referencing objects must always use
@@ -217,7 +217,7 @@ The only difference in ``menu.json`` is that the menu content area uses a static
 When a *x0-object* serves as a container that yields multiple referenceable objects
 (e.g., a ``TabContainer``), the ``ElementID`` must be provided in addition to a valid ``RefID``.
 
-Example configuration in ``object.json`` for a *x0-object* of type ``TabContainer`` and
+Example configuration in ``object.json`` for a *x0-object-type* ``TabContainer`` and
 two ``RangeSlider`` objects ready to be connected to the tab container's tabs:
 
 .. code-block:: json
