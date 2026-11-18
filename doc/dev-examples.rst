@@ -71,7 +71,7 @@ These scripts should:
 - Handle backend logic.
 - Return JSON data required by the frontend.
 
-Place the scripts in: ``/examples/example_app/python/``.
+Place the scripts in: ``/examples/${example_app_id}/python/``.
 
 26.2. Example Processing
 -------------------------
