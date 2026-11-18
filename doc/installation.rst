@@ -3,21 +3,23 @@
 6. Installation Guide
 =====================
 
-This guide provides instructions for setting up the **x0-system**. It is divided
-into a minimal setup for evaluation and a full system deployment that includes the
+This guide provides instructions for **setting up** the *x0-system*. It is divided
+into a **minimal setup** for evaluation and a **full system deployment** that includes the
 database, the application server, and optionally a lightweight messaging server.
 
-Since version 1.1, the **x0-system** ships with a minimal, static dockerized environment.
+Since version 1.1, the *x0-system* ships with a minimal, static dockerized environment.
 Although its primary purpose is to showcase the capabilities of the framework, it is
 also ideally suited for rapid x0-application development without overhead.
 
 .. important::
+
    The database-backed *x0-system* is **multi-vhost-capable**: a single
    installation can serve **multiple independent x0 applications in
    parallel**, each bound to its own virtual host, DNS name and
    configuration.
 
 .. important::
+
    In addition to Docker and standalone installation, the *x0-system* also
    supports a fully automated **Kubernetes** deployment (GKE and Minikube),
    including multi-vhost routing, load-balancing and fail-safe database
@@ -294,7 +296,7 @@ For details, see: https://github.com/WEBcodeX1/x0/tree/current-release/kubernete
 6.2.12. Running on Windows 11
 *****************************
 
-**x0-system** Docker containers can be run on Windows 11 Pro using Docker Desktop.
+*x0-system* Docker containers can be run on Windows 11 Pro using Docker Desktop.
 
 - Install Docker Desktop (with WSL2) and Git for Windows.
 - Use Git Bash (Cygwin-based) for correct image loading.
