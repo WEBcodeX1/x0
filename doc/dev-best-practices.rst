@@ -1595,13 +1595,13 @@ mechanics are omitted here.
    {
       console.debug('::genGrid source ColItems:%o', this.ColItems);
 
-      const Atrributes = this.JSONConfig.Attributes;
+      const Attributes = this.JSONConfig.Attributes;
       const GridVariants = Atrributes.GridGenerator.Variants;
 
       let GridGenerator = new sysGridGenerator(this.ColItems);
 
       GridGenerator.init(
-         Atrributes.GridGenerator.RowStyles,
+         Attributes.GridGenerator.RowStyles,
          GridVariants[this.selectedGridVariant].ColStyles,
          GridVariants[this.selectedGridVariant].RowAfterElements,
          GridVariants[this.selectedGridVariant].ColAfterElements
