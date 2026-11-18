@@ -1318,7 +1318,7 @@ programmatically:
 
 Building on what you have learned about the *x0-system* design and structure,
 combining those concepts with this chapter on dynamic content will enable you to
-design sophisticated class abstractions—including event handling and real time
+design sophisticated class abstractions—including event handling and real-time
 modifiable structures. Afterward, learning how to paginate your custom *x0-objects*
 and handle smart data input and output represents the pinnacle of mastering the
 framework.
@@ -1327,12 +1327,11 @@ Let's replace the current static ``Button`` implementation with a
 ``ButtonCallback`` to handle the logic inside a custom class method.
 
 Note that the ``ButtonCallback`` must be instantiated externally—before the
-``ObjDefs`` definition—and the callback itself is activated via
-``setCallback(this.ParentObject)``. In addition, the ``ObjectID`` of the left
-column has been extended to ``this.ObjectID + "Col1Value"`` so that it can be
-referenced later via ``sysFactory.getObjectByID()``. Finally, note that the
-following snippet is only an excerpt based on the previous example (with the
-constructor omitted).
+``ObjDefs`` definition—and the callback itself is activated via ``setCallback(this)``.
+In addition, the ``ObjectID`` of the left column has been extended to ``this.ObjectID + "Col1Value"``
+so that it can be referenced later via ``sysFactory.getObjectByID()``. Finally,
+note that the following snippet is only an excerpt based on the previous example
+(with the constructor omitted).
 
 .. code-block:: javascript
 
@@ -1451,7 +1450,7 @@ source code:
 .. note::
 
    These examples also demonstrate how to use the ``ContextMenu`` and ``Button``
-   *x0-object-type*s **together**.
+   *x0-object-types* **together**.
 
 24.9. Realtime Pagination
 -------------------------
@@ -1914,9 +1913,9 @@ If you have developed an internal *x0-core* class, register its script tag in
 
 The *x0-system* currently supports instantiating objects during the *x0-init*
 phase. This is limited to statically defined, declarative configuration. After
-an object has  been initialized, rendered, and modified—often with extensive user
-input data,  particularly in nested structures—the system is currently unable to
-clone  the object into a new instance containing those exact modifications.
+an object has been initialized, rendered, and modified—often with extensive user
+input data, particularly in nested structures—the system is currently unable to
+clone the object into a new instance containing those exact modifications.
 
 Nevertheless, the *x0-system* can instantiate complex, nested objects during
 the *x0-init* phase. Object cloning remains a highly desirable capability for
