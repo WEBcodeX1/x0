@@ -437,7 +437,7 @@ The purpose of ``setupObjectRefsRecursive`` is to:
         for (const ObjItem of ObjDefs)
         {
             let CurrentObject = ObjItem['SysObject'];
-            CurrentObject.ObjectID = ObjItem['id']
+            CurrentObject.ObjectID = ObjItem['id'];
             CurrentObject.JSONConfig = { "Attributes": ObjItem['JSONAttributes'] };
 
             if (ObjItem['id'] !== undefined) {

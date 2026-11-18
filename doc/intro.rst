@@ -112,7 +112,7 @@ metadata, and 3,000 lines of concrete declarative object definitions, while main
 a highly compact runtime memory footprint of merely 10 Megabytes, inclusive of the
 Bootstrap and Font Awesome UI libraries.
 
-To establish a baseline under unoptimized conditions, a preliminary benchmark was
+To establish a baseline under **unoptimized conditions**, a preliminary benchmark was
 conducted using a standard CPU test configuration. On the server side, the application is
 hosted within a **containerized runtime served inside a Linux Virtual Machine (VM)**,
 executed on a current **13th Generation Intel Core i9** processor. On the client side,

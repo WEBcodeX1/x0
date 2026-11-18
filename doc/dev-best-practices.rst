@@ -1437,7 +1437,7 @@ source code:
 
 - ``/www/sysObjDynRadioList.js``: A dynamic radio button list that can be modified
   at runtime (add/remove), viewable at **"Examples" / "Basic Examples"** menu, under
-  the **"Combinded Objects"** tab.
+  the **"Combined Objects"** tab.
 - ``/www/userObjExampleEditableItemContainer.js``: An advanced editable list of
   extended, nested row items, viewable at **"Examples" / "Editable Templates"** menu,
   under the **"Editable Order Remark List"** subsection.
@@ -1618,7 +1618,7 @@ mechanics are omitted here.
 24.10.2. Referenced Examples
 ****************************
 
-The previous example code has been taken from ``sysObjSystemSettingsContainerGrid.js``,
+The previous example code has been taken from ``sysObjSystemSettingsContainerGrid.js``.
 A live demonstration is accessible via the **"Settings" / "Global Settings"** menu
 under the **"Default Settings"** tab.
 
