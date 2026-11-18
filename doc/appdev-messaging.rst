@@ -93,10 +93,7 @@ Download and start the messaging server:
 .. code-block:: bash
 
     # Download message server image
-    curl -o docker.x0-msg-server.tar https://docker.webcodex.de/x0/docker.x0-msg-server.tar
-
-    # Load Docker image
-    docker load < docker.x0-msg-server.tar
+    docker pull ghcr.io/webcodex1/x0-msg-server
 
     # Start messaging server
     cd ./docker
