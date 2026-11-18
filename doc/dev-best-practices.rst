@@ -1396,7 +1396,7 @@ references ``ButtonCallback()``.
 .. code-block:: javascript
 
    //------------------------------------------------------------------------------
-   //- METHOD "init"
+   //- METHOD "ButtonCallback"
    //------------------------------------------------------------------------------
 
    sysObjCustomObjRow.prototype.ButtonCallback = function()
