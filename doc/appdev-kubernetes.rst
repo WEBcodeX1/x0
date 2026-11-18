@@ -25,7 +25,7 @@ The following outlines our proposed deployment workflow:
 20.2. Kubernetes Installer
 --------------------------
 
-The kubernetes installer will set up the following, depending on the
+The Kubernetes installer will set up the following, depending on the
 configuration.
 
 - Kubegres / Multi-Pod PostgreSQL Database
@@ -40,9 +40,9 @@ configurable DNS host / domain based Virtual Hosts and *x0-applications*.
 - x0-Applications
 
 .. image:: images/x0-deployment.png
-  :alt: image - kubernetes deployment
+  :alt: image - Kubernetes Deployment
 
-The kubernetes installer is located at ``/kubernetes/setup/Setup.py``.
+The Kubernetes installer is located at ``/kubernetes/setup/Setup.py``.
 
 .. code-block:: json
 
