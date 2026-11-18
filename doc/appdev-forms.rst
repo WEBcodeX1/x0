@@ -110,6 +110,7 @@ the system with custom, programmatic validation routines.
    +---------------------+--------------+----------------------------------------------------+
 
 .. code-block:: json
+   :linenos:
 
    {
       "GroupValidate":
@@ -228,6 +229,7 @@ As the following example demonstrates, clicking the button appends the data from
 **https://your-service.com/python/service.py**.
 
 .. code-block:: json
+   :linenos:
 
    {
       "SubmitButton":
@@ -265,6 +267,7 @@ global clipboard space by selecting the first context menu option, or retrieved 
 clipboard space by selecting the second option.
 
 .. code-block:: json
+   :linenos:
 
    {
       "ExamplesFormlist":
@@ -331,6 +334,7 @@ other, already rendered *x0-form-objects* without any custom JavaScript.
 **Configurations Scope:**
 
 .. code-block:: json
+   :linenos:
 
    {
       "TestObject":
@@ -354,6 +358,7 @@ on the **current value** triggered by the ``OnChange`` event of the source objec
 The following example demonstrates this behavior using a ``Checkbox`` *x0-object-type*:
 
 .. code-block:: json
+   :linenos:
 
    {
       "CheckboxObject":
@@ -389,6 +394,7 @@ the **RecordPriority** destination object is only *enabled* for editing when the
 **MX** is selected. Changing the value back to **A** or **CNAME** will disable it again.
 
 .. code-block:: json
+   :linenos:
 
    {
       "RecordType":
@@ -476,6 +482,7 @@ See :ref:`event-system` for the full event-system architecture.
 Multiple ``OnChange`` configurations can be specified if provided as ``Array`` type.
 
 .. code-block:: json
+   :linenos:
 
    {
       "OnChange":

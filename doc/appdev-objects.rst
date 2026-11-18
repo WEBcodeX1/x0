@@ -467,7 +467,7 @@ pagination reuses the same mechanism as :ref:`objecttype-list`.
 *************************
 
 .. table:: Object Type ImageSelector Attributes
-   :widths: 15 15 70
+   :widths: 10 10 80
 
    +-----------------+------------------+---------------------------------------------------------+
    | **Property**    | **Type**         | **Description**                                         |
@@ -517,7 +517,7 @@ an overlay. It inherits :ref:`objecttype-divunique`.
 *************************
 
 .. table:: Object Type BadgeSelector Attributes
-   :widths: 15 15 70
+   :widths: 10 10 80
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -689,7 +689,7 @@ To **connect** a single object to a single ``Tab``, reference the object inside
 **************************
 
 .. table:: Object Type TabContainer Attributes
-   :widths: 15 15 70
+   :widths: 10 10 80
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -701,7 +701,7 @@ To **connect** a single object to a single ``Tab``, reference the object inside
 ***********************
 
 .. table:: Object Type Tab Attributes
-   :widths: 15 15 70
+   :widths: 10 10 80
 
    +-----------------+------------------+---------------------------------------------------------+
    | **Property**    | **Type**         | **Description**                                         |
@@ -974,7 +974,7 @@ selection state.
 **************************
 
 .. table:: Object Type TreeSimple Attributes
-   :widths: 15 15 70
+   :widths: 10 10 80
 
    +-----------------+------------------+---------------------------------------------------------+
    | **Property**    | **Type**         | **Description**                                         |
@@ -988,7 +988,7 @@ selection state.
 Expandable/collapsible containers that can contain other nodes or items:
 
 .. table:: Tree Node Attributes
-   :widths: 15 15 70
+   :widths: 10 10 80
 
    +-----------------+------------------+---------------------------------------------------------+
    | **Property**    | **Type**         | **Description**                                         |
@@ -1315,7 +1315,7 @@ the standard ``getObjectData()`` / ``setObjectData()`` API.
 **************************
 
 .. table:: Object Type RangeSliderContainer Attributes
-   :widths: 15 15 70
+   :widths: 10 10 80
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1461,7 +1461,7 @@ configuration rows used for internal *x0-system* settings.
 **************************
 
 .. table:: Object Type SystemSettingsContainer Attributes
-   :widths: 15 15 70
+   :widths: 10 10 80
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1564,7 +1564,7 @@ each consisting of:
 **************************
 
 .. table:: Object Type InfoParagraph Attributes
-   :widths: 15 15 70
+   :widths: 10 10 80
 
    +-----------------+------------------+---------------------------------------------------------+
    | **Property**    | **Type**         | **Description**                                         |
@@ -1578,7 +1578,7 @@ each consisting of:
 ************************
 
 .. table:: Object Type InfoParagraph Text Attributes
-   :widths: 15 15 70
+   :widths: 10 10 80
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |
@@ -1765,7 +1765,7 @@ callback-bound :ref:`objecttype-buttoninternal` trigger.
 **************************
 
 .. table:: Object Type TimedProgress Attributes
-   :widths: 15 15 70
+   :widths: 10 10 80
 
    +---------------------+----------------------+-------------------------------------------------+
    | **Property**        | **Type**             | **Description**                                 |

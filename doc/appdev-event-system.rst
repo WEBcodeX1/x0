@@ -73,6 +73,7 @@ receiver type; however, any *x0-producer-type* can trigger events for it (see :r
 First we need to define the service properties inside ``object.json`` of type ``ServiceConnector``.
 
 .. code-block:: json
+   :linenos:
 
    {
       "ConnectorObjectID":
@@ -102,6 +103,7 @@ that the configuration of two form fields has also been included to demonstrate 
    are **connected** inside ``skeleton.json``, which is described in the next step (15.3.3).
 
 .. code-block:: json
+   :linenos:
 
    {
       "ReceiverObjectID":
@@ -155,6 +157,7 @@ data during system initialization / page load (the **InitSystem** event) **and**
 producer object triggers the **CustomEvent2** event (e.g., via a button click).
 
 .. code-block:: json
+   :linenos:
 
    {
       "Screen1":
@@ -382,6 +385,7 @@ to the backend. Specify the source screen with ``ScreenID``:
 The most simple way, defining multiple ObjectIDs as ``Array`` type:
 
 .. code-block:: json
+   :linenos:
 
    {
       "ExampleArrayOfObjects":
@@ -410,6 +414,7 @@ The following example shows a ``FormfieldList`` configuration with a single refe
 object and three hardcoded values: ``LimitRows``, ``DateFrom``, and ``DateTo``:
 
 .. code-block:: json
+   :linenos:
 
    {
       "ExampleMultiObject":
@@ -499,6 +504,7 @@ lists which attributes must be used in the **declarative** JSON configuration.
 **************
 
 .. code-block:: json
+   :linenos:
 
    {
       "ExampleButtonActionAppend":
@@ -520,6 +526,7 @@ lists which attributes must be used in the **declarative** JSON configuration.
 **************
 
 .. code-block:: json
+   :linenos:
 
    {
       "ExampleButtonActionEnable":
@@ -540,6 +547,7 @@ lists which attributes must be used in the **declarative** JSON configuration.
 *****************
 
 .. code-block:: json
+   :linenos:
 
    {
       "ExampleButtonActionTabSwitch":
@@ -561,6 +569,7 @@ lists which attributes must be used in the **declarative** JSON configuration.
 **********************
 
 .. code-block:: json
+   :linenos:
 
    {
       "ExampleButtonActionSetGlobalVar":
@@ -582,6 +591,7 @@ lists which attributes must be used in the **declarative** JSON configuration.
 ********************
 
 .. code-block:: json
+   :linenos:
 
    {
       "ExampleButtonActionOpenOverlay":
@@ -604,6 +614,7 @@ lists which attributes must be used in the **declarative** JSON configuration.
 Passing ``OnResult`` as an array of objects allows you to trigger multiple actions.
 
 .. code-block:: json
+   :linenos:
 
    {
       "ExampleButtonActionMultipleActions":

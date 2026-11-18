@@ -94,7 +94,7 @@ Root properties.
 Project related properties.
 
 .. table:: Setup Base Properties
-   :widths: 15 15 70
+   :widths: 10 10 80
 
    +---------------------+--------------+---------------------------------------------------------+
    | **Property**        | **Type**     | **Description**                                         |
@@ -112,7 +112,7 @@ Project related properties.
 Installer related properties.
 
 .. table:: Setup Installer Properties
-   :widths: 30 20 50
+   :widths: 10 10 80
 
    +---------------------+--------------+---------------------------------------------------------+
    | **Property**        | **Type**     | **Description**                                         |
@@ -126,7 +126,7 @@ Installer related properties.
 Database related properties.
 
 .. table:: Setup Database Properties
-   :widths: 30 20 50
+   :widths: 10 10 80
 
    +---------------------+--------------+---------------------------------------------------------+
    | **Property**        | **Type**     | **Description**                                         |

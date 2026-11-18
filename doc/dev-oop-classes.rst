@@ -93,6 +93,7 @@ This is the **most important** *x0-core* feature. It is documented in detail her
 ###############################
 
 .. code-block:: javascript
+   :linenos:
 
     sysBaseObject.prototype.renderObject = function(Prefix)
     {
@@ -182,6 +183,7 @@ This is the **most important** *x0-core* feature. It is documented in detail her
 #######################
 
 .. code-block:: javascript
+   :linenos:
 
     var Object1 = new sysBaseObject();
     Object1.ObjectID = 'BaseObject';
@@ -312,6 +314,7 @@ If you need to remove a parent object along with its DOM representation, you can
 ##########################
 
 .. code-block:: javascript
+   :linenos:
 
     sysBaseObject.prototype.removeParent = function() {
         try {
@@ -388,6 +391,7 @@ The purpose of ``setupObjectRefsRecursive`` is to:
 #################
 
 .. code-block:: javascript
+   :linenos:
 
     [
         {
@@ -431,6 +435,7 @@ The purpose of ``setupObjectRefsRecursive`` is to:
 ##########################
 
 .. code-block:: javascript
+   :linenos:
 
     sysFactory.prototype.setupObjectRefsRecursive = function(ObjDefs, RefObj)
     {
@@ -469,6 +474,7 @@ You want to create a parent container with a button and a nested text field.
 - Object Definitions:
 
 .. code-block:: javascript
+   :linenos:
 
     const ObjDefs = [
         {
@@ -596,6 +602,7 @@ constructor: ``GetDataMechanism`` and ``SetDataMechanism``.
 #######################
 
 .. code-block:: javascript
+   :linenos:
 
     // Read a single object's value (Plain mechanism, or recursive fallback)
     var value = sysFactory.getObjectByID('MyProgressBar').getObjectData();
@@ -631,6 +638,7 @@ Walks the ``ChildObjects`` tree depth-first and populates two module-level accum
   only for layout), it is skipped but its children are still visited recursively.
 
 .. code-block:: javascript
+   :linenos:
 
     sysBaseObject.prototype.getObjectDataRecursive = function()
     {
@@ -661,6 +669,7 @@ invoked directly with the resolved value; otherwise the search recurses into
 ``ChildObjects``.
 
 .. code-block:: javascript
+   :linenos:
 
     sysBaseObject.prototype.setObjectDataKeyValueRecursive = function(Data)
     {

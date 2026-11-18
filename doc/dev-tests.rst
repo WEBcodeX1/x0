@@ -198,6 +198,7 @@ existing Selenium test files.
 - Currently, ``config()`` **must** be included in every ``*.py`` test file:
 
 .. code-block:: python
+   :linenos:
 
    @pytest.fixture(scope='module')
    def config():
@@ -248,6 +249,7 @@ existing Selenium test files.
 - Always get the global driver data inside test method:
 
 .. code-block:: python
+   :linenos:
 
    def test_method_name(self, config):
       d, w = config["driver"], config["timeout"]
@@ -256,6 +258,7 @@ existing Selenium test files.
 - A common test class and method:
 
 .. code-block:: python
+   :linenos:
 
    class TestGeneral:
 
