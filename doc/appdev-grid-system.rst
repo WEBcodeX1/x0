@@ -165,9 +165,9 @@ processing, with the difference of generating a **column** container div
 instead of a **row** container div.
 
 .. note::
+
    Note that ColAfterElements default value is ``[1]``, so the container
    div including CSS will be set for each processed element.
-
 
 .. code-block:: json
 

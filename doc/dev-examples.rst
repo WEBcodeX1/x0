@@ -26,14 +26,14 @@ Example SQL:
 
 .. code-block:: sql
 
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'index_title', 'Example Application');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'debug_level', '5');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'display_language', 'en');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'default_screen', 'MainScreen');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'subdir', '/example/${example_subdir}');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'config_file_menu', 'menu.json');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'config_file_object', 'object.json');
-	INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'config_file_skeleton', 'skeleton.json');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'index_title', 'Example Application');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'debug_level', '5');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'display_language', 'en');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'default_screen', 'MainScreen');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'subdir', '/example/${example_subdir}');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'config_file_menu', 'menu.json');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'config_file_object', 'object.json');
+   INSERT INTO system.config (app_id, config_group, "value") VALUES ('example_app_id', 'config_file_skeleton', 'skeleton.json');
 
 Save this SQL script in: ``/examples/${example_app_id}/sql/01-sys-config.sql``.
 
@@ -57,8 +57,8 @@ Example SQL:
 
 .. code-block:: sql
 
-    INSERT INTO example_table (id, name, description) VALUES (1, 'Sample Item', 'This is a sample entry.');
-    INSERT INTO example_table (id, name, description) VALUES (2, 'Another Item', 'Another sample entry.');
+   INSERT INTO example_table (id, name, description) VALUES (1, 'Sample Item', 'This is a sample entry.');
+   INSERT INTO example_table (id, name, description) VALUES (2, 'Another Item', 'Another sample entry.');
 
 Save this SQL script in: ``/examples/${example_app_id}/sql/02-app-data.sql``.
 
@@ -88,8 +88,8 @@ After building, restart the *x0-system*:
 
 .. code-block:: bash
 
-	# start x0-app, x0-db containers
-	cd ./docker && ./x0-start-containers.sh
+   # start x0-app, x0-db containers
+   cd ./docker && ./x0-start-containers.sh
 
 26.3. Final Checklist
 ---------------------

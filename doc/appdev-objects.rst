@@ -113,6 +113,7 @@ sources:
   the local ``/static/meta/text-data.json`` file.
 
 .. important::
+
    For backward compatibility with legacy configurations, the ``Text`` object type
    can still be referenced under its former name ``SQLText``.
 
@@ -393,6 +394,7 @@ updated at runtime through the standard ``getObjectData()`` /
 ``setObjectData()`` API.
 
 .. warning::
+
    The data abstraction model (declarative as well as programmatic) will
    **change** for the ``Image`` *x0-object-type* in later *x0-versions*, because
    it does not meet the criteria for a 100% generic approach.
@@ -1450,6 +1452,7 @@ The ``SystemSettingsContainer`` *x0-object-type* renders a list of labeled
 configuration rows used for internal *x0-system* settings.
 
 .. warning::
+
    ``SystemSettingsContainer`` is an internal *x0-system* object that also
    serves as a demonstration component and should not be used in production
    applications.
@@ -1521,6 +1524,7 @@ The ``SystemSettingsContainerGrid`` *x0-object-type* extends
 (see :ref:`grid-system`).
 
 .. important::
+
    ``SystemSettingsContainerGrid`` demonstrates the *x0-grid* live functionality,
    how different models (styles) can be attached to a grid in realtime.
 
@@ -1667,6 +1671,7 @@ removable row opens a context menu offering the same removal action (see
 :ref:`context-menu`).
 
 .. important::
+
    ``DynRadioList`` can be treated as a fully supported ``Formfield``
    *x0-object-type* and used inside ``FormfieldList``. In addition, it
    demonstrates how the ``ContextMenu`` and ``Button`` *x0-object-types* can be
@@ -1802,6 +1807,7 @@ validation through its ``ValidateForm`` array before permitting forward
 navigation.
 
 .. important::
+
    ``ExampleWizard``, like any other example prefixed with ``Example*``, can
    be viewed inside the *x0-static* Docker container at ``http://localhost/``
    once started.
@@ -1833,6 +1839,7 @@ serves as the per-row template for
 It inherits from ``DivUnique`` and supports a switchable edit mode.
 
 .. warning::
+
    ``ExampleEditableItem`` serves as a demonstration of a *complex, nested*,
    *realtime editable* **and** *paginated* *x0-object* and must be
    treated as **experimental**.
@@ -1893,6 +1900,7 @@ new rows to be appended at runtime in the same way as :ref:`objecttype-list`
 rows.
 
 .. warning::
+
    ``ExampleEditableItemContainer`` serves as a demonstration of a
    *runtime editable container* and must be treated as **experimental**.
 
@@ -1946,6 +1954,7 @@ It inherits from ``DivUnique`` and is used for demonstration purposes
 inside a parent :ref:`objecttype-list` column container.
 
 .. warning::
+
    ``ExampleFlightDetails`` serves as a demonstration of a *status-display*
    *container* and must be treated as **experimental**.
 
@@ -1997,6 +2006,7 @@ inner text color from the ``Value.Alert`` Bootstrap contextual color keyword
 (e.g., ``success``, ``warning``, or ``danger``).
 
 .. warning::
+
    ``ExampleFlightStatus`` serves as a demonstration of a *status-display*
    *container* and must be treated as **experimental**.
 
@@ -2044,6 +2054,7 @@ badge selection, collaborator selection, and one or more nested, independently
 addable tasklists and tasks.
 
 .. warning::
+
    ``ExampleCardTasklist`` serves as a demonstration of a *complex, nested object*
    *interaction* and must be treated as **experimental**.
 
@@ -2085,6 +2096,7 @@ It inherits from ``DivUnique`` and is typically instantiated inside an
 :ref:`appdev-overlay` container.
 
 .. warning::
+
    ``ExamplePeopleSelector`` serves as a demonstration of an *overlay-select*
    *container* and must be treated as **experimental**.
 
