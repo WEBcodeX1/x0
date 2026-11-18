@@ -1418,6 +1418,7 @@ In ``object.json``:
 In ``skeleton.json``:
 
 .. code-block:: json
+
    {
       "ExampleScreen1":
       [
