@@ -1596,7 +1596,7 @@ mechanics are omitted here.
       console.debug('::genGrid source ColItems:%o', this.ColItems);
 
       const Attributes = this.JSONConfig.Attributes;
-      const GridVariants = Atrributes.GridGenerator.Variants;
+      const GridVariants = Attributes.GridGenerator.Variants;
 
       let GridGenerator = new sysGridGenerator(this.ColItems);
 
