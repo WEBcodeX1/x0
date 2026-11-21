@@ -118,8 +118,48 @@ sysObjRangeSliderContainer.prototype.init = function()
     this.DisplayValueObj = new sysFormfieldItemText();
     this.DisplayValueObj.Deactivated = true;
 
-    let ObjDefs = [
-        {
+    //- default range slider width
+    const RangeSliderColMd = (Attributes.UnitTextID === undefined) ? 'col-md-9' : 'col-md-5';
+
+    let ObjDefs = [];
+
+    const ObjDefsRangeSlider = {
+        "id": "CtrColRangeSlider",
+        "SysObject": new sysObjDiv(),
+        "JSONAttributes": {
+            "Style": "col m-0 p-0" + RangeSliderColMd
+        },
+        "ObjectDefs": [
+            {
+                "id": this.ObjectID + "Slider",
+                "SysObject": this.RangeSliderObj,
+                "JSONAttributes": Attributes
+            }
+        ]
+    };
+
+    let ObjDefsDisplayValue = {
+        "id": "CtrColDisplayValue",
+        "SysObject": new sysObjDiv(),
+        "JSONAttributes": {
+            "Style": "col col-md-3 m-0 p-0 pe-3"
+        },
+        "ObjectDefs": [
+            {
+                "id": this.ObjectID + "DisplayValue",
+                "SysObject": this.DisplayValueObj,
+                "JSONAttributes": {
+                    "Disabled": true,
+                    "Style": "form-control",
+                    "Value": Attributes.Value
+                }
+            }
+        ]
+    };
+
+    if (Attributes.UnitTextID !== undefined)
+    {
+        const ObjDefsMin = {
             "id": "CtrColMin",
             "SysObject": new sysObjDiv(),
             "JSONAttributes": {
@@ -143,26 +183,13 @@ sysObjRangeSliderContainer.prototype.init = function()
                     }
                 }
             ]
-        },
-        {
-            "id": "CtrColRangeSlider",
-            "SysObject": new sysObjDiv(),
-            "JSONAttributes": {
-                "Style": "col col-md-5 m-0 p-0"
-            },
-            "ObjectDefs": [
-                {
-                    "id": this.ObjectID + "Slider",
-                    "SysObject": this.RangeSliderObj,
-                    "JSONAttributes": Attributes
-                }
-            ]
-        },
-        {
+        };
+
+        const ObjDefsMax = {
             "id": "CtrColMax",
             "SysObject": new sysObjDiv(),
             "JSONAttributes": {
-                "Style": "col col-md-3 m-0 p-0 ps-4"
+                "Style": "col col-md-2 m-0 p-0 ps-4"
             },
             "ObjectDefs": [
                 {
@@ -182,26 +209,17 @@ sysObjRangeSliderContainer.prototype.init = function()
                     }
                 }
             ]
-        },
-        {
-            "id": "CtrColDisplayValue",
-            "SysObject": new sysObjDiv(),
-            "JSONAttributes": {
-                "Style": "col col-md-2 m-0 p-0 pe-3"
-            },
-            "ObjectDefs": [
-                {
-                    "id": this.ObjectID + "DisplayValue",
-                    "SysObject": this.DisplayValueObj,
-                    "JSONAttributes": {
-                        "Disabled": true,
-                        "Style": "form-control",
-                        "Value": Attributes.Value
-                    }
-                }
-            ]
-        }
-    ];
+        };
+
+        ObjDefs.push(ObjDefsMin);
+        ObjDefs.push(ObjDefsRangeSlider);
+        ObjDefs.push(ObjDefsMax);
+        ObjDefs.push(ObjDefsDisplayValue);
+    }
+    else {
+        ObjDefs.push(ObjDefsRangeSlider);
+        ObjDefs.push(ObjDefsDisplayValue);
+    }
 
     sysFactory.setupObjectRefsRecursive(ObjDefs, this);
 }
@@ -213,10 +231,18 @@ sysObjRangeSliderContainer.prototype.init = function()
 
 sysObjRangeSliderContainer.prototype.updateCallback = function()
 {
-    //alert(this.RangeSliderObj.Value);
+    const Attributes = this.JSONConfig.Attributes;
+
     this.DisplayValueObj.RuntimeSetDataFunc(
         this.RangeSliderObj.RuntimeGetDataFunc()
     );
+
+    if (Attributes.AutoUpdateOnChange === true)
+    {
+        this.RangeSliderObj.RuntimeSetDataFunc(
+            this.RangeSliderObj.RuntimeGetDataFunc()
+        );
+    }
 }
 
 

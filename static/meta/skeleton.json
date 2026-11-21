@@ -559,6 +559,60 @@
 
 	"ExamplesDragDrop":
 	[
+		{
+			"ExamplesDragDropCardContainer":
+			{
+				"RefID": "ExamplesDragDrop"
+			}
+		},
+		{
+			"ExamplesDragDropHeaderContainer":
+			{
+				"RefID": "ExamplesDragDropCardContainer"
+			}
+		},
+		{
+			"ExamplesDragDropHeaderContainerRow":
+			{
+				"RefID": "ExamplesDragDropHeaderContainer"
+			}
+		},
+		{
+			"ExamplesDragDropHeaderContainerColHeader":
+			{
+				"RefID": "ExamplesDragDropHeaderContainerRow"
+			}
+		},
+		{
+			"ExamplesDragDropHeaderContainerColIcon":
+			{
+				"RefID": "ExamplesDragDropHeaderContainerRow"
+			}
+		},
+		{
+			"ExamplesDragDropHeader":
+			{
+				"RefID": "ExamplesDragDropHeaderContainerColHeader"
+			}
+		},
+		{
+			"ExamplesDragDropBodyContainer":
+			{
+				"RefID": "ExamplesDragDropCardContainer"
+			}
+		},
+		{
+			"ExamplesDragDropBodyInfo":
+			{
+				"RefID": "ExamplesDragDropBodyContainer"
+			}
+		},
+		{
+			"ExamplesDragDropSpacerTop":
+			{
+				"RefID": "ExamplesDragDropBodyContainer"
+			}
+		}
 	],
 
 	"ExamplesOverlay":

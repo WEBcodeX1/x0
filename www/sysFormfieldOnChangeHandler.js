@@ -37,26 +37,6 @@ sysFormFieldOnChangeHandler.prototype.processOnChangeItem = function()
         for (OnChangeElement of OnChangeConfig)
         {
             //console.debug('::processOnChangeItem OnChangeElement:%o', OnChangeElement);
-            if (OnChangeElement.UpdateFormLength !== undefined)
-            {
-                try {
-                    const ObjectID = OnChangeElement.UpdateFormfield;
-                    const DestinationObject = sysFactory.getObjectByID(ObjectID);
-                    const ElementValue = this.RuntimeGetDataFunc();
-                    const CurrentLength = FormElementValue.length;
-                    const TextPre = sysFactory.getText(OnChangeElement.TextPreID);
-                    const TextPost = sysFactory.getText(OnChangeElement.TextPostID);
-                    const Value = TextPre + (OnChangeElement.MaxLength - CurrentLength) + TextPost;
-
-                    //console.debug('DestinationObject:%o', DestinationObject);
-                    DestinationObject.Value = Value;
-                    DestinationObject.RuntimeSetDataFunc();
-                }
-                catch (err) {
-                    console.debug('FormfieldOnChangeHandler UpdateFormfield err:%s', err);
-                }
-            }
-
             if (OnChangeElement.ActivateOnValues !== undefined)
             {
                 const ObjectID = OnChangeElement.ObjectID;

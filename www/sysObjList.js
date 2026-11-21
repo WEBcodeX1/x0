@@ -265,7 +265,6 @@ function sysList()
     this.RowItems               = new Array();                          //- Row Objects Array
 
     this.NavPageIndex           = 0;                                    //- Selected Page/Navigation Index
-    this.UpdateCount            = 0;                                    //- Update Counter
 
     this.Columns                = new Array();                          //- Comlumns for fast query
 
@@ -342,7 +341,6 @@ sysList.prototype.callbackXMLRPCAsync = function()
 
 sysList.prototype.update = function()
 {
-    this.UpdateCount++;
     this.removeParent();
     this.setUpdateResult();
     this.renderPage();
@@ -375,8 +373,6 @@ sysList.prototype.init = function()
     }
 
     this.DOMStyle = Attributes.Style;
-
-    //this.renderPage();
 }
 
 
@@ -494,7 +490,7 @@ sysList.prototype.checkDouble = function(CheckValue)
 
 sysList.prototype.renderPage = function()
 {
-    console.debug('::renderPage Result Data:%o Object:%o UpdateCount:%d', this.RuntimeData, this, this.UpdateCount);
+    console.debug('::renderPage Result Data:%o Object:%o', this.RuntimeData, this);
 
     const Attributes = this.JSONConfig.Attributes;
 
@@ -635,7 +631,6 @@ sysList.prototype.getRowByIndex = function(Index)
 sysList.prototype.updateRow = function(Index, Data)
 {
     console.debug('::updateRow Index:%s Data:%o', Index, Data);
-    this.UpdateCount++;
     this.renderPage();
 }
 
@@ -667,6 +662,24 @@ sysList.prototype.convertObjectDataKeyValue = function(Data)
         }
     }
     return AppendRowData;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "syncRuntimeData"
+//------------------------------------------------------------------------------
+
+sysList.prototype.syncRuntimeData = function()
+{
+    let i = 0;
+    for (const Row of this.RowItems) {
+        for (const ColumnObj of Row.ColItems) {
+            const SetValue = ColumnObj.RuntimeGetDataFunc();
+            //console.debug('::sysList syncRuntimeData() ColumnObj:%o SetValue:%o', ColumnObj, SetValue);
+            this.RuntimeData[i][ColumnObj.KeyID] = SetValue;
+        }
+        ++i;
+    }
 }
 
 
@@ -720,8 +733,12 @@ sysList.prototype.appendData = function(Data)
         }
     }
 
-    this.UpdateCount++;
+    //- sync runtime data
+    this.syncRuntimeData();
+
+    //- append runtime data
     this.RuntimeData.push(AppendRowData);
-    console.debug('::appendData this.RuntimeData:%o', this.RuntimeData);
+
+    //console.debug('::appendData this.RuntimeData:%o', this.RuntimeData);
     this.renderPage();
 }

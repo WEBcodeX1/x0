@@ -70,17 +70,14 @@ userObjExampleEditableItem.prototype.init = function()
 
     //- setup image select button
     this.SelectImageButton = new sysObjButtonCallback();
-    this.SelectImageButton.overrideDOMObjectID = true;
     this.SelectImageButton.setCallback(this, 'selectImage');
 
     //- setup move up button
     this.MoveUpButton = new sysObjButtonCallback();
-    this.MoveUpButton.overrideDOMObjectID = true;
     this.MoveUpButton.setCallback(this, 'moveUp');
 
     //- setup move down button
     this.MoveDownButton = new sysObjButtonCallback();
-    this.MoveDownButton.overrideDOMObjectID = true;
     this.MoveDownButton.setCallback(this, 'moveDown');
 
     //- setup dynamic content
@@ -502,7 +499,6 @@ userObjExampleEditableItemContainer.prototype.init = function()
 
     //- setup clickable edit icon button
     this.EditIconButton = new sysObjButtonCallback();
-    this.EditIconButton.overrideDOMObjectID = true;
     this.EditIconButton.RootObject = this;
     this.EditIconButton.setCallback(this);
 
