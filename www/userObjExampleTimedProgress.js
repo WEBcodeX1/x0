@@ -40,7 +40,6 @@ userObjTimedProgress.prototype.init = function()
     //- define start progress button
     let ButtonStart = new sysObjButtonCallback();
     ButtonStart.ObjectID = this.ObjectID + 'BtnStartUpdate';
-    ButtonStart.overrideDOMObjectID = true;
     ButtonStart.setCallback(this);
 
     //- progress bar object

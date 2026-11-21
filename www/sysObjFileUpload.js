@@ -51,7 +51,6 @@ sysFileUpload.prototype.init = function()
     FileSelectButtonHTML += 'class="form-control">';
 
     let StartUploadButton = new sysObjButtonCallback();
-    StartUploadButton.overrideDOMObjectID = true;
     StartUploadButton.setCallback(this);
 
     this.ProgressBarObj = new sysObjProgressBar();

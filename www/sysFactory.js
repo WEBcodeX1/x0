@@ -349,11 +349,24 @@ sysFactory.prototype.updateLanguageObjectsGlobal = function()
     for (const ScreenID in this.Screens)
     {
         console.debug('updateSQLObjects ScreenID:%s', ScreenID);
+
         const TextObjects = this.getObjectsByType(ScreenID, 'SQLText');
         console.debug('updateSQLObjects TxtObjects:%o', TextObjects);
         for (const TextObjID in TextObjects) {
             const TextObj = TextObjects[TextObjID];
             TextObj.update();
+        }
+
+        const Objects1 = this.getObjectsByType(ScreenID, 'FormfieldPulldown');
+        const Objects2 = this.getObjectsByType(ScreenID, 'FormfieldText');
+        const Objects3 = this.getObjectsByType(ScreenID, 'FormfieldTextarea');
+
+        const UpdateObjects = Object.assign(Objects1, Objects2, Objects3);
+
+        console.debug('updateSQLObjects PulldownObjects:%o', UpdateObjects);
+        for (const UpdateObjID in UpdateObjects) {
+            const UpdateObj = UpdateObjects[UpdateObjID];
+            UpdateObj.rerenderObject();
         }
     }
 }
@@ -368,7 +381,7 @@ sysFactory.prototype.setupObjectRefsRecursive = function(ObjDefs, RefObj)
     for (const ObjItem of ObjDefs)
     {
         CurrentObject = ObjItem['SysObject'];
-        CurrentObject.ObjectID = ObjItem['id']
+        CurrentObject.ObjectID = ObjItem['id'];
         CurrentObject.JSONConfig = { "Attributes": ObjItem['JSONAttributes'] };
 
         if (ObjItem['id'] !== undefined) {

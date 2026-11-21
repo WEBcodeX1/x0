@@ -264,11 +264,9 @@ sysBaseObject.prototype.setActivated = function()
 {
     this.Deactivated = false;
 
-    /*
     for (const ChildItem of this.ChildObjects) {
         ChildItem.setActivated();
     }
-    */
 }
 
 
@@ -280,11 +278,9 @@ sysBaseObject.prototype.setDeactivated = function()
 {
     this.Deactivated = true;
 
-    /*
     for (const ChildItem of this.ChildObjects) {
         ChildItem.setDeactivated();
     }
-    */
 }
 
 

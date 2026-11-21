@@ -474,8 +474,8 @@
     "TXT.HEADER.EXAMPLES_OVERLAY": {
         "id": "TXT.HEADER.EXAMPLES_OVERLAY",
         "group": "header",
-        "value_de": "Overlay",
-        "value_en": "Overlay"
+        "value_de": "Overlay Beispiele",
+        "value_en": "Overlay Examples"
     },
     "TXT.HEADER.EXAMPLES_BASIC.SLIDERS.TIMER_CONTROLLED": {
         "id": "TXT.HEADER.EXAMPLES_BASIC.SLIDERS.TIMER_CONTROLLED",
@@ -585,11 +585,101 @@
         "value_de": "In den nachfolgenden ... wird das x0 Framework und seine Features ...",
         "value_en": "Through its <b>100% generic OOP model</b>, also the data abstraction (recursive) for getting data from objects or setting complex (dependend / multi-dimensional) data (JSON format) will save you <b>a lot</b> of time regarding application service modeling / SOA; even better: any of your Class-based objects are runtime instantiatable, its runtime-data can be (recursively) copied and be used for object-cloning and / or targeted data mix-ins."
     },
+    "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.START": {
+        "id": "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.START",
+        "group": "infobox-text",
+        "value_de": "Bsais-Können",
+        "value_en": "Basic Skills"
+    },
+    "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.PARAGRAPH1": {
+        "id": "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.PARAGRAPH1",
+        "group": "infobox-text",
+        "value_de": "Die angeführten Beispiele zeigen ...",
+        "value_en": "These illustrative examples from this paragraph show ... The first tab shows <i>timer based</i> and <i>step controlled</i> <b>progress bar</b> ..."
+    },
+    "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.PARAGRAPH2": {
+        "id": "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.PARAGRAPH2",
+        "group": "infobox-text",
+        "value_de": "Die angeführten Beispiele zeigen ...",
+        "value_en": "The second tab"
+    },
+    "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.PARAGRAPH3": {
+        "id": "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.PARAGRAPH3",
+        "group": "infobox-text",
+        "value_de": "Die angeführten Beispiele zeigen ...",
+        "value_en": "The third tab"
+    },
     "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.START": {
         "id": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.START",
         "group": "infobox-text",
-        "value_de": "Beschreibung:",
-        "value_en": "Description:"
+        "value_de": "Copy/Paste",
+        "value_en": "Copy/Paste"
+    },
+    "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH1": {
+        "id": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH1",
+        "group": "infobox-text",
+        "value_de": "Kopieren/einfügen ...",
+        "value_en": "Copy/paste is a fundemental x0-feature especially relying on the <b>x0-context-menu</b> feature ..."
+    },
+    "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH2": {
+        "id": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH2",
+        "group": "infobox-text",
+        "value_de": "Kopieren/einfügen ...",
+        "value_en": "Source data ... in this example ... right-click on ..."
+    },
+    "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH3": {
+        "id": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH2",
+        "group": "infobox-text",
+        "value_de": "Kopieren/einfügen ...",
+        "value_en": "Destination data ... in this example ... see how to paste data into multiple ..."
+    },
+    "TXT.EXAMPLES.OVERLAY.INFOPARAGRAPH.START": {
+        "id": "TXT.EXAMPLES.OVERLAY.INFOPARAGRAPH.START",
+        "group": "infobox-text",
+        "value_de": "Overlay",
+        "value_en": "Overlay"
+    },
+    "TXT.EXAMPLES.OVERLAY.INFOPARAGRAPH.PARAGRAPH1": {
+        "id": "TXT.EXAMPLES.OVERLAY.INFOPARAGRAPH.PARAGRAPH1",
+        "group": "infobox-text",
+        "value_de": "Overlay",
+        "value_en": "Overlay"
+    },
+    "TXT.EXAMPLES.OVERLAY.INFOPARAGRAPH.PARAGRAPH2": {
+        "id": "TXT.EXAMPLES.OVERLAY.INFOPARAGRAPH.PARAGRAPH2",
+        "group": "infobox-text",
+        "value_de": "Overlay",
+        "value_en": "Overlay"
+    },
+    "TXT.EXAMPLES.OVERLAY.INFOPARAGRAPH.PARAGRAPH3": {
+        "id": "TXT.EXAMPLES.OVERLAY.INFOPARAGRAPH.PARAGRAPH3",
+        "group": "infobox-text",
+        "value_de": "Overlay",
+        "value_en": "Overlay"
+    },
+    "TXT.EXAMPLES.EDITABLE_TEMPLATES.INFOPARAGRAPH.START": {
+        "id": "TXT.EXAMPLES.EDITABLE_TEMPLATES.INFOPARAGRAPH.START",
+        "group": "infobox-text",
+        "value_de": "Editierbare Templates",
+        "value_en": "Editable Templates"
+    },
+    "TXT.EXAMPLES.EDITABLE_TEMPLATES.PARAGRAPH1": {
+        "id": "TXT.EXAMPLES.EDITABLE_TEMPLATES.PARAGRAPH1",
+        "group": "infobox-text",
+        "value_de": "Editierbare Templates",
+        "value_en": "Editable Templates"
+    },
+    "TXT.EXAMPLES.EDITABLE_TEMPLATES.PARAGRAPH2": {
+        "id": "TXT.EXAMPLES.EDITABLE_TEMPLATES.PARAGRAPH2",
+        "group": "infobox-text",
+        "value_de": "Editierbare Templates",
+        "value_en": "Editable Templates"
+    },
+    "TXT.EXAMPLES.EDITABLE_TEMPLATES.PARAGRAPH3": {
+        "id": "TXT.EXAMPLES.EDITABLE_TEMPLATES.PARAGRAPH3",
+        "group": "infobox-text",
+        "value_de": "Editierbare Templates",
+        "value_en": "Editable Templates"
     },
     "TXT.INTRODUCTION.CONTAINER_RIGHT.HEADER": {
         "id": "TXT.INTRODUCTION.CONTAINER_RIGHT.HEADER",
@@ -656,12 +746,6 @@
         "group": "table-header",
         "value_de": "Persönliches Gepäck",
         "value_en": "Personal Luggage"
-    },
-    "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH1": {
-        "id": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH1",
-        "group": "infobox-text",
-        "value_de": "Copy/Paste Beschreibung ...",
-        "value_en": "Copy/Paste description ..."
     },
     "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_NAME": {
         "id": "TXT.EXAMPLES.COPYPASTE.LABEL.WORKER_NAME",
@@ -774,14 +858,14 @@
     "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_PERCENTAGE_MIN": {
         "id": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_PERCENTAGE_MIN",
         "group": "table-header",
-        "value_de": "Min",
-        "value_en": "Min"
+        "value_de": "Min%",
+        "value_en": "Min%"
     },
     "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_PERCENTAGE_MAX": {
         "id": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.TEAM_PERCENTAGE_MAX",
         "group": "table-header",
-        "value_de": "Max",
-        "value_en": "Max"
+        "value_de": "Max%",
+        "value_en": "Max%"
     },
     "TXT.TABLE.EXAMPLES_OVERLAY.HEADER.SEQUENCE_NUMBER": {
         "id": "TXT.TABLE.EXAMPLES_OVERLAY.HEADER.SEQUENCE_NUMBER",
@@ -834,26 +918,50 @@
     "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.START": {
         "id": "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.START",
         "group": "infobox-text",
-        "value_de": "Beschreibung:",
-        "value_en": "Description:"
+        "value_de": "Mehrsprachigkeit",
+        "value_en": "Multilanguage"
     },
     "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.PARAGRAPH1": {
         "id": "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.PARAGRAPH1",
         "group": "infobox-text",
-        "value_de": "&nbsp;Mit ... kann die Sprache in real-time umgestellt werden ...",
-        "value_en": "&nbsp;Here you can switch between languages in real-time (current english and german)."
+        "value_de": "Mit ... kann die Sprache in real-time umgestellt werden ...",
+        "value_en": "The <b>x0-framework</b> is multi-language capable, currently english and german. Also adding languages is possible with small programming effort."
+    },
+    "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.PARAGRAPH2": {
+        "id": "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.PARAGRAPH2",
+        "group": "infobox-text",
+        "value_de": "Mit ... kann die Sprache in real-time umgestellt werden ...",
+        "value_en": "Here you can switch between these languages in real time, without any backend communication taking place."
     },
     "TXT.SYSTEMSETTINGS.INFOPARAGRAPH.START": {
         "id": "TXT.SYSTEMSETTINGS.INFOPARAGRAPH.START",
         "group": "infobox-text",
-        "value_de": "Beschreibung:",
-        "value_en": "Description:"
+        "value_de": "System-Einstellungen",
+        "value_en": "System-Settings"
     },
     "TXT.SYSTEMSETTINGS.INFOPARAGRAPH.PARAGRAPH1": {
         "id": "TXT.SYSTEMSETTINGS.INFOPARAGRAPH.PARAGRAPH1",
         "group": "infobox-text",
         "value_de": "&nbsp;Das ist die Beschreibung der Systemsettings ...",
         "value_en": "&nbsp;This is the description of the systemsettings ..."
+    },
+    "TXT.EXAMPLES.DRAGDROP.INFOPARAGRAPH.START": {
+        "id": "TXT.EXAMPLES.DRAGDROP.INFOPARAGRAPH.START",
+        "group": "infobox-text",
+        "value_de": "Drag&Drop",
+        "value_en": "Drag&Drop"
+    },
+    "TXT.EXAMPLES.DRAGDROP.INFOPARAGRAPH.START": {
+        "id": "TXT.EXAMPLES.DRAGDROP.INFOPARAGRAPH.START",
+        "group": "infobox-text",
+        "value_de": "Drag&Drop",
+        "value_en": "Drag&Drop"
+    },
+    "TXT.EXAMPLES.DRAGDROP.INFOPARAGRAPH.PARAGRAPH1": {
+        "id": "TXT.EXAMPLES.DRAGDROP.INFOPARAGRAPH.PARAGRAPH1",
+        "group": "infobox-text",
+        "value_de": "Das <b>x0-feature</b> ",
+        "value_en": "The <b>x0-feature</b> Drag&Drop will be implemented in x0 version 1.2 ..."
     },
     "TXT.SYSTEMSETTINGS.SYSTEM.THEME": {
         "id": "TXT.SYSTEMSETTINGS.SYSTEM.THEME",
@@ -1057,8 +1165,26 @@
     "TXT.SYSTEMSETTINGS.TIMEOUT.INDICATOR_BACKEND_SERVICE": {
         "id": "TXT.SYSTEMSETTINGS.TIMEOUT.INDICATOR_BACKEND_SERVICE",
         "group": "sys-setting",
-        "value_de": "Server Timeout",
-        "value_en": "Server Timeout"
+        "value_de": "Backend Service",
+        "value_en": "Backend Service"
+    },
+    "TXT.SYSTEMSETTINGS.TIMEOUT.INDICATOR_INTERNAL": {
+        "id": "TXT.SYSTEMSETTINGS.TIMEOUT.INDICATOR_INTERNAL",
+        "group": "sys-setting",
+        "value_de": "Interne Speicherung",
+        "value_en": "Internal Save"
+    },
+    "TXT.SYSTEMSETTINGS.TIMEOUT.DRAG_DROP": {
+        "id": "TXT.SYSTEMSETTINGS.TIMEOUT.DRAG_DROP",
+        "group": "sys-setting",
+        "value_de": "Drag&Drop",
+        "value_en": "Drag&Drop"
+    },
+    "TXT.SYSTEMSETTINGS.TIMEOUT.AI_TIPS": {
+        "id": "TXT.SYSTEMSETTINGS.TIMEOUT.AI_TIPS",
+        "group": "sys-setting",
+        "value_de": "KI Tips",
+        "value_en": "AI Tips"
     },
     "TXT.BUTTON.SYSTEMSETTINGS.SAVE_SETTINGS": {
         "id": "TXT.BUTTON.SYSTEMSETTINGS.SAVE_SETTINGS",
@@ -1101,6 +1227,12 @@
         "group": "header",
         "value_de": "Beispiel Overlay - Mitarbeiter Daten bearbeiten",
         "value_en": "Example Overlay - Edit Worker Data"
+    },
+    "TXT.HEADER.EXAMPLE.DRAGDROP": {
+        "id": "TXT.HEADER.EXAMPLE.DRAGDROP",
+        "group": "header",
+        "value_de": "Drag&Drop Examples",
+        "value_en": "Drag&Drop Examples"
     },
     "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.NAME": {
         "id": "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.NAME",
@@ -1389,5 +1521,17 @@
         "group": "header",
         "value_de": "Quelldaten - kopieren mit Rechtsklick",
         "value_en": "Source Data - copy by right-click"
+    },
+    "TXT.SETTINGS.GRID_COLUMN_VIEW.ONE_SETTING_PER_ROW": {
+        "id": "TXT.SETTINGS.GRID_COLUMN_VIEW.ONE_SETTING_PER_ROW",
+        "group": "pulldown-option",
+        "value_de": "Einzel-Zeilen Ansicht",
+        "value_en": "One Row View"
+    },
+    "TXT.SETTINGS.GRID_COLUMN_VIEW.TWO_SETTINGS_PER_ROW": {
+        "id": "TXT.SETTINGS.GRID_COLUMN_VIEW.TWO_SETTINGS_PER_ROW",
+        "group": "pulldown-option",
+        "value_de": "Zwei-Spalten Ansicht",
+        "value_en": "Two Column View"
     }
 }

@@ -254,7 +254,8 @@ sysTabContainer.prototype.switchTab = function(TabID)
             TabElement.SQLTextObj.DOMStyle = 'nav-link active text-primary-emphasis';
             TabElement.SQLTextObj.setDOMElementStyle();
 
-            TabElement.ContentObj.setActivated();
+            //- #TODO: only activate when explicitely configured
+            //TabElement.ContentObj.setActivated();
             TabElement.ContentObj.VisibleState = 'visible';
             TabElement.ContentObj.setDOMVisibleState();
 
@@ -266,12 +267,12 @@ sysTabContainer.prototype.switchTab = function(TabID)
             TabElement.SQLTextObj.DOMStyle = 'nav-link';
             TabElement.SQLTextObj.setDOMElementStyle();
 
-            TabElement.ContentObj.setDeactivated();
+            //- #TODO: only deactivate when explicitely configured
+            //TabElement.ContentObj.setDeactivated();
             TabElement.ContentObj.VisibleState = 'hidden';
             TabElement.ContentObj.setDOMVisibleState();
         }
     }
-
 }
 
 

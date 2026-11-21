@@ -41,8 +41,7 @@ sysFormfieldItem.prototype.processSourceObjects = sysSourceObjectHandler.prototy
 sysFormfieldItem.prototype.FormItemInit = function()
 {
     const Attributes = this.JSONConfig.Attributes;
-    const test = sysFactory.DataObject.XMLRPCResultData['WorkerName'];
-    console.debug('::sysFormfieldItem FormItemInit() ObjectID:%s Attributes:%o Test:%o', this.ObjectID, Attributes, test);
+    console.debug('::sysFormfieldItem FormItemInit() ObjectID:%s Attributes:%o', this.ObjectID, Attributes);
 
     this.overrideDOMObjectID = true;
 
@@ -75,11 +74,12 @@ sysFormfieldItem.prototype.FormItemInitFinish = function()
 sysFormfieldItem.prototype.setupOnChangeEventListener = function()
 {
     const Attributes = this.JSONConfig.Attributes;
+
     if (Attributes.OnChange !== undefined)
     {
         try {
             const EventType = (Attributes.OnChange.Type !== undefined) ? Attributes.OnChange.Type : 'change';
-            this.EventListeners["OnChangeHandler"] = {
+            this.EventListeners['OnChangeHandler'] = {
                 "Type": EventType,
                 "Element": this.processOnChangeItem.bind(this)
             };
@@ -88,6 +88,26 @@ sysFormfieldItem.prototype.setupOnChangeEventListener = function()
             console.log('::setupEventListenerObject err:%s ObjectID:%s', err, this.ObjectID);
         }
     }
+
+    if (Attributes.AutoUpdateOnChange !== undefined)
+    {
+        this.EventListeners['AutoOnChangeHandler'] = {
+            "Type": 'change',
+            "Element": this.processAutoUpdateOnChange.bind(this)
+        };
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "processAutoUpdateOnChange"
+//------------------------------------------------------------------------------
+
+sysFormfieldItem.prototype.processAutoUpdateOnChange = function()
+{
+    this.RuntimeSetDataFunc(
+        this.RuntimeGetDataFunc()
+    );
 }
 
 
@@ -326,6 +346,20 @@ sysFormfieldItem.prototype.clearStyle = function()
 
 
 //------------------------------------------------------------------------------
+//- METHOD "rerenderObject" (overloaded)
+//------------------------------------------------------------------------------
+
+sysFormfieldItem.prototype.rerenderObject = function()
+{
+    const CurrentValue = this.RuntimeGetDataFunc();
+    this.removeDOMParentElement();
+    this.init();
+    this.renderObject(this.DOMParentID);
+    this.RuntimeSetDataFunc(CurrentValue);
+}
+
+
+//------------------------------------------------------------------------------
 //- CONSTRUCTOR "sysFormfieldItemText"
 //------------------------------------------------------------------------------
 
@@ -465,6 +499,7 @@ sysFormfieldItemPulldown.prototype.generateOptions = function()
         OptionHTML += '<option value="' + Value + '"' + Selected + '>' + DisplayText + '</option>';
     }
 
+    console.debug('::sysFormfieldItemPulldown generateOptions() OptionHTML:%s', OptionHTML);
     this.DOMValue = OptionHTML;
 }
 
@@ -664,7 +699,7 @@ sysFormfieldItemCheckbox.prototype.init = function()
 sysFormfieldItemCheckbox.prototype.update = function()
 {
     try {
-        console.debug('Checkbox update:%s', this.ObjectID);
+        console.debug('::sysFormfieldItemCheckbox update() ObjectID:%s update to value:%s', this.ObjectID, this.Value);
         const CheckboxObj = document.getElementById(this.ObjectID);
         CheckboxObj.checked = this.Value;
     }
@@ -679,7 +714,6 @@ sysFormfieldItemCheckbox.prototype.update = function()
 
 sysFormfieldItemCheckbox.prototype.getChecked = function()
 {
-    //console.debug('Checkbox ID:%s', this.ObjectID);
     const CheckboxObj = document.getElementById(this.ObjectID);
     return CheckboxObj.checked;
 }
@@ -692,7 +726,6 @@ sysFormfieldItemCheckbox.prototype.getChecked = function()
 sysFormfieldItemCheckbox.prototype.setChecked = function(Value)
 {
     this.Value = Value;
-    console.debug('Form checkbox this:%o', this);
     this.update();
 }
 

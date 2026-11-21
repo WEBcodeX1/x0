@@ -52,22 +52,18 @@ userObjExampleCard.prototype.init = function()
 
     //- setup select badges button
     let SelectBadgesButton = new sysObjButtonCallback();
-    SelectBadgesButton.overrideDOMObjectID = true;
     SelectBadgesButton.setCallback(this, 'selectBadges');
 
     //- setup select colaborators button
     let SelectColaboratorsButton = new sysObjButtonCallback();
-    SelectColaboratorsButton.overrideDOMObjectID = true;
     SelectColaboratorsButton.setCallback(this, 'selectColaborators');
 
     //- setup add tasklist button
     let AddTasklistButton = new sysObjButtonCallback();
-    AddTasklistButton.overrideDOMObjectID = true;
     AddTasklistButton.setCallback(this, 'addTasklist');
 
     //- setup save data button
     let SaveDataButton = new sysObjButtonCallback();
-    SaveDataButton.overrideDOMObjectID = true;
     SaveDataButton.setCallback(this, 'saveData');
 
     //- setup recursive object structure
@@ -480,7 +476,6 @@ userObjExampleTasklist.prototype.init = function()
 {
     //- setup add task button
     let AddTaskButton = new sysObjButtonCallback();
-    AddTaskButton.overrideDOMObjectID = true;
     AddTaskButton.setCallback(this, 'addTask');
 
     //- setup recursive object structure
@@ -608,12 +603,10 @@ userObjExampleTask.prototype.init = function()
 {
     //- setup remove button
     let RemoveButton = new sysObjButtonCallback();
-    RemoveButton.overrideDOMObjectID = true;
     RemoveButton.setCallback(this, 'remove');
 
     //- setup add colaborators button
     let AddColaboratorsButton = new sysObjButtonCallback();
-    AddColaboratorsButton.overrideDOMObjectID = true;
     AddColaboratorsButton.setCallback(this, 'addColaborators');
 
     //- setup recursive object structure

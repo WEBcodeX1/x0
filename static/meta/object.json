@@ -439,8 +439,10 @@
 		"Type": "InfoParagraph",
 		"Attributes": {
 			"Text": [
-				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.START", "Style": "text-dark text-opacity-75 fw-bold float-start" },
-				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH1", "Style": "text-dark text-opacitiy-50" }
+				{ "ID": "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.START", "Style": "h4 text-dark text-opacity-75 fw-bold", "IconStyle": "fa-solid fa-star" },
+				{ "ID": "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.PARAGRAPH1", "Style": "pt-2 p-1 text-dark text-opacitiy-50", "IconStyle": "fa-solid fa-arrow-right" },
+				{ "ID": "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.PARAGRAPH2", "Style": "pt-2 p-1 text-dark text-opacitiy-50", "IconStyle": "fa-solid fa-arrow-right" },
+				{ "ID": "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.PARAGRAPH3", "Style": "pt-2 p-1 text-dark text-opacitiy-50", "IconStyle": "fa-solid fa-arrow-right" }
 			]
 		}
 	},
@@ -555,8 +557,10 @@
 		"Type": "InfoParagraph",
 		"Attributes": {
 			"Text": [
-				{ "ID": "TXT.EXAMPLES_BASIC.EDITABLE_TEMPLATES.INFOPARAGRAPH.START", "Style": "h4 text-dark text-opacity-75 fw-bold", "IconStyle": "fa-solid fa-edit" },
-				{ "ID": "TXT.EXAMPLES_BASIC.EDITABLE_TEMPLATES..PARAGRAPH1", "Style": "pt-2 p-1 text-dark text-opacitiy-75", "IconStyle": "fa-solid fa-arrow-right" }
+				{ "ID": "TXT.EXAMPLES.EDITABLE_TEMPLATES.INFOPARAGRAPH.START", "Style": "h4 text-dark text-opacity-75 fw-bold", "IconStyle": "fa-solid fa-edit" },
+				{ "ID": "TXT.EXAMPLES.EDITABLE_TEMPLATES.PARAGRAPH1", "Style": "pt-2 p-1 text-dark text-opacitiy-75", "IconStyle": "fa-solid fa-arrow-right" },
+				{ "ID": "TXT.EXAMPLES.EDITABLE_TEMPLATES.PARAGRAPH2", "Style": "pt-2 p-1 text-dark text-opacitiy-75", "IconStyle": "fa-solid fa-arrow-right" },
+				{ "ID": "TXT.EXAMPLES.EDITABLE_TEMPLATES.PARAGRAPH3", "Style": "pt-2 p-1 text-dark text-opacitiy-75", "IconStyle": "fa-solid fa-arrow-right" }
 			]
 		}
 	},
@@ -630,7 +634,7 @@
 		"Attributes": {
 			"HeaderTextID": "TXT.HEADER.EXAMPLES_BASIC_EDITABLE_TEMPLATE1_HEADER",
 			"HeaderStyle": "h3 text-primary-emphasis",
-			"HeaderIconStyle": "fa-solid fa-card-shopping"
+			"HeaderIconStyle": "fa-solid fa-cart-shopping"
 		}
 	},
 
@@ -1190,7 +1194,10 @@
 					"ID": "WorkerName",
 					"HeaderTextID": "TXT.TABLE.EXAMPLES_COPYPASTE.DSTLIST.HEADER.WORKER_NAME",
 					"HeaderStyle": "col-md-2 p-3 border-end",
-					"ObjectInstanceOf": "WorkerName"
+					"ObjectInstanceOf": "WorkerName",
+					"AttributesOverwrite": {
+						"AutoUpdateOnChange": true
+					}
 				},
 				{
 					"ID": "WorkerSurename",
@@ -1211,8 +1218,7 @@
 					"ObjectType": "RangeSliderContainer",
 					"ObjectAttributes": {
 						"Min": 1,
-						"Max": 100,
-						"UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE"
+						"Max": 100
 					}
 				},
 				{
@@ -1222,8 +1228,7 @@
 					"ObjectType": "RangeSliderContainer",
 					"ObjectAttributes": {
 						"Min": 1,
-						"Max": 100,
-						"UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE"
+						"Max": 100
 					}
 				}
 			],
@@ -1457,8 +1462,10 @@
 		"Type": "InfoParagraph",
 		"Attributes": {
 			"Text": [
-				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.START", "Style": "text-dark text-opacity-75 fw-bold float-start" },
-				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH1", "Style": "text-dark text-opacitiy-50" }
+				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.START", "Style": "h4 text-dark text-opacity-75 fw-bold", "IconStyle": "fa-solid fa-clipboard" },
+				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH1", "Style": "pt-2 p-1 text-dark text-opacitiy-50", "IconStyle": "fa-solid fa-arrow-right" },
+				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH2", "Style": "pt-2 p-1 text-dark text-opacitiy-50", "IconStyle": "fa-solid fa-arrow-right" },
+				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH3", "Style": "pt-2 p-1 text-dark text-opacitiy-50", "IconStyle": "fa-solid fa-arrow-right" }
 			]
 		}
 	},
@@ -1775,6 +1782,84 @@
 		}
 	},
 
+	"ExamplesDragDropCardContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card text-bg-light mb-3"
+		}
+	},
+
+	"ExamplesDragDropHeaderContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-header"
+		}
+	},
+
+	"ExamplesDragDropHeaderContainerRow":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "row p-0 m-0"
+		}
+	},
+
+	"ExamplesDragDropHeaderContainerColHeader":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-9"
+		}
+	},
+
+	"ExamplesDragDropHeaderContainerColIcon":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "col col-md-3 p-0 pe-1 h1 fw-bold text-end text-primary-emphasis",
+			"Value": "<i class=\"fa-solid fa-grip-vertical\">"
+		}
+	},
+
+	"ExamplesDragDropHeader":
+	{
+		"Type": "SQLText",
+		"Attributes": {
+			"DOMType": "h1",
+			"Style": "text-primary-emphasis",
+			"TextID": "TXT.HEADER.EXAMPLE.DRAGDROP"
+		}
+	},
+
+	"ExamplesDragDropBodyContainer":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "card-body"
+		}
+	},
+
+	"ExamplesDragDropBodyInfo":
+	{
+		"Type": "InfoParagraph",
+		"Attributes": {
+			"Text": [
+				{ "ID": "TXT.EXAMPLES.DRAGDROP.INFOPARAGRAPH.START", "Style": "h4 text-dark text-opacity-75 fw-bold", "IconStyle": "fa-solid fa-grip-vertical" },
+				{ "ID": "TXT.EXAMPLES.DRAGDROP.INFOPARAGRAPH.PARAGRAPH1", "Style": "pt-2 p-1 text-dark text-opacitiy-50", "IconStyle": "fa-solid fa-arrow-right" }
+			]
+		}
+	},
+
+	"ExamplesDragDropSpacerTop":
+	{
+		"Type": "DivUnique",
+		"Attributes": {
+			"Style": "container p-2"
+		}
+	},
+
 	"ExamplesOverlayCardContainer":
 	{
 		"Type": "DivUnique",
@@ -1839,8 +1924,10 @@
 		"Type": "InfoParagraph",
 		"Attributes": {
 			"Text": [
-				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.START", "Style": "text-dark text-opacity-75 fw-bold float-start" },
-				{ "ID": "TXT.EXAMPLES.COPY_PASTE.INFOPARAGRAPH.PARAGRAPH1", "Style": "text-dark text-opacitiy-50" }
+				{ "ID": "TXT.EXAMPLES.OVERLAY.INFOPARAGRAPH.START", "Style": "h4 text-dark text-opacity-75 fw-bold", "IconStyle": "fa-solid fa-layer-group" },
+				{ "ID": "TXT.EXAMPLES.OVERLAY.INFOPARAGRAPH.PARAGRAPH1", "Style": "pt-2 p-1 text-dark text-opacitiy-50", "IconStyle": "fa-solid fa-arrow-right" },
+				{ "ID": "TXT.EXAMPLES.OVERLAY.INFOPARAGRAPH.PARAGRAPH2", "Style": "pt-2 p-1 text-dark text-opacitiy-50", "IconStyle": "fa-solid fa-arrow-right" },
+				{ "ID": "TXT.EXAMPLES.OVERLAY.INFOPARAGRAPH.PARAGRAPH3", "Style": "pt-2 p-1 text-dark text-opacitiy-50", "IconStyle": "fa-solid fa-arrow-right" }
 			]
 		}
 	},
@@ -2044,8 +2131,8 @@
 		"Type": "InfoParagraph",
 		"Attributes": {
 			"Text": [
-				{ "ID": "TXT.SYSTEMSETTINGS.INFOPARAGRAPH.START", "Style": "text-dark text-opacity-75 fw-bold float-start" },
-				{ "ID": "TXT.SYSTEMSETTINGS.INFOPARAGRAPH.PARAGRAPH1", "Style": "text-dark text-opacitiy-50" }
+				{ "ID": "TXT.SYSTEMSETTINGS.INFOPARAGRAPH.START", "Style": "h4 text-dark text-opacity-75 fw-bold", "IconStyle": "fa-solid fa-globe" },
+				{ "ID": "TXT.SYSTEMSETTINGS.INFOPARAGRAPH.PARAGRAPH1", "Style": "pt-2 p-1 text-dark text-opacitiy-50", "IconStyle": "fa-solid fa-arrow-right" }
 			]
 		}
 	},
@@ -2127,6 +2214,7 @@
 						"ObjectType": "FormfieldPulldown",
 						"Attributes": {
 							"Style": "form-select border-secondary mb-1 p-1 w-100",
+							"Value": 20,
 							"Options": [
 								{
 									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.THEME.DARK",
@@ -2148,6 +2236,7 @@
 						"ObjectType": "FormfieldPulldown",
 						"Attributes": {
 							"Style": "form-select border-secondary mb-1 p-1 w-100",
+							"Value": 20,
 							"Options": [
 								{
 									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.DEBUGLEVEL.INFO",
@@ -2209,6 +2298,7 @@
 						"ObjectType": "FormfieldPulldown",
 						"Attributes": {
 							"Style": "form-select border-secondary mb-1 p-1 w-100",
+							"Value": 20,
 							"Options": [
 								{
 									"TextID": "TXT.SYSTEMSETTINGS.MSGSERVER.PULLDOWN_OPT.REQUEST_METHOD.WEBSOCKETS",
@@ -2280,12 +2370,13 @@
 					"TextID": "TXT.SYSTEMSETTINGS.VIDEO.BRIGHTNESS",
 					"IconStyle": "fa-solid fa-sun",
 					"SettingsObject": {
-						"ObjectType": "RangeSlider",
+						"ObjectType": "RangeSliderContainer",
 						"Attributes": {
-							"Style": "w-100",
+							"Style": "row",
 							"Min": 1,
 							"Max": 100,
-							"Value": 90
+							"Value": 90,
+							"UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE"
 						}
 					}
 				},
@@ -2293,12 +2384,13 @@
 					"TextID": "TXT.SYSTEMSETTINGS.VIDEO.SATURATION",
 					"IconStyle": "fa-solid fa-droplet",
 					"SettingsObject": {
-						"ObjectType": "RangeSlider",
+						"ObjectType": "RangeSliderContainer",
 						"Attributes": {
-							"Style": "w-100",
+							"Style": "row",
 							"Min": 1,
 							"Max": 100,
-							"Value": 70
+							"Value": 90,
+							"UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE"
 						}
 					}
 				},
@@ -2309,6 +2401,7 @@
 						"ObjectType": "FormfieldPulldown",
 						"Attributes": {
 							"Style": "form-select border-secondary mb-1 p-1 w-100",
+							"Value": 120,
 							"Options": [
 								{
 									"TextID": "TXT.SYSTEMSETTINGS.SYSTEM.PULLDOWN_OPT.REFRESHRATE.60HZ",
@@ -2352,12 +2445,13 @@
 					"Style": "text-danger",
 					"IconStyle": "fa-solid fa-palette",
 					"SettingsObject": {
-						"ObjectType": "RangeSlider",
+						"ObjectType": "RangeSliderContainer",
 						"Attributes": {
-							"Style": "w-100",
+							"Style": "row",
 							"Min": 1,
 							"Max": 100,
-							"Value": 70
+							"Value": 70,
+							"UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE"
 						}
 					}
 				},
@@ -2366,12 +2460,13 @@
 					"Style": "text-success",
 					"IconStyle": "fa-solid fa-palette",
 					"SettingsObject": {
-						"ObjectType": "RangeSlider",
+						"ObjectType": "RangeSliderContainer",
 						"Attributes": {
-							"Style": "w-100",
+							"Style": "row",
 							"Min": 1,
 							"Max": 100,
-							"Value": 70
+							"Value": 70,
+							"UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE"
 						}
 					}
 				},
@@ -2380,12 +2475,13 @@
 					"Style": "text-primary",
 					"IconStyle": "fa-solid fa-palette",
 					"SettingsObject": {
-						"ObjectType": "RangeSlider",
+						"ObjectType": "RangeSliderContainer",
 						"Attributes": {
-							"Style": "w-100",
+							"Style": "row",
 							"Min": 1,
 							"Max": 100,
-							"Value": 70
+							"Value": 70,
+							"UnitTextID": "TXT.EXAMPLE.RANGESLIDER.UNIT.PERCENTAGE"
 						}
 					}
 				}
@@ -2425,7 +2521,8 @@
 				"Variants": [
 					{
 						"ColStyles": [ "col col-md-3", "col col-md-6", "col col-md-3" ],
-						"RowAfterElements": 3
+						"RowAfterElements": 3,
+						"TextID": "TXT.SETTINGS.GRID_COLUMN_VIEW.ONE_SETTING_PER_ROW"
 					},
 					{
 						"ColStyles": [
@@ -2436,7 +2533,8 @@
 							"col col-md-2",
 							"col col-md-2"
 						],
-						"RowAfterElements": 6
+						"RowAfterElements": 6,
+						"TextID": "TXT.SETTINGS.GRID_COLUMN_VIEW.TWO_SETTINGS_PER_ROW"
 					}
 				]
 			},
@@ -2448,7 +2546,8 @@
 						"ObjectType": "FormfieldText",
 						"Attributes": {
 							"Style": "form-control border-secondary mb-1 p-1 w-100",
-							"Value": "screen-absolute-pos"
+							"Value": "screen-absolute-pos",
+							"AutoUpdateOnChange": true
 						}
 					}
 				},
@@ -2459,7 +2558,8 @@
 						"ObjectType": "FormfieldText",
 						"Attributes": {
 							"Style": "form-control border-secondary mb-1 p-1 w-100",
-							"Value": "menu-absolute-pos"
+							"Value": "menu-absolute-pos",
+							"AutoUpdateOnChange": true
 						}
 					}
 				},
@@ -2470,7 +2570,8 @@
 						"ObjectType": "FormfieldText",
 						"Attributes": {
 							"Style": "form-control border-secondary mb-1 p-1 w-100",
-							"Value": "p-3 shadow-lg border bg-gradient bg-opacity-75 overlay-default"
+							"Value": "p-3 shadow-lg border bg-gradient bg-opacity-75 overlay-default",
+							"AutoUpdateOnChange": true
 						}
 					}
 				},
@@ -2481,7 +2582,8 @@
 						"ObjectType": "FormfieldText",
 						"Attributes": {
 							"Style": "form-control border-secondary mb-1 p-1 w-100",
-							"Value": "col-6 p-4 pl-0"
+							"Value": "col-6 p-4 pl-0",
+							"AutoUpdateOnChange": true
 						}
 					}
 				},
@@ -2492,7 +2594,8 @@
 						"ObjectType": "FormfieldText",
 						"Attributes": {
 							"Style": "form-control border-secondary mb-1 p-1 w-100",
-							"Value": "col-6 p-4 float-end text-end pr-0"
+							"Value": "col-6 p-4 float-end text-end pr-0",
+							"AutoUpdateOnChange": true
 						}
 					}
 				}
@@ -2524,33 +2627,77 @@
 				"Variants": [
 					{
 						"ColStyles": [ "col col-md-3", "col col-md-6", "col col-md-3" ],
-						"RowAfterElements": 3
+						"RowAfterElements": 3,
+						"TextID": "TXT.SETTINGS.GRID_COLUMN_VIEW.ONE_SETTING_PER_ROW"
 					},
 					{
 						"ColStyles": [
-							"col col-md-2",
-							"col col-md-2",
+							"col col-md-1",
+							"col col-md-3",
 							"col col-md-2 border border-start-0 border-top-0 border-bottom-0",
-							"col col-md-2",
-							"col col-md-2",
+							"col col-md-1",
+							"col col-md-3",
 							"col col-md-2"
 						],
-						"RowAfterElements": 6
+						"RowAfterElements": 6,
+						"TextID": "TXT.SETTINGS.GRID_COLUMN_VIEW.TWO_SETTINGS_PER_ROW"
 					}
 				]
 			},
 			"Settings": [
 				{
 					"TextID": "TXT.SYSTEMSETTINGS.TIMEOUT.INDICATOR_BACKEND_SERVICE",
-					"Style": "text-primary",
 					"IconStyle": "fa-solid fa-server",
 					"SettingsObject": {
-						"ObjectType": "RangeSlider",
+						"ObjectType": "RangeSliderContainer",
 						"Attributes": {
-							"Style": "w-100",
+							"Style": "row",
 							"Min": 1,
 							"Max": 30,
-							"Value": 10
+							"Value": 10,
+							"AutoUpdateOnChange": true
+						}
+					}
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.TIMEOUT.INDICATOR_INTERNAL",
+					"IconStyle": "fa-solid fa-floppy-disk",
+					"SettingsObject": {
+						"ObjectType": "RangeSliderContainer",
+						"Attributes": {
+							"Style": "row",
+							"Min": 1,
+							"Max": 30,
+							"Value": 5,
+							"AutoUpdateOnChange": true
+						}
+					}
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.TIMEOUT.DRAG_DROP",
+					"IconStyle": "fa-solid fa-grip-vertical",
+					"SettingsObject": {
+						"ObjectType": "RangeSliderContainer",
+						"Attributes": {
+							"Style": "row",
+							"Min": 1,
+							"Max": 30,
+							"Value": 10,
+							"AutoUpdateOnChange": true
+						}
+					}
+				},
+				{
+					"TextID": "TXT.SYSTEMSETTINGS.TIMEOUT.AI_TIPS",
+					"IconStyle": "fa-solid fa-lightbulb",
+					"SettingsObject": {
+						"ObjectType": "RangeSliderContainer",
+						"Attributes": {
+							"Style": "row",
+							"Min": 1,
+							"Max": 30,
+							"Value": 10,
+							"AutoUpdateOnChange": true
 						}
 					}
 				}
@@ -2688,8 +2835,9 @@
 		"Type": "InfoParagraph",
 		"Attributes": {
 			"Text": [
-				{ "ID": "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.START", "Style": "text-dark text-opacity-75 fw-bold float-start" },
-				{ "ID": "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.PARAGRAPH1", "Style": "text-dark text-opacitiy-50" }
+				{ "ID": "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.START", "Style": "h4 text-dark text-opacity-75 fw-bold", "IconStyle": "fa-solid fa-language" },
+				{ "ID": "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.PARAGRAPH1", "Style": "pt-2 p-1 text-dark text-opacitiy-50", "IconStyle": "fa-solid fa-arrow-right" },
+				{ "ID": "TXT.SYSTEMSETTINGS.LANGUAGE.INFOPARAGRAPH.PARAGRAPH2", "Style": "pt-2 p-1 text-dark text-opacitiy-50", "IconStyle": "fa-solid fa-arrow-right" }
 			]
 		}
 	},
