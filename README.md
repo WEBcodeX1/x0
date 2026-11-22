@@ -43,13 +43,15 @@ https://github.com/WEBcodeX1/micropython-as
 
 # Performance Optimization
 
-The **x0 core** engine combines multiple modern JavaScript runtime optimizations to
-achieve near-C++ rendering speeds for in-browser **x0 applications**. Using a recursive
-iterator pattern on a class hierarchy where each class contains child objects of the
-same base class, it constructs a complete object graph during **x0 initialization**.
-Because the entire structure is pre-allocated at this stage, traversing from any node
-achieves ultra-low latency—further accelerated by a lightweight, reference-based OOP
-architecture analogous to a pointer-only hierarchy in C++.
+The **x0 core** engine combines multiple modern JavaScript runtime optimizations to achieve
+near-C++ rendering speeds for in-browser **x0 applications**. During system initialization
+(browser application load), it constructs a complete object graph using a recursive iterator
+pattern across a class hierarchy where each node holds child references of the same base class.
+Because the entire structure is pre-allocated (static preloading) up front, traversing from
+any node achieves ultra-low latency—further accelerated by a zero-copy, reference-based OOP
+architecture analogous to a pointer-driven hierarchy in memory.
+
+Current speed tests show an average load under **unoptimal** network conditions for a 
 
 # Quick Start
 
@@ -70,7 +72,11 @@ docker run -p 80:80 x0-static
 ```
 
 Open `http://localhost` or `http://<your-ip>`, which will display the static 
-**x0-application** component containing a rich set of example objects.
+**x0 application** component containing a rich set of example objects.
+
+> [!NOTE]
+> See the *x0* advanced rendering engine in action, building complex runtime-modifiable
+> content under "Examples" / "Editable Templates" in the static Docker container.
 
 ---
 
