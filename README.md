@@ -43,13 +43,13 @@ https://github.com/WEBcodeX1/micropython-as
 
 # Performance Optimization
 
-The **x0-core** engine combines multiple modern JavaScript runtime optimizations to achieve near-C++
-rendering speeds for an in-browser *x0* application. Using the **recursive generator** pattern,
-a comprehensive recursive object graph is constructed and connected during **x0 initialization**. Because
-the entire graph is **statically preloaded** at this stage, recursive traversal from any node achieves
-ultra-low latency—further accelerated by a smart, **pointer-only**, OOP-based graph hierarchy.
-
----
+The **x0 core** engine combines multiple modern JavaScript runtime optimizations to
+achieve near-C++ rendering speeds for in-browser **x0 applications**. Using a recursive
+iterator pattern on a class hierarchy where each class contains child objects of the
+same base class, it constructs a complete object graph during **x0 initialization**.
+Because the entire structure is pre-allocated at this stage, traversing from any node
+achieves ultra-low latency—further accelerated by a lightweight, reference-based OOP
+architecture analogous to a pointer-only hierarchy in C++.
 
 # Quick Start
 
@@ -62,41 +62,32 @@ apt-get -y install docker.io docker-buildx
 # Docker permissions & setup (as root)
 usermod -aG docker your-user
 
-# Restart (system) and pull pre-built images
+# Restart (system) and pull pre-built image
 docker pull ghcr.io/webcodex1/x0-static
 
-# Start Docker
-cd ./docker/
-./x0-start-static.sh
+# Start static Docker container
+docker run -p 80:80 x0-static
 ```
 
 Open `http://localhost` or `http://<your-ip>`, which will display the static 
-*x0-application** component containing a rich set of example objects.
+**x0-application** component containing a rich set of example objects.
 
 ---
 
 Full install details including build instructions: [./INSTALL.md](./INSTALL.md).
 
----
-
 # Documentation
 
 Rendered docs: [Official Sphinx Documentation](https://docs.webcodex.de/x0/v1.1/).
-
----
 
 # Security
 
 PKCS 11/15 compatible. Optional advanced PKI (non-free).
 Full details in [WEB/codeX PKI Manager](https://www.webcodex.de/index.html?menu=content-projects-wcdx-pkimanager).
 
----
-
 # Examples
 
 See: [./example/README.md](./example/README.md).
-
----
 
 # File & Folder Structure
 
@@ -129,14 +120,10 @@ Partial overview, see [GitHub file search](https://github.com/WEBcodeX1/x0/searc
 └── ... (more files & folders)
 ```
 
----
-
 # Contributing
 
 Contributions & feedback welcome!
 See [./CONTRIBUTING.md](./CONTRIBUTING.md) or open an issue.
-
----
 
 # Achieved Milestones
 
@@ -149,30 +136,22 @@ See [./CONTRIBUTING.md](./CONTRIBUTING.md) or open an issue.
 - Add virtual host (vhost) support to the standalone static (NoSQL) x0 component
 - Roadmap: [GitHub Milestones](https://github.com/WEBcodeX1/x0/milestones)
 
----
-
 # Community & Support
 
 - [Discussions](https://github.com/WEBcodeX1/x0/discussions)
 - [Issues](https://github.com/WEBcodeX1/x0/issues)
 - [Docs](https://docs.webcodex.de/x0/v1.0/)
 
----
-
 # License
 
 AGPL-3.0. See [./LICENSE](./LICENSE).
-
----
 
 # External References
 
 - [https://kubernetes.io](https://kubernetes.io)
 - [https://www.selenium.dev](https://www.selenium.dev)
-- [https://www.kubegres.io](https://www.kubegres.io)
 - [https://www.sphinx-doc.org](https://www.sphinx-doc.org)
 - [https://www.devuan.org/](https://www.devuan.org/)
-- [https://github.com/sl1pm4t/k2tf](https://github.com/sl1pm4t/k2tf)
 - [https://github.com/WEBcodeX1/http-1.2](https://github.com/WEBcodeX1/http-1.2)
 
 ---
