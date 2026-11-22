@@ -51,11 +51,12 @@ Because the entire structure is pre-allocated (static preloading) up front, trav
 any node achieves ultra-low latency—further accelerated by a zero-copy, reference-based OOP
 architecture analogous to a pointer-driven hierarchy in memory.
 
-Current speed tests show average load times of **300 milliseconds** under **suboptimal**
+Current speed tests show average load times of 300 milliseconds under **suboptimal**
 network conditions for the static Docker application, which consists of **20,000** internal
 JavaScript engine **object** nodes, **3,500 DOM** nodes, and **1,500 script** nodes. This
 measured time **includes** the complete system file loading of 56 files **and** the
-complete application rendering until it is fully functional.
+complete application rendering until it is fully functional—compared to a raw rendering
+time of just **150 milliseconds** excluding network file loading.
 
 # Quick Start
 
