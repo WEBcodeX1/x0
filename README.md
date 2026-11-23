@@ -17,14 +17,15 @@ programming (OOP) foundation, it **drastically minimizes code complexity** by re
 with a **highly efficient declarative metadata** concept.
 
 The framework can be statically loaded from any standard web server, comprising just 56 system and 4 object
-metadata definition files with a core footprint of only 500 Kilobytes. It depends on **Bootstrap** and optionally
+metadata definition files with a core footprint of only 500 kilobytes. It depends on **Bootstrap** and optionally
 utilizes **Font Awesome** for its UI components. Even with a minimalist setup of both libraries, extensive user
-metadata, and custom application code, the total deployment size remains under 4 Megabytes for a complete client
+metadata, and custom application code, the total deployment size remains under 4 megabytes for a complete client
 / server architecture. Because the application renders completely within the client browser, it is perfectly
 suited for **resource-constrained** environments like embedded **microcontroller** web interfaces.
 
-An example of an *x0-application-driven*, browser-controlled multiplayer **PONG** game running on an **ESP32-S3**
-microcontroller using the **ESP-IDF** framework (with embedded *MicroPython*) can be found here:
+An example of an *x0-application-driven* multiplayer **PONG** game—where an **ESP32-S3** microcontroller (running
+**ESP-IDF**) executes the game logic in embedded *MicroPython* and renders the output to a monochrome LCD display
+in **C++**, while up to two connected browsers function solely as controllers—can be found here:
 
 https://github.com/WEBcodeX1/micropython-as
 
@@ -34,7 +35,7 @@ https://github.com/WEBcodeX1/micropython-as
 * **Clean OOP Foundation:** Leverages object-oriented design patterns to minimize architectural complexity and keep the codebase maintainable.
 * **Serverless & Independent:** Runs entirely in the browser without depending on a classic backend stack.
 * **Ultra-Lightweight Core:** Consists of only 56 system files and 4 metadata files, totaling just 500 KB.
-* **Production Footprint < 4 MB:** Includes Bootstrap, Font Awesome, and comprehensive user application code within less than 4 Megabytes.
+* **Production Footprint < 4 MB:** Includes Bootstrap, Font Awesome, and comprehensive user application code within less than 4 megabytes.
 * **Microcontroller Support:** Ideal for low-resource embedded web interfaces due to full client-side rendering.
 * **Modern UI Foundations:** Built on top of Bootstrap with optional, flexible Font Awesome icon support.
 * **In-Browser RTTE:** Renders and evolves object-driven interfaces directly in the frontend in real time.
