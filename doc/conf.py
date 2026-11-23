@@ -26,7 +26,7 @@ author = "Claus Prüfer"
 # The short X.Y version
 version = '1.1'
 # The full version, including alpha/beta/rc tags
-release = '1.1.0-rc1'
+release = '1.1.0-rc3'
 
 
 # -- General configuration ---------------------------------------------------
@@ -39,6 +39,7 @@ release = '1.1.0-rc1'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    "sphinx_rtd_theme"
 ]
 
 # Add any paths that contain templates here, relative to this directory.
