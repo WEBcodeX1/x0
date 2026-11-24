@@ -209,21 +209,51 @@
     },
     "TXT.SYS.ERROR.FORMVALIDATE.DEFAULT": {
         "id": "TXT.SYS.ERROR.FORMVALIDATE.DEFAULT",
-        "group": "form-validate",
+        "group": "sys-error",
         "value_de": "Während der Formularvalidierung ist ein Fehler aufgetreten.",
         "value_en": "An error occurred during form validation."
     },
-    "TXT.SYS.ERROR.FORMVALIDATE.DATE-INTERNATIONAL-FORMAT": {
-        "id": "TXT.SYS.ERROR.FORMVALIDATE.DATE-INTERNATIONAL-FORMAT",
-        "group": "form-validate",
+    "TXT.SYS.ERROR.FORMVALIDATE.DATE_INTERNATIONAL_FORMAT": {
+        "id": "TXT.SYS.ERROR.FORMVALIDATE.DATE_INTERNATIONAL_FORMAT",
+        "group": "sys-error",
         "value_de": "Ungültiges Datum-Format",
         "value_en": "Invalid date format"
     },
-    "TXT.SYS.ERROR.FORMVALIDATE.DATE-GLOBAL-INVALIDDATE": {
-        "id": "TXT.SYS.ERROR.FORMVALIDATE.DATE-GLOBAL-INVALIDDATE",
-        "group": "form-validate",
+    "TXT.SYS.ERROR.FORMVALIDATE.DATE_GLOBAL_INVALIDDATE": {
+        "id": "TXT.SYS.ERROR.FORMVALIDATE.DATE_GLOBAL_INVALIDDATE",
+        "group": "sys-error",
         "value_de": "Ungültiges Datum",
         "value_en": "Invalid Date"
+    },
+    "TXT.SYS.ERROR.TABLE.EMPTY_APPEND_DATA": {
+        "id": "TXT.SYS.ERROR.TABLE.EMPTY_APPEND_DATA",
+        "group": "sys-error",
+        "value_de": "Keine Daten.",
+        "value_en": "No data."
+    },
+    "TXT.SYS.ERROR.TABLE.MAX_ROW_COUNT": {
+        "id": "TXT.SYS.ERROR.TABLE.MAX_ROW_COUNT",
+        "group": "sys-error",
+        "value_de": "Maximum Zeilen erreicht.",
+        "value_en": "Maximum rows reached."
+    },
+    "TXT.SYS.ERROR.TABLE.COLUMN_DOUBLE_ENTRY": {
+        "id": "TXT.SYS.ERROR.TABLE.COLUMN_DOUBLE_ENTRY",
+        "group": "sys-error",
+        "value_de": "Keine doppelten Einträge erlaubt in Spalte: ",
+        "value_en": "Double entries not allowed in column: "
+    },
+    "TXT.SYS.ERROR.TABLE.COLUMN_EMPTY_VALUE": {
+        "id": "TXT.SYS.ERROR.TABLE.COLUMN_EMPTY_VALUE",
+        "group": "sys-error",
+        "value_de": "Keine leeren Spalten erlaubt in Spalte: ",
+        "value_en": "No empty columns allowed in column: "
+    },
+    "TXT.SYS.ERROR.DYNRADIOLIST.MAX_ENTRIES": {
+        "id": "TXT.SYS.ERROR.DYNRADIOLIST.MAX_ENTRIES",
+        "group": "sys-error",
+        "value_de": "Maximale Anzahl Einträge erreicht",
+        "value_en": "Maximum entries reached"
     },
     "TXT.SYS.BUTTON.SYSSETTING.RESET": {
         "id": "TXT.SYS.BUTTON.SYSSETTING.RESET",
@@ -588,7 +618,7 @@
     "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.START": {
         "id": "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.START",
         "group": "infobox-text",
-        "value_de": "Bsais-Können",
+        "value_de": "Basis-Können",
         "value_en": "Basic Skills"
     },
     "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.PARAGRAPH1": {

@@ -334,6 +334,13 @@
 			}
 		},
 		{
+			"ExamplesBasicEditableListErrorOutput":
+			{
+				"RefID": "ExamplesBasicTabs",
+				"ElementID": "TabExamplesEditableListContent"
+			}
+		},
+		{
 			"ExamplesBasicEditableList":
 			{
 				"RefID": "ExamplesBasicTabs",
@@ -431,6 +438,13 @@
 		},
 		{
 			"ExamplesCopyPasteDestinationListSpacer":
+			{
+				"RefID": "ExamplesCopyPasteDestinationTabs",
+				"ElementID": "TabExamplesCopyPasteDestinationListContent"
+			}
+		},
+		{
+			"ExamplesCopyPasteDestinationListErrorOutput":
 			{
 				"RefID": "ExamplesCopyPasteDestinationTabs",
 				"ElementID": "TabExamplesCopyPasteDestinationListContent"
@@ -699,6 +713,12 @@
 			"ExamplesOverlayFormlist":
 			{
 				"RefID": "ExamplesOverlayColFormlist"
+			}
+		},
+		{
+			"ExamplesOverlayListErrorOutput":
+			{
+				"RefID": "ExamplesOverlayColList"
 			}
 		},
 		{
