@@ -183,6 +183,10 @@ sysObjImageSelector.prototype.init = function()
     if (Attributes.Value !== undefined) { this.RuntimeData = Attributes.Value; }
     if (Attributes.RowCount !== undefined) { this.RowCount = Attributes.RowCount; }
 
+    //- setup close button
+    let CloseButton = new sysObjButtonCallback();
+    CloseButton.setCallback(this, 'close');
+
     //- setup header object structure
     const ObjDefsHeader = [
         {
@@ -196,7 +200,7 @@ sysObjImageSelector.prototype.init = function()
                     "id": "CtrColImage",
                     "SysObject": new sysObjDiv(),
                     "JSONAttributes": {
-                        "Style": "col col-md-12 p-3"
+                        "Style": "col col-md-11 p-3"
                     },
                     "ObjectDefs": [
                         {
@@ -206,6 +210,23 @@ sysObjImageSelector.prototype.init = function()
                                 "TextID": "TXT.SYS.IMAGESELECTOR.HEADER",
                                 "Style": "h2 text-white",
                                 "IconStyle": "fa-solid fa-image"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "CtrColClose",
+                    "SysObject": new sysObjDiv(),
+                    "JSONAttributes": {
+                        "Style": "col col-md-1 p-3 text-end"
+                    },
+                    "ObjectDefs": [
+                        {
+                            "id": "BtnClose" + this.ObjectID,
+                            "SysObject": CloseButton,
+                            "JSONAttributes": {
+                                "Style": "btn m-0 p-0 text-white",
+                                "DOMValue": '<i class="h2 fa-solid fa-rectangle-xmark">'
                             }
                         }
                     ]
@@ -221,8 +242,7 @@ sysObjImageSelector.prototype.init = function()
 
     //- setup save server image settings button
     let SaveSettingsButton = new sysObjButtonCallback();
-    SaveSettingsButton.overrideDOMObjectID = true;
-    SaveSettingsButton.setCallback(this);
+    SaveSettingsButton.setCallback(this, 'saveData');
 
     //- setup file-upload object structure
     const ObjDefsFileUpload = [
@@ -403,4 +423,17 @@ sysObjImageSelector.prototype.processRows = function()
 sysObjImageSelector.prototype.setSrcObjectRef = function(ObjectRef)
 {
     this.SrcObjectRef = ObjectRef;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "ButtonCallback"
+//------------------------------------------------------------------------------
+
+sysObjImageSelector.prototype.ButtonCallback = function(FunctionID)
+{
+    if (FunctionID == 'close') {
+        this.ParentObject.VisibleState = 'hidden';
+        this.ParentObject.setDOMVisibleState();
+    }
 }
