@@ -546,6 +546,12 @@
 			}
 		},
 		{
+			"ExamplesBasicEditableTemplate1ErrorContainer":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesColLeft"
+			}
+		},
+		{
 			"ExamplesBasicEditableTemplate1AddItemButton":
 			{
 				"RefID": "ExamplesBasicEditableTemplatesColLeft"

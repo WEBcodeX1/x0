@@ -616,15 +616,24 @@
 		}
 	},
 
+	"ExamplesBasicEditableTemplate1ErrorContainer": {
+		"Type": "ErrorContainer"
+	},
+
 	"ExamplesBasicEditableTemplate1AddItemButton": {
-		"Type": "Button",
+		"Type": "ButtonInternal",
 		"Attributes": {
 			"TextID": "TXT.BUTTON.EXAMPLE.TEMPLATE1.ADD_ITEM",
 			"Style": "btn btn-primary w-100 mt-2 mb-2",
 			"IconStylePost": "fa-solid fa-arrow-down",
 			"Action": "append",
 			"SrcDataObject": "ExamplesBasicEditableTemplate1EditableItem",
-			"DstDataObject": "ExamplesBasicEditableTemplate1"
+			"DstDataObject": "ExamplesBasicEditableTemplate1",
+			"Validate": {
+				"SrcDataObject": true,
+				"ErrorContainer": "ExamplesBasicEditableTemplate1ErrorContainer",
+				"ErrorText": "TXT.EXAMPLE.EDITABLE_ITEM.ERROR.MISSING_DATA"
+			}
 		}
 	},
 

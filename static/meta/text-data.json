@@ -252,8 +252,8 @@
     "TXT.SYS.ERROR.DYNRADIOLIST.MAX_ENTRIES": {
         "id": "TXT.SYS.ERROR.DYNRADIOLIST.MAX_ENTRIES",
         "group": "sys-error",
-        "value_de": "Maximale Anzahl Einträge erreicht",
-        "value_en": "Maximum entries reached"
+        "value_de": "Maximale Anzahl Einträge erreicht.",
+        "value_en": "Maximum entries reached."
     },
     "TXT.SYS.BUTTON.SYSSETTING.RESET": {
         "id": "TXT.SYS.BUTTON.SYSSETTING.RESET",
@@ -600,19 +600,19 @@
     "TXT.INTRODUCTION.INFOPARAGRAPH.PARAGRAPH1": {
         "id": "TXT.INTRODUCTION.INFOPARAGRAPH.PARAGRAPH1",
         "group": "infobox-text",
-        "value_de": "In den nachfolgenden ... wird das x0-Framework und seine Features ...",
-        "value_en": "The following demonstration will show what the <b>x0-Framework</b> is capable of. Here, on the introduction <b>x0-Screen</b>, it is demonstrated how easy it is using some very basic System-Objects (<b>sysObjInfoParagraph</b>, <b>sysObjHeaderBodyContainer</b> and <b>sysObjDiv</b>) in combination with the <b>x0-Skeleton</b> positioning system to setup two simple <i>Bootstrap 5.3</i> containers and combining <i>Fontawesome Icons</i> side by side."
+        "value_de": "In den nachfolgenden ... wird das x0-framework und seine Features ...",
+        "value_en": "The following demonstration will show what the <b>x0-framework</b> is capable of. Here, on the introduction <b>x0-screen</b>, it is demonstrated how easy it is using some very basic <b>x0-system-objects</b> (<b>InfoParagraph</b>, <b>HeaderBodyContainer</b> and <b>DivUnique</b>) in combination with the <b>x0-skeleton</b> positioning system to setup two simple <i>Bootstrap 5.3</i> containers and combining <i>Fontawesome Icons</i> side by side."
     },
     "TXT.INTRODUCTION.INFOPARAGRAPH.PARAGRAPH2": {
         "id": "TXT.INTRODUCTION.INFOPARAGRAPH.PARAGRAPH1",
         "group": "infobox-text",
-        "value_de": "In den nachfolgenden ... wird das x0 Framework und seine Features ...",
-        "value_en": "You should also make use of your own <b>Programmed System Objects (JavaScript Classes)</b>; with a strict, clean OOP model (System Base Classes / Inheritance) they open up a new dimension of dynamic real-time object creation / combination / interaction - without contacting the backend at all."
+        "value_de": "In den nachfolgenden ... wird das x0-framework und seine Features ...",
+        "value_en": "You should also make use of your own custom, programmatic <b>x0-system-objects</b> (JavaScript Classes); with a strict, clean OOP model (System Base Classes / Inheritance) they open up a new dimension of dynamic real-time object creation / combination / interaction - without contacting the backend at all."
     },
     "TXT.INTRODUCTION.INFOPARAGRAPH.PARAGRAPH3": {
         "id": "TXT.INTRODUCTION.INFOPARAGRAPH.PARAGRAPH1",
         "group": "infobox-text",
-        "value_de": "In den nachfolgenden ... wird das x0 Framework und seine Features ...",
+        "value_de": "In den nachfolgenden ... wird das x0-framework und seine Features ...",
         "value_en": "Through its <b>100% generic OOP model</b>, also the data abstraction (recursive) for getting data from objects or setting complex (dependend / multi-dimensional) data (JSON format) will save you <b>a lot</b> of time regarding application service modeling / SOA; even better: any of your Class-based objects are runtime instantiatable, its runtime-data can be (recursively) copied and be used for object-cloning and / or targeted data mix-ins."
     },
     "TXT.EXAMPLES.BASIC_EXAMPLES.INFOPARAGRAPH.START": {
@@ -714,14 +714,14 @@
     "TXT.INTRODUCTION.CONTAINER_RIGHT.HEADER": {
         "id": "TXT.INTRODUCTION.CONTAINER_RIGHT.HEADER",
         "group": "text",
-        "value_de": "x0-Framework auf der rechten Seite",
-        "value_en": "x0-Framework on the right"
+        "value_de": "x0-framework auf der rechten Seite",
+        "value_en": "x0-framework on the right"
     },
     "TXT.INTRODUCTION.CONTAINER_LEFT.HEADER": {
         "id": "TXT.INTRODUCTION.CONTAINER_LEFT.HEADER",
         "group": "text",
-        "value_de": "x0-Framework auf der linken Seite",
-        "value_en": "x0-Framework on the left"
+        "value_de": "x0-framework auf der linken Seite",
+        "value_en": "x0-framework on the left"
     },
     "TXT.INTRODUCTION.CONTAINER_RIGHT.PARAGRAPH": {
         "id": "TXT.INTRODUCTION.CONTAINER_RIGHT.PARAGRAPH",
@@ -843,6 +843,12 @@
         "value_de": "Anmerkung Beschreibung",
         "value_en": "Remark Description"
     },
+    "TXT.EXAMPLE.EDITABLE_ITEM.ERROR.MISSING_DATA": {
+        "id": "TXT.EXAMPLE.EDITABLE_ITEM.ERROR.MISSING_DATA",
+        "group": "error-container",
+        "value_de": "Überschrift und Beschreibungstext müssen angegeben werden.",
+        "value_en": "Header and description text must be provided."
+    },
     "TXT.BUTTON.EXAMPLE.TEMPLATE1.ADD_ITEM": {
         "id": "TXT.BUTTON.EXAMPLE.TEMPLATE1.ADD_ITEM",
         "group": "button",
@@ -906,8 +912,8 @@
     "TXT.HEADER.SETTINGS_GLOBAL": {
         "id": "TXT.HEADER.SETTINGS_GLOBAL",
         "group": "header",
-        "value_de": "x0-Framework - Einstellungen",
-        "value_en": "x0-Framework - Settings"
+        "value_de": "x0-framework - Einstellungen",
+        "value_en": "x0-framework - Settings"
     },
     "TXT.CARD.SETTINGS_GLOBAL": {
         "id": "TXT.CARD.SETTINGS_GLOBAL",
@@ -936,8 +942,8 @@
     "TXT.HEADER.SETTINGS_LANGUAGE": {
         "id": "TXT.HEADER.SETTINGS_LANGUAGE",
         "group": "header",
-        "value_de": "x0-Framework - Sprache",
-        "value_en": "x0-Framework - Language"
+        "value_de": "x0-framework - Sprache",
+        "value_en": "x0-framework - Language"
     },
     "TXT.CARD.SETTINGS_LANGUAGE": {
         "id": "TXT.CARD.SETTINGS_LANGUAGE",
