@@ -455,6 +455,28 @@ userObjExampleEditableItem.prototype.setImgData = function(Data)
 
 
 //------------------------------------------------------------------------------
+//- METHOD "ButtonValidate"
+//------------------------------------------------------------------------------
+
+userObjExampleEditableItem.prototype.ButtonValidate = function()
+{
+    const HeaderObj = sysFactory.getObjectByID(this.ObjectID + "HeaderText");
+    const ContentObj = sysFactory.getObjectByID(this.ObjectID + "ContentText");
+
+    const HeaderValue = HeaderObj.getValue();
+    const ContentValue = ContentObj.getValue();
+
+    console.debug('HeaderValue:%o ContentValue:%o', HeaderValue, ContentValue);
+
+    if (HeaderValue.length == 0 || ContentValue.length == 0) {
+        return true;
+    }
+
+    return false;
+}
+
+
+//------------------------------------------------------------------------------
 //- CONSTRUCTOR "userObjExampleEditableItemContainer"
 //------------------------------------------------------------------------------
 
