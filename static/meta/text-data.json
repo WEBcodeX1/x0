@@ -144,14 +144,14 @@
     "TXT.SYS.FILEUPLOAD.STATUS.FAILED": {
         "id": "TXT.SYS.FILEUPLOAD.STATUS.FAILED",
         "group": "text",
-        "value_de": "Upload Fehler",
-        "value_en": "Upload Error"
+        "value_de": "Fehler",
+        "value_en": "Error"
     },
     "TXT.SYS.FILEUPLOAD.STATUS.SUCCESS": {
         "id": "TXT.SYS.FILEUPLOAD.STATUS.SUCCESS",
         "group": "text",
-        "value_de": "Upload erfolgreich",
-        "value_en": "Upload successful"
+        "value_de": "Erfolg",
+        "value_en": "Success"
     },
     "TXT.SYS.IMAGESELECTOR.ROW.FILE.DESCRIPTION": {
         "id": "TXT.SYS.IMAGESELECTOR.ROW.FILE.DESCRIPTION",
@@ -345,6 +345,12 @@
         "value_de": "Nächste Seite",
         "value_en": "Next Page"
     },
+    "TXT.SYS.PAGINATION.PAGE_DESCRIPTION": {
+        "id": "TXT.SYS.PAGINATION.PAGE_DESCRIPTION",
+        "group": "nav-text",
+        "value_de": "Seite",
+        "value_en": "Page"
+    },
     "TXT.VALIDATE.ERROR.DATE": {
         "id": "TXT.VALIDATE.ERROR.DATE",
         "group": "form-validate",
@@ -374,6 +380,60 @@
         "group": "form-validate",
         "value_de": "Fehlerhafte Sekunde",
         "value_en": "Wrong Second Format"
+    },
+    "TXT.VALIDATE.EMAIL": {
+        "id": "TXT.VALIDATE.EMAIL",
+        "group": "form-validate",
+        "value_de": "Fehlerhaftes Email Format",
+        "value_en": "Wrong email format"
+    },
+    "TXT.VALIDATE.LOGIN_NAME": {
+        "id": "TXT.VALIDATE.LOGIN_NAME",
+        "group": "form-validate",
+        "value_de": "Fehlerhaftes Format Login-Name",
+        "value_en": "Wrong login-name format"
+    },
+    "TXT.VALIDATE.LOGIN_PASS": {
+        "id": "TXT.VALIDATE.LOGIN_PASS",
+        "group": "form-validate",
+        "value_de": "Fehlerhaftes Format Login-Passwort",
+        "value_en": "Wrong login-password format"
+    },
+    "TXT.VALIDATE.STREET_NAME": {
+        "id": "TXT.VALIDATE.STREET_NAME",
+        "group": "form-validate",
+        "value_de": "Fehlerhaftes Format Straßen-Name",
+        "value_en": "Wrong street-name format"
+    },
+    "TXT.VALIDATE.STREET_NR": {
+        "id": "TXT.VALIDATE.STREET_NR",
+        "group": "form-validate",
+        "value_de": "Fehlerhaftes Format Straßen-Nummer",
+        "value_en": "Wrong street-number format"
+    },
+    "TXT.VALIDATE.ZIPCODE_GERMAN": {
+        "id": "TXT.VALIDATE.ZIPCODE_GERMAN",
+        "group": "form-validate",
+        "value_de": "Fehlerhaftes Format Postleitzahl",
+        "value_en": "Wrong zip-code format"
+    },
+    "TXT.VALIDATE.CITY": {
+        "id": "TXT.VALIDATE.CITY",
+        "group": "form-validate",
+        "value_de": "Fehlerhaftes Format Stadt-Name",
+        "value_en": "Wrong city-name format"
+    },
+    "TXT.VALIDATE.PHONENR_PREFIX": {
+        "id": "TXT.VALIDATE.PHONENR_PREFIX",
+        "group": "form-validate",
+        "value_de": "Fehlerhaftes Format Telefonnummer-Prefix",
+        "value_en": "Wrong phonenumber-prefix format"
+    },
+    "TXT.VALIDATE.PHONENR": {
+        "id": "TXT.VALIDATE.PHONENR",
+        "group": "form-validate",
+        "value_de": "Fehlerhaftes Format Telefonnummer",
+        "value_en": "Wrong phonenumber format"
     },
     "TXT.TREE.NODE.INTRO": {
         "id": "TXT.TREE.NODE.INTRO",
@@ -1369,7 +1429,7 @@
     "TXT.VALIDATE.PERSON.GERMAN_NAME": {
         "id": "TXT.VALIDATE.PERSON.GERMAN_NAME",
         "group": "validate-display",
-        "value_de": "In deutscher Name darf lediglich die Zeichen 'a-z, A-Z, äöüÄÖÜ.-' enthalten.",
+        "value_de": "Ein deutscher Name darf lediglich die Zeichen 'a-z, A-Z, äöüÄÖÜ.-' enthalten.",
         "value_en": "A german name only should contain the following characters: 'a-z, A-Z, äöüÄÖÜ.-'."
     },
     "TXT.FORMFIELD.EXAMPLE_WIZARD.PERSON.ADDRESS.STREET": {
@@ -1569,5 +1629,11 @@
         "group": "pulldown-option",
         "value_de": "Zwei-Spalten Ansicht",
         "value_en": "Two Column View"
+    },
+    "TXT.EXAMPLE.TIMED_PROGRESS.ERROR.MIN_MAX": {
+        "id": "TXT.EXAMPLE.TIMED_PROGRESS.ERROR.MIN_MAX",
+        "group": "error",
+        "value_de": "Das Interval Minimum muss zwischen 100 und 500 liegen, Erhöhung innerhalb 1 bis 10",
+        "value_en": "The interval minimum must be between 100 and 500, increase value between 1 and 10"
     }
 }

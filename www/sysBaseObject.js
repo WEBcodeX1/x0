@@ -103,21 +103,35 @@ sysBaseObject.prototype.rerenderObject = function()
 
 sysBaseObject.prototype.processEventListener = function()
 {
-    if (this.EventListeners != null || this.EventListeners !== undefined)
+    if (this.EventListeners !== undefined)
     {
-        let ListenerKeys = Object.keys(this.EventListeners);
-        if (ListenerKeys.length > 0)
+        for (const ListenerKey in this.EventListeners)
         {
-            for (const ListenerKey in this.EventListeners)
-            {
-                EventListener = this.EventListeners[ListenerKey];
-                this.DOMaddEventListener(EventListener.Type, EventListener.Element);
-            }
+            const EventListenerItem = this.EventListeners[ListenerKey];
+            this.DOMaddEventListener(EventListenerItem.Type, EventListenerItem.Element);
         }
     }
 
     for (const ChildItem of this.ChildObjects) {
         ChildItem.processEventListener();
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "retriggerEvents"
+//------------------------------------------------------------------------------
+
+sysBaseObject.prototype.retriggerEvents = function()
+{
+    if (this.EventListeners !== undefined)
+    {
+        for (const ListenerKey in this.EventListeners)
+        {
+            const EventListenerItem = this.EventListeners[ListenerKey];
+            const CurrentElement = this.getDOMElement();
+            CurrentElement.dispatchEvent(new CustomEvent(EventListenerItem.Type));
+        }
     }
 }
 

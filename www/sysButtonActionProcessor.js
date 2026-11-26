@@ -122,6 +122,10 @@ sysButtonActionProcessor.prototype.executeAction = function(Attributes)
             sysFactory.OverlayObj.activateOverlay(Attributes.ScreenID);
             break;
 
+        case 'closeoverlay':
+            sysFactory.OverlayObj.closeOverlay(Attributes.ScreenID);
+            break;
+
         default:
             console.debug('::ButtonActionProcessor unknown action:%s', Action);
     }

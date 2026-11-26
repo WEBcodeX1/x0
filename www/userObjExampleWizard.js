@@ -44,7 +44,6 @@ userObjExampleWizard.prototype.init = function()
     this.ProgressBarObj = new sysObjProgressBar();
 
     //- tab array
-
     this.Tabs = [
         'TabExamplesBasicSlidersWizardStep1',
         'TabExamplesBasicSlidersWizardStep2',

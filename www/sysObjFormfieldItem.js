@@ -291,7 +291,7 @@ sysFormfieldItem.prototype.validate = function()
     }
 
     //- if nullable and value length = 0, do not mark as failed
-    if (Attributes.ValidateNullable == true && this.FormItemGetValue().length == 0)
+    if (Attributes.ValidateNullable == true && this.getValue().length == 0)
     {
         this.removeDOMElementStyle(this.StyleValidateFail);
         this.addDOMElementStyle(this.StyleValidateOk);

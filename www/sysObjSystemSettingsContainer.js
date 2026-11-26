@@ -137,6 +137,7 @@ sysObjSystemSettingsContainerItem.prototype.ButtonCallback = function(FunctionID
         const SetValue = SettingObj.SettingValue;
         SettingObj.RuntimeSetDataFunc(SetValue);
         SettingObj.rerenderObject();
+        SettingObj.retriggerEvents();
     }
     else if (FunctionID == 'setSettingValue')
     {

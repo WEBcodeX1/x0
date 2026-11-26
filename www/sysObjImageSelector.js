@@ -265,7 +265,7 @@ sysObjImageSelector.prototype.init = function()
                             "SysObject": new sysObjSQLText(),
                             "JSONAttributes": {
                                 "TextID": "TXT.SYS.IMAGESELECTOR.ROW.FILE.DESCRIPTION",
-                                "Style": "h4 text-success-emphasis"
+                                "Style": "h4 text-primary-emphasis"
                             }
                         }
                     ]

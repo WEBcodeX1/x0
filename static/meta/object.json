@@ -696,12 +696,18 @@
 		}
 	},
 
+	"ExamplesBasicSlidersErrorContainer":
+	{
+		"Type": "ErrorContainer"
+	},
+
 	"ExamplesBasicSlidersSlider1":
 	{
 		"Type": "TimedProgress",
 		"Attributes": {
 			"Interval": 100,
-			"IncreaseBy": 1
+			"IncreaseBy": 1,
+			"ErrorContainer": "ExamplesBasicSlidersErrorContainer"
 		}
 	},
 
@@ -710,7 +716,8 @@
 		"Type": "TimedProgress",
 		"Attributes": {
 			"Interval": 120,
-			"IncreaseBy": 2
+			"IncreaseBy": 2,
+			"ErrorContainer": "ExamplesBasicSlidersErrorContainer"
 		}
 	},
 
@@ -719,7 +726,8 @@
 		"Type": "TimedProgress",
 		"Attributes": {
 			"Interval": 150,
-			"IncreaseBy": 5
+			"IncreaseBy": 5,
+			"ErrorContainer": "ExamplesBasicSlidersErrorContainer"
 		}
 	},
 
@@ -801,7 +809,8 @@
 		"Attributes": {
 			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
 			"Placeholder": "michael@michael-meier.de",
-			"ValidateRef": "MailAddress"
+			"ValidateRef": "MailAddress",
+			"ValidateErrorTextID": "TXT.VALIDATE.EMAIL"
 		}
 	},
 
@@ -859,7 +868,8 @@
 		"Attributes": {
 			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
 			"Placeholder": "micha747",
-			"ValidateRef": "UserName"
+			"ValidateRef": "UserName",
+			"ValidateErrorTextID": "TXT.VALIDATE.LOGIN_NAME"
 		}
 	},
 
@@ -881,7 +891,8 @@
 			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
 			"Placeholder": "secretpass",
 			"Type": "password",
-			"ValidateRef": "UserPass"
+			"ValidateRef": "UserPass",
+			"ValidateErrorTextID": "TXT.VALIDATE.LOGIN_PASS"
 		}
 	},
 
@@ -901,7 +912,8 @@
 		"Type": "FormfieldText",
 		"Attributes": {
 			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
-			"ValidateRef": "DefaultString"
+			"ValidateRef": "DefaultString",
+			"ValidateErrorTextID": "TXT.VALIDATE.STREET_NAME"
 		}
 	},
 
@@ -921,7 +933,8 @@
 		"Type": "FormfieldText",
 		"Attributes": {
 			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
-			"ValidateRef": "StreetNr"
+			"ValidateRef": "StreetNr",
+			"ValidateErrorTextID": "TXT.VALIDATE.STREET_NR"
 		}
 	},
 
@@ -941,7 +954,8 @@
 		"Type": "FormfieldText",
 		"Attributes": {
 			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
-			"ValidateRef": "ZipCodeGerman"
+			"ValidateRef": "ZipCodeGerman",
+			"ValidateErrorTextID": "TXT.VALIDATE.ZIPCODE_GERMAN"
 		}
 	},
 
@@ -961,7 +975,8 @@
 		"Type": "FormfieldText",
 		"Attributes": {
 			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
-			"ValidateRef": "DefaultString"
+			"ValidateRef": "DefaultString",
+			"ValidateErrorTextID": "TXT.VALIDATE.CITY"
 		}
 	},
 
@@ -979,7 +994,10 @@
 	{
 		"Type": "FormfieldText",
 		"Attributes": {
-			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis"
+			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"ValidateRef": "PhoneNrAreaGerman",
+			"ValidateNullable": true,
+			"ValidateErrorTextID": "TXT.VALIDATE.PHONENR_PREFIX"
 		}
 	},
 
@@ -997,7 +1015,10 @@
 	{
 		"Type": "FormfieldText",
 		"Attributes": {
-			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis"
+			"Style": "form-control m-1 p-2 border-secondary w-100 text-primary-emphasis",
+			"ValidateRef": "DefaultInteger",
+			"ValidateNullable": true,
+			"ValidateErrorTextID": "TXT.VALIDATE.PHONENR"
 		}
 	},
 
@@ -2942,6 +2963,17 @@
 		"Attributes": {
 			"Style": "col col-md-3 h1 fw-bold text-end text-primary-emphasis",
 			"Value": "<i class=\"fa-solid fa-layer-group\">"
+		}
+	},
+
+	"ExamplesOverlayEditOverlayDataHeaderCloseButton":
+	{
+		"Type": "ButtonInternal",
+		"Attributes": {
+			"Style": "btn m-0 p-0 pe-3 text-primary-emphasis float-start",
+			"DOMValue": "<i class=\"h2 fa-solid fa-rectangle-xmark\">",
+			"Action": "closeoverlay",
+			"ScreenID": "ExamplesOverlayEditData"
 		}
 	},
 

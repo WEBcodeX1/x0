@@ -291,6 +291,12 @@
 			}
 		},
 		{
+			"ExamplesBasicSlidersErrorContainer":
+			{
+				"RefID": "ExamplesBasicSlidersColLeft"
+			}
+		},
+		{
 			"ExamplesBasicSlidersSlider1":
 			{
 				"RefID": "ExamplesBasicSlidersColLeft"
@@ -1028,6 +1034,12 @@
 			"ExamplesOverlayEditOverlayDataHeaderContainerColIcon":
 			{
 				"RefID": "ExamplesOverlayEditOverlayDataHeaderContainerRow"
+			}
+		},
+		{
+			"ExamplesOverlayEditOverlayDataHeaderCloseButton":
+			{
+				"RefID": "ExamplesOverlayEditOverlayDataHeaderContainerColHeader"
 			}
 		},
 		{
