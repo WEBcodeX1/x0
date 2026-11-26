@@ -247,7 +247,7 @@ sysObjDynRadioList.prototype.add = function()
 
     if (this.RowIndex+1 >= Attributes.MaxEntries)
     {
-        let DisplayText = sysFactory.getText('TXT.SYS.ERROR.DYNRADIOLIST.MAX_ENTRIES');
+        const DisplayText = sysFactory.getText('TXT.SYS.ERROR.DYNRADIOLIST.MAX_ENTRIES');
         ErrorObj.displayError(DisplayText);
     }
     else
