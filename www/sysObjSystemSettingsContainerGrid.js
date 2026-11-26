@@ -73,7 +73,6 @@ sysObjSystemSettingsContainerGrid.prototype.buildRuntimeGridSelector = function(
 
     let GridSelectorButton = new sysObjButtonCallback();
     GridSelectorButton.ObjectID = this.ObjectID + 'GridSelectorButton';
-    GridSelectorButton.overrideDOMObjectID = true;
     GridSelectorButton.setCallback(this);
 
     let SelectorOptions = new Array();
@@ -83,7 +82,7 @@ sysObjSystemSettingsContainerGrid.prototype.buildRuntimeGridSelector = function(
     {
         SelectorOptions.push(
             {
-                "Display": Variant.RowAfterElements,
+                "TextID": Variant.TextID,
                 "Value": OptionIndex
             }
         );
@@ -102,7 +101,7 @@ sysObjSystemSettingsContainerGrid.prototype.buildRuntimeGridSelector = function(
                     "id": "GridSelectorDescriptionCtr",
                     "SysObject": new sysObjDiv(),
                     "JSONAttributes": {
-                        "Style": "col col-md-3",
+                        "Style": "col col-md-3 pt-1",
                     },
                     "ObjectDefs": [
                         {
@@ -170,7 +169,7 @@ sysObjSystemSettingsContainerGrid.prototype.genGrid = function()
     const Attrributes = this.JSONConfig.Attributes;
     const GridVariants = Attrributes.GridGenerator.Variants;
 
-    var GridGenerator = new sysGridGenerator(this.ColItems);
+    let GridGenerator = new sysGridGenerator(this.ColItems);
 
     GridGenerator.init(
         Attrributes.GridGenerator.RowStyles,

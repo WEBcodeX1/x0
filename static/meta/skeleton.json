@@ -291,6 +291,12 @@
 			}
 		},
 		{
+			"ExamplesBasicSlidersErrorContainer":
+			{
+				"RefID": "ExamplesBasicSlidersColLeft"
+			}
+		},
+		{
 			"ExamplesBasicSlidersSlider1":
 			{
 				"RefID": "ExamplesBasicSlidersColLeft"
@@ -331,6 +337,13 @@
 			{
 				"RefID": "ExamplesBasicTabs",
 				"ElementID": "TabExamplesCombinedObjectsContent"
+			}
+		},
+		{
+			"ExamplesBasicEditableListErrorOutput":
+			{
+				"RefID": "ExamplesBasicTabs",
+				"ElementID": "TabExamplesEditableListContent"
 			}
 		},
 		{
@@ -437,6 +450,13 @@
 			}
 		},
 		{
+			"ExamplesCopyPasteDestinationListErrorOutput":
+			{
+				"RefID": "ExamplesCopyPasteDestinationTabs",
+				"ElementID": "TabExamplesCopyPasteDestinationListContent"
+			}
+		},
+		{
 			"ExamplesCopyPasteDestinationList":
 			{
 				"RefID": "ExamplesCopyPasteDestinationTabs",
@@ -532,6 +552,12 @@
 			}
 		},
 		{
+			"ExamplesBasicEditableTemplate1ErrorContainer":
+			{
+				"RefID": "ExamplesBasicEditableTemplatesColLeft"
+			}
+		},
+		{
 			"ExamplesBasicEditableTemplate1AddItemButton":
 			{
 				"RefID": "ExamplesBasicEditableTemplatesColLeft"
@@ -559,6 +585,60 @@
 
 	"ExamplesDragDrop":
 	[
+		{
+			"ExamplesDragDropCardContainer":
+			{
+				"RefID": "ExamplesDragDrop"
+			}
+		},
+		{
+			"ExamplesDragDropHeaderContainer":
+			{
+				"RefID": "ExamplesDragDropCardContainer"
+			}
+		},
+		{
+			"ExamplesDragDropHeaderContainerRow":
+			{
+				"RefID": "ExamplesDragDropHeaderContainer"
+			}
+		},
+		{
+			"ExamplesDragDropHeaderContainerColHeader":
+			{
+				"RefID": "ExamplesDragDropHeaderContainerRow"
+			}
+		},
+		{
+			"ExamplesDragDropHeaderContainerColIcon":
+			{
+				"RefID": "ExamplesDragDropHeaderContainerRow"
+			}
+		},
+		{
+			"ExamplesDragDropHeader":
+			{
+				"RefID": "ExamplesDragDropHeaderContainerColHeader"
+			}
+		},
+		{
+			"ExamplesDragDropBodyContainer":
+			{
+				"RefID": "ExamplesDragDropCardContainer"
+			}
+		},
+		{
+			"ExamplesDragDropBodyInfo":
+			{
+				"RefID": "ExamplesDragDropBodyContainer"
+			}
+		},
+		{
+			"ExamplesDragDropSpacerTop":
+			{
+				"RefID": "ExamplesDragDropBodyContainer"
+			}
+		}
 	],
 
 	"ExamplesOverlay":
@@ -645,6 +725,12 @@
 			"ExamplesOverlayFormlist":
 			{
 				"RefID": "ExamplesOverlayColFormlist"
+			}
+		},
+		{
+			"ExamplesOverlayListErrorOutput":
+			{
+				"RefID": "ExamplesOverlayColList"
 			}
 		},
 		{
@@ -948,6 +1034,12 @@
 			"ExamplesOverlayEditOverlayDataHeaderContainerColIcon":
 			{
 				"RefID": "ExamplesOverlayEditOverlayDataHeaderContainerRow"
+			}
+		},
+		{
+			"ExamplesOverlayEditOverlayDataHeaderCloseButton":
+			{
+				"RefID": "ExamplesOverlayEditOverlayDataHeaderContainerColHeader"
 			}
 		},
 		{

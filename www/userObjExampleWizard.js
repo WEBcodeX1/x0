@@ -44,7 +44,6 @@ userObjExampleWizard.prototype.init = function()
     this.ProgressBarObj = new sysObjProgressBar();
 
     //- tab array
-
     this.Tabs = [
         'TabExamplesBasicSlidersWizardStep1',
         'TabExamplesBasicSlidersWizardStep2',
@@ -303,35 +302,38 @@ userObjExampleWizard.prototype.init = function()
 
 userObjExampleWizard.prototype.ButtonCallback = function(FunctionID, Arguments)
 {
-    //- validate form
-    const ValidateFormID = this.ValidateForm[this.StepIndex];
-    const Result = this.getObjectByID(ValidateFormID).validate();
-
-    //- successful validation
-    if (Result == true)
+    if (FunctionID == 'navRight' && this.StepCount-1 > this.StepIndex)
     {
-        //- navigate right / left
-        if (FunctionID == 'navLeft' && this.StepIndex > 0)
-        {
-            this.StepIndex--;
-        }
+        //- validate form
+        const ValidateFormID = this.ValidateForm[this.StepIndex];
+        const Result = this.getObjectByID(ValidateFormID).validate();
 
-        if (FunctionID == 'navRight' && this.StepCount-1 > this.StepIndex)
+        //- successful validation
+        if (Result == true)
         {
             this.StepIndex++;
         }
-
-        //- enable / disable nav buttons
-        this.processButtonState();
-
-        //- switch to tab
-        const TabID = this.Tabs[this.StepIndex];
-        this.TabContainerObj.switchTab(TabID);
-
-        //- calculate progress percentage
-        const PercentageCompleted = (100/this.StepCount)*(this.StepIndex+1);
-        this.ProgressBarObj.RuntimeSetDataFunc(PercentageCompleted);
+        else  {
+            return;
+        }
     }
+
+    //- navigate right / left
+    else if (FunctionID == 'navLeft' && this.StepIndex > 0)
+    {
+        this.StepIndex--;
+    }
+
+    //- enable / disable nav buttons
+    this.processButtonState();
+
+    //- switch to tab
+    const TabID = this.Tabs[this.StepIndex];
+    this.TabContainerObj.switchTab(TabID);
+
+    //- calculate progress percentage
+    const PercentageCompleted = (100/this.StepCount)*(this.StepIndex+1);
+    this.ProgressBarObj.RuntimeSetDataFunc(PercentageCompleted);
 
     //- on last step, update check-data form
     if (this.StepIndex == 2)

@@ -29,7 +29,6 @@ function sysObjSystemSettingsContainerItem(ParentID, ItemIndex, Attributes, Grid
     this.ChildObjects           = new Array();                      //- Child Objects
 
     this.DOMStyle               = 'row border border-start-0 border-top-0 border-end-0 m-1 p-3';
-
 }
 
 sysObjSystemSettingsContainerItem.prototype = new sysBaseObject();
@@ -50,6 +49,8 @@ sysObjSystemSettingsContainerItem.prototype.init = function()
     SaveButton.setCallback(this, 'setSettingValue');
 
     const SettingObjectAttributes = this.SettingAttributes.SettingsObject;
+    let SettingObject = new sysFactory.SetupClasses[SettingObjectAttributes.ObjectType]();
+    SettingObject.SettingValue = SettingObjectAttributes.Attributes.Value;
 
     let ObjDefs = [
         {
@@ -79,7 +80,7 @@ sysObjSystemSettingsContainerItem.prototype.init = function()
             "ObjectDefs": [
                 {
                     "id": this.ObjectID + "SettingObj",
-                    "SysObject": new sysFactory.SetupClasses[SettingObjectAttributes.ObjectType](),
+                    "SysObject": SettingObject,
                     "JSONAttributes": SettingObjectAttributes.Attributes
                 }
             ]
@@ -133,7 +134,10 @@ sysObjSystemSettingsContainerItem.prototype.ButtonCallback = function(FunctionID
 
     if (FunctionID == 'getSettingValue')
     {
+        const SetValue = SettingObj.SettingValue;
+        SettingObj.RuntimeSetDataFunc(SetValue);
         SettingObj.rerenderObject();
+        SettingObj.retriggerEvents();
     }
     else if (FunctionID == 'setSettingValue')
     {
@@ -144,15 +148,16 @@ sysObjSystemSettingsContainerItem.prototype.ButtonCallback = function(FunctionID
             {
                 "ID": NotifyID,
                 "DisplaySuccess": sysFactory.getText('TXT.SYS.NOTIFYINDICATOR.SYSSETTING_SAVE_SUCCESS'),
-                "ResultTimeout": 3
+                "ResultTimeout": 2
             }
         );
 
         let NotifyStatus = -1;
 
         try {
-            const GetData = SettingObj.RuntimeGetDataFunc();
-            SettingObj.RuntimeSetDataFunc(GetData);
+            const CurrentValue = SettingObj.RuntimeGetDataFunc();
+            SettingObj.RuntimeSetDataFunc(CurrentValue);
+            SettingObj.SettingValue = CurrentValue;
             NotifyStatus = 0;
         }
         catch {

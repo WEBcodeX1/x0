@@ -59,8 +59,16 @@ sysFormfieldList.prototype.init = function()
 
     for (const ObjectID of Attributes.ObjectIDs)
     {
-        const JSONConfig = sysFactory.DataObject.XMLRPCResultData[ObjectID];
+        let JSONConfig = structuredClone(
+            sysFactory.DataObject.XMLRPCResultData[ObjectID]
+        );
+
         const InstanceObjectID = this.ObjectID + ObjectID;
+
+        if (Attributes.Disable !== undefined) {
+            JSONConfig.Attributes.Disabled = true;
+        }
+
         this.FormfieldItems.push(
             this.setupFormObject(ObjectID, InstanceObjectID, JSONConfig)
         );
@@ -75,20 +83,6 @@ sysFormfieldList.prototype.init = function()
 
     //- grid processing
     this.genGrid(Attributes);
-}
-
-
-//------------------------------------------------------------------------------
-//- METHOD "reset"
-//------------------------------------------------------------------------------
-
-sysFormfieldList.prototype.reset = function()
-{
-    const Attributes = this.JSONConfig.Attributes;
-
-    if (Attributes !== undefined && Attributes.Disable === true) {
-        this.disableDOMElementRecursive();
-    }
 }
 
 

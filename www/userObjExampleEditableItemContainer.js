@@ -70,17 +70,14 @@ userObjExampleEditableItem.prototype.init = function()
 
     //- setup image select button
     this.SelectImageButton = new sysObjButtonCallback();
-    this.SelectImageButton.overrideDOMObjectID = true;
     this.SelectImageButton.setCallback(this, 'selectImage');
 
     //- setup move up button
     this.MoveUpButton = new sysObjButtonCallback();
-    this.MoveUpButton.overrideDOMObjectID = true;
     this.MoveUpButton.setCallback(this, 'moveUp');
 
     //- setup move down button
     this.MoveDownButton = new sysObjButtonCallback();
-    this.MoveDownButton.overrideDOMObjectID = true;
     this.MoveDownButton.setCallback(this, 'moveDown');
 
     //- setup dynamic content
@@ -458,6 +455,28 @@ userObjExampleEditableItem.prototype.setImgData = function(Data)
 
 
 //------------------------------------------------------------------------------
+//- METHOD "ButtonValidate"
+//------------------------------------------------------------------------------
+
+userObjExampleEditableItem.prototype.ButtonValidate = function()
+{
+    const HeaderObj = sysFactory.getObjectByID(this.ObjectID + "HeaderText");
+    const ContentObj = sysFactory.getObjectByID(this.ObjectID + "ContentText");
+
+    const HeaderValue = HeaderObj.getValue();
+    const ContentValue = ContentObj.getValue();
+
+    console.debug('HeaderValue:%o ContentValue:%o', HeaderValue, ContentValue);
+
+    if (HeaderValue.length == 0 || ContentValue.length == 0) {
+        return true;
+    }
+
+    return false;
+}
+
+
+//------------------------------------------------------------------------------
 //- CONSTRUCTOR "userObjExampleEditableItemContainer"
 //------------------------------------------------------------------------------
 
@@ -502,7 +521,6 @@ userObjExampleEditableItemContainer.prototype.init = function()
 
     //- setup clickable edit icon button
     this.EditIconButton = new sysObjButtonCallback();
-    this.EditIconButton.overrideDOMObjectID = true;
     this.EditIconButton.RootObject = this;
     this.EditIconButton.setCallback(this);
 

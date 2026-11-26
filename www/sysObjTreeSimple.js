@@ -337,7 +337,9 @@ sysObjTreeSimpleItem.prototype.clickItem = function()
     this.addDOMElementStyle(TreeHiliteStyle);
 
     try {
-        this.ParentObject.TreeRootObj.LastSelectedItem.removeDOMElementStyle(TreeHiliteStyle);
+        if (this.ParentObject.TreeRootObj.LastSelectedItem != this) {
+            this.ParentObject.TreeRootObj.LastSelectedItem.removeDOMElementStyle(TreeHiliteStyle);
+        }
     }
     catch(err) {
         console.debug('TreeSimple clickItem error:%s', err);

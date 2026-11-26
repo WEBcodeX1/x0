@@ -150,12 +150,10 @@ sysObjBadgeSelector.prototype.init = function()
 
     //- setup close button
     let CloseButton = new sysObjButtonCallback();
-    CloseButton.overrideDOMObjectID = true;
     CloseButton.setCallback(this, 'close');
 
     //- setup select selected badges button
     let SelectBadgesButton = new sysObjButtonCallback();
-    SelectBadgesButton.overrideDOMObjectID = true;
     SelectBadgesButton.setCallback(this, 'select');
 
     //- setup header object structure

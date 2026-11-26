@@ -144,14 +144,22 @@ sysPagination.prototype.render = function()
     let ObjDefs = [
         {
             "id": this.ObjectID + "PagesSumCol",
-            "SysObject": new sysObjDiv(),
+            "SysObject": new sysObjDivUnique(),
             "JSONAttributes": {
                 "Style": "col"
             },
             "ObjectDefs": [
                 {
+                    "id": this.ObjectID + "PagesSumDescr",
+                    "SysObject": new sysObjSQLText(),
+                    "JSONAttributes": {
+                        "Style": "text-body-secondary mb-0 pe-1 float-start",
+                        "TextID": "TXT.SYS.PAGINATION.PAGE_DESCRIPTION"
+                    }
+                },
+                {
                     "id": this.ObjectID + "PagesSumTxt",
-                    "SysObject": new sysObjDiv(),
+                    "SysObject": new sysObjDivUnique(),
                     "JSONAttributes": {
                         "DOMType": "p",
                         "Style": "text-body-secondary mb-0",

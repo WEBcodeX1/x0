@@ -50,7 +50,7 @@ sysObjButton.prototype.processSourceObjects = sysSourceObjectHandler.prototype.p
 sysObjButton.prototype.init = function()
 {
     const Attributes = this.JSONConfig.Attributes;
-    let SQLTextDisabled = false;
+    let TextDisabled = false;
 
     if (Attributes.DOMType !== undefined) {
         this.DOMType = Attributes.DOMType;
@@ -58,7 +58,7 @@ sysObjButton.prototype.init = function()
 
     if (Attributes.DOMValue !== undefined) {
         this.DOMValue = Attributes.DOMValue;
-        SQLTextDisabled = true;
+        TextDisabled = true;
     }
 
     if (Attributes.Style !== undefined) {
@@ -71,7 +71,7 @@ sysObjButton.prototype.init = function()
         if (Attributes.TextID !== undefined) {
             this.DOMAttributes['value'] = sysFactory.getText(Attributes.TextID);
         }
-        SQLTextDisabled = true;
+        TextDisabled = true;
     }
 
     if (Attributes.Disabled === true) {
@@ -82,31 +82,31 @@ sysObjButton.prototype.init = function()
 
     console.debug('Button ConfigAttributes TextID:%s', Attributes.TextID);
 
-    if (SQLTextDisabled === false) {
+    if (TextDisabled === false) {
 
-        var SQLTextObj = new sysObjSQLText();
+        var TextObj = new sysObjSQLText();
 
-        SQLTextObj.ObjectID = this.ObjectID + 'SQLText';
-        SQLTextObj.ObjectType = 'SQLText';
-        SQLTextObj.TextID = Attributes.TextID;
+        TextObj.ObjectID = this.ObjectID + 'SQLText';
+        TextObj.ObjectType = 'SQLText';
+        TextObj.TextID = Attributes.TextID;
 
         if (Attributes.IconStyle !== undefined) {
-            SQLTextObj.JSONConfig = {
+            TextObj.JSONConfig = {
                 "Attributes": { "IconStyle": Attributes.IconStyle }
             };
         }
 
         if (Attributes.IconStylePost !== undefined) {
-            SQLTextObj.JSONConfig = {
+            TextObj.JSONConfig = {
                 "Attributes": { "IconStylePost": Attributes.IconStylePost }
             };
         }
 
-        SQLTextObj.init();
-        this.addObject(SQLTextObj);
+        TextObj.init();
+        this.addObject(TextObj);
     }
 
-    //console.debug('Button SQLText Object:%o', SQLTextObj);
+    //console.debug('Button SQLText Object:%o', TextObj);
 }
 
 
@@ -233,6 +233,27 @@ sysObjButton.prototype.validateForm = function()
 
     if (Attributes.Validate !== undefined) {
 
+        if (Attributes.Validate.SrcDataObject !== undefined)
+        {
+            const SrcDataObj = sysFactory.getObjectByID(Attributes.SrcDataObject);
+            const ErrorObj = sysFactory.getObjectByID(Attributes.Validate.ErrorContainer);
+            if (ErrorObj !== undefined) { ErrorObj.reset(); }
+
+            if (SrcDataObj !== undefined) {
+                if (SrcDataObj.ButtonValidate() == false) {
+                    this.ValidateResultError = false;
+                }
+                else {
+                    if (ErrorObj !== undefined)
+                    {
+                        const DisplayText = sysFactory.getText(Attributes.Validate.ErrorText);
+                        ErrorObj.displayError(DisplayText);
+                    }
+                }
+            }
+            return;
+        }
+
         if (Attributes.Validate.FormlistsAll !== undefined) {
             const Formfieldlists = this.ScreenObject.HierarchyRootObject.getObjectsByType('FormfieldList');
             for (Key in Formfieldlists) {
@@ -262,7 +283,7 @@ sysObjButton.prototype.validateForm = function()
         }
 
         // ----------------------------------------------------------------
-        // - Validte Objects
+        // - Validate Objects
         // ----------------------------------------------------------------
 
         const ValidateObjects = Attributes.Validate.Objects;
@@ -301,9 +322,9 @@ sysObjButton.prototype.validateForm = function()
         // - Post Validate Steps
         // ----------------------------------------------------------------
 
-        var IdObj = Object();
-        IdObj['BackendServiceID'] = Attributes.ServiceID;
-        this.PostRequestData['ServiceData'] = IdObj;
+        var ServiceObj = Object();
+        ServiceObj['BackendServiceID'] = Attributes.ServiceID;
+        this.PostRequestData['ServiceData'] = ServiceObj;
 
         console.debug('::validate Result:%s PostRequestData:%o', this.ValidateResultError, this.PostRequestData);
 

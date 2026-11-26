@@ -41,8 +41,7 @@ sysFormfieldItem.prototype.processSourceObjects = sysSourceObjectHandler.prototy
 sysFormfieldItem.prototype.FormItemInit = function()
 {
     const Attributes = this.JSONConfig.Attributes;
-    const test = sysFactory.DataObject.XMLRPCResultData['WorkerName'];
-    console.debug('::sysFormfieldItem FormItemInit() ObjectID:%s Attributes:%o Test:%o', this.ObjectID, Attributes, test);
+    console.debug('::sysFormfieldItem FormItemInit() ObjectID:%s Disabled:%o', this.ObjectID, Attributes);
 
     this.overrideDOMObjectID = true;
 
@@ -50,8 +49,6 @@ sysFormfieldItem.prototype.FormItemInit = function()
     this.DOMStyle = Attributes.Style;
     this.ValidateObj = new sysFormFieldValidate();
     this.ValidateObj.FormObj = this;
-
-    this.DBColumn = Attributes.DBColumn;
 
     //- setup object layer attributes
     this.setupAttributes(Attributes);
@@ -75,11 +72,12 @@ sysFormfieldItem.prototype.FormItemInitFinish = function()
 sysFormfieldItem.prototype.setupOnChangeEventListener = function()
 {
     const Attributes = this.JSONConfig.Attributes;
+
     if (Attributes.OnChange !== undefined)
     {
         try {
             const EventType = (Attributes.OnChange.Type !== undefined) ? Attributes.OnChange.Type : 'change';
-            this.EventListeners["OnChangeHandler"] = {
+            this.EventListeners['OnChangeHandler'] = {
                 "Type": EventType,
                 "Element": this.processOnChangeItem.bind(this)
             };
@@ -88,6 +86,26 @@ sysFormfieldItem.prototype.setupOnChangeEventListener = function()
             console.log('::setupEventListenerObject err:%s ObjectID:%s', err, this.ObjectID);
         }
     }
+
+    if (Attributes.AutoUpdateOnChange !== undefined)
+    {
+        this.EventListeners['AutoOnChangeHandler'] = {
+            "Type": 'change',
+            "Element": this.processAutoUpdateOnChange.bind(this)
+        };
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "processAutoUpdateOnChange"
+//------------------------------------------------------------------------------
+
+sysFormfieldItem.prototype.processAutoUpdateOnChange = function()
+{
+    this.RuntimeSetDataFunc(
+        this.RuntimeGetDataFunc()
+    );
 }
 
 
@@ -146,8 +164,8 @@ sysFormfieldItem.prototype.displayValue = function()
 
 sysFormfieldItem.prototype.reset = function()
 {
-    console.debug('::FormfieldItem reset() method call Object:%o', this);
     const Attributes = this.JSONConfig.Attributes;
+    console.debug('::FormfieldItem reset() ObjectID:%s Attributes:%o', this.ObjectID, Attributes);
 
     try {
         if (Attributes.GlobalVar !== undefined) {
@@ -273,7 +291,7 @@ sysFormfieldItem.prototype.validate = function()
     }
 
     //- if nullable and value length = 0, do not mark as failed
-    if (Attributes.ValidateNullable == true && this.FormItemGetValue().length == 0)
+    if (Attributes.ValidateNullable == true && this.getValue().length == 0)
     {
         this.removeDOMElementStyle(this.StyleValidateFail);
         this.addDOMElementStyle(this.StyleValidateOk);
@@ -322,6 +340,21 @@ sysFormfieldItem.prototype.clearStyle = function()
     this.removeDOMElementStyle(this.StyleValidateOk);
     this.removeDOMElementStyle(this.StyleValidateFailFirst);
     this.removeDOMElementStyle(this.StyleValidateFail);
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "rerenderObject" (overloaded)
+//------------------------------------------------------------------------------
+
+sysFormfieldItem.prototype.rerenderObject = function()
+{
+    console.debug('::sysFormfieldItem rerenderObject() JSONConfig:%o', this.JSONConfig);
+    const CurrentValue = this.RuntimeGetDataFunc();
+    this.removeDOMParentElement();
+    this.init();
+    this.renderObject(this.DOMParentID);
+    this.RuntimeSetDataFunc(CurrentValue);
 }
 
 
@@ -388,6 +421,7 @@ function sysFormfieldItemPulldown()
 
     this.Deactivated            = false;
 
+    this.DOMAttributes          = new Object();
     this.ChildObjects           = new Array();
     this.EventListeners         = new Object();
 
@@ -465,6 +499,7 @@ sysFormfieldItemPulldown.prototype.generateOptions = function()
         OptionHTML += '<option value="' + Value + '"' + Selected + '>' + DisplayText + '</option>';
     }
 
+    console.debug('::sysFormfieldItemPulldown generateOptions() OptionHTML:%s', OptionHTML);
     this.DOMValue = OptionHTML;
 }
 
@@ -540,6 +575,7 @@ function sysFormfieldItemDynPulldown()
 
     this.Deactivated    = false;
 
+    this.DOMAttributes  = new Object();
     this.ChildObjects   = new Array();
     this.EventListeners = new Object();
 }
@@ -630,6 +666,7 @@ function sysFormfieldItemCheckbox()
 
     this.Deactivated        = false;
 
+    this.DOMAttributes      = new Object();
     this.ChildObjects       = new Array();
     this.EventListeners     = new Object();
 
@@ -664,7 +701,7 @@ sysFormfieldItemCheckbox.prototype.init = function()
 sysFormfieldItemCheckbox.prototype.update = function()
 {
     try {
-        console.debug('Checkbox update:%s', this.ObjectID);
+        console.debug('::sysFormfieldItemCheckbox update() ObjectID:%s update to value:%s', this.ObjectID, this.Value);
         const CheckboxObj = document.getElementById(this.ObjectID);
         CheckboxObj.checked = this.Value;
     }
@@ -679,7 +716,6 @@ sysFormfieldItemCheckbox.prototype.update = function()
 
 sysFormfieldItemCheckbox.prototype.getChecked = function()
 {
-    //console.debug('Checkbox ID:%s', this.ObjectID);
     const CheckboxObj = document.getElementById(this.ObjectID);
     return CheckboxObj.checked;
 }
@@ -692,7 +728,6 @@ sysFormfieldItemCheckbox.prototype.getChecked = function()
 sysFormfieldItemCheckbox.prototype.setChecked = function(Value)
 {
     this.Value = Value;
-    console.debug('Form checkbox this:%o', this);
     this.update();
 }
 
@@ -713,10 +748,11 @@ sysFormfieldItemCheckbox.prototype.reset = function()
 
 function sysFormfieldItemLabel()
 {
-    this.ObjectType         = 'FormfieldLabel';
+    this.ObjectType          = 'FormfieldLabel';
 
     this.Deactivated         = false;
 
+    this.DOMAttributes       = new Object();
     this.ChildObjects        = new Array();
     this.EventListeners      = new Object();
 
@@ -772,8 +808,9 @@ sysFormfieldItemLabel.prototype.reset = function()
 
 function sysFormfieldItemHidden()
 {
-    this.ObjectType = 'FormfieldHidden';
-    this.Value = undefined;
+    this.ObjectType     = 'FormfieldHidden';
+    this.DOMAttributes  = new Object();
+    this.Value          = undefined;
 }
 
 sysFormfieldItemHidden.prototype = new sysFormfieldItem();

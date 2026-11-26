@@ -265,7 +265,6 @@ function sysList()
     this.RowItems               = new Array();                          //- Row Objects Array
 
     this.NavPageIndex           = 0;                                    //- Selected Page/Navigation Index
-    this.UpdateCount            = 0;                                    //- Update Counter
 
     this.Columns                = new Array();                          //- Comlumns for fast query
 
@@ -342,7 +341,6 @@ sysList.prototype.callbackXMLRPCAsync = function()
 
 sysList.prototype.update = function()
 {
-    this.UpdateCount++;
     this.removeParent();
     this.setUpdateResult();
     this.renderPage();
@@ -375,8 +373,6 @@ sysList.prototype.init = function()
     }
 
     this.DOMStyle = Attributes.Style;
-
-    //this.renderPage();
 }
 
 
@@ -473,28 +469,12 @@ sysList.prototype.setUpdateResult = function()
 
 
 //------------------------------------------------------------------------------
-//- METHOD "checkDouble"
-//------------------------------------------------------------------------------
-
-sysList.prototype.checkDouble = function(CheckValue)
-{
-    for (const RowData of this.RuntimeData)
-    {
-        if (RowData[this.JSONConfig.Attributes.DoubleCheckColumn] == CheckValue) {
-            return false;
-        }
-    }
-    return true;
-}
-
-
-//------------------------------------------------------------------------------
 //- METHOD "renderPage"
 //------------------------------------------------------------------------------
 
 sysList.prototype.renderPage = function()
 {
-    console.debug('::renderPage Result Data:%o Object:%o UpdateCount:%d', this.RuntimeData, this, this.UpdateCount);
+    console.debug('::renderPage Result Data:%o Object:%o', this.RuntimeData, this);
 
     const Attributes = this.JSONConfig.Attributes;
 
@@ -635,7 +615,6 @@ sysList.prototype.getRowByIndex = function(Index)
 sysList.prototype.updateRow = function(Index, Data)
 {
     console.debug('::updateRow Index:%s Data:%o', Index, Data);
-    this.UpdateCount++;
     this.renderPage();
 }
 
@@ -671,6 +650,120 @@ sysList.prototype.convertObjectDataKeyValue = function(Data)
 
 
 //------------------------------------------------------------------------------
+//- METHOD "syncRuntimeData"
+//------------------------------------------------------------------------------
+
+sysList.prototype.syncRuntimeData = function()
+{
+    let i = 0;
+    for (const Row of this.RowItems) {
+        for (const ColumnObj of Row.ColItems) {
+            const SetValue = ColumnObj.RuntimeGetDataFunc();
+            //console.debug('::sysList syncRuntimeData() ColumnObj:%o SetValue:%o', ColumnObj, SetValue);
+            this.RuntimeData[i][ColumnObj.KeyID] = SetValue;
+        }
+        ++i;
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "checkDouble"
+//------------------------------------------------------------------------------
+
+sysList.prototype.checkDouble = function(CheckValue)
+{
+    for (const RowData of this.RuntimeData)
+    {
+        if (RowData[this.JSONConfig.Attributes.DoubleCheckColumn] == CheckValue) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "checkMaxRows"
+//------------------------------------------------------------------------------
+
+sysList.prototype.checkMaxRows = function(ErrorObj)
+{
+    const Attributes = this.JSONConfig.Attributes;
+    const MaxRows = Attributes.DataMaxRows;
+    if (this.RuntimeData.length >= MaxRows && ErrorObj !== undefined) {
+        ErrorObj.displayError(sysFactory.getText('TXT.SYS.ERROR.TABLE.MAX_ROW_COUNT')) + MaxRows + '.';
+        return false;
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "checkDoubleValues"
+//------------------------------------------------------------------------------
+
+sysList.prototype.checkDoubleValues = function(AppendRowData, ErrorObj)
+{
+    const Attributes = this.JSONConfig.Attributes;
+    const DoubleCheckColumn = Attributes.DoubleCheckColumn;
+    const DisplayText = sysFactory.getText('TXT.SYS.ERROR.TABLE.COLUMN_DOUBLE_ENTRY') + DoubleCheckColumn + '.';
+    if (DoubleCheckColumn !== undefined) {
+        if (this.checkDouble(AppendRowData[DoubleCheckColumn]) == false) {
+            if (ErrorObj !== undefined) {
+                ErrorObj.displayError(DisplayText);
+            }
+            return false;
+        }
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "checkEmptyValues"
+//------------------------------------------------------------------------------
+
+sysList.prototype.checkEmptyValues = function(AppendRowData, ErrorObj)
+{
+    const Attributes = this.JSONConfig.Attributes;
+    const CheckEmptyColumns = Attributes.CheckEmptyColumns;
+    if (CheckEmptyColumns !== undefined) {
+        for (const ColumnKey of CheckEmptyColumns) {
+            let DisplayText = sysFactory.getText('TXT.SYS.ERROR.TABLE.COLUMN_EMPTY_VALUE') + ColumnKey + '.';
+            if (AppendRowData[ColumnKey].length == 0) {
+                if (ErrorObj !== undefined) {
+                    ErrorObj.displayError(DisplayText);
+                }
+                return false;
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------------------
+//- METHOD "checkColumnRegex"
+//------------------------------------------------------------------------------
+
+sysList.prototype.checkColumnRegex = function(AppendRowData, ErrorObj)
+{
+    const Attributes = this.JSONConfig.Attributes;
+    const ValidateRegex = Attributes.ValidateColumnRegEx;
+    if (ValidateRegex !== undefined) {
+        for (const ColumnKey in ValidateRegex) {
+            const ConfigObj = ValidateRegex[ColKey];
+            const Regex = new RegExp(RegexTemplate[ConfigObj.RegexTemplate], 'g');
+            const Result = AppendRowData[ColumnKey].search(Regex);
+            //console.debug('::Regex Result:%s', Result);
+            if (Result == -1) {
+                ErrorObj.displayError(ConfigObj.ErrorMsg);
+                return false;
+            }
+        }
+    }
+}
+
+
+//------------------------------------------------------------------------------
 //- METHOD "appendData"
 //------------------------------------------------------------------------------
 
@@ -683,45 +776,28 @@ sysList.prototype.appendData = function(Data)
     const ErrorObj = sysFactory.getObjectByID(this.JSONConfig.Attributes.ErrorContainer);
     if (ErrorObj !== undefined) {
         ErrorObj.reset();
+        if (Data == null) {
+            let DisplayText = sysFactory.getText('TXT.SYS.ERROR.TABLE.EMPTY_APPEND_DATA');
+            ErrorObj.displayError(DisplayText);
+        }
     }
 
     //- only set data where data key exists in columnIDs
     let AppendRowData = this.convertObjectDataKeyValue(Data);
     console.debug('::appendData AppendRowObj:%o', AppendRowData);
 
-    const MaxRows = Attributes.DataMaxRows;
-    if (this.RuntimeData.length >= MaxRows && ErrorObj !== undefined) {
-        ErrorObj.displayError(sysFactory.getText('TXT.SYS.ERROR.TABLE.MAX-ROW-COUNT')) + MaxRows + '.';
-        return;
-    }
+    //- check validity of append data
+    if (this.checkMaxRows(ErrorObj) == false) { return; }
+    if (this.checkEmptyValues(AppendRowData, ErrorObj) == false) { return; }
+    if (this.checkDoubleValues(AppendRowData, ErrorObj) == false) { return; }
+    if (this.checkColumnRegex(AppendRowData, ErrorObj) == false) { return; }
 
-    const DoubleCheckColumn = Attributes.DoubleCheckColumn;
-    const DisplayText = sysFactory.getText('TXT.SYS.ERROR.TABLE.DOUBLE-ENTRIES-NOTALLOWED') + DoubleCheckColumn + '.';
-    if (DoubleCheckColumn !== undefined) {
-        if (this.checkDouble(AppendRowData[DoubleCheckColumn]) == false) {
-            if (ErrorObj !== undefined) {
-                ErrorObj.displayError(DisplayText);
-            }
-            return;
-        }
-    }
+    //- sync runtime data
+    this.syncRuntimeData();
 
-    const ValidateRegex = Attributes.ValidateColumnRegEx;
-    if (ValidateRegex !== undefined) {
-        for (ColKey in ValidateRegex) {
-            const ConfigObj = ValidateRegex[ColKey];
-            const Regex = new RegExp(RegexTemplate[ConfigObj.RegexTemplate], 'g');
-            const Result = AppendRowData[ColKey].search(Regex);
-            //console.debug('::Regex Result:%s', Result);
-            if (Result == -1) {
-                ErrorObj.displayError(ConfigObj.ErrorMsg);
-                return;
-            }
-        }
-    }
-
-    this.UpdateCount++;
+    //- append runtime data
     this.RuntimeData.push(AppendRowData);
-    console.debug('::appendData this.RuntimeData:%o', this.RuntimeData);
+
+    //console.debug('::appendData this.RuntimeData:%o', this.RuntimeData);
     this.renderPage();
 }

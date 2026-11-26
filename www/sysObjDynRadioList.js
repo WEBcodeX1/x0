@@ -102,17 +102,13 @@ sysObjDynRadioListRow.prototype.init = function()
 
 sysObjDynRadioListRow.prototype.ButtonCallback = function(Function, Arguments)
 {
-    if (Function == 'remove') { this.remove(); }
-}
+    const ErrorObj = sysFactory.getObjectByID(this.ParentObject.ObjectID + 'ErrorContainer');
+    if (ErrorObj !== undefined) { ErrorObj.reset(); }
 
-
-//------------------------------------------------------------------------------
-//- METHOD "remove"
-//------------------------------------------------------------------------------
-
-sysObjDynRadioListRow.prototype.remove = function()
-{
-    this.removeBase();
+    if (Function == 'remove') {
+        this.removeBase();
+        this.ParentObject.RowIndex--;
+    }
 }
 
 
@@ -174,13 +170,14 @@ sysObjDynRadioListRow.prototype.addObjects = function(ButtonRef, ButtonJSONAttri
 
 function sysObjDynRadioList()
 {
-    this.ObjectType        = 'DynRadioList';    //- System Object Type
+    this.ObjectType             = 'DynRadioList';    //- System Object Type
+    this.overrideDOMObjectID    = true;              //- Override recursive ObjectID
 
-    this.EventListeners    = new Object();      //- Event Listeners
-    this.ChildObjects      = new Array();       //- Child Objects
+    this.EventListeners         = new Object();      //- Event Listeners
+    this.ChildObjects           = new Array();       //- Child Objects
 
-    this.RowItems          = new Array();       //- Row Objects Array
-    this.RowIndex          = 0;                 //- Row Index
+    this.RowItems               = new Array();       //- Row Objects Array
+    this.RowIndex               = 0;                 //- Row Index
 }
 
 //- inherit sysBaseObject
@@ -209,6 +206,11 @@ sysObjDynRadioList.prototype.init = function()
         "IconStyle": "fa-solid fa-plus",
         "TextID": AddButtonTextID
     };
+
+    let ErrorContainerObj = new sysErrorContainer();
+    ErrorContainerObj.ObjectID = this.ObjectID + 'ErrorContainer';
+
+    this.addObject(ErrorContainerObj);
 
     this.addObject(
         new sysObjDynRadioListRow(
@@ -241,38 +243,38 @@ sysObjDynRadioList.prototype.add = function()
 
     const Attributes = this.JSONConfig.Attributes;
 
-    this.RowIndex += 1;
+    const ErrorObj = sysFactory.getObjectByID(this.ObjectID + 'ErrorContainer');
 
-    let RemoveButton = new sysObjButtonCallback();
+    if (this.RowIndex+1 >= Attributes.MaxEntries)
+    {
+        const DisplayText = sysFactory.getText('TXT.SYS.ERROR.DYNRADIOLIST.MAX_ENTRIES');
+        ErrorObj.displayError(DisplayText);
+    }
+    else
+    {
+        this.RowIndex += 1;
 
-    const RemoveButtonTextID = (Attributes.ButtonTextDisabled === true) ? 'TXT.SYS.BUTTON.NO_TEXT' : 'TXT.SYS.BUTTON.REMOVE';
+        let RemoveButton = new sysObjButtonCallback();
 
-    RemoveButtonJSONAttributes = {
-        "DOMType": "a",
-        "Style": "col-md-1 btn btn-primary btn-sm",
-        "IconStyle": "fa-solid fa-minus",
-        "TextID": RemoveButtonTextID
-    };
+        const RemoveButtonTextID = (Attributes.ButtonTextDisabled === true) ? 'TXT.SYS.BUTTON.NO_TEXT' : 'TXT.SYS.BUTTON.REMOVE';
 
-    this.addObject(
-        new sysObjDynRadioListRow(
-            this,
-            true,
-            RemoveButton,
-            RemoveButtonJSONAttributes,
-            true
-        )
-    );
+        RemoveButtonJSONAttributes = {
+            "DOMType": "a",
+            "Style": "col-md-1 btn btn-primary btn-sm",
+            "IconStyle": "fa-solid fa-minus",
+            "TextID": RemoveButtonTextID
+        };
 
-    this.renderObject(this.DOMParentID);
-}
+        this.addObject(
+            new sysObjDynRadioListRow(
+                this,
+                true,
+                RemoveButton,
+                RemoveButtonJSONAttributes,
+                true
+            )
+        );
 
-
-//------------------------------------------------------------------------------
-//- METHOD "remove"
-//------------------------------------------------------------------------------
-
-sysObjDynRadioList.prototype.remove = function(RowIndex)
-{
-    this.RowItems[RowIndex].remove();
+        this.renderObject(this.DOMParentID);
+    }
 }

@@ -51,7 +51,6 @@ sysFileUpload.prototype.init = function()
     FileSelectButtonHTML += 'class="form-control">';
 
     let StartUploadButton = new sysObjButtonCallback();
-    StartUploadButton.overrideDOMObjectID = true;
     StartUploadButton.setCallback(this);
 
     this.ProgressBarObj = new sysObjProgressBar();
@@ -109,7 +108,7 @@ sysFileUpload.prototype.init = function()
                             "SysObject": new sysObjSQLText(),
                             "JSONAttributes": {
                                 "TextID": "TXT.SYS.FILEUPLOAD.STATUS.WAITING",
-                                "Style": "h2 text-body",
+                                "Style": "h2 text-primary-emphasis",
                                 "IconStyle": "fa-solid fa-upload"
                             }
                         }
@@ -183,14 +182,8 @@ sysFileUpload.prototype.updateUploadStatus = function()
         this.ObjectID + 'UploadStatus'
     );
 
-    if (this.Status == 'success')
-    {
-
-    }
-    else if (this.Status == 'failed')
-    {
-
-    }
+    UploadStatusObj.TextID = (this.Status == 'success') ? 'TXT.SYS.FILEUPLOAD.STATUS.SUCCESS' : 'TXT.SYS.FILEUPLOAD.STATUS.FAILED';
+    UploadStatusObj.update();
 }
 
 

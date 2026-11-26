@@ -376,8 +376,8 @@ sysFormFieldValidate.prototype.DNSRecordName = function(Value)
 
 sysFormFieldValidate.prototype.DateInternational = function(Value)
 {
-    const ErrorMsgDateInternational = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.DATE-INTERNATIONAL-FORMAT');
-    const ErrorMsgDateInternationalInvalid = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.DATE-GLOBAL-INVALIDDATE');
+    const ErrorMsgDateInternational = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.DATE_INTERNATIONAL_FORMAT');
+    const ErrorMsgDateInternationalInvalid = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.DATE_GLOBAL_INVALIDDATE');
 
     const DateSplit = Value.split('-');
 
@@ -421,8 +421,8 @@ sysFormFieldValidate.prototype.DateInternational = function(Value)
 
 sysFormFieldValidate.prototype.DateGerman = function(Value)
 {
-    const ErrorMsgDateGerman = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.DATE-GERMAN-FORMAT');
-    const ErrorMsgDateGermanInvalid = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.DATE-GLOBAL-INVALIDDATE');
+    const ErrorMsgDateGerman = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.DATE_GERMAN_FORMAT');
+    const ErrorMsgDateGermanInvalid = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.DATE_GLOBAL_INVALIDDATE');
 
     const DateSplit = Value.split('.');
 
@@ -466,7 +466,7 @@ sysFormFieldValidate.prototype.DateGerman = function(Value)
 
 sysFormFieldValidate.prototype.Float = function(Value)
 {
-    const ErrorMsgFloatFormat = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.FLOAT-FORMAT-INCORRECT');
+    const ErrorMsgFloatFormat = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.FLOAT_FORMAT_INCORRECT');
 
     console.debug('CheckFloat Value:%s', Value);
 
@@ -697,7 +697,7 @@ sysFormFieldValidateGroup.prototype.CheckDatePeriodOneYearDP = function(Items)
 
 sysFormFieldValidateGroup.prototype.CheckItemsOr = function(Items)
 {
-    const ErrorMessage = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.FIELDS-2ITEMS-OR-LENGTH');
+    const ErrorMessage = sysFactory.getText('TXT.SYS.ERROR.FORMVALIDATE.FIELDS_2ITEMS_OR_LENGTH');
 
     const Item1Value = Items[0].getObjectData();
     const Item2Value = Items[1].getObjectData();

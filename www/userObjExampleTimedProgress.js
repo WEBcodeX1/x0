@@ -40,11 +40,16 @@ userObjTimedProgress.prototype.init = function()
     //- define start progress button
     let ButtonStart = new sysObjButtonCallback();
     ButtonStart.ObjectID = this.ObjectID + 'BtnStartUpdate';
-    ButtonStart.overrideDOMObjectID = true;
     ButtonStart.setCallback(this);
 
     //- progress bar object
     this.ProgressBarObj = new sysObjProgressBar()
+
+    //- set static parameters
+    this.IntervalMin = 100;
+    this.IntervalMax = 500;
+    this.IncreaseMin = 1;
+    this.IncreaseMax = 10;
 
     //- setup recursive object structure
     let ObjDefs = [
@@ -71,8 +76,8 @@ userObjTimedProgress.prototype.init = function()
                         "Style": "form-control m-1 p-2 w-100 text-primary-emphasis",
                         "Placeholder": "100",
                         "Number": true,
-                        "Min": 100,
-                        "Max": 5000,
+                        "Min": this.IntervalMin,
+                        "Max": this.IntervalMax,
                         "Value": (Attributes.Interval !== undefined) ? Attributes.Interval : undefined
                     }
                 }
@@ -101,8 +106,8 @@ userObjTimedProgress.prototype.init = function()
                         "Style": "form-control m-1 p-2 w-100 text-primary-emphasis",
                         "Placeholder": "1",
                         "Number": true,
-                        "Min": 1,
-                        "Max": 10,
+                        "Min": this.IncreaseMin,
+                        "Max": this.IncreaseMax,
                         "Value": (Attributes.IncreaseBy !== undefined) ? Attributes.IncreaseBy : undefined
                     }
                 }
@@ -154,13 +159,37 @@ userObjTimedProgress.prototype.init = function()
 
 userObjTimedProgress.prototype.ButtonCallback = function()
 {
-    this.ProgressValue = 0;
-    const IntervalObjID = this.ObjectID + 'FormInterval';
-    const Interval = Number(
-        sysFactory.getObjectByID(IntervalObjID).RuntimeGetDataFunc()
-    );
-    this.ProgressInterval = Interval;
-    setTimeout(this.updateProgress, Interval, this);
+    const Attributes = this.JSONConfig.Attributes;
+
+    const IntervalObj = sysFactory.getObjectByID(this.ObjectID + "FormInterval");
+    const IncreaseObj = sysFactory.getObjectByID(this.ObjectID + "FormAddValue");
+
+    const IntervalVal = IntervalObj.getValue();
+    const IncreaseVal = IncreaseObj.getValue();
+
+    const ErrorContainerObj = sysFactory.getObjectByID(Attributes.ErrorContainer);
+    if (ErrorContainerObj !== undefined) {
+        ErrorContainerObj.reset();
+    }
+
+    if (IntervalVal < this.IntervalMin || IntervalVal > this.IntervalMax || IncreaseVal < this.IncreaseMin || IncreaseVal > this.IncreaseMax)
+    {
+        if (ErrorContainerObj !== undefined) {
+            const DisplayText = sysFactory.getText(
+                'TXT.EXAMPLE.TIMED_PROGRESS.ERROR.MIN_MAX'
+            );
+            ErrorContainerObj.displayError(DisplayText);
+        }
+    }
+    else {
+        this.ProgressValue = 0;
+        const IntervalObjID = this.ObjectID + 'FormInterval';
+        const Interval = Number(
+            sysFactory.getObjectByID(IntervalObjID).RuntimeGetDataFunc()
+        );
+        this.ProgressInterval = Interval;
+        setTimeout(this.updateProgress, Interval, this);
+    }
 }
 
 
